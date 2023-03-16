@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="@dimen/fab_padding"
+    android:background="@drawable/bg_main_less_rounded"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textStyle="bold"
+        android:textSize="@dimen/_12sdp"
+        android:textColor="@color/accent"
+        android:text="@string/textview" />
+
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/less_padding"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textStyle="bold"
+        android:textSize="@dimen/_12sdp"
+        android:textColor="@color/accent" />
+
+    <TextView
+        android:id="@+id/btnYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="@dimen/fab_padding"
+        android:textColor="@color/accent"
+        android:text="@string/yes" />
+
+    <TextView
+        android:id="@+id/btnNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvMessage"
+        app:layout_constraintEnd_toStartOf="@id/btnYes"
+        android:padding="@dimen/fab_padding"
+        android:textColor="@color/black"
+        android:text="@string/no" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

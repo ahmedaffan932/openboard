@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "241660861513",
+    "project_id": "keyboardtranslatorguru",
+    "storage_bucket": "keyboardtranslatorguru.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241660861513:android:410f64a457271ab149f398",
+        "android_client_info": {
+          "package_name": "com.org.dslul.openboard.inputmethod.latin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "241660861513-19rvstl5h6060kusr7lu8trott7b5iec.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWajLUsG5OJpFuToOGLdUen6CPowLkDy4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "241660861513-19rvstl5h6060kusr7lu8trott7b5iec.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

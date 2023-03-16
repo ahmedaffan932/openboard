@@ -1,0 +1,5 @@
+include ':app'
+include ':tools:make-keyboard-text'
+include ':tools:make-emoji-keys'
+include ':country_data'
+include ':keyboard-listener'

@@ -1,0 +1,1800 @@
+[
+  {
+    "country": "NZ",
+    "name": "New Zealand Dollars",
+    "code": "NZD",
+    "symbol": "$",
+    "dialCode": "+64"
+  },
+  {
+    "country": "CK",
+    "name": "New Zealand Dollars",
+    "code": "NZD",
+    "symbol": "$",
+    "dialCode": "+682"
+  },
+  {
+    "country": "NU",
+    "name": "New Zealand Dollars",
+    "code": "NZD",
+    "symbol": "$",
+    "dialCode": "+683"
+  },
+  {
+    "country": "PN",
+    "name": "New Zealand Dollars",
+    "code": "NZD",
+    "symbol": "$",
+    "dialCode": "+872"
+  },
+  {
+    "country": "TK",
+    "name": "New Zealand Dollars",
+    "code": "NZD",
+    "symbol": "$",
+    "dialCode": "+690"
+  },
+  {
+    "country": "AU",
+    "name": "Australian Dollars",
+    "code": "AUD",
+    "symbol": "$",
+    "dialCode": "+61"
+  },
+  {
+    "country": "CX",
+    "name": "Australian Dollars",
+    "code": "AUD",
+    "symbol": "$",
+    "dialCode": "+61"
+  },
+  {
+    "country": "CC",
+    "name": "Australian Dollars",
+    "code": "AUD",
+    "symbol": "$",
+    "dialCode": "+61"
+  },
+  {
+    "country": "HM",
+    "name": "Australian Dollars",
+    "code": "AUD",
+    "symbol": "$",
+    "dialCode": "+672"
+  },
+  {
+    "country": "KI",
+    "name": "Australian Dollars",
+    "code": "AUD",
+    "symbol": "$",
+    "dialCode": "+686"
+  },
+  {
+    "country": "NR",
+    "name": "Australian Dollars",
+    "code": "AUD",
+    "symbol": "$",
+    "dialCode": "+674"
+  },
+  {
+    "country": "NF",
+    "name": "Australian Dollars",
+    "code": "AUD",
+    "symbol": "$",
+    "dialCode": "+672"
+  },
+  {
+    "country": "TV",
+    "name": "Australian Dollars",
+    "code": "AUD",
+    "symbol": "$",
+    "dialCode": "+688"
+  },
+  {
+    "country": "AS",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+1 684"
+  },
+  {
+    "country": "AD",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+376"
+  },
+  {
+    "country": "EU",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+385"
+  },
+  {
+    "country": "AT",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+43"
+  },
+  {
+    "country": "BE",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+32"
+  },
+  {
+    "country": "FI",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+358"
+  },
+  {
+    "country": "FR",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+33"
+  },
+  {
+    "country": "GF",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+594"
+  },
+  {
+    "country": "TF",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+262"
+  },
+  {
+    "country": "DE",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+49"
+  },
+  {
+    "country": "GR",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+30"
+  },
+  {
+    "country": "GP",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+590"
+  },
+  {
+    "country": "IE",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+353"
+  },
+  {
+    "country": "IT",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+39"
+  },
+  {
+    "country": "LU",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+352"
+  },
+  {
+    "country": "MQ",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+596"
+  },
+  {
+    "country": "YT",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+262"
+  },
+  {
+    "country": "MC",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+377"
+  },
+  {
+    "country": "NL",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+31"
+  },
+  {
+    "country": "PT",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+351"
+  },
+  {
+    "country": "RE",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+262"
+  },
+  {
+    "country": "WS",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+685"
+  },
+  {
+    "country": "SM",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+378"
+  },
+  {
+    "country": "SI",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+386"
+  },
+  {
+    "country": "ES",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+34"
+  },
+  {
+    "country": "VA",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+379"
+  },
+  {
+    "country": "GS",
+    "name": "Pound sterling",
+    "code": "GBP",
+    "symbol": "£",
+    "dialCode": "+500"
+  },
+  {
+    "country": "GB",
+    "name": "Pound sterling",
+    "code": "GBP",
+    "symbol": "£",
+    "dialCode": "+44"
+  },
+  {
+    "country": "JE",
+    "name": "Jersey pound",
+    "code": "GBP",
+    "symbol": "£",
+    "dialCode": "+44"
+  },
+  {
+    "country": "IO",
+    "name": "US Dollar",
+    "code": "USD",
+    "symbol": "$",
+    "dialCode": "+246"
+  },
+  {
+    "country": "GU",
+    "name": "US Dollar",
+    "code": "USD",
+    "symbol": "$",
+    "dialCode": "+1 671"
+  },
+  {
+    "country": "MH",
+    "name": "US Dollar",
+    "code": "USD",
+    "symbol": "$",
+    "dialCode": "+692"
+  },
+  {
+    "country": "FM",
+    "name": "US Dollar",
+    "code": "USD",
+    "symbol": "$",
+    "dialCode": "+691"
+  },
+  {
+    "country": "MP",
+    "name": "US Dollar",
+    "code": "USD",
+    "symbol": "$",
+    "dialCode": "+1 670"
+  },
+  {
+    "country": "PW",
+    "name": "US Dollar",
+    "code": "USD",
+    "symbol": "$",
+    "dialCode": "+680"
+  },
+  {
+    "country": "PR",
+    "name": "US Dollar",
+    "code": "USD",
+    "symbol": "$",
+    "dialCode": "+1 939"
+  },
+  {
+    "country": "TC",
+    "name": "US Dollar",
+    "code": "USD",
+    "symbol": "$",
+    "dialCode": "+1 649"
+  },
+  {
+    "country": "US",
+    "name": "US Dollar",
+    "code": "USD",
+    "symbol": "$",
+    "dialCode": "+1"
+  },
+  {
+    "country": "UM",
+    "name": "US Dollar",
+    "code": "USD",
+    "symbol": "$",
+    "dialCode": "+246"
+  },
+  {
+    "country": "VG",
+    "name": "US Dollar",
+    "code": "USD",
+    "symbol": "$",
+    "dialCode": "+1 284"
+  },
+  {
+    "country": "VI",
+    "name": "US Dollar",
+    "code": "USD",
+    "symbol": "$",
+    "dialCode": "+1 340"
+  },
+  {
+    "country": "HK",
+    "name": "Hong Kong dollar",
+    "code": "HKD",
+    "dialCode": "+852"
+  },
+  {
+    "country": "CA",
+    "name": "Canadian Dollar",
+    "code": "CAD",
+    "symbol": "$",
+    "dialCode": "+1"
+  },
+  {
+    "country": "JP",
+    "name": "Japanese Yen",
+    "code": "JPY",
+    "symbol": "¥",
+    "dialCode": "+81"
+  },
+  {
+    "country": "AF",
+    "name": "Afghani",
+    "code": "AFN",
+    "symbol": "؋",
+    "dialCode": "+93"
+  },
+  {
+    "country": "AL",
+    "name": "Albanian Lek",
+    "code": "ALL",
+    "symbol": "Lek",
+    "dialCode": "+355"
+  },
+  {
+    "country": "DZ",
+    "name": "Algerian Dinar",
+    "code": "DZD",
+    "symbol": "دج",
+    "dialCode": "+213"
+  },
+  {
+    "country": "AI",
+    "name": "East Caribbean Dollar",
+    "code": "XCD",
+    "symbol": "$",
+    "dialCode": "+1 264"
+  },
+  {
+    "country": "AG",
+    "name": "East Caribbean Dollar",
+    "code": "XCD",
+    "symbol": "$",
+    "dialCode": "+1268"
+  },
+  {
+    "country": "DM",
+    "name": "East Caribbean Dollar",
+    "code": "XCD",
+    "symbol": "$",
+    "dialCode": "+1 767"
+  },
+  {
+    "country": "GD",
+    "name": "East Caribbean Dollar",
+    "code": "XCD",
+    "symbol": "$",
+    "dialCode": "+1 473"
+  },
+  {
+    "country": "MS",
+    "name": "East Caribbean Dollar",
+    "code": "XCD",
+    "symbol": "$",
+    "dialCode": "+1664"
+  },
+  {
+    "country": "KN",
+    "name": "East Caribbean Dollar",
+    "code": "XCD",
+    "symbol": "$",
+    "dialCode": "+1 869"
+  },
+  {
+    "country": "LC",
+    "name": "East Caribbean Dollar",
+    "code": "XCD",
+    "symbol": "$",
+    "dialCode": "+1 758"
+  },
+  {
+    "country": "VC",
+    "name": "East Caribbean Dollar",
+    "code": "XCD",
+    "symbol": "$",
+    "dialCode": "+1 784"
+  },
+  {
+    "country": "AR",
+    "name": "Peso",
+    "code": "ARS",
+    "symbol": "$",
+    "dialCode": "+54"
+  },
+  {
+    "country": "AM",
+    "name": "Dram",
+    "code": "AMD",
+    "symbol": "դր.",
+    "dialCode": "+374"
+  },
+  {
+    "country": "AW",
+    "name": "Aruban florin",
+    "code": "AWG",
+    "symbol": "Afl.",
+    "dialCode": "+297"
+  },
+  {
+    "country": "AN",
+    "name": "Netherlands Antilles Guilder",
+    "code": "ANG",
+    "dialCode": "+599"
+  },
+  {
+    "country": "AZ",
+    "name": "Manat",
+    "code": "AZN",
+    "symbol": "₼",
+    "dialCode": "+994"
+  },
+  {
+    "country": "BS",
+    "name": "Bahamian Dollar",
+    "code": "BSD",
+    "symbol": "$",
+    "dialCode": "+1 242"
+  },
+  {
+    "country": "BH",
+    "name": "Bahraini Dinar",
+    "code": "BHD",
+    "symbol": ".د.ب ",
+    "dialCode": "+973"
+  },
+  {
+    "country": "BD",
+    "name": "Taka",
+    "code": "BDT",
+    "symbol": "৳",
+    "dialCode": "+880"
+  },
+  {
+    "country": "BB",
+    "name": "Barbadian Dollar",
+    "code": "BBD",
+    "symbol": "$",
+    "dialCode": "+1 246"
+  },
+  {
+    "country": "BY",
+    "name": "Belarus Ruble",
+    "code": "BYR",
+    "symbol": "Br",
+    "dialCode": "+375"
+  },
+  {
+    "country": "BZ",
+    "name": "Belizean Dollar",
+    "code": "BZD",
+    "symbol": "BZ$",
+    "dialCode": "+501"
+  },
+  {
+    "country": "BJ",
+    "name": "CFA Franc BCEAO",
+    "code": "XOF",
+    "symbol": "CFA",
+    "dialCode": "+229"
+  },
+  {
+    "country": "BF",
+    "name": "CFA Franc BCEAO",
+    "code": "XOF",
+    "symbol": "CFA",
+    "dialCode": "+226"
+  },
+  {
+    "country": "GW",
+    "name": "CFA Franc BCEAO",
+    "code": "XOF",
+    "symbol": "CFA",
+    "dialCode": "+245"
+  },
+  {
+    "country": "CI",
+    "name": "CFA Franc BCEAO",
+    "code": "XOF",
+    "symbol": "CFA",
+    "dialCode": "+225"
+  },
+  {
+    "country": "ML",
+    "name": "CFA Franc BCEAO",
+    "code": "XOF",
+    "symbol": "CFA",
+    "dialCode": "+223"
+  },
+  {
+    "country": "NE",
+    "name": "CFA Franc BCEAO",
+    "code": "XOF",
+    "symbol": "CFA",
+    "dialCode": "+227"
+  },
+  {
+    "country": "SN",
+    "name": "CFA Franc BCEAO",
+    "code": "XOF",
+    "symbol": "CFA",
+    "dialCode": "+221"
+  },
+  {
+    "country": "TG",
+    "name": "CFA Franc BCEAO",
+    "code": "XOF",
+    "symbol": "CFA",
+    "dialCode": "+228"
+  },
+  {
+    "country": "BM",
+    "name": "Bermudian Dollar",
+    "code": "BMD",
+    "symbol": "$",
+    "dialCode": "+1 441"
+  },
+  {
+    "country": "BT",
+    "name": "Indian Rupee",
+    "code": "INR",
+    "symbol": "₹",
+    "dialCode": "+975"
+  },
+  {
+    "country": "IN",
+    "name": "Indian Rupee",
+    "code": "INR",
+    "symbol": "₹",
+    "dialCode": "+91"
+  },
+  {
+    "country": "BO",
+    "name": "Boliviano",
+    "code": "BOB",
+    "symbol": "$b",
+    "dialCode": "+591"
+  },
+  {
+    "country": "BW",
+    "name": "Pula",
+    "code": "BWP",
+    "symbol": "P",
+    "dialCode": "+267"
+  },
+  {
+    "country": "BV",
+    "name": "Norwegian Krone",
+    "code": "NOK",
+    "symbol": "kr",
+    "dialCode": "+47"
+  },
+  {
+    "country": "NO",
+    "name": "Norwegian Krone",
+    "code": "NOK",
+    "symbol": "kr",
+    "dialCode": "+47"
+  },
+  {
+    "country": "SJ",
+    "name": "Norwegian Krone",
+    "code": "NOK",
+    "symbol": "kr",
+    "dialCode": "+47"
+  },
+  {
+    "country": "BR",
+    "name": "Brazil",
+    "code": "BRL",
+    "symbol": "R$",
+    "dialCode": "+55"
+  },
+  {
+    "country": "BN",
+    "name": "Bruneian Dollar",
+    "code": "BND",
+    "symbol": "$",
+    "dialCode": "+673"
+  },
+  {
+    "country": "BG",
+    "name": "Bulgarian Lev",
+    "code": "BGN",
+    "symbol": "лв",
+    "dialCode": "+359"
+  },
+  {
+    "country": "BI",
+    "name": "Burundi Franc",
+    "code": "BIF",
+    "symbol": "FBu",
+    "dialCode": "+257"
+  },
+  {
+    "country": "KH",
+    "name": "Riel",
+    "code": "KHR",
+    "symbol": "៛",
+    "dialCode": "+855"
+  },
+  {
+    "country": "CM",
+    "name": "CFA Franc BEAC",
+    "code": "XAF",
+    "symbol": "FCFA",
+    "dialCode": "+237"
+  },
+  {
+    "country": "CF",
+    "name": "CFA Franc BEAC",
+    "code": "XAF",
+    "symbol": "FCFA",
+    "dialCode": "+236"
+  },
+  {
+    "country": "TD",
+    "name": "CFA Franc BEAC",
+    "code": "XAF",
+    "symbol": "FCFA",
+    "dialCode": "+235"
+  },
+  {
+    "country": "CG",
+    "name": "CFA Franc BEAC",
+    "code": "XAF",
+    "symbol": "FCFA",
+    "dialCode": "+242"
+  },
+  {
+    "country": "GQ",
+    "name": "CFA Franc BEAC",
+    "code": "XAF",
+    "symbol": "FCFA",
+    "dialCode": "+240"
+  },
+  {
+    "country": "GA",
+    "name": "CFA Franc BEAC",
+    "code": "XAF",
+    "symbol": "FCFA",
+    "dialCode": "+241"
+  },
+  {
+    "country": "CV",
+    "name": "Escudo",
+    "code": "CVE",
+    "symbol": "$",
+    "dialCode": "+238"
+  },
+  {
+    "country": "KY",
+    "name": "Caymanian Dollar",
+    "code": "KYD",
+    "symbol": "$",
+    "dialCode": "+ 345"
+  },
+  {
+    "country": "CL",
+    "name": "Chilean Peso",
+    "code": "CLP",
+    "symbol": "$",
+    "dialCode": "+56"
+  },
+  {
+    "country": "CN",
+    "name": "Yuan Renminbi",
+    "code": "CNY",
+    "symbol": "¥",
+    "dialCode": "+86"
+  },
+  {
+    "country": "CO",
+    "name": "Peso",
+    "code": "COP",
+    "symbol": "$",
+    "dialCode": "+57"
+  },
+  {
+    "country": "KM",
+    "name": "Comoran Franc",
+    "code": "KMF",
+    "symbol": "CF",
+    "dialCode": "+269"
+  },
+  {
+    "country": "CD",
+    "name": "Congolese Frank",
+    "code": "CDF",
+    "symbol": "FC",
+    "dialCode": "+243"
+  },
+  {
+    "country": "CR",
+    "name": "Costa Rican Colon",
+    "code": "CRC",
+    "symbol": "₡",
+    "dialCode": "+506"
+  },
+  {
+    "country": "HR",
+    "name": "Croatian Dinar",
+    "code": "HRK",
+    "symbol": "kn",
+    "dialCode": "+385"
+  },
+  {
+    "country": "CU",
+    "name": "Cuban Peso",
+    "code": "CUP",
+    "symbol": "$",
+    "dialCode": "+53"
+  },
+  {
+    "country": "CY",
+    "name": "Cypriot Pound",
+    "code": "CYP",
+    "symbol": "£",
+    "dialCode": "+357"
+  },
+  {
+    "country": "CZ",
+    "name": "Koruna",
+    "code": "CZK",
+    "symbol": "Kč",
+    "dialCode": "+420"
+  },
+  {
+    "country": "DK",
+    "name": "Danish Krone",
+    "code": "DKK",
+    "symbol": "kr.",
+    "dialCode": "+45"
+  },
+  {
+    "country": "FO",
+    "name": "Danish Krone",
+    "code": "DKK",
+    "symbol": "kr.",
+    "dialCode": "+298"
+  },
+  {
+    "country": "GL",
+    "name": "Danish Krone",
+    "code": "DKK",
+    "symbol": "kr.",
+    "dialCode": "+299"
+  },
+  {
+    "country": "DJ",
+    "name": "Djiboutian Franc",
+    "code": "DJF",
+    "symbol": "Fdj",
+    "dialCode": "+253"
+  },
+  {
+    "country": "DO",
+    "name": "Dominican Peso",
+    "code": "DOP",
+    "symbol": "RD$",
+    "dialCode": "+1 849"
+  },
+  {
+    "country": "TP",
+    "name": "Indonesian Rupiah",
+    "code": "IDR",
+    "dialCode": "+239"
+  },
+  {
+    "country": "ID",
+    "name": "Indonesian Rupiah",
+    "code": "IDR",
+    "dialCode": "+62"
+  },
+  {
+    "country": "EC",
+    "name": "Ecuadorian Sucre",
+    "code": "ECS",
+    "symbol": "S/.",
+    "dialCode": "+593"
+  },
+  {
+    "country": "EG",
+    "name": "Egyptian Pound",
+    "code": "EGP",
+    "symbol": "£",
+    "dialCode": "+20"
+  },
+  {
+    "country": "SV",
+    "name": "Salvadoran Colon",
+    "code": "SVC",
+    "symbol": "₡",
+    "dialCode": "+503"
+  },
+  {
+    "country": "ER",
+    "name": "Ethiopian Birr",
+    "code": "ETB",
+    "symbol": "ብር",
+    "dialCode": "+291"
+  },
+  {
+    "country": "ET",
+    "name": "Ethiopian Birr",
+    "code": "ETB",
+    "symbol": "ብር",
+    "dialCode": "+251"
+  },
+  {
+    "country": "EE",
+    "name": "Estonian Kroon",
+    "code": "EEK",
+    "symbol": "EEK",
+    "dialCode": "+372"
+  },
+  {
+    "country": "FK",
+    "name": "Falkland Islands Pound",
+    "code": "FKP",
+    "symbol": "£",
+    "dialCode": "+500"
+  },
+  {
+    "country": "FJ",
+    "name": "Fijian Dollar",
+    "code": "FJD",
+    "symbol": "$",
+    "dialCode": "+679"
+  },
+  {
+    "country": "PF",
+    "name": "CFP Franc",
+    "code": "XPF",
+    "dialCode": "+689"
+  },
+  {
+    "country": "NC",
+    "name": "CFP Franc",
+    "code": "XPF",
+    "dialCode": "+687"
+  },
+  {
+    "country": "WF",
+    "name": "CFP Franc",
+    "code": "XPF",
+    "dialCode": "+681"
+  },
+  {
+    "country": "GM",
+    "name": "Dalasi",
+    "code": "GMD",
+    "symbol": "D",
+    "dialCode": "+220"
+  },
+  {
+    "country": "GE",
+    "name": "Lari",
+    "code": "GEL",
+    "symbol": "ლ",
+    "dialCode": "+995"
+  },
+  {
+    "country": "GI",
+    "name": "Gibraltar Pound",
+    "code": "GIP",
+    "dialCode": "+350"
+  },
+  {
+    "country": "GT",
+    "name": "Quetzal",
+    "code": "GTQ",
+    "symbol": "Q",
+    "dialCode": "+502"
+  },
+  {
+    "country": "GN",
+    "name": "Guinean Franc",
+    "code": "GNF",
+    "symbol": "FG",
+    "dialCode": "+224"
+  },
+  {
+    "country": "GY",
+    "name": "Guyanaese Dollar",
+    "code": "GYD",
+    "symbol": "$",
+    "dialCode": "+595"
+  },
+  {
+    "country": "HT",
+    "name": "Gourde",
+    "code": "HTG",
+    "symbol": "G",
+    "dialCode": "+509"
+  },
+  {
+    "country": "HN",
+    "name": "Lempira",
+    "code": "HNL",
+    "symbol": "L",
+    "dialCode": "+504"
+  },
+  {
+    "country": "HU",
+    "name": "Forint",
+    "code": "HUF",
+    "symbol": "Ft",
+    "dialCode": "+36"
+  },
+  {
+    "country": "IS",
+    "name": "Icelandic Krona",
+    "code": "ISK",
+    "symbol": "kr",
+    "dialCode": "+354"
+  },
+  {
+    "country": "IR",
+    "name": "Iranian Rial",
+    "code": "IRR",
+    "symbol": "﷼",
+    "dialCode": "+98"
+  },
+  {
+    "country": "IQ",
+    "name": "Iraqi Dinar",
+    "code": "IQD",
+    "symbol": "ع.د",
+    "dialCode": "+964"
+  },
+  {
+    "country": "IL",
+    "name": "Shekel",
+    "code": "ILS",
+    "symbol": "₪",
+    "dialCode": "+972"
+  },
+  {
+    "country": "JM",
+    "name": "Jamaican Dollar",
+    "code": "JMD",
+    "symbol": "J$",
+    "dialCode": "+1 876"
+  },
+  {
+    "country": "JO",
+    "name": "Jordanian Dinar",
+    "code": "JOD",
+    "symbol": "د.ا",
+    "dialCode": "+962"
+  },
+  {
+    "country": "KZ",
+    "name": "Tenge",
+    "code": "KZT",
+    "symbol": "лв",
+    "dialCode": "+7 7"
+  },
+  {
+    "country": "KE",
+    "name": "Kenyan Shilling",
+    "code": "KES",
+    "symbol": "KSh,",
+    "dialCode": "+254"
+  },
+  {
+    "country": "KP",
+    "name": "North Korean Won",
+    "code": "KPW",
+    "symbol": "₩",
+    "dialCode": "+850"
+  },
+  {
+    "country": "KR",
+    "name": "South Korean Won",
+    "code": "KRW",
+    "symbol": "₩",
+    "dialCode": "+82"
+  },
+  {
+    "country": "KW",
+    "name": "Kuwaiti Dinar",
+    "code": "KWD",
+    "symbol": "د.ك ",
+    "dialCode": "+965"
+  },
+  {
+    "country": "KG",
+    "name": "Som",
+    "code": "KGS",
+    "symbol": "лв",
+    "dialCode": "+996"
+  },
+  {
+    "country": "LA",
+    "name": "Kip",
+    "code": "LAK",
+    "symbol": "₭",
+    "dialCode": "+856"
+  },
+  {
+    "country": "LV",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+371"
+  },
+  {
+    "country": "LB",
+    "name": "Lebanese Pound",
+    "code": "LBP",
+    "symbol": "£",
+    "dialCode": "+961"
+  },
+  {
+    "country": "LS",
+    "name": "Loti",
+    "code": "LSL",
+    "symbol": "L ",
+    "dialCode": "+266"
+  },
+  {
+    "country": "LR",
+    "name": "Liberian Dollar",
+    "code": "LRD",
+    "symbol": "$",
+    "dialCode": "+231"
+  },
+  {
+    "country": "LY",
+    "name": "Libyan Dinar",
+    "code": "LYD",
+    "symbol": "ل.د",
+    "dialCode": "+218"
+  },
+  {
+    "country": "LI",
+    "name": "Swiss Franc",
+    "code": "CHF",
+    "symbol": "CHF",
+    "dialCode": "+423"
+  },
+  {
+    "country": "CH",
+    "name": "Swiss Franc",
+    "code": "CHF",
+    "symbol": "CHF",
+    "dialCode": "+41"
+  },
+  {
+    "country": "LT",
+    "name": "Lita",
+    "code": "LTL",
+    "symbol": "Lt ",
+    "dialCode": "+370"
+  },
+  {
+    "country": "MO",
+    "name": "Pataca",
+    "code": "MOP",
+    "dialCode": "+853"
+  },
+  {
+    "country": "MK",
+    "name": "Denar",
+    "code": "MKD",
+    "symbol": "ден",
+    "dialCode": "+389"
+  },
+  {
+    "country": "MG",
+    "name": "Malagasy Franc",
+    "code": "MGA",
+    "symbol": "Ar",
+    "dialCode": "+261"
+  },
+  {
+    "country": "MW",
+    "name": "Malawian Kwacha",
+    "code": "MWK",
+    "symbol": "MK",
+    "dialCode": "+265"
+  },
+  {
+    "country": "MY",
+    "name": "Ringgit",
+    "code": "MYR",
+    "symbol": "RM",
+    "dialCode": "+60"
+  },
+  {
+    "country": "MV",
+    "name": "Rufiyaa",
+    "code": "MVR",
+    "symbol": "Rf",
+    "dialCode": "+960"
+  },
+  {
+    "country": "MT",
+    "name": "Maltese Lira",
+    "code": "MTL",
+    "symbol": "₤",
+    "dialCode": "+356"
+  },
+  {
+    "country": "MR",
+    "name": "Ouguiya",
+    "code": "MRO",
+    "symbol": "UM",
+    "dialCode": "+222"
+  },
+  {
+    "country": "MU",
+    "name": "Mauritian Rupee",
+    "code": "MUR",
+    "symbol": "₨",
+    "dialCode": "+230"
+  },
+  {
+    "country": "MX",
+    "name": "Peso",
+    "code": "MXN",
+    "symbol": "$",
+    "dialCode": "+52"
+  },
+  {
+    "country": "MD",
+    "name": "Moldovan Leu",
+    "code": "MDL",
+    "symbol": "L",
+    "dialCode": "+373"
+  },
+  {
+    "country": "MN",
+    "name": "Tugrik",
+    "code": "MNT",
+    "symbol": "₮",
+    "dialCode": "+976"
+  },
+  {
+    "country": "MA",
+    "name": "Dirham",
+    "code": "MAD",
+    "symbol": "DH",
+    "dialCode": "+212"
+  },
+  {
+    "country": "EH",
+    "name": "Dirham",
+    "code": "MAD",
+    "symbol": "DH",
+    "dialCode": "+358"
+  },
+  {
+    "country": "MZ",
+    "name": "Metical",
+    "code": "MZN",
+    "symbol": "MT",
+    "dialCode": "+258"
+  },
+  {
+    "country": "MM",
+    "name": "Kyat",
+    "code": "MMK",
+    "symbol": "K",
+    "dialCode": "+95"
+  },
+  {
+    "country": "NA",
+    "name": "Dollar",
+    "code": "NAD",
+    "symbol": "$",
+    "dialCode": "+264"
+  },
+  {
+    "country": "NP",
+    "name": "Nepalese Rupee",
+    "code": "NPR",
+    "symbol": "₨",
+    "dialCode": "+977"
+  },
+  {
+    "country": "NI",
+    "name": "Cordoba Oro",
+    "code": "NIO",
+    "symbol": "C$",
+    "dialCode": "+505"
+  },
+  {
+    "country": "NG",
+    "name": "Naira",
+    "code": "NGN",
+    "symbol": "₦",
+    "dialCode": "+234"
+  },
+  {
+    "country": "OM",
+    "name": "Sul Rial",
+    "code": "OMR",
+    "symbol": "﷼",
+    "dialCode": "+968"
+  },
+  {
+    "country": "PK",
+    "name": "Rupee",
+    "code": "PKR",
+    "symbol": "₨",
+    "dialCode": "+92"
+  },
+  {
+    "country": "PA",
+    "name": "Balboa",
+    "code": "PAB",
+    "symbol": "B/.",
+    "dialCode": "+507"
+  },
+  {
+    "country": "PG",
+    "name": "Kina",
+    "code": "PGK",
+    "symbol": "K",
+    "dialCode": "+675"
+  },
+  {
+    "country": "PY",
+    "name": "Guarani",
+    "code": "PYG",
+    "symbol": "Gs",
+    "dialCode": "+595"
+  },
+  {
+    "country": "PE",
+    "name": "Nuevo Sol",
+    "code": "PEN",
+    "symbol": "S/.",
+    "dialCode": "+51"
+  },
+  {
+    "country": "PH",
+    "name": "Peso",
+    "code": "PHP",
+    "symbol": "₱",
+    "dialCode": "+63"
+  },
+  {
+    "country": "PL",
+    "name": "Zloty",
+    "code": "PLN",
+    "symbol": "zł",
+    "dialCode": "+48"
+  },
+  {
+    "country": "QA",
+    "name": "Rial",
+    "code": "QAR",
+    "symbol": "﷼",
+    "dialCode": "+974"
+  },
+  {
+    "country": "RO",
+    "name": "Romanian Leu",
+    "code": "RON",
+    "symbol": "lei",
+    "dialCode": "+40"
+  },
+  {
+    "country": "RU",
+    "name": "Ruble",
+    "code": "RUB",
+    "symbol": "₽",
+    "dialCode": "+7"
+  },
+  {
+    "country": "RW",
+    "name": "Rwanda Franc",
+    "code": "RWF",
+    "symbol": "FRw",
+    "dialCode": "+250"
+  },
+  {
+    "country": "ST",
+    "name": "Dobra",
+    "code": "STD",
+    "symbol": " Db",
+    "dialCode": "+239"
+  },
+  {
+    "country": "SA",
+    "name": "Riyal",
+    "code": "SAR",
+    "symbol": "﷼",
+    "dialCode": "+966"
+  },
+  {
+    "country": "SC",
+    "name": "Rupee",
+    "code": "SCR",
+    "symbol": "₨",
+    "dialCode": "+248"
+  },
+  {
+    "country": "SL",
+    "name": "Leone",
+    "code": "SLL",
+    "symbol": "Le",
+    "dialCode": "+232"
+  },
+  {
+    "country": "SG",
+    "name": "Dollar",
+    "code": "SGD",
+    "symbol": "$",
+    "dialCode": "+65"
+  },
+  {
+    "country": "SK",
+    "name": "Koruna",
+    "code": "SKK",
+    "symbol": "Sk",
+    "dialCode": "+421"
+  },
+  {
+    "country": "SB",
+    "name": "Solomon Islands Dollar",
+    "code": "SBD",
+    "symbol": "$",
+    "dialCode": "+677"
+  },
+  {
+    "country": "SO",
+    "name": "Shilling",
+    "code": "SOS",
+    "symbol": "S",
+    "dialCode": "+252"
+  },
+  {
+    "country": "ZA",
+    "name": "Rand",
+    "code": "ZAR",
+    "symbol": "R",
+    "dialCode": "+27"
+  },
+  {
+    "country": "LK",
+    "name": "Rupee",
+    "code": "LKR",
+    "symbol": "₨",
+    "dialCode": "+94"
+  },
+  {
+    "country": "SD",
+    "name": "Sudanese pound",
+    "code": "SDG",
+    "symbol": "SD",
+    "dialCode": "+249"
+  },
+  {
+    "country": "SR",
+    "name": "Surinamese Guilder",
+    "code": "SRD",
+    "symbol": "$",
+    "dialCode": "+597"
+  },
+  {
+    "country": "SZ",
+    "name": "Lilangeni",
+    "code": "SZL",
+    "symbol": "E ",
+    "dialCode": "+268"
+  },
+  {
+    "country": "SE",
+    "name": "Krona",
+    "code": "SEK",
+    "symbol": "kr",
+    "dialCode": "+46"
+  },
+  {
+    "country": "SY",
+    "name": "Syrian Pound",
+    "code": "SYP",
+    "symbol": "£",
+    "dialCode": "+963"
+  },
+  {
+    "country": "TW",
+    "name": "Dollar",
+    "code": "TWD",
+    "symbol": "NT$",
+    "dialCode": "+886"
+  },
+  {
+    "country": "TJ",
+    "name": "Tajikistan Ruble",
+    "code": "TJS",
+    "symbol": "ЅM",
+    "dialCode": "+992"
+  },
+  {
+    "country": "TZ",
+    "name": "Shilling",
+    "code": "TZS",
+    "symbol": "TSh",
+    "dialCode": "+255"
+  },
+  {
+    "country": "TH",
+    "name": "Baht",
+    "code": "THB",
+    "symbol": "฿",
+    "dialCode": "+66"
+  },
+  {
+    "country": "TO",
+    "name": "Paʻanga",
+    "code": "TOP",
+    "symbol": "T$",
+    "dialCode": "+676"
+  },
+  {
+    "country": "TT",
+    "name": "Trinidad and Tobago Dollar",
+    "code": "TTD",
+    "symbol": "TT$",
+    "dialCode": "+1 868"
+  },
+  {
+    "country": "TN",
+    "name": "Tunisian Dinar",
+    "code": "TND",
+    "symbol": "د.ت",
+    "dialCode": "+216"
+  },
+  {
+    "country": "TR",
+    "name": "Lira",
+    "code": "TRY",
+    "symbol": "₺",
+    "dialCode": "+90"
+  },
+  {
+    "country": "TM",
+    "name": "Manat",
+    "code": "TMT",
+    "dialCode": "+993"
+  },
+  {
+    "country": "UG",
+    "name": "Shilling",
+    "code": "UGX",
+    "symbol": "USh",
+    "dialCode": "+256"
+  },
+  {
+    "country": "UA",
+    "name": "Hryvnia",
+    "code": "UAH",
+    "symbol": "₴",
+    "dialCode": "+380"
+  },
+  {
+    "country": "AE",
+    "name": "Dirham",
+    "code": "AED",
+    "symbol": "د.إ",
+    "dialCode": "+971"
+  },
+  {
+    "country": "UY",
+    "name": "Peso",
+    "code": "UYU",
+    "symbol": "$U",
+    "dialCode": "+598"
+  },
+  {
+    "country": "UZ",
+    "name": "Uzbekistani soʻm",
+    "code": "UZS",
+    "symbol": "лв",
+    "dialCode": "+998"
+  },
+  {
+    "country": "VU",
+    "name": "Vatu",
+    "code": "VUV",
+    "symbol": "VT",
+    "dialCode": "+678"
+  },
+  {
+    "country": "VE",
+    "name": "Venezuela  Bolívar",
+    "code": "VES",
+    "symbol": "BS.",
+    "dialCode": "+58"
+  },
+  {
+    "country": "VN",
+    "name": "Dong",
+    "code": "VND",
+    "symbol": "₫",
+    "dialCode": "+84"
+  },
+  {
+    "country": "YE",
+    "name": "Rial",
+    "code": "YER",
+    "symbol": "﷼",
+    "dialCode": "+967"
+  },
+  {
+    "country": "ZM",
+    "name": "Kwacha",
+    "code": "ZMK",
+    "symbol": "ZK",
+    "dialCode": "+260"
+  },
+  {
+    "country": "ZW",
+    "name": "Zimbabwe Dollar",
+    "code": "ZWD",
+    "symbol": "$",
+    "dialCode": "+263"
+  },
+  {
+    "country": "AX",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+358"
+  },
+  {
+    "country": "AO",
+    "name": "Angolan kwanza",
+    "code": "AOA",
+    "symbol": "Kz",
+    "dialCode": "+244"
+  },
+  {
+    "country": "AQ",
+    "name": "Antarctican dollar",
+    "code": "AQD",
+    "dialCode": "+672"
+  },
+  {
+    "country": "BA",
+    "name": "Bosnia and Herzegovina convertible mark",
+    "code": "BAM",
+    "symbol": "KM",
+    "dialCode": "+387"
+  },
+  {
+    "country": "CD",
+    "name": "Congolese Frank",
+    "code": "CDF",
+    "symbol": "FC",
+    "dialCode": "+243"
+  },
+  {
+    "country": "GH",
+    "name": "Ghana cedi",
+    "code": "GHS",
+    "dialCode": "+233"
+  },
+  {
+    "country": "GG",
+    "name": "Guernsey pound",
+    "code": "GGP",
+    "dialCode": "+44"
+  },
+  {
+    "country": "IM",
+    "name": "Manx pound",
+    "code": "GBP",
+    "symbol": "£",
+    "dialCode": "+44"
+  },
+  {
+    "country": "LA",
+    "name": "Lao kip",
+    "code": "LAK",
+    "symbol": "₭",
+    "dialCode": "+856"
+  },
+  {
+    "country": "MO",
+    "name": "Macanese pataca",
+    "code": "MOP",
+    "dialCode": "+853"
+  },
+  {
+    "country": "ME",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+382"
+  },
+  {
+    "country": "PS",
+    "name": "Jordanian dinar",
+    "code": "JOD",
+    "symbol": "د.ا",
+    "dialCode": "+970"
+  },
+  {
+    "country": "BL",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+590"
+  },
+  {
+    "country": "SH",
+    "name": "Saint Helena pound",
+    "code": "GBP",
+    "symbol": "£",
+    "dialCode": "+290"
+  },
+  {
+    "country": "MF",
+    "name": "Netherlands Antillean guilder",
+    "code": "ANG",
+    "dialCode": "+590"
+  },
+  {
+    "country": "PM",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+508"
+  },
+  {
+    "country": "RS",
+    "name": "Serbian dinar",
+    "code": "RSD",
+    "symbol": "Дин.",
+    "dialCode": "+381"
+  },
+  {
+    "country": "US",
+    "name": "US Dollar",
+    "code": "USD",
+    "symbol": "$",
+    "dialCode": "+1"
+  },
+  {
+    "country": "xx",
+    "name": "Bitcoin",
+    "code": "XBT",
+    "symbol": "₿",
+    "dialCode": "+000"
+  },
+  {
+    "country": "ss",
+    "name": "South Sudanese Pound",
+    "code": "SSP",
+    "symbol": "£",
+    "dialCode": "+211"
+  },
+  {
+    "country": "tl",
+    "name": "US Dollar",
+    "code": "SSD",
+    "symbol": "$",
+    "dialCode": "+670"
+  },
+  {
+    "country": "sx",
+    "name": "Netherlands Antillean guider",
+    "code": "ANG",
+    "symbol": "NAƒ",
+    "dialCode": "+721"
+  },
+  {
+    "country": "cw",
+    "name": "Netherlands Antillean guider",
+    "code": "ANG",
+    "symbol": "NAƒ",
+    "dialCode": "+599"
+  },
+  {
+    "country": "bq",
+    "name": "US Dollar",
+    "code": "SSD",
+    "symbol": "$",
+    "dialCode": "+599"
+  },
+  {
+    "country": "XK",
+    "name": "Euro",
+    "code": "EUR",
+    "symbol": "€",
+    "dialCode": "+383"
+  },
+  {
+    "country": "CS",
+    "name": "Serbian dinar",
+    "code": "RSD",
+    "symbol": "Дин.",
+    "dialCode": "+381"
+  }
+]

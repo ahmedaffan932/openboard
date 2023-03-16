@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/padding"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/bg_accent_bordered_less_rounded"
+        android:padding="@dimen/padding"
+        android:text="@string/word_phrase_or_sentence"
+        android:textColor="@color/notificationTextColor"
+        android:textSize="15sp" />
+
+    <ImageView
+        android:id="@+id/btnSpeakInput"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/fab_padding"
+        android:layout_marginEnd="45dp"
+        android:background="@drawable/ic_microphone"
+        android:backgroundTint="@color/accent"
+        android:contentDescription="@string/todo"
+        android:elevation="@dimen/fab_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_microphone"
+        app:tint="@color/accent" />
+
+    <ImageView
+        android:id="@+id/btnTurnOffNotification"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/fab_padding"
+        android:layout_marginEnd="@dimen/padding"
+        android:background="@drawable/ic_round_power_settings_new_24"
+        android:backgroundTint="#B71C1C"
+        android:contentDescription="@string/todo"
+        android:elevation="@dimen/fab_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_round_power_settings_new_24"
+        app:tint="#B71C1C" />
+
+</RelativeLayout>

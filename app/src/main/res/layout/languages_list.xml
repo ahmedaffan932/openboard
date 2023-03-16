@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lngLayoutActivity"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_nothing_rounded_ripple"
+    android:orientation="horizontal"
+    android:clickable="true"
+    android:gravity="center"
+    android:focusable="true">
+
+    <ImageView
+        android:id="@+id/flagView"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:scaleType="centerCrop"
+        android:padding="@dimen/less_padding"
+        />
+
+    <TextView
+        android:id="@+id/languageName"
+        android:layout_width="0dp"
+        android:paddingVertical="@dimen/fab_padding"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/textview"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textViewPremium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_main_less_rounded"
+        android:paddingVertical="4dp"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        android:backgroundTint="@color/accent"
+        android:paddingHorizontal="@dimen/padding"
+        android:text="@string/premium" />
+
+    <ImageView
+        android:id="@+id/btnSpeakTranslation"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:scaleType="center"
+        android:paddingHorizontal="@dimen/less_padding"
+        android:background="@drawable/bg_nothing_rounded_ripple"
+        android:src="@drawable/ic_speak_ic"
+        app:tint="@color/gray_700" />
+
+</LinearLayout>
