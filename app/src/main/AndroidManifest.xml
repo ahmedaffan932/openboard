@@ -72,6 +72,57 @@
         </service>
 
         <!-- Activities -->
+        <activity
+            android:name="org.dslul.openboard.translator.pro.DashboardActivity"
+            android:theme="@style/Theme.TranslatorGuru"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="org.dslul.openboard.translator.pro.DisplayHistoryActivity"
+            android:theme="@style/Theme.TranslatorGuru"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name="org.dslul.openboard.translator.pro.DisplayFavoritesActivity"
+            android:theme="@style/Theme.TranslatorGuru"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="org.dslul.openboard.translator.pro.LanguageSelectorActivity"
+            android:theme="@style/Theme.TranslatorGuru"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="org.dslul.openboard.translator.pro.TranslateActivity"
+            android:theme="@style/Theme.TranslatorGuru"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="org.dslul.openboard.translator.pro.TranslateInterstitialActivity"
+            android:theme="@style/Theme.Transparent"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
         <activity
             android:name="org.dslul.openboard.translator.pro.SplashScreenActivity"

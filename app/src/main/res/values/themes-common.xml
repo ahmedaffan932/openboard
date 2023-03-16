@@ -18,7 +18,7 @@
 */
 -->
 
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <style name="KeyboardIcons" />
     <style name="InputView" />
     <!-- Default theme values -->
@@ -145,5 +145,68 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="AdAttribution">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:textColor">@color/gray_700</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/_8sdp</item>
+        <item name="android:text">Ad</item>
+        <item name="android:background">@drawable/grey_border_less_bg</item>
+        <item name="android:width">@dimen/_20sdp</item>
+        <item name="android:height">@dimen/_14sdp</item>
+    </style>
+    <style name="adTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:text">Ad</item>
+        <item name="android:background">@drawable/bg_ad</item>
+        <item name="android:backgroundTint">@color/gray_700</item>
+        <item name="android:width">20dp</item>
+        <item name="android:height">14dp</item>
+
+    </style>
+
+    <style name="Theme.TranslatorGuru" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#f5f6fb</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/gray_700</item>
+        <item name="colorSecondaryVariant">@color/gray_700</item>
+        <item name="colorOnSecondary">#f5f6fb</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+
+        <!-- Customize your theme here. -->
+        <item name="buttonTint">@color/accent</item>
+        <item name="colorControlActivated">@color/accent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+
+    </style>
+
+    <style name="EditTextTheme" parent="Theme.TranslatorGuru">
+        <item name="colorControlNormal">@color/accent</item>
+        <item name="colorControlActivated">@color/accent</item>
+        <item name="colorControlHighlight">@color/accent</item>
+    </style>
+
+    <style name="Theme.Transparent" parent="Theme.TranslatorGuru">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
 
 </resources>

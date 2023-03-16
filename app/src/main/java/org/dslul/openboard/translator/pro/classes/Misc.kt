@@ -1,4 +1,4 @@
-package org.dslul.openboard.translator.pro.classes
+package com.example.translatorguru.classes
 
 import android.annotation.SuppressLint
 import android.app.*

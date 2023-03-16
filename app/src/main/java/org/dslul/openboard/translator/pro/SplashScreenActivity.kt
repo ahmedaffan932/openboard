@@ -13,6 +13,7 @@ import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.billingclient.api.*
+import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.mlkit.nl.translate.TranslateLanguage
@@ -20,9 +21,8 @@ import kotlinx.android.synthetic.main.activity_splash_screen.*
 import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.adaptor.LanguagesAdapter
-import org.dslul.openboard.translator.pro.classes.Misc
-import org.dslul.openboard.translator.pro.classes.Misc.startNotification
-import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
+import com.example.translatorguru.classes.Misc
+import com.example.translatorguru.classes.Misc.startNotification
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
@@ -258,12 +258,12 @@ class SplashScreenActivity : AppCompatActivity() {
 //                startProActivity()
 //                finish()
 //            } else {
-//                startActivity(
-//                    Intent(
-//                        this@SplashScreenActivity, DashboardActivity::class.java
-//                    )
-//                )
-//                finish()
+                startActivity(
+                    Intent(
+                        this@SplashScreenActivity, DashboardActivity::class.java
+                    )
+                )
+                finish()
 //            }
 //        }
     }

@@ -576,21 +576,45 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Option for choosing auto day/night theme switch [CHAR LIMIT=33] -->
     <string name="day_night_mode">Auto day/night mode</string>
     <!-- Description for "day_night_mode" option. -->
-    <string name="day_night_mode_summary">Appearance will follow system settings</string>
+    <string translatable="false" name="day_night_mode_summary">Appearance will follow system settings</string>
     <!-- Option for enabling AMOLED mode [CHAR LIMIT=33] -->
-    <string name="amoled_mode">Deep black backgrounds</string>
+    <string translatable="false" name="amoled_mode">Deep black backgrounds</string>
     <!-- Description indicating amoled mode can lower power usage depending on the screen of the device. -->
-    <string name="amoled_mode_summary">Can reduce power usage depending on the device’s screen technology</string>
-    <string name="word_phrase_or_sentence">Word phrase or sentence</string>
-    <string name="todo">ToDo</string>
-    <string name="translator">Translator</string>
-    <string name="Pro">Pro</string>
-    <string name="enjoy_ou_best_translation_features_and_translate_on_the_goo">Enjoy ou best translation features and translate on the goo</string>
-    <string name="fun_words">Fun Words</string>
-    <string name="relax_your_brain_with_this_fun_word_puzzle_game_and_improve_your_vocabulary">Relax your brain with this fun word puzzle game and improve your vocabulary.</string>
-    <string name="textview">TextView</string>
-    <string name="premium">Premium</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string translatable="false" name="amoled_mode_summary">Can reduce power usage depending on the device’s screen technology</string>
+    <string translatable="false" name="word_phrase_or_sentence">Word phrase or sentence</string>
+    <string translatable="false" name="todo">ToDo</string>
+    <string translatable="false" name="translator">Translator</string>
+    <string translatable="false" name="Pro">Pro</string>
+    <string translatable="false" name="enjoy_ou_best_translation_features_and_translate_on_the_goo">Enjoy ou best translation features and translate on the goo</string>
+    <string translatable="false" name="fun_words">Fun Words</string>
+    <string name="relax_your_brain_with_this_fun_word_puzzle_game_and_improve_your_vocabulary" translatable="false">Relax your brain with this fun word puzzle game and improve your vocabulary.</string>
+    <string translatable="false" name="textview">TextView</string>
+    <string translatable="false" name="premium">Premium</string>
+    <string translatable="false" name="yes">Yes</string>
+    <string translatable="false" name="no">No</string>
+    <string translatable="false" name="fun">Fun Word</string>
+    <string name="phrasebook" translatable="false">Phrasebook</string>
+    <string name="quit" translatable="false">Quit</string>
+    <string name="do_you_really_want_to_quit" translatable="false">Donyou really want quit ?</string>
+    <string name="english">English</string>
+    <string name="translating">Translating</string>
+    <string name="ad">Ad</string>
+    <string name="favorites">Favorites</string>
+    <string name="no_favorites_found">No favorites Found</string>
+    <string name="language">Languages</string>
+    <string name="recently_used">Recently used</string>
+    <string name="all_languages">All Languages</string>
+    <string name="downloading">Downloading</string>
+    <string name="history">History</string>
+    <string name="translate_something_to_see_history">Translate something to see history</string>
+    <string name="feedback">Feedback</string>
+    <string name="enter_your_topic_and_let_us_know_about_your_feedback">Enter your topic and let us know about your feedback.</string>
+    <string name="enter_topic_here">Enter topic here</string>
+    <string name="write_your_suggestion">Write your suggestion</string>
+    <string name="publish_feedback">Publish feedback</string>
+    <string name="do_you_suggestion_or_found_some_bug_n_do_let_us_know_your_feedback">Do you suggest or found some bug and do let us know your feedback.</string>
+    <string name="rate_us">Rate us</string>
+    <string name="did_you_enjoy_the_app">Did you enjoy our app ?</string>
+
 
 </resources>

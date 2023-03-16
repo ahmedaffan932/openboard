@@ -9,35 +9,31 @@ import android.view.*
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.android.billingclient.api.*
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.ktx.Firebase
+import com.example.translatorguru.classes.CustomDialog
+import com.example.translatorguru.classes.Misc
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.SplashScreenActivity
-import com.example.translatorguru.classes.CustomDialog
-import com.example.translatorguru.classes.Misc
-import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import java.util.*
 
-@SuppressLint("StaticFieldLeak")
-class LanguagesAdapter(
+class LanguagesAdapterConversation(
     private var languages: ArrayList<String>,
-    private val lngTo: Boolean,
     private val activity: Activity,
-    private val callback: InterstitialCallBack? = null
-) :
-    RecyclerView.Adapter<LanguagesAdapter.LanguageHolder>(), Filterable {
+    private val bottomSheetId: Int,
+    private val view: View
 
+) : RecyclerView.Adapter<LanguagesAdapterConversation.LanguagesHolder>(), Filterable {
     val tempLanguages = languages
 
     private val purchasesUpdatedListener =
         PurchasesUpdatedListener { billingResult, purchases ->
-            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
+            if(billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null){
                 Misc.setPurchasedStatus(activity, true)
-                Log.d(Misc.logKey, "Ya ho.....")
+                Log.d(Misc.logKey, "Ya hooo.....")
                 Toast.makeText(activity, "Restarting Application.", Toast.LENGTH_SHORT).show()
                 activity.startActivity(Intent(activity, SplashScreenActivity::class.java))
                 activity.finish()
@@ -46,11 +42,12 @@ class LanguagesAdapter(
 
     private lateinit var billingClient: BillingClient
 
-    var speak: TextToSpeech? = null
     var isBillingResultOk = false
+    var speak: TextToSpeech? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LanguageHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LanguagesHolder {
         val inflater = LayoutInflater.from(parent.context)
+
 
         billingClient = BillingClient.newBuilder(activity)
             .setListener(purchasesUpdatedListener)
@@ -63,50 +60,44 @@ class LanguagesAdapter(
                     isBillingResultOk = true
 
                     Log.d(Misc.logKey, "Billing Result Ok")
-                    // The BillingClient is ready. You can query purchases here.
                 }
             }
 
             override fun onBillingServiceDisconnected() {
                 Log.d(Misc.logKey, "Service disconnected")
-                // Try to restart the connection on the next request to
-                // Google Play by calling the startConnection() method.
             }
         })
+
         val view = inflater.inflate(R.layout.languages_list, parent, false)
-        return LanguageHolder(view)
+        return LanguagesHolder(view)
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: LanguageHolder, position: Int) {
+    override fun onBindViewHolder(holder: LanguagesHolder, position: Int) {
         holder.lngLayout.tag = languages.elementAt(position)
 
         if (!Misc.getPurchasedStatus(activity))
-            if ((languages[position] == "he" || languages[position] == "zh")) {
+            if (languages[position] == "he" || languages[position] == "zh") {
                 holder.textViewPremium.visibility = View.VISIBLE
             }
-        if (languages.elementAt(position) == Misc.defaultLanguage) {
-            holder.languageName.text = "Detect"
-            holder.temp.setImageResource(Misc.getFlag(activity, "100"))
-            holder.lngLayout.setOnClickListener {
-                if (lngTo) {
-                    Misc.setLanguageTo(activity, Misc.defaultLanguage)
-                } else {
-                    Misc.setLanguageFrom(activity, Misc.defaultLanguage)
-                }
-                activity.onBackPressed()
 
-            }
-            holder.btnSpeak.visibility = View.INVISIBLE
-        } else {
 //            val lngCode = languageCodeForLanguage(languages.elementAt(position))
-            holder.languageName.text = Locale(languages[position]).displayName
-            holder.temp.setImageResource(Misc.getFlag(activity, languages.elementAt(position)))
+        holder.languageName.text = Locale(languages[position]).displayName
+        holder.temp.setImageResource(Misc.getFlag(activity, languages.elementAt(position)))
 
-            holder.lngLayout.setOnClickListener {
-                if ((languages[position] == "he" || languages[position] == "zh") && !Misc.getPurchasedStatus(
-                        activity
-                    )
+        funSpeak()
+        holder.btnSpeak.setOnClickListener {
+            speak!!.speak(
+                Locale(languages[position]).displayName,
+                TextToSpeech.QUEUE_FLUSH,
+                null
+            )
+        }
+
+        holder.lngLayout.setOnClickListener {
+            if (view.findViewById<View>(bottomSheetId) != null) {
+
+                if ((languages[position] == "he" || languages[position] == "zh") && !Misc.getPurchasedStatus(activity)
                 ) {
                     val objCustomDialog = CustomDialog(activity)
                     objCustomDialog.show()
@@ -118,8 +109,7 @@ class LanguagesAdapter(
                     )
                     window.setBackgroundDrawableResource(R.color.color_nothing)
 
-                    objCustomDialog.findViewById<TextView>(R.id.tvTitle).text =
-                        "You need to upgrade for this language."
+                    objCustomDialog.findViewById<TextView>(R.id.tvTitle).text = "You need to upgrade for this language."
                     objCustomDialog.findViewById<TextView>(R.id.btnYes).text = "Upgrade"
                     objCustomDialog.findViewById<TextView>(R.id.btnNo).text = "May be later."
                     objCustomDialog.setCancelable(true)
@@ -135,37 +125,25 @@ class LanguagesAdapter(
                         objCustomDialog.dismiss()
                     }
 
+
                 } else {
-                    if (lngTo) {
+                    if (Misc.isLngTo) {
                         Misc.setLanguageTo(activity, languages.elementAt(position))
                     } else {
                         Misc.setLanguageFrom(activity, languages.elementAt(position))
                     }
-                    activity.onBackPressed()
-                    callback?.onDismiss()
 
-                    Firebase.analytics.logEvent(Locale(languages[position]).displayName, null)
-
-                    if (callback == null)
-                        activity.onBackPressed()
+                    val bottomSheetBehavior =
+                        BottomSheetBehavior.from(view.findViewById(bottomSheetId)!!)
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
                 }
-            }
 
-            funSpeak()
-            holder.btnSpeak.setOnClickListener {
-                speak!!.speak(
-                    Locale(languages[position]).displayName,
-                    TextToSpeech.QUEUE_FLUSH,
-                    null
-                )
             }
-
         }
-
     }
 
     private suspend fun querySkuDetails() {
-        try {
+        try{
             val skuList = ArrayList<String>()
             skuList.add(Misc.inAppKey)
 
@@ -190,12 +168,16 @@ class LanguagesAdapter(
             }
 
             // Process the result.
-        } catch (e: Exception) {
+        }catch (e: Exception){
             e.printStackTrace()
-            Toast.makeText(activity, "Not available yet.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,"Not available yet.", Toast.LENGTH_SHORT).show()
         }
     }
 
+
+    override fun getItemCount(): Int {
+        return languages.size
+    }
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
@@ -207,7 +189,7 @@ class LanguagesAdapter(
 
     private fun funSpeak() {
         speak = TextToSpeech(
-            activity.applicationContext
+            activity
         ) { i ->
             if (i != TextToSpeech.ERROR) {
                 speak?.language = Locale.ENGLISH
@@ -217,18 +199,14 @@ class LanguagesAdapter(
         }
     }
 
-    override fun getItemCount(): Int {
-        return languages.size
-    }
-
-    @Suppress("CAST_NEVER_SUCCEEDS")
-    open class LanguageHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    open class LanguagesHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val languageName: TextView = itemView.findViewById(R.id.languageName)
         val lngLayout: LinearLayout = itemView.findViewById(R.id.lngLayoutActivity)
         val temp: ImageView = itemView.findViewById(R.id.flagView)
         val btnSpeak: ImageView = itemView.findViewById(R.id.btnSpeakTranslation)
         val textViewPremium: TextView = itemView.findViewById(R.id.textViewPremium)
     }
+
 
     override fun getFilter(): Filter {
         return object : Filter() {
@@ -238,9 +216,7 @@ class LanguagesAdapter(
                 languages = tempLanguages
 
                 for (item in languages) {
-                    if (constraint?.let {
-                            Locale(item).displayName.toLowerCase().contains(it)
-                        } == true) {
+                    if (constraint?.let { Locale(item).displayName.toLowerCase().contains(it) } == true) {
                         founded.add(item)
                         Log.d(Misc.logKey, item)
                     }

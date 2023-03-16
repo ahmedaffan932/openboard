@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lngLayoutActivity"
+    android:layout_width="@dimen/_150sdp"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/bg_main_less_rounded"
+    android:backgroundTint="?attr/colorOnSecondary"
+    android:elevation="@dimen/less_padding"
+    android:layout_margin="@dimen/less_padding"
+    android:clickable="true"
+    android:gravity="center"
+    android:focusable="true">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivFlagView"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        app:shapeAppearanceOverlay="@style/roundedCorners"
+        android:scaleType="centerCrop"
+        android:padding="@dimen/less_padding"
+        />
+
+    <TextView
+        android:id="@+id/tvLanguageName"
+        android:layout_width="0dp"
+        android:paddingVertical="@dimen/fab_padding"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/textview"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textViewPremium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_main_less_rounded"
+        android:paddingVertical="4dp"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        android:backgroundTint="@color/accent"
+        android:paddingHorizontal="@dimen/padding"
+        android:text="@string/premium" />
+
+    <ImageView
+        android:id="@+id/btnRemove"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:scaleType="center"
+        android:visibility="visible"
+        app:tint="#E64A19"
+        android:src="@drawable/ic_round_close_24"
+        android:paddingHorizontal="@dimen/less_padding"
+        android:background="@drawable/bg_nothing_rounded_ripple" />
+
+</LinearLayout>

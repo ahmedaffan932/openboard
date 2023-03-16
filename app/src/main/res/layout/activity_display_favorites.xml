@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.dslul.openboard.translator.pro.DisplayFavoritesActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="?attr/colorPrimary"
+            android:elevation="@dimen/padding_10"
+            android:orientation="horizontal"
+            android:animateLayoutChanges="true"
+            android:paddingHorizontal="@dimen/fab_padding"
+            android:paddingTop="@dimen/padding"
+            android:paddingBottom="@dimen/padding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btnBackFavorites"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:background="@drawable/bg_nothing_rounded_ripple"
+                android:contentDescription="@string/todo"
+                android:paddingVertical="@dimen/less_padding"
+                android:paddingEnd="@dimen/less_padding"
+                app:srcCompat="@drawable/ic_baseline_arrow_back_24"
+                app:tint="?attr/colorSecondary" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/favorites"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:background="@drawable/bg_nothing_rounded_ripple"
+                android:contentDescription="@string/todo"
+                android:paddingVertical="@dimen/less_padding"
+                android:paddingStart="@dimen/less_padding"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/ic_baseline_arrow_back_24"
+                app:tint="?attr/colorPrimary" />
+        </LinearLayout>
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animLoading"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_margin="@dimen/padding_10"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            android:elevation="@dimen/extra_padding"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/empty_list"  />
+
+        <TextView
+            android:id="@+id/tvNoFavorites"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/accent"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/padding_10"
+            android:text="@string/no_favorites_found" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewFavorites"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/fab_padding"
+                android:paddingTop="@dimen/padding"
+                app:layout_constraintBottom_toTopOf="@+id/nativeAdFrameLayout"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <FrameLayout
+                    android:id="@+id/nativeAdFrameLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_margin="@dimen/padding_10"
+                    android:background="@drawable/bg_native_ad"
+                    android:elevation="@dimen/padding_10"
+                    android:visibility="gone"/>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
