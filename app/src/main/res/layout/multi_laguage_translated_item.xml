@@ -12,7 +12,7 @@
         android:layout_marginHorizontal="@dimen/fab_padding"
         android:layout_marginBottom="2dp"
         android:layout_weight="1"
-        android:background="?attr/colorPrimary"
+        android:background="#f5f6fb"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/fab_padding"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -637,6 +637,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="terms_of_use"><![CDATA[Terms & Conditions]]></string>
     <string name="dark_theme">Dark Theme</string>
     <string name="good">Good</string>
-
+    <string name="enable_keyboard">Enable Keyboard</string>
+    <string name="select">Select</string>
+    <string name="input_method">input_method</string>
 
 </resources>

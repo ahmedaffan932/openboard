@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
-                android:background="?attr/colorPrimary"
+                android:background="#f5f6fb"
                 android:elevation="@dimen/padding_10"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -217,7 +217,7 @@
                 style="?android:attr/progressBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:indeterminateTint="?attr/colorPrimary" />
+                android:indeterminateTint="#f5f6fb" />
 
             <TextView
                 android:id="@+id/textView3"

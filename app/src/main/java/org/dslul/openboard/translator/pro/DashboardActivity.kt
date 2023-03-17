@@ -1,8 +1,10 @@
 package org.dslul.openboard.translator.pro
 
 import android.annotation.SuppressLint
+import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
@@ -19,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_dashboard.view.quitBottomSheet
 import kotlinx.android.synthetic.main.bottom_sheet_quit.view.*
 import kotlinx.android.synthetic.main.dailog_custom.view.btnNo
 import kotlinx.android.synthetic.main.dailog_custom.view.btnYes
+import org.dslul.openboard.inputmethod.latin.LatinIME
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 
@@ -75,11 +78,11 @@ class DashboardActivity : AppCompatActivity() {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
-//        btnSettings.setOnClickListener {
-//            Firebase.analytics.logEvent("Settings", null)
-//            startActivity(Intent(this@DashboardActivity, SettingsActivity::class.java))
-//            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-//        }
+        btnSettings.setOnClickListener {
+            Firebase.analytics.logEvent("Settings", null)
+            startActivity(Intent(this@DashboardActivity, SettingsActivity::class.java))
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
 
         btnHistory.setOnClickListener {
             Firebase.analytics.logEvent("History", null)
@@ -127,6 +130,13 @@ class DashboardActivity : AppCompatActivity() {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             startActivity(Intent(this@DashboardActivity, GameActivity::class.java))
         }
+
+        if(isInputMethodSelected()){
+            btnSwitchEnableKeyboard.isChecked = true
+        }
+        btnSwitchEnableKeyboard.setOnClickListener {
+            startActivity(Intent(this, EnableKeyboardActivity::class.java))
+        }
     }
 
     override fun onBackPressed() {
@@ -168,4 +178,15 @@ class DashboardActivity : AppCompatActivity() {
             )
         }
     }
+
+    fun isInputMethodSelected(): Boolean {
+        val id: String = Settings.Secure.getString(
+            contentResolver,
+            Settings.Secure.DEFAULT_INPUT_METHOD
+        )
+        val defaultInputMethod = ComponentName.unflattenFromString(id)
+        val myInputMethod = ComponentName(this, LatinIME::class.java)
+        return myInputMethod == defaultInputMethod
+    }
+
 }

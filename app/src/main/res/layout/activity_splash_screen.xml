@@ -337,7 +337,7 @@
         android:layout_marginHorizontal="@dimen/fab_padding"
         android:layout_marginBottom="@dimen/fab_padding"
         android:background="@drawable/bg_less_rounded_borderd"
-        android:backgroundTint="?attr/colorPrimary"
+        android:backgroundTint="#f5f6fb"
         android:elevation="@dimen/padding"
         android:translationY="600dp"
         android:visibility="gone"

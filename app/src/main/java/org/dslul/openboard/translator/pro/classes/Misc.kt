@@ -31,7 +31,7 @@ import com.google.gson.reflect.TypeToken
 import com.google.mlkit.nl.translate.TranslateLanguage
 import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
-import org.dslul.openboard.translator.pro.SplashScreenActivity
+import org.dslul.openboard.translator.pro.*
 import java.lang.reflect.Type
 import kotlin.properties.Delegates
 

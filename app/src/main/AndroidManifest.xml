@@ -205,6 +205,15 @@
                 android:value="" />
         </activity>
         <activity
+            android:name="org.dslul.openboard.translator.pro.EnableKeyboardActivity"
+            android:theme="@style/Theme.TranslatorGuru"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name="org.dslul.openboard.translator.pro.MultipleLanguageSelectorActivity"
             android:theme="@style/Theme.TranslatorGuru"
             android:screenOrientation="portrait"

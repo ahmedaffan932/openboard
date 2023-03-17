@@ -4,6 +4,6 @@
     tools:ignore="MissingDefaultResource">
 
     <corners android:radius="@dimen/_5sdp" />
-    <solid android:color="?attr/colorPrimary" />
+    <solid android:color="#f5f6fb" />
 
 </shape>

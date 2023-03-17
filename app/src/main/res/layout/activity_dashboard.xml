@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
                 android:background="@drawable/bg_plain"
-                android:backgroundTint="?attr/colorPrimary"
+                android:backgroundTint="#f5f6fb"
                 android:elevation="@dimen/padding_10"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -111,6 +111,24 @@
                     android:background="@drawable/bg_nothing_rounded_ripple"
                     android:elevation="@dimen/padding_10">
 
+                    <Switch
+                        android:id="@+id/btnSwitchEnableKeyboard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/fab_padding"
+                        android:layout_marginTop="@dimen/padding"
+                        android:background="@drawable/bg_dashboard_gradient_one"
+                        android:drawablePadding="@dimen/padding_10"
+                        android:drawableTint="@color/gray_700"
+                        android:elevation="@dimen/less_padding"
+                        android:paddingHorizontal="@dimen/fab_padding"
+                        android:paddingVertical="@dimen/fab_padding"
+                        android:text="@string/enable_keyboard"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="@dimen/padding_10"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/btnTranslation"
                         android:layout_width="0dp"
@@ -123,7 +141,7 @@
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@id/verticalView"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toBottomOf="@id/btnSwitchEnableKeyboard">
 
                         <ImageView
                             android:id="@+id/imgTranslate"
@@ -189,7 +207,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/btnTranslation"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@id/verticalView"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toBottomOf="@id/btnSwitchEnableKeyboard">
 
                         <ImageView
                             android:id="@+id/imgChat"

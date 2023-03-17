@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:background="?attr/colorPrimary"
+            android:background="#f5f6fb"
             android:elevation="@dimen/padding_10"
             android:orientation="horizontal"
             android:animateLayoutChanges="true"
@@ -57,7 +57,7 @@
                 android:paddingStart="@dimen/less_padding"
                 android:visibility="invisible"
                 app:srcCompat="@drawable/ic_baseline_arrow_back_24"
-                app:tint="?attr/colorPrimary" />
+                app:tint="#f5f6fb" />
         </LinearLayout>
 
 

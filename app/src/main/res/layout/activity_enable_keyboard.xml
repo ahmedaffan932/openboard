@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_enable"
+    android:id="@+id/clMain"
+    tools:context="org.dslul.openboard.translator.pro.EnableKeyboardActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clEnableKeyboard"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/bg_accent_bordered_less_rounded"
+        android:elevation="@dimen/fab_padding"
+        android:padding="@dimen/padding"
+        app:layout_constraintBottom_toTopOf="@id/clSelectKeyboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/textEnable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/enable"
+            android:textColor="@color/blue"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent "
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/clSelectKeyboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clEnableKeyboard" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clSelectKeyboard"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="64dp"
+        android:background="@drawable/bg_plain_less_rounded"
+        android:elevation="@dimen/extra_padding"
+        android:padding="@dimen/padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <TextView
+            android:id="@+id/textSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select"
+            android:textColor="@color/blue"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--        android:id="@+id/btnEnableKeyBoard"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginBottom="@dimen/extra_padding"-->
+    <!--        android:background="@drawable/bg_plain_yellow"-->
+    <!--        android:elevation="@dimen/extra_padding"-->
+    <!--        android:paddingHorizontal="@dimen/fab_padding"-->
+    <!--        android:paddingVertical="@dimen/extra_padding"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent">-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/text"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:src="@drawable/btn_start"-->
+    <!--            android:text="@string/enable_keyboard"-->
+    <!--            android:gravity="center"-->
+    <!--            android:elevation="@dimen/extra_padding"-->
+    <!--            android:layout_marginStart="@dimen/extra_padding"-->
+    <!--            android:textSize="18sp"-->
+    <!--            android:textStyle="bold"-->
+    <!--            android:textColor="@color/white"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent" />-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginEnd="@dimen/extra_padding"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toEndOf="@+id/text"-->
+    <!--            app:srcCompat="@drawable/ic_next_arrow" />-->
+
+    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--        android:id="@+id/btnSelectKeyBoard"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginBottom="@dimen/extra_padding"-->
+    <!--        android:background="@drawable/bg_plain_yellow"-->
+    <!--        android:elevation="@dimen/extra_padding"-->
+    <!--        android:visibility="gone"-->
+    <!--        android:paddingHorizontal="@dimen/fab_padding"-->
+    <!--        android:paddingVertical="@dimen/extra_padding"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent">-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/tv"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:src="@drawable/btn_start"-->
+    <!--            android:text="@string/select_keyboard"-->
+    <!--            android:gravity="center"-->
+    <!--            android:elevation="@dimen/extra_padding"-->
+    <!--            android:layout_marginStart="@dimen/extra_padding"-->
+    <!--            android:textSize="18sp"-->
+    <!--            android:textStyle="bold"-->
+    <!--            android:textColor="@color/white"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent" />-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginEnd="@dimen/extra_padding"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toEndOf="@+id/tv"-->
+    <!--            app:srcCompat="@drawable/ic_next_arrow" />-->
+
+    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
