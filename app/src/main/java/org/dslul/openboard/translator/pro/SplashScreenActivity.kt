@@ -21,8 +21,9 @@ import kotlinx.android.synthetic.main.activity_splash_screen.*
 import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.adaptor.LanguagesAdapter
-import com.example.translatorguru.classes.Misc
-import com.example.translatorguru.classes.Misc.startNotification
+import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc.startNotification
+import org.dslul.openboard.translator.pro.classes.Misc.startProActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
@@ -127,21 +128,21 @@ class SplashScreenActivity : AppCompatActivity() {
         anim.duration = 0
 
         btnStart.setOnClickListener {
-//            if (Misc.isFirstTimeShowLanguagesEnabled) {
-//                if (Misc.isFirstTime(this)) {
-//                    Firebase.analytics.logEvent("LanguagesDisplayedOnSplash", null)
-//
-//                    Misc.zoomOutView(btnStart, this, 250)
-//                    clLanguages.animate().translationY(0F).duration = 500
-//                    Handler(Looper.getMainLooper()).postDelayed({
-//                        btnStart.visibility = View.GONE
-//                    }, 220)
-//                } else {
-//                    startNextActivity()
-//                }
-//            } else {
-            startNextActivity()
-//            }
+            if (Misc.isFirstTimeShowLanguagesEnabled) {
+                if (Misc.isFirstTime(this)) {
+                    Firebase.analytics.logEvent("LanguagesDisplayedOnSplash", null)
+
+                    Misc.zoomOutView(btnStart, this, 250)
+                    clLanguages.animate().translationY(0F).duration = 500
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        btnStart.visibility = View.GONE
+                    }, 220)
+                } else {
+                    startNextActivity()
+                }
+            } else {
+                startNextActivity()
+            }
         }
     }
 
@@ -238,7 +239,7 @@ class SplashScreenActivity : AppCompatActivity() {
 //
 //        BannerAds.load(this@SplashScreenActivity)
 //        InterstitialAd.manageLoadInterAdmob(this@SplashScreenActivity)
-        
+
 
     }
 
@@ -249,23 +250,23 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private fun startNextActivity() {
         Misc.setIsFirstTime(this, false)
-//        if (Misc.getPurchasedStatus(this)) {
-//            startActivity(Intent(this, DashboardActivity::class.java))
-//            finish()
-//        } else {
-//            if (Misc.isProScreenEnabled) {
-//                Firebase.analytics.logEvent("ProInFlow", null)
-//                startProActivity()
-//                finish()
-//            } else {
+        if (Misc.getPurchasedStatus(this)) {
+            startActivity(Intent(this, DashboardActivity::class.java))
+            finish()
+        } else {
+            if (Misc.isProScreenEnabled) {
+                Firebase.analytics.logEvent("ProInFlow", null)
+                startProActivity()
+                finish()
+            } else {
                 startActivity(
                     Intent(
                         this@SplashScreenActivity, DashboardActivity::class.java
                     )
                 )
                 finish()
-//            }
-//        }
+            }
+        }
     }
 
     override fun onStart() {

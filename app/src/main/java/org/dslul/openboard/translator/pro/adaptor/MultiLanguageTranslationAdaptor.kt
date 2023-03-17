@@ -9,8 +9,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.example.translatorguru.classes.Misc
-import com.example.translatorguru.classes.TranslatedItem
+import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.TranslatedItem
 import com.google.mlkit.nl.languageid.LanguageIdentification
 import org.dslul.openboard.inputmethod.latin.R
 

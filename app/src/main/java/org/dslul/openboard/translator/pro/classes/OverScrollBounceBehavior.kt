@@ -1,4 +1,4 @@
-package com.example.translatorguru.classes
+package org.dslul.openboard.translator.pro.classes
 
 import android.content.Context
 import android.util.AttributeSet

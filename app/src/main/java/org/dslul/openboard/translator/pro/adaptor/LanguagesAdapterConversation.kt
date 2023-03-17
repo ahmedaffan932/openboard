@@ -9,8 +9,8 @@ import android.view.*
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.android.billingclient.api.*
-import com.example.translatorguru.classes.CustomDialog
-import com.example.translatorguru.classes.Misc
+import org.dslul.openboard.translator.pro.classes.CustomDialog
+import org.dslul.openboard.translator.pro.classes.Misc
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

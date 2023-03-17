@@ -1,4 +1,4 @@
-package com.example.translatorguru.classes.admob
+package org.dslul.openboard.translator.pro.classes.admob
 
 import android.app.Activity
 import android.util.Log
@@ -7,7 +7,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.example.translatorguru.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.interfaces.LoadInterstitialCallBack
 
 

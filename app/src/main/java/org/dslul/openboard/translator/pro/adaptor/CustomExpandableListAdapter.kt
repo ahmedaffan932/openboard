@@ -19,8 +19,8 @@ import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.example.translatorguru.classes.Misc
-import com.example.translatorguru.classes.TranslateHistoryClass
+import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
 import com.google.gson.Gson
 import org.dslul.openboard.inputmethod.latin.R
 import java.util.*

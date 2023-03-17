@@ -1,4 +1,4 @@
-package com.example.translatorguru.classes.admob
+package org.dslul.openboard.translator.pro.classes.admob
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -19,7 +19,7 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
 import org.dslul.openboard.inputmethod.latin.R
-import com.example.translatorguru.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc
 
 object NativeAds {
     var mNativeAdOne: NativeAd? = null

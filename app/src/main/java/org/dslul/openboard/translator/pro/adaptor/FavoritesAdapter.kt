@@ -12,9 +12,9 @@ import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.translatorguru.classes.CustomDialog
-import com.example.translatorguru.classes.Misc
-import com.example.translatorguru.classes.TranslateHistoryClass
+import org.dslul.openboard.translator.pro.classes.CustomDialog
+import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
 import com.google.gson.Gson
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.interfaces.OnBackPressedHistoryInterface

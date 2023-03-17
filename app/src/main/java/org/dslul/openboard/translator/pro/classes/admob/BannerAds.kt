@@ -1,4 +1,4 @@
-package com.example.translatorguru.classes.admob
+package org.dslul.openboard.translator.pro.classes.admob
 
 import android.app.Activity
 import android.util.DisplayMetrics
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.AdRequest.Builder
-import com.example.translatorguru.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc
 
 object BannerAds {
     private var adView: AdView? = null

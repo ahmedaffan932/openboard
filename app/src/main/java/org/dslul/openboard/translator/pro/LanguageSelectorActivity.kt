@@ -13,9 +13,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.translatorguru.classes.Misc
-import com.example.translatorguru.classes.admob.BannerAds
-import com.example.translatorguru.classes.admob.NativeAds
+import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.admob.BannerAds
+import org.dslul.openboard.translator.pro.classes.admob.NativeAds
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.mlkit.nl.translate.TranslateLanguage

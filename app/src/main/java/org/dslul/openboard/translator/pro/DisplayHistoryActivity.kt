@@ -7,8 +7,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.dslul.openboard.translator.pro.adaptor.HistoryAdapter
-import com.example.translatorguru.classes.Misc
-import com.example.translatorguru.classes.admob.InterstitialAd
+import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
 import kotlinx.android.synthetic.main.activity_display_history.*
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.interfaces.InterfaceHistory

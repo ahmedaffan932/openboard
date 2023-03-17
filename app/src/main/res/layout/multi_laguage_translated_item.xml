@@ -79,7 +79,7 @@
             android:minLines="3"
             android:paddingHorizontal="@dimen/less_padding"
             android:text=""
-            android:textColor="?attr/colorOnPrimary"
+            android:textColor="@color/black"
             android:textSize="18sp"
             tools:ignore="NestedWeights,RtlSymmetry" />
 

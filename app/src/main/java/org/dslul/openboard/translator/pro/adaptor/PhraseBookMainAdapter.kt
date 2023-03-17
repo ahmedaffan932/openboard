@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.example.translatorguru.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.inputmethod.latin.R
 
 class PhraseBookMainAdapter(

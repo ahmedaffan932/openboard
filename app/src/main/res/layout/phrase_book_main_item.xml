@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/padding_10"
             android:text=""
-            android:textColor="?attr/colorOnPrimary"
+            android:textColor="@color/black"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/imgPhraseMainItemIcon"

@@ -57,7 +57,7 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:text="Selecet"
-                    android:textColor="?attr/colorOnPrimary"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -66,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/language"
-                    android:textColor="?attr/colorOnPrimary"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -101,7 +101,7 @@
                     android:gravity="center"
                     android:padding="@dimen/padding_10"
                     android:text="@string/english"
-                    android:textColor="?attr/colorOnPrimary"
+                    android:textColor="@color/black"
                     android:textSize="15sp"
                     tools:ignore="NestedWeights" />
 
@@ -114,7 +114,7 @@
                     android:gravity="center"
                     android:padding="@dimen/padding_10"
                     android:text="@string/textview"
-                    android:textColor="?attr/colorOnPrimary"
+                    android:textColor="@color/black"
                     android:textSize="15sp" />
             </LinearLayout>
 

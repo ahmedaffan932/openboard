@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.dslul.openboard.translator.pro.PhrasebookDetailedActivity">
+
+    <FrameLayout
+        android:id="@+id/bannerFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_native_ad"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bannerFrame">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_10"
+            android:animateLayoutChanges="true"
+            android:background="?attr/colorPrimary"
+            android:elevation="@dimen/padding_10"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/fab_padding"
+            android:paddingTop="@dimen/padding"
+            android:paddingBottom="@dimen/padding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btnBackPhrasebook"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:background="@drawable/bg_nothing_rounded_ripple"
+                android:contentDescription="@string/todo"
+                android:paddingVertical="@dimen/less_padding"
+                android:paddingEnd="@dimen/less_padding"
+                app:srcCompat="@drawable/ic_baseline_arrow_back_24"
+                app:tint="?attr/colorSecondary" />
+
+            <TextView
+                android:id="@+id/tvHeading"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/selector"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/btnSettingsScanResult"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:background="@drawable/bg_nothing_rounded_ripple"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="20dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/arrow_next" />
+
+            <!--            <ImageButton-->
+            <!--                android:id="@+id/btnGiftAd"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:background="@drawable/bg_nothing"-->
+            <!--                android:paddingHorizontal="10dp"-->
+            <!--                app:srcCompat="@drawable/ic_gift_ad" />-->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/fab_padding"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="15dp">
+
+            <LinearLayout
+                android:id="@+id/llLngFromPraseDetailed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/padding_10"
+                android:layout_weight="1"
+                android:background="@drawable/ripple_effect_rounded"
+                android:gravity="center"
+                android:orientation="horizontal"
+                tools:targetApi="m">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/flagFromPhraseDetailed"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/roundedCorners" />
+
+                <TextView
+                    android:id="@+id/tvLngFromPhraseDetailed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/padding_10"
+                    android:paddingVertical="@dimen/padding_10"
+                    android:text="@string/english"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:ignore="NestedWeights" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/btnSwitchLngsPhraseDetailed"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/ripple_effect_rounded"
+                android:contentDescription="@string/todo"
+                android:padding="@dimen/padding_10"
+                android:paddingVertical="20dp"
+                app:srcCompat="@drawable/ic_switch_lang"
+                app:tint="?attr/colorSecondary" />
+
+            <LinearLayout
+                android:id="@+id/llLngToPhraseDetailed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_10"
+                android:layout_weight="1"
+                android:background="@drawable/ripple_effect_rounded"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvLngToPhraseDetailed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/padding_10"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/padding_10"
+                    android:paddingVertical="@dimen/padding_10"
+                    android:text="@string/textview"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:ignore="NestedWeights" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/flagToPhraseDetail"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/roundedCorners" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ExpandableListView
+                android:id="@+id/expandableListView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="@dimen/fab_padding"
+                android:animateLayoutChanges="true"
+                android:divider="@android:color/darker_gray"
+                android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+                android:padding="@dimen/fab_padding"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/fab_padding"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/expandableListView">
+
+
+                <FrameLayout
+                    android:id="@+id/nativeAdFrameLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp"
+                    android:layout_marginBottom="@dimen/padding_10"
+                    android:background="@drawable/bg_native_ad"
+                    android:elevation="@dimen/padding_10"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

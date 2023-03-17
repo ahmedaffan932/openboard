@@ -1,4 +1,4 @@
-package com.example.translatorguru.classes
+package org.dslul.openboard.translator.pro.classes
 
 data class TranslatedItem(
     val lngFrom: String,

@@ -1,4 +1,4 @@
-package com.example.translatorguru.classes
+package org.dslul.openboard.translator.pro.classes
 
 import android.annotation.SuppressLint
 import android.app.*
@@ -95,9 +95,9 @@ object Misc {
 
     var adBreakCount: Int = 0
 
-    var appOpenAdId = if (BuildConfig.DEBUG){
+    var appOpenAdId = if (BuildConfig.DEBUG) {
         "ca-app-pub-3940256099942544/3419835294"
-    }else{
+    } else {
         "ca-app-pub-6814505709397727/5034389232"
     }
 
@@ -190,16 +190,13 @@ object Misc {
     fun Context.startProActivity(extra: String? = null) {
         val intent = when (proScreen) {
             "1" -> {
-//                Intent(this, ProScreenActivity::class.java)
-                Intent(this, SplashScreenActivity::class.java)
+                Intent(this, ProScreenActivity::class.java)
             }
             "2" -> {
-//                Intent(this, PremiumScreenActivity::class.java)
-                Intent(this, SplashScreenActivity::class.java)
+                Intent(this, PremiumScreenActivity::class.java)
             }
             else -> {
-//                Intent(this, ProActivity::class.java)
-                Intent(this, SplashScreenActivity::class.java)
+                Intent(this, ProActivity::class.java)
             }
         }
 
@@ -679,49 +676,49 @@ object Misc {
             }
         }
 
-//        if (!isNotificationRunning && !isNotificationTurnedOff(this)) {
-//            val contentView = RemoteViews(packageName, R.layout.translate_notification_layout)
-//            contentView.setImageViewResource(R.id.image, R.drawable.logo)
-//
-//            val intent = Intent(this, TranslateActivity::class.java)
-//            intent.putExtra(data, data)
-//            val pendingIntent =
-//                PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_MUTABLE)
-//
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                notificationChannel = NotificationChannel(
-//                    channelId, description, NotificationManager.IMPORTANCE_LOW
-//                )
-//                notificationChannel.enableLights(false)
-//                notificationChannel.lightColor = Color.GREEN
-//                notificationChannel.enableVibration(false)
-//                notificationManager.createNotificationChannel(notificationChannel)
-//
-//                builder = Notification.Builder(this, channelId).setContent(contentView)
-//                    .setSmallIcon(R.drawable.logo).setOngoing(true).setLargeIcon(
-//                        BitmapFactory.decodeResource(
-//                            this.resources, R.drawable.logo
-//                        )
-//                    ).setContentIntent(pendingIntent)
-//
-//            } else {
-//                builder =
-//                    Notification.Builder(this).setContent(contentView).setSmallIcon(R.drawable.logo)
-//                        .setOngoing(true).setLargeIcon(
-//                            BitmapFactory.decodeResource(
-//                                this.resources, R.drawable.logo
-//                            )
-//                        ).setContentIntent(pendingIntent)
-//            }
-//
-//            val settingsIntent = Intent(this, SettingsActivity::class.java)
-//            settingsIntent.putExtra(data, data)
-//            contentView.setOnClickPendingIntent(
-//                R.id.btnTurnOffNotification, PendingIntent.getActivity(
-//                    this, 0, settingsIntent, PendingIntent.FLAG_MUTABLE
-//                )
-//            )
-//            notificationManager.notify(1234, builder.build())
-//        }
+        if (!isNotificationRunning && !isNotificationTurnedOff(this)) {
+            val contentView = RemoteViews(packageName, R.layout.translate_notification_layout)
+            contentView.setImageViewResource(R.id.image, R.drawable.logo)
+
+            val intent = Intent(this, TranslateActivity::class.java)
+            intent.putExtra(data, data)
+            val pendingIntent =
+                PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_MUTABLE)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                notificationChannel = NotificationChannel(
+                    channelId, description, NotificationManager.IMPORTANCE_LOW
+                )
+                notificationChannel.enableLights(false)
+                notificationChannel.lightColor = Color.GREEN
+                notificationChannel.enableVibration(false)
+                notificationManager.createNotificationChannel(notificationChannel)
+
+                builder = Notification.Builder(this, channelId).setContent(contentView)
+                    .setSmallIcon(R.drawable.logo).setOngoing(true).setLargeIcon(
+                        BitmapFactory.decodeResource(
+                            this.resources, R.drawable.logo
+                        )
+                    ).setContentIntent(pendingIntent)
+
+            } else {
+                builder =
+                    Notification.Builder(this).setContent(contentView).setSmallIcon(R.drawable.logo)
+                        .setOngoing(true).setLargeIcon(
+                            BitmapFactory.decodeResource(
+                                this.resources, R.drawable.logo
+                            )
+                        ).setContentIntent(pendingIntent)
+            }
+
+            val settingsIntent = Intent(this, SettingsActivity::class.java)
+            settingsIntent.putExtra(data, data)
+            contentView.setOnClickPendingIntent(
+                R.id.btnTurnOffNotification, PendingIntent.getActivity(
+                    this, 0, settingsIntent, PendingIntent.FLAG_MUTABLE
+                )
+            )
+            notificationManager.notify(1234, builder.build())
+        }
     }
 }

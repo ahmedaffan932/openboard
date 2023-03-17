@@ -123,6 +123,96 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name="org.dslul.openboard.translator.pro.MultiLanguageTranslationActivity"
+            android:theme="@style/Theme.TranslatorGuru"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="org.dslul.openboard.translator.pro.ConversationActivity"
+            android:theme="@style/Theme.TranslatorGuru"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="org.dslul.openboard.translator.pro.PhrasebookDetailedActivity"
+            android:theme="@style/Theme.TranslatorGuru"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="org.dslul.openboard.translator.pro.PhrasesActivity"
+            android:theme="@style/Theme.TranslatorGuru"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="org.dslul.openboard.translator.pro.GameActivity"
+            android:theme="@style/Theme.TranslatorGuru"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="org.dslul.openboard.translator.pro.PremiumScreenActivity"
+            android:theme="@style/Theme.TranslatorGuru"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="org.dslul.openboard.translator.pro.ProActivity"
+            android:theme="@style/Theme.TranslatorGuru"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="org.dslul.openboard.translator.pro.ProScreenActivity"
+            android:theme="@style/Theme.TranslatorGuru"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="org.dslul.openboard.translator.pro.SettingsActivity"
+            android:theme="@style/Theme.TranslatorGuru"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="org.dslul.openboard.translator.pro.MultipleLanguageSelectorActivity"
+            android:theme="@style/Theme.TranslatorGuru"
+            android:screenOrientation="portrait"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
         <activity
             android:name="org.dslul.openboard.translator.pro.SplashScreenActivity"

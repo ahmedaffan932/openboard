@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomSheetConversation"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_top_rounded_border"
+    android:elevation="@dimen/extra_padding"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/padding_10"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btnOpenCloseBottomSheet"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/icon_size"
+            android:background="@drawable/bg_top_rounded_border"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_baseline_keyboard_arrow_up_24"
+            app:tint="@color/black" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/llLngLeftFrag"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/icon_size"
+                android:layout_weight="1"
+                android:layout_marginVertical="@dimen/padding"
+                android:elevation="2dp"
+                android:layout_marginStart="@dimen/padding_10"
+                android:background="@drawable/bg_accent_border_rounded"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/flagFromFragCon"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    app:shapeAppearanceOverlay="@style/roundedCorners"
+                    android:scaleType="centerCrop"
+                     />
+
+                <TextView
+                    android:id="@+id/textViewLngLeftFrag"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/padding_10"
+                    android:elevation="@dimen/padding_10"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/padding_10"
+                    android:text="@string/english"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    app:drawableEndCompat="@drawable/ic_baseline_mic_selected_24"
+                    app:drawableTint="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llLngRightFrag"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/icon_size"
+                android:background="@drawable/bg_accent_border_rounded"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:layout_marginEnd="@dimen/padding_10"
+                android:layout_marginVertical="@dimen/padding"
+                android:layout_marginStart="@dimen/padding"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewLngRightFrag"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/padding_10"
+                    android:elevation="@dimen/padding_10"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/padding_10"
+                    android:text="@string/textview"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    app:drawableStartCompat="@drawable/ic_baseline_mic_selected_24"
+                    app:drawableTint="@color/black"
+                    tools:ignore="NestedWeights,RtlSymmetry" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/flagToFragCon"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_margin="1dp"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/roundedCorners"
+                    android:layout_height="match_parent"
+                     />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <SearchView
+            android:id="@+id/simpleSearchViewCon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="false"
+            android:paddingEnd="@dimen/padding_10"
+            android:layout_marginHorizontal="@dimen/padding_10"
+            android:layout_marginTop="@dimen/less_padding"
+            android:theme="@style/EditTextTheme"
+            android:queryBackground="@android:color/transparent"
+            android:background="@drawable/bg_main_rounded"
+            android:queryHint="Search Language"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginHorizontal="@dimen/padding_10"
+            android:text="@string/all_languages" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewLanguageSelectorConversation"
+            android:layout_marginHorizontal="@dimen/padding_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

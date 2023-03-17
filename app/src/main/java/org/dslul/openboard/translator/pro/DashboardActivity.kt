@@ -8,9 +8,9 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.blongho.country_data.World
-import com.example.translatorguru.classes.admob.BannerAds
-import com.example.translatorguru.classes.admob.InterstitialAd
-import com.example.translatorguru.classes.admob.NativeAds
+import org.dslul.openboard.translator.pro.classes.admob.BannerAds
+import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
+import org.dslul.openboard.translator.pro.classes.admob.NativeAds
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.bottom_sheet_quit.view.*
 import kotlinx.android.synthetic.main.dailog_custom.view.btnNo
 import kotlinx.android.synthetic.main.dailog_custom.view.btnYes
 import org.dslul.openboard.inputmethod.latin.R
-import com.example.translatorguru.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
@@ -98,35 +98,35 @@ class DashboardActivity : AppCompatActivity() {
             startActivity(Intent(this@DashboardActivity, TranslateActivity::class.java))
         }
 
-//        btnMultipleTranslate.setOnClickListener {
-//            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-//            Firebase.analytics.logEvent("Multi_Translation", null)
-//
-//            startActivity(
-//                Intent(
-//                    this@DashboardActivity,
-//                    MultiLanguageTranslationActivity::class.java
-//                )
-//            )
-//        }
+        btnMultipleTranslate.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            Firebase.analytics.logEvent("Multi_Translation", null)
 
-//        btnChat.setOnClickListener {
-//            Firebase.analytics.logEvent("Chat", null)
-//            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-//            startActivity(Intent(this@DashboardActivity, ConversationActivity::class.java))
-//        }
+            startActivity(
+                Intent(
+                    this@DashboardActivity,
+                    MultiLanguageTranslationActivity::class.java
+                )
+            )
+        }
 
-//        btnPhrasebook.setOnClickListener {
-//            Firebase.analytics.logEvent("Phrasebook", null)
-//            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-//            startActivity(Intent(this@DashboardActivity, PhrasesActivity::class.java))
-//        }
+        btnChat.setOnClickListener {
+            Firebase.analytics.logEvent("Chat", null)
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            startActivity(Intent(this@DashboardActivity, ConversationActivity::class.java))
+        }
 
-//        btnGame.setOnClickListener {
-//            Firebase.analytics.logEvent("Game", null)
-//            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-//            startActivity(Intent(this@DashboardActivity, GameActivity::class.java))
-//        }
+        btnPhrasebook.setOnClickListener {
+            Firebase.analytics.logEvent("Phrasebook", null)
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            startActivity(Intent(this@DashboardActivity, PhrasesActivity::class.java))
+        }
+
+        btnGame.setOnClickListener {
+            Firebase.analytics.logEvent("Game", null)
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            startActivity(Intent(this@DashboardActivity, GameActivity::class.java))
+        }
     }
 
     override fun onBackPressed() {

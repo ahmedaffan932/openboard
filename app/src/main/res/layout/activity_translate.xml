@@ -180,7 +180,7 @@
                     android:clipToPadding="false"
                     android:orientation="vertical"
                     android:paddingHorizontal="@dimen/fab_padding"
-                    app:layout_behavior="com.example.translatorguru.classes.OverScrollBounceBehavior"
+                    app:layout_behavior="org.dslul.openboard.translator.pro.classes.OverScrollBounceBehavior"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0">

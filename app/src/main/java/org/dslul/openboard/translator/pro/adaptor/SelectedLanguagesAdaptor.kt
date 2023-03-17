@@ -15,7 +15,7 @@ import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.PurchasesUpdatedListener
-import com.example.translatorguru.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.SplashScreenActivity
 import org.dslul.openboard.translator.pro.interfaces.OnItemClick

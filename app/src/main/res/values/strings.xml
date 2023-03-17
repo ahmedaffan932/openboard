@@ -616,5 +616,27 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="rate_us">Rate us</string>
     <string name="did_you_enjoy_the_app">Did you enjoy our app ?</string>
 
+    <string name="let_s_record_your_message_to_communicate">Let\'s record your message to communicate</string>
+    <string name="selector">Selector</string>
+    <string name="loading_words">Loading Words .</string>
+    <string name="hint">Hint</string>
+    <string name="level">Level</string>
+    <string name="hint_meaning">Hint meaning</string>
+    <string name="translate">Translate</string>
+    <string name="remove_annoying_ads_save_your_time">Remove annoying ads.</string>
+    <string name="unlimited_chat_translator">Unlimited Chat translator</string>
+    <string name="one_time">Life time plan</string>
+    <string name="save_50">Save 50%</string>
+    <string name="get_pro">Continue</string>
+    <string name="_50_languages_learn_with_unlimited_language_options">Learn with the support of 50+ languages.</string>
+    <string name="access_full_translation_history">Access full translation history</string>
+    <string name="settings">Settings</string>
+    <string name="upgrade_to_pro">Upgrade to pro</string>
+    <string name="share_app">Share App</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_of_use"><![CDATA[Terms & Conditions]]></string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="good">Good</string>
+
 
 </resources>

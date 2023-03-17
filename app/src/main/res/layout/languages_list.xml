@@ -10,13 +10,13 @@
     android:gravity="center"
     android:focusable="true">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/flagView"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:scaleType="centerCrop"
         android:padding="@dimen/less_padding"
-        />
+        app:shapeAppearanceOverlay="@style/roundedCorners"/>
 
     <TextView
         android:id="@+id/languageName"

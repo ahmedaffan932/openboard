@@ -10,8 +10,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import org.dslul.openboard.inputmethod.latin.R
-import com.example.translatorguru.classes.ConversationClass
-import com.example.translatorguru.classes.Misc
+import org.dslul.openboard.translator.pro.classes.ConversationClass
+import org.dslul.openboard.translator.pro.classes.Misc
 import java.util.*
 import kotlin.collections.ArrayList
 

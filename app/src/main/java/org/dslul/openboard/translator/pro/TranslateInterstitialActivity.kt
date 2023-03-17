@@ -3,7 +3,7 @@ package org.dslul.openboard.translator.pro
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
-import com.example.translatorguru.classes.admob.InterstitialAd
+import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
 import kotlinx.android.synthetic.main.activity_translate_interstitial.*
 import org.dslul.openboard.inputmethod.latin.R
 

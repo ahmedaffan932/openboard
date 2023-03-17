@@ -1,4 +1,4 @@
-package com.example.translatorguru.classes
+package org.dslul.openboard.translator.pro.classes
 
 import android.app.*
 import android.content.Context
@@ -8,7 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.example.translatorguru.classes.admob.InterstitialAd
+import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
 import org.dslul.openboard.translator.pro.fcm.services.FcmFireBaseID
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.appopen.AppOpenAd

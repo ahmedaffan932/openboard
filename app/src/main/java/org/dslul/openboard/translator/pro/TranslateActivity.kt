@@ -21,8 +21,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
-import com.example.translatorguru.classes.TranslateHistoryClass
-import com.example.translatorguru.classes.admob.InterstitialAd
+import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
+import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
@@ -30,9 +30,9 @@ import com.google.mlkit.nl.languageid.LanguageIdentification
 import com.rw.keyboardlistener.KeyboardUtils
 import kotlinx.android.synthetic.main.activity_translate.*
 import org.dslul.openboard.inputmethod.latin.R
-import com.example.translatorguru.classes.Misc
-import com.example.translatorguru.classes.admob.BannerAds
-import com.example.translatorguru.classes.admob.NativeAds
+import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.admob.BannerAds
+import org.dslul.openboard.translator.pro.classes.admob.NativeAds
 import org.dslul.openboard.translator.pro.interfaces.LoadInterstitialCallBack
 import org.jsoup.Jsoup
 import java.net.URLEncoder

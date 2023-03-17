@@ -30,7 +30,7 @@
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:text="@string/textview"
-        android:textColor="?attr/colorOnPrimary"
+        android:textColor="@color/black"
         android:textSize="18sp" />
 
     <TextView
