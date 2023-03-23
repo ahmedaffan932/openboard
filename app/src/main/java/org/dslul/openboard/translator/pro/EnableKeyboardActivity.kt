@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_enable_keyboard.*
 import org.dslul.openboard.inputmethod.latin.LatinIME
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.translator.pro.classes.Misc
 import java.util.*
 import java.lang.Runnable as Runnable1
 
@@ -22,6 +23,8 @@ class EnableKeyboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enable_keyboard)
+
+        Misc.setIsFirstTime(this, false)
 
         clEnableKeyboard.setOnClickListener {
             startActivityForResult(Intent("android.settings.INPUT_METHOD_SETTINGS"), 0)
@@ -35,7 +38,6 @@ class EnableKeyboardActivity : AppCompatActivity() {
             checkKeyboardActivation()
         }
     }
-
 
     fun isInputMethodSelected(): Boolean {
         val id: String = Settings.Secure.getString(
@@ -56,7 +58,11 @@ class EnableKeyboardActivity : AppCompatActivity() {
         return@lazy object : Runnable1 {
             override fun run() {
                 if (isInputMethodSelected()) {
-                    finish()
+                    if(intent.getStringExtra(Misc.data) != null){
+                        startActivity(Intent(this@EnableKeyboardActivity, DashboardActivity::class.java))
+                    }else{
+                        finish()
+                    }
 //                    clSelectKeyboard.background =
 //                        resources.getDrawable(R.drawable.bg_main_less_rounded)
 //                    textSelect.setTextColor(Color.WHITE)
@@ -92,7 +98,7 @@ class EnableKeyboardActivity : AppCompatActivity() {
             clEnableKeyboard.setOnClickListener { }
             clEnableKeyboard.background =
                 resources.getDrawable(R.drawable.bg_main_less_rounded)
-            clMain.background = resources.getDrawable(R.drawable.bg_select)
+//            clMain.background = resources.getDrawable(R.drawable.bg_select)
 
             clSelectKeyboard.setOnClickListener {
                 (getSystemService(

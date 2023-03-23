@@ -29,8 +29,12 @@ import com.google.gson.Gson
 import com.google.mlkit.nl.languageid.LanguageIdentification
 import com.rw.keyboardlistener.KeyboardUtils
 import kotlinx.android.synthetic.main.activity_translate.*
+import kotlinx.android.synthetic.main.activity_translate.btnHistory
+import kotlinx.android.synthetic.main.activity_translate.nativeAdFrameLayout
+import kotlinx.android.synthetic.main.activity_translate.nativeAdFrameLayoutInBetween
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
 import org.dslul.openboard.translator.pro.classes.admob.BannerAds
 import org.dslul.openboard.translator.pro.classes.admob.NativeAds
 import org.dslul.openboard.translator.pro.interfaces.LoadInterstitialCallBack
@@ -59,6 +63,16 @@ class TranslateActivity : AppCompatActivity() {
         initializeAnimation()
 
         translationsCount = Misc.showInterstitialAfter
+
+        if(isInputMethodSelected()){
+            btnKeyboard.visibility = View.GONE
+        }else{
+            btnKeyboard.visibility= View.VISIBLE
+        }
+
+        btnKeyboard.setOnClickListener {
+            startActivity(Intent(this, EnableKeyboardActivity::class.java))
+        }
 
         Misc.isRemoteConfigFetched.observeForever { t ->
             if (t == true) {
@@ -414,10 +428,7 @@ class TranslateActivity : AppCompatActivity() {
                 )
             }
         }
-
-
     }
-
 
     @SuppressLint("SetTextI18n")
 //    private fun translate(text: String) {
@@ -500,7 +511,7 @@ class TranslateActivity : AppCompatActivity() {
         )
         historyList.add(objHistory)
         val sharedPreferences = getSharedPreferences(
-            Misc.history, AppCompatActivity.MODE_PRIVATE
+            Misc.history, MODE_PRIVATE
         )
         val editor = sharedPreferences.edit()
         val gson = Gson()

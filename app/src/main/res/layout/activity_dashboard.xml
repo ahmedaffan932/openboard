@@ -112,6 +112,7 @@
                     android:elevation="@dimen/padding_10">
 
                     <Switch
+                        android:visibility="gone"
                         android:id="@+id/btnSwitchEnableKeyboard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

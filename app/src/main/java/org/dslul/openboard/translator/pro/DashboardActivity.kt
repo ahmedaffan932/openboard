@@ -131,12 +131,12 @@ class DashboardActivity : AppCompatActivity() {
             startActivity(Intent(this@DashboardActivity, GameActivity::class.java))
         }
 
-        if(isInputMethodSelected()){
-            btnSwitchEnableKeyboard.isChecked = true
-        }
-        btnSwitchEnableKeyboard.setOnClickListener {
-            startActivity(Intent(this, EnableKeyboardActivity::class.java))
-        }
+//        if(isInputMethodSelected()){
+//            btnSwitchEnableKeyboard.isChecked = true
+//        }
+//        btnSwitchEnableKeyboard.setOnClickListener {
+//            startActivity(Intent(this, EnableKeyboardActivity::class.java))
+//        }
     }
 
     override fun onBackPressed() {
@@ -177,16 +177,6 @@ class DashboardActivity : AppCompatActivity() {
                 nativeAdFrameLayout
             )
         }
-    }
-
-    fun isInputMethodSelected(): Boolean {
-        val id: String = Settings.Secure.getString(
-            contentResolver,
-            Settings.Secure.DEFAULT_INPUT_METHOD
-        )
-        val defaultInputMethod = ComponentName.unflattenFromString(id)
-        val myInputMethod = ComponentName(this, LatinIME::class.java)
-        return myInputMethod == defaultInputMethod
     }
 
 }

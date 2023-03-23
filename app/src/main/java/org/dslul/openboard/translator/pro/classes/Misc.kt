@@ -2,6 +2,7 @@ package org.dslul.openboard.translator.pro.classes
 
 import android.annotation.SuppressLint
 import android.app.*
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -12,6 +13,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
@@ -30,6 +32,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.mlkit.nl.translate.TranslateLanguage
 import org.dslul.openboard.inputmethod.latin.BuildConfig
+import org.dslul.openboard.inputmethod.latin.LatinIME
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.*
 import java.lang.reflect.Type
@@ -269,13 +272,13 @@ object Misc {
         }
     }
 
-    fun getLanguageTo(activity: Activity?): String {
+    fun getLanguageTo(activity: Context?): String {
         val sharedPreferences =
             activity!!.getSharedPreferences(languageTo, Context.MODE_PRIVATE)
         return sharedPreferences.getString(languageTo, TranslateLanguage.SPANISH).toString()
     }
 
-    fun getLanguageFrom(activity: Activity?): String {
+    fun getLanguageFrom(activity: Context): String {
         val sharedPreferences =
             activity!!.getSharedPreferences(languageFrom, Context.MODE_PRIVATE)
         return sharedPreferences.getString(languageFrom, defaultLanguage).toString()
@@ -517,7 +520,7 @@ object Misc {
     }
 
     @SuppressLint("MissingPermission")
-    fun checkInternetConnection(activity: Activity): Boolean {
+    fun checkInternetConnection(activity: Context): Boolean {
         return try {
             val connectivityManager: ConnectivityManager? =
                 activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
@@ -721,4 +724,15 @@ object Misc {
             notificationManager.notify(1234, builder.build())
         }
     }
+
+    fun Context.isInputMethodSelected(): Boolean {
+        val id: String = Settings.Secure.getString(
+            contentResolver,
+            Settings.Secure.DEFAULT_INPUT_METHOD
+        )
+        val defaultInputMethod = ComponentName.unflattenFromString(id)
+        val myInputMethod = ComponentName(this, LatinIME::class.java)
+        return myInputMethod == defaultInputMethod
+    }
+
 }

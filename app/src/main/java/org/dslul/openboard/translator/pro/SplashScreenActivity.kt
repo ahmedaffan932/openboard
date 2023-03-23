@@ -128,21 +128,21 @@ class SplashScreenActivity : AppCompatActivity() {
         anim.duration = 0
 
         btnStart.setOnClickListener {
-            if (Misc.isFirstTimeShowLanguagesEnabled) {
-                if (Misc.isFirstTime(this)) {
-                    Firebase.analytics.logEvent("LanguagesDisplayedOnSplash", null)
-
-                    Misc.zoomOutView(btnStart, this, 250)
-                    clLanguages.animate().translationY(0F).duration = 500
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        btnStart.visibility = View.GONE
-                    }, 220)
-                } else {
-                    startNextActivity()
-                }
-            } else {
+//            if (Misc.isFirstTimeShowLanguagesEnabled) {
+//                if (Misc.isFirstTime(this)) {
+//                    Firebase.analytics.logEvent("LanguagesDisplayedOnSplash", null)
+//
+//                    Misc.zoomOutView(btnStart, this, 250)
+//                    clLanguages.animate().translationY(0F).duration = 500
+//                    Handler(Looper.getMainLooper()).postDelayed({
+//                        btnStart.visibility = View.GONE
+//                    }, 220)
+//                } else {
+//                    startNextActivity()
+//                }
+//            } else {
                 startNextActivity()
-            }
+//            }
         }
     }
 
@@ -249,7 +249,12 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun startNextActivity() {
-        Misc.setIsFirstTime(this, false)
+        if(Misc.isFirstTime(this)){
+            val intent = Intent(this, EnableKeyboardActivity::class.java)
+            intent.putExtra(Misc.data, Misc.data)
+            startActivity(intent)
+            return
+        }
         if (Misc.getPurchasedStatus(this)) {
             startActivity(Intent(this, DashboardActivity::class.java))
             finish()

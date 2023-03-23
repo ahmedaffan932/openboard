@@ -23,6 +23,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -89,6 +90,8 @@ import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtilsManager;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
 import org.dslul.openboard.inputmethod.latin.utils.ViewLayoutUtils;
+import org.dslul.openboard.translator.pro.LanguageSelectorActivity;
+import org.dslul.openboard.translator.pro.classes.Misc;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -102,6 +105,8 @@ import javax.annotation.Nonnull;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.FORCE_ASCII;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE_COMPAT;
+
+import com.google.mlkit.nl.translate.TranslateLanguage;
 
 /**
  * Input method implementation for Qwerty'ish keyboard.
@@ -1532,6 +1537,29 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         mGestureConsumer.onGestureStarted(
                 mRichImm.getCurrentSubtypeLocale(),
                 mKeyboardSwitcher.getKeyboard());
+    }
+
+
+    @Override
+    public void startSelectLanguageActivity(){
+        Intent intent = new Intent(this, LanguageSelectorActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    public static String getLanguageFrom(Context activity) {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("languageFrom", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("languageFrom", "100");
+    }
+
+    public static String getLanguageTo(Context activity) {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("languageTo", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("languageTo", TranslateLanguage.SPANISH);
+    }
+
+    @Override
+    public void onTranslateText(){
+        mInputLogic.OnTranslateText(getLanguageFrom(this), getLanguageTo(this));
     }
 
     @Override

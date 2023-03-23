@@ -18,7 +18,7 @@
 */
 -->
 
-<merge
+<merge xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
         android:id="@+id/suggestions_strip_wrapper"
@@ -47,15 +47,25 @@
             android:layout_weight="1"
             android:hapticFeedbackEnabled="false"
             android:soundEffectsEnabled="false" />
+
+        <ImageButton
+            android:id="@+id/btn_translate"
+            android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_translate_24_selected"
+            android:padding="@dimen/padding"/>
+
         <ImageButton
             android:id="@+id/suggestions_strip_voice_key"
             android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
             android:layout_height="fill_parent"
             android:contentDescription="@string/spoken_description_mic"
             style="?attr/suggestionWordStyle" />
+
         <ImageButton
             android:id="@+id/suggestions_strip_clipboard_key"
             android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
+            android:visibility="gone"
             android:layout_height="fill_parent"
             style="?attr/suggestionWordStyle" />
     </LinearLayout>

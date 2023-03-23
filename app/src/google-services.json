@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "548024068290",
+    "project_id": "translatorguru-59c97",
+    "storage_bucket": "translatorguru-59c97.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:548024068290:android:9a51852de1d2b5e200b35b",
+        "android_client_info": {
+          "package_name": "com.guru.translate.translator.translation.learn.language"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "548024068290-2nhsppcpa426vgk0s6easokm0t803ffk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWAoO1O2uv4cJNg_lp5m7NYECa88w7R1I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "548024068290-2nhsppcpa426vgk0s6easokm0t803ffk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

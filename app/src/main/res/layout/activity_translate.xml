@@ -261,6 +261,23 @@
                                     app:tint="@color/accent" />
 
                                 <ImageView
+                                    android:id="@+id/btnKeyboard"
+                                    android:layout_width="30dp"
+                                    android:layout_height="25dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/fab_padding"
+                                    android:background="@drawable/ic_keyboard"
+                                    android:backgroundTint="@color/accent"
+                                    android:contentDescription="@string/todo"
+                                    android:scaleType="centerInside"
+                                    android:elevation="@dimen/fab_padding"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/btnSpeakInput"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/ic_keyboard"
+                                    app:tint="@color/accent" />
+
+                                <ImageView
                                     android:id="@+id/btnCamera"
                                     android:layout_width="32dp"
                                     android:layout_height="32dp"

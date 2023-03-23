@@ -16,7 +16,9 @@
 
 package org.dslul.openboard.inputmethod.latin.inputlogic;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.os.StrictMode;
 import android.os.SystemClock;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -28,6 +30,9 @@ import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.inputmethod.CorrectionInfo;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Toast;
+
+import com.google.mlkit.nl.languageid.LanguageIdentification;
 
 import org.dslul.openboard.inputmethod.compat.SuggestionSpanUtils;
 import org.dslul.openboard.inputmethod.event.Event;
@@ -58,9 +63,17 @@ import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils;
 import org.dslul.openboard.inputmethod.latin.utils.RecapitalizeStatus;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 import org.dslul.openboard.inputmethod.latin.utils.TextRange;
+import org.dslul.openboard.translator.pro.classes.Misc;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
@@ -220,6 +233,77 @@ public final class InputLogic {
         inputLogicHandler.destroy();
         mDictionaryFacilitator.closeDictionaries();
     }
+
+    public void OnTranslateText(String from, String to){
+        mConnection.setSelection(0,0);
+        String s = mConnection.getTextAfterCursor(Integer.MAX_VALUE, 0).toString();
+        Log.d("logKey", s + "TestingG");
+        jugarTranslation(from, to, s);
+
+    }
+
+    private void jugarTranslation(String from, String to, String text) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        String fromCode;
+        if (from.equals(Misc.defaultLanguage)) {
+            fromCode = "";
+        } else if (from.equals("zh")) {
+            fromCode = "zh-CN";
+        } else if (from.equals("he")) {
+            fromCode = "iw";
+        } else {
+            fromCode = from;
+        }
+
+        String toCode;
+        switch (to) {
+            case "zh":
+                toCode = "zh-CN";
+                break;
+            case "he":
+                toCode = "iw";
+                break;
+            default:
+                toCode = to;
+                break;
+        }
+
+        String encoded = null;
+        try {
+            encoded = URLEncoder.encode(text, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Document doc = Jsoup.connect("https://translate.google.com/m?hl=en&sl=" + fromCode +
+                    "&tl=" + toCode + "&q=" + encoded).get();
+
+            Elements element = doc.getElementsByClass("result-container");
+            mConnection.setSelection(text.length(), text.length());
+            mConnection.deleteTextBeforeCursor(text.length());
+
+            if (!Objects.equals(element.text(), "") && !TextUtils.isEmpty(element.text())) {
+                mConnection.commitText(element.text(), 1);
+
+//                runOnUiThread(() -> {
+//                    textViewTextTranslatedFrag.setText("");
+//                    textViewTextTranslatedFrag.setText(element.text());
+//
+//                    saveInHistory(text, element.text());
+//                    showInterstitialIfRequired();
+//                });
+
+
+            } else {
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * React to a string input.

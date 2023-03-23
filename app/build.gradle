@@ -8,11 +8,11 @@ android {
     compileSdkVersion 33
 
     defaultConfig {
-        applicationId "com.org.dslul.openboard.inputmethod.latin"
+        applicationId "com.guru.translate.translator.translation.learn.language"
         minSdkVersion 24
         targetSdkVersion 33
-        versionCode 1
-        versionName '1.0'
+        versionCode 53
+        versionName '1.49'
     }
 
     buildTypes {
