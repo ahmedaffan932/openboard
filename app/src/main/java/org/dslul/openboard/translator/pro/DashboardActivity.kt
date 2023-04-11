@@ -1,18 +1,20 @@
 package org.dslul.openboard.translator.pro
 
 import android.annotation.SuppressLint
-import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.blongho.country_data.World
-import org.dslul.openboard.translator.pro.classes.admob.BannerAds
-import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
-import org.dslul.openboard.translator.pro.classes.admob.NativeAds
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
@@ -21,13 +23,17 @@ import kotlinx.android.synthetic.main.activity_dashboard.view.quitBottomSheet
 import kotlinx.android.synthetic.main.bottom_sheet_quit.view.*
 import kotlinx.android.synthetic.main.dailog_custom.view.btnNo
 import kotlinx.android.synthetic.main.dailog_custom.view.btnYes
-import org.dslul.openboard.inputmethod.latin.LatinIME
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethodcommon.InputMethodSettingsActivity
+import org.dslul.openboard.translator.pro.classes.CustomDialog
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
+import org.dslul.openboard.translator.pro.classes.admob.BannerAds
+import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
+import org.dslul.openboard.translator.pro.classes.admob.NativeAds
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
-
 
     @SuppressLint("SetTextI18n", "RemoteViewLayout")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +45,6 @@ class DashboardActivity : AppCompatActivity() {
         Firebase.analytics.logEvent("Dashboard", null)
 
         showNativeAd()
-
         showDashboardInterstitial()
 
         World.init(applicationContext)
@@ -54,6 +59,22 @@ class DashboardActivity : AppCompatActivity() {
         blockView.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             blockView.visibility = View.GONE
+        }
+
+        btnKeyboard.setOnClickListener {
+            if (isInputMethodSelected()) {
+                val intent = Intent(
+                    this,
+                    org.dslul.openboard.inputmethod.latin.settings.SettingsActivity::class.java
+                )
+                startActivity(intent)
+            } else {
+                InterstitialAd.show(this, Misc.enableKeyboardIntAm, callback = {
+                    val intent = Intent(this, EnableKeyboardActivity::class.java)
+                    intent.putExtra(Misc.key, Misc.key)
+                    startActivity(intent)
+                })
+            }
         }
 
         bottomSheetBehavior.addBottomSheetCallback(object :

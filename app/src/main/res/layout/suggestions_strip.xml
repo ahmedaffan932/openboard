@@ -1,22 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-/*
-**
-** Copyright 2011, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
--->
 
 <merge xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -26,6 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:hapticFeedbackEnabled="false"
+        android:gravity="center_vertical"
+        android:animateLayoutChanges="true"
         android:soundEffectsEnabled="false">
         <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
              We just need to ignore the system's audio and haptic feedback settings. -->
@@ -36,6 +20,14 @@
             android:layout_weight="0"
             style="?attr/suggestionWordStyle"
             android:contentDescription="@string/more_keys_strip_description" />
+
+        <ImageButton
+            android:id="@+id/suggestions_strip_clipboard_key"
+            android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
+            android:visibility="gone"
+            android:layout_height="fill_parent"
+            style="?attr/suggestionWordStyle" />
+
         <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
              We just need to ignore the system's audio and haptic feedback settings. -->
         <LinearLayout
@@ -48,12 +40,67 @@
             android:hapticFeedbackEnabled="false"
             android:soundEffectsEnabled="false" />
 
+        <LinearLayout
+            android:id="@+id/llLanguages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="100dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textLngFrom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/less_padding"
+                android:text="@string/english"
+                android:textColor="@color/gray_400"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding"
+                android:src="@drawable/ic_baseline_arrow_right_alt_24"
+                app:tint="@color/gray_400" />
+
+            <TextView
+                android:id="@+id/textLngTo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/less_padding"
+                android:text="@string/english"
+                android:textColor="@color/gray_400"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+
+        <ImageButton
+            android:id="@+id/btn_more"
+            android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
+            android:padding="@dimen/padding"
+            android:background="@drawable/bg_nothing_rounded_ripple"
+            android:layout_height="fill_parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
+            android:layout_height="match_parent"
+            android:indeterminate="true"
+            android:indeterminateTint="#D6D7D7"
+            android:visibility="gone" />
+
         <ImageButton
             android:id="@+id/btn_translate"
             android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_translate_24_selected"
-            android:padding="@dimen/padding"/>
+            android:padding="@dimen/padding"
+            android:background="@drawable/bg_nothing_rounded_ripple"
+            android:layout_height="fill_parent" />
 
         <ImageButton
             android:id="@+id/suggestions_strip_voice_key"
@@ -62,11 +109,5 @@
             android:contentDescription="@string/spoken_description_mic"
             style="?attr/suggestionWordStyle" />
 
-        <ImageButton
-            android:id="@+id/suggestions_strip_clipboard_key"
-            android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
-            android:visibility="gone"
-            android:layout_height="fill_parent"
-            style="?attr/suggestionWordStyle" />
     </LinearLayout>
 </merge>

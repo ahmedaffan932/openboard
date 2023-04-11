@@ -23,6 +23,7 @@ import android.preference.PreferenceActivity;
 
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
 import org.dslul.openboard.inputmethod.latin.utils.FragmentUtils;
+import org.dslul.openboard.translator.pro.classes.Misc;
 
 import androidx.core.app.ActivityCompat;
 
@@ -31,11 +32,7 @@ public final class SettingsActivity extends PreferenceActivity
     private static final String DEFAULT_FRAGMENT = SettingsFragment.class.getName();
 
     public static final String EXTRA_ENTRY_KEY = "entry";
-    public static final String EXTRA_ENTRY_VALUE_LONG_PRESS_COMMA = "long_press_comma";
     public static final String EXTRA_ENTRY_VALUE_APP_ICON = "app_icon";
-    public static final String EXTRA_ENTRY_VALUE_NOTICE_DIALOG = "important_notice";
-    public static final String EXTRA_ENTRY_VALUE_SYSTEM_SETTINGS = "system_settings";
-
     private boolean mShowHomeAsUp;
 
     @Override
@@ -46,6 +43,12 @@ public final class SettingsActivity extends PreferenceActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
         }
+
+        if (getIntent().getStringExtra(Misc.data) != null){
+            isValidFragment(PreferencesSettingsFragment.class.getName());
+            onBackPressed();
+        }
+
     }
 
     @Override

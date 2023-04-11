@@ -40,6 +40,7 @@ import kotlin.properties.Delegates
 
 object Misc {
 
+    var isKeyboardSelectionInFlow: Boolean = true
     var isInterstitialDisplaying = false
 
     var showInterstitialAfter: Int = 1
@@ -58,6 +59,8 @@ object Misc {
     var proScreenDismissBtnVisibleAfter: Long = 3000
     var anyAdLoaded: MutableLiveData<Boolean> = MutableLiveData()
     var isRemoteConfigFetched: MutableLiveData<Boolean> = MutableLiveData()
+    @JvmField
+    var isTranslated: MutableLiveData<Boolean> = MutableLiveData()
     var proScreen = "2"
 
     var banner_id = if (BuildConfig.DEBUG) {
@@ -81,6 +84,7 @@ object Misc {
     var gameNextIntAm: String = "am"
     var settingsIntAm: String = "am"
     var proScreenIntAm: String = "am"
+    var enableKeyboardIntAm: String = "am"
     var dashboardIntAm: String = "am"
     var favoritesIntAm: String = "am"
     var splashNativeAm: String = "am_no_media"
@@ -88,6 +92,7 @@ object Misc {
     var settingsNativeAm: String = "am"
     var dashboardNativeAm: String = "am"
     var translateNativeAm: String = "am_small_btn"
+    var enableKeyboardNativeAm: String = "am_small_btn"
     var multiTranslateNativeAm: String = "am"
 
     var isActivityCreatingFirstTime = true
@@ -280,7 +285,7 @@ object Misc {
 
     fun getLanguageFrom(activity: Context): String {
         val sharedPreferences =
-            activity!!.getSharedPreferences(languageFrom, Context.MODE_PRIVATE)
+            activity.getSharedPreferences(languageFrom, Context.MODE_PRIVATE)
         return sharedPreferences.getString(languageFrom, defaultLanguage).toString()
     }
 

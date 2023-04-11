@@ -14,7 +14,6 @@
         android:background="@color/accent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-
     <ImageView
         android:id="@+id/iv_feature"
         android:layout_width="@dimen/_150sdp"
@@ -44,7 +43,7 @@
         android:layout_marginStart="@dimen/fab_padding"
         app:layout_constraintStart_toStartOf="parent"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/gray_900"
         app:layout_constraintTop_toBottomOf="@+id/tvHeading" />
 
     <TextView
@@ -53,6 +52,7 @@
         android:layout_height="wrap_content"
         android:text="To enable TranslatoPro Keyboard To your mobile Please follow the given steps to open your mobile app settings and turn on the TranslatorPro Keyboard."
         android:textSize="@dimen/_12sdp"
+        android:visibility="gone"
         android:layout_marginHorizontal="@dimen/fab_padding"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/padding"
@@ -60,102 +60,160 @@
         android:textColor="@color/gray_700"
         app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Steps to enable Keyboard:"
-        android:textSize="@dimen/_14sdp"
-        android:layout_margin="@dimen/fab_padding"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/tv_long_desc" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clEnableKeyboard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="32dp"
-        android:padding="@dimen/padding"
-        android:background="@drawable/bg_accent_bordered_less_rounded"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title">
-
-        <TextView
-            android:id="@+id/tvHintMeaning"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/fab_padding"
-            android:text="Step 1:"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textEnable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/fab_padding"
-            android:text="Enable TranslatorPro Keyboard"
-            android:textColor="@color/blue"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvHintMeaning"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <View
-        android:layout_width="2dp"
         android:layout_height="0dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/clSelectKeyboard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clEnableKeyboard" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clSelectKeyboard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="32dp"
-        android:background="@drawable/bg_plain_less_rounded"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clEnableKeyboard">
+        app:layout_constraintTop_toBottomOf="@+id/tv_long_desc">
 
         <TextView
-            android:id="@+id/tv_ad"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Step 2: "
-            android:textColor="@color/black"
-            android:layout_marginStart="24dp"
-            android:textSize="14sp"
-            android:layout_marginVertical="@dimen/padding"
+            android:layout_margin="@dimen/fab_padding"
+            android:text="Steps to enable Keyboard:"
+            android:textColor="@color/accent"
+            android:textSize="@dimen/_14sdp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textSelect"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clEnableKeyboard"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Switch keyboard"
-            android:textColor="@color/blue"
-            android:textSize="14sp"
-            android:layout_marginStart="@dimen/fab_padding"
+            android:layout_margin="32dp"
+            android:background="@drawable/bg_accent_bordered_less_rounded"
+            android:elevation="@dimen/padding"
+            android:padding="@dimen/padding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+            <TextView
+                android:id="@+id/tvHintMeaning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/fab_padding"
+                android:text="Step 1:"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textEnable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/fab_padding"
+                android:text="Enable Translator Keyboard"
+                android:textColor="@color/blue"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvHintMeaning" />
+
+            <ImageView
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:padding="@dimen/less_padding"
+                android:src="@drawable/ic_baseline_navigate_next_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/accent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="60dp"
+            android:background="@color/black"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/clSelectKeyboard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/clEnableKeyboard" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clSelectKeyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="44dp"
+            android:alpha="0.7"
+            android:background="@drawable/bg_disabled_less_rounded"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clEnableKeyboard">
+
+            <TextView
+                android:id="@+id/tv_ad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/padding"
+                android:layout_marginStart="24dp"
+                android:text="@string/step_2"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginBottom="@dimen/padding"
+                android:text="Switch keyboard"
+                android:textColor="@color/blue"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_ad" />
+
+            <ImageView
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:padding="@dimen/less_padding"
+                android:src="@drawable/ic_baseline_navigate_next_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/accent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/nativeAdFrameLayoutSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_padding"
+            android:background="@drawable/bg_native_ad"
+            android:elevation="@dimen/padding"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_ad"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvSkip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/skip"
+        android:layout_margin="@dimen/padding"
+        android:visibility="gone"
+        android:elevation="@dimen/fab_padding"
+        android:padding="@dimen/padding"
+        android:textColor="@color/gray_800"
+        android:textSize="18sp"
+        android:layout_marginStart="@dimen/fab_padding"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

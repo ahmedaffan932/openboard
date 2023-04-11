@@ -98,6 +98,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnull;
@@ -158,7 +159,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     private SuggestionStripView mSuggestionStripView;
 
     private RichInputMethodManager mRichImm;
-    @UsedForTesting final KeyboardSwitcher mKeyboardSwitcher;
+    @UsedForTesting
+    final KeyboardSwitcher mKeyboardSwitcher;
     private final SubtypeState mSubtypeState = new SubtypeState();
     private EmojiAltPhysicalKeyDetector mEmojiAltPhysicalKeyDetector;
     private StatsUtilsManager mStatsUtilsManager;
@@ -190,6 +192,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             }
         }
     }
+
     final HideSoftInputReceiver mHideSoftInputReceiver = new HideSoftInputReceiver(this);
 
     final static class RestartAfterDeviceUnlockReceiver extends BroadcastReceiver {
@@ -208,6 +211,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             }
         }
     }
+
     final RestartAfterDeviceUnlockReceiver mRestartAfterDeviceUnlockReceiver = new RestartAfterDeviceUnlockReceiver();
 
     private AlertDialog mOptionsDialog;
@@ -330,7 +334,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                     latinIme.deallocateMemory();
                     break;
                 case MSG_SWITCH_LANGUAGE_AUTOMATICALLY:
-                    latinIme.switchLanguage((InputMethodSubtype)msg.obj);
+                    latinIme.switchLanguage((InputMethodSubtype) msg.obj);
                     break;
                 case MSG_UPDATE_CLIPBOARD_PINNED_CLIPS:
                     @SuppressWarnings("unchecked")
@@ -1356,7 +1360,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     /**
      * @param codePoints code points to get coordinates for.
-     * @return x,y coordinates for this keyboard, as a flattened array.
+     * @return x, y coordinates for this keyboard, as a flattened array.
      */
     public int[] getCoordinatesForCurrentKeyboard(final int[] codePoints) {
         final Keyboard keyboard = mKeyboardSwitcher.getKeyboard();
@@ -1401,13 +1405,12 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         // for RTL languages we want to invert pointer movement
         if (mRichImm.getCurrentSubtype().isRtlSubtype())
             steps = -steps;
-            
+
         mInputLogic.finishInput();
         if (steps < 0) {
             int availableCharacters = mInputLogic.mConnection.getTextBeforeCursor(64, 0).length();
             steps = availableCharacters < -steps ? -availableCharacters : steps;
-        }
-        else if (steps > 0) {
+        } else if (steps > 0) {
             int availableCharacters = mInputLogic.mConnection.getTextAfterCursor(64, 0).length();
             steps = Math.min(availableCharacters, steps);
         } else
@@ -1541,8 +1544,15 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
 
     @Override
-    public void startSelectLanguageActivity(){
+    public void startSelectLanguageActivity() {
         Intent intent = new Intent(this, LanguageSelectorActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public void startSettingsActivity() {
+        Intent intent = new Intent(this, SettingsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
@@ -1558,8 +1568,26 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     }
 
     @Override
-    public void onTranslateText(){
+    public String onTranslateText() {
         mInputLogic.OnTranslateText(getLanguageFrom(this), getLanguageTo(this));
+        String to = new Locale(getLanguageTo(this)).getDisplayName();
+        if (Objects.equals(getLanguageFrom(this), Misc.defaultLanguage)) {
+            return "Detect#" + to;
+
+        } else {
+            return new Locale(getLanguageFrom(this)).getDisplayName() + "#" + to;
+        }
+    }
+
+    @Override
+    public String getSelectedLanguages() {
+        String to = new Locale(getLanguageTo(this)).getDisplayName();
+        if (Objects.equals(getLanguageFrom(this), Misc.defaultLanguage)) {
+            return "Detect#" + to;
+
+        } else {
+            return new Locale(getLanguageFrom(this)).getDisplayName() + "#" + to;
+        }
     }
 
     @Override
@@ -1584,6 +1612,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
      * IME for the full gesture, possibly updating the TextView to reflect the first suggestion.
      * <p>
      * This method must be run on the UI Thread.
+     *
      * @param suggestedWords suggested words by the IME for the full gesture.
      */
     public void onTailBatchInputResultShown(final SuggestedWords suggestedWords) {
@@ -1733,6 +1762,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
      * After an input transaction has been executed, some state must be updated. This includes
      * the shift state of the keyboard and suggestions. This method looks at the finished
      * inputTransaction to find out what is necessary and updates the state accordingly.
+     *
      * @param inputTransaction The transaction that has been executed.
      */
     private void updateStateAfterInputTransaction(final InputTransaction inputTransaction) {
@@ -1898,7 +1928,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         final CharSequence title = getString(R.string.english_ime_input_options);
         // TODO: Should use new string "Select active input modes".
         final CharSequence languageSelectionTitle = getString(R.string.language_selection_title);
-        final CharSequence[] items = new CharSequence[] {
+        final CharSequence[] items = new CharSequence[]{
                 languageSelectionTitle,
                 getString(ApplicationUtils.getActivityTitleResId(this, SettingsActivity.class))
         };

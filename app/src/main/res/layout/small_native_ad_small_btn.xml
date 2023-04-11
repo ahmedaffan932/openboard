@@ -11,7 +11,7 @@
         android:layout_height="22dp"
         android:background="@drawable/bg_cl_remove_ads"
         android:visibility="gone"
-        android:backgroundTint="?attr/colorPrimaryVariant"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -113,7 +113,7 @@
                         android:layout_height="wrap_content"
                         android:lines="2"
                         android:text="@string/appbar_scrolling_view_behavior"
-                        android:textColor="?attr/colorSecondaryVariant"
+                        android:textColor="@color/gray_700"
                         android:paddingEnd="@dimen/less_padding"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toStartOf="@+id/bottom"

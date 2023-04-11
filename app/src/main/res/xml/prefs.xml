@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2008 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2008 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -16,29 +15,34 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="english_ime_settings">
+
     <PreferenceScreen
         android:fragment="org.dslul.openboard.inputmethod.latin.settings.PreferencesSettingsFragment"
-        android:title="@string/settings_screen_preferences"
+        android:icon="@drawable/ic_settings_preferences"
         android:key="screen_preferences"
-        android:icon="@drawable/ic_settings_preferences"/>
+        android:title="@string/settings_screen_preferences" />
+
     <PreferenceScreen
         android:fragment="org.dslul.openboard.inputmethod.latin.settings.AppearanceSettingsFragment"
-        android:title="@string/settings_screen_appearance"
+        android:icon="@drawable/ic_settings_appearance"
         android:key="screen_appearance"
-        android:icon="@drawable/ic_settings_appearance"/>
+        android:title="@string/settings_screen_appearance" />
+
     <PreferenceScreen
         android:fragment="org.dslul.openboard.inputmethod.latin.settings.GestureSettingsFragment"
-        android:title="@string/settings_screen_gesture"
+        android:icon="@drawable/ic_settings_gesture"
         android:key="screen_gesture"
-        android:icon="@drawable/ic_settings_gesture"/>
+        android:title="@string/settings_screen_gesture" />
+
     <PreferenceScreen
         android:fragment="org.dslul.openboard.inputmethod.latin.settings.CorrectionSettingsFragment"
-        android:title="@string/settings_screen_correction"
+        android:icon="@drawable/ic_settings_correction"
         android:key="screen_correction"
-        android:icon="@drawable/ic_settings_correction"/>
+        android:title="@string/settings_screen_correction" />
+
     <PreferenceScreen
         android:fragment="org.dslul.openboard.inputmethod.latin.settings.AdvancedSettingsFragment"
-        android:title="@string/settings_screen_advanced"
+        android:icon="@drawable/ic_settings_advanced"
         android:key="screen_advanced"
-        android:icon="@drawable/ic_settings_advanced"/>
+        android:title="@string/settings_screen_advanced" />
 </PreferenceScreen>

@@ -185,10 +185,10 @@ object InterstitialAd {
             return
         }
 
-        if (!isFirstSetRequestSuccess()) {
-            Log.d(Misc.logKey, "All interstitials failed in FirstSetRequest")
-            return
-        }
+//        if (!isFirstSetRequestSuccess()) {
+//            Log.d(Misc.logKey, "All interstitials failed in FirstSetRequest")
+//            return
+//        }
 
         if (interAdmob != null || interAdmobOne != null || interAdmobTwo != null) {
             return

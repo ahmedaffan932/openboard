@@ -21,6 +21,7 @@ abstract class InputMethodSettingsActivity : PreferenceActivity(), InputMethodSe
      */
     override fun setInputMethodSettingsCategoryTitle(resId: Int) {
         mSettings.setInputMethodSettingsCategoryTitle(resId)
+
     }
 
     /**

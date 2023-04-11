@@ -55,7 +55,7 @@
             android:paddingHorizontal="@dimen/less_padding"
             android:scaleType="center"
             android:src="@drawable/ic_speak_ic"
-            app:tint="?attr/colorSecondary" />
+            app:tint="@color/gray_700" />
 
     </LinearLayout>
 

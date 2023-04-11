@@ -2,9 +2,11 @@ package org.dslul.openboard.translator.pro
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -13,7 +15,6 @@ import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.billingclient.api.*
-import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.mlkit.nl.translate.TranslateLanguage
@@ -24,6 +25,11 @@ import org.dslul.openboard.translator.pro.adaptor.LanguagesAdapter
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.startNotification
 import org.dslul.openboard.translator.pro.classes.Misc.startProActivity
+import org.dslul.openboard.translator.pro.classes.admob.BannerAds
+import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
+import org.dslul.openboard.translator.pro.classes.admob.NativeAds
+import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
+import org.dslul.openboard.translator.pro.interfaces.LoadInterstitialCallBack
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
@@ -52,7 +58,6 @@ class SplashScreenActivity : AppCompatActivity() {
         llLogo.visibility = View.VISIBLE
 
         Firebase.analytics.logEvent("SplashScreenStarted", null)
-
 
         billingClient = BillingClient.newBuilder(this).setListener(purchasesUpdatedListener)
             .enablePendingPurchases().build()
@@ -141,7 +146,7 @@ class SplashScreenActivity : AppCompatActivity() {
 //                    startNextActivity()
 //                }
 //            } else {
-                startNextActivity()
+            startNextActivity()
 //            }
         }
     }
@@ -149,22 +154,17 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private fun showStartButton() {
         if (!isStartButtonVisible) {
-//            spline.animate().translationY(150F).duration = 500
             Misc.zoomOutView(spline, this, 250)
             Misc.zoomOutView(tvLoading, this, 250)
-//            tvLoadingPercentage.animate().translationY(150F).duration = 500
 
             Handler(Looper.getMainLooper()).postDelayed({
                 spline.visibility = View.GONE
                 tvLoading.visibility = View.GONE
                 Misc.zoomInView(btnStart, this, 250)
-//                btnStart.animate().translationY(0F).duration = 500
             }, 250)
 
-//            Misc.zoomInView(llLogo, this, 700)
             val a: Animation = AnimationUtils.loadAnimation(this, R.anim.zoom_in_logo)
             a.duration = 500
-//            logo.startAnimation(a)
 
             a.setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationStart(p0: Animation?) {
@@ -173,13 +173,11 @@ class SplashScreenActivity : AppCompatActivity() {
 
                 override fun onAnimationEnd(p0: Animation?) {
                     spline.visibility = View.INVISIBLE
-//                    tvLoadingPercentage.visibility = View.INVISIBLE
                 }
 
                 override fun onAnimationRepeat(p0: Animation?) {
 
                 }
-
             })
         }
         isStartButtonVisible = true
@@ -191,7 +189,6 @@ class SplashScreenActivity : AppCompatActivity() {
             @SuppressLint("LogNotTimber", "SetTextI18n")
             override fun run() {
                 if (loadingPercentage < 100) loadingPercentage += 1
-//                tvLoadingPercentage.text = "$loadingPercentage%"
                 handler.postDelayed(this, 70)
             }
         }
@@ -216,30 +213,34 @@ class SplashScreenActivity : AppCompatActivity() {
             nativeAdFrameLayout
         }
 
-//        NativeAds.loadNativeAd(
-//            activity = this,
-//            object : LoadInterstitialCallBack {
-//                override fun onLoaded() {
-//                    if(!isNativeAdDisplayed) {
-//                        NativeAds.manageShowNativeAd(
-//                            this@SplashScreenActivity,
-//                            Misc.splashNativeAm,
-//                            frameLayout
-//                        )
-//                        frameLayout.visibility = View.VISIBLE
-//                        if (Misc.splashNativeAm.contains("no_media")) {
-//                            frameLayout.animate().translationY(0F).duration = 500
-//                        }
-//                    }
-//                    isNativeAdDisplayed = true
-//                }
-//
-//            }
-//        )
-//
-//        BannerAds.load(this@SplashScreenActivity)
-//        InterstitialAd.manageLoadInterAdmob(this@SplashScreenActivity)
+        NativeAds.loadNativeAd(
+            activity = this,
+            object : LoadInterstitialCallBack {
+                override fun onLoaded() {
+                    if (!isNativeAdDisplayed) {
+                        NativeAds.manageShowNativeAd(
+                            this@SplashScreenActivity,
+                            Misc.splashNativeAm,
+                            frameLayout
+                        )
+                        frameLayout.visibility = View.VISIBLE
+                        if (Misc.splashNativeAm.contains("no_media")) {
+                            frameLayout.animate().translationY(0F).duration = 500
+                        }
+                    }
+                    isNativeAdDisplayed = true
+                }
+            }
+        )
 
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        Log.d(Misc.logKey, "sp = ${preferences.all}")
+        preferences.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
+            Log.d(Misc.logKey, "sp = ${sharedPreferences.all}")
+        }
+
+        BannerAds.load(this@SplashScreenActivity)
+        InterstitialAd.manageLoadInterAdmob(this@SplashScreenActivity)
 
     }
 
@@ -249,7 +250,7 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun startNextActivity() {
-        if(Misc.isFirstTime(this)){
+        if (Misc.isFirstTime(this) && Misc.isKeyboardSelectionInFlow) {
             val intent = Intent(this, EnableKeyboardActivity::class.java)
             intent.putExtra(Misc.data, Misc.data)
             startActivity(intent)
@@ -286,13 +287,12 @@ class SplashScreenActivity : AppCompatActivity() {
         } else {
             nativeAdFrameLayout
         }
-//        if (Misc.isNativeAdClicked) {
-//            NativeAds.manageShowNativeAd(
-//                this,
-//                Misc.translateNativeAm,
-//                frameLayout
-//            )
-//        }
+        if (Misc.isNativeAdClicked) {
+            NativeAds.manageShowNativeAd(
+                this,
+                Misc.translateNativeAm,
+                frameLayout
+            )
+        }
     }
-
 }

@@ -224,7 +224,7 @@ public final class SubtypeLocaleUtils {
             final RunInLocale<String> getExceptionalName = new RunInLocale<String>() {
                 @Override
                 protected String job(final Resources res) {
-                    return res.getString(exceptionalNameResId);
+                    return "res.getString(exceptionalNameResId)";
                 }
             };
             displayName = getExceptionalName.runInLocale(sResources, displayLocale);

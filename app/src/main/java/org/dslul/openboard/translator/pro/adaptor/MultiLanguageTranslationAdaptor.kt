@@ -23,7 +23,7 @@ class MultiLanguageTranslationAdaptor(val activity: Activity) :
         val textLngTo: TextView = itemView.findViewById(R.id.textLngTo)
         val textLngFrom: TextView = itemView.findViewById(R.id.textLngFrom)
         val textViewTextTranslated: TextView = itemView.findViewById(R.id.textViewTextTranslated)
-        val llTranslatedText: LinearLayout = itemView.findViewById(R.id.textViewTextTranslated)
+        val llTranslatedText: LinearLayout = itemView.findViewById(R.id.llTranslatedText)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TranslationHolder {

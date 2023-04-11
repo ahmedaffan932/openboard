@@ -2,8 +2,10 @@ package org.dslul.openboard.translator.pro
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.util.Log
 import android.view.View
@@ -11,6 +13,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.dslul.openboard.translator.pro.classes.Misc
@@ -20,30 +23,76 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.mlkit.nl.translate.TranslateLanguage
 import kotlinx.android.synthetic.main.activity_language_selector.*
+import kotlinx.android.synthetic.main.activity_language_selector.bannerFrame
+import kotlinx.android.synthetic.main.activity_language_selector.nativeAdFrameLayoutInBetween
+import kotlinx.android.synthetic.main.activity_translate.*
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.adaptor.LanguagesAdapter
+import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
+import org.dslul.openboard.translator.pro.interfaces.LoadInterstitialCallBack
 import java.util.*
 
 class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private val arr = ArrayList<String>()
     lateinit var adapter: LanguagesAdapter
+    var showingInterstitial = false
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_language_selector)
 
-        Firebase.analytics.logEvent("LanguageSelectorActivity", null)
-
-        Misc.isLngTo = intent.getBooleanExtra(Misc.lngTo, true)
-
-        setBackground()
-
         val frameLayout = if (Misc.isLanguageSelectorInBetweenNativeEnabled) {
             nativeAdFrameLayoutInBetween
         } else {
             nativeAdFrame
         }
+
+        NativeAds.loadNativeAd(this, object : LoadInterstitialCallBack {
+            override fun onLoaded() {
+                NativeAds.manageShowNativeAd(
+                    this@LanguageSelectorActivity,
+                    Misc.splashNativeAm,
+                    frameLayout
+                )
+            }
+        })
+
+        if (intent?.flags == Intent.FLAG_ACTIVITY_NEW_TASK && !Misc.getPurchasedStatus(this) && InterstitialAd.interAdmob == null) {
+            val objDialog = Misc.LoadingAdDialog(this)
+            objDialog.setCancelable(false)
+            objDialog.show()
+
+            objDialog.findViewById<TextView>(R.id.warning).visibility = View.VISIBLE
+            InterstitialAd.manageLoadInterAdmob(this)
+            Misc.anyAdLoaded.observeForever { t ->
+                try {
+                    if (t) {
+                        if (!showingInterstitial) {
+                            InterstitialAd.show(this, Misc.getAppOpenIntAm(this))
+                        }
+                        showingInterstitial = true
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            object : CountDownTimer(1500, 3000) {
+                override fun onTick(p0: Long) {}
+                override fun onFinish() {
+                    if (objDialog.isShowing) {
+                        objDialog.dismiss()
+                    }
+                }
+            }.start()
+        }
+
+        Firebase.analytics.logEvent("LanguageSelectorActivity", null)
+
+        Misc.isLngTo = intent.getBooleanExtra(Misc.lngTo, true)
+
+        setBackground()
 
         NativeAds.showSmallNativeAd(this, Misc.languageSelectorNativeAm, frameLayout)
 

@@ -64,10 +64,10 @@ class TranslateActivity : AppCompatActivity() {
 
         translationsCount = Misc.showInterstitialAfter
 
-        if(isInputMethodSelected()){
+        if (isInputMethodSelected()) {
             btnKeyboard.visibility = View.GONE
-        }else{
-            btnKeyboard.visibility= View.VISIBLE
+        } else {
+            btnKeyboard.visibility = View.VISIBLE
         }
 
         btnKeyboard.setOnClickListener {
@@ -75,8 +75,12 @@ class TranslateActivity : AppCompatActivity() {
         }
 
         Misc.isRemoteConfigFetched.observeForever { t ->
-            if (t == true) {
-                BannerAds.load(this)
+            try {
+                if (t == true) {
+                    BannerAds.load(this)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
 
@@ -84,7 +88,7 @@ class TranslateActivity : AppCompatActivity() {
             override fun onLoaded() {
                 NativeAds.manageShowNativeAd(
                     this@TranslateActivity,
-                    Misc.splashNativeAm,
+                    Misc.translateNativeAm,
                     nativeAdFrameLayout
                 )
             }
@@ -92,7 +96,7 @@ class TranslateActivity : AppCompatActivity() {
 
         if (intent?.action == Intent.ACTION_SEND && intent?.type == "text/plain") {
             textViewTextFrag.setText(intent.getStringExtra(Intent.EXTRA_TEXT) ?: "")
-            btnTranslate.visibility = View.VISIBLE
+//            btnTranslate.visibility = View.VISIBLE
             btnClearText.visibility = View.VISIBLE
         }
 
@@ -106,11 +110,15 @@ class TranslateActivity : AppCompatActivity() {
             objDialog.findViewById<TextView>(R.id.warning).visibility = View.VISIBLE
             InterstitialAd.manageLoadInterAdmob(this)
             Misc.anyAdLoaded.observeForever { t ->
-                if (t) {
-                    if (!showingInterstitial) {
-                        InterstitialAd.show(this, Misc.getAppOpenIntAm(this))
+                try {
+                    if (t) {
+                        if (!showingInterstitial) {
+                            InterstitialAd.show(this, Misc.getAppOpenIntAm(this))
+                        }
+                        showingInterstitial = true
                     }
-                    showingInterstitial = true
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
             }
 
@@ -188,8 +196,8 @@ class TranslateActivity : AppCompatActivity() {
                 }, 150)
 
                 if (!isBtnTranslateVisible) {
-                    btnTranslate.visibility = View.VISIBLE
-                    Misc.zoomInView(btnTranslate, this, 150)
+//                    btnTranslate.visibility = View.VISIBLE
+//                    Misc.zoomInView(btnTranslate, this, 150)
                     isBtnTranslateVisible = true
                 }
                 nativeAdFrameLayout.visibility = View.GONE
@@ -197,10 +205,10 @@ class TranslateActivity : AppCompatActivity() {
             } else {
                 textViewTextFrag.clearFocus()
                 if (textViewTextFrag.text.toString() == "") {
-                    Misc.zoomOutView(btnTranslate, this, 150)
-                    Handler().postDelayed({
-                        btnTranslate.visibility = View.INVISIBLE
-                    }, 150)
+//                    Misc.zoomOutView(btnTranslate, this, 150)
+//                    Handler().postDelayed({
+//                        btnTranslate.visibility = View.INVISIBLE
+//                    }, 150)
 
                     isBtnTranslateVisible = false
                 }
@@ -238,8 +246,8 @@ class TranslateActivity : AppCompatActivity() {
             Handler().postDelayed({
                 if (isNativeAdLoaded) nativeAdFrameLayout.visibility = View.VISIBLE
             }, 150)
-            Misc.zoomInView(btnTranslate, this, 150)
-            btnTranslate.visibility = View.VISIBLE
+//            Misc.zoomInView(btnTranslate, this, 150)
+//            btnTranslate.visibility = View.VISIBLE
             isBtnTranslateVisible = true
             isLLTranslateVisible = false
         }
@@ -274,10 +282,10 @@ class TranslateActivity : AppCompatActivity() {
             textViewTextTranslatedFrag.text = ""
             btnClearText.visibility = View.INVISIBLE
             Misc.zoomOutView(btnClearText, this, 150)
-            Misc.zoomOutView(btnTranslate, this, 150)
+//            Misc.zoomOutView(btnTranslate, this, 150)
             Handler().postDelayed({
                 btnClearText.visibility = View.INVISIBLE
-                btnTranslate.visibility = View.INVISIBLE
+//                btnTranslate.visibility = View.INVISIBLE
 
             }, 150)
 
@@ -403,8 +411,8 @@ class TranslateActivity : AppCompatActivity() {
     }
 
     private fun initializeAnimation() {
-        Misc.zoomOutView(btnTranslate, this, 0)
-        btnTranslate.visibility = View.INVISIBLE
+//        Misc.zoomOutView(btnTranslate, this, 0)
+//        btnTranslate.visibility = View.INVISIBLE
         Misc.zoomOutView(btnClearText, this, 0)
         btnClearText.visibility = View.INVISIBLE
 
@@ -519,10 +527,10 @@ class TranslateActivity : AppCompatActivity() {
         editor.putString(Misc.history, json)
         editor.apply()
         if (isBtnTranslateVisible) {
-            Misc.zoomOutView(btnTranslate, this, 150)
-            Handler().postDelayed({
-                btnTranslate.visibility = View.INVISIBLE
-            }, 150)
+//            Misc.zoomOutView(btnTranslate, this, 150)
+//            Handler().postDelayed({
+//                btnTranslate.visibility = View.INVISIBLE
+//            }, 150)
             isBtnTranslateVisible = false
         }
         if (!isLLTranslateVisible) {
@@ -625,13 +633,21 @@ class TranslateActivity : AppCompatActivity() {
             val element = doc.getElementsByClass("result-container")
 
             if (element.text() != "" && !TextUtils.isEmpty(element.text())) {
-
                 this.runOnUiThread {
-                    textViewTextTranslatedFrag.text = ""
-                    textViewTextTranslatedFrag.text = element.text()
+                    try {
+                        textViewTextTranslatedFrag.text = ""
+                        textViewTextTranslatedFrag.text = element.text()
 
-                    saveInHistory(text, element.text())
-                    showInterstitialIfRequired()
+                        saveInHistory(text, element.text())
+                        showInterstitialIfRequired()
+                    } catch (e: Exception) {
+                        Toast.makeText(
+                            this,
+                            "Some error occurred, Please try again.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        e.printStackTrace()
+                    }
                 }
             } else {
                 llPBTranslateFrag.visibility = View.GONE

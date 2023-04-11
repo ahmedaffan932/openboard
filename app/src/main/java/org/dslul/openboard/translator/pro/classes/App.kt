@@ -45,7 +45,9 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
         appOpenAdManager = AppOpenAdManager()
 
-        AppOpenAdManager().loadAd(this)
+        if (!Misc.getPurchasedStatus(this)) {
+            AppOpenAdManager().loadAd(this)
+        }
     }
 
     interface OnShowAdCompleteListener {
@@ -58,72 +60,76 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
             mFRC.ensureInitialized()
             mFRC.fetchAndActivate().addOnCompleteListener { p0 ->
                 if (p0.isSuccessful) {
-//                    Misc.lifeTimePrice = mFRC.getString("lifeTimePrice")
-//                    Misc.isFirstTimeShowLanguagesEnabled =
-//                        mFRC.getBoolean("isFirstTimeShowLanguagesEnabled")
-//                    Misc.isCameraTranslatorAdEnabled =
-//                        mFRC.getBoolean("isCameraTranslatorAdEnabled")
-//                    Misc.isTranslationInBetweenNativeEnabled =
-//                        mFRC.getBoolean("isTranslationInBetweenNativeEnabled")
-//                    Misc.isChatInBetweenNativeEnabled =
-//                        mFRC.getBoolean("isChatInBetweenNativeEnabled")
-//                    Misc.isDashboardInBetweenNativeEnabled =
-//                        mFRC.getBoolean("isDashboardInBetweenNativeEnabled")
-//                    Misc.isLanguageSelectorInBetweenNativeEnabled =
-//                        mFRC.getBoolean("isLanguageSelectorInBetweenNativeEnabled")
-//
-//                    Misc.isMultiTranslatorPremiumModule =
-//                        mFRC.getBoolean("isMultiTranslatorPremiumModule")
-//
-//                    Misc.chatIntAm = mFRC.getString("chatIntAm")
-//                    Misc.proScreenDismissBtnVisibleAfter =
-//                        mFRC.getLong("proScreenDismissBtnVisibleAfter")
-//                    Misc.gameIntAm = mFRC.getString("gameIntAm")
-//                    Misc.proScreen = mFRC.getString("proScreen")
-//                    Misc.gameNativeAm = mFRC.getString("gameNativeAm")
-//                    Misc.chatNativeAm = mFRC.getString("chatNativeAm")
-//                    Misc.historyIntAm = mFRC.getString("historyIntAm")
-//                    Misc.gameNextIntAm = mFRC.getString("gameNextIntAm")
-//                    Misc.settingsIntAm = mFRC.getString("settingsIntAm")
-//                    Misc.dashboardIntAm = mFRC.getString("dashboardIntAm")
-//                    Misc.favoritesIntAm = mFRC.getString("favoritesIntAm")
-//                    Misc.splashNativeAm = mFRC.getString("splashNativeAm")
-//                    Misc.onAppOpenIntAm = mFRC.getString("onAppOpenIntAm")
-//                    Misc.proScreenIntAm = mFRC.getString("proScreenIntAm")
-//                    Misc.phrasebookIntAm = mFRC.getString("phrasebookIntAm")
-//                    Misc.settingsNativeAm = mFRC.getString("settingsNativeAm")
-//                    Misc.dashboardNativeAm = mFRC.getString("dashboardNativeAm")
-//                    Misc.splashContinueBtnText = mFRC.getString("splashContinueBtnText")
-//                    Misc.languageSelectorNativeAm = mFRC.getString("languageSelectorNativeAm")
-//
-//                    Misc.setAppOpenIntAm(Misc.onAppOpenIntAm, this)
-//                    Misc.banner_id = mFRC.getString("banner_id")
-//                    Misc.banner_ads = mFRC.getString("banner_ads")
-//                    Misc.translateNativeAm = mFRC.getString("translateNativeAm")
-//                    Misc.multiTranslateNativeAm = mFRC.getString("multiTranslateNativeAm")
-//
-//                    Misc.isProScreenEnabled = mFRC.getBoolean("isProScreenEnabled")
-//                    Misc.isTestingProFeatures = mFRC.getBoolean("isTestingProFeatures")
-//
-//                    Misc.nativeAdIdAdMobOne = mFRC.getString("nativeAdIdAdMobOne")
-//                    Misc.nativeAdIdAdMobTwo = mFRC.getString("nativeAdIdAdMobTwo")
-//
-//                    Misc.interstitialAdIdAdMobOne = mFRC.getString("interstitialAdIdAdMobOne")
-//                    Misc.interstitialAdIdAdMobTwo = mFRC.getString("interstitialAdIdAdMobTwo")
-//                    Misc.interstitialAdIdAdMobFour = mFRC.getString("interstitialAdIdAdMobFour")
-//                    Misc.interstitialAdIdAdMobFive = mFRC.getString("interstitialAdIdAdMobFive")
-//                    Misc.interstitialAdIdAdMobThree = mFRC.getString("interstitialAdIdAdMobThree")
-////
-//                    Misc.appOpenAdId = mFRC.getString("appOpenAdId")
-//
-//                    Misc.OnNativeRemoveAdsTagVisible =
-//                        mFRC.getBoolean("OnNativeRemoveAdsTagVisible")
-//
-//                    Misc.splashScreenOnBackPressDoNothing =
-//                        mFRC.getBoolean("splashScreenOnBackPressDoNothing")
-//
-//                    Misc.gameNextLimit = mFRC.getLong("gameNextLimit").toInt()
-//                    Misc.setGoogleApi(mFRC.getString("googleApiKey"), this)
+                    Misc.lifeTimePrice = mFRC.getString("lifeTimePrice")
+                    Misc.isFirstTimeShowLanguagesEnabled =
+                        mFRC.getBoolean("isFirstTimeShowLanguagesEnabled")
+                    Misc.isKeyboardSelectionInFlow =
+                        mFRC.getBoolean("isKeyboardSelectionInFlow")
+                    Misc.isCameraTranslatorAdEnabled =
+                        mFRC.getBoolean("isCameraTranslatorAdEnabled")
+                    Misc.isTranslationInBetweenNativeEnabled =
+                        mFRC.getBoolean("isTranslationInBetweenNativeEnabled")
+                    Misc.isChatInBetweenNativeEnabled =
+                        mFRC.getBoolean("isChatInBetweenNativeEnabled")
+                    Misc.isDashboardInBetweenNativeEnabled =
+                        mFRC.getBoolean("isDashboardInBetweenNativeEnabled")
+                    Misc.isLanguageSelectorInBetweenNativeEnabled =
+                        mFRC.getBoolean("isLanguageSelectorInBetweenNativeEnabled")
+
+                    Misc.isMultiTranslatorPremiumModule =
+                        mFRC.getBoolean("isMultiTranslatorPremiumModule")
+
+                    Misc.chatIntAm = mFRC.getString("chatIntAm")
+                    Misc.proScreenDismissBtnVisibleAfter =
+                        mFRC.getLong("proScreenDismissBtnVisibleAfter")
+                    Misc.gameIntAm = mFRC.getString("gameIntAm")
+                    Misc.proScreen = mFRC.getString("proScreen")
+                    Misc.gameNativeAm = mFRC.getString("gameNativeAm")
+                    Misc.chatNativeAm = mFRC.getString("chatNativeAm")
+                    Misc.historyIntAm = mFRC.getString("historyIntAm")
+                    Misc.gameNextIntAm = mFRC.getString("gameNextIntAm")
+                    Misc.settingsIntAm = mFRC.getString("settingsIntAm")
+                    Misc.dashboardIntAm = mFRC.getString("dashboardIntAm")
+                    Misc.favoritesIntAm = mFRC.getString("favoritesIntAm")
+                    Misc.splashNativeAm = mFRC.getString("splashNativeAm")
+                    Misc.onAppOpenIntAm = mFRC.getString("onAppOpenIntAm")
+                    Misc.proScreenIntAm = mFRC.getString("proScreenIntAm")
+                    Misc.phrasebookIntAm = mFRC.getString("phrasebookIntAm")
+                    Misc.settingsNativeAm = mFRC.getString("settingsNativeAm")
+                    Misc.dashboardNativeAm = mFRC.getString("dashboardNativeAm")
+                    Misc.enableKeyboardIntAm = mFRC.getString("enableKeyboardIntAm")
+                    Misc.splashContinueBtnText = mFRC.getString("splashContinueBtnText")
+                    Misc.enableKeyboardNativeAm = mFRC.getString("enableKeyboardNativeAm")
+                    Misc.languageSelectorNativeAm = mFRC.getString("languageSelectorNativeAm")
+
+                    Misc.setAppOpenIntAm(Misc.onAppOpenIntAm, this)
+                    Misc.banner_id = mFRC.getString("banner_id")
+                    Misc.banner_ads = mFRC.getString("banner_ads")
+                    Misc.translateNativeAm = mFRC.getString("translateNativeAm")
+                    Misc.multiTranslateNativeAm = mFRC.getString("multiTranslateNativeAm")
+
+                    Misc.isProScreenEnabled = mFRC.getBoolean("isProScreenEnabled")
+                    Misc.isTestingProFeatures = mFRC.getBoolean("isTestingProFeatures")
+
+                    Misc.nativeAdIdAdMobOne = mFRC.getString("nativeAdIdAdMobOne")
+                    Misc.nativeAdIdAdMobTwo = mFRC.getString("nativeAdIdAdMobTwo")
+
+                    Misc.interstitialAdIdAdMobOne = mFRC.getString("interstitialAdIdAdMobOne")
+                    Misc.interstitialAdIdAdMobTwo = mFRC.getString("interstitialAdIdAdMobTwo")
+                    Misc.interstitialAdIdAdMobFour = mFRC.getString("interstitialAdIdAdMobFour")
+                    Misc.interstitialAdIdAdMobFive = mFRC.getString("interstitialAdIdAdMobFive")
+                    Misc.interstitialAdIdAdMobThree = mFRC.getString("interstitialAdIdAdMobThree")
+
+                    Misc.appOpenAdId = mFRC.getString("appOpenAdId")
+
+                    Misc.OnNativeRemoveAdsTagVisible =
+                        mFRC.getBoolean("OnNativeRemoveAdsTagVisible")
+
+                    Misc.splashScreenOnBackPressDoNothing =
+                        mFRC.getBoolean("splashScreenOnBackPressDoNothing")
+
+                    Misc.gameNextLimit = mFRC.getLong("gameNextLimit").toInt()
+                    Misc.setGoogleApi(mFRC.getString("googleApiKey"), this)
 
                     try {
                         Misc.showInterstitialAfter = mFRC.getString("showInterstitialAfter").toInt()
