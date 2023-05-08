@@ -7,6 +7,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.interfaces.LoadInterstitialCallBack
 
@@ -31,6 +32,7 @@ object InterstitialAd {
 
     //load Admob Interstitial
     private fun loadInterAdmob(activity: Activity, callback: LoadInterstitialCallBack? = null) {
+        Log.d("Checking Var", BuildConfig.DEBUG.toString())
         if (!Misc.getPurchasedStatus(activity) && interAdmob == null) {
             val admobRequest = AdRequest.Builder().build()
             com.google.android.gms.ads.interstitial.InterstitialAd.load(

@@ -39,7 +39,7 @@ public final class AndroidSpellCheckerSession extends AndroidWordLevelSpellCheck
     private final Resources mResources;
     private SentenceLevelAdapter mSentenceLevelAdapter;
 
-    public AndroidSpellCheckerSession(AndroidSpellCheckerService service) {
+    public AndroidSpellCheckerSession(TranslatorProSpellCheckerService service) {
         super(service);
         mResources = service.getResources();
     }
@@ -48,7 +48,7 @@ public final class AndroidSpellCheckerSession extends AndroidWordLevelSpellCheck
     private SentenceSuggestionsInfo fixWronglyInvalidatedWordWithSingleQuote(TextInfo ti,
             SentenceSuggestionsInfo ssi) {
         final CharSequence typedText = TextInfoCompatUtils.getCharSequenceOrString(ti);
-        if (!typedText.toString().contains(AndroidSpellCheckerService.SINGLE_QUOTE)) {
+        if (!typedText.toString().contains(TranslatorProSpellCheckerService.SINGLE_QUOTE)) {
             return null;
         }
         final int N = ssi.getSuggestionsCount();
@@ -68,12 +68,12 @@ public final class AndroidSpellCheckerSession extends AndroidWordLevelSpellCheck
             final NgramContext ngramContext =
                     new NgramContext(new NgramContext.WordInfo(currentWord));
             currentWord = subText;
-            if (!subText.toString().contains(AndroidSpellCheckerService.SINGLE_QUOTE)) {
+            if (!subText.toString().contains(TranslatorProSpellCheckerService.SINGLE_QUOTE)) {
                 continue;
             }
             // Split preserving spans.
             final CharSequence[] splitTexts = SpannableStringUtils.split(subText,
-                    AndroidSpellCheckerService.SINGLE_QUOTE,
+                    TranslatorProSpellCheckerService.SINGLE_QUOTE,
                     true /* preserveTrailingEmptySegments */);
             if (splitTexts == null || splitTexts.length <= 1) {
                 continue;

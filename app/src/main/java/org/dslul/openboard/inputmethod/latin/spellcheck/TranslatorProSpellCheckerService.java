@@ -50,9 +50,9 @@ import javax.annotation.Nonnull;
 /**
  * Service for spell checking, using LatinIME's dictionaries and mechanisms.
  */
-public final class AndroidSpellCheckerService extends SpellCheckerService
+public final class TranslatorProSpellCheckerService extends SpellCheckerService
         implements SharedPreferences.OnSharedPreferenceChangeListener {
-    private static final String TAG = AndroidSpellCheckerService.class.getSimpleName();
+    private static final String TAG = TranslatorProSpellCheckerService.class.getSimpleName();
     private static final boolean DEBUG = false;
 
     public static final String PREF_USE_CONTACTS_KEY = "pref_spellcheck_use_contacts";
@@ -83,7 +83,7 @@ public final class AndroidSpellCheckerService extends SpellCheckerService
     public static final String SINGLE_QUOTE = "\u0027";
     public static final String APOSTROPHE = "\u2019";
 
-    public AndroidSpellCheckerService() {
+    public TranslatorProSpellCheckerService() {
         super();
         for (int i = 0; i < MAX_NUM_OF_THREADS_READ_DICTIONARY; i++) {
             mSessionIdPool.add(i);

@@ -198,17 +198,16 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/btnChat"
                         android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="@dimen/padding"
-                        android:layout_marginTop="@dimen/fab_padding"
-                        android:layout_marginEnd="@dimen/fab_padding"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/fab_padding"
                         android:background="@drawable/bg_dashboard_gradient_one"
                         android:elevation="@dimen/less_padding"
                         android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="@+id/btnTranslation"
+                        android:paddingVertical="@dimen/padding"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@id/verticalView"
-                        app:layout_constraintTop_toBottomOf="@id/btnSwitchEnableKeyboard">
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/btnKeyboard">
 
                         <ImageView
                             android:id="@+id/imgChat"
@@ -422,7 +421,6 @@
                         android:background="@drawable/bg_dashboard_gradient_one"
                         android:elevation="@dimen/less_padding"
                         android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/btnKeyboard"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/btnPhrasebook">
@@ -449,7 +447,7 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:paddingStart="@dimen/padding"
-                            android:text="Multi Language Translator"
+                            android:text="Multi Language\nTranslator"
                             android:textColor="@color/black"
                             android:textSize="18sp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -488,7 +486,6 @@
                         android:background="@drawable/bg_dashboard_gradient_one"
                         android:elevation="@dimen/less_padding"
                         android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/btnMultipleTranslate"
                         app:layout_constraintTop_toBottomOf="@id/btnPhrasebook">
@@ -549,6 +546,73 @@
                                 android:rotation="320"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/ic_keyboard_tranlsate"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:tint="@color/accent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/btnDocumentTranslate"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="@dimen/padding"
+                        android:layout_marginTop="@dimen/fab_padding"
+                        android:layout_marginEnd="@dimen/fab_padding"
+                        android:background="@drawable/bg_dashboard_gradient_one"
+                        android:elevation="@dimen/less_padding"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="@+id/btnTranslation"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/verticalView"
+                        app:layout_constraintTop_toBottomOf="@id/btnSwitchEnableKeyboard">
+
+                        <ImageView
+                            android:id="@+id/imgDocumentTranslate"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_marginStart="@dimen/padding"
+                            android:layout_marginTop="@dimen/padding"
+                            android:padding="@dimen/padding"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_document_translator"
+                            app:layout_constraintBottom_toTopOf="@id/tvDocumentTranslate"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/accent" />
+
+                        <TextView
+                            android:id="@+id/tvDocumentTranslate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/padding"
+                            android:layout_weight="1"
+                            android:gravity="start"
+                            android:paddingStart="@dimen/padding"
+                            android:text="Document\nTranslator"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/imgDocumentTranslate"
+                            app:layout_constraintTop_toBottomOf="@id/imgDocumentTranslate" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="@dimen/_50sdp"
+                            android:layout_height="@dimen/_50sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent">
+
+                            <ImageView
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_height="@dimen/_50sdp"
+                                android:layout_margin="@dimen/padding"
+                                android:alpha="0.05"
+                                android:rotation="320"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_document_translator"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:tint="@color/accent" />

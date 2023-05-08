@@ -4,17 +4,13 @@ import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import android.view.animation.CycleInterpolator
 import android.view.animation.TranslateAnimation
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.setPadding
@@ -24,9 +20,7 @@ import kotlinx.android.synthetic.main.activity_enable_keyboard.*
 import kotlinx.android.synthetic.main.phrase_book_main_item.*
 import org.dslul.openboard.inputmethod.latin.LatinIME
 import org.dslul.openboard.inputmethod.latin.R
-import org.dslul.openboard.translator.pro.classes.CustomDialog
 import org.dslul.openboard.translator.pro.classes.Misc
-import org.dslul.openboard.translator.pro.classes.Misc.startProActivity
 import org.dslul.openboard.translator.pro.classes.admob.NativeAds
 import java.util.*
 import java.lang.Runnable as Runnable1
@@ -43,6 +37,14 @@ class EnableKeyboardActivity : AppCompatActivity() {
 
         Firebase.analytics.logEvent("EnableKeyboard", null)
         Misc.setIsFirstTime(this, false)
+
+        if (Misc.enableKeyboardNativeAm.contains("am")) {
+            NativeAds.manageShowNativeAd(
+                this,
+                Misc.enableKeyboardNativeAm,
+                nativeAdFrameLayoutSmall
+            )
+        }
 
         val sharedPreferences = getSharedPreferences("settingsIsFirstTime", Context.MODE_PRIVATE)
         if (sharedPreferences.getBoolean("settingsIsFirstTime", true)) {
@@ -163,11 +165,7 @@ class EnableKeyboardActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         checkKeyboardActivation()
-        NativeAds.manageShowNativeAd(
-            this,
-            Misc.enableKeyboardNativeAm,
-            nativeAdFrameLayoutSmall
-        )
+
         Handler().postDelayed({
             handler.post(runMainBanner)
         }, 999)

@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.translator.pro.PhrasebookDetailedActivity
 
 class PhraseBookMainAdapter(
     private val textList: ArrayList<String>,
@@ -68,11 +69,11 @@ class PhraseBookMainAdapter(
 
     private fun onClick(position: Int) {
         if (Misc.canWeProceed) {
-//            Misc.phrasebookPosition = position
-//            val intent = Intent(activity, PhrasebookDetailedActivity::class.java)
-//            intent.putExtra(Misc.data, textList[position])
-//            intent.putExtra(Misc.key, position)
-//            activity.startActivity(intent)
+            Misc.phrasebookPosition = position
+            val intent = Intent(activity, PhrasebookDetailedActivity::class.java)
+            intent.putExtra(Misc.data, textList[position])
+            intent.putExtra(Misc.key, position)
+            activity.startActivity(intent)
         }
     }
 
@@ -87,7 +88,6 @@ class PhraseBookMainAdapter(
         R.drawable.chronometer,
         R.drawable.globe_new,
     )
-
 
     override fun getItemId(position: Int): Long {
         return position.toLong()

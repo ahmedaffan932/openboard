@@ -51,13 +51,13 @@ public final class SpellCheckerSettingsFragment extends SubScreenFragment
         TwoStatePreferenceHelper.replaceCheckBoxPreferencesBySwitchPreferences(preferenceScreen);
 
         mLookupContactsPreference = (SwitchPreference) findPreference(
-                AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY);
+                TranslatorProSpellCheckerService.PREF_USE_CONTACTS_KEY);
         turnOffLookupContactsIfNoPermission();
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (!TextUtils.equals(key, AndroidSpellCheckerService.PREF_USE_CONTACTS_KEY)) {
+        if (!TextUtils.equals(key, TranslatorProSpellCheckerService.PREF_USE_CONTACTS_KEY)) {
             return;
         }
 

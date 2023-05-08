@@ -113,7 +113,6 @@ class HistoryAdapter(private var arr: ArrayList<TranslateHistoryClass>, val acti
         }
 
         holder.llMain.setOnLongClickListener {
-
             val objCustomDialog = CustomDialog(activity)
             objCustomDialog.show()
 

@@ -110,7 +110,7 @@ class LanguagesAdapter(
                 ) {
                     val objCustomDialog = CustomDialog(activity)
                     objCustomDialog.show()
-
+            
                     val window: Window = objCustomDialog.window!!
                     window.setLayout(
                         WindowManager.LayoutParams.FILL_PARENT,

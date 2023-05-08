@@ -229,6 +229,7 @@
                                     android:overScrollMode="never"
                                     android:paddingHorizontal="@dimen/less_padding"
                                     android:paddingBottom="@dimen/padding_10"
+                                    android:scrollbars="vertical"
                                     android:textColor="@color/accent"
                                     android:textColorHint="@color/gray_700"
                                     android:textCursorDrawable="@drawable/cursor_color"
@@ -269,8 +270,8 @@
                                     android:background="@drawable/ic_keyboard"
                                     android:backgroundTint="@color/accent"
                                     android:contentDescription="@string/todo"
-                                    android:scaleType="centerInside"
                                     android:elevation="@dimen/fab_padding"
+                                    android:scaleType="centerInside"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toEndOf="@id/btnCamera"
                                     app:layout_constraintTop_toTopOf="parent"
@@ -306,6 +307,7 @@
                                     android:textSize="9sp"
                                     app:layout_constraintEnd_toEndOf="@id/btnCamera"
                                     app:layout_constraintTop_toTopOf="@id/btnCamera" />
+
                                 <LinearLayout
                                     android:id="@+id/btnTranslate"
                                     android:layout_width="wrap_content"
@@ -345,26 +347,26 @@
                             android:id="@+id/nativeAdFrameLayoutInBetween"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:visibility="visible"
                             android:layout_marginTop="2dp"
+                            android:background="@drawable/bg_main_less_rounded"
+                            android:visibility="visible"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            android:background="@drawable/bg_main_less_rounded"
                             app:layout_constraintTop_toBottomOf="@id/btnTranslation" />
 
                         <LinearLayout
                             android:id="@+id/llTranslatedText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
+                            android:visibility="visible"
                             android:layout_weight="1"
-                            android:background="@drawable/bg_main_less_rounded"
+                            android:layout_marginTop="2dp"
                             android:orientation="vertical"
-                            android:paddingHorizontal="@dimen/fab_padding"
+                            tools:layout_editor_absoluteX="15dp"
                             android:paddingVertical="@dimen/padding"
-                            android:visibility="gone"
+                            android:paddingHorizontal="@dimen/fab_padding"
                             app:layout_constraintTop_toBottomOf="@+id/llText"
-                            tools:layout_editor_absoluteX="15dp">
+                            android:background="@drawable/bg_main_less_rounded">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"

@@ -1,31 +1,23 @@
 package org.dslul.openboard.translator.pro
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.blongho.country_data.World
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import kotlinx.android.synthetic.main.activity_dashboard.quitBottomSheet
 import kotlinx.android.synthetic.main.activity_dashboard.view.quitBottomSheet
-import kotlinx.android.synthetic.main.bottom_sheet_quit.view.*
+import kotlinx.android.synthetic.main.bottom_sheet_quit.*
 import kotlinx.android.synthetic.main.dailog_custom.view.btnNo
 import kotlinx.android.synthetic.main.dailog_custom.view.btnYes
 import org.dslul.openboard.inputmethod.latin.R
-import org.dslul.openboard.inputmethodcommon.InputMethodSettingsActivity
-import org.dslul.openboard.translator.pro.classes.CustomDialog
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
 import org.dslul.openboard.translator.pro.classes.admob.BannerAds
@@ -59,6 +51,10 @@ class DashboardActivity : AppCompatActivity() {
         blockView.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             blockView.visibility = View.GONE
+        }
+
+        btnDocumentTranslate.setOnClickListener {
+            startActivity(Intent(this, DocumentTranslationActivity::class.java))
         }
 
         btnKeyboard.setOnClickListener {
@@ -164,7 +160,7 @@ class DashboardActivity : AppCompatActivity() {
         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         } else {
-            quitBottomSheet.nativeAdFrameLayoutQuit.visibility = View.GONE
+            NativeAds.manageShowNativeAd(this, Misc.quitNativeAm, nativeAdFrameLayoutQuit)
             Log.d(Misc.logKey, "Bottom sheet clicked.")
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }

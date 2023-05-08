@@ -368,7 +368,7 @@ class TranslateActivity : AppCompatActivity() {
         }
 
         llLngFromFrag.setOnClickListener {
-            val intent = Intent(this@TranslateActivity, LanguageSelectorActivity::class.java)
+            val intent = Intent(this, LanguageSelectorActivity::class.java)
             intent.putExtra(Misc.lngTo, false)
             startActivityForResult(intent, lngSelectorRequestCode)
         }
@@ -376,7 +376,7 @@ class TranslateActivity : AppCompatActivity() {
         llLngToFrag.setOnClickListener {
             startActivityForResult(
                 Intent(
-                    this@TranslateActivity, LanguageSelectorActivity::class.java
+                    this, LanguageSelectorActivity::class.java
                 ), lngSelectorRequestCode
             )
         }
@@ -411,8 +411,6 @@ class TranslateActivity : AppCompatActivity() {
     }
 
     private fun initializeAnimation() {
-//        Misc.zoomOutView(btnTranslate, this, 0)
-//        btnTranslate.visibility = View.INVISIBLE
         Misc.zoomOutView(btnClearText, this, 0)
         btnClearText.visibility = View.INVISIBLE
 
@@ -668,7 +666,6 @@ class TranslateActivity : AppCompatActivity() {
         }
     }
 
-
     private fun displaySpeechRecognizer() {
         try {
             val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
@@ -729,6 +726,9 @@ class TranslateActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (intent.getStringExtra(Misc.data) != null) {
+            startActivity(Intent(this, DashboardActivity::class.java))
+            finish()
+        } else if (intent.getBooleanExtra("isDirectTranslateScreenEnabled", false)) {
             startActivity(Intent(this, DashboardActivity::class.java))
             finish()
         } else {

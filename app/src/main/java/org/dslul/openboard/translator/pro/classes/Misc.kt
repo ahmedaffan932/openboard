@@ -40,6 +40,12 @@ import kotlin.properties.Delegates
 
 object Misc {
 
+    var isDocumentTranslationActivity = false
+
+    const val text: String = "text"
+
+    var documentTranslationInt: String = "off"
+    var isDirectTranslateScreenEnabled: Boolean = false
     var isKeyboardSelectionInFlow: Boolean = true
     var isInterstitialDisplaying = false
 
@@ -55,10 +61,12 @@ object Misc {
     var onAppOpenIntAm: String = "am"
     var isIntDisplayed: Boolean = false
     var languageSelectorNativeAm: String = "am"
+    var quitNativeAm: String = "am"
     var splashContinueBtnText: String = "Continue"
     var proScreenDismissBtnVisibleAfter: Long = 3000
     var anyAdLoaded: MutableLiveData<Boolean> = MutableLiveData()
     var isRemoteConfigFetched: MutableLiveData<Boolean> = MutableLiveData()
+
     @JvmField
     var isTranslated: MutableLiveData<Boolean> = MutableLiveData()
     var proScreen = "2"
@@ -92,7 +100,7 @@ object Misc {
     var settingsNativeAm: String = "am"
     var dashboardNativeAm: String = "am"
     var translateNativeAm: String = "am_small_btn"
-    var enableKeyboardNativeAm: String = "am_small_btn"
+    var enableKeyboardNativeAm: String = "am_no_media"
     var multiTranslateNativeAm: String = "am"
 
     var isActivityCreatingFirstTime = true

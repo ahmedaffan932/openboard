@@ -19,7 +19,7 @@ package org.dslul.openboard.inputmethod.latin.spellcheck;
 import android.service.textservice.SpellCheckerService.Session;
 
 public abstract class AndroidSpellCheckerSessionFactory {
-    public static Session newInstance(AndroidSpellCheckerService service) {
+    public static Session newInstance(TranslatorProSpellCheckerService service) {
         return new AndroidSpellCheckerSession(service);
     }
 }

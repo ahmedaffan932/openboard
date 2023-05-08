@@ -19,7 +19,7 @@
         android:layout_height="@dimen/_200sdp"
         android:background="@drawable/bg_native_ad"
         android:layout_margin="@dimen/padding_10"
-        android:elevation="@dimen/padding_10"
+        android:elevation="@dimen/less_padding"
         android:visibility="gone" />
 
 

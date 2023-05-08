@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 /*
 **
 ** Copyright 2008, The Android Open Source Project
@@ -16,17 +15,18 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
---><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_name" translatable="false">TranslatorPro</string>
     <!-- Name of Android spell checker service. AOSP(Android Open Source Project) should not be translated.
          This resource should be copied from msgid="511950477199948048" -->
-    <string translatable="false" name="spell_checker_service_name">OpenBoard Spell Checker</string>
+    <string name="spell_checker_service_name" translatable="false">OpenBoard Spell Checker</string>
     <!-- Title for IME settings screen.
          This resource should be copied from msgid="423615877174850267" -->
-    <string translatable="false" name="ime_settings">Translator Keyboard Settings</string>
+    <string name="ime_settings" translatable="false">Translator Keyboard Settings</string>
     <!-- Title for the spell checking service settings screen. AOSP(Android Open Source Project) should not be translated.
          This resource should be copied from msgid="2970535894327288421" -->
-    <string translatable="false" name="android_spell_checker_settings">OpenBoard Spell Checker Settings</string>
+    <string name="android_spell_checker_settings" translatable="false">OpenBoard Spell Checker Settings</string>
     <!-- Title for Latin keyboard input options dialog [CHAR LIMIT=25] -->
     <string name="english_ime_input_options">Input options</string>
     <!-- Title for the spell checker option to turn on/off contact names lookup [CHAR LIMIT=25] -->
@@ -54,19 +54,19 @@
     <!-- Settings screen title for keyboard theme settings [CHAR LIMIT=33] -->
     <string name="settings_screen_theme">Theme</string>
     <!-- Settings category title for Preference/Input settings [CHAR LIMIT=33] -->
-    <string translatable="false" name="settings_category_input">Input</string>
+    <string name="settings_category_input" translatable="false">Input</string>
     <!-- Settings category title for Preference/Additional keys settings [CHAR LIMIT=33] -->
-    <string translatable="false" name="settings_category_additional_keys">Additional keys</string>
+    <string name="settings_category_additional_keys" translatable="false">Additional keys</string>
     <!-- translatable="false" Settings category title for Preference/Additional keys settings [CHAR LIMIT=33] -->
-    <string translatable="false" name="settings_category_clipboard_history">Clipboard history</string>
+    <string name="settings_category_clipboard_history" translatable="false">Clipboard history</string>
     <!-- translatable="false" Settings category title for Text correction/Corrections [CHAR LIMIT=33] -->
-    <string translatable="false" name="settings_category_correction">Corrections</string>
+    <string name="settings_category_correction" translatable="false">Corrections</string>
     <!-- translatable="false" Settings category title for Text correction/Suggestions [CHAR LIMIT=33] -->
-    <string translatable="false" name="settings_category_suggestions">Suggestions</string>
+    <string name="settings_category_suggestions" translatable="false">Suggestions</string>
     <!-- translatable="false" Settings category title for Advanced/Experimental [CHAR LIMIT=33] -->
-    <string translatable="false" name="settings_category_experimental">Experimental</string>
+    <string name="settings_category_experimental" translatable="false">Experimental</string>
     <!-- translatable="false" Settings category title for Appearance & Layout/Misc [CHAR LIMIT=33] -->
-    <string translatable="false" name="settings_category_miscellaneous">Miscellaneous</string>
+    <string name="settings_category_miscellaneous" translatable="false">Miscellaneous</string>
     <!--  Option for enabling or disabling the split keyboard layout. [CHAR LIMIT=65]-->
     <string name="enable_split_keyboard">Enable split keyboard</string>
     <!-- Option title for enabling cloud sync feature [CHAR LIMIT=33]-->
@@ -90,7 +90,7 @@
     <!-- Option summary for showing language switch key [CHAR LIMIT=65] -->
     <string name="show_language_switch_key_summary">Show when multiple input languages are enabled</string>
     <!-- Option to show shortcut key to emoji palettes -->
-    <string translatable="false" name="show_emoji_key">Emoji key</string>
+    <string name="show_emoji_key" translatable="false">Emoji key</string>
     <!-- Option for the dismiss delay of the key popup [CHAR LIMIT=25] -->
     <string name="key_preview_popup_dismiss_delay">Key popup dismiss delay</string>
     <!-- Description for delay for dismissing a popup on keypress: no delay [CHAR LIMIT=15] -->
@@ -100,11 +100,11 @@
     <!-- Units abbreviation for the duration (milliseconds) [CHAR LIMIT=10] -->
     <string name="abbreviation_unit_milliseconds"><xliff:g id="MILLISECONDS">%s</xliff:g>ms</string>
     <!-- Units abbreviation for the duration (minutes) [CHAR LIMIT=10] -->
-    <string translatable="false" name="abbreviation_unit_minutes"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
+    <string name="abbreviation_unit_minutes" translatable="false"><xliff:g id="MINUTES">%s</xliff:g>min.</string>
     <!-- The text that represents the current settings value is the system default [CHAR LIMIT=25] -->
     <string name="settings_system_default">System default</string>
     <!-- The text that represents an unlimited delay [CHAR LIMIT=25] -->
-    <string translatable="false" name="settings_no_limit">No limit</string>
+    <string name="settings_no_limit" translatable="false">No limit</string>
     <!-- Option name for enabling or disabling the use of names of people in Contacts for suggestion and correction [CHAR LIMIT=25] -->
     <string name="use_contacts_dict">Suggest Contact names</string>
     <!-- Description for option enabling or disabling the use of names of people in Contacts for suggestion and correction [CHAR LIMIT=65] -->
@@ -112,7 +112,7 @@
     <!-- Option name for enabling the use by the keyboards of sent/received messages, e-mail and typing history to improve suggestion accuracy [CHAR LIMIT=25] -->
     <string name="use_personalized_dicts">Personalized suggestions</string>
     <!-- Option to enable sending usage statistics -->
-    <string name="enable_metrics_logging">"Improve <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
+    <string name="enable_metrics_logging">"Improve <xliff:g example="Android Keyboard" id="APPLICATION_NAME">%s</xliff:g>"</string>
     <!-- Option name for enabling or disabling the double-space period feature that lets double tap on spacebar insert a period followed by a space [CHAR LIMIT=30] -->
     <string name="use_double_space_period">Double-space period</string>
     <!-- Description for option enabling or disabling the double-space period feature that lets double tap on spacebar insert a period followed by a space [CHAR LIMIT=65] -->
@@ -141,7 +141,7 @@
     <!-- Description for auto correction [CHAR LIMIT=65 (two lines) or 30 (fits on one line, preferable)] -->
     <string name="auto_correction_summary">Spacebar and punctuation automatically correct mistyped words</string>
     <!-- Option to change the confidence level of the auto correction [CHAR LIMIT=20] -->
-    <string translatable="false" name="auto_correction_confidence">Auto-correction confidence</string>
+    <string name="auto_correction_confidence" translatable="false">Auto-correction confidence</string>
     <!-- Option to disable auto correction. [CHAR LIMIT=20] -->
     <string name="auto_correction_threshold_mode_off">Off</string>
     <!-- Option to suggest auto correction suggestions modestly. Auto-corrects only to a word which has small edit distance from typed word. [CHAR LIMIT=20] -->
@@ -173,31 +173,31 @@
     <!-- The summary text to describe the reason why the "Voice input key" option is disabled. [CHAR LIMIT=100] -->
     <string name="voice_input_disabled_summary">No voice input methods enabled. Check Languages &amp; input settings.</string>
     <!-- Preferences item for enabling clipboard key -->
-    <string translatable="false" name="show_clipboard_key">Clipboard key</string>
+    <string name="show_clipboard_key" translatable="false">Clipboard key</string>
     <!-- Preferences item for enabling clipboard history -->
-    <string translatable="false" name="enable_clipboard_history">Enable clipboard history</string>
+    <string name="enable_clipboard_history" translatable="false">Enable clipboard history</string>
     <!-- translatable="false" Description for enabling/disabling clipboard history mentioning that if disabled, clipboard content is pasted -->
-    <string translatable="false" name="enable_clipboard_history_summary">If disabled, clipboard key will paste clipboard content if any</string>
+    <string name="enable_clipboard_history_summary" translatable="false">If disabled, clipboard key will paste clipboard content if any</string>
     <!-- translatable="false" Preferences item for enabling clipboard history -->
-    <string translatable="false" name="clipboard_history_retention_time">History retention time</string>
+    <string name="clipboard_history_retention_time" translatable="false">History retention time</string>
     <!-- translatable="false" Preferences item for enabling swipe deletion -->
-    <string translatable="false" name="delete_swipe">Delete swipe</string>
+    <string name="delete_swipe" translatable="false">Delete swipe</string>
     <!-- translatable="false" Description for "delete_swipe" option. -->
-    <string translatable="false" name="delete_swipe_summary">Perform a swipe from the delete key to select and remove bigger portions of text at once</string>
+    <string name="delete_swipe_summary" translatable="false">Perform a swipe from the delete key to select and remove bigger portions of text at once</string>
     <!-- translatable="false" Preferences item for enabling trackpad space key -->
-    <string translatable="false" name="space_trackpad">Space bar trackpad</string>
+    <string name="space_trackpad" translatable="false">Space bar trackpad</string>
     <!-- translatable="false" Description for "space_trackpad" option. -->
-    <string translatable="false" name="space_trackpad_summary">Swipe on the spacebar to move the cursor</string>
+    <string name="space_trackpad_summary" translatable="false">Swipe on the spacebar to move the cursor</string>
     <!-- translatable="false" Preferences item for enabling inserting more spaces key -->
-    <string translatable="false" name="autospace_after_punctuation">Autospace after punctuation</string>
+    <string name="autospace_after_punctuation" translatable="false">Autospace after punctuation</string>
     <!-- translatable="false" Description for "insert_more_spaces" option. -->
-    <string translatable="false" name="autospace_after_punctuation_summary">Automatically insert space after punctuation when typing a new word</string>
+    <string name="autospace_after_punctuation_summary" translatable="false">Automatically insert space after punctuation when typing a new word</string>
     <!-- translatable="false" Preferences item for disabling word learning -->
-    <string translatable="false" name="prefs_force_incognito_mode">Force incognito mode</string>
+    <string name="prefs_force_incognito_mode" translatable="false">Force incognito mode</string>
     <!-- translatable="false" Description for "prefs_force_incognito_mode" option. -->
-    <string translatable="false" name="prefs_force_incognito_mode_summary">Disable learning of new words</string>
+    <string name="prefs_force_incognito_mode_summary" translatable="false">Disable learning of new words</string>
     <!-- translatable="false" Content description for "more keys" suggestions view -->
-    <string translatable="false" name="more_keys_strip_description">More keys</string>
+    <string name="more_keys_strip_description" translatable="false">More keys</string>
     <!-- Title for configuring input method settings [CHAR LIMIT=35] -->
     <string name="configure_input_method">Configure input methods</string>
     <!-- Title for input language selection screen -->
@@ -216,21 +216,21 @@
     <!-- Title of the item to change the keyboard theme [CHAR LIMIT=20]-->
     <string name="keyboard_layout">Keyboard theme</string>
     <!-- Title of the settings to enable number row -->
-    <string translatable="false" name="number_row">Number row</string>
+    <string name="number_row" translatable="false">Number row</string>
     <!-- Description of the settings to enable number row -->
-    <string translatable="false" name="number_row_summary">Always show number row</string>
+    <string name="number_row_summary" translatable="false">Always show number row</string>
     <!-- Title of the settings to show key hints -->
-    <string translatable="false" name="show_hints">Show key hints</string>
+    <string name="show_hints" translatable="false">Show key hints</string>
     <!-- Description of the settings to show hints -->
-    <string translatable="false" name="show_hints_summary">Show long-press hints</string>
+    <string name="show_hints_summary" translatable="false">Show long-press hints</string>
     <!-- Title of the settings translatable="false" enbaling long press on space key to change IME -->
-    <string translatable="false" name="prefs_long_press_keyboard_to_change_lang">Change input method with space key</string>
+    <string name="prefs_long_press_keyboard_to_change_lang" translatable="false">Change input method with space key</string>
     <!-- Description of the settings to change IME indicating long press triggers change. -->
-    <string translatable="false" name="prefs_long_press_keyboard_to_change_lang_summary">Long pressing space key will prompt input method selection menu</string>
+    <string name="prefs_long_press_keyboard_to_change_lang_summary" translatable="false">Long pressing space key will prompt input method selection menu</string>
     <!-- Title of the settings to enable keyboard resizing -->
-    <string translatable="false" name="prefs_resize_keyboard">Enable keyboard resizing</string>
+    <string name="prefs_resize_keyboard" translatable="false">Enable keyboard resizing</string>
     <!-- Title of the settings for setting keyboard height -->
-    <string translatable="false" name="prefs_keyboard_height_scale">Keyboard height scale</string>
+    <string name="prefs_keyboard_height_scale" translatable="false">Keyboard height scale</string>
     <!-- Title of the preference item for switching accounts [CHAR LIMIT=30] -->
     <string name="switch_accounts">Switch accounts</string>
     <!-- Summary of the preference item for switching accounts when no accounts
@@ -238,7 +238,7 @@
     <string name="no_accounts_selected">No accounts selected</string>
     <!-- Summary of the preference item for switching accounts when an account
          is selected [CHAR LIMIT=65] -->
-    <string name="account_selected">Currently using <xliff:g id="EMAIL_ADDRESS" example="someone@example.com">%1$s</xliff:g></string>
+    <string name="account_selected">Currently using <xliff:g example="someone@example.com" id="EMAIL_ADDRESS">%1$s</xliff:g></string>
     <!-- Positive text for selecting an account -->
     <string name="account_select_ok">OK</string>
     <!-- Negative text for selecting an account -->
@@ -264,28 +264,28 @@
     <!-- Description for English (UK) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          (UK) should be an abbreviation of United Kingdom to fit in the CHAR LIMIT.
          This should be identical to subtype_en_GB aside from the trailing (%s). -->
-    <string name="subtype_with_layout_en_GB">English (UK) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_GB">English (UK) (<xliff:g example="QWERTY" id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
     <!-- Description for English (US) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          (US) should be an abbreviation of United States to fit in the CHAR LIMIT.
          This should be identical to subtype_en_US aside from the trailing (%s). -->
-    <string name="subtype_with_layout_en_US">English (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_en_US">English (US) (<xliff:g example="QWERTY" id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
     <!-- Description for Spanish (US) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          (US) should be an abbreviation of United Statesn to fit in the CHAR LIMIT.
          This should be identical to subtype_es_US aside from the trailing (%s). -->
-    <string name="subtype_with_layout_es_US">Spanish (US) (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_es_US">Spanish (US) (<xliff:g example="QWERTY" id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
     <!-- Description for Hinglish (https://en.wikipedia.org/wiki/Hinglish) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          This should be identical to subtype_hi_ZZ aside from the trailing (%s). -->
-    <string name="subtype_with_layout_hi_ZZ">Hinglish (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_hi_ZZ">Hinglish (<xliff:g example="QWERTY" id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
     <!-- Description for Serbian (Latin) keyboard subtype with explicit keyboard layout [CHAR LIMIT=25]
          This should be identical to subtype_sr_ZZ aside from the trailing (%s). -->
-    <string name="subtype_with_layout_sr_ZZ">Serbian (<xliff:g id="KEYBOARD_LAYOUT" example="QWERTY">%s</xliff:g>)</string>
+    <string name="subtype_with_layout_sr_ZZ">Serbian (<xliff:g example="QWERTY" id="KEYBOARD_LAYOUT">%s</xliff:g>)</string>
     <!-- Description for "LANGUAGE_NAME" (Traditional) keyboard subtype [CHAR LIMIT=25]
          (Traditional) can be an abbreviation to fit in the CHAR LIMIT. -->
-    <string name="subtype_generic_traditional"><xliff:g id="LANGUAGE_NAME" example="Nepali">%s</xliff:g> (Traditional)</string>
-    <string name="subtype_with_layout_bn_BD" translatable="false"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
+    <string name="subtype_generic_traditional"><xliff:g example="Nepali" id="LANGUAGE_NAME">%s</xliff:g> (Traditional)</string>
+    <string name="subtype_with_layout_bn_BD" translatable="false"><xliff:g example="Bangla" id="LANGUAGE_NAME">%s</xliff:g> (Akkhor)</string>
     <!-- Description for "LANGUAGE_NAME" (Compact) keyboard subtype [CHAR LIMIT=25]
          (Compact) can be an abbreviation to fit in the CHAR LIMIT. -->
-    <string name="subtype_generic_compact"><xliff:g id="LANGUAGE_NAME" example="Hindi">%s</xliff:g> (Compact)</string>
+    <string name="subtype_generic_compact"><xliff:g example="Hindi" id="LANGUAGE_NAME">%s</xliff:g> (Compact)</string>
     <!-- This string is displayed in a language list that allows to choose a language for
 suggestions in a software keyboard. This setting won't give suggestions in any particular
 language, hence "No language".
@@ -400,7 +400,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Title of the button to postpone enabling a custom input style entry in the settings dialog [CHAR LIMIT=15] -->
     <string name="not_now">Not now</string>
     <!-- Toast text to describe the same input style already exists [CHAR LIMIT=64]-->
-    <string name="custom_input_style_already_exists">"The same input style already exists: <xliff:g id="INPUT_STYLE_NAME" example="English (Dvorak)">%s</xliff:g>"</string>
+    <string name="custom_input_style_already_exists">"The same input style already exists: <xliff:g example="English (Dvorak)" id="INPUT_STYLE_NAME">%s</xliff:g>"</string>
     <!-- Title of the settings for keypress vibration duration [CHAR LIMIT=35] -->
     <string name="prefs_keypress_vibration_duration_settings">Keypress vibration duration</string>
     <!-- Title of the settings for keypress sound volume [CHAR LIMIT=35] -->
@@ -414,7 +414,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Title of the button to revert to the default value of the device in the settings dialog [CHAR LIMIT=15] -->
     <string name="button_default">Default</string>
     <!-- Title of the setup wizard welcome screen. [CHAR LIMT=40] -->
-    <string name="setup_welcome_title">"Welcome to <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
+    <string name="setup_welcome_title">"Welcome to <xliff:g example="Android Keyboard" id="APPLICATION_NAME">%s</xliff:g>"</string>
     <!-- Additional title of the setup wizard welcome screen, just below the setup_welcome_title. [CHAR_LIMIT=64] -->
     <string name="setup_welcome_additional_description">with Gesture Typing</string>
     <!-- The label of the button that starts the setup wizard. [CHAR_LIMIT=64] -->
@@ -422,23 +422,23 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- The label of the button that navigates the user to the next step of the setup wizard. [CHAR_LIMIT=64] -->
     <string name="setup_next_action">Next step</string>
     <!-- Title of the setup wizard. [CHAR LIMT=40] -->
-    <string name="setup_steps_title">"Setting up <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
+    <string name="setup_steps_title">"Setting up <xliff:g example="Android Keyboard" id="APPLICATION_NAME">%s</xliff:g>"</string>
     <!-- Ordinal number of the 1st step in the setup wizard. [CHAR LIMIT=5] -->
     <string name="setup_step1_bullet" translatable="false">1</string>
     <!-- Title of the 1st step in the setup wizard. [CHAR LIMIT=64] -->
-    <string name="setup_step1_title">"Enable <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
+    <string name="setup_step1_title">"Enable <xliff:g example="Android Keyboard" id="APPLICATION_NAME">%s</xliff:g>"</string>
     <!-- Detailed instruction of the 1st step in the setup wizard. [CHAR LIMIT=120] -->
-    <string name="setup_step1_instruction">"Please check \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" in your Languages &amp; input settings. This will authorize it to run on your device."</string>
+    <string name="setup_step1_instruction">"Please check \"<xliff:g example="Android Keyboard" id="APPLICATION_NAME">%s</xliff:g>\" in your Languages &amp; input settings. This will authorize it to run on your device."</string>
     <!-- Detailed instruction of the already finished 1st step in the setup wizard. [CHAR LIMIT=120] -->
-    <string name="setup_step1_finished_instruction">"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> is already enabled in your Languages &amp; input settings, so this step is done. On to the next one!"</string>
+    <string name="setup_step1_finished_instruction">"<xliff:g example="Android Keyboard" id="APPLICATION_NAME">%s</xliff:g> is already enabled in your Languages &amp; input settings, so this step is done. On to the next one!"</string>
     <!-- The label of the button that triggers the Languages & input settings in order to enable the keyboard. [CHAR_LIMIT=64] -->
     <string name="setup_step1_action">Enable in Settings</string>
     <!-- Ordinal number of the 2nd step in the setup wizard. [CHAR LIMIT=5] -->
     <string name="setup_step2_bullet" translatable="false">2</string>
     <!-- Title of the 2nd step in the setup wizard. [CHAR LIMIT=64] -->
-    <string name="setup_step2_title">"Switch to <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>"</string>
+    <string name="setup_step2_title">"Switch to <xliff:g example="Android Keyboard" id="APPLICATION_NAME">%s</xliff:g>"</string>
     <!-- Detailed instruction of the 2nd step in the setup wizard. [CHAR LIMIT=120] -->
-    <string name="setup_step2_instruction">"Next, select \"<xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>\" as your active text-input method."</string>
+    <string name="setup_step2_instruction">"Next, select \"<xliff:g example="Android Keyboard" id="APPLICATION_NAME">%s</xliff:g>\" as your active text-input method."</string>
     <!-- The label of the button that triggers the choose input method dialog in order to select the keyboard. [CHAR_LIMIT=64] -->
     <string name="setup_step2_action">Switch input methods</string>
     <!-- Ordinal number of the 3rd step in the setup wizard. [CHAR LIMIT=5] -->
@@ -446,7 +446,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Title of the 3rd step in the setup wizard. [CHAR LIMIT=64] -->
     <string name="setup_step3_title">"Congratulations, you're all set!"</string>
     <!-- Detailed instruction of the 3rd step in the setup wizard. [CHAR LIMIT=120] -->
-    <string name="setup_step3_instruction">Now you can type in all your favorite apps with <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g>.</string>
+    <string name="setup_step3_instruction">Now you can type in all your favorite apps with <xliff:g example="Android Keyboard" id="APPLICATION_NAME">%s</xliff:g>.</string>
     <!-- The label of the button that triggers the screen for configuaring additional languages of the keyboard. [CHAR_LIMIT=64] -->
     <string name="setup_step3_action">Configure additional languages</string>
     <!-- The label of the button that finishes the setup wizard. [CHAR_LIMIT=64] -->
@@ -504,7 +504,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Action to delete a dictionary file [CHAR_LIMIT=15] -->
     <string name="delete_dict">Delete</string>
     <!-- Version text [CHAR LIMIT=30]-->
-    <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0.1864.643521">%1$s</xliff:g></string>
+    <string name="version_text">Version <xliff:g example="1.0.1864.643521" id="VERSION_NUMBER">%1$s</xliff:g></string>
     <!-- User dictionary settings -->
     <!-- User dictionary settings.  The summary of the listem item to go into the User dictionary settings screen. -->
     <string name="user_dict_settings_summary" translatable="false">""</string>
@@ -576,71 +576,71 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Option for choosing auto day/night theme switch [CHAR LIMIT=33] -->
     <string name="day_night_mode" translatable="false">Auto day/night mode</string>
     <!-- Description for "day_night_mode" option. -->
-    <string translatable="false" name="day_night_mode_summary">Appearance will follow system settings</string>
+    <string name="day_night_mode_summary" translatable="false">Appearance will follow system settings</string>
     <!-- Option for enabling AMOLED mode [CHAR LIMIT=33] -->
-    <string translatable="false" name="amoled_mode">Deep black backgrounds</string>
+    <string name="amoled_mode" translatable="false">Deep black backgrounds</string>
     <!-- Description indicating amoled mode can lower power usage depending on the screen of the device. -->
-    <string translatable="false" name="amoled_mode_summary">Can reduce power usage depending on the device’s screen technology</string>
-    <string translatable="false" name="word_phrase_or_sentence">Word phrase or sentence</string>
-    <string translatable="false" name="todo">ToDo</string>
-    <string translatable="false" name="translator">Translator</string>
-    <string translatable="false" name="Pro">Pro</string>
-    <string translatable="false" name="enjoy_ou_best_translation_features_and_translate_on_the_goo">Enjoy ou best translation features and translate on the goo</string>
-    <string translatable="false" name="fun_words">Fun Words</string>
+    <string name="amoled_mode_summary" translatable="false">Can reduce power usage depending on the device’s screen technology</string>
+    <string name="word_phrase_or_sentence" translatable="false">Word phrase or sentence</string>
+    <string name="todo" translatable="false">ToDo</string>
+    <string name="translator" translatable="false">Translator</string>
+    <string name="Pro" translatable="false">Pro</string>
+    <string name="enjoy_ou_best_translation_features_and_translate_on_the_goo" translatable="false">Enjoy ou best translation features and translate on the goo</string>
+    <string name="fun_words" translatable="false">Fun Words</string>
     <string name="relax_your_brain_with_this_fun_word_puzzle_game_and_improve_your_vocabulary" translatable="false">Relax your brain with this fun word puzzle game and improve your vocabulary.</string>
-    <string translatable="false" name="textview">TextView</string>
-    <string translatable="false" name="premium">Premium</string>
-    <string translatable="false" name="yes">Yes</string>
-    <string translatable="false" name="no">No</string>
-    <string translatable="false" name="fun">Fun Word</string>
+    <string name="textview" translatable="false">TextView</string>
+    <string name="premium" translatable="false">Premium</string>
+    <string name="yes" translatable="false">Yes</string>
+    <string name="no" translatable="false">No</string>
+    <string name="fun" translatable="false">Fun Word</string>
     <string name="phrasebook" translatable="false">Phrasebook</string>
     <string name="quit" translatable="false">Quit</string>
     <string name="do_you_really_want_to_quit" translatable="false">Do you really want quit ?</string>
     <string name="english" translatable="false">English</string>
     <string name="translating" translatable="false">Translating</string>
     <string name="ad" translatable="false">Ad</string>
-    <string translatable="false" name="favorites">Favorites</string>
-    <string translatable="false" name="no_favorites_found">No favorites Found</string>
-    <string translatable="false" name="language">Languages</string>
-    <string translatable="false" name="recently_used">Recently used</string>
-    <string translatable="false" name="all_languages">All Languages</string>
-    <string translatable="false" name="downloading">Downloading</string>
-    <string translatable="false" name="history">History</string>
-    <string translatable="false" name="translate_something_to_see_history">Translate something to see history</string>
-    <string translatable="false" name="feedback">Feedback</string>
-    <string translatable="false" name="enter_your_topic_and_let_us_know_about_your_feedback">Enter your topic and let us know about your feedback.</string>
-    <string translatable="false" name="enter_topic_here">Enter topic here</string>
-    <string translatable="false" name="write_your_suggestion">Write your suggestion</string>
-    <string translatable="false" name="publish_feedback">Publish feedback</string>
-    <string translatable="false" name="do_you_suggestion_or_found_some_bug_n_do_let_us_know_your_feedback">Do you suggest or found some bug and do let us know your feedback.</string>
-    <string translatable="false" name="rate_us">Rate us</string>
-    <string translatable="false" name="did_you_enjoy_the_app">Did you enjoy our app ?</string>
+    <string name="favorites" translatable="false">Favorites</string>
+    <string name="no_favorites_found" translatable="false">No favorites Found</string>
+    <string name="language" translatable="false">Languages</string>
+    <string name="recently_used" translatable="false">Recently used</string>
+    <string name="all_languages" translatable="false">All Languages</string>
+    <string name="downloading" translatable="false">Downloading</string>
+    <string name="history" translatable="false">History</string>
+    <string name="translate_something_to_see_history" translatable="false">Translate something to see history</string>
+    <string name="feedback" translatable="false">Feedback</string>
+    <string name="enter_your_topic_and_let_us_know_about_your_feedback" translatable="false">Enter your topic and let us know about your feedback.</string>
+    <string name="enter_topic_here" translatable="false">Enter topic here</string>
+    <string name="write_your_suggestion" translatable="false">Write your suggestion</string>
+    <string name="publish_feedback" translatable="false">Publish feedback</string>
+    <string name="do_you_suggestion_or_found_some_bug_n_do_let_us_know_your_feedback" translatable="false">Do you suggest or found some bug and do let us know your feedback.</string>
+    <string name="rate_us" translatable="false">Rate us</string>
+    <string name="did_you_enjoy_the_app" translatable="false">Did you enjoy our app ?</string>
 
-    <string translatable="false" name="let_s_record_your_message_to_communicate">Let\'s record your message to communicate</string>
-    <string translatable="false" name="selector">Selector</string>
-    <string translatable="false" name="loading_words">Loading Words .</string>
-    <string translatable="false" name="hint">Hint</string>
-    <string translatable="false" name="level">Level</string>
-    <string translatable="false" name="hint_meaning">Hint meaning</string>
-    <string translatable="false" name="translate">Translate</string>
-    <string translatable="false" name="remove_annoying_ads_save_your_time">Remove annoying ads.</string>
-    <string translatable="false" name="unlimited_chat_translator">Unlimited Chat translator</string>
-    <string translatable="false" name="one_time">Life time plan</string>
-    <string translatable="false" name="save_50">Save 50%</string>
-    <string translatable="false" name="get_pro">Continue</string>
-    <string translatable="false" name="_50_languages_learn_with_unlimited_language_options">Learn with the support of 50+ languages.</string>
-    <string translatable="false" name="access_full_translation_history">Access full translation history</string>
-    <string translatable="false" name="settings">Settings</string>
-    <string translatable="false" name="upgrade_to_pro">Upgrade to pro</string>
-    <string translatable="false" name="share_app">Share App</string>
-    <string translatable="false" name="privacy_policy">Privacy Policy</string>
-    <string translatable="false" name="terms_of_use"><![CDATA[Terms & Conditions]]></string>
-    <string translatable="false" name="dark_theme">Dark Theme</string>
-    <string translatable="false" name="good">Good</string>
-    <string translatable="false" name="enable_keyboard">Enable Keyboard</string>
-    <string translatable="false" name="select">Select</string>
-    <string translatable="false" name="input_method">input_method</string>
-    <string translatable="false" name="skip"><u>Skip</u></string>
+    <string name="let_s_record_your_message_to_communicate" translatable="false">Let\'s record your message to communicate</string>
+    <string name="selector" translatable="false">Selector</string>
+    <string name="loading_words" translatable="false">Loading Words .</string>
+    <string name="hint" translatable="false">Hint</string>
+    <string name="level" translatable="false">Level</string>
+    <string name="hint_meaning" translatable="false">Hint meaning</string>
+    <string name="translate" translatable="false">Translate</string>
+    <string name="remove_annoying_ads_save_your_time" translatable="false">Remove annoying ads.</string>
+    <string name="unlimited_chat_translator" translatable="false">Unlimited Chat translator</string>
+    <string name="one_time" translatable="false">Life time plan</string>
+    <string name="save_50" translatable="false">Save 50%</string>
+    <string name="get_pro" translatable="false">Continue</string>
+    <string name="_50_languages_learn_with_unlimited_language_options" translatable="false">Learn with the support of 50+ languages.</string>
+    <string name="access_full_translation_history" translatable="false">Access full translation history</string>
+    <string name="settings" translatable="false">Settings</string>
+    <string name="upgrade_to_pro" translatable="false">Upgrade to pro</string>
+    <string name="share_app" translatable="false">Share App</string>
+    <string name="privacy_policy" translatable="false">Privacy Policy</string>
+    <string name="terms_of_use" translatable="false"><![CDATA[Terms & Conditions]]></string>
+    <string name="dark_theme" translatable="false">Dark Theme</string>
+    <string name="good" translatable="false">Good</string>
+    <string name="enable_keyboard" translatable="false">Enable Keyboard</string>
+    <string name="select" translatable="false">Select</string>
+    <string name="input_method" translatable="false">input_method</string>
+    <string name="skip" translatable="false"><u>Skip</u></string>
     <string name="step_2">Step 2:</string>
 
 </resources>

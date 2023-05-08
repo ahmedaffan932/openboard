@@ -191,13 +191,13 @@
             android:id="@+id/nativeAdFrameLayoutSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:elevation="@dimen/padding"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="@dimen/fab_padding"
             android:background="@drawable/bg_native_ad"
-            android:elevation="@dimen/padding"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

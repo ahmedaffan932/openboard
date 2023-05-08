@@ -250,6 +250,13 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun startNextActivity() {
+        if(Misc.isDirectTranslateScreenEnabled){
+            val intent = Intent(this, TranslateActivity::class.java)
+            intent.putExtra("isDirectTranslateScreenEnabled", true)
+            startActivity(intent)
+            finish()
+            return
+        }
         if (Misc.isFirstTime(this) && Misc.isKeyboardSelectionInFlow) {
             val intent = Intent(this, EnableKeyboardActivity::class.java)
             intent.putExtra(Misc.data, Misc.data)

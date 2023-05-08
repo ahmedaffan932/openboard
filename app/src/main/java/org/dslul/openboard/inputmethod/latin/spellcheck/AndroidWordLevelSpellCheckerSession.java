@@ -57,7 +57,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
     private Locale mLocale;
     // Cache this for performance
     private int mScript; // One of SCRIPT_LATIN or SCRIPT_CYRILLIC for now.
-    private final AndroidSpellCheckerService mService;
+    private final TranslatorProSpellCheckerService mService;
     protected final SuggestionsCache mSuggestionsCache = new SuggestionsCache();
     private final ContentObserver mObserver;
 
@@ -111,7 +111,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
         }
     }
 
-    AndroidWordLevelSpellCheckerSession(final AndroidSpellCheckerService service) {
+    AndroidWordLevelSpellCheckerSession(final TranslatorProSpellCheckerService service) {
         mService = service;
         final ContentResolver cres = service.getContentResolver();
 
@@ -275,8 +275,8 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             // It's good to keep this not local specific since the standard
             // ones may show up in other languages also.
             String text = textInfo.getText().
-                    replaceAll(AndroidSpellCheckerService.APOSTROPHE,
-                            AndroidSpellCheckerService.SINGLE_QUOTE).
+                    replaceAll(TranslatorProSpellCheckerService.APOSTROPHE,
+                            TranslatorProSpellCheckerService.SINGLE_QUOTE).
                     replaceAll("^" + quotesRegexp, "").
                     replaceAll(quotesRegexp + "$", "");
 
@@ -289,7 +289,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             }
 
             if (!mService.hasMainDictionaryForLocale(mLocale)) {
-                return AndroidSpellCheckerService.getNotInDictEmptySuggestions(
+                return TranslatorProSpellCheckerService.getNotInDictEmptySuggestions(
                         false /* reportAsTypo */);
             }
 
@@ -313,8 +313,8 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
                     }
                 }
                 return mService.isValidWord(mLocale, text) ?
-                        AndroidSpellCheckerService.getInDictEmptySuggestions() :
-                        AndroidSpellCheckerService.getNotInDictEmptySuggestions(
+                        TranslatorProSpellCheckerService.getInDictEmptySuggestions() :
+                        TranslatorProSpellCheckerService.getNotInDictEmptySuggestions(
                                 CHECKABILITY_CONTAINS_PERIOD == checkability /* reportAsTypo */);
             }
 
@@ -325,7 +325,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
                 if (DebugFlags.DEBUG_ENABLED) {
                     Log.i(TAG, "onGetSuggestionsInternal() : [" + text + "] is a valid word");
                 }
-                return AndroidSpellCheckerService.getInDictEmptySuggestions();
+                return TranslatorProSpellCheckerService.getInDictEmptySuggestions();
             }
             if (DebugFlags.DEBUG_ENABLED) {
                 Log.i(TAG, "onGetSuggestionsInternal() : [" + text + "] is NOT a valid word");
@@ -335,7 +335,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
             if (null == keyboard) {
                 Log.w(TAG, "onGetSuggestionsInternal() : No keyboard for locale: " + mLocale);
                 // If there is no keyboard for this locale, don't do any spell-checking.
-                return AndroidSpellCheckerService.getNotInDictEmptySuggestions(
+                return TranslatorProSpellCheckerService.getNotInDictEmptySuggestions(
                         false /* reportAsTypo */);
             }
 
@@ -379,7 +379,7 @@ public abstract class AndroidWordLevelSpellCheckerSession extends Session {
         } catch (RuntimeException e) {
             // Don't kill the keyboard if there is a bug in the spell checker
             Log.e(TAG, "Exception while spellchecking", e);
-            return AndroidSpellCheckerService.getNotInDictEmptySuggestions(
+            return TranslatorProSpellCheckerService.getNotInDictEmptySuggestions(
                     false /* reportAsTypo */);
         }
     }

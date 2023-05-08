@@ -1,25 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2012 The Android Open Source Project
-
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
-
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.dslul.openboard.inputmethod.latin">
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29" />
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <permission
         android:name="org.dslul.openboard.inputmethod.latin.HIDE_SOFT_INPUT"
@@ -33,12 +27,40 @@
         android:extractNativeLibs="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/english_ime_name"
+        android:resizeableActivity="false"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
+        <activity
+            android:name="org.dslul.openboard.translator.pro.PreviewDocumentActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="org.dslul.openboard.translator.pro.DetailedDocumentTranslationActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
-        <!-- Services -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider> <!-- Services -->
         <service
-            android:name="LatinIME"
+            android:name=".LatinIME"
             android:directBootAware="true"
             android:exported="true"
             android:label="@string/english_ime_name"
@@ -46,30 +68,28 @@
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
             </intent-filter>
+
             <meta-data
                 android:name="android.view.im"
                 android:resource="@xml/method" />
         </service>
-
         <service
-            android:name=".spellcheck.AndroidSpellCheckerService"
+            android:name=".spellcheck.TranslatorProSpellCheckerService"
             android:exported="true"
             android:label="@string/spell_checker_service_name"
             android:permission="android.permission.BIND_TEXT_SERVICE">
             <intent-filter>
                 <action android:name="android.service.textservice.SpellCheckerService" />
             </intent-filter>
+
             <meta-data
                 android:name="android.view.textservice.scs"
                 android:resource="@xml/spellchecker" />
-        </service>
-
-        <!-- Activities -->
+        </service> <!-- Activities -->
         <activity
             android:name="org.dslul.openboard.translator.pro.DashboardActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru" />
-
         <activity
             android:name="org.dslul.openboard.translator.pro.DisplayHistoryActivity"
             android:exported="false"
@@ -79,7 +99,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="org.dslul.openboard.translator.pro.DisplayFavoritesActivity"
             android:exported="false"
@@ -92,6 +111,14 @@
         <activity
             android:name="org.dslul.openboard.translator.pro.LanguageSelectorActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="org.dslul.openboard.translator.pro.DocumentTranslationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru">
             <meta-data
@@ -215,7 +242,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="org.dslul.openboard.translator.pro.SplashScreenActivity"
             android:exported="true"
@@ -229,7 +255,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".setup.SetupActivity"
             android:exported="true"
@@ -238,18 +263,17 @@
             android:launchMode="singleTask"
             android:noHistory="true"
             android:theme="@style/platformActivityTheme">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
-        </activity>
 
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
         <activity
             android:name=".permissions.PermissionsActivity"
             android:exported="false"
             android:taskAffinity=""
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
         <activity
             android:name=".setup.SetupWizardActivity"
             android:clearTaskOnLaunch="true"
@@ -260,7 +284,6 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".settings.SettingsActivity"
             android:excludeFromRecents="true"
@@ -271,7 +294,6 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".spellcheck.SpellCheckerSettingsActivity"
             android:exported="true"
@@ -280,16 +302,12 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
-        </activity>
-
-        <!-- Unexported activity used for tests. -->
+        </activity> <!-- Unexported activity used for tests. -->
         <activity
             android:name=".settings.TestFragmentActivity"
-            android:exported="false" />
-
-        <!-- Broadcast receivers -->
+            android:exported="false" /> <!-- Broadcast receivers -->
         <receiver
-            android:name="SystemBroadcastReceiver"
+            android:name=".SystemBroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
@@ -298,16 +316,13 @@
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
             </intent-filter>
         </receiver>
-
         <receiver
-            android:name="DictionaryPackInstallBroadcastReceiver"
+            android:name=".DictionaryPackInstallBroadcastReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.guru.translate.translator.translation.learn.language.UNKNOWN_CLIENT" />
             </intent-filter>
-        </receiver>
-
-        <!-- Content providers -->
+        </receiver> <!-- Content providers -->
         <provider
             android:name="org.dslul.openboard.inputmethod.dictionarypack.DictionaryProvider"
             android:authorities="@string/authority"
@@ -319,6 +334,6 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-6814505709397727~5902581956" />
-
     </application>
+
 </manifest>
