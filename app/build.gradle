@@ -11,8 +11,8 @@ android {
         applicationId "com.guru.translate.translator.translation.learn.language"
         minSdkVersion 24
         targetSdkVersion 33
-        versionCode 69
-        versionName '3.2'
+        versionCode 70
+        versionName '3.3'
     }
 
     buildTypes {
@@ -106,6 +106,8 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.1.0')
 
     implementation 'com.itextpdf:itextg:5.5.10'
+
+    implementation 'com.google.ads.mediation:facebook:6.14.0.0'
 
 }
 

@@ -40,11 +40,22 @@ import kotlin.properties.Delegates
 
 object Misc {
 
+    var enableKeyboardCollapsingBannerAm: String = "am"
+    var dashboardCollapsingBannerAm: String = "am"
+    var translateCollapsingBannerAm: String = "am"
+    var dashboardNativeAm: String = "am"
+
+    var bannerAdIdOne =
+        if (BuildConfig.DEBUG) "ca-app-pub-3940256099942544/6300978111" else "ca-app-pub-6814505709397727/2655777179"
+    var bannerAdIdTwo =
+        if (BuildConfig.DEBUG) "ca-app-pub-3940256099942544/6300978111" else "ca-app-pub-6814505709397727/9273172328"
+    var bannerAdIdThree =
+        if (BuildConfig.DEBUG) "ca-app-pub-3940256099942544/6300978111" else "ca-app-pub-6814505709397727/6950207419"
+
     var isDocumentTranslationActivity = false
 
     const val text: String = "text"
 
-    var documentTranslationInt: String = "off"
     var isDirectTranslateScreenEnabled: Boolean = false
     var isKeyboardSelectionInFlow: Boolean = true
     var isInterstitialDisplaying = false
@@ -53,12 +64,8 @@ object Misc {
     var isNativeAdClicked: Boolean = false
     var isCameraTranslatorAdEnabled: Boolean = true
     var isChatInBetweenNativeEnabled: Boolean = false
-    var isDashboardInBetweenNativeEnabled: Boolean = true
-    var isTranslationInBetweenNativeEnabled: Boolean = true
     var isLanguageSelectorInBetweenNativeEnabled: Boolean = false
 
-    var banner_ads: String = "am"
-    var onAppOpenIntAm: String = "am"
     var isIntDisplayed: Boolean = false
     var languageSelectorNativeAm: String = "am"
     var quitNativeAm: String = "am"
@@ -71,17 +78,9 @@ object Misc {
     var isTranslated: MutableLiveData<Boolean> = MutableLiveData()
     var proScreen = "2"
 
-    var banner_id = if (BuildConfig.DEBUG) {
-        "ca-app-pub-3940256099942544/6300978111"
-    } else {
-        "abc"
-    }
-
     var isMultiTranslatorPremiumModule: Boolean = false
-    var isFirstTimeShowLanguagesEnabled = false
 
     var lifeTimePrice: String = "Price: $12.99"
-    var OnNativeRemoveAdsTagVisible: Boolean = true
     var splashScreenOnBackPressDoNothing: Boolean = true
 
     var chatIntAm: String = "am"
@@ -89,7 +88,6 @@ object Misc {
     var chatNativeAm: String = "am"
     var historyIntAm: String = "am"
     var gameNativeAm: String = "am"
-    var gameNextIntAm: String = "am"
     var settingsIntAm: String = "am"
     var proScreenIntAm: String = "am"
     var enableKeyboardIntAm: String = "am"
@@ -98,65 +96,65 @@ object Misc {
     var splashNativeAm: String = "am_no_media"
     var phrasebookIntAm: String = "am"
     var settingsNativeAm: String = "am"
-    var dashboardNativeAm: String = "am"
-    var translateNativeAm: String = "am_small_btn"
-    var enableKeyboardNativeAm: String = "am_no_media"
     var multiTranslateNativeAm: String = "am"
+    var translateNativeAm: String = "am_small_btn"
 
     var isActivityCreatingFirstTime = true
 
-    var isTestingProFeatures = false
-
     var isProScreenEnabled: Boolean = false
 
-    var adBreakCount: Int = 0
+    var appOpenAdIdOne = if (BuildConfig.DEBUG) {
+        "ca-app-pub-3940256099942544/3419835294"
+    } else {
+        "ca-app-pub-6814505709397727/5413818366"
+    }
 
-    var appOpenAdId = if (BuildConfig.DEBUG) {
+    var appOpenAdIdTwo = if (BuildConfig.DEBUG) {
+        "ca-app-pub-3940256099942544/3419835294"
+    } else {
+        "ca-app-pub-6814505709397727/3961081991"
+    }
+
+    var appOpenAdIdThree = if (BuildConfig.DEBUG) {
         "ca-app-pub-3940256099942544/3419835294"
     } else {
         "ca-app-pub-6814505709397727/5034389232"
     }
 
+
     var nativeAdIdAdMobOne: String = if (BuildConfig.DEBUG) {
         "ca-app-pub-3940256099942544/2247696110"
     } else {
-        "ca-app-pub-6814505709397727/5712100878"
+        "ca-app-pub-6814505709397727/7688612002"
     }
 
     var nativeAdIdAdMobTwo: String = if (BuildConfig.DEBUG) {
         "ca-app-pub-3940256099942544/2247696110"
     } else {
-        "ca-app-pub-6814505709397727/5796130859"
+        "ca-app-pub-6814505709397727/2703894542"
+    }
+    var nativeAdIdAdMobThree: String = if (BuildConfig.DEBUG) {
+        "ca-app-pub-3940256099942544/2247696110"
+    } else {
+        "ca-app-pub-6814505709397727/8969919992"
     }
 
     var interstitialAdIdAdMobOne: String = if (BuildConfig.DEBUG) {
         "ca-app-pub-3940256099942544/1033173712"
     } else {
-        "ca-app-pub-6814505709397727/1778976759"
+        "ca-app-pub-6814505709397727/2592213903"
     }
 
     var interstitialAdIdAdMobTwo: String = if (BuildConfig.DEBUG) {
         "ca-app-pub-3940256099942544/1033173712"
     } else {
-        "ca-app-pub-6814505709397727/6788579092"
+        "ca-app-pub-6814505709397727/6531405010"
     }
 
     var interstitialAdIdAdMobThree: String = if (BuildConfig.DEBUG) {
         "ca-app-pub-3940256099942544/1033173712"
     } else {
-        "ca-app-pub-6814505709397727/3232477463"
-    }
-
-    var interstitialAdIdAdMobFour: String = if (BuildConfig.DEBUG) {
-        "ca-app-pub-3940256099942544/1033173712"
-    } else {
-        "ca-app-pub-6814505709397727/4709210668"
-    }
-
-    var interstitialAdIdAdMobFive: String = if (BuildConfig.DEBUG) {
-        "ca-app-pub-3940256099942544/1033173712"
-    } else {
-        "ca-app-pub-6814505709397727/7087961990"
+        "ca-app-pub-6814505709397727/6148315534"
     }
 
     var gameNextLimit: Int = 4

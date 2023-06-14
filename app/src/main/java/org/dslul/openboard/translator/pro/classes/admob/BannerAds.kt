@@ -1,53 +1,93 @@
 package org.dslul.openboard.translator.pro.classes.admob
 
 import android.app.Activity
+import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Display
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import com.google.android.gms.ads.*
+import com.google.ads.mediation.admob.AdMobAdapter
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest.Builder
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.LoadAdError
 import org.dslul.openboard.translator.pro.classes.Misc
 
+
 object BannerAds {
-    private var adView: AdView? = null
+
+    interface bannerAdsCallBack {
+        fun onFailed(){}
+        fun onLoaded(){}
+    }
+
+    var adView: AdView? = null
+
     private var isLoaded = false
 
+    fun load(context: Activity, adId: String = Misc.bannerAdIdOne, callBack: bannerAdsCallBack? = null) {
+        adView = AdView(context)
+        adView?.adUnitId = adId
+        val adSize = getAdSize(context)
+        adView?.setAdSize(adSize)
+        val adRequest = Builder().build()
+        adView?.loadAd(adRequest)
 
-    fun load(context: Activity) {
+        adView!!.adListener = object : AdListener() {
+            override fun onAdLoaded() {
+                isLoaded = true
+                callBack?.onLoaded()
+            }
 
-        if (Misc.banner_ads == "am" && !Misc.getPurchasedStatus(context)) {
-            adView = AdView(context)
-            adView?.adUnitId = Misc.banner_id
-            val adSize = getAdSize(context)
-            adView?.setAdSize(adSize)
-            val adRequest = Builder().build()
-            adView?.loadAd(adRequest)
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                Log.e("TAG", "Adaptive Banner  ${adError.code}: ${adError.message}")
+                isLoaded = false
+                if (adId == Misc.bannerAdIdOne) {
+                    load(context, Misc.bannerAdIdTwo)
+                } else if (adId == Misc.bannerAdIdTwo) {
+                    load(context, Misc.bannerAdIdThree)
+                }
+            }
 
-            adView!!.adListener = object : AdListener() {
+            override fun onAdOpened() {}
+            override fun onAdClicked() {}
+            override fun onAdClosed() {}
+        }
+    }
+
+    fun loadCollapsibleBanner(remoteKey: String, collapsibleAdView: AdView, callBack: bannerAdsCallBack? = null) {
+        if (remoteKey.contains("am")) {
+            val extras = Bundle()
+            extras.putString("collapsible", "bottom")
+
+            val adRequest = Builder()
+                .addNetworkExtrasBundle(AdMobAdapter::class.java, extras)
+                .build()
+            collapsibleAdView.loadAd(adRequest)
+
+            collapsibleAdView.adListener = object : AdListener() {
                 override fun onAdLoaded() {
                     isLoaded = true
+                    collapsibleAdView.visibility = View.VISIBLE
                 }
 
                 override fun onAdFailedToLoad(adError: LoadAdError) {
                     Log.e(
                         "TAG",
-                        "onAdFailedToLoad:Adaptive Banner  ${adError.code}: ${adError.message}"
+                        "Banner  ${adError.code}: ${adError.message}"
                     )
                     isLoaded = false
+                    callBack?.onFailed()
                 }
 
                 override fun onAdOpened() {}
                 override fun onAdClicked() {}
                 override fun onAdClosed() {}
             }
-
-        } else {
-            adView = null
         }
-
     }
 
     private fun getAdSize(context: Activity): AdSize {
@@ -63,9 +103,8 @@ object BannerAds {
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context, adWith)
     }
 
-
-    fun show(view: FrameLayout) {
-        if (adView != null && isLoaded) {
+    fun show(/*remoteKey: String,*/ view: FrameLayout) {
+        if (adView != null && isLoaded/* && remoteKey.contains("am")*/) {
             view.visibility = View.VISIBLE
             if (adView?.parent != null) {
                 (adView?.parent as ViewGroup).removeAllViews() // <- fix

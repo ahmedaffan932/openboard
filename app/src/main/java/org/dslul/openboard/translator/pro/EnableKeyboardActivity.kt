@@ -17,10 +17,10 @@ import androidx.core.view.setPadding
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_enable_keyboard.*
-import kotlinx.android.synthetic.main.phrase_book_main_item.*
 import org.dslul.openboard.inputmethod.latin.LatinIME
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.admob.BannerAds
 import org.dslul.openboard.translator.pro.classes.admob.NativeAds
 import java.util.*
 import java.lang.Runnable as Runnable1
@@ -38,13 +38,26 @@ class EnableKeyboardActivity : AppCompatActivity() {
         Firebase.analytics.logEvent("EnableKeyboard", null)
         Misc.setIsFirstTime(this, false)
 
-        if (Misc.enableKeyboardNativeAm.contains("am")) {
-            NativeAds.manageShowNativeAd(
-                this,
-                Misc.enableKeyboardNativeAm,
-                nativeAdFrameLayoutSmall
-            )
-        }
+        BannerAds.loadCollapsibleBanner(
+            Misc.dashboardCollapsingBannerAm,
+            adViewOne,
+            object : BannerAds.bannerAdsCallBack {
+                override fun onFailed() {
+                    BannerAds.loadCollapsibleBanner(
+                        Misc.dashboardCollapsingBannerAm,
+                        adViewTwo,
+                        object : BannerAds.bannerAdsCallBack {
+                            override fun onFailed() {
+                                BannerAds.loadCollapsibleBanner(
+                                    Misc.dashboardCollapsingBannerAm,
+                                    adViewThree
+                                )
+                            }
+                        }
+                    )
+                }
+            }
+        )
 
         val sharedPreferences = getSharedPreferences("settingsIsFirstTime", Context.MODE_PRIVATE)
         if (sharedPreferences.getBoolean("settingsIsFirstTime", true)) {
@@ -174,7 +187,7 @@ class EnableKeyboardActivity : AppCompatActivity() {
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun checkKeyboardActivation() {
         val packageLocal = packageName
-
+    
         val mInputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         val lists: String = mInputMethodManager.enabledInputMethodList.toString()
         val mActKeyboard = lists.contains(packageLocal)

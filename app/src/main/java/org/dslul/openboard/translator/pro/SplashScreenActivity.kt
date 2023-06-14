@@ -1,6 +1,8 @@
 package org.dslul.openboard.translator.pro
 
 import android.annotation.SuppressLint
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -42,7 +44,7 @@ class SplashScreenActivity : AppCompatActivity() {
     private val purchasesUpdatedListener = PurchasesUpdatedListener { billingResult, purchases ->
         if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
             Misc.setPurchasedStatus(this, true)
-            Log.d(Misc.logKey, "Ya hooo.....")
+            Log.d(Misc.logKey, "Ya h o o o.....")
         }
     }
 

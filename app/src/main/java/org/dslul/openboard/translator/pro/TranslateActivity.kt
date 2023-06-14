@@ -30,7 +30,6 @@ import com.google.mlkit.nl.languageid.LanguageIdentification
 import com.rw.keyboardlistener.KeyboardUtils
 import kotlinx.android.synthetic.main.activity_translate.*
 import kotlinx.android.synthetic.main.activity_translate.btnHistory
-import kotlinx.android.synthetic.main.activity_translate.nativeAdFrameLayout
 import kotlinx.android.synthetic.main.activity_translate.nativeAdFrameLayoutInBetween
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
@@ -60,6 +59,29 @@ class TranslateActivity : AppCompatActivity() {
         )
         setContentView(R.layout.activity_translate)
 
+        BannerAds.loadCollapsibleBanner(
+            Misc.translateCollapsingBannerAm,
+            adViewOne,
+            object : BannerAds.bannerAdsCallBack {
+                override fun onFailed() {
+                    BannerAds.loadCollapsibleBanner(
+                        Misc.translateCollapsingBannerAm,
+                        adViewTwo,
+                        object : BannerAds.bannerAdsCallBack {
+                            override fun onFailed() {
+                                BannerAds.loadCollapsibleBanner(
+                                    Misc.translateCollapsingBannerAm,
+                                    adViewThree
+                                )
+                            }
+                        }
+                    )
+                }
+            }
+        )
+
+
+
         initializeAnimation()
 
         translationsCount = Misc.showInterstitialAfter
@@ -84,12 +106,12 @@ class TranslateActivity : AppCompatActivity() {
             }
         }
 
-        NativeAds.loadNativeAd(this@TranslateActivity, object : LoadInterstitialCallBack {
+        NativeAds.loadNativeAd(this@TranslateActivity, callBack = object : LoadInterstitialCallBack {
             override fun onLoaded() {
-                NativeAds.manageShowNativeAd(
+                NativeAds.showSmallNativeAd(
                     this@TranslateActivity,
                     Misc.translateNativeAm,
-                    nativeAdFrameLayout
+                    nativeAdFrameLayoutInBetween
                 )
             }
         })
@@ -200,7 +222,6 @@ class TranslateActivity : AppCompatActivity() {
 //                    Misc.zoomInView(btnTranslate, this, 150)
                     isBtnTranslateVisible = true
                 }
-                nativeAdFrameLayout.visibility = View.GONE
 
             } else {
                 textViewTextFrag.clearFocus()
@@ -213,11 +234,11 @@ class TranslateActivity : AppCompatActivity() {
                     isBtnTranslateVisible = false
                 }
                 Misc.zoomInView(btnSpeakInput, this, 150)
-                if (!isLLTranslateVisible) {
-                    if (isNativeAdLoaded) {
-                        nativeAdFrameLayout.visibility = View.VISIBLE
-                    }
-                }
+//                if (!isLLTranslateVisible) {
+//                    if (isNativeAdLoaded) {
+//                        nativeAdFrameLayout.visibility = View.VISIBLE
+//                    }
+//                }
             }
         }
 
@@ -243,9 +264,9 @@ class TranslateActivity : AppCompatActivity() {
                 llTranslatedText.visibility = View.GONE
             }, 150)
 
-            Handler().postDelayed({
-                if (isNativeAdLoaded) nativeAdFrameLayout.visibility = View.VISIBLE
-            }, 150)
+//            Handler().postDelayed({
+//                if (isNativeAdLoaded) nativeAdFrameLayout.visibility = View.VISIBLE
+//            }, 150)
 //            Misc.zoomInView(btnTranslate, this, 150)
 //            btnTranslate.visibility = View.VISIBLE
             isBtnTranslateVisible = true
@@ -301,9 +322,9 @@ class TranslateActivity : AppCompatActivity() {
                 Handler().postDelayed({
                     llTranslatedText.visibility = View.GONE
                 }, 150)
-                Handler().postDelayed({
-                    if (isNativeAdLoaded) nativeAdFrameLayout.visibility = View.VISIBLE
-                }, 160)
+//                Handler().postDelayed({
+//                    if (isNativeAdLoaded) nativeAdFrameLayout.visibility = View.VISIBLE
+//                }, 160)
                 isLLTranslateVisible = false
             }
         }
@@ -436,77 +457,6 @@ class TranslateActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
-//    private fun translate(text: String) {
-//        setSelectedLng()
-//        if (!Misc.checkInternetConnection(this)) {
-//            Toast.makeText(
-//                this,
-//                "Please check your Internet connection and try again later.",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//            llPBTranslateFrag.visibility = View.GONE
-//            return
-//        }
-//
-//        if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-//            val languageIdentifier = LanguageIdentification.getClient()
-//            languageIdentifier.identifyLanguage(text).addOnSuccessListener { languageCode ->
-//                if (languageCode == "und") {
-//                    Toast.makeText(
-//                        this, "Unable to detect Language. ", Toast.LENGTH_SHORT
-//                    ).show()
-//                } else {
-//                    textLngFrom.text = "Detected -> $languageCode"
-//                }
-//            }.addOnFailureListener {
-//                Toast.makeText(
-//                    this, "Unable to detect Language. ", Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        }
-//        Handler().postDelayed({
-//            val query = URLEncoder.encode(text, "utf-8")
-//            val stringRequest: StringRequest = @SuppressLint("CutPasteId") object : StringRequest(
-//                Method.POST,
-//                "${Misc.translationUrl}q=$query",
-//                Response.Listener { response ->
-//                    val tempArrayList = JSONObject(response).getJSONObject(Misc.data)
-//                        .getJSONArray(Misc.translations)
-//                    textViewTextTranslatedFrag.text = ""
-//
-//                    var str = ""
-//                    for (i in 0 until tempArrayList.length()) {
-//                        str += tempArrayList.getJSONObject(i).getString(Misc.translatedText)
-//                    }
-//
-//                    textViewTextTranslatedFrag.text = str
-//                    saveInHistory(text, str)
-//                },
-//                Response.ErrorListener { error ->
-//                    llPBTranslateFrag.visibility = View.GONE
-//                    Log.d(Misc.logKey, Misc.getGoogleApi(this))
-//                    Log.d(Misc.logKey, "Translation error $error")
-//                }) {
-//                override fun getParams(): Map<String, String> {
-//                    val params: MutableMap<String, String> = HashMap()
-//                    params[Misc.key] = Misc.getGoogleApi(this@TranslateActivity)
-//                    params[Misc.target] = Misc.getLanguageTo(this@TranslateActivity)
-//                    return params
-//                }
-//
-//                override fun getHeaders(): Map<String, String> {
-//                    val headers: MutableMap<String, String> = HashMap()
-//                    headers["User-agent"] = Misc.userAgent
-//                    return headers
-//                }
-//            }
-//
-//            val requestQueue = Volley.newRequestQueue(this)
-//            requestQueue.add(stringRequest)
-//        }, 1)
-//    }
-
     private fun saveInHistory(text: String, translation: String) {
         if (text.length > 1000) {
             return
@@ -536,7 +486,7 @@ class TranslateActivity : AppCompatActivity() {
 //                llText.setBackgroundResource(R.drawable.bg_half_up_rounded)
             }, 140)
 
-            nativeAdFrameLayout.visibility = View.GONE
+//            nativeAdFrameLayout.visibility = View.GONE
 
             Handler().postDelayed({
                 llTranslatedText.visibility = View.VISIBLE
@@ -737,21 +687,21 @@ class TranslateActivity : AppCompatActivity() {
     }
 
     private fun showNativeAd() {
-        if (Misc.isTranslationInBetweenNativeEnabled) {
+//        if (Misc.isTranslationInBetweenNativeEnabled) {
             NativeAds.showSmallNativeAd(
                 this,
                 Misc.translateNativeAm,
                 nativeAdFrameLayoutInBetween
             )
-        } else {
-            NativeAds.manageShowNativeAd(
-                this,
-                Misc.translateNativeAm,
-                nativeAdFrameLayout
-            ) { isLoaded ->
-                isNativeAdLoaded = isLoaded
-            }
-        }
+//        } else {
+//            NativeAds.manageShowNativeAd(
+//                this,
+//                Misc.translateNativeAm,
+//                nativeAdFrameLayout
+//            ) { isLoaded ->
+//                isNativeAdLoaded = isLoaded
+//            }
+//        }
     }
 
     private fun showInterstitialIfRequired() {

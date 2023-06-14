@@ -176,12 +176,12 @@
                 <androidx.core.widget.NestedScrollView
                     android:id="@+id/scrollView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:clipToPadding="false"
                     android:orientation="vertical"
                     android:paddingHorizontal="@dimen/fab_padding"
                     app:layout_behavior="org.dslul.openboard.translator.pro.classes.OverScrollBounceBehavior"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/clAd"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0">
 
@@ -482,16 +482,53 @@
                     </LinearLayout>
                 </androidx.core.widget.NestedScrollView>
 
-                <FrameLayout
-                    android:id="@+id/nativeAdFrameLayout"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clAd"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_220sdp"
-                    android:layout_margin="@dimen/padding_10"
-                    android:background="@drawable/bg_native_ad"
-                    android:elevation="@dimen/padding_10"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <com.google.android.gms.ads.AdView
+                        android:id="@+id/adViewOne"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="50dp"
+                        app:adUnitId="ca-app-pub-6814505709397727/3541499341"
+                        app:adSize="BANNER"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <com.google.android.gms.ads.AdView
+                        android:id="@+id/adViewTwo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="50dp"
+                        app:adUnitId="ca-app-pub-6814505709397727/8015080919"
+                        app:adSize="BANNER"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <com.google.android.gms.ads.AdView
+                        android:id="@+id/adViewThree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="50dp"
+                        app:adUnitId="ca-app-pub-6814505709397727/3349927652"
+                        app:adSize="BANNER"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
 
         <LinearLayout

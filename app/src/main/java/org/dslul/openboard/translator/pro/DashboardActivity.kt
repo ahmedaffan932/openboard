@@ -1,13 +1,19 @@
 package org.dslul.openboard.translator.pro
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.blongho.country_data.World
+import com.google.ads.mediation.admob.AdMobAdapter
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.admanager.AdManagerAdRequest
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
@@ -23,6 +29,8 @@ import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
 import org.dslul.openboard.translator.pro.classes.admob.BannerAds
 import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
 import org.dslul.openboard.translator.pro.classes.admob.NativeAds
+import org.dslul.openboard.translator.pro.services.ClipboardService
+
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
@@ -31,6 +39,29 @@ class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
+
+//        startService(this)
+
+        BannerAds.loadCollapsibleBanner(
+            Misc.enableKeyboardCollapsingBannerAm,
+            adViewOne,
+            object : BannerAds.bannerAdsCallBack {
+                override fun onFailed() {
+                    BannerAds.loadCollapsibleBanner(
+                        Misc.enableKeyboardCollapsingBannerAm,
+                        adViewTwo,
+                        object : BannerAds.bannerAdsCallBack {
+                            override fun onFailed() {
+                                BannerAds.loadCollapsibleBanner(
+                                    Misc.enableKeyboardCollapsingBannerAm,
+                                    adViewThree
+                                )
+                            }
+                        }
+                    )
+                }
+            }
+        )
 
         Misc.setIsFirstTime(this, false)
 
@@ -51,10 +82,6 @@ class DashboardActivity : AppCompatActivity() {
         blockView.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             blockView.visibility = View.GONE
-        }
-
-        btnDocumentTranslate.setOnClickListener {
-            startActivity(Intent(this, DocumentTranslationActivity::class.java))
         }
 
         btnKeyboard.setOnClickListener {
@@ -181,18 +208,30 @@ class DashboardActivity : AppCompatActivity() {
 
 
     private fun showNativeAd() {
-        if (Misc.isDashboardInBetweenNativeEnabled) {
+//        if (Misc.isDashboardInBetweenNativeEnabled) {
             NativeAds.showSmallNativeAd(
                 this,
                 Misc.dashboardNativeAm,
                 nativeAdFrameLayoutInBetween
             )
+//        } else {
+//            NativeAds.manageShowNativeAd(
+//                this,
+//                Misc.dashboardNativeAm,
+//                nativeAdFrameLayout
+//            )
+//        }
+    }
+
+    fun startService(context: Context) {
+        val intent = Intent(
+            context,
+            ClipboardService::class.java
+        )
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            context.startService(intent)
         } else {
-            NativeAds.manageShowNativeAd(
-                this,
-                Misc.dashboardNativeAm,
-                nativeAdFrameLayout
-            )
+            context.startForegroundService(intent)
         }
     }
 

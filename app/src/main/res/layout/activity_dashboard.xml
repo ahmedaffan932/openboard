@@ -100,7 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:animateLayoutChanges="true"
-                app:layout_constraintBottom_toTopOf="@id/nativeAdFrameLayout"
+                app:layout_constraintBottom_toTopOf="@id/clAd"
                 app:layout_constraintTop_toBottomOf="@id/linearLayout">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -198,16 +198,17 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/btnChat"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/fab_padding"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="@dimen/fab_padding"
+                        android:layout_marginStart="@dimen/padding"
                         android:background="@drawable/bg_dashboard_gradient_one"
                         android:elevation="@dimen/less_padding"
-                        android:visibility="visible"
                         android:paddingVertical="@dimen/padding"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="@+id/btnTranslation"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/btnKeyboard">
+                        app:layout_constraintStart_toStartOf="@id/verticalView"
+                        app:layout_constraintTop_toTopOf="@+id/btnTranslation">
 
                         <ImageView
                             android:id="@+id/imgChat"
@@ -486,6 +487,7 @@
                         android:background="@drawable/bg_dashboard_gradient_one"
                         android:elevation="@dimen/less_padding"
                         android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/btnMultipleTranslate"
                         app:layout_constraintTop_toBottomOf="@id/btnPhrasebook">
@@ -554,87 +556,131 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/btnDocumentTranslate"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="@dimen/padding"
-                        android:layout_marginTop="@dimen/fab_padding"
-                        android:layout_marginEnd="@dimen/fab_padding"
-                        android:background="@drawable/bg_dashboard_gradient_one"
-                        android:elevation="@dimen/less_padding"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="@+id/btnTranslation"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@id/verticalView"
-                        app:layout_constraintTop_toBottomOf="@id/btnSwitchEnableKeyboard">
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:id="@+id/btnDocumentTranslate"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="0dp"-->
+<!--                        android:layout_marginStart="@dimen/padding"-->
+<!--                        android:layout_marginTop="@dimen/fab_padding"-->
+<!--                        android:layout_marginEnd="@dimen/fab_padding"-->
+<!--                        android:background="@drawable/bg_dashboard_gradient_one"-->
+<!--                        android:elevation="@dimen/less_padding"-->
+<!--                        android:visibility="visible"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/btnKeyboard">-->
 
-                        <ImageView
-                            android:id="@+id/imgDocumentTranslate"
-                            android:layout_width="@dimen/_40sdp"
-                            android:layout_height="@dimen/_40sdp"
-                            android:layout_marginStart="@dimen/padding"
-                            android:layout_marginTop="@dimen/padding"
-                            android:padding="@dimen/padding"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ic_document_translator"
-                            app:layout_constraintBottom_toTopOf="@id/tvDocumentTranslate"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/accent" />
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imgDocumentTranslate"-->
+<!--                            android:layout_width="@dimen/_40sdp"-->
+<!--                            android:layout_height="@dimen/_40sdp"-->
+<!--                            android:layout_marginStart="@dimen/padding"-->
+<!--                            android:layout_marginTop="@dimen/padding"-->
+<!--                            android:padding="@dimen/padding"-->
+<!--                            android:scaleType="centerCrop"-->
+<!--                            android:src="@drawable/ic_document_translator"-->
+<!--                            app:layout_constraintBottom_toTopOf="@id/tvDocumentTranslate"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            app:tint="@color/accent" />-->
 
-                        <TextView
-                            android:id="@+id/tvDocumentTranslate"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/padding"
-                            android:layout_weight="1"
-                            android:gravity="start"
-                            android:paddingStart="@dimen/padding"
-                            android:text="Document\nTranslator"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/imgDocumentTranslate"
-                            app:layout_constraintTop_toBottomOf="@id/imgDocumentTranslate" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvDocumentTranslate"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginBottom="@dimen/padding"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="start"-->
+<!--                            android:paddingStart="@dimen/padding"-->
+<!--                            android:text="Document\nTranslator"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="18sp"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="@id/imgDocumentTranslate"-->
+<!--                            app:layout_constraintTop_toBottomOf="@id/imgDocumentTranslate" />-->
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_50sdp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent">
+<!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                            android:layout_width="@dimen/_50sdp"-->
+<!--                            android:layout_height="@dimen/_50sdp"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent">-->
 
-                            <ImageView
-                                android:layout_width="@dimen/_50sdp"
-                                android:layout_height="@dimen/_50sdp"
-                                android:layout_margin="@dimen/padding"
-                                android:alpha="0.05"
-                                android:rotation="320"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/ic_document_translator"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:tint="@color/accent" />
+<!--                            <ImageView-->
+<!--                                android:layout_width="@dimen/_50sdp"-->
+<!--                                android:layout_height="@dimen/_50sdp"-->
+<!--                                android:layout_margin="@dimen/padding"-->
+<!--                                android:alpha="0.05"-->
+<!--                                android:rotation="320"-->
+<!--                                android:scaleType="centerCrop"-->
+<!--                                android:src="@drawable/ic_document_translator"-->
+<!--                                app:layout_constraintStart_toStartOf="parent"-->
+<!--                                app:layout_constraintTop_toTopOf="parent"-->
+<!--                                app:tint="@color/accent" />-->
 
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </ScrollView>
 
-            <FrameLayout
-                android:id="@+id/nativeAdFrameLayout"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_230sdp"
-                android:visibility="gone"
-                android:layout_margin="@dimen/padding"
-                android:elevation="@dimen/less_padding"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clAd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <FrameLayout
+                    android:id="@+id/nativeAdFrameLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_230sdp"
+                    android:visibility="gone"
+                    android:layout_margin="@dimen/padding"
+                    android:elevation="@dimen/less_padding"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/adViewOne"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="50dp"
+                    app:adUnitId="ca-app-pub-6814505709397727/3541499341"
+                    app:adSize="BANNER"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/adViewTwo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="50dp"
+                    app:adUnitId="ca-app-pub-6814505709397727/8015080919"
+                    app:adSize="BANNER"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/adViewThree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="50dp"
+                    app:adUnitId="ca-app-pub-6814505709397727/3349927652"
+                    app:adSize="BANNER"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

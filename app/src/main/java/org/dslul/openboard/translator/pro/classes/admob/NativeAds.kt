@@ -22,62 +22,35 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 
 object NativeAds {
-    var mNativeAdOne: NativeAd? = null
-    var mNativeAdTwo: NativeAd? = null
-
-    private fun loadNativeOne(activity: Activity, callBack: LoadInterstitialCallBack?) {
-        mNativeAdOne = null
-        if (Misc.getPurchasedStatus(activity)) return
-
-        val adLoader: AdLoader =
-            AdLoader.Builder(activity, Misc.nativeAdIdAdMobOne).forNativeAd { nativeAd ->
-                Log.d(Misc.logKey, "Native Ad Loaded")
-                mNativeAdOne = nativeAd
-                callBack?.onLoaded()
-
-            }.withAdListener(object : AdListener() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    callBack?.onFailed()
-                    mNativeAdOne = null
-                    Log.e(Misc.logKey, adError.message)
-                }
-            }).build()
-        adLoader.loadAd(AdRequest.Builder().build())
-    }
-
-    private fun loadNativeTwo(activity: Activity, callBack: LoadInterstitialCallBack?) {
-        mNativeAdTwo = null
-        if (Misc.getPurchasedStatus(activity)) return
-        val adLoader: AdLoader =
-            AdLoader.Builder(activity, Misc.nativeAdIdAdMobTwo).forNativeAd { nativeAd ->
-                Log.d(Misc.logKey, "Native Ad Loaded")
-                mNativeAdTwo = nativeAd
-
-                callBack?.onLoaded()
-
-            }.withAdListener(object : AdListener() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    callBack?.onFailed()
-                    mNativeAdTwo = null
-                    Log.e(Misc.logKey, adError.message)
-                }
-            }).build()
-        adLoader.loadAd(AdRequest.Builder().build())
-    }
+    var mNativeAd: NativeAd? = null
 
     fun loadNativeAd(
         activity: Activity,
-        callBack: LoadInterstitialCallBack? = null
+        callBack: LoadInterstitialCallBack? = null,
+        adId: String = Misc.nativeAdIdAdMobOne
     ) {
-        if (!Misc.getPurchasedStatus(activity)) {
-            if (mNativeAdOne == null) {
-                loadNativeOne(activity, callBack)
-            }
+        mNativeAd = null
+        if (Misc.getPurchasedStatus(activity)) return
 
-            if (mNativeAdTwo == null) {
-                loadNativeTwo(activity, callBack)
-            }
-        }
+        val adLoader: AdLoader =
+            AdLoader.Builder(activity, adId).forNativeAd { nativeAd ->
+                Log.d(Misc.logKey, "Native Ad Loaded")
+                mNativeAd = nativeAd
+                callBack?.onLoaded()
+
+            }.withAdListener(object : AdListener() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    callBack?.onFailed()
+                    mNativeAd = null
+                    Log.e(Misc.logKey, adError.message)
+                    if (adId == Misc.nativeAdIdAdMobOne) {
+                        loadNativeAd(activity, adId = Misc.nativeAdIdAdMobTwo)
+                    } else if (adId == Misc.nativeAdIdAdMobThree) {
+                        loadNativeAd(activity, adId = Misc.nativeAdIdAdMobThree)
+                    }
+                }
+            }).build()
+        adLoader.loadAd(AdRequest.Builder().build())
     }
 
     private fun showNativeAd(
@@ -85,10 +58,7 @@ object NativeAds {
         amLayout: FrameLayout,
         call: ((Boolean) -> Unit)? = null
     ) {
-        if ((mNativeAdTwo != null || mNativeAdOne != null) && !Misc.getPurchasedStatus(activity)) {
-
-            val nativeAdToShow = if (mNativeAdOne != null) mNativeAdOne else mNativeAdTwo
-
+        if (mNativeAd != null && !Misc.getPurchasedStatus(activity)) {
             call?.invoke(true)
             val inflater =
                 activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -105,43 +75,38 @@ object NativeAds {
             adView.callToActionView = adView.findViewById(R.id.ad_call_to_action)
             adView.iconView = adView.findViewById(R.id.ad_app_icon)
 
-            (adView.headlineView as TextView).text = nativeAdToShow?.headline
-            nativeAdToShow?.mediaContent?.let { adView.mediaView?.setMediaContent(it) }
+            (adView.headlineView as TextView).text = mNativeAd?.headline
+            mNativeAd?.mediaContent?.let { adView.mediaView?.setMediaContent(it) }
 
-            if (nativeAdToShow?.body == null) {
+            if (mNativeAd?.body == null) {
                 adView.bodyView?.visibility = View.INVISIBLE
             } else {
                 adView.bodyView?.visibility = View.VISIBLE
-                (adView.bodyView as TextView).text = nativeAdToShow.body
+                (adView.bodyView as TextView).text = mNativeAd?.body
             }
 
-            if (nativeAdToShow?.callToAction == null) {
+            if (mNativeAd?.callToAction == null) {
                 adView.callToActionView?.visibility = View.INVISIBLE
             } else {
                 adView.callToActionView?.visibility = View.VISIBLE
-                (adView.callToActionView as Button).text = nativeAdToShow.callToAction
+                (adView.callToActionView as Button).text = mNativeAd?.callToAction
             }
 
-            if (nativeAdToShow?.icon == null) {
+            if (mNativeAd?.icon == null) {
                 adView.iconView?.visibility = View.GONE
             } else {
                 (adView.iconView as ImageView).setImageDrawable(
-                    nativeAdToShow.icon!!.drawable
+                    mNativeAd?.icon!!.drawable
                 )
                 adView.iconView?.visibility = View.VISIBLE
             }
 
-            adView.setNativeAd(nativeAdToShow ?: return)
+            adView.setNativeAd(mNativeAd ?: return)
             Misc.isNativeAdClicked = false
 
             object : CountDownTimer(1000, 1000) {
                 override fun onFinish() {
-                    if (nativeAdToShow == mNativeAdOne) {
-                        mNativeAdOne = null
-                    } else {
-                        mNativeAdTwo = null
-                    }
-
+                    mNativeAd = null
                     loadNativeAd(activity)
                 }
 
@@ -177,12 +142,10 @@ object NativeAds {
         amLayout: FrameLayout,
         call: ((Boolean) -> Unit)? = null
     ) {
-        if ((mNativeAdTwo != null || mNativeAdOne != null) &&
+        if (mNativeAd != null &&
             remoteKey.contains("am") &&
             !Misc.getPurchasedStatus(activity)
         ) {
-            val nativeAdToShow = if (mNativeAdOne != null) mNativeAdOne else mNativeAdTwo
-
             call?.invoke(true)
             val inflater =
                 activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -203,43 +166,38 @@ object NativeAds {
             adView.callToActionView = adView.findViewById(R.id.ad_call_to_action)
             adView.iconView = adView.findViewById(R.id.ad_app_icon)
 
-            (adView.headlineView as TextView).text = nativeAdToShow?.headline
-            nativeAdToShow?.mediaContent?.let { adView.mediaView?.setMediaContent(it) }
+            (adView.headlineView as TextView).text = mNativeAd?.headline
+            mNativeAd?.mediaContent?.let { adView.mediaView?.setMediaContent(it) }
 
-            if (nativeAdToShow?.body == null) {
+            if (mNativeAd?.body == null) {
                 adView.bodyView?.visibility = View.INVISIBLE
             } else {
                 adView.bodyView?.visibility = View.VISIBLE
-                (adView.bodyView as TextView).text = nativeAdToShow.body
+                (adView.bodyView as TextView).text = mNativeAd?.body
             }
 
-            if (nativeAdToShow?.callToAction == null) {
+            if (mNativeAd?.callToAction == null) {
                 adView.callToActionView?.visibility = View.INVISIBLE
             } else {
                 adView.callToActionView?.visibility = View.VISIBLE
-                (adView.callToActionView as Button).text = nativeAdToShow.callToAction
+                (adView.callToActionView as Button).text = mNativeAd?.callToAction
             }
 
-            if (nativeAdToShow?.icon == null) {
+            if (mNativeAd?.icon == null) {
                 adView.iconView?.visibility = View.GONE
             } else {
                 (adView.iconView as ImageView).setImageDrawable(
-                    nativeAdToShow.icon!!.drawable
+                    mNativeAd?.icon!!.drawable
                 )
                 adView.iconView?.visibility = View.VISIBLE
             }
 
-            adView.setNativeAd(nativeAdToShow ?: return)
+            adView.setNativeAd(mNativeAd ?: return)
             Misc.isNativeAdClicked = false
 
             object : CountDownTimer(1000, 1000) {
                 override fun onFinish() {
-                    if (nativeAdToShow == mNativeAdOne) {
-                        mNativeAdOne = null
-                    } else {
-                        mNativeAdTwo = null
-                    }
-
+                    mNativeAd = null
                     loadNativeAd(activity)
                 }
 

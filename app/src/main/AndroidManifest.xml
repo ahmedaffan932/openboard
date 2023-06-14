@@ -4,15 +4,12 @@
     package="org.dslul.openboard.inputmethod.latin">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_CLIPBOARD" />
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="29" />
-    <uses-permission
-        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <permission
@@ -31,24 +28,8 @@
         android:resizeableActivity="false"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
-        <activity
-            android:name="org.dslul.openboard.translator.pro.PreviewDocumentActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.TranslatorGuru">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name="org.dslul.openboard.translator.pro.DetailedDocumentTranslationActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.TranslatorGuru">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
+
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -111,14 +92,6 @@
         <activity
             android:name="org.dslul.openboard.translator.pro.LanguageSelectorActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.TranslatorGuru">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name="org.dslul.openboard.translator.pro.DocumentTranslationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru">
             <meta-data
@@ -334,6 +307,12 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-6814505709397727~5902581956" />
+
+        <service
+            android:name="org.dslul.openboard.translator.pro.services.ClipboardService"
+            android:enabled="true"
+            android:exported="false" />
+
     </application>
 
 </manifest>

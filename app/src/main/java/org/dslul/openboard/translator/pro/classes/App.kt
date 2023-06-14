@@ -8,13 +8,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
-import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
 import org.dslul.openboard.translator.pro.fcm.services.FcmFireBaseID
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.appopen.AppOpenAd
-import com.google.firebase.BuildConfig
 import com.google.firebase.FirebaseApp
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import org.dslul.openboard.inputmethod.latin.BuildConfig
 
 class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObserver {
     private lateinit var appOpenAdManager: AppOpenAdManager
@@ -22,19 +21,9 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
 
     override fun onCreate() {
         super.onCreate()
+
         registerActivityLifecycleCallbacks(this)
-
         MobileAds.initialize(this) {}
-
-        InterstitialAd.isFirstSetRequestSent = false
-        InterstitialAd.isSecondSetRequestSent = false
-        InterstitialAd.interAdmobRequestCompleted = false
-        InterstitialAd.interAdmobOneRequestCompleted = false
-        InterstitialAd.interAdmobTwoRequestCompleted = false
-
-        InterstitialAd.interAdmobRequestSuccess = false
-        InterstitialAd.interAdmobOneRequestSuccess = false
-        InterstitialAd.interAdmobTwoRequestSuccess = false
 
         FirebaseApp.initializeApp(this)
         FcmFireBaseID.subscribeToTopic()
@@ -65,95 +54,82 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
                         if (BuildConfig.VERSION_NAME == mFRC.getString("versionNameToBlockAds")) {
                             Misc.interstitialAdIdAdMobOne = ""
                             Misc.interstitialAdIdAdMobTwo = ""
-                            Misc.interstitialAdIdAdMobFour = ""
-                            Misc.interstitialAdIdAdMobFive = ""
                             Misc.interstitialAdIdAdMobThree = ""
 
-                            if(mFRC.getBoolean("blockNativeAdsAlso")){
-                                Misc.nativeAdIdAdMobOne = mFRC.getString("nativeAdIdAdMobOne")
-                                Misc.nativeAdIdAdMobTwo = mFRC.getString("nativeAdIdAdMobTwo")
-                            }
-                        } else {
-                            Misc.lifeTimePrice = mFRC.getString("lifeTimePrice")
-                            Misc.isFirstTimeShowLanguagesEnabled =
-                                mFRC.getBoolean("isFirstTimeShowLanguagesEnabled")
-                            Misc.isKeyboardSelectionInFlow =
-                                mFRC.getBoolean("isKeyboardSelectionInFlow")
-                            Misc.isDirectTranslateScreenEnabled =
-                                mFRC.getBoolean("isDirectTranslateScreenEnabled")
-                            Misc.isCameraTranslatorAdEnabled =
-                                mFRC.getBoolean("isCameraTranslatorAdEnabled")
-                            Misc.isTranslationInBetweenNativeEnabled =
-                                mFRC.getBoolean("isTranslationInBetweenNativeEnabled")
-                            Misc.isChatInBetweenNativeEnabled =
-                                mFRC.getBoolean("isChatInBetweenNativeEnabled")
-                            Misc.isDashboardInBetweenNativeEnabled =
-                                mFRC.getBoolean("isDashboardInBetweenNativeEnabled")
-                            Misc.isLanguageSelectorInBetweenNativeEnabled =
-                                mFRC.getBoolean("isLanguageSelectorInBetweenNativeEnabled")
+                            Misc.nativeAdIdAdMobOne = ""
+                            Misc.nativeAdIdAdMobTwo = ""
+                            Misc.nativeAdIdAdMobThree = ""
 
-                            Misc.isMultiTranslatorPremiumModule =
-                                mFRC.getBoolean("isMultiTranslatorPremiumModule")
+                            Misc.bannerAdIdOne = ""
+                            Misc.bannerAdIdTwo = ""
+                            Misc.bannerAdIdThree = ""
+
+                            Misc.chatIntAm = "off"
+                            Misc.gameIntAm = "off"
+                            Misc.proScreen = "off"
+                            Misc.quitNativeAm = "off"
+                            Misc.gameNativeAm = "off"
+                            Misc.chatNativeAm = "off"
+                            Misc.historyIntAm = "off"
+                            Misc.lifeTimePrice = "off"
+                            Misc.settingsIntAm = "off"
+                            Misc.dashboardIntAm = "off"
+                            Misc.favoritesIntAm = "off"
+                            Misc.splashNativeAm = "off"
+                            Misc.proScreenIntAm = "off"
+                            Misc.phrasebookIntAm = "off"
+                            Misc.settingsNativeAm = "off"
+                            Misc.dashboardNativeAm = "off"
+                            Misc.translateNativeAm = "off"
+                            Misc.dashboardNativeAm = "off"
+                            Misc.enableKeyboardIntAm = "off"
+                            Misc.splashContinueBtnText = "off"
+                            Misc.multiTranslateNativeAm = "off"
+                            Misc.languageSelectorNativeAm = "off"
+                            Misc.dashboardCollapsingBannerAm = "off"
+                            Misc.translateCollapsingBannerAm = "off"
+                            Misc.enableKeyboardCollapsingBannerAm = "off"
+
+                            Misc.isProScreenEnabled = mFRC.getBoolean("isProScreenEnabled")
+                            Misc.isKeyboardSelectionInFlow = mFRC.getBoolean("isKeyboardSelectionInFlow")
+                        } else {
 
                             Misc.chatIntAm = mFRC.getString("chatIntAm")
-                            Misc.proScreenDismissBtnVisibleAfter =
-                                mFRC.getLong("proScreenDismissBtnVisibleAfter")
                             Misc.gameIntAm = mFRC.getString("gameIntAm")
-                            Misc.quitNativeAm = mFRC.getString("quitNativeAm")
                             Misc.proScreen = mFRC.getString("proScreen")
+                            Misc.quitNativeAm = mFRC.getString("quitNativeAm")
                             Misc.gameNativeAm = mFRC.getString("gameNativeAm")
                             Misc.chatNativeAm = mFRC.getString("chatNativeAm")
                             Misc.historyIntAm = mFRC.getString("historyIntAm")
-                            Misc.gameNextIntAm = mFRC.getString("gameNextIntAm")
+                            Misc.lifeTimePrice = mFRC.getString("lifeTimePrice")
                             Misc.settingsIntAm = mFRC.getString("settingsIntAm")
                             Misc.dashboardIntAm = mFRC.getString("dashboardIntAm")
                             Misc.favoritesIntAm = mFRC.getString("favoritesIntAm")
                             Misc.splashNativeAm = mFRC.getString("splashNativeAm")
-                            Misc.onAppOpenIntAm = mFRC.getString("onAppOpenIntAm")
                             Misc.proScreenIntAm = mFRC.getString("proScreenIntAm")
                             Misc.phrasebookIntAm = mFRC.getString("phrasebookIntAm")
                             Misc.settingsNativeAm = mFRC.getString("settingsNativeAm")
+                            Misc.gameNextLimit = mFRC.getLong("gameNextLimit").toInt()
                             Misc.dashboardNativeAm = mFRC.getString("dashboardNativeAm")
+                            Misc.translateNativeAm = mFRC.getString("translateNativeAm")
+                            Misc.dashboardNativeAm = mFRC.getString("dashboardNativeAm")
+                            Misc.setGoogleApi(mFRC.getString("googleApiKey"), this)
+                            Misc.isProScreenEnabled = mFRC.getBoolean("isProScreenEnabled")
                             Misc.enableKeyboardIntAm = mFRC.getString("enableKeyboardIntAm")
                             Misc.splashContinueBtnText = mFRC.getString("splashContinueBtnText")
-                            Misc.documentTranslationInt = mFRC.getString("documentTranslationInt")
-                            Misc.enableKeyboardNativeAm = mFRC.getString("enableKeyboardNativeAm")
-                            Misc.languageSelectorNativeAm =
-                                mFRC.getString("languageSelectorNativeAm")
-
-                            Misc.setAppOpenIntAm(Misc.onAppOpenIntAm, this)
-                            Misc.banner_id = mFRC.getString("banner_id")
-                            Misc.banner_ads = mFRC.getString("banner_ads")
-                            Misc.translateNativeAm = mFRC.getString("translateNativeAm")
                             Misc.multiTranslateNativeAm = mFRC.getString("multiTranslateNativeAm")
-
-                            Misc.isProScreenEnabled = mFRC.getBoolean("isProScreenEnabled")
-                            Misc.isTestingProFeatures = mFRC.getBoolean("isTestingProFeatures")
-
-                            Misc.nativeAdIdAdMobOne = mFRC.getString("nativeAdIdAdMobOne")
-                            Misc.nativeAdIdAdMobTwo = mFRC.getString("nativeAdIdAdMobTwo")
-
-                            Misc.interstitialAdIdAdMobOne =
-                                mFRC.getString("interstitialAdIdAdMobOne")
-                            Misc.interstitialAdIdAdMobTwo =
-                                mFRC.getString("interstitialAdIdAdMobTwo")
-                            Misc.interstitialAdIdAdMobFour =
-                                mFRC.getString("interstitialAdIdAdMobFour")
-                            Misc.interstitialAdIdAdMobFive =
-                                mFRC.getString("interstitialAdIdAdMobFive")
-                            Misc.interstitialAdIdAdMobThree =
-                                mFRC.getString("interstitialAdIdAdMobThree")
-
-                            Misc.appOpenAdId = mFRC.getString("appOpenAdId")
-
-                            Misc.OnNativeRemoveAdsTagVisible =
-                                mFRC.getBoolean("OnNativeRemoveAdsTagVisible")
-
-                            Misc.splashScreenOnBackPressDoNothing =
-                                mFRC.getBoolean("splashScreenOnBackPressDoNothing")
-
-                            Misc.gameNextLimit = mFRC.getLong("gameNextLimit").toInt()
-                            Misc.setGoogleApi(mFRC.getString("googleApiKey"), this)
+                            Misc.languageSelectorNativeAm = mFRC.getString("languageSelectorNativeAm")
+                            Misc.isKeyboardSelectionInFlow = mFRC.getBoolean("isKeyboardSelectionInFlow")
+                            Misc.dashboardCollapsingBannerAm = mFRC.getString("dashboardCollapsingBannerAm")
+                            Misc.translateCollapsingBannerAm = mFRC.getString("translateCollapsingBannerAm")
+                            Misc.isCameraTranslatorAdEnabled = mFRC.getBoolean("isCameraTranslatorAdEnabled")
+                            Misc.isChatInBetweenNativeEnabled = mFRC.getBoolean("isChatInBetweenNativeEnabled")
+                            Misc.proScreenDismissBtnVisibleAfter = mFRC.getLong("proScreenDismissBtnVisibleAfter")
+                            Misc.isMultiTranslatorPremiumModule = mFRC.getBoolean("isMultiTranslatorPremiumModule")
+                            Misc.isDirectTranslateScreenEnabled = mFRC.getBoolean("isDirectTranslateScreenEnabled")
+                            Misc.enableKeyboardCollapsingBannerAm = mFRC.getString("enableKeyboardCollapsingBannerAm")
+                            Misc.splashScreenOnBackPressDoNothing = mFRC.getBoolean("splashScreenOnBackPressDoNothing")
+                            Misc.isLanguageSelectorInBetweenNativeEnabled = mFRC.getBoolean("isLanguageSelectorInBetweenNativeEnabled")
                         }
                         try {
                             Misc.showInterstitialAfter =
@@ -195,7 +171,7 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
         var isShowingAd = false
 
         /** Request an ad. */
-        fun loadAd(context: Context) {
+        fun loadAd(context: Context, adId: String = Misc.appOpenAdIdOne) {
             if (isLoadingAd || isAdAvailable()) {
                 return
             }
@@ -203,13 +179,14 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
             isLoadingAd = true
             val request = AdRequest.Builder().build()
             AppOpenAd.load(
-                context, Misc.appOpenAdId, request,
+                context, adId, request,
                 AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
                 object : AppOpenAd.AppOpenAdLoadCallback() {
 
                     override fun onAdLoaded(ad: AppOpenAd) {
                         // Called when an app open ad has loaded.
-                        Log.d(Misc.logKey, "Ad was loaded.")
+                        Log.d(Misc.logKey, "Ad loaded.")
+
                         appOpenAd = ad
                         isLoadingAd = false
                     }
@@ -217,7 +194,13 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
                     override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                         // Called when an app open ad has failed to load.
                         Log.d(Misc.logKey, loadAdError.message)
-                        isLoadingAd = false;
+
+                        isLoadingAd = false
+                        if (adId == Misc.appOpenAdIdOne) {
+                            loadAd(context, Misc.appOpenAdIdTwo)
+                        } else if (adId == Misc.appOpenAdIdTwo) {
+                            loadAd(context, Misc.appOpenAdIdThree)
+                        }
                     }
                 })
         }
@@ -246,36 +229,35 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
                 return
             }
 
-            appOpenAd?.setFullScreenContentCallback(
-                object : FullScreenContentCallback() {
+            appOpenAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
 
-                    override fun onAdDismissedFullScreenContent() {
-                        // Called when full screen content is dismissed.
-                        // Set the reference to null so isAdAvailable() returns false.
-                        Log.d(Misc.logKey, "Ad dismissed fullscreen content.")
-                        appOpenAd = null
-                        isShowingAd = false
+                override fun onAdDismissedFullScreenContent() {
+                    // Called when full screen content is dismissed.
+                    // Set the reference to null so isAdAvailable() returns false.
+                    Log.d(Misc.logKey, "Ad dismissed fullscreen content.")
+                    appOpenAd = null
+                    isShowingAd = false
 
-                        onShowAdCompleteListener?.onShowAdComplete()
-                        loadAd(activity)
-                    }
+                    onShowAdCompleteListener?.onShowAdComplete()
+                    loadAd(activity)
+                }
 
-                    override fun onAdFailedToShowFullScreenContent(adError: AdError) {
-                        // Called when fullscreen content failed to show.
-                        // Set the reference to null so isAdAvailable() returns false.
-                        Log.d(Misc.logKey, adError.message)
-                        appOpenAd = null
-                        isShowingAd = false
+                override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                    // Called when fullscreen content failed to show.
+                    // Set the reference to null so isAdAvailable() returns false.
+                    Log.d(Misc.logKey, adError.message)
+                    appOpenAd = null
+                    isShowingAd = false
 
-                        onShowAdCompleteListener?.onShowAdComplete()
-                        loadAd(activity)
-                    }
+                    onShowAdCompleteListener?.onShowAdComplete()
+                    loadAd(activity)
+                }
 
-                    override fun onAdShowedFullScreenContent() {
-                        // Called when fullscreen content is shown.
-                        Log.d(Misc.logKey, "Ad showed fullscreen content.")
-                    }
-                })
+                override fun onAdShowedFullScreenContent() {
+                    // Called when fullscreen content is shown.
+                    Log.d(Misc.logKey, "Ad showed fullscreen content.")
+                }
+            }
             isShowingAd = true
             if (!Misc.isDocumentTranslationActivity) {
                 appOpenAd?.show(activity)
