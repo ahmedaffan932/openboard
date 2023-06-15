@@ -86,17 +86,19 @@ class DashboardActivity : AppCompatActivity() {
 
         btnKeyboard.setOnClickListener {
             if (isInputMethodSelected()) {
-                val intent = Intent(
-                    this,
-                    org.dslul.openboard.inputmethod.latin.settings.SettingsActivity::class.java
-                )
-                startActivity(intent)
-            } else {
                 InterstitialAd.show(this, Misc.enableKeyboardIntAm, callback = {
-                    val intent = Intent(this, EnableKeyboardActivity::class.java)
-                    intent.putExtra(Misc.key, Misc.key)
+                    val intent = Intent(
+                        this,
+                        org.dslul.openboard.inputmethod.latin.settings.SettingsActivity::class.java
+                    )
                     startActivity(intent)
                 })
+            } else {
+//                InterstitialAd.show(this, Misc.enableKeyboardIntAm, callback = {
+                val intent = Intent(this, EnableKeyboardActivity::class.java)
+                intent.putExtra(Misc.key, Misc.key)
+                startActivity(intent)
+//                })
             }
         }
 
@@ -209,11 +211,11 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun showNativeAd() {
 //        if (Misc.isDashboardInBetweenNativeEnabled) {
-            NativeAds.showSmallNativeAd(
-                this,
-                Misc.dashboardNativeAm,
-                nativeAdFrameLayoutInBetween
-            )
+        NativeAds.showSmallNativeAd(
+            this,
+            Misc.dashboardNativeAm,
+            nativeAdFrameLayoutInBetween
+        )
 //        } else {
 //            NativeAds.manageShowNativeAd(
 //                this,

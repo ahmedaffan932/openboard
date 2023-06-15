@@ -21,6 +21,7 @@ import org.dslul.openboard.inputmethod.latin.LatinIME
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.admob.BannerAds
+import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
 import org.dslul.openboard.translator.pro.classes.admob.NativeAds
 import java.util.*
 import java.lang.Runnable as Runnable1
@@ -37,6 +38,8 @@ class EnableKeyboardActivity : AppCompatActivity() {
 
         Firebase.analytics.logEvent("EnableKeyboard", null)
         Misc.setIsFirstTime(this, false)
+
+        InterstitialAd.show(this, Misc.enableKeyboardIntAm)
 
         BannerAds.loadCollapsibleBanner(
             Misc.dashboardCollapsingBannerAm,

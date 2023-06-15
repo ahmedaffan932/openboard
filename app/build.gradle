@@ -11,8 +11,8 @@ android {
         applicationId "com.guru.translate.translator.translation.learn.language"
         minSdkVersion 24
         targetSdkVersion 33
-        versionCode 70
-        versionName '3.3'
+        versionCode 73
+        versionName '3.6'
     }
 
     buildTypes {

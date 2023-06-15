@@ -23,7 +23,7 @@ object InterstitialAd {
         adId: String = Misc.interstitialAdIdAdMobOne/*, callback: LoadInterstitialCallBack? = null*/
     ) {
         Log.d("Checking Var", BuildConfig.DEBUG.toString())
-        if (!Misc.getPurchasedStatus(activity) && interAdmob == null) {
+        if (!Misc.getPurchasedStatus(activity)) {
             val admobRequest = AdRequest.Builder().build()
             com.google.android.gms.ads.interstitial.InterstitialAd.load(
                 activity,
@@ -39,23 +39,16 @@ object InterstitialAd {
                         } else if (adId == Misc.interstitialAdIdAdMobTwo) {
                             loadInterAdmob(activity, Misc.interstitialAdIdAdMobThree)
                         }
-//                        interAdmobRequestCompleted = true
-//                        callback?.onFailed()
                     }
 
                     override fun onAdLoaded(interstitialAd: com.google.android.gms.ads.interstitial.InterstitialAd) {
                         Log.d("loadAdmob?", "Ad was loaded.")
-//                        interAdmobRequestCompleted = true
-//                        callback?.onLoaded()
                         interAdmob = interstitialAd
                         Misc.anyAdLoaded.value = true
                         interAdmobRequestSuccess = true
                     }
                 })
         }
-//        else {
-//            callback?.onLoaded()
-//        }
     }
 
 
@@ -95,7 +88,6 @@ object InterstitialAd {
             override fun onAdShowedFullScreenContent() {
                 Log.d("interAdmobShow", "Ad showed fullscreen content.")
                 manageLoadInterAdmob(activity)
-                interAdmob = null
                 Misc.isInterstitialDisplaying = true
             }
         }
