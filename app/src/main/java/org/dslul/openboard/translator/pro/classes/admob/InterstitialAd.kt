@@ -13,7 +13,6 @@ import org.dslul.openboard.translator.pro.interfaces.LoadInterstitialCallBack
 
 
 object InterstitialAd {
-    var interAdmobRequestSuccess = false
 
     var interAdmob: com.google.android.gms.ads.interstitial.InterstitialAd? = null
 
@@ -22,7 +21,6 @@ object InterstitialAd {
         activity: Activity,
         adId: String = Misc.interstitialAdIdAdMobOne/*, callback: LoadInterstitialCallBack? = null*/
     ) {
-        Log.d("Checking Var", BuildConfig.DEBUG.toString())
         if (!Misc.getPurchasedStatus(activity)) {
             val admobRequest = AdRequest.Builder().build()
             com.google.android.gms.ads.interstitial.InterstitialAd.load(
@@ -31,7 +29,7 @@ object InterstitialAd {
                 admobRequest,
                 object : InterstitialAdLoadCallback() {
                     override fun onAdFailedToLoad(adError: LoadAdError) {
-                        Log.d("loadAdmob?", adError.message + adError.code)
+                        Log.d("logKeyInt", adError.message + adError.code)
                         interAdmob = null
 
                         if (adId == Misc.interstitialAdIdAdMobOne) {
@@ -42,12 +40,12 @@ object InterstitialAd {
                     }
 
                     override fun onAdLoaded(interstitialAd: com.google.android.gms.ads.interstitial.InterstitialAd) {
-                        Log.d("loadAdmob?", "Ad was loaded.")
+                        Log.d("logKeyInt", "Ad was loaded.")
                         interAdmob = interstitialAd
                         Misc.anyAdLoaded.value = true
-                        interAdmobRequestSuccess = true
                     }
-                })
+                }
+            )
         }
     }
 
@@ -72,21 +70,20 @@ object InterstitialAd {
         interAdmob?.show(activity)
         interAdmob?.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
-                Log.d("interAdmobShow", "Ad was dismissed.")
-                interAdmob = null
+                Log.d("logKeyInt", "Ad was dismissed.")
                 callback?.invoke()
                 Misc.isInterstitialDisplaying = false
             }
 
             override fun onAdFailedToShowFullScreenContent(p0: AdError) {
-                Log.d("interAdmobShow", "Ad failed to show." + p0.message + p0.code)
+                Log.d("logKeyInt", "Ad failed to show." + p0.message + p0.code)
                 interAdmob = null
                 callback?.invoke()
                 Misc.isInterstitialDisplaying = false
             }
 
             override fun onAdShowedFullScreenContent() {
-                Log.d("interAdmobShow", "Ad showed fullscreen content.")
+                Log.d("logKeyInt", "Ad showed fullscreen content.")
                 manageLoadInterAdmob(activity)
                 Misc.isInterstitialDisplaying = true
             }

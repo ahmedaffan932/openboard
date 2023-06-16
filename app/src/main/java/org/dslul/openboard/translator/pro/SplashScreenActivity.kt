@@ -219,18 +219,18 @@ class SplashScreenActivity : AppCompatActivity() {
             activity = this,
             object : LoadInterstitialCallBack {
                 override fun onLoaded() {
-                    if (!isNativeAdDisplayed) {
-                        NativeAds.manageShowNativeAd(
-                            this@SplashScreenActivity,
-                            Misc.splashNativeAm,
-                            frameLayout
-                        )
-                        frameLayout.visibility = View.VISIBLE
-                        if (Misc.splashNativeAm.contains("no_media")) {
-                            frameLayout.animate().translationY(0F).duration = 500
-                        }
+//                    if (!isNativeAdDisplayed) {
+                    NativeAds.manageShowNativeAd(
+                        this@SplashScreenActivity,
+                        Misc.splashNativeAm,
+                        frameLayout
+                    )
+                    frameLayout.visibility = View.VISIBLE
+                    if (Misc.splashNativeAm.contains("no_media")) {
+                        frameLayout.animate().translationY(0F).duration = 500
                     }
-                    isNativeAdDisplayed = true
+//                    }
+//                    isNativeAdDisplayed = true
                 }
             }
         )
@@ -252,7 +252,7 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun startNextActivity() {
-        if(Misc.isDirectTranslateScreenEnabled){
+        if (Misc.isDirectTranslateScreenEnabled) {
             val intent = Intent(this, TranslateActivity::class.java)
             intent.putExtra("isDirectTranslateScreenEnabled", true)
             startActivity(intent)

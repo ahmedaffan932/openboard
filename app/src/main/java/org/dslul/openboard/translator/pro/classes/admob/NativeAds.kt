@@ -44,9 +44,9 @@ object NativeAds {
                     mNativeAd = null
                     Log.e(Misc.logKey, adError.message)
                     if (adId == Misc.nativeAdIdAdMobOne) {
-                        loadNativeAd(activity, adId = Misc.nativeAdIdAdMobTwo)
+                        loadNativeAd(activity, callBack, adId = Misc.nativeAdIdAdMobTwo)
                     } else if (adId == Misc.nativeAdIdAdMobThree) {
-                        loadNativeAd(activity, adId = Misc.nativeAdIdAdMobThree)
+                        loadNativeAd(activity, callBack, adId = Misc.nativeAdIdAdMobThree)
                     }
                 }
             }).build()
