@@ -105,12 +105,13 @@
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/ad_call_to_action"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_40sdp"
                         android:background="@drawable/bg_less_rounded_borderd"
                         android:backgroundTint="@color/accent"
+                        android:text="install"
                         android:gravity="center"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_14sdp"
                         android:textStyle="bold" />
 
                 </LinearLayout>

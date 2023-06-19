@@ -30,7 +30,10 @@ object NativeAds {
         adId: String = Misc.nativeAdIdAdMobOne
     ) {
         mNativeAd = null
-        if (Misc.getPurchasedStatus(activity)) return
+        if (Misc.getPurchasedStatus(activity)) {
+            Log.d(Misc.logKey, "Purchase Status: ${Misc.getPurchasedStatus(activity)}")
+            return
+        }
 
         val adLoader: AdLoader =
             AdLoader.Builder(activity, adId).forNativeAd { nativeAd ->
@@ -42,7 +45,7 @@ object NativeAds {
                 override fun onAdFailedToLoad(adError: LoadAdError) {
                     callBack?.onFailed()
                     mNativeAd = null
-                    Log.e(Misc.logKey, adError.message)
+                    Log.e(Misc.logKey, "Native ad Error ${adError.message}")
                     if (adId == Misc.nativeAdIdAdMobOne) {
                         loadNativeAd(activity, callBack, adId = Misc.nativeAdIdAdMobTwo)
                     } else if (adId == Misc.nativeAdIdAdMobThree) {

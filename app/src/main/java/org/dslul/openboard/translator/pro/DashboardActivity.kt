@@ -42,27 +42,23 @@ class DashboardActivity : AppCompatActivity() {
 
 //        startService(this)
 
-        BannerAds.loadCollapsibleBanner(
-            Misc.enableKeyboardCollapsingBannerAm,
-            adViewOne,
-            object : BannerAds.bannerAdsCallBack {
-                override fun onFailed() {
-                    BannerAds.loadCollapsibleBanner(
-                        Misc.enableKeyboardCollapsingBannerAm,
-                        adViewTwo,
-                        object : BannerAds.bannerAdsCallBack {
-                            override fun onFailed() {
-                                BannerAds.loadCollapsibleBanner(
-                                    Misc.enableKeyboardCollapsingBannerAm,
-                                    adViewThree
-                                )
-                            }
-                        }
-                    )
-                }
-            }
-        )
-
+        if (!Misc.dashboardNativeAm.contains("am")) {
+            BannerAds.loadCollapsibleBanner(Misc.enableKeyboardCollapsingBannerAm,
+                adViewOne,
+                object : BannerAds.bannerAdsCallBack {
+                    override fun onFailed() {
+                        BannerAds.loadCollapsibleBanner(Misc.enableKeyboardCollapsingBannerAm,
+                            adViewTwo,
+                            object : BannerAds.bannerAdsCallBack {
+                                override fun onFailed() {
+                                    BannerAds.loadCollapsibleBanner(
+                                        Misc.enableKeyboardCollapsingBannerAm, adViewThree
+                                    )
+                                }
+                            })
+                    }
+                })
+        }
         Misc.setIsFirstTime(this, false)
 
         Firebase.analytics.logEvent("Dashboard", null)
@@ -135,8 +131,7 @@ class DashboardActivity : AppCompatActivity() {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             startActivity(
                 Intent(
-                    this@DashboardActivity,
-                    DisplayHistoryActivity::class.java
+                    this@DashboardActivity, DisplayHistoryActivity::class.java
                 )
             )
         }
@@ -153,8 +148,7 @@ class DashboardActivity : AppCompatActivity() {
 
             startActivity(
                 Intent(
-                    this@DashboardActivity,
-                    MultiLanguageTranslationActivity::class.java
+                    this@DashboardActivity, MultiLanguageTranslationActivity::class.java
                 )
             )
         }
@@ -210,25 +204,20 @@ class DashboardActivity : AppCompatActivity() {
 
 
     private fun showNativeAd() {
-//        if (Misc.isDashboardInBetweenNativeEnabled) {
-        NativeAds.showSmallNativeAd(
-            this,
-            Misc.dashboardNativeAm,
+        val frameLayout = if (Misc.dashboardNativeAm.contains("no_media")) {
             nativeAdFrameLayoutInBetween
+        } else {
+            nativeAdFrameLayout
+        }
+
+        NativeAds.manageShowNativeAd(
+            this, Misc.dashboardNativeAm, frameLayout
         )
-//        } else {
-//            NativeAds.manageShowNativeAd(
-//                this,
-//                Misc.dashboardNativeAm,
-//                nativeAdFrameLayout
-//            )
-//        }
     }
 
     fun startService(context: Context) {
         val intent = Intent(
-            context,
-            ClipboardService::class.java
+            context, ClipboardService::class.java
         )
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             context.startService(intent)

@@ -81,7 +81,6 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
                             Misc.settingsNativeAm = "off"
                             Misc.dashboardNativeAm = "off"
                             Misc.translateNativeAm = "off"
-                            Misc.dashboardNativeAm = "off"
                             Misc.enableKeyboardIntAm = "off"
                             Misc.splashContinueBtnText = "off"
                             Misc.multiTranslateNativeAm = "off"

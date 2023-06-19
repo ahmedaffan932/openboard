@@ -91,9 +91,8 @@ class SplashScreenActivity : AppCompatActivity() {
             if (Misc.splashContinueBtnText.isNotEmpty()) {
                 tvStart.text = Misc.splashContinueBtnText
             }
-            loadAds()
         }
-
+        loadAds()
 
         val t: Long = if (BuildConfig.DEBUG) {
             6200

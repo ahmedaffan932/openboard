@@ -488,6 +488,17 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent">
 
+                    <FrameLayout
+                        android:id="@+id/nativeAdFrameLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_230sdp"
+                        android:visibility="gone"
+                        android:layout_margin="@dimen/padding"
+                        android:elevation="@dimen/less_padding"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
                     <com.google.android.gms.ads.AdView
                         android:id="@+id/adViewOne"
                         android:layout_width="wrap_content"

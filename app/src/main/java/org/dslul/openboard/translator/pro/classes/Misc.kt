@@ -342,7 +342,11 @@ object Misc {
     fun getPurchasedStatus(activity: Context?): Boolean {
         val sharedPreferences =
             activity!!.getSharedPreferences(purchasedStatus, Context.MODE_PRIVATE)
-        return sharedPreferences.getBoolean(purchasedStatus, false)
+        return if (BuildConfig.DEBUG) {
+            false
+        } else {
+            sharedPreferences.getBoolean(purchasedStatus, false)
+        }
     }
 
     fun turnOffNotification(activity: Activity, boolean: Boolean) {
