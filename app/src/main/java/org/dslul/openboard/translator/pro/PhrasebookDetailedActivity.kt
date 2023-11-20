@@ -88,7 +88,6 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
 
     private var i: Int = 0
 
-    //    //@DelicateCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -139,7 +138,7 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        llLngFromPraseDetailed.setOnClickListener {
+        llLngFrom.setOnClickListener {
             val intent = Intent(
                 this@PhrasebookDetailedActivity,
                 LanguageSelectorActivity::class.java
@@ -149,7 +148,7 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
             startActivityForResult(intent, lngSelectorLngFrom)
         }
 
-        llLngToPhraseDetailed.setOnClickListener {
+        llLngTo.setOnClickListener {
             startActivityForResult(
                 Intent(
                     this@PhrasebookDetailedActivity,
@@ -159,7 +158,7 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
             )
         }
 
-        btnSwitchLngsPhraseDetailed.setOnClickListener {
+        btnSwitchLngs.setOnClickListener {
             if (Misc.getLanguageFrom(this) != Misc.defaultLanguage) {
                 val rotate = RotateAnimation(
                     0F, 180F, Animation.RELATIVE_TO_SELF,
@@ -168,7 +167,7 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
                 rotate.duration = 100
                 rotate.interpolator = LinearInterpolator()
 
-                val image = btnSwitchLngsPhraseDetailed
+                val image = btnSwitchLngs
                 image.startAnimation(rotate)
 
                 val temp = Misc.getLanguageFrom(this)
@@ -176,14 +175,14 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
                 Misc.setLanguageTo(this, temp)
 
                 Misc.zoomOutView(tvHeading, this, 150)
-                Misc.zoomOutView(llLngFromPraseDetailed, this, 150)
-                Misc.zoomOutView(llLngToPhraseDetailed, this, 150)
+                Misc.zoomOutView(llLngFrom, this, 150)
+                Misc.zoomOutView(llLngTo, this, 150)
 
                 Handler().postDelayed({
                     setSelectedLng()
                     Misc.zoomInView(tvHeading, this, 150)
-                    Misc.zoomInView(llLngFromPraseDetailed, this, 150)
-                    Misc.zoomInView(llLngToPhraseDetailed, this, 150)
+                    Misc.zoomInView(llLngFrom, this, 150)
+                    Misc.zoomInView(llLngTo, this, 150)
                 }, 150)
 
 
@@ -224,24 +223,24 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            tvLngFromPhraseDetailed.text =
+            textViewLngFrom.text =
                 "English"
-            flagFromPhraseDetailed.setImageResource(Misc.getFlag(this, "en"))
+            flagFrom.setImageResource(Misc.getFlag(this, "en"))
         } else {
-            tvLngFromPhraseDetailed.text = Locale(
+            textViewLngFrom.text = Locale(
                 Misc.getLanguageFrom(this)
             ).displayName
-            flagFromPhraseDetailed.setImageResource(
+            flagFrom.setImageResource(
                 Misc.getFlag(
                     this,
                     Misc.getLanguageFrom(this)
                 )
             )
         }
-        tvLngToPhraseDetailed.text = Locale(
+        textViewLngTo.text = Locale(
             Misc.getLanguageTo(this)
         ).displayName
-        flagToPhraseDetail.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
+        flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
     }
 
     //@DelicateCoroutinesApi
@@ -299,7 +298,6 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
                     }
                     i += 1
                 }
-
 
                 val lngTo = Misc.getLanguageTo(this@PhrasebookDetailedActivity)
                 GlobalScope.launch(Dispatchers.Main) {

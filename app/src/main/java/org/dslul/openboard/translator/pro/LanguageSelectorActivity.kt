@@ -7,6 +7,7 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
+import android.text.Html
 import android.util.Log
 import android.view.View
 import android.view.animation.Animation
@@ -25,7 +26,6 @@ import com.google.mlkit.nl.translate.TranslateLanguage
 import kotlinx.android.synthetic.main.activity_language_selector.*
 import kotlinx.android.synthetic.main.activity_language_selector.bannerFrame
 import kotlinx.android.synthetic.main.activity_language_selector.nativeAdFrameLayoutInBetween
-import kotlinx.android.synthetic.main.activity_translate.*
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.adaptor.LanguagesAdapter
 import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
@@ -64,12 +64,11 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
             objDialog.show()
 
             objDialog.findViewById<TextView>(R.id.warning).visibility = View.VISIBLE
-            InterstitialAd.manageLoadInterAdmob(this)
             Misc.anyAdLoaded.observeForever { t ->
                 try {
                     if (t) {
                         if (!showingInterstitial) {
-                            InterstitialAd.show(this, Misc.getAppOpenIntAm(this))
+                            InterstitialAd.showInterstitial(this, Misc.getAppOpenIntAm(this))
                         }
                         showingInterstitial = true
                     }
@@ -94,7 +93,7 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
 
         setBackground()
 
-        NativeAds.showSmallNativeAd(this, Misc.languageSelectorNativeAm, frameLayout)
+        NativeAds.manageShowNativeAd(this, Misc.languageSelectorNativeAm, frameLayout)
 
         for (lng in TranslateLanguage.getAllLanguages()) {
             Log.d(Misc.logKey, lng)
@@ -132,6 +131,12 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
         recyclerViewLanguages.layoutManager = LinearLayoutManager(this)
         adapter = LanguagesAdapter(arr, intent.getBooleanExtra(Misc.lngTo, true), this)
         recyclerViewLanguages.adapter = adapter
+
+        simpleSearchView.setQueryHint(
+            Html.fromHtml(
+                "<font color = #BDBDBD>" + "Search Language" + "</font>"
+            )
+        )
 
         btnBackLanguages.setOnClickListener {
             onBackPressed()
@@ -182,7 +187,7 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
             textViewLngTo.backgroundTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.accent))
             textViewLngTo.setTextColor(resources.getColor(R.color.black))
-            textViewLngFrom.setTextColor(Misc.getThemeColor(R.attr.colorOnPrimary, this))
+            textViewLngFrom.setTextColor(resources.getColor(R.color.white))
         } else {
             if (!intent.getBooleanExtra("isPhrasebook", false)) {
                 arr.add(Misc.defaultLanguage)
@@ -191,7 +196,7 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
             textViewLngFrom.backgroundTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.accent))
             textViewLngFrom.setTextColor(resources.getColor(R.color.black))
-            textViewLngTo.setTextColor(Misc.getThemeColor(R.attr.colorOnPrimary, this))
+            textViewLngTo.setTextColor(resources.getColor(R.color.white))
         }
     }
 

@@ -682,62 +682,6 @@ object Misc {
     private val channelId = BuildConfig.APPLICATION_ID
     private val description = "Translate All Languages."
 
-    fun Context.startNotification() {
-        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        var isNotificationRunning = false
-        for (notification in notificationManager.activeNotifications) {
-            if (notification.id == 1234) {
-                isNotificationRunning = true
-            }
-        }
-
-        if (!isNotificationRunning && !isNotificationTurnedOff(this)) {
-            val contentView = RemoteViews(packageName, R.layout.translate_notification_layout)
-            contentView.setImageViewResource(R.id.image, R.drawable.logo)
-
-            val intent = Intent(this, TranslateActivity::class.java)
-            intent.putExtra(data, data)
-            val pendingIntent =
-                PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_MUTABLE)
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                notificationChannel = NotificationChannel(
-                    channelId, description, NotificationManager.IMPORTANCE_LOW
-                )
-                notificationChannel.enableLights(false)
-                notificationChannel.lightColor = Color.GREEN
-                notificationChannel.enableVibration(false)
-                notificationManager.createNotificationChannel(notificationChannel)
-
-                builder = Notification.Builder(this, channelId).setContent(contentView)
-                    .setSmallIcon(R.drawable.logo).setOngoing(true).setLargeIcon(
-                        BitmapFactory.decodeResource(
-                            this.resources, R.drawable.logo
-                        )
-                    ).setContentIntent(pendingIntent)
-
-            } else {
-                builder =
-                    Notification.Builder(this).setContent(contentView).setSmallIcon(R.drawable.logo)
-                        .setOngoing(true).setLargeIcon(
-                            BitmapFactory.decodeResource(
-                                this.resources, R.drawable.logo
-                            )
-                        ).setContentIntent(pendingIntent)
-            }
-
-            val settingsIntent = Intent(this, SettingsActivity::class.java)
-            settingsIntent.putExtra(data, data)
-            contentView.setOnClickPendingIntent(
-                R.id.btnTurnOffNotification, PendingIntent.getActivity(
-                    this, 0, settingsIntent, PendingIntent.FLAG_MUTABLE
-                )
-            )
-            notificationManager.notify(1234, builder.build())
-        }
-    }
-
     fun Context.isInputMethodSelected(): Boolean {
         val id: String = Settings.Secure.getString(
             contentResolver,

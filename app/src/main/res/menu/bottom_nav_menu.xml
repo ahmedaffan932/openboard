@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/btnTranslate"
+        android:icon="@drawable/ic_translate_selector"
+        android:title="Translate" />
+
+    <item
+        android:id="@+id/btnCamera"
+        android:icon="@drawable/ic_camera_selector"
+        android:title="Lens" />
+
+    <item
+        android:id="@+id/btnKeyboard"
+        android:icon="@drawable/ic_keyboard_selector"
+        android:title="Keyboard" />
+
+    <item
+        android:id="@+id/btnPhrasebook"
+        android:icon="@drawable/ic_phrase_book_selector"
+        android:title="Phrasebook" />
+
+    <item
+        android:id="@+id/btnFavorite"
+        android:icon="@drawable/ic_fav_selector"
+        android:title="Favourite" />
+
+</menu>

@@ -116,7 +116,7 @@
 
 
     <color name="black">#121212</color>
-    <color name="accent">#4285F4</color>
+    <color name="accent">#FCCF1F</color>
     <color name="orange">#9CCC65</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray_900">#212121</color>
@@ -126,9 +126,14 @@
     <color name="gray_400">#BDBDBD</color>
     <color name="color_nothing">#00000000</color>
     <color name="blue">#4983E6</color>
-    <color name="btnTextColor">#ffffff</color>
+    <color name="btnTextColor">#000000</color>
     <color name="notificationTextColor">#616161</color>
     <color name="splashBackgroundColor">#ffffff</color>
 
     <color name="primary">#f5f6fb</color>
+
+    <color name="bg_color">#0F0C0F</color>
+    <color name="yellow">#FCCF1F</color>
+    <color name="disable_color">#161316</color>
+    <color name="secondary_color">#1F1C1F</color>
 </resources>

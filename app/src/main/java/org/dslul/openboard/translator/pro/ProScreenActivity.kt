@@ -52,7 +52,7 @@ class ProScreenActivity : AppCompatActivity() {
 
         tvLifeTimePrice.text = Misc.lifeTimePrice
 
-        InterstitialAd.show(this, Misc.proScreenIntAm)
+        InterstitialAd.showInterstitial(this, Misc.proScreenIntAm)
 
         billingClient = BillingClient.newBuilder(this)
             .setListener(purchasesUpdatedListener)
@@ -135,7 +135,7 @@ class ProScreenActivity : AppCompatActivity() {
 
         btnDismiss.setOnClickListener {
             if (intent.getStringExtra(Misc.data) == null) {
-                startActivity(Intent(this@ProScreenActivity, DashboardActivity::class.java))
+                startActivity(Intent(this@ProScreenActivity, TranslateActivity::class.java))
                 finish()
             } else {
                 finish()

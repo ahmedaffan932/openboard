@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.*
 import android.content.*
 import android.graphics.Color
-import android.net.Uri
 import android.os.*
 import android.speech.RecognizerIntent
 import android.speech.tts.TextToSpeech
@@ -17,25 +16,28 @@ import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
-import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
-import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.google.mlkit.nl.languageid.LanguageIdentification
 import com.rw.keyboardlistener.KeyboardUtils
 import kotlinx.android.synthetic.main.activity_translate.*
-import kotlinx.android.synthetic.main.activity_translate.btnHistory
-import kotlinx.android.synthetic.main.activity_translate.nativeAdFrameLayout
-import kotlinx.android.synthetic.main.activity_translate.nativeAdFrameLayoutInBetween
+import kotlinx.android.synthetic.main.activity_translate.view.quitBottomSheet
+import kotlinx.android.synthetic.main.bottom_sheet_quit.nativeAdFrameLayoutQuit
+import kotlinx.android.synthetic.main.dailog_custom.view.btnNo
+import kotlinx.android.synthetic.main.dailog_custom.view.btnYes
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
+import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
 import org.dslul.openboard.translator.pro.classes.admob.BannerAds
+import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
 import org.dslul.openboard.translator.pro.classes.admob.NativeAds
 import org.dslul.openboard.translator.pro.interfaces.LoadInterstitialCallBack
 import org.jsoup.Jsoup
@@ -43,6 +45,8 @@ import java.net.URLEncoder
 import java.util.*
 
 class TranslateActivity : AppCompatActivity() {
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
+
     private var isNativeAdLoaded: Boolean = false
     var isBtnTranslateVisible = false
     var isLLTranslateVisible = false
@@ -64,15 +68,45 @@ class TranslateActivity : AppCompatActivity() {
 
         translationsCount = Misc.showInterstitialAfter
 
-        if (isInputMethodSelected()) {
-            btnKeyboard.visibility = View.GONE
-        } else {
-            btnKeyboard.visibility = View.VISIBLE
+        Handler(Looper.getMainLooper()).postDelayed({
+            if(!isInputMethodSelected()){
+                startActivity(Intent(this, EnableKeyboardActivity::class.java))
+            }
+        }, 1000)
+
+        bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.quitBottomSheet))
+        quitBottomSheet.quitBottomSheet.setOnClickListener { }
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+
+        bottomSheetBehavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            }
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                    blockView.visibility = View.VISIBLE
+                } else if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                    blockView.visibility = View.GONE
+                }
+            }
+        })
+
+        quitBottomSheet.btnYes.setOnClickListener {
+            finishAffinity()
         }
 
-        btnKeyboard.setOnClickListener {
-            startActivity(Intent(this, EnableKeyboardActivity::class.java))
+        quitBottomSheet.btnNo.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
+
+
+        blockView.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            blockView.visibility = View.GONE
+        }
+
+        Misc.isActivityCreatingFirstTime = true
 
         Misc.isRemoteConfigFetched.observeForever { t ->
             try {
@@ -84,15 +118,45 @@ class TranslateActivity : AppCompatActivity() {
             }
         }
 
-        NativeAds.loadNativeAd(this@TranslateActivity, object : LoadInterstitialCallBack {
-            override fun onLoaded() {
-                NativeAds.manageShowNativeAd(
-                    this@TranslateActivity,
-                    Misc.translateNativeAm,
-                    nativeAdFrameLayout
-                )
+        bottomNavigationView.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.btnTranslate -> {
+
+                }
+
+                R.id.btnCamera -> {
+                    startActivity(Intent(this, CameraTranslationActivity::class.java))
+                }
+
+                R.id.btnKeyboard -> {
+                    if (isInputMethodSelected()) {
+                        Toast.makeText(
+                            this,
+                            "Translator Pro Keyboard is already enabled, Enjoy!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            bottomNavigationView.selectedItemId = R.id.btnTranslate
+                        },500)
+                    } else {
+                        startActivity(Intent(this, EnableKeyboardActivity::class.java))
+                    }
+                }
+
+                R.id.btnPhrasebook -> {
+                    startActivity(Intent(this, PhrasesActivity::class.java))
+                }
+
+                R.id.btnFavorite -> {
+                    startActivity(Intent(this, DisplayFavoritesActivity::class.java))
+                }
             }
-        })
+            true
+        }
+
+        btnSettings.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
 
         if (intent?.action == Intent.ACTION_SEND && intent?.type == "text/plain") {
             textViewTextFrag.setText(intent.getStringExtra(Intent.EXTRA_TEXT) ?: "")
@@ -108,12 +172,11 @@ class TranslateActivity : AppCompatActivity() {
             objDialog.show()
 
             objDialog.findViewById<TextView>(R.id.warning).visibility = View.VISIBLE
-            InterstitialAd.manageLoadInterAdmob(this)
             Misc.anyAdLoaded.observeForever { t ->
                 try {
                     if (t) {
                         if (!showingInterstitial) {
-                            InterstitialAd.show(this, Misc.getAppOpenIntAm(this))
+                            InterstitialAd.showInterstitial(this, Misc.getAppOpenIntAm(this))
                         }
                         showingInterstitial = true
                     }
@@ -131,34 +194,8 @@ class TranslateActivity : AppCompatActivity() {
                 }
             }.start()
         }
-        InterstitialAd.show(this, Misc.translateNativeAm, null)
+        InterstitialAd.showInterstitial(this, Misc.translateNativeAm, null)
         showNativeAd()
-
-        if (Misc.isCameraTranslatorAdEnabled) {
-            btnCamera.visibility = View.VISIBLE
-        } else {
-            btnCamera.visibility = View.GONE
-        }
-
-        btnCamera.setOnClickListener {
-            Firebase.analytics.logEvent("BtnCameraTranslate", null)
-            val p = "com.object.translate.all.languages.free.translation.elite.translator"
-            val uri: Uri = Uri.parse("market://details?id=$p")
-            val goToMarket = Intent(Intent.ACTION_VIEW, uri)
-
-            goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_NEW_DOCUMENT or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-
-            try {
-                startActivity(goToMarket)
-            } catch (e: ActivityNotFoundException) {
-                startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("http://play.google.com/store/apps/details?id=$p")
-                    )
-                )
-            }
-        }
 
         Misc.isActivityCreatingFirstTime = true
 
@@ -178,10 +215,6 @@ class TranslateActivity : AppCompatActivity() {
         }
         handler.post(runnable)
 
-
-        if (!Misc.isNightModeOn(this)) {
-            textViewTextFrag.setTextColor(Color.BLACK)
-        }
 
         textViewTextFrag.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
         }
@@ -265,10 +298,6 @@ class TranslateActivity : AppCompatActivity() {
             }
         }
 
-        btnBack.setOnClickListener {
-            onBackPressed()
-        }
-
         btnHistory.setOnClickListener {
             startActivity(
                 Intent(
@@ -340,8 +369,8 @@ class TranslateActivity : AppCompatActivity() {
                 val image = btnSwitchLngs
                 image.startAnimation(rotate)
 
-                Misc.zoomOutView(llLngToFrag, this, 150)
-                Misc.zoomOutView(llLngFromFrag, this, 150)
+                Misc.zoomOutView(llLngTo, this, 150)
+                Misc.zoomOutView(llLngFrom, this, 150)
 
                 Handler().postDelayed({
                     val temp = Misc.getLanguageFrom(this)
@@ -356,8 +385,8 @@ class TranslateActivity : AppCompatActivity() {
                             jugarTranslation(textViewTextFrag.text.toString())
                         }, 150)
                     }
-                    Misc.zoomInView(llLngToFrag, this, 150)
-                    Misc.zoomInView(llLngFromFrag, this, 150)
+                    Misc.zoomInView(llLngTo, this, 150)
+                    Misc.zoomInView(llLngFrom, this, 150)
 
                 }, 150)
             } else {
@@ -367,13 +396,13 @@ class TranslateActivity : AppCompatActivity() {
             }
         }
 
-        llLngFromFrag.setOnClickListener {
+        llLngFrom.setOnClickListener {
             val intent = Intent(this, LanguageSelectorActivity::class.java)
             intent.putExtra(Misc.lngTo, false)
             startActivityForResult(intent, lngSelectorRequestCode)
         }
 
-        llLngToFrag.setOnClickListener {
+        llLngTo.setOnClickListener {
             startActivityForResult(
                 Intent(
                     this, LanguageSelectorActivity::class.java
@@ -436,77 +465,6 @@ class TranslateActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
-//    private fun translate(text: String) {
-//        setSelectedLng()
-//        if (!Misc.checkInternetConnection(this)) {
-//            Toast.makeText(
-//                this,
-//                "Please check your Internet connection and try again later.",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//            llPBTranslateFrag.visibility = View.GONE
-//            return
-//        }
-//
-//        if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-//            val languageIdentifier = LanguageIdentification.getClient()
-//            languageIdentifier.identifyLanguage(text).addOnSuccessListener { languageCode ->
-//                if (languageCode == "und") {
-//                    Toast.makeText(
-//                        this, "Unable to detect Language. ", Toast.LENGTH_SHORT
-//                    ).show()
-//                } else {
-//                    textLngFrom.text = "Detected -> $languageCode"
-//                }
-//            }.addOnFailureListener {
-//                Toast.makeText(
-//                    this, "Unable to detect Language. ", Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        }
-//        Handler().postDelayed({
-//            val query = URLEncoder.encode(text, "utf-8")
-//            val stringRequest: StringRequest = @SuppressLint("CutPasteId") object : StringRequest(
-//                Method.POST,
-//                "${Misc.translationUrl}q=$query",
-//                Response.Listener { response ->
-//                    val tempArrayList = JSONObject(response).getJSONObject(Misc.data)
-//                        .getJSONArray(Misc.translations)
-//                    textViewTextTranslatedFrag.text = ""
-//
-//                    var str = ""
-//                    for (i in 0 until tempArrayList.length()) {
-//                        str += tempArrayList.getJSONObject(i).getString(Misc.translatedText)
-//                    }
-//
-//                    textViewTextTranslatedFrag.text = str
-//                    saveInHistory(text, str)
-//                },
-//                Response.ErrorListener { error ->
-//                    llPBTranslateFrag.visibility = View.GONE
-//                    Log.d(Misc.logKey, Misc.getGoogleApi(this))
-//                    Log.d(Misc.logKey, "Translation error $error")
-//                }) {
-//                override fun getParams(): Map<String, String> {
-//                    val params: MutableMap<String, String> = HashMap()
-//                    params[Misc.key] = Misc.getGoogleApi(this@TranslateActivity)
-//                    params[Misc.target] = Misc.getLanguageTo(this@TranslateActivity)
-//                    return params
-//                }
-//
-//                override fun getHeaders(): Map<String, String> {
-//                    val headers: MutableMap<String, String> = HashMap()
-//                    headers["User-agent"] = Misc.userAgent
-//                    return headers
-//                }
-//            }
-//
-//            val requestQueue = Volley.newRequestQueue(this)
-//            requestQueue.add(stringRequest)
-//        }, 1)
-//    }
-
     private fun saveInHistory(text: String, translation: String) {
         if (text.length > 1000) {
             return
@@ -525,17 +483,9 @@ class TranslateActivity : AppCompatActivity() {
         editor.putString(Misc.history, json)
         editor.apply()
         if (isBtnTranslateVisible) {
-//            Misc.zoomOutView(btnTranslate, this, 150)
-//            Handler().postDelayed({
-//                btnTranslate.visibility = View.INVISIBLE
-//            }, 150)
             isBtnTranslateVisible = false
         }
         if (!isLLTranslateVisible) {
-            Handler().postDelayed({
-//                llText.setBackgroundResource(R.drawable.bg_half_up_rounded)
-            }, 140)
-
             nativeAdFrameLayout.visibility = View.GONE
 
             Handler().postDelayed({
@@ -559,20 +509,20 @@ class TranslateActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            textViewLngFromFrag.text = "Detect"
+            textViewLngFrom.text = "Detect"
             textLngFrom.text = "Detect"
-            flagFromFrag.setImageResource(Misc.getFlag(this, "100"))
+            flagFrom.setImageResource(Misc.getFlag(this, "100"))
         } else {
-            textViewLngFromFrag.text = Locale(
+            textViewLngFrom.text = Locale(
                 Misc.getLanguageFrom(this)
             ).displayName
             textLngFrom.text = Misc.getLanguageFrom(this)
 
-            flagFromFrag.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
+            flagFrom.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
         }
 
-        flagToFrag.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
-        textViewLngToFrag.text = Locale(
+        flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
+        textViewLngTo.text = Locale(
             Misc.getLanguageTo(this)
         ).displayName
         textLngTo.text = Misc.getLanguageTo(this)
@@ -717,6 +667,7 @@ class TranslateActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         setSelectedLng()
+        bottomNavigationView.selectedItemId = R.id.btnTranslate
         Log.d(Misc.logKey, "TranslatorOnResume.")
         if (Misc.isNativeAdClicked) {
             Log.d(Misc.logKey, "TranslatorNativeAdAfterOnClick")
@@ -724,21 +675,9 @@ class TranslateActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        if (intent.getStringExtra(Misc.data) != null) {
-            startActivity(Intent(this, DashboardActivity::class.java))
-            finish()
-        } else if (intent.getBooleanExtra("isDirectTranslateScreenEnabled", false)) {
-            startActivity(Intent(this, DashboardActivity::class.java))
-            finish()
-        } else {
-            super.onBackPressed()
-        }
-    }
-
     private fun showNativeAd() {
         if (Misc.isTranslationInBetweenNativeEnabled) {
-            NativeAds.showSmallNativeAd(
+            NativeAds.manageShowNativeAd(
                 this,
                 Misc.translateNativeAm,
                 nativeAdFrameLayoutInBetween
@@ -760,6 +699,16 @@ class TranslateActivity : AppCompatActivity() {
             startActivity(Intent(this, TranslateInterstitialActivity::class.java))
         } else {
             translationsCount++
+        }
+    }
+
+    override fun onBackPressed() {
+        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        } else {
+            NativeAds.manageShowNativeAd(this, Misc.quitNativeAm, nativeAdFrameLayoutQuit)
+            Log.d(Misc.logKey, "Bottom sheet clicked.")
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
     }
 

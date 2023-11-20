@@ -16,7 +16,7 @@ class DisplayFavoritesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_display_favorites)
 
-        InterstitialAd.show(this, Misc.favoritesIntAm)
+        InterstitialAd.showInterstitial(this, Misc.favoritesIntAm)
 
         if (Misc.getFavorites(this).size == 0) {
             tvNoFavorites.visibility = View.VISIBLE

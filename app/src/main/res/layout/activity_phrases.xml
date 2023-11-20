@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_color"
     tools:context="org.dslul.openboard.translator.pro.PhrasesActivity">
 
     <FrameLayout
@@ -25,7 +26,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
-            android:background="#f5f6fb"
             android:elevation="@dimen/padding_10"
             android:gravity="center"
             android:orientation="horizontal"
@@ -44,7 +44,7 @@
                 android:paddingVertical="@dimen/less_padding"
                 android:paddingEnd="@dimen/less_padding"
                 app:srcCompat="@drawable/ic_baseline_arrow_back_24"
-                app:tint="@color/gray_700" />
+                app:tint="@color/white" />
 
             <TextView
                 android:id="@+id/tvHeading"
@@ -53,7 +53,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/phrasebook"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -65,6 +65,7 @@
                 android:background="@drawable/bg_nothing_rounded_ripple"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="20dp"
+                android:visibility="invisible"
                 app:srcCompat="@drawable/ic_baseline_favorite_24" />
         </LinearLayout>
 
@@ -73,15 +74,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/fab_padding"
-            android:layout_marginTop="@dimen/padding"
+            android:animateLayoutChanges="true"
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/padding"
-            app:layout_constraintTop_toBottomOf="@id/llTopBar"
-            tools:layout_editor_absoluteX="15dp">
+            app:layout_constraintTop_toBottomOf="@id/llTopBar">
 
             <LinearLayout
-                android:id="@+id/llLngFromPhrase"
+                android:id="@+id/llLngFrom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/padding_10"
@@ -92,30 +92,30 @@
                 tools:targetApi="m">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/flagFromFragPhrase"
+                    android:id="@+id/flagFrom"
                     android:layout_width="@dimen/_30sdp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/_30sdp"
                     android:scaleType="centerCrop"
-                    app:shapeAppearanceOverlay="@style/roundedCorners"
-
-                    />
+                    android:src="@drawable/kr_flag"
+                    app:shapeAppearanceOverlay="@style/roundedCorners" />
 
                 <TextView
-                    android:id="@+id/textViewLngFromPhrase"
+                    android:id="@+id/textViewLngFrom"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/padding_10"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:paddingVertical="@dimen/padding_10"
+                    android:gravity="start"
+                    android:paddingVertical="@dimen/_7sdp"
                     android:text="@string/english"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     tools:ignore="NestedWeights" />
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/btnSwitchLngsPhrasebook"
+                android:id="@+id/btnSwitchLngs"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/ripple_effect_rounded"
@@ -123,10 +123,10 @@
                 android:padding="@dimen/padding_10"
                 android:paddingVertical="20dp"
                 app:srcCompat="@drawable/ic_switch_lang"
-                app:tint="@color/gray_700" />
+                app:tint="@color/white" />
 
             <LinearLayout
-                android:id="@+id/llLngToPhrase"
+                android:id="@+id/llLngTo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_10"
@@ -136,27 +136,26 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textViewLngToPhrasebook"
+                    android:id="@+id/textViewLngTo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/padding_10"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:paddingHorizontal="@dimen/padding_10"
-                    android:paddingVertical="@dimen/padding_10"
+                    android:gravity="start"
+                    android:paddingVertical="@dimen/_7sdp"
                     android:text="@string/textview"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     tools:ignore="NestedWeights" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/flagToFragPhrase"
+                    android:id="@+id/flagTo"
                     android:layout_width="@dimen/_30sdp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/_30sdp"
                     android:scaleType="centerCrop"
-                    app:shapeAppearanceOverlay="@style/roundedCorners"
-
-                    />
+                    android:src="@drawable/kr_flag"
+                    app:shapeAppearanceOverlay="@style/roundedCorners" />
 
             </LinearLayout>
         </LinearLayout>

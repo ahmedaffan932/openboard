@@ -1,8 +1,6 @@
 package org.dslul.openboard.translator.pro
 
 import android.annotation.SuppressLint
-import android.app.Notification
-import android.app.NotificationManager
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -25,7 +23,6 @@ import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.coroutines.*
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.*
-import org.dslul.openboard.translator.pro.classes.Misc.startNotification
 import org.dslul.openboard.translator.pro.classes.Misc.startProActivity
 import org.dslul.openboard.translator.pro.classes.admob.BannerAds
 import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
@@ -33,8 +30,6 @@ import org.dslul.openboard.translator.pro.classes.admob.NativeAds
 import org.dslul.openboard.translator.pro.interfaces.LoadInterstitialCallBack
 
 class SettingsActivity : AppCompatActivity() {
-    lateinit var notificationManager: NotificationManager
-    lateinit var builder: Notification.Builder
     var showingInterstitial = false
 
     private val purchasesUpdatedListener =
@@ -63,11 +58,10 @@ class SettingsActivity : AppCompatActivity() {
             objDialog.show()
 
             objDialog.findViewById<TextView>(R.id.warning).visibility = View.VISIBLE
-            InterstitialAd.manageLoadInterAdmob(this)
             Misc.anyAdLoaded.observeForever { t ->
                 if (t) {
                     if(!showingInterstitial) {
-                        InterstitialAd.show(this, Misc.getAppOpenIntAm(this))
+                        InterstitialAd.showInterstitial(this, Misc.getAppOpenIntAm(this))
                     }
                     showingInterstitial = true
                 }
@@ -109,27 +103,10 @@ class SettingsActivity : AppCompatActivity() {
             nativeAdFrameLayout
         )
 
-        InterstitialAd.show(this, Misc.settingsIntAm)
+        InterstitialAd.showInterstitial(this, Misc.settingsIntAm)
 
         if (Misc.isNightModeOn(this)) {
             tvUpgradeToPremium.setBackgroundResource(R.drawable.ic_bg_pro_yellow)
-        }
-
-        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        for (notification in notificationManager.activeNotifications) {
-            if (notification.id == 1234) {
-                btnSwitchInstantDownloader.isChecked = true
-            }
-        }
-        btnSwitchInstantDownloader.setOnCheckedChangeListener { _, isChecked ->
-            if (!isChecked) {
-                notificationManager.cancel(1234)
-                Misc.turnOffNotification(this, true)
-            } else {
-                Misc.turnOffNotification(this, false)
-                startNotification()
-            }
         }
 
         Misc.isActivityCreatingFirstTime = true
@@ -334,7 +311,7 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (intent.getStringExtra(Misc.data) != null) {
-            startActivity(Intent(this, DashboardActivity::class.java))
+            startActivity(Intent(this, TranslateActivity::class.java))
             finish()
         } else {
             super.onBackPressed()

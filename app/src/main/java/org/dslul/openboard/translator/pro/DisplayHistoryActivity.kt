@@ -20,7 +20,7 @@ class DisplayHistoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_display_history)
 
-        InterstitialAd.show(this, Misc.historyIntAm)
+        InterstitialAd.showInterstitial(this, Misc.historyIntAm)
 
         if (Misc.getHistory(this).size == 0) {
             tvNoHistory.visibility = View.VISIBLE

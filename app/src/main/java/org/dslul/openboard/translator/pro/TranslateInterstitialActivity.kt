@@ -15,7 +15,7 @@ class TranslateInterstitialActivity : AppCompatActivity() {
         )
         setContentView(R.layout.activity_translate_interstitial)
 
-        InterstitialAd.show(this, "am", callback = {
+        InterstitialAd.showInterstitial(this, "am", callback = {
             finish()
         })
 

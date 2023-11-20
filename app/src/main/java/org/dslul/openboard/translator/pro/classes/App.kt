@@ -26,17 +26,8 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
 
         MobileAds.initialize(this) {}
 
-        InterstitialAd.isFirstSetRequestSent = false
-        InterstitialAd.isSecondSetRequestSent = false
-        InterstitialAd.interAdmobRequestCompleted = false
-        InterstitialAd.interAdmobOneRequestCompleted = false
-        InterstitialAd.interAdmobTwoRequestCompleted = false
-
-        InterstitialAd.interAdmobRequestSuccess = false
-        InterstitialAd.interAdmobOneRequestSuccess = false
-        InterstitialAd.interAdmobTwoRequestSuccess = false
-
         FirebaseApp.initializeApp(this)
+
         FcmFireBaseID.subscribeToTopic()
 
         Misc.selectThemeMode(this)

@@ -1,6 +1,7 @@
 package org.dslul.openboard.translator.pro
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -13,6 +14,7 @@ import android.view.animation.TranslateAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
@@ -21,6 +23,7 @@ import kotlinx.android.synthetic.main.phrase_book_main_item.*
 import org.dslul.openboard.inputmethod.latin.LatinIME
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
 import org.dslul.openboard.translator.pro.classes.admob.NativeAds
 import java.util.*
 import java.lang.Runnable as Runnable1
@@ -61,7 +64,7 @@ class EnableKeyboardActivity : AppCompatActivity() {
         }
 
         tvSkip.setOnClickListener {
-            startActivity(Intent(this@EnableKeyboardActivity, DashboardActivity::class.java))
+            startActivity(Intent(this@EnableKeyboardActivity, TranslateActivity::class.java))
             finish()
         }
 
@@ -90,15 +93,6 @@ class EnableKeyboardActivity : AppCompatActivity() {
         }
     }
 
-    fun isInputMethodSelected(): Boolean {
-        val id: String = Settings.Secure.getString(
-            contentResolver,
-            Settings.Secure.DEFAULT_INPUT_METHOD
-        )
-        val defaultInputMethod = ComponentName.unflattenFromString(id)
-        val myInputMethod = ComponentName(this, LatinIME::class.java)
-        return myInputMethod == defaultInputMethod
-    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -110,39 +104,9 @@ class EnableKeyboardActivity : AppCompatActivity() {
             @SuppressLint("UseCompatLoadingForDrawables")
             override fun run() {
                 if (isInputMethodSelected()) {
-                    if (intent.getStringExtra(Misc.data) != null && isActivityNotStarted) {
-                        isActivityNotStarted = false
-                        handler.removeCallbacks(this)
-                        finish()
-                        startActivity(
-                            Intent(
-                                this@EnableKeyboardActivity,
-                                DashboardActivity::class.java
-                            )
-                        )
-                    } else {
-                        finish()
-                    }
-                } else {
-                    val packageLocal = packageName
-
-                    val mInputMethodManager =
-                        getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                    val lists: String = mInputMethodManager.enabledInputMethodList.toString()
-                    val mActKeyboard = lists.contains(packageLocal)
-
-                    if (mActKeyboard) {
-                        clEnableKeyboard.elevation = 0F
-                        clEnableKeyboard.alpha = 0.7F
-                        clEnableKeyboard.setPadding(dpToPx(8).toInt())
-
-                        clSelectKeyboard.alpha = 1F
-                        clSelectKeyboard.elevation = dpToPx(16)
-                        clSelectKeyboard.background =
-                            resources.getDrawable(R.drawable.bg_accent_bordered_less_rounded)
-                    }
+                    finish()
                 }
-                handler.postDelayed(this, 1000)
+                handler.postDelayed(this, 500)
             }
         }
     }
@@ -179,15 +143,21 @@ class EnableKeyboardActivity : AppCompatActivity() {
         val lists: String = mInputMethodManager.enabledInputMethodList.toString()
         val mActKeyboard = lists.contains(packageLocal)
 
-        clEnableKeyboard.setPadding(dpToPx(8).toInt())
         if (mActKeyboard) {
             clEnableKeyboard.setOnClickListener {
                 Toast.makeText(this, "Step 1 is completed.", Toast.LENGTH_SHORT).show()
             }
-            clEnableKeyboard.background =
-                resources.getDrawable(R.drawable.bg_disabled_less_rounded)
-//            clMain.background = resources.getDrawable(R.drawable.bg_select)
 
+            clEnableKeyboard.background =
+                resources.getDrawable(R.drawable.bg_main_rounded)
+
+            tvHintMeaning.backgroundTintList = ContextCompat.getColorStateList(this, R.color.gray_800);
+            clEnableKeyboard.backgroundTintList = ContextCompat.getColorStateList(this, R.color.disable_color);
+
+            textEnable.setTextColor(resources.getColor(R.color.gray_700))
+            tvHintMeaning.setTextColor(resources.getColor(R.color.gray_400))
+
+            clSelectKeyboard.visibility = View.VISIBLE
             clSelectKeyboard.setOnClickListener {
                 (getSystemService(
                     getString(R.string.input_method)

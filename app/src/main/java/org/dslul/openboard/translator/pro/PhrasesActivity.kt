@@ -41,7 +41,7 @@ class PhrasesActivity : AppCompatActivity() {
         )
         setContentView(R.layout.activity_phrases)
 
-        InterstitialAd.show(this, Misc.phrasebookIntAm)
+        InterstitialAd.showInterstitial(this, Misc.phrasebookIntAm)
 
         setSelectedLng()
 
@@ -53,21 +53,21 @@ class PhrasesActivity : AppCompatActivity() {
             startActivity(Intent(this@PhrasesActivity, DisplayFavoritesActivity::class.java))
         }
 
-        llLngFromPhrase.setOnClickListener {
+        llLngFrom.setOnClickListener {
             val intent = Intent(this@PhrasesActivity, LanguageSelectorActivity::class.java)
             intent.putExtra("isPhrasebook", true)
             intent.putExtra(Misc.lngTo, false)
             startActivityForResult(intent, lngSelectorLngFrom)
         }
 
-        llLngToPhrase.setOnClickListener {
+        llLngTo.setOnClickListener {
             startActivityForResult(
                 Intent(this@PhrasesActivity, LanguageSelectorActivity::class.java),
                 lngSelectorLngTo
             )
         }
 
-        btnSwitchLngsPhrasebook.setOnClickListener {
+        btnSwitchLngs.setOnClickListener {
             if (Misc.getLanguageFrom(this) != Misc.defaultLanguage) {
                 val rotate = RotateAnimation(
                     0F, 180F, Animation.RELATIVE_TO_SELF,
@@ -76,11 +76,11 @@ class PhrasesActivity : AppCompatActivity() {
                 rotate.duration = 200
                 rotate.interpolator = LinearInterpolator()
 
-                val image = btnSwitchLngsPhrasebook
+                val image = btnSwitchLngs
                 image.startAnimation(rotate)
 
-                Misc.zoomOutView(llLngToPhrase, this, 150)
-                Misc.zoomOutView(llLngFromPhrase, this, 150)
+                Misc.zoomOutView(llLngTo, this, 150)
+                Misc.zoomOutView(llLngFrom, this, 150)
 
                 val temp = Misc.getLanguageFrom(this)
                 Misc.setLanguageFrom(this, Misc.getLanguageTo(this))
@@ -90,8 +90,8 @@ class PhrasesActivity : AppCompatActivity() {
                     setSelectedLng()
                     getTextFrom()
 
-                    Misc.zoomInView(llLngToPhrase, this, 150)
-                    Misc.zoomInView(llLngFromPhrase, this, 150)
+                    Misc.zoomInView(llLngTo, this, 150)
+                    Misc.zoomInView(llLngFrom, this, 150)
 
                 }, 150)
 
@@ -214,21 +214,21 @@ class PhrasesActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            textViewLngFromPhrase.text = "English"
-            flagFromFragPhrase.setImageResource(Misc.getFlag(this, "en"))
+            textViewLngFrom.text = "English"
+            flagFrom.setImageResource(Misc.getFlag(this, "en"))
         } else {
-            flagFromFragPhrase.setImageResource(
+            flagFrom.setImageResource(
                 Misc.getFlag(
                     this,
                     Misc.getLanguageFrom(this)
                 )
             )
-            textViewLngFromPhrase.text = Locale(
+            textViewLngFrom.text = Locale(
                 Misc.getLanguageFrom(this)
             ).displayName
         }
-        flagToFragPhrase.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
-        textViewLngToPhrasebook.text = Locale(
+        flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
+        textViewLngTo.text = Locale(
             Misc.getLanguageTo(this)
         ).displayName
         Misc.canWeProceed = true

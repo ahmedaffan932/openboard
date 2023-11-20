@@ -6,399 +6,95 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@drawable/bg_splash_screen"
+    android:background="@color/bg_color"
     tools:context="org.dslul.openboard.translator.pro.SplashScreenActivity">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="@dimen/_75sdp"
-        android:layout_height="@dimen/_75sdp"
-        android:layout_margin="@dimen/fab_padding"
-        android:background="@drawable/bg_main_less_rounded"
-        android:elevation="@dimen/padding"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
-
-    <LinearLayout
-        android:id="@+id/llLogo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding"
-        android:gravity="start"
-        android:orientation="horizontal"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/logo"
-        app:layout_constraintTop_toTopOf="@+id/logo">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="@string/translator"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_18sdp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:text="@string/Pro"
-            android:textColor="@color/accent"
-            android:textSize="@dimen/_18sdp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvText1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/padding"
-        android:fontFamily="@font/gilroy_light"
-        android:maxLines="2"
-        android:text="@string/enjoy_ou_best_translation_features_and_translate_on_the_goo"
-        android:textColor="@color/gray_900"
-        app:layout_constraintBottom_toBottomOf="@id/logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/logo" />
-
-    <ScrollView
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/splashViewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/btnStart"
-        app:layout_constraintTop_toBottomOf="@id/logo">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clTranslation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/logo">
-
-                <ImageView
-                    android:id="@+id/imgTranslate"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginStart="@dimen/fab_padding"
-                    android:padding="@dimen/padding"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_baseline_translate_24_selected"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/accent" />
-
-                <TextView
-                    android:id="@+id/tvTranslationHeading"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/fab_padding"
-                    android:layout_marginTop="@dimen/fab_padding"
-                    android:fontFamily="@font/gilroy_extrabold"
-                    android:maxLines="2"
-                    android:text="Translation"
-                    android:textColor="@color/gray_900"
-                    android:textSize="@dimen/_14sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/imgTranslate"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvTranslation"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/fab_padding"
-                    android:layout_marginTop="@dimen/less_padding"
-                    android:fontFamily="@font/gilroy_light"
-                    android:maxLines="2"
-                    android:text="@string/enjoy_ou_best_translation_features_and_translate_on_the_goo"
-                    android:textColor="@color/gray_900"
-                    android:textSize="@dimen/_12sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/imgTranslate"
-                    app:layout_constraintTop_toBottomOf="@id/tvTranslationHeading" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/padding"
-                    android:background="@color/black"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/tvTranslationHeading"
-                    app:layout_constraintStart_toStartOf="@id/imgTranslate"
-                    app:layout_constraintTop_toBottomOf="@id/tvTranslation" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clGame"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/clTranslation">
-
-                <ImageView
-                    android:id="@+id/imgGame"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginStart="@dimen/fab_padding"
-                    android:padding="@dimen/padding"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_game"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/accent" />
-
-                <TextView
-                    android:id="@+id/tvGameHeading"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/fab_padding"
-                    android:layout_marginTop="@dimen/fab_padding"
-                    android:fontFamily="@font/gilroy_extrabold"
-                    android:maxLines="2"
-                    android:text="@string/fun_words"
-                    android:textColor="@color/gray_900"
-                    android:textSize="@dimen/_14sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/imgGame"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvGame"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/fab_padding"
-                    android:layout_marginTop="@dimen/less_padding"
-                    android:fontFamily="@font/gilroy_light"
-                    android:maxLines="2"
-                    android:text="@string/relax_your_brain_with_this_fun_word_puzzle_game_and_improve_your_vocabulary"
-                    android:textColor="@color/gray_900"
-                    android:textSize="@dimen/_12sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/imgGame"
-                    app:layout_constraintTop_toBottomOf="@id/tvGameHeading" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/padding"
-                    android:background="@color/black"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/tvGameHeading"
-                    app:layout_constraintStart_toStartOf="@id/imgGame"
-                    app:layout_constraintTop_toBottomOf="@id/tvGame" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clHistory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/padding"
-                app:layout_constraintTop_toBottomOf="@id/clGame">
-
-                <ImageView
-                    android:id="@+id/imgHistory"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginStart="@dimen/fab_padding"
-                    android:padding="@dimen/padding"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_baseline_access_time_filled_24"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/accent" />
-
-                <TextView
-                    android:id="@+id/tvHistoryHeading"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/fab_padding"
-                    android:layout_marginTop="@dimen/fab_padding"
-                    android:fontFamily="@font/gilroy_extrabold"
-                    android:maxLines="2"
-                    android:text="History"
-                    android:textColor="@color/gray_900"
-                    android:textSize="@dimen/_14sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/imgHistory"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvHistory"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/fab_padding"
-                    android:layout_marginTop="@dimen/less_padding"
-                    android:fontFamily="@font/gilroy_light"
-                    android:maxLines="2"
-                    android:text="Detailed History of all translation."
-                    android:textColor="@color/gray_900"
-                    android:textSize="@dimen/_12sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/imgHistory"
-                    app:layout_constraintTop_toBottomOf="@id/tvHistoryHeading" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/padding"
-                    android:background="@color/black"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/tvHistoryHeading"
-                    app:layout_constraintStart_toStartOf="@id/imgHistory"
-                    app:layout_constraintTop_toBottomOf="@id/tvHistory" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-    </ScrollView>
+        android:layout_margin="@dimen/extra_padding"
+        app:layout_constraintBottom_toTopOf="@id/btnContinue"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/tvLoading"
-        android:layout_width="wrap_content"
+        android:id="@+id/btnContinue"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="start"
-        android:text="Loading Features. . ."
-        android:textColor="@color/accent"
+        app:layout_constraintBottom_toTopOf="@id/clTextBottom"
+        android:text="Continue"
+        android:gravity="center"
+        android:backgroundTint="@color/white"
+        android:padding="@dimen/fab_padding"
+        android:textStyle="bold"
         android:textSize="@dimen/_14sdp"
-        app:layout_constraintBottom_toTopOf="@id/spline"
-        app:layout_constraintEnd_toEndOf="@id/spline"
-        app:layout_constraintStart_toStartOf="@id/spline" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/spline"
-        android:layout_width="match_parent"
-        android:layout_height="50sp"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="@dimen/extra_padding"
-        android:layout_marginBottom="@dimen/padding_10"
-        android:background="@drawable/bg_nothing_rounded_ripple"
-        app:layout_constraintBottom_toTopOf="@id/guide_horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="loading_bar.json" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/btnStart"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_margin="@dimen/fab_padding"
-        android:background="@drawable/bg_main_less_rounded"
-        android:backgroundTint="@color/accent"
-        android:elevation="@dimen/fab_padding"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/guide_horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/tvStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:elevation="5dp"
-            android:text="Let's Translate"
-            android:textColor="@color/btnTextColor"
-            android:textSize="@dimen/_15sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/btnStartIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/color_nothing"
-            android:scaleType="center"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_navigate_next_24"
-            app:tint="@color/white"
-            tools:ignore="VectorDrawableCompat" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clLanguages"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="@dimen/fab_padding"
+        android:textColor="@color/black"
+        android:background="@drawable/bg_rounded"
         android:layout_marginBottom="@dimen/fab_padding"
-        android:background="@drawable/bg_less_rounded_borderd"
-        android:backgroundTint="#f5f6fb"
-        android:elevation="@dimen/padding"
-        android:translationY="600dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/logo">
+        android:layout_marginHorizontal="@dimen/extra_padding"/>
 
-        <TextView
-            android:id="@+id/tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/less_padding"
-            android:gravity="center"
-            android:text="Select language to Translate: "
-            android:textColor="@color/accent"
-            android:textSize="@dimen/_14sdp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewLanguages"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@drawable/bg_nothing_rounded_ripple"
-            android:elevation="@dimen/_14sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guide_horizontal"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clTextBottom"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.65" />
-
-    <FrameLayout
-        android:id="@+id/nativeAdFrameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/less_padding"
-        android:background="@drawable/bg_native_ad"
-        android:elevation="@dimen/padding_10"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guide_horizontal" />
-
-    <FrameLayout
-        android:id="@+id/nativeAdFrameLayoutSmall"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_padding"
-        android:background="@drawable/bg_native_ad"
-        android:elevation="@dimen/padding"
-        android:translationY="90dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/tvBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="#423F42"
+            android:text="@string/by_continuing_you_accept_our"/>
+
+        <TextView
+            android:id="@+id/tvPrivacyPolicy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Privacy Policy"
+            android:textColor="@color/yellow"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvBy"/>
+        <TextView
+            android:id="@+id/tvAnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvBy"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvTerms"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            android:textColor="#423F42"
+            android:text="and"/>
+
+        <TextView
+            android:id="@+id/tvTerms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Terms of use"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/yellow"
+            app:layout_constraintStart_toEndOf="@+id/tvAnd"
+            app:layout_constraintTop_toBottomOf="@id/tvBy" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/splashTabLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnContinue"
+        app:tabBackground="@drawable/selector_tab_indicator_dot"
+        app:tabGravity="center"
+        app:tabIndicator="@null"
+        app:tabPaddingEnd="6dp"
+        app:tabPaddingStart="6dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -642,5 +642,25 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="input_method" translatable="false">input_method</string>
     <string name="skip" translatable="false"><u>Skip</u></string>
     <string name="step_2">Step 2:</string>
+    <string name="by_continuing_you_accept_our">By continuing you accept our</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="camera_translation">Camera Translation</string>
+    <string name="textView">Text View</string>
+    <string name="detect">Detect</string>
+    <string name="please_check_your_internet_connection_and_try_again">Please Check your Internet connection and try again.</string>
+    <string name="please_select_language_you_want_to_translate">Please select language you want to translate from.</string>
+    <string name="you_can_not_start_this_module">You can not start this module without permissions</string>
+    <string name="detecting_text">Detecting Text</string>
+    <string name="view_all">View all.</string>
+    <string name="result">Result</string>
+    <string name="your_are_using_limited_version_please_upgrade_or_watch_ad_to_use_camera_translate">Your are using limited version please upgrade or watch ad to use camera translate.</string>
 
+    <string name="upgrade_or_watch_ad">Upgrade or watch Ad</string>
+    <string name="watch_ad">Watch Ad</string>
+    <string name="upgrade">Upgrade</string>
+    <string name="text">Text</string>
+    <string name="translation">Translation</string>
+    <string name="sorry_no_text_found">Sorry no text found.</string>
+    <string name="sorry_some_erroe_occurred_please_try_againg">Sorry some error occurred please try again.</string>
 </resources>

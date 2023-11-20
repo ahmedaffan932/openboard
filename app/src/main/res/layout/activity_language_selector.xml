@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_color"
     tools:context="org.dslul.openboard.translator.pro.LanguageSelectorActivity">
 
     <FrameLayout
@@ -30,7 +31,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
-                android:background="#f5f6fb"
                 android:elevation="@dimen/padding_10"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -49,15 +49,15 @@
                     android:paddingVertical="@dimen/less_padding"
                     android:paddingEnd="@dimen/less_padding"
                     app:srcCompat="@drawable/ic_baseline_arrow_back_24"
-                    app:tint="@color/gray_700" />
+                    app:tint="@color/white" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="end"
-                    android:text="Selecet"
-                    android:textColor="@color/black"
+                    android:text="Select"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -66,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/language"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -101,7 +101,7 @@
                     android:gravity="center"
                     android:padding="@dimen/padding_10"
                     android:text="@string/english"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="15sp"
                     tools:ignore="NestedWeights" />
 
@@ -114,7 +114,7 @@
                     android:gravity="center"
                     android:padding="@dimen/padding_10"
                     android:text="@string/textview"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -128,8 +128,7 @@
                 android:iconifiedByDefault="false"
                 android:queryBackground="@android:color/transparent"
                 android:queryHint="Search Language"
-                android:theme="@style/EditTextTheme"
-                tools:ignore="RtlSymmetry" />
+                android:theme="@style/EditTextTheme" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -144,6 +143,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     android:elevation="@dimen/_14sdp"
+                    android:textColor="@color/gray_400"
                     android:text="@string/recently_used"
                     android:visibility="visible" />
 
@@ -172,6 +172,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:elevation="@dimen/_14sdp"
+                    android:textColor="@color/gray_400"
                     app:layout_constraintTop_toBottomOf="@id/nativeAdFrameLayoutInBetween"
                     android:text="@string/all_languages" />
 

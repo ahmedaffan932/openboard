@@ -60,8 +60,6 @@ class CustomExpandableListAdapter(
         try {
 
             val expandedListText = getChild(listPosition, expandedListPosition) as String
-//        Log.d(Misc.logKey, listPosition.toString())
-//        Log.d(Misc.logKey, expandedListText)
 
             val expandedListTextTranslation =
                 getChildTranslation(listPosition, expandedListPosition) as String
@@ -86,18 +84,17 @@ class CustomExpandableListAdapter(
             val btnShareItem = convertView.findViewById<ImageButton>(R.id.btnShareItem)
             val btnFavoriteItem = convertView.findViewById<ImageButton>(R.id.btnFavoriteItem)
 
-            if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
-                llMain.setBackgroundDrawable(
-                    ContextCompat.getDrawable(
-                        activity,
-                        R.drawable.bg_primary_borderd
-                    )
-                )
-
-            } else {
-                llMain.background =
-                    ContextCompat.getDrawable(activity, R.drawable.bg_primary_borderd);
-            }
+//            if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
+//                llMain.setBackgroundDrawable(
+//                    ContextCompat.getDrawable(
+//                        activity,
+//                        R.drawable.bg_primary_borderd
+//                    )
+//                )
+//            } else {
+//                llMain.background =
+//                    ContextCompat.getDrawable(activity, R.drawable.bg_primary_borderd);
+//            }
 
             val obj = TranslateHistoryClass(
                 expandedListText,
@@ -105,6 +102,7 @@ class CustomExpandableListAdapter(
                 Misc.getLanguageTo(activity),
                 Misc.getLanguageFrom(activity)
             )
+
             btnFavoriteItem.setOnClickListener {
                 if (saveInFavorites(obj)) {
                     btnFavoriteItem.setImageResource(R.drawable.ic_baseline_favorite_24)
@@ -137,34 +135,11 @@ class CustomExpandableListAdapter(
 
             llMain.setOnClickListener {
                 if (llItem.visibility == View.VISIBLE) {
-                    if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
-                        llMain.setBackgroundDrawable(
-                            ContextCompat.getDrawable(
-                                activity,
-                                R.drawable.bg_primary_borderd
-                            )
-                        )
-                    } else {
-                        llMain.background =
-                            ContextCompat.getDrawable(activity, R.drawable.bg_primary_borderd);
-                    }
                     llItem.visibility = View.GONE
 
 
                 } else {
                     llItem.visibility = View.VISIBLE
-                    if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
-                        llMain.setBackgroundDrawable(
-                            ContextCompat.getDrawable(
-                                activity,
-                                R.drawable.bg_main_less_rounded
-                            )
-                        )
-                    } else {
-                        llMain.background =
-                            ContextCompat.getDrawable(activity, R.drawable.bg_main_less_rounded)
-                    }
-
                 }
                 getChildView(listPosition, expandedListPosition, isLastChild, convertView, parent)
             }

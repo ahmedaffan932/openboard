@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/fab_padding"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_main_less_rounded">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:lottie_fileName="sad.json"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"/>    
+    
+    <TextView
+        android:id="@+id/tvHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/upgrade_or_watch_ad"
+        android:textColor="@color/accent"
+        android:textSize="@dimen/_16sdp"
+        android:fontFamily="@font/gilroy_extrabold"
+        app:layout_constraintTop_toBottomOf="@id/animation"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="@dimen/_10sdp" />
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/your_are_using_limited_version_please_upgrade_or_watch_ad_to_use_camera_translate"
+        android:textColor="?attr/colorSecondary"
+        android:gravity="center"
+        android:layout_marginHorizontal="@dimen/fab_padding"
+        android:textSize="@dimen/_12sdp"
+        android:fontFamily="@font/gilroy_light"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/tvHeading"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="@dimen/_10sdp" />
+
+    <View
+        android:id="@+id/horizontalView"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_400"
+        android:layout_margin="@dimen/fab_padding"
+        app:layout_constraintTop_toBottomOf="@id/tvDescription"/>
+
+    <View
+        android:id="@+id/verticalView"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/gray_400"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/horizontalView"/>
+
+    <TextView
+        android:id="@+id/btnWatchAd"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/watch_ad"
+        android:textColor="@color/gray_700"
+        android:gravity="center"
+        android:textSize="@dimen/_12sdp"
+        android:textStyle="bold"
+        android:padding="@dimen/fab_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/horizontalView"
+        app:layout_constraintEnd_toEndOf="@id/verticalView"
+        app:layout_constraintStart_toStartOf="parent" />
+    
+    <TextView
+        android:id="@+id/btnUpgrade"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/upgrade"
+        android:textColor="@color/accent"
+        android:gravity="center"
+        android:textSize="@dimen/_12sdp"
+        android:textStyle="bold"
+        android:padding="@dimen/fab_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/horizontalView"
+        app:layout_constraintStart_toStartOf="@id/verticalView"
+        app:layout_constraintEnd_toEndOf="parent" />
+    
+</androidx.constraintlayout.widget.ConstraintLayout>

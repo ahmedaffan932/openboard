@@ -13,8 +13,13 @@ import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.android.billingclient.api.*
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.mlkit.nl.translate.TranslateLanguage
@@ -23,22 +28,19 @@ import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.adaptor.LanguagesAdapter
 import org.dslul.openboard.translator.pro.classes.Misc
-import org.dslul.openboard.translator.pro.classes.Misc.startNotification
 import org.dslul.openboard.translator.pro.classes.Misc.startProActivity
 import org.dslul.openboard.translator.pro.classes.admob.BannerAds
 import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
 import org.dslul.openboard.translator.pro.classes.admob.NativeAds
+import org.dslul.openboard.translator.pro.fragments.SplashFragment
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import org.dslul.openboard.translator.pro.interfaces.LoadInterstitialCallBack
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
-    private var isStartButtonVisible = false
-    private var handler = Handler()
-    private var loadingPercentage = 0
-    private var isNativeAdDisplayed = false
-
     private lateinit var billingClient: BillingClient
+
+
     private val purchasesUpdatedListener = PurchasesUpdatedListener { billingResult, purchases ->
         if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
             Misc.setPurchasedStatus(this, true)
@@ -53,13 +55,10 @@ class SplashScreenActivity : AppCompatActivity() {
         )
         setContentView(R.layout.activity_splash_screen)
 
-        startNotification()
-
-        llLogo.visibility = View.VISIBLE
-
         Firebase.analytics.logEvent("SplashScreenStarted", null)
 
-        billingClient = BillingClient.newBuilder(this).setListener(purchasesUpdatedListener)
+        billingClient = BillingClient.newBuilder(this)
+            .setListener(purchasesUpdatedListener)
             .enablePendingPurchases().build()
 
         billingClient.startConnection(object : BillingClientStateListener {
@@ -83,164 +82,35 @@ class SplashScreenActivity : AppCompatActivity() {
             }
         })
 
-        handler.post(runLoadingPercentage)
+        splashViewPager.adapter = FragmentAdapter(this)
 
-        Misc.isRemoteConfigFetched.observeForever { t ->
-            if (Misc.splashContinueBtnText.isNotEmpty()) {
-                tvStart.text = Misc.splashContinueBtnText
+        splashViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                if (position == 0) {
+                    clTextBottom.visibility = View.VISIBLE
+                    splashTabLayout.visibility = View.INVISIBLE
+                } else {
+                    clTextBottom.visibility = View.INVISIBLE
+                    splashTabLayout.visibility = View.VISIBLE
+                }
             }
-            loadAds()
-        }
+        })
 
+        TabLayoutMediator(splashTabLayout, splashViewPager) { tab, position -> }.attach()
 
-        val t: Long = if (BuildConfig.DEBUG) {
-            6200
-        } else {
-            if (Misc.getPurchasedStatus(this)) {
-                2000
+        btnContinue.setOnClickListener {
+            if (splashViewPager.currentItem < 2) {
+                splashViewPager.setCurrentItem(splashViewPager.currentItem + 1, true)
             } else {
-                6200
+                startActivity(Intent(this, TranslateActivity::class.java))
             }
         }
-        Handler(Looper.getMainLooper()).postDelayed({ showStartButton() }, t)
 
-        val arr = ArrayList<String>()
-        for (lng in TranslateLanguage.getAllLanguages()) {
-            Log.d(Misc.logKey, lng)
-            arr.add(lng)
-        }
-
-
-        recyclerViewLanguages.layoutManager = LinearLayoutManager(this)
-        recyclerViewLanguages.adapter =
-            LanguagesAdapter(arr, true, this, object : InterstitialCallBack {
-                override fun onDismiss() {
-                    Firebase.analytics.logEvent("StartedAfterSelectingLanguage", null)
-                    val objDialog = Misc.LoadingAdDialog(this@SplashScreenActivity)
-                    objDialog.setCancelable(false)
-                    objDialog.show()
-                    try {
-                        Handler().postDelayed({
-                            startNextActivity()
-                        }, 2700)
-                    } catch (e: Exception) {
-                        startNextActivity()
-                    }
-                }
-            })
-
-        val anim = AnimationUtils.loadAnimation(this, R.anim.logo_scale_up)
-        anim.duration = 0
-
-        btnStart.setOnClickListener {
-//            if (Misc.isFirstTimeShowLanguagesEnabled) {
-//                if (Misc.isFirstTime(this)) {
-//                    Firebase.analytics.logEvent("LanguagesDisplayedOnSplash", null)
-//
-//                    Misc.zoomOutView(btnStart, this, 250)
-//                    clLanguages.animate().translationY(0F).duration = 500
-//                    Handler(Looper.getMainLooper()).postDelayed({
-//                        btnStart.visibility = View.GONE
-//                    }, 220)
-//                } else {
-//                    startNextActivity()
-//                }
-//            } else {
-            startNextActivity()
-//            }
-        }
-    }
-
-
-    private fun showStartButton() {
-        if (!isStartButtonVisible) {
-            Misc.zoomOutView(spline, this, 250)
-            Misc.zoomOutView(tvLoading, this, 250)
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                spline.visibility = View.GONE
-                tvLoading.visibility = View.GONE
-                Misc.zoomInView(btnStart, this, 250)
-            }, 250)
-
-            val a: Animation = AnimationUtils.loadAnimation(this, R.anim.zoom_in_logo)
-            a.duration = 500
-
-            a.setAnimationListener(object : Animation.AnimationListener {
-                override fun onAnimationStart(p0: Animation?) {
-
-                }
-
-                override fun onAnimationEnd(p0: Animation?) {
-                    spline.visibility = View.INVISIBLE
-                }
-
-                override fun onAnimationRepeat(p0: Animation?) {
-
-                }
-            })
-        }
-        isStartButtonVisible = true
-    }
-
-
-    private val runLoadingPercentage: Runnable by lazy {
-        return@lazy object : Runnable {
-            @SuppressLint("LogNotTimber", "SetTextI18n")
-            override fun run() {
-                if (loadingPercentage < 100) loadingPercentage += 1
-                handler.postDelayed(this, 70)
-            }
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(Misc.logKey, "Splash screen onStop .")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.e(Misc.logKey, "Splash screen onDestroyed .")
-
-        Misc.isIntDisplayed = false
-    }
-
-    private fun loadAds() {
-        val frameLayout = if (Misc.splashNativeAm.contains("no_media")) {
-            nativeAdFrameLayoutSmall
-        } else {
-            nativeAdFrameLayout
-        }
-
-        NativeAds.loadNativeAd(
-            activity = this,
-            object : LoadInterstitialCallBack {
-                override fun onLoaded() {
-                    if (!isNativeAdDisplayed) {
-                        NativeAds.manageShowNativeAd(
-                            this@SplashScreenActivity,
-                            Misc.splashNativeAm,
-                            frameLayout
-                        )
-                        frameLayout.visibility = View.VISIBLE
-                        if (Misc.splashNativeAm.contains("no_media")) {
-                            frameLayout.animate().translationY(0F).duration = 500
-                        }
-                    }
-                    isNativeAdDisplayed = true
-                }
-            }
-        )
-
-        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        Log.d(Misc.logKey, "sp = ${preferences.all}")
-        preferences.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
-            Log.d(Misc.logKey, "sp = ${sharedPreferences.all}")
-        }
-
-        BannerAds.load(this@SplashScreenActivity)
-        InterstitialAd.manageLoadInterAdmob(this@SplashScreenActivity)
 
     }
 
@@ -249,57 +119,16 @@ class SplashScreenActivity : AppCompatActivity() {
             super.onBackPressed()
     }
 
-    private fun startNextActivity() {
-        if(Misc.isDirectTranslateScreenEnabled){
-            val intent = Intent(this, TranslateActivity::class.java)
-            intent.putExtra("isDirectTranslateScreenEnabled", true)
-            startActivity(intent)
-            finish()
-            return
+
+    private inner class FragmentAdapter(fa: FragmentActivity) :
+        FragmentStateAdapter(fa) {
+        override fun getItemCount(): Int {
+            return 3
         }
-        if (Misc.isFirstTime(this) && Misc.isKeyboardSelectionInFlow) {
-            val intent = Intent(this, EnableKeyboardActivity::class.java)
-            intent.putExtra(Misc.data, Misc.data)
-            startActivity(intent)
-            return
-        }
-        if (Misc.getPurchasedStatus(this)) {
-            startActivity(Intent(this, DashboardActivity::class.java))
-            finish()
-        } else {
-            if (Misc.isProScreenEnabled) {
-                Firebase.analytics.logEvent("ProInFlow", null)
-                startProActivity()
-                finish()
-            } else {
-                startActivity(
-                    Intent(
-                        this@SplashScreenActivity, DashboardActivity::class.java
-                    )
-                )
-                finish()
-            }
+
+        override fun createFragment(position: Int): Fragment {
+            return SplashFragment.newInstance(position.toString())
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        Misc.isIntDisplayed = true
-    }
-
-    override fun onResume() {
-        super.onResume()
-        val frameLayout = if (Misc.splashNativeAm.contains("no_media")) {
-            nativeAdFrameLayoutSmall
-        } else {
-            nativeAdFrameLayout
-        }
-        if (Misc.isNativeAdClicked) {
-            NativeAds.manageShowNativeAd(
-                this,
-                Misc.translateNativeAm,
-                frameLayout
-            )
-        }
-    }
 }
