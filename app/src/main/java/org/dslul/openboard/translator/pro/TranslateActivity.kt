@@ -3,7 +3,6 @@ package org.dslul.openboard.translator.pro
 import android.annotation.SuppressLint
 import android.app.*
 import android.content.*
-import android.graphics.Color
 import android.os.*
 import android.speech.RecognizerIntent
 import android.speech.tts.TextToSpeech
@@ -17,7 +16,6 @@ import android.view.animation.RotateAnimation
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
@@ -29,17 +27,17 @@ import com.google.mlkit.nl.languageid.LanguageIdentification
 import com.rw.keyboardlistener.KeyboardUtils
 import kotlinx.android.synthetic.main.activity_translate.*
 import kotlinx.android.synthetic.main.activity_translate.view.quitBottomSheet
-import kotlinx.android.synthetic.main.bottom_sheet_quit.nativeAdFrameLayoutQuit
 import kotlinx.android.synthetic.main.dailog_custom.view.btnNo
 import kotlinx.android.synthetic.main.dailog_custom.view.btnYes
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.BooleanChangeListener
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
+import org.dslul.openboard.ObservableBool
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
-import org.dslul.openboard.translator.pro.classes.admob.BannerAds
-import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
-import org.dslul.openboard.translator.pro.classes.admob.NativeAds
-import org.dslul.openboard.translator.pro.interfaces.LoadInterstitialCallBack
+import org.dslul.openboard.translator.pro.classes.admob.Ads
+
+
 import org.jsoup.Jsoup
 import java.net.URLEncoder
 import java.util.*
@@ -49,12 +47,11 @@ class TranslateActivity : AppCompatActivity() {
 
     private var isNativeAdLoaded: Boolean = false
     var isBtnTranslateVisible = false
-    var isLLTranslateVisible = false
+    private var isLLTranslateVisible = false
     private val lngSelectorRequestCode = 1230
     private val speechRequestCode = 0
-    var textToSpeechLngTo: TextToSpeech? = null
-    var translationsCount = 0
-    var showingInterstitial = false
+    private var textToSpeechLngTo: TextToSpeech? = null
+    private var translationsCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +60,17 @@ class TranslateActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         setContentView(R.layout.activity_translate)
+
+        Misc.setIsFirstTime(this, false)
+
+        ObservableBool.addBooleanChangeListener(object : BooleanChangeListener {
+            override fun onBooleanChanged(newValue: Boolean) {
+
+            }
+        })
+
+
+        Ads.showNativeAd(this, Ads.dashboardNative, nativeAdFrameLayoutInBetween)
 
         initializeAnimation()
 
@@ -107,16 +115,6 @@ class TranslateActivity : AppCompatActivity() {
         }
 
         Misc.isActivityCreatingFirstTime = true
-
-        Misc.isRemoteConfigFetched.observeForever { t ->
-            try {
-                if (t == true) {
-                    BannerAds.load(this)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
 
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -164,39 +162,6 @@ class TranslateActivity : AppCompatActivity() {
             btnClearText.visibility = View.VISIBLE
         }
 
-        if ((intent.getStringExtra(Misc.data) != null || intent?.action == Intent.ACTION_SEND && intent?.type == "text/plain")
-            && !Misc.getPurchasedStatus(this) && InterstitialAd.interAdmob == null
-        ) {
-            val objDialog = Misc.LoadingAdDialog(this)
-            objDialog.setCancelable(false)
-            objDialog.show()
-
-            objDialog.findViewById<TextView>(R.id.warning).visibility = View.VISIBLE
-            Misc.anyAdLoaded.observeForever { t ->
-                try {
-                    if (t) {
-                        if (!showingInterstitial) {
-                            InterstitialAd.showInterstitial(this, Misc.getAppOpenIntAm(this))
-                        }
-                        showingInterstitial = true
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-
-            object : CountDownTimer(1500, 3000) {
-                override fun onTick(p0: Long) {}
-                override fun onFinish() {
-                    if (objDialog.isShowing) {
-                        objDialog.dismiss()
-                    }
-                }
-            }.start()
-        }
-        InterstitialAd.showInterstitial(this, Misc.translateNativeAm, null)
-        showNativeAd()
-
         Misc.isActivityCreatingFirstTime = true
 
         val handler = Handler()
@@ -229,28 +194,16 @@ class TranslateActivity : AppCompatActivity() {
                 }, 150)
 
                 if (!isBtnTranslateVisible) {
-//                    btnTranslate.visibility = View.VISIBLE
-//                    Misc.zoomInView(btnTranslate, this, 150)
                     isBtnTranslateVisible = true
                 }
-                nativeAdFrameLayout.visibility = View.GONE
 
             } else {
                 textViewTextFrag.clearFocus()
                 if (textViewTextFrag.text.toString() == "") {
-//                    Misc.zoomOutView(btnTranslate, this, 150)
-//                    Handler().postDelayed({
-//                        btnTranslate.visibility = View.INVISIBLE
-//                    }, 150)
 
                     isBtnTranslateVisible = false
                 }
                 Misc.zoomInView(btnSpeakInput, this, 150)
-                if (!isLLTranslateVisible) {
-                    if (isNativeAdLoaded) {
-                        nativeAdFrameLayout.visibility = View.VISIBLE
-                    }
-                }
             }
         }
 
@@ -269,18 +222,11 @@ class TranslateActivity : AppCompatActivity() {
         }
 
         btnClearTranslation.setOnClickListener {
-//            llText.setBackgroundResource(R.drawable.bg_main_less_rounded)
-
             Misc.zoomOutView(llTranslatedText, this, 150)
             Handler().postDelayed({
                 llTranslatedText.visibility = View.GONE
             }, 150)
 
-            Handler().postDelayed({
-                if (isNativeAdLoaded) nativeAdFrameLayout.visibility = View.VISIBLE
-            }, 150)
-//            Misc.zoomInView(btnTranslate, this, 150)
-//            btnTranslate.visibility = View.VISIBLE
             isBtnTranslateVisible = true
             isLLTranslateVisible = false
         }
@@ -330,9 +276,6 @@ class TranslateActivity : AppCompatActivity() {
                 Handler().postDelayed({
                     llTranslatedText.visibility = View.GONE
                 }, 150)
-                Handler().postDelayed({
-                    if (isNativeAdLoaded) nativeAdFrameLayout.visibility = View.VISIBLE
-                }, 160)
                 isLLTranslateVisible = false
             }
         }
@@ -486,8 +429,6 @@ class TranslateActivity : AppCompatActivity() {
             isBtnTranslateVisible = false
         }
         if (!isLLTranslateVisible) {
-            nativeAdFrameLayout.visibility = View.GONE
-
             Handler().postDelayed({
                 llTranslatedText.visibility = View.VISIBLE
                 Misc.zoomInView(llTranslatedText, this, 150)
@@ -668,30 +609,11 @@ class TranslateActivity : AppCompatActivity() {
         super.onResume()
         setSelectedLng()
         bottomNavigationView.selectedItemId = R.id.btnTranslate
+
+        Ads.showBannerAd(bannerFrame, Ads.dashboardBanner)
         Log.d(Misc.logKey, "TranslatorOnResume.")
-        if (Misc.isNativeAdClicked) {
-            Log.d(Misc.logKey, "TranslatorNativeAdAfterOnClick")
-            showNativeAd()
-        }
     }
 
-    private fun showNativeAd() {
-        if (Misc.isTranslationInBetweenNativeEnabled) {
-            NativeAds.manageShowNativeAd(
-                this,
-                Misc.translateNativeAm,
-                nativeAdFrameLayoutInBetween
-            )
-        } else {
-            NativeAds.manageShowNativeAd(
-                this,
-                Misc.translateNativeAm,
-                nativeAdFrameLayout
-            ) { isLoaded ->
-                isNativeAdLoaded = isLoaded
-            }
-        }
-    }
 
     private fun showInterstitialIfRequired() {
         if (translationsCount >= Misc.showInterstitialAfter) {
@@ -706,7 +628,6 @@ class TranslateActivity : AppCompatActivity() {
         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         } else {
-            NativeAds.manageShowNativeAd(this, Misc.quitNativeAm, nativeAdFrameLayoutQuit)
             Log.d(Misc.logKey, "Bottom sheet clicked.")
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }

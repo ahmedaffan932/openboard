@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.activity_premium_screen.*
 import kotlinx.coroutines.*
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
-import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
 
 class PremiumScreenActivity : AppCompatActivity() {
     private var isBillingClientConnected = false
@@ -43,16 +42,12 @@ class PremiumScreenActivity : AppCompatActivity() {
 
     private lateinit var billingClient: BillingClient
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_premium_screen)
 
-        Misc.setIsFirstTime(this, false)
-
         tvLifeTimePrice.text = Misc.lifeTimePrice
 
-        InterstitialAd.showInterstitial(this, Misc.proScreenIntAm)
 
         billingClient = BillingClient.newBuilder(this)
             .setListener(purchasesUpdatedListener)
@@ -74,57 +69,15 @@ class PremiumScreenActivity : AppCompatActivity() {
         })
 
         clOneTimePurchase.setOnClickListener {
-            if (isBillingClientConnected) {
-                GlobalScope.launch {
-                    try {
-                        querySkuDetails()
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                }
-            } else {
-                Toast.makeText(
-                    this,
-                    "Please check your internet connection and try again.",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+            startBillingProcess()
         }
 
         animation.setOnClickListener {
-            if (isBillingClientConnected) {
-                GlobalScope.launch {
-                    try {
-                        querySkuDetails()
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                }
-            } else {
-                Toast.makeText(
-                    this,
-                    "Please check your internet connection and try again.",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+            startBillingProcess()
         }
 
         btnGetPro.setOnClickListener {
-            if (isBillingClientConnected) {
-                GlobalScope.launch {
-                    try {
-                        querySkuDetails()
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                }
-            } else {
-                Toast.makeText(
-                    this,
-                    "Please check your internet connection and try again.",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+            startBillingProcess()
         }
 
         Handler().postDelayed({
@@ -134,7 +87,7 @@ class PremiumScreenActivity : AppCompatActivity() {
 
         btnDismiss.setOnClickListener {
             if (intent.getStringExtra(Misc.data) == null) {
-                startActivity(Intent(this@PremiumScreenActivity, TranslateActivity::class.java))
+                startActivity(Intent(this, TranslateActivity::class.java))
                 finish()
             } else {
                 finish()
@@ -197,4 +150,23 @@ class PremiumScreenActivity : AppCompatActivity() {
             finish()
         }
     }
+
+    private fun startBillingProcess() {
+        if (isBillingClientConnected) {
+            GlobalScope.launch {
+                try {
+                    querySkuDetails()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        } else {
+            Toast.makeText(
+                this,
+                getString(R.string.please_check_your_internet_connection_and_try_again),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
 }

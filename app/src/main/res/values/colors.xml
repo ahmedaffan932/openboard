@@ -101,7 +101,7 @@
     <!-- Color resources for LXX_Dark_Amoled theme.
          15%:0x26 70%:0xB3 75%:0xC0 80%:0xCC 85%:0xD9 90%:0xE6 -->
     <color name="background_amoled_black">#000000</color>
-    <color name="background_amoled_dark">#1A1A1A</color>
+    <color name="background_amoled_dark">#001A1A1A</color>
 
     <color name="popup_background_material_dark_theme">#ff3c474c</color>
 
@@ -109,6 +109,7 @@
     <color name="setup_background">#FFEBEBEB</color>
     <color name="setup_text_dark">#FF707070</color>
     <color name="setup_text_action">@android:color/holo_blue_light</color>
+<!--    <color name="setup_text_action">@android:color/holo_blue_light</color>-->
     <color name="setup_step_background">@android:color/background_light</color>
     <color name="setup_welcome_video_margin_color">#FFCCCCCC</color>
     <!-- Accent color for the notification. We need to match this to the OS build -->
@@ -116,7 +117,7 @@
 
 
     <color name="black">#121212</color>
-    <color name="accent">#FCCF1F</color>
+    <color name="accent">#4285F4</color>
     <color name="orange">#9CCC65</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray_900">#212121</color>
@@ -126,14 +127,14 @@
     <color name="gray_400">#BDBDBD</color>
     <color name="color_nothing">#00000000</color>
     <color name="blue">#4983E6</color>
-    <color name="btnTextColor">#000000</color>
+    <color name="btnTextColor">#ffffff</color>
     <color name="notificationTextColor">#616161</color>
     <color name="splashBackgroundColor">#ffffff</color>
 
     <color name="primary">#f5f6fb</color>
 
-    <color name="bg_color">#0F0C0F</color>
-    <color name="yellow">#FCCF1F</color>
-    <color name="disable_color">#161316</color>
-    <color name="secondary_color">#1F1C1F</color>
+    <color name="bg_color">#FFFFFF</color>
+    <color name="yellow">#4285F4</color>
+    <color name="disable_color">#E4E0E3</color>
+    <color name="secondary_color">#f5f6fb</color>
 </resources>

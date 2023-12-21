@@ -7,19 +7,11 @@
     android:background="@color/bg_color"
     tools:context="org.dslul.openboard.translator.pro.PhrasesActivity">
 
-    <FrameLayout
-        android:id="@+id/bannerFrame"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_native_ad"
-        android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bannerFrame">
+        app:layout_constraintBottom_toTopOf="@id/nativeAdFrameLayout"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/llTopBar"
@@ -44,7 +36,7 @@
                 android:paddingVertical="@dimen/less_padding"
                 android:paddingEnd="@dimen/less_padding"
                 app:srcCompat="@drawable/ic_baseline_arrow_back_24"
-                app:tint="@color/white" />
+                app:tint="@color/black" />
 
             <TextView
                 android:id="@+id/tvHeading"
@@ -53,7 +45,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/phrasebook"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -108,7 +100,7 @@
                     android:gravity="start"
                     android:paddingVertical="@dimen/_7sdp"
                     android:text="@string/english"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     tools:ignore="NestedWeights" />
@@ -123,7 +115,7 @@
                 android:padding="@dimen/padding_10"
                 android:paddingVertical="20dp"
                 app:srcCompat="@drawable/ic_switch_lang"
-                app:tint="@color/white" />
+                app:tint="@color/black" />
 
             <LinearLayout
                 android:id="@+id/llLngTo"
@@ -144,7 +136,7 @@
                     android:gravity="start"
                     android:paddingVertical="@dimen/_7sdp"
                     android:text="@string/textview"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     tools:ignore="NestedWeights" />
@@ -193,5 +185,12 @@
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/nativeAdFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

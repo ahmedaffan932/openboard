@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_pro_screen"
+    android:background="@drawable/bg_pro_dark"
     tools:context="org.dslul.openboard.translator.pro.ProScreenActivity">
 
     <ImageView
@@ -14,7 +14,7 @@
         android:layout_gravity="end"
         android:layout_margin="@dimen/fab_padding"
         android:background="@drawable/bg_rounded"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/black"
         android:elevation="@dimen/padding_10"
         android:visibility="gone"
         android:scaleType="fitCenter"
@@ -45,7 +45,7 @@
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         android:text=" to Premium"
-        android:textColor="#424242"
+        android:textColor="@color/gray_400"
         android:textSize="@dimen/_22sdp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/tvUpgrade"
@@ -59,7 +59,7 @@
         android:layout_marginTop="@dimen/less_padding"
         android:gravity="center"
         android:text="Unlimited Translations, Remove Ads and more features"
-        android:textColor="@color/gray_900"
+        android:textColor="@color/gray_400"
         android:textSize="@dimen/_12sdp"
         app:layout_constraintEnd_toEndOf="@id/tvToPremium"
         app:layout_constraintStart_toStartOf="@id/tvUpgrade"
@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_padding"
             android:background="@drawable/bg_accent_bordered_less_rounded"
-            android:backgroundTint="#88FFFFFF"
+            android:backgroundTint="#88000000"
             android:paddingHorizontal="@dimen/padding"
             android:paddingVertical="@dimen/less_padding"
             android:visibility="visible"
@@ -146,7 +146,7 @@
         android:layout_marginHorizontal="@dimen/fab_padding"
         android:layout_marginBottom="@dimen/fab_padding"
         android:background="@drawable/bg_very_less_rounded"
-        android:backgroundTint="#88FFFFFF"
+        android:backgroundTint="#88000000"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/btnGetPro">
 

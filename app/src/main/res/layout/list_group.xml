@@ -48,6 +48,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:tint="@color/gray_700"
             app:srcCompat="@drawable/ic_baseline_navigate_next_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

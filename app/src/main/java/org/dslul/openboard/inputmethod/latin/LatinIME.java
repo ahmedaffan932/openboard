@@ -29,6 +29,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Debug;
 import android.os.IBinder;
@@ -43,6 +44,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.CompletionInfo;
@@ -843,11 +845,34 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setListener(this, view);
         }
+
+        new SuggestionStripInitializer().execute(view);
+
+    }
+
+    private class SuggestionStripInitializer extends AsyncTask<View, Void, Void> {
+        @Override
+        protected Void doInBackground(View... views) {
+            View view = views[0];
+
+            view.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+//                    view.getViewTreeObserver().removeOnPreDrawListener(this);
+
+                    mSuggestionStripView.setListener(LatinIME.this, view);
+                    return true;
+                }
+
+            });
+
+            return null;
+        }
     }
 
     @Override
     public void setCandidatesView(final View view) {
-        // To ensure that CandidatesView will never be set.
+        mSuggestionStripView = view.findViewById(R.id.suggestion_strip_view);
     }
 
     @Override
@@ -1544,8 +1569,9 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
 
     @Override
-    public void startSelectLanguageActivity() {
+    public void startSelectLanguageActivity(Boolean isLanguageTo) {
         Intent intent = new Intent(this, LanguageSelectorActivity.class);
+        intent.putExtra(Misc.lngTo, isLanguageTo);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
@@ -1570,17 +1596,6 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     @Override
     public String onTranslateText() {
         mInputLogic.OnTranslateText(getLanguageFrom(this), getLanguageTo(this));
-        String to = new Locale(getLanguageTo(this)).getDisplayName();
-        if (Objects.equals(getLanguageFrom(this), Misc.defaultLanguage)) {
-            return "Detect#" + to;
-
-        } else {
-            return new Locale(getLanguageFrom(this)).getDisplayName() + "#" + to;
-        }
-    }
-
-    @Override
-    public String getSelectedLanguages() {
         String to = new Locale(getLanguageTo(this)).getDisplayName();
         if (Objects.equals(getLanguageFrom(this), Misc.defaultLanguage)) {
             return "Detect#" + to;
@@ -2075,4 +2090,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                     visible ? Color.BLACK : Color.TRANSPARENT);
         }
     }
+
 }
+
+

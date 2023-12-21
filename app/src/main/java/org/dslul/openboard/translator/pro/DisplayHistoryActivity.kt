@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.dslul.openboard.translator.pro.adaptor.HistoryAdapter
 import org.dslul.openboard.translator.pro.classes.Misc
-import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
+
 import kotlinx.android.synthetic.main.activity_display_history.*
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.interfaces.InterfaceHistory
@@ -19,8 +19,6 @@ class DisplayHistoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_display_history)
-
-        InterstitialAd.showInterstitial(this, Misc.historyIntAm)
 
         if (Misc.getHistory(this).size == 0) {
             tvNoHistory.visibility = View.VISIBLE

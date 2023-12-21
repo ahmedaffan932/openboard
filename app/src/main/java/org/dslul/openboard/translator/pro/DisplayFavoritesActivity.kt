@@ -5,7 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.dslul.openboard.translator.pro.classes.Misc
-import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
+
 import kotlinx.android.synthetic.main.activity_display_favorites.*
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.adaptor.FavoritesAdapter
@@ -16,7 +16,6 @@ class DisplayFavoritesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_display_favorites)
 
-        InterstitialAd.showInterstitial(this, Misc.favoritesIntAm)
 
         if (Misc.getFavorites(this).size == 0) {
             tvNoFavorites.visibility = View.VISIBLE

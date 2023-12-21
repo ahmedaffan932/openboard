@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.view.View
 import android.view.animation.CycleInterpolator
@@ -24,7 +25,7 @@ import org.dslul.openboard.inputmethod.latin.LatinIME
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
-import org.dslul.openboard.translator.pro.classes.admob.NativeAds
+import org.dslul.openboard.translator.pro.classes.admob.Ads
 import java.util.*
 import java.lang.Runnable as Runnable1
 
@@ -32,22 +33,14 @@ class EnableKeyboardActivity : AppCompatActivity() {
     private val t = Timer()
     private val handler: Handler = Handler()
     private var isSettingUpKeyboardWillingly = false
-    private var isActivityNotStarted = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enable_keyboard)
 
-        Firebase.analytics.logEvent("EnableKeyboard", null)
-        Misc.setIsFirstTime(this, false)
+        Ads.showInterstitial(this, Ads.enableKeyboardInt)
 
-        if (Misc.enableKeyboardNativeAm.contains("am")) {
-            NativeAds.manageShowNativeAd(
-                this,
-                Misc.enableKeyboardNativeAm,
-                nativeAdFrameLayoutSmall
-            )
-        }
+        Firebase.analytics.logEvent("EnableKeyboard", null)
 
         val sharedPreferences = getSharedPreferences("settingsIsFirstTime", Context.MODE_PRIVATE)
         if (sharedPreferences.getBoolean("settingsIsFirstTime", true)) {
@@ -64,7 +57,6 @@ class EnableKeyboardActivity : AppCompatActivity() {
         }
 
         tvSkip.setOnClickListener {
-            startActivity(Intent(this@EnableKeyboardActivity, TranslateActivity::class.java))
             finish()
         }
 
@@ -151,13 +143,19 @@ class EnableKeyboardActivity : AppCompatActivity() {
             clEnableKeyboard.background =
                 resources.getDrawable(R.drawable.bg_main_rounded)
 
-            tvHintMeaning.backgroundTintList = ContextCompat.getColorStateList(this, R.color.gray_800);
+            tvHintMeaning.backgroundTintList = ContextCompat.getColorStateList(this, R.color.gray_400);
             clEnableKeyboard.backgroundTintList = ContextCompat.getColorStateList(this, R.color.disable_color);
 
             textEnable.setTextColor(resources.getColor(R.color.gray_700))
-            tvHintMeaning.setTextColor(resources.getColor(R.color.gray_400))
+            tvHintMeaning.setTextColor(resources.getColor(R.color.gray_700))
 
             clSelectKeyboard.visibility = View.VISIBLE
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                (getSystemService(getString(R.string.input_method)) as InputMethodManager).showInputMethodPicker()
+            }, 100)
+            isSettingUpKeyboardWillingly = true
+
             clSelectKeyboard.setOnClickListener {
                 (getSystemService(
                     getString(R.string.input_method)

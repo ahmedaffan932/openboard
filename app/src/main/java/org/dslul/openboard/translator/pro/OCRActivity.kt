@@ -233,7 +233,7 @@ class OCRActivity : AppCompatActivity() {
         }
 
         tvViewAll.setOnClickListener {
-            val intent = Intent(this, TranslateActivity::class.java)
+            val intent = Intent(this, ViewTranslatedTextActivity::class.java)
             intent.putExtra(Misc.key, visionText.text)
             startActivity(intent)
         }

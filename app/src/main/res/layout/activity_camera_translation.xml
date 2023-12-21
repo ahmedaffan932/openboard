@@ -30,7 +30,7 @@
             android:paddingVertical="@dimen/less_padding"
             android:paddingEnd="@dimen/less_padding"
             app:srcCompat="@drawable/ic_baseline_arrow_back_24"
-            app:tint="@color/white" />
+            app:tint="@color/black" />
 
         <TextView
             android:id="@+id/tvHeading"
@@ -39,7 +39,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/camera_translation"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -96,7 +96,7 @@
                 android:gravity="start"
                 android:paddingVertical="@dimen/_7sdp"
                 android:text="@string/english"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 tools:ignore="NestedWeights" />
@@ -111,7 +111,7 @@
             android:padding="@dimen/padding_10"
             android:paddingVertical="20dp"
             app:srcCompat="@drawable/ic_switch_lang"
-            app:tint="@color/white" />
+            app:tint="@color/black" />
 
         <LinearLayout
             android:id="@+id/llLngTo"
@@ -132,7 +132,7 @@
                 android:gravity="start"
                 android:paddingVertical="@dimen/_7sdp"
                 android:text="@string/textview"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 tools:ignore="NestedWeights" />
@@ -189,7 +189,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/white" />
+                app:tint="@color/black" />
 
             <ImageButton
                 android:id="@+id/btnGallery"

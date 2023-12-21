@@ -24,9 +24,8 @@ import kotlinx.coroutines.*
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.*
 import org.dslul.openboard.translator.pro.classes.Misc.startProActivity
-import org.dslul.openboard.translator.pro.classes.admob.BannerAds
-import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
-import org.dslul.openboard.translator.pro.classes.admob.NativeAds
+
+
 import org.dslul.openboard.translator.pro.interfaces.LoadInterstitialCallBack
 
 class SettingsActivity : AppCompatActivity() {
@@ -52,58 +51,6 @@ class SettingsActivity : AppCompatActivity() {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_settings)
 
-        if (intent.getStringExtra(Misc.data) != null && !Misc.getPurchasedStatus(this) && InterstitialAd.interAdmob == null) {
-            val objDialog = Misc.LoadingAdDialog(this)
-            objDialog.setCancelable(false)
-            objDialog.show()
-
-            objDialog.findViewById<TextView>(R.id.warning).visibility = View.VISIBLE
-            Misc.anyAdLoaded.observeForever { t ->
-                if (t) {
-                    if(!showingInterstitial) {
-                        InterstitialAd.showInterstitial(this, Misc.getAppOpenIntAm(this))
-                    }
-                    showingInterstitial = true
-                }
-            }
-            object : CountDownTimer(1500, 3000) {
-                override fun onTick(p0: Long) {}
-                override fun onFinish() {
-                    if (objDialog.isShowing) {
-                        objDialog.dismiss()
-                    }
-                }
-            }.start()
-
-        }
-
-        Misc.isRemoteConfigFetched.observeForever { t ->
-            if (t == true) {
-                BannerAds.load(this)
-                object : CountDownTimer(1500, 1000) {
-                    override fun onTick(p0: Long) {}
-                    override fun onFinish() {
-                        NativeAds.loadNativeAd(this@SettingsActivity, object : LoadInterstitialCallBack{
-                            override fun onLoaded() {
-                                NativeAds.manageShowNativeAd(
-                                    this@SettingsActivity,
-                                    Misc.splashNativeAm,
-                                    nativeAdFrameLayout
-                                )
-                            }
-                        })
-                    }
-                }.start()
-            }
-        }
-
-        NativeAds.manageShowNativeAd(
-            this,
-            Misc.settingsNativeAm,
-            nativeAdFrameLayout
-        )
-
-        InterstitialAd.showInterstitial(this, Misc.settingsIntAm)
 
         if (Misc.isNightModeOn(this)) {
             tvUpgradeToPremium.setBackgroundResource(R.drawable.ic_bg_pro_yellow)
@@ -291,7 +238,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun rateUs() {
-        val p = "com.guru.translate.translator.translation.learn.language"
+        val p = "com.guru.translate.translator.pro.translation.keyboard.translator"
         val uri: Uri = Uri.parse("market://details?id=$p")
         val goToMarket = Intent(Intent.ACTION_VIEW, uri)
 
@@ -318,14 +265,4 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (Misc.isNativeAdClicked) {
-            NativeAds.manageShowNativeAd(
-                this,
-                Misc.settingsNativeAm,
-                nativeAdFrameLayout
-            )
-        }
-    }
 }

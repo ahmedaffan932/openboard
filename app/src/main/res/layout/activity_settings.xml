@@ -32,7 +32,7 @@
             android:paddingVertical="@dimen/padding"
             android:paddingEnd="@dimen/padding"
             app:srcCompat="@drawable/ic_baseline_arrow_back_24"
-            app:tint="@color/white" />
+            app:tint="@color/black" />
 
         <TextView
             android:layout_width="0dp"
@@ -40,7 +40,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/settings"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -117,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="@string/share_app"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24"
                     android:drawableTint="@color/accent"
@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="@string/feedback"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:drawableTint="@color/accent"
                     app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24"
@@ -185,7 +185,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="@string/rate_us"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:drawableTint="@color/accent"
                     android:textSize="16sp"
                     app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24"
@@ -230,7 +230,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="@string/privacy_policy"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:drawableTint="@color/accent"
                     android:textSize="16sp"
                     app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24"
@@ -264,7 +264,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="@string/terms_of_use"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:drawableTint="@color/accent"
                     app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24"

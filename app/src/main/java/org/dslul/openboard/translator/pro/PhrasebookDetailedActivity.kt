@@ -14,7 +14,7 @@ import android.view.animation.RotateAnimation
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import org.dslul.openboard.translator.pro.classes.Misc
-import org.dslul.openboard.translator.pro.classes.admob.BannerAds
+
 import kotlinx.android.synthetic.main.activity_phrasebook_detailed.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -260,7 +260,6 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        BannerAds.show(bannerFrame)
         setSelectedLng()
     }
 

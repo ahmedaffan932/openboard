@@ -12,7 +12,7 @@ object DictionaryPackConstants {
      * The root domain for the dictionary pack, upon which authorities and actions will append
      * their own distinctive strings.
      */
-    private const val DICTIONARY_DOMAIN = "com.guru.translate.translator.translation.learn.language"
+    private const val DICTIONARY_DOMAIN = "com.guru.translate.translator.pro.translation.keyboard.translator"
     /**
      * Authority for the ContentProvider protocol.
      */

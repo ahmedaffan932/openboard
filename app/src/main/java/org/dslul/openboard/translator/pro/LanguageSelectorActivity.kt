@@ -2,10 +2,8 @@ package org.dslul.openboard.translator.pro
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.os.Handler
 import android.text.Html
 import android.util.Log
@@ -14,22 +12,17 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.dslul.openboard.translator.pro.classes.Misc
-import org.dslul.openboard.translator.pro.classes.admob.BannerAds
-import org.dslul.openboard.translator.pro.classes.admob.NativeAds
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.mlkit.nl.translate.TranslateLanguage
 import kotlinx.android.synthetic.main.activity_language_selector.*
-import kotlinx.android.synthetic.main.activity_language_selector.bannerFrame
-import kotlinx.android.synthetic.main.activity_language_selector.nativeAdFrameLayoutInBetween
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.adaptor.LanguagesAdapter
-import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
-import org.dslul.openboard.translator.pro.interfaces.LoadInterstitialCallBack
+import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.admob.Ads
+import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import java.util.*
 
 class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
@@ -42,58 +35,11 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_language_selector)
 
-        val frameLayout = if (Misc.isLanguageSelectorInBetweenNativeEnabled) {
-            nativeAdFrameLayoutInBetween
-        } else {
-            nativeAdFrame
-        }
-
-        NativeAds.loadNativeAd(this, object : LoadInterstitialCallBack {
-            override fun onLoaded() {
-                NativeAds.manageShowNativeAd(
-                    this@LanguageSelectorActivity,
-                    Misc.splashNativeAm,
-                    frameLayout
-                )
-            }
-        })
-
-        if (intent?.flags == Intent.FLAG_ACTIVITY_NEW_TASK && !Misc.getPurchasedStatus(this) && InterstitialAd.interAdmob == null) {
-            val objDialog = Misc.LoadingAdDialog(this)
-            objDialog.setCancelable(false)
-            objDialog.show()
-
-            objDialog.findViewById<TextView>(R.id.warning).visibility = View.VISIBLE
-            Misc.anyAdLoaded.observeForever { t ->
-                try {
-                    if (t) {
-                        if (!showingInterstitial) {
-                            InterstitialAd.showInterstitial(this, Misc.getAppOpenIntAm(this))
-                        }
-                        showingInterstitial = true
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-
-            object : CountDownTimer(1500, 3000) {
-                override fun onTick(p0: Long) {}
-                override fun onFinish() {
-                    if (objDialog.isShowing) {
-                        objDialog.dismiss()
-                    }
-                }
-            }.start()
-        }
-
         Firebase.analytics.logEvent("LanguageSelectorActivity", null)
 
         Misc.isLngTo = intent.getBooleanExtra(Misc.lngTo, true)
 
         setBackground()
-
-        NativeAds.manageShowNativeAd(this, Misc.languageSelectorNativeAm, frameLayout)
 
         for (lng in TranslateLanguage.getAllLanguages()) {
             Log.d(Misc.logKey, lng)
@@ -123,6 +69,9 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
             textViewRecentlyUsedLng.visibility = View.VISIBLE
         }
 
+        if(arrRecent.isEmpty()){
+            textViewRecentlyUsedLng.visibility = View.GONE
+        }
 
         recyclerViewRecentLanguages.layoutManager = LinearLayoutManager(this)
         recyclerViewRecentLanguages.adapter =
@@ -186,8 +135,8 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
             textViewLngFrom.backgroundTintList = textViewLngTo.backgroundTintList
             textViewLngTo.backgroundTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.accent))
-            textViewLngTo.setTextColor(resources.getColor(R.color.black))
-            textViewLngFrom.setTextColor(resources.getColor(R.color.white))
+            textViewLngTo.setTextColor(resources.getColor(R.color.white))
+            textViewLngFrom.setTextColor(resources.getColor(R.color.black))
         } else {
             if (!intent.getBooleanExtra("isPhrasebook", false)) {
                 arr.add(Misc.defaultLanguage)
@@ -195,8 +144,8 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
             textViewLngTo.backgroundTintList = textViewLngFrom.backgroundTintList
             textViewLngFrom.backgroundTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.accent))
-            textViewLngFrom.setTextColor(resources.getColor(R.color.black))
-            textViewLngTo.setTextColor(resources.getColor(R.color.white))
+            textViewLngFrom.setTextColor(resources.getColor(R.color.white))
+            textViewLngTo.setTextColor(resources.getColor(R.color.black))
         }
     }
 
@@ -214,8 +163,12 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
         }, 150)
     }
 
-    override fun onResume() {
-        super.onResume()
-        BannerAds.show(bannerFrame)
+
+    override fun onBackPressed() {
+        Ads.showInterstitial(this, Ads.languageSelectorOnBackInt, object : InterstitialCallBack{
+            override fun onDismiss() {
+                finish()
+            }
+        })
     }
 }

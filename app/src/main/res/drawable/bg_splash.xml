@@ -6,6 +6,7 @@
             <solid android:color="@color/black" />
         </shape>
     </item>
+
     <item android:drawable="@drawable/logo"
         android:gravity="center"
         android:width="@dimen/_100sdp"

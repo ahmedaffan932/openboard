@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.dslul.openboard.translator.pro.ViewTranslatedTextActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/llTopBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:elevation="@dimen/padding_10"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/fab_padding"
+            android:paddingTop="@dimen/padding"
+            android:paddingBottom="@dimen/padding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:background="@drawable/bg_nothing_rounded_ripple"
+                android:contentDescription="@string/todo"
+                android:paddingVertical="@dimen/less_padding"
+                android:paddingEnd="@dimen/less_padding"
+                app:srcCompat="@drawable/ic_baseline_arrow_back_24"
+                app:tint="@color/black" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50sp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="@string/translator"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:text="@string/Pro"
+                android:textColor="@color/yellow"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:background="@drawable/bg_nothing_rounded_ripple"
+                android:paddingVertical="@dimen/less_padding"
+                android:paddingStart="@dimen/less_padding"
+                android:scaleType="fitCenter"
+                app:tint="@color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/padding"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llTopBar">
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/fab_padding"
+                android:animateLayoutChanges="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/padding"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="15dp">
+
+                <LinearLayout
+                    android:id="@+id/llLngFrom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/padding_10"
+                    android:layout_weight="1"
+                    android:background="@drawable/ripple_effect_rounded"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    tools:targetApi="m">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/flagFrom"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/kr_flag"
+                        app:shapeAppearanceOverlay="@style/roundedCorners" />
+
+                    <TextView
+                        android:id="@+id/textViewLngFrom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/padding_10"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:paddingVertical="@dimen/_7sdp"
+                        android:text="@string/english"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        tools:ignore="NestedWeights" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/btnSwitchLngs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ripple_effect_rounded"
+                    android:contentDescription="@string/todo"
+                    android:padding="@dimen/padding_10"
+                    android:paddingVertical="20dp"
+                    app:srcCompat="@drawable/ic_switch_lang"
+                    app:tint="@color/black" />
+
+                <LinearLayout
+                    android:id="@+id/llLngTo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_10"
+                    android:layout_weight="1"
+                    android:background="@drawable/ripple_effect_rounded"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textViewLngTo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/padding_10"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:paddingVertical="@dimen/_7sdp"
+                        android:text="@string/textview"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        tools:ignore="NestedWeights" />
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/flagTo"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/kr_flag"
+                        app:shapeAppearanceOverlay="@style/roundedCorners" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/scrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/fab_padding"
+                    app:layout_behavior="org.dslul.openboard.translator.pro.classes.OverScrollBounceBehavior"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/llText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_main_less_rounded"
+                            android:orientation="vertical"
+                            android:paddingVertical="@dimen/padding">
+
+                            <ImageView
+                                android:id="@+id/btnClearText"
+                                android:layout_width="50dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:background="@drawable/bg_nothing_rounded_ripple"
+                                android:rotation="45"
+                                android:src="@drawable/ic_baseline_add_circle_24"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:tint="@color/gray_700" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/clEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="@dimen/fab_padding">
+
+                                <EditText
+                                    android:id="@+id/textViewTextFrag"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="top"
+                                    android:textSize="18sp"
+                                    android:scrollbars="vertical"
+                                    android:imeOptions="actionGo"
+                                    android:overScrollMode="never"
+                                    android:textColor="@color/black"
+                                    android:inputType="textMultiLine"
+                                    android:minHeight="@dimen/_100sdp"
+                                    android:textColorHint="@color/gray_700"
+                                    android:paddingBottom="@dimen/padding_10"
+                                    android:background="@color/color_nothing"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    android:paddingHorizontal="@dimen/less_padding"
+                                    android:textCursorDrawable="@drawable/cursor_color" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:id="@+id/btnTranslate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="end"
+                                    android:layout_marginEnd="@dimen/fab_padding"
+                                    android:background="@drawable/bg_main_less_rounded"
+                                    android:backgroundTint="@color/accent"
+                                    android:orientation="horizontal"
+                                    android:paddingHorizontal="@dimen/padding_10"
+                                    android:visibility="visible"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="@dimen/padding_10"
+                                        android:layout_marginEnd="@dimen/padding_10"
+                                        android:contentDescription="@string/todo"
+                                        android:gravity="center"
+                                        android:paddingHorizontal="@dimen/less_padding"
+                                        android:paddingVertical="@dimen/padding_10"
+                                        android:text="@string/translate"
+                                        android:textColor="@color/btnTextColor"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold"
+                                        android:visibility="visible" />
+
+                                </LinearLayout>
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </LinearLayout>
+
+                        <FrameLayout
+                            android:id="@+id/nativeAdFrameLayoutInBetween"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:background="@drawable/bg_main_less_rounded"
+                            android:visibility="visible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/llText" />
+
+                        <LinearLayout
+                            android:id="@+id/llTranslatedText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_main_less_rounded"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="@dimen/fab_padding"
+                            android:paddingVertical="@dimen/padding"
+                            android:visibility="visible"
+                            app:layout_constraintTop_toBottomOf="@+id/llText"
+                            tools:layout_editor_absoluteX="15dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <TextView
+                                        android:id="@+id/textLngFrom"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingHorizontal="@dimen/less_padding"
+                                        android:text="@string/english"
+                                        android:textColor="@color/gray_600"
+                                        android:textSize="15sp" />
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginHorizontal="@dimen/padding"
+                                        android:src="@drawable/ic_baseline_arrow_right_alt_24"
+                                        app:tint="@color/gray_600" />
+
+                                    <TextView
+                                        android:id="@+id/textLngTo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:paddingHorizontal="@dimen/less_padding"
+                                        android:text="@string/english"
+                                        android:textColor="@color/gray_600"
+                                        android:textSize="15sp" />
+
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:id="@+id/btnClearTranslation"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end"
+                                    android:background="?android:attr/selectableItemBackground"
+                                    android:rotation="45"
+                                    android:src="@drawable/ic_baseline_add_circle_24"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:tint="@color/gray_700" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <TextView
+                                android:id="@+id/textViewTextTranslatedFrag"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/less_padding"
+                                android:minLines="3"
+                                android:paddingHorizontal="@dimen/less_padding"
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                tools:ignore="NestedWeights,RtlSymmetry" />
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="start"
+                                android:orientation="horizontal"
+                                android:paddingTop="@dimen/padding_10">
+
+                                <ImageView
+                                    android:id="@+id/btnCopyTextTranslatedFrag"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/ripple_effect_transparent_rounded"
+                                    android:backgroundTint="@color/accent"
+                                    android:contentDescription="@string/todo"
+                                    android:padding="10dp"
+                                    android:scaleType="fitCenter"
+                                    app:srcCompat="@drawable/ic_copy"
+                                    app:tint="@color/gray_700" />
+
+                                <ImageButton
+                                    android:id="@+id/btnSpeakTranslation"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginStart="@dimen/padding_10"
+                                    android:background="@drawable/ripple_effect_transparent_rounded"
+                                    android:backgroundTint="@color/accent"
+                                    android:contentDescription="@string/todo"
+                                    android:padding="@dimen/padding"
+                                    android:scaleType="fitCenter"
+                                    app:srcCompat="@drawable/ic_speak_ic"
+                                    app:tint="@color/gray_700" />
+
+                                <ImageView
+                                    android:id="@+id/btnShareTranslation"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/padding_10"
+                                    android:background="@drawable/ripple_effect_transparent_rounded"
+                                    android:backgroundTint="@color/accent"
+                                    android:contentDescription="@string/todo"
+                                    android:padding="@dimen/padding_10"
+                                    android:scaleType="fitCenter"
+                                    app:srcCompat="@drawable/ic_baseline_share_24"
+                                    app:tint="@color/gray_700" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.core.widget.NestedScrollView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/llPBTranslateFrag"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="@dimen/padding_10"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="@color/accent" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/translating"
+                android:textColor="@color/accent" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

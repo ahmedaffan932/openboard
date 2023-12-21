@@ -8,11 +8,11 @@ android {
     compileSdkVersion 33
 
     defaultConfig {
-        applicationId "com.guru.translate.translator.translation.learn.language"
+        applicationId "com.guru.translate.translator.pro.translation.keyboard.translator"
         minSdkVersion 24
         targetSdkVersion 33
-        versionCode 67
-        versionName '3.0'
+        versionCode 6
+        versionName '2.3'
     }
 
     buildTypes {
@@ -88,7 +88,7 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-ads:21.5.0'
 
-    implementation "com.android.billingclient:billing-ktx:4.1.0"
+    implementation "com.android.billingclient:billing-ktx:5.1.0"
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     implementation 'androidx.lifecycle:lifecycle-process:2.5.1'

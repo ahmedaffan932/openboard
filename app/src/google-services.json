@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "548024068290",
-    "project_id": "translatorguru-59c97",
-    "storage_bucket": "translatorguru-59c97.appspot.com"
+    "project_number": "738090107531",
+    "project_id": "keyboard-translator-pro",
+    "storage_bucket": "keyboard-translator-pro.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:548024068290:android:9a51852de1d2b5e200b35b",
+        "mobilesdk_app_id": "1:738090107531:android:b4e398dca20d54e8aa0a8e",
         "android_client_info": {
-          "package_name": "com.guru.translate.translator.translation.learn.language"
+          "package_name": "com.guru.translate.translator.pro.translation.keyboard.translator"
         }
       },
       "oauth_client": [
         {
-          "client_id": "548024068290-2nhsppcpa426vgk0s6easokm0t803ffk.apps.googleusercontent.com",
+          "client_id": "738090107531-eq1vsdkdul593otpcttvaroidvg4aek8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBWAoO1O2uv4cJNg_lp5m7NYECa88w7R1I"
+          "current_key": "AIzaSyBoSZXIOvHE36quZ-c0JuZd2O006cyU2mk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "548024068290-2nhsppcpa426vgk0s6easokm0t803ffk.apps.googleusercontent.com",
+              "client_id": "738090107531-eq1vsdkdul593otpcttvaroidvg4aek8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

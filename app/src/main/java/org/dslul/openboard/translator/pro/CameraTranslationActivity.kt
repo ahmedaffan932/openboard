@@ -6,7 +6,6 @@ import java.io.File
 import android.Manifest
 import android.os.Build
 import android.os.Bundle
-import android.os.Looper
 import android.view.View
 import android.os.Handler
 import android.widget.Toast
@@ -32,6 +31,8 @@ import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.objects.CameraMisc.getCameraFace
 import androidx.activity.result.contract.ActivityResultContracts
 import kotlinx.android.synthetic.main.activity_camera_translation.*
+import org.dslul.openboard.translator.pro.classes.admob.Ads
+import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 class CameraTranslationActivity : AppCompatActivity() {
     private var cameraProvider: ProcessCameraProvider? = null
@@ -67,9 +68,13 @@ class CameraTranslationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera_translation)
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            getCameraPermission()
-        }, 500)
+        Ads.showInterstitial(this, Ads.cameraTranslationInt, object : InterstitialCallBack{
+            override fun onDismiss() {
+                getCameraPermission()
+            }
+        })
+
+        Ads.showBannerAd(frameLayoutBanner, Ads.cameraTranslationBanner)
 
         btnBack.setOnClickListener {
             onBackPressed()

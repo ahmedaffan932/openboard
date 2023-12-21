@@ -36,7 +36,6 @@ import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.view.ViewTreeObserver;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -48,9 +47,10 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.dslul.openboard.BooleanChangeListener;
+import org.dslul.openboard.ObservableBool;
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
-import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView;
 import org.dslul.openboard.inputmethod.keyboard.MoreKeysPanel;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
@@ -67,9 +67,8 @@ import org.dslul.openboard.translator.pro.classes.Misc;
 import java.util.ArrayList;
 
 import androidx.core.view.ViewCompat;
-import androidx.lifecycle.Observer;
 
-import com.google.mlkit.nl.languageid.LanguageIdentification;
+import com.google.android.material.imageview.ShapeableImageView;
 
 public final class SuggestionStripView extends RelativeLayout implements OnClickListener,
         OnLongClickListener {
@@ -82,9 +81,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         String onTranslateText();
 
-        String getSelectedLanguages();
-
-        void startSelectLanguageActivity();
+        void startSelectLanguageActivity(Boolean isLanguageTo);
 
         void startSettingsActivity();
 
@@ -100,11 +97,19 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final ImageButton mClipboardKey;
     private final ImageButton mOtherKey;
     MainKeyboardView mMainKeyboardView;
-    private final ImageView mBtnTranslate;
-    private final ImageView mBtnMore;
-    private final LinearLayout mLLLanguages;
-    private final TextView mTextLngFrom;
-    private final TextView mTextLngTo;
+    private final LinearLayout mBtnTranslate;
+
+    private final TextView mTVTranslate;
+    private final LinearLayout mLLLanguageFrom;
+    private final TextView mTVLngTo;
+    private final TextView mTVLngFrom;
+    private final ShapeableImageView flagTo;
+    private final ShapeableImageView flagFrom;
+    private final ImageView mIVSwitchLanguage;
+
+    private final LinearLayout mLLLngTo;
+//    private final TextView mTextLngFrom;
+//    private final TextView mTextLngTo;
 
     private final View mMoreSuggestionsContainer;
     private final MoreSuggestionsView mMoreSuggestionsView;
@@ -164,66 +169,44 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         mSuggestionsStrip = findViewById(R.id.suggestions_strip);
         mVoiceKey = findViewById(R.id.suggestions_strip_voice_key);
+        mTVLngTo = findViewById(R.id.tvLngTo);
+        mTVLngFrom = findViewById(R.id.tvLngFrom);
         mClipboardKey = findViewById(R.id.suggestions_strip_clipboard_key);
         mOtherKey = findViewById(R.id.suggestions_strip_other_key);
+        flagFrom = findViewById(R.id.flagFrom);
+        flagTo = findViewById(R.id.flagTo);
         mBtnTranslate = findViewById(R.id.btn_translate);
-        mBtnMore = findViewById(R.id.btn_more);
-        mLLLanguages = findViewById(R.id.llLanguages);
-        mTextLngFrom = findViewById(R.id.textLngFrom);
-        mTextLngTo = findViewById(R.id.textLngTo);
+        mTVTranslate = findViewById(R.id.tvTranslate);
+        mLLLanguageFrom = findViewById(R.id.llLngFrom);
+        mLLLngTo = findViewById(R.id.llLngTo);
+        mIVSwitchLanguage = findViewById(R.id.btnSwitchLngs);
         mProgressBar = findViewById(R.id.progressBar);
 
+        mIVSwitchLanguage.setImageResource(R.drawable.ic_switch_lang);
+
         Misc.isTranslated.observeForever(t -> {
-            if(t){
+            if (t) {
                 mProgressBar.setVisibility(GONE);
-                mBtnTranslate.setVisibility(VISIBLE);
-            }else{
+                mTVTranslate.setVisibility(VISIBLE);
+            } else {
+                mTVTranslate.setVisibility(GONE);
                 mProgressBar.setVisibility(VISIBLE);
-                mBtnTranslate.setVisibility(GONE);
             }
         });
+
+        setSelectedLng(context);
+
+
+        ObservableBool.addBooleanChangeListener(newValue -> {
+            try {
+                setSelectedLng(context);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
 
         mStripVisibilityGroup = new StripVisibilityGroup(this, mSuggestionsStrip);
-
-        mSuggestionsStrip.setTag(mSuggestionsStrip.getVisibility());
-        mSuggestionsStrip.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            int newVis = mSuggestionsStrip.getVisibility();
-            if ((int) mSuggestionsStrip.getTag() != newVis) {
-                mSuggestionsStrip.setTag(mSuggestionsStrip.getVisibility());
-                if (mSuggestionsStrip.getVisibility() == VISIBLE) {
-                    mLLLanguages.setVisibility(GONE);
-
-                    RotateAnimation rotate = new RotateAnimation(180, 0, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                    rotate.setDuration(250);
-                    rotate.setFillAfter(true);
-                    rotate.setInterpolator(new LinearInterpolator());
-                    mBtnMore.startAnimation(rotate);
-                } else {
-                    mLLLanguages.setVisibility(VISIBLE);
-
-                    RotateAnimation rotate = new RotateAnimation(0, 180, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                    rotate.setDuration(250);
-                    rotate.setFillAfter(true);
-                    rotate.setInterpolator(new LinearInterpolator());
-                    mBtnMore.startAnimation(rotate);
-                }
-            }
-        });
-
-        mBtnMore.setOnClickListener(view -> {
-            if(mSuggestionsStrip.getVisibility() == VISIBLE) {
-                mSuggestionsStrip.setVisibility(GONE);
-            }else{
-                mSuggestionsStrip.setVisibility(VISIBLE);
-            }
-            String str = mListener.getSelectedLanguages();
-
-            String to = str.split("#")[1];
-            String from = str.split("#")[0];
-
-            mTextLngTo.setText(to);
-            mTextLngFrom.setText(from);
-        });
 
         mBtnTranslate.setOnClickListener(view -> {
             Misc.isTranslated.postValue(false);
@@ -234,15 +217,17 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 String to = str.split("#")[1];
                 String from = str.split("#")[0];
 
-                mTextLngTo.setText(to);
-                mTextLngFrom.setText(from);
+//                mTextLngTo.setText(to);
+//                mTextLngFrom.setText(from);
             }, 100);
 
         });
 
         mOtherKey.setOnClickListener(view -> mListener.startSettingsActivity());
 
-        mLLLanguages.setOnClickListener(view -> mListener.startSelectLanguageActivity());
+        mLLLanguageFrom.setOnClickListener(view -> mListener.startSelectLanguageActivity(false));
+
+        mLLLngTo.setOnClickListener(view -> mListener.startSelectLanguageActivity(true));
 
         for (int pos = 0; pos < SuggestedWords.MAX_SUGGESTIONS; pos++) {
             final TextView word = new TextView(context, null, R.attr.suggestionWordStyle);
@@ -280,17 +265,15 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         final Drawable iconMore = keyboardAttr.getDrawable(R.styleable.Keyboard_iconSwitchOneHandedMode);
         final Drawable iconIncognito = keyboardAttr.getDrawable(R.styleable.Keyboard_iconSettingsKey);
         final Drawable iconClipboard = keyboardAttr.getDrawable(R.styleable.Keyboard_iconClipboardNormalKey);
-        final Drawable iconTranslate = keyboardAttr.getDrawable(R.styleable.Keyboard_iconTranslateKey);
         keyboardAttr.recycle();
         mVoiceKey.setImageDrawable(iconVoice);
-        mBtnTranslate.setImageDrawable(iconTranslate);
         mClipboardKey.setImageDrawable(iconClipboard);
-        mBtnMore.setImageDrawable(iconMore);
 
         mVoiceKey.setOnClickListener(this);
         mClipboardKey.setOnClickListener(this);
         mClipboardKey.setOnLongClickListener(this);
         mOtherKey.setImageDrawable(iconIncognito);
+
     }
 
     /**
@@ -565,9 +548,6 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         }
 
         final Object tag = view.getTag();
-        // {@link Integer} tag is set at
-        // {@link SuggestionStripLayoutHelper#setupWordViewsTextAndColor(SuggestedWords,int)} and
-        // {@link SuggestionStripLayoutHelper#layoutPunctuationSuggestions(SuggestedWords,ViewGroup}
         if (tag instanceof Integer) {
             final int index = (Integer) tag;
             if (index >= mSuggestedWords.size()) {
@@ -588,5 +568,17 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
         // Called by the framework when the size is known. Show the important notice if applicable.
         // This may be overriden by showing suggestions later, if applicable.
+    }
+
+    private void setSelectedLng(Context context) {
+        mTVLngFrom.setText(Misc.INSTANCE.getLanguageFromForKB(context));
+        if (Misc.INSTANCE.getLanguageFrom(context).equals(Misc.defaultLanguage)) {
+            flagFrom.setImageResource(Misc.INSTANCE.getFlag(context, "100"));
+        } else {
+            flagFrom.setImageResource(Misc.INSTANCE.getFlag(context, Misc.INSTANCE.getLanguageFrom(context)));
+        }
+
+        mTVLngTo.setText(Misc.INSTANCE.getLanguageToForKB(context));
+        flagTo.setImageResource(Misc.INSTANCE.getFlag(context, Misc.INSTANCE.getLanguageTo(context)));
     }
 }

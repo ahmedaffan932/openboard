@@ -456,7 +456,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Description for the option to show setup wizard application icon of this IME in the laucher. [CHAR_LIMIT=65] -->
     <string name="show_setup_wizard_icon_summary">Display application icon in the launcher</string>
     <!-- The dictionary provider application name. Visible in Settings/Applications/Manage applications. -->
-    <string name="app_name">Dictionary Provider</string>
+    <string name="app_name" translatable="false">Keyboard Translator Pro</string>
     <!-- The dictionary provider ContentProvider name. Visible in Settings/Applications/Running services. -->
     <string name="dictionary_provider_name">Dictionary Provider</string>
     <!-- The dictionary provider Service name. Visible in Settings/Applications/Running services. -->
@@ -641,26 +641,27 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="select" translatable="false">Select</string>
     <string name="input_method" translatable="false">input_method</string>
     <string name="skip" translatable="false"><u>Skip</u></string>
-    <string name="step_2">Step 2:</string>
-    <string name="by_continuing_you_accept_our">By continuing you accept our</string>
+    <string name="step_2" translatable="false">Step 2:</string>
+    <string name="by_continuing_you_accept_our" translatable="false">By continuing you accept our</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="camera_translation">Camera Translation</string>
-    <string name="textView">Text View</string>
-    <string name="detect">Detect</string>
-    <string name="please_check_your_internet_connection_and_try_again">Please Check your Internet connection and try again.</string>
-    <string name="please_select_language_you_want_to_translate">Please select language you want to translate from.</string>
-    <string name="you_can_not_start_this_module">You can not start this module without permissions</string>
-    <string name="detecting_text">Detecting Text</string>
-    <string name="view_all">View all.</string>
-    <string name="result">Result</string>
-    <string name="your_are_using_limited_version_please_upgrade_or_watch_ad_to_use_camera_translate">Your are using limited version please upgrade or watch ad to use camera translate.</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="camera_translation" translatable="false">Camera Translation</string>
+    <string name="textView" translatable="false">Text View</string>
+    <string name="detect" translatable="false">Detect</string>
+    <string name="please_check_your_internet_connection_and_try_again" translatable="false">Please Check your Internet connection and try again.</string>
+    <string name="please_select_language_you_want_to_translate" translatable="false">Please select language you want to translate from.</string>
+    <string name="you_can_not_start_this_module" translatable="false">You can not start this module without permissions</string>
+    <string name="detecting_text" translatable="false">Detecting Text</string>
+    <string name="view_all" translatable="false">View all</string>
+    <string name="result" translatable="false">Result</string>
+    <string name="your_are_using_limited_version_please_upgrade_or_watch_ad_to_use_camera_translate" translatable="false">Your are using limited version please upgrade or watch ad to use camera translate.</string>
 
-    <string name="upgrade_or_watch_ad">Upgrade or watch Ad</string>
-    <string name="watch_ad">Watch Ad</string>
-    <string name="upgrade">Upgrade</string>
-    <string name="text">Text</string>
-    <string name="translation">Translation</string>
-    <string name="sorry_no_text_found">Sorry no text found.</string>
-    <string name="sorry_some_erroe_occurred_please_try_againg">Sorry some error occurred please try again.</string>
+    <string name="upgrade_or_watch_ad" translatable="false">Upgrade or watch Ad</string>
+    <string name="watch_ad" translatable="false">Watch Ad</string>
+    <string name="upgrade" translatable="false">Upgrade</string>
+    <string name="text" translatable="false">Text</string>
+    <string name="translation" translatable="false">Translation</string>
+    <string name="sorry_no_text_found" translatable="false">Sorry no text found.</string>
+    <string name="sorry_some_erroe_occurred_please_try_againg" translatable="false">Sorry some error occurred please try again.</string>
+    <string name="a_translator_is_a_reader_an_interpreter_and_a_creator_all_in_one" translatable="false">A translator is a reader, an interpreter and a creator all in one.</string>
 </resources>

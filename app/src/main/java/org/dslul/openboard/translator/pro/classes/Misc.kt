@@ -36,40 +36,24 @@ import org.dslul.openboard.inputmethod.latin.LatinIME
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.*
 import java.lang.reflect.Type
+import java.util.Locale
 import kotlin.properties.Delegates
 
 object Misc {
 
-    var isDocumentTranslationActivity = false
-
     const val text: String = "text"
 
-    var documentTranslationInt: String = "off"
-    var isDirectTranslateScreenEnabled: Boolean = false
-    var isKeyboardSelectionInFlow: Boolean = true
     var isInterstitialDisplaying = false
 
     var showInterstitialAfter: Int = 1
-    var isNativeAdClicked: Boolean = false
-    var isCameraTranslatorAdEnabled: Boolean = true
-    var isChatInBetweenNativeEnabled: Boolean = false
-    var isDashboardInBetweenNativeEnabled: Boolean = true
-    var isTranslationInBetweenNativeEnabled: Boolean = true
     var isLanguageSelectorInBetweenNativeEnabled: Boolean = false
 
-    var banner_ads: String = "am"
-    var onAppOpenIntAm: String = "am"
-    var isIntDisplayed: Boolean = false
-    var languageSelectorNativeAm: String = "am"
-    var quitNativeAm: String = "am"
-    var splashContinueBtnText: String = "Continue"
     var proScreenDismissBtnVisibleAfter: Long = 3000
-    var anyAdLoaded: MutableLiveData<Boolean> = MutableLiveData()
     var isRemoteConfigFetched: MutableLiveData<Boolean> = MutableLiveData()
 
     @JvmField
     var isTranslated: MutableLiveData<Boolean> = MutableLiveData()
-    var proScreen = "2"
+    var proScreen = "1"
 
     var banner_id = if (BuildConfig.DEBUG) {
         "ca-app-pub-3940256099942544/6300978111"
@@ -77,109 +61,24 @@ object Misc {
         "abc"
     }
 
-    var isMultiTranslatorPremiumModule: Boolean = false
-    var isFirstTimeShowLanguagesEnabled = false
-
     var lifeTimePrice: String = "Price: $12.99"
-    var OnNativeRemoveAdsTagVisible: Boolean = true
     var splashScreenOnBackPressDoNothing: Boolean = true
-
-    var chatIntAm: String = "am"
-    var gameIntAm: String = "am"
-    var chatNativeAm: String = "am"
-    var historyIntAm: String = "am"
-    var gameNativeAm: String = "am"
-    var gameNextIntAm: String = "am"
-    var settingsIntAm: String = "am"
-    var proScreenIntAm: String = "am"
-    var enableKeyboardIntAm: String = "am"
-    var dashboardIntAm: String = "am"
-    var favoritesIntAm: String = "am"
-    var splashNativeAm: String = "am_no_media"
-    var phrasebookIntAm: String = "am"
-    var settingsNativeAm: String = "am"
-    var dashboardNativeAm: String = "am"
-    var translateNativeAm: String = "am_small_btn"
-    var enableKeyboardNativeAm: String = "am_no_media"
-    var multiTranslateNativeAm: String = "am"
-
     var isActivityCreatingFirstTime = true
 
-    var isTestingProFeatures = false
 
-    var isProScreenEnabled: Boolean = false
-
-    var adBreakCount: Int = 0
-
-    var appOpenAdId = if (BuildConfig.DEBUG) {
-        "ca-app-pub-3940256099942544/3419835294"
-    } else {
-        "ca-app-pub-6814505709397727/5034389232"
-    }
-
-    var nativeAdIdAdMobOne: String = if (BuildConfig.DEBUG) {
-        "ca-app-pub-3940256099942544/2247696110"
-    } else {
-        "ca-app-pub-6814505709397727/5712100878"
-    }
-
-    var nativeAdIdAdMobTwo: String = if (BuildConfig.DEBUG) {
-        "ca-app-pub-3940256099942544/2247696110"
-    } else {
-        "ca-app-pub-6814505709397727/5796130859"
-    }
-
-    var interstitialAdIdAdMobOne: String = if (BuildConfig.DEBUG) {
-        "ca-app-pub-3940256099942544/1033173712"
-    } else {
-        "ca-app-pub-6814505709397727/1778976759"
-    }
-
-    var interstitialAdIdAdMobTwo: String = if (BuildConfig.DEBUG) {
-        "ca-app-pub-3940256099942544/1033173712"
-    } else {
-        "ca-app-pub-6814505709397727/6788579092"
-    }
-
-    var interstitialAdIdAdMobThree: String = if (BuildConfig.DEBUG) {
-        "ca-app-pub-3940256099942544/1033173712"
-    } else {
-        "ca-app-pub-6814505709397727/3232477463"
-    }
-
-    var interstitialAdIdAdMobFour: String = if (BuildConfig.DEBUG) {
-        "ca-app-pub-3940256099942544/1033173712"
-    } else {
-        "ca-app-pub-6814505709397727/4709210668"
-    }
-
-    var interstitialAdIdAdMobFive: String = if (BuildConfig.DEBUG) {
-        "ca-app-pub-3940256099942544/1033173712"
-    } else {
-        "ca-app-pub-6814505709397727/7087961990"
-    }
-
-    var gameNextLimit: Int = 4
     const val words: String = "sorted_words"
 
     const val appUrl: String =
-        "https://play.google.com/store/apps/details?id=com.guru.translate.translator.translation.learn.language"
+        "https://play.google.com/store/apps/details?id=com.guru.translate.translator.pro.translation.keyboard.translator"
     val arr = ArrayList<String>()
-    const val translationUrl: String =
-        "https://translation.googleapis.com/language/translate/v2?"
     var storage: FirebaseStorage =
         FirebaseStorage.getInstance()
-
-    const val userAgent: String =
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X x.y; rv:42.0) Gecko/20100101 Firefox/42.0"
 
     var inAppKey = if (BuildConfig.DEBUG) {
         "android.test.purchased"
     } else {
-        "com.guru.translate.translator.translation.learn.language"
+        "com.guru.translate.translator.pro.translation.keyboard.translator"
     }
-
-    var colorPrimary by Delegates.notNull<Int>()
 
     const val lngTo = "isLngTo"
     const val key: String = "key"
@@ -192,13 +91,10 @@ object Misc {
     const val favorites: String = "favorites"
     const val recentLngs: String = "recentLngs"
     const val languageTo: String = "languageTo"
-    const val translations: String = "translations"
-    const val translatedText: String = "translatedText"
     private const val languageFrom: String = "languageFrom"
     private const val purchasedStatus: String = "purchasedStatus"
 
     var isLngTo = true
-    var isRight = true
     var canWeProceed = true
     var phrasebookPosition = 0
     const val defaultLanguage = "100"
@@ -290,11 +186,26 @@ object Misc {
             activity!!.getSharedPreferences(languageTo, Context.MODE_PRIVATE)
         return sharedPreferences.getString(languageTo, TranslateLanguage.SPANISH).toString()
     }
+    fun getLanguageToForKB(activity: Context?): String {
+        val sharedPreferences =
+            activity!!.getSharedPreferences(languageTo, Context.MODE_PRIVATE)
+        return Locale(sharedPreferences.getString(languageTo, TranslateLanguage.SPANISH).toString()).displayName
+    }
 
     fun getLanguageFrom(activity: Context): String {
         val sharedPreferences =
             activity.getSharedPreferences(languageFrom, Context.MODE_PRIVATE)
         return sharedPreferences.getString(languageFrom, defaultLanguage).toString()
+    }
+
+    fun getLanguageFromForKB(activity: Context): String {
+        val sharedPreferences =
+            activity.getSharedPreferences(languageFrom, Context.MODE_PRIVATE)
+        return if (sharedPreferences.getString(languageFrom, defaultLanguage) == defaultLanguage){
+            "Default"
+        }else {
+            Locale(sharedPreferences.getString(languageFrom, defaultLanguage).toString()).displayName
+        }
     }
 
     fun setLanguageTo(activity: Activity, lng: String) {

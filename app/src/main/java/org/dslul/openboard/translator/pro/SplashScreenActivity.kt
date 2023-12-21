@@ -29,24 +29,15 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.adaptor.LanguagesAdapter
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.startProActivity
-import org.dslul.openboard.translator.pro.classes.admob.BannerAds
-import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
-import org.dslul.openboard.translator.pro.classes.admob.NativeAds
+import org.dslul.openboard.translator.pro.classes.admob.Ads
+
+
 import org.dslul.openboard.translator.pro.fragments.SplashFragment
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import org.dslul.openboard.translator.pro.interfaces.LoadInterstitialCallBack
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
-    private lateinit var billingClient: BillingClient
-
-
-    private val purchasesUpdatedListener = PurchasesUpdatedListener { billingResult, purchases ->
-        if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
-            Misc.setPurchasedStatus(this, true)
-            Log.d(Misc.logKey, "Ya hooo.....")
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,49 +48,9 @@ class SplashScreenActivity : AppCompatActivity() {
 
         Firebase.analytics.logEvent("SplashScreenStarted", null)
 
-        billingClient = BillingClient.newBuilder(this)
-            .setListener(purchasesUpdatedListener)
-            .enablePendingPurchases().build()
-
-        billingClient.startConnection(object : BillingClientStateListener {
-            override fun onBillingSetupFinished(billingResult: BillingResult) {
-                billingClient.queryPurchases(BillingClient.SkuType.INAPP)
-                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                    billingClient.queryPurchaseHistoryAsync(BillingClient.SkuType.INAPP) { p0, p1 ->
-                        Log.d(Misc.logKey, p1?.size.toString() + " size ..")
-                        if (p1 != null) {
-                            for (purchase in p1) {
-                                Misc.setPurchasedStatus(this@SplashScreenActivity, true)
-                            }
-                        }
-                    }
-                    Log.d(Misc.logKey, "Billing Result Ok")
-                }
-            }
-
-            override fun onBillingServiceDisconnected() {
-                Log.d(Misc.logKey, "Service disconnected")
-            }
-        })
-
         splashViewPager.adapter = FragmentAdapter(this)
 
-        splashViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                if (position == 0) {
-                    clTextBottom.visibility = View.VISIBLE
-                    splashTabLayout.visibility = View.INVISIBLE
-                } else {
-                    clTextBottom.visibility = View.INVISIBLE
-                    splashTabLayout.visibility = View.VISIBLE
-                }
-            }
-        })
+        Ads.showNativeAd(this, Ads.splashNative, nativeAdFrameLayout)
 
         TabLayoutMediator(splashTabLayout, splashViewPager) { tab, position -> }.attach()
 
@@ -110,8 +61,6 @@ class SplashScreenActivity : AppCompatActivity() {
                 startActivity(Intent(this, TranslateActivity::class.java))
             }
         }
-
-
     }
 
     override fun onBackPressed() {

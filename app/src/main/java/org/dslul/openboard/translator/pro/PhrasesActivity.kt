@@ -15,8 +15,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.dslul.openboard.translator.pro.classes.Misc
-import org.dslul.openboard.translator.pro.classes.admob.BannerAds
-import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
+
+
 import kotlinx.android.synthetic.main.activity_phrases.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -24,6 +24,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.adaptor.PhraseBookMainAdapter
+import org.dslul.openboard.translator.pro.classes.admob.Ads
 import org.json.JSONObject
 import java.util.*
 
@@ -41,8 +42,9 @@ class PhrasesActivity : AppCompatActivity() {
         )
         setContentView(R.layout.activity_phrases)
 
-        InterstitialAd.showInterstitial(this, Misc.phrasebookIntAm)
+        Ads.showInterstitial(this, Ads.phraseInt)
 
+        Ads.showNativeAd(this, Ads.phraseNative, nativeAdFrameLayout)
         setSelectedLng()
 
         btnBack.setOnClickListener {
@@ -254,6 +256,5 @@ class PhrasesActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Misc.canWeProceed = true
-        BannerAds.show(bannerFrame)
     }
 }

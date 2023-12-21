@@ -13,15 +13,10 @@
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="29" />
-    <uses-permission
-        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <permission
@@ -36,33 +31,29 @@
         android:extractNativeLibs="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/english_ime_name"
-        android:resizeableActivity="false"
         android:requestLegacyExternalStorage="true"
+        android:resizeableActivity="false"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
         <activity
-            android:name="org.dslul.openboard.translator.pro.PreviewDocumentActivity"
+            android:name="org.dslul.openboard.translator.pro.ViewTranslatedTextActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.TranslatorGuru">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+            android:theme="@style/Theme.TranslatorGuru"/>
         <activity
-            android:name="org.dslul.openboard.translator.pro.DetailedDocumentTranslationActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.TranslatorGuru">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+            android:name="org.dslul.openboard.translator.pro.PreSplashScreenActivity"
+            android:exported="true"
+            android:theme="@style/ForSplash">
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.MAIN"
+                    android:configChanges="uiMode" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
-
         <activity
             android:name="org.dslul.openboard.translator.pro.CameraTranslationActivity"
             android:exported="false"
@@ -72,7 +63,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="org.dslul.openboard.translator.pro.OCRActivity"
             android:exported="false"
@@ -120,10 +110,6 @@
                 android:resource="@xml/spellchecker" />
         </service> <!-- Activities -->
         <activity
-            android:name="org.dslul.openboard.translator.pro.DashboardActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.TranslatorGuru" />
-        <activity
             android:name="org.dslul.openboard.translator.pro.DisplayHistoryActivity"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -144,14 +130,6 @@
         <activity
             android:name="org.dslul.openboard.translator.pro.LanguageSelectorActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.TranslatorGuru">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name="org.dslul.openboard.translator.pro.DocumentTranslationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru">
             <meta-data
@@ -234,7 +212,7 @@
             android:name="org.dslul.openboard.translator.pro.EnableKeyboardActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.TranslatorGuru">
+            android:theme="@style/Theme.Transparent">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -243,15 +221,7 @@
             android:name="org.dslul.openboard.translator.pro.SplashScreenActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/ForSplash">
-            <intent-filter>
-                <action
-                    android:name="android.intent.action.MAIN"
-                    android:configChanges="uiMode" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.TranslatorGuru" />
         <activity
             android:name=".setup.SetupActivity"
             android:exported="true"
@@ -317,7 +287,7 @@
             android:name=".DictionaryPackInstallBroadcastReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.guru.translate.translator.translation.learn.language.UNKNOWN_CLIENT" />
+                <action android:name="com.guru.translate.translator.pro.translation.keyboard.translator.UNKNOWN_CLIENT" />
             </intent-filter>
         </receiver> <!-- Content providers -->
         <provider
@@ -328,9 +298,12 @@
             android:label="@string/dictionary_provider_name"
             android:multiprocess="false" />
 
+<!--        <meta-data-->
+<!--            android:name="com.google.android.gms.ads.APPLICATION_ID"-->
+<!--            android:value="ca-app-pub-6814505709397727~1751762147" />-->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-6814505709397727~5902581956" />
+            android:value="ca-app-pub-3940256099942544~3347511713" />
     </application>
 
 </manifest>

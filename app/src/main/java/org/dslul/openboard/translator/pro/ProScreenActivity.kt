@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_pro_screen.*
 import kotlinx.coroutines.*
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
-import org.dslul.openboard.translator.pro.classes.admob.InterstitialAd
+
 
 class ProScreenActivity : AppCompatActivity() {
     private var isBillingClientConnected = false
@@ -48,11 +48,8 @@ class ProScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pro_screen)
 
-        Misc.setIsFirstTime(this, false)
-
         tvLifeTimePrice.text = Misc.lifeTimePrice
 
-        InterstitialAd.showInterstitial(this, Misc.proScreenIntAm)
 
         billingClient = BillingClient.newBuilder(this)
             .setListener(purchasesUpdatedListener)

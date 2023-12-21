@@ -236,9 +236,10 @@ public final class InputLogic {
 
     public void OnTranslateText(String from, String to) {
         mConnection.setSelection(0, 0);
-        String s = mConnection.getTextAfterCursor(Integer.MAX_VALUE, 0).toString();
-        Log.d("logKey", s + "TestingG");
-        jugarTranslation(from, to, s);
+        CharSequence charSequence = mConnection.getTextAfterCursor(Integer.MAX_VALUE, 0);
+        Log.d("logKey", charSequence + "TestingG");
+        if (charSequence != null)
+            jugarTranslation(from, to, charSequence.toString());
 
     }
 

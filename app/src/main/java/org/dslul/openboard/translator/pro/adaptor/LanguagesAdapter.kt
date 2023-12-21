@@ -19,6 +19,7 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.SplashScreenActivity
 import org.dslul.openboard.translator.pro.classes.CustomDialog
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.ObservableBool
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import java.util.*
 
@@ -149,6 +150,8 @@ class LanguagesAdapter(
                     if (callback == null)
                         activity.onBackPressed()
                 }
+
+                ObservableBool.setMyBoolean(!ObservableBool.getMyBoolean())
             }
 
             funSpeak()
