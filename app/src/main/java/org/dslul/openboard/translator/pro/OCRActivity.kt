@@ -32,6 +32,10 @@ import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.activity_ocractivity.*
 import kotlinx.android.synthetic.main.bottom_sheet_ocr_translation_result.rvOCRResult
 import kotlinx.android.synthetic.main.bottom_sheet_ocr_translation_result.tvViewAll
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.objects.CameraMisc
 import org.dslul.openboard.translator.pro.adaptor.OCRResultAdapter
@@ -277,29 +281,31 @@ class OCRActivity : AppCompatActivity() {
 
             if (position < arrText.size) {
                 val encoded = URLEncoder.encode(arrText[position], "utf-8")
-
-                val doc =
-                    Jsoup.connect("https://translate.google.com/m?hl=en&sl=$fromCode&tl=$toCode&q=$encoded")
-                        .get()
-                val element = doc.getElementsByClass("result-container")
-
-                if (element.text() != "" && !TextUtils.isEmpty(element.text())) {
-                    this.runOnUiThread {
-                        arrTranslation.add(element.text())
-                        Log.d(Misc.logKey, "Text: ${arrText[position]}OCR: ${element.text()}")
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            jugarTranslation(arrText, position + 1)
-                        }, 10)
+                GlobalScope.launch(Dispatchers.Main) {
+                    val result = withContext(Dispatchers.IO) {
+                        // Perform network request on IO thread
+                        val doc =
+                            Jsoup.connect("https://translate.google.com/m?hl=en&sl=$fromCode&tl=$toCode&q=$encoded")
+                                .get()
+                        val element = doc.getElementsByClass("result-container")
+                        element.text()
                     }
-                } else {
-                    progressBar.visibility =
-                        View.GONE
-                    Toast.makeText(
-                        this,
-                        resources.getString(R.string.sorry_some_erroe_occurred_please_try_againg),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    Log.e(Misc.logKey, "its empty")
+
+                    if (result.isNotBlank()) {
+                        arrTranslation.add(result)
+                        Log.d(Misc.logKey, "Text: ${arrText[position]} OCR: $result")
+                        jugarTranslation(arrText, position + 1)
+                    } else {
+                        progressBar.visibility =
+                            View.GONE
+                        Toast.makeText(
+                            this@OCRActivity,
+                            resources.getString(R.string.sorry_some_erroe_occurred_please_try_againg),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Log.e(Misc.logKey, "its empty")
+                    }
+
                 }
             } else {
                 Log.d(Misc.logKey, "Here.")

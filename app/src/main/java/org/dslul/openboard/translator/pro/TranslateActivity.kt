@@ -36,11 +36,13 @@ import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
 import org.dslul.openboard.ObservableBool
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
 import org.dslul.openboard.translator.pro.classes.admob.Ads
-
-
 import org.jsoup.Jsoup
 import java.net.URLEncoder
 import java.util.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class TranslateActivity : AppCompatActivity() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
@@ -77,7 +79,7 @@ class TranslateActivity : AppCompatActivity() {
         translationsCount = Misc.showInterstitialAfter
 
         Handler(Looper.getMainLooper()).postDelayed({
-            if(!isInputMethodSelected()){
+            if (!isInputMethodSelected()) {
                 startActivity(Intent(this, EnableKeyboardActivity::class.java))
             }
         }, 1000)
@@ -135,7 +137,7 @@ class TranslateActivity : AppCompatActivity() {
                         ).show()
                         Handler(Looper.getMainLooper()).postDelayed({
                             bottomNavigationView.selectedItemId = R.id.btnTranslate
-                        },500)
+                        }, 500)
                     } else {
                         startActivity(Intent(this, EnableKeyboardActivity::class.java))
                     }
@@ -469,7 +471,95 @@ class TranslateActivity : AppCompatActivity() {
         textLngTo.text = Misc.getLanguageTo(this)
     }
 
-    @SuppressLint("SetTextI18n")
+//    @SuppressLint("SetTextI18n")
+//    private fun jugarTranslation(text: String) {
+//        setSelectedLng()
+//        if (!Misc.checkInternetConnection(this)) {
+//            Toast.makeText(
+//                this,
+//                "Please check your Internet connection and try again later.",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            llPBTranslateFrag.visibility = View.GONE
+//            return
+//        }
+//        if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
+//            val languageIdentifier = LanguageIdentification.getClient()
+//            languageIdentifier.identifyLanguage(text).addOnSuccessListener { languageCode ->
+//                if (languageCode == "und") {
+//                    Toast.makeText(
+//                        this, "Unable to detect Language. ", Toast.LENGTH_SHORT
+//                    ).show()
+//                } else {
+//                    textLngFrom.text = "Detected -> $languageCode"
+//                }
+//            }.addOnFailureListener {
+//                Toast.makeText(
+//                    this, "Unable to detect Language. ", Toast.LENGTH_SHORT
+//                ).show()
+//            }
+//        }
+//        llPBTranslateFrag.visibility = View.VISIBLE
+//        val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+//        StrictMode.setThreadPolicy(policy)
+//
+//        val encoded = URLEncoder.encode(text, "utf-8")
+//
+//        val fromCode = if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) ""
+//        else if (Misc.getLanguageFrom(this) == "zh") "zh-CN"
+//        else if (Misc.getLanguageFrom(this) == "he") "iw"
+//        else Misc.getLanguageFrom(this)
+//
+//        val toCode = when (Misc.getLanguageTo(this)) {
+//            "zh" -> "zh-CN"
+//            "he" -> "iw"
+//            else -> Misc.getLanguageTo(this)
+//        }
+//
+//        try {
+//            val doc =
+//                Jsoup.connect("https://translate.google.com/m?hl=en&sl=$fromCode&tl=$toCode&q=$encoded")
+//                    .get()
+//
+//            val element = doc.getElementsByClass("result-container")
+//
+//            if (element.text() != "" && !TextUtils.isEmpty(element.text())) {
+//                this.runOnUiThread {
+//                    try {
+//                        textViewTextTranslatedFrag.text = ""
+//                        textViewTextTranslatedFrag.text = element.text()
+//
+//                        saveInHistory(text, element.text())
+//                        showInterstitialIfRequired()
+//                    } catch (e: Exception) {
+//                        Toast.makeText(
+//                            this,
+//                            "Some error occurred, Please try again.",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                        e.printStackTrace()
+//                    }
+//                }
+//            } else {
+//                llPBTranslateFrag.visibility = View.GONE
+//                Toast.makeText(
+//                    this,
+//                    "Some error occurred in translation please try again later.",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//                Log.e(Misc.logKey, "its empty")
+//            }
+//        } catch (e: Exception) {
+//            llPBTranslateFrag.visibility = View.GONE
+//            Toast.makeText(
+//                this,
+//                "Some error occurred in translation please try again later.",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }
+//    }
+
+
     private fun jugarTranslation(text: String) {
         setSelectedLng()
         if (!Misc.checkInternetConnection(this)) {
@@ -481,79 +571,59 @@ class TranslateActivity : AppCompatActivity() {
             llPBTranslateFrag.visibility = View.GONE
             return
         }
+
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            val languageIdentifier = LanguageIdentification.getClient()
-            languageIdentifier.identifyLanguage(text).addOnSuccessListener { languageCode ->
-                if (languageCode == "und") {
-                    Toast.makeText(
-                        this, "Unable to detect Language. ", Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    textLngFrom.text = "Detected -> $languageCode"
-                }
-            }.addOnFailureListener {
-                Toast.makeText(
-                    this, "Unable to detect Language. ", Toast.LENGTH_SHORT
-                ).show()
-            }
+            textLngFrom.text = "Detected"
         }
+
         llPBTranslateFrag.visibility = View.VISIBLE
-        val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
 
-        val encoded = URLEncoder.encode(text, "utf-8")
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val encoded = URLEncoder.encode(text, "utf-8")
+                val fromCode =
+                    if (Misc.getLanguageFrom(this@TranslateActivity) == Misc.defaultLanguage) ""
+                    else if (Misc.getLanguageFrom(this@TranslateActivity) == "zh") "zh-CN"
+                    else if (Misc.getLanguageFrom(this@TranslateActivity) == "he") "iw"
+                    else Misc.getLanguageFrom(this@TranslateActivity)
 
-        val fromCode = if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) ""
-        else if (Misc.getLanguageFrom(this) == "zh") "zh-CN"
-        else if (Misc.getLanguageFrom(this) == "he") "iw"
-        else Misc.getLanguageFrom(this)
+                val toCode = when (Misc.getLanguageTo(this@TranslateActivity)) {
+                    "zh" -> "zh-CN"
+                    "he" -> "iw"
+                    else -> Misc.getLanguageTo(this@TranslateActivity)
+                }
 
-        val toCode = when (Misc.getLanguageTo(this)) {
-            "zh" -> "zh-CN"
-            "he" -> "iw"
-            else -> Misc.getLanguageTo(this)
-        }
+                val doc =
+                    Jsoup.connect("https://translate.google.com/m?hl=en&sl=$fromCode&tl=$toCode&q=$encoded")
+                        .get()
 
-        try {
-            val doc =
-                Jsoup.connect("https://translate.google.com/m?hl=en&sl=$fromCode&tl=$toCode&q=$encoded")
-                    .get()
+                val element = doc.getElementsByClass("result-container")
 
-            val element = doc.getElementsByClass("result-container")
-
-            if (element.text() != "" && !TextUtils.isEmpty(element.text())) {
-                this.runOnUiThread {
-                    try {
-                        textViewTextTranslatedFrag.text = ""
+                withContext(Dispatchers.Main) {
+                    if (element.text().isNotEmpty()) {
                         textViewTextTranslatedFrag.text = element.text()
-
                         saveInHistory(text, element.text())
                         showInterstitialIfRequired()
-                    } catch (e: Exception) {
+                    } else {
+                        llPBTranslateFrag.visibility = View.GONE
                         Toast.makeText(
-                            this,
-                            "Some error occurred, Please try again.",
+                            this@TranslateActivity,
+                            "Some error occurred in translation, please try again later.",
                             Toast.LENGTH_SHORT
                         ).show()
-                        e.printStackTrace()
+                        Log.e(Misc.logKey, "Translation result is empty")
                     }
                 }
-            } else {
-                llPBTranslateFrag.visibility = View.GONE
-                Toast.makeText(
-                    this,
-                    "Some error occurred in translation please try again later.",
-                    Toast.LENGTH_SHORT
-                ).show()
-                Log.e(Misc.logKey, "its empty")
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    llPBTranslateFrag.visibility = View.GONE
+                    Toast.makeText(
+                        this@TranslateActivity,
+                        "Some error occurred in translation, please try again later.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
-        } catch (e: Exception) {
-            llPBTranslateFrag.visibility = View.GONE
-            Toast.makeText(
-                this,
-                "Some error occurred in translation please try again later.",
-                Toast.LENGTH_SHORT
-            ).show()
         }
     }
 

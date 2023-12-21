@@ -18,6 +18,7 @@ package org.dslul.openboard.inputmethod.latin.inputlogic;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.StrictMode;
@@ -243,71 +244,131 @@ public final class InputLogic {
 
     }
 
-    private void jugarTranslation(String from, String to, String text) {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        String fromCode;
-        if (from.equals(Misc.defaultLanguage)) {
-            fromCode = "";
-        } else if (from.equals("zh")) {
-            fromCode = "zh-CN";
-        } else if (from.equals("he")) {
-            fromCode = "iw";
-        } else {
-            fromCode = from;
-        }
-
-        String toCode;
-        switch (to) {
-            case "zh":
-                toCode = "zh-CN";
-                break;
-            case "he":
-                toCode = "iw";
-                break;
-            default:
-                toCode = to;
-                break;
-        }
-
-        String encoded = null;
-        try {
-            encoded = URLEncoder.encode(text, "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            Document doc = Jsoup.connect("https://translate.google.com/m?hl=en&sl=" + fromCode + "&tl=" + toCode + "&q=" + encoded).get();
-
-            Elements element = doc.getElementsByClass("result-container");
-            mConnection.setSelection(text.length(), text.length());
-            mConnection.deleteTextBeforeCursor(text.length());
-
-            if (!Objects.equals(element.text(), "") && !TextUtils.isEmpty(element.text())) {
-                mConnection.commitText(element.text(), 1);
-
-                new Handler(Looper.getMainLooper()).postDelayed(() -> Misc.isTranslated.postValue(true), 100);
-
-//                runOnUiThread(() -> {
-//                    textViewTextTranslatedFrag.setText("");
-//                    textViewTextTranslatedFrag.setText(element.text());
+//    private void jugarTranslation(String from, String to, String text) {
+//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//        StrictMode.setThreadPolicy(policy);
 //
-//                    saveInHistory(text, element.text());
-//                    showInterstitialIfRequired();
-//                });
+//        String fromCode;
+//        if (from.equals(Misc.defaultLanguage)) {
+//            fromCode = "";
+//        } else if (from.equals("zh")) {
+//            fromCode = "zh-CN";
+//        } else if (from.equals("he")) {
+//            fromCode = "iw";
+//        } else {
+//            fromCode = from;
+//        }
+//
+//        String toCode;
+//        switch (to) {
+//            case "zh":
+//                toCode = "zh-CN";
+//                break;
+//            case "he":
+//                toCode = "iw";
+//                break;
+//            default:
+//                toCode = to;
+//                break;
+//        }
+//
+//        String encoded = null;
+//        try {
+//            encoded = URLEncoder.encode(text, "utf-8");
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            Document doc = Jsoup.connect("https://translate.google.com/m?hl=en&sl=" + fromCode + "&tl=" + toCode + "&q=" + encoded).get();
+//
+//            Elements element = doc.getElementsByClass("result-container");
+//            mConnection.setSelection(text.length(), text.length());
+//            mConnection.deleteTextBeforeCursor(text.length());
+//
+//            if (!Objects.equals(element.text(), "") && !TextUtils.isEmpty(element.text())) {
+//                mConnection.commitText(element.text(), 1);
+//
+//                new Handler(Looper.getMainLooper()).postDelayed(() -> Misc.isTranslated.postValue(true), 100);
+//            } else {
+//                Misc.isTranslated.postValue(true);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            Misc.isTranslated.postValue(true);
+//        }
+//    }
 
+    private class TranslateTask extends AsyncTask<Void, Void, String> {
+        private String fromCode;
+        private String toCode;
+        private String encodedText;
 
+        TranslateTask(String from, String to, String text) {
+            if (from.equals(Misc.defaultLanguage)) {
+                fromCode = "";
+            } else if (from.equals("zh")) {
+                fromCode = "zh-CN";
+            } else if (from.equals("he")) {
+                fromCode = "iw";
             } else {
-                Misc.isTranslated.postValue(true);
+                fromCode = from;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+            switch (to) {
+                case "zh":
+                    toCode = "zh-CN";
+                    break;
+                case "he":
+                    toCode = "iw";
+                    break;
+                default:
+                    toCode = to;
+                    break;
+            }
+
+            try {
+                encodedText = URLEncoder.encode(text, "utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                Document doc = Jsoup.connect("https://translate.google.com/m?hl=en&sl=" + fromCode + "&tl=" + toCode + "&q=" + encodedText).get();
+
+                Elements element = doc.getElementsByClass("result-container");
+
+                if (!Objects.equals(element.text(), "") && !TextUtils.isEmpty(element.text())) {
+                    return element.text();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result != null) {
+                mConnection.setSelection(encodedText.length(), encodedText.length());
+                mConnection.deleteTextBeforeCursor(encodedText.length());
+                mConnection.commitText(result, 1);
+            }
+
             Misc.isTranslated.postValue(true);
         }
     }
 
+    private void jugarTranslation(String from, String to, String text) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        new TranslateTask(from, to, text).execute();
+    }
 
     /**
      * React to a string input.

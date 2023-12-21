@@ -29,6 +29,9 @@ import com.google.gson.Gson
 import com.google.mlkit.nl.languageid.LanguageIdentification
 import com.rw.keyboardlistener.KeyboardUtils
 import kotlinx.android.synthetic.main.activity_view_translated_text.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
@@ -310,20 +313,7 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
             return
         }
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            val languageIdentifier = LanguageIdentification.getClient()
-            languageIdentifier.identifyLanguage(text).addOnSuccessListener { languageCode ->
-                if (languageCode == "und") {
-                    Toast.makeText(
-                        this, "Unable to detect Language. ", Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    textLngFrom.text = "Detected -> $languageCode"
-                }
-            }.addOnFailureListener {
-                Toast.makeText(
-                    this, "Unable to detect Language. ", Toast.LENGTH_SHORT
-                ).show()
-            }
+            textLngFrom.text = "Detected"
         }
         llPBTranslateFrag.visibility = View.VISIBLE
         val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder().permitAll().build()
@@ -349,30 +339,20 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
 
             val element = doc.getElementsByClass("result-container")
 
-            if (element.text() != "" && !TextUtils.isEmpty(element.text())) {
-                this.runOnUiThread {
-                    try {
-                        textViewTextTranslatedFrag.text = ""
+            GlobalScope.launch(Dispatchers.Main) {
+                try {
+                    if (element.text().isNotBlank()) {
                         textViewTextTranslatedFrag.text = element.text()
-
                         saveInHistory(text, element.text())
-                    } catch (e: Exception) {
-                        Toast.makeText(
-                            this,
-                            "Some error occurred, Please try again.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        e.printStackTrace()
+                    } else {
+                        showToast("Translation result is empty.")
                     }
+                } catch (e: Exception) {
+                    showToast("Some error occurred. Please try again.")
+                    e.printStackTrace()
+                } finally {
+                    llPBTranslateFrag.visibility = View.GONE
                 }
-            } else {
-                llPBTranslateFrag.visibility = View.GONE
-                Toast.makeText(
-                    this,
-                    "Some error occurred in translation please try again later.",
-                    Toast.LENGTH_SHORT
-                ).show()
-                Log.e(Misc.logKey, "its empty")
             }
         } catch (e: Exception) {
             llPBTranslateFrag.visibility = View.GONE
@@ -381,6 +361,12 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
                 "Some error occurred in translation please try again later.",
                 Toast.LENGTH_SHORT
             ).show()
+        }
+    }
+
+    private fun showToast(message: String) {
+        runOnUiThread {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
     }
 
