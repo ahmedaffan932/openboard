@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.coroutines.*
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.*
+import org.dslul.openboard.translator.pro.classes.Misc.rateUs
 import org.dslul.openboard.translator.pro.classes.Misc.startProActivity
 
 
@@ -237,24 +238,6 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    private fun rateUs() {
-        val p = "com.guru.translate.translator.pro.translation.keyboard.translator"
-        val uri: Uri = Uri.parse("market://details?id=$p")
-        val goToMarket = Intent(Intent.ACTION_VIEW, uri)
-
-        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_NEW_DOCUMENT or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-
-        try {
-            startActivity(goToMarket)
-        } catch (e: ActivityNotFoundException) {
-            startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("http://play.google.com/store/apps/details?id=$p")
-                )
-            )
-        }
-    }
 
     override fun onBackPressed() {
         if (intent.getStringExtra(Misc.data) != null) {

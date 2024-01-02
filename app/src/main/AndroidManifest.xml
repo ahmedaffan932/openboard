@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="org.dslul.openboard.inputmethod.latin">
 
     <uses-feature
@@ -13,10 +12,13 @@
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="29" />
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <permission
@@ -211,7 +213,6 @@
         <activity
             android:name="org.dslul.openboard.translator.pro.EnableKeyboardActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent">
             <meta-data
                 android:name="android.app.lib_name"
@@ -219,6 +220,11 @@
         </activity>
         <activity
             android:name="org.dslul.openboard.translator.pro.SplashScreenActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru" />
+        <activity
+            android:name="org.dslul.openboard.translator.pro.ExitActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru" />
@@ -298,12 +304,9 @@
             android:label="@string/dictionary_provider_name"
             android:multiprocess="false" />
 
-<!--        <meta-data-->
-<!--            android:name="com.google.android.gms.ads.APPLICATION_ID"-->
-<!--            android:value="ca-app-pub-6814505709397727~1751762147" />-->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
+            android:value="ca-app-pub-6814505709397727~1751762147" />
     </application>
 
 </manifest>

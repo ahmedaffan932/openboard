@@ -65,13 +65,6 @@ class TranslateActivity : AppCompatActivity() {
 
         Misc.setIsFirstTime(this, false)
 
-        ObservableBool.addBooleanChangeListener(object : BooleanChangeListener {
-            override fun onBooleanChanged(newValue: Boolean) {
-
-            }
-        })
-
-
         Ads.showNativeAd(this, Ads.dashboardNative, nativeAdFrameLayoutInBetween)
 
         initializeAnimation()
@@ -695,12 +688,7 @@ class TranslateActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-        } else {
-            Log.d(Misc.logKey, "Bottom sheet clicked.")
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-        }
+        startActivity(Intent(this, ExitActivity::class.java))
     }
 
 }

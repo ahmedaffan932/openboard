@@ -276,5 +276,9 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#B5C1F3</item>
+        <item name="colorControlActivated">@color/accent</item>
+    </style>
 
 </resources>

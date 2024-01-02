@@ -50,7 +50,7 @@ object AdmobInterstitialAd {
                     Log.d("loadAdmob?", "Ad was loaded.")
                     interAdmob = interstitialAd
                     isIntLoading = false
-                    callback?.onLoaded(interstitialAd)
+                    callback?.onLoaded()
                 }
             }
         )
@@ -82,55 +82,6 @@ object AdmobInterstitialAd {
             }
         }
 
-    }
-
-    fun loadAndShowInterstitial(activity: Activity, adId: String, callback: LoadAdCallBack) {
-        val admobRequest = AdRequest.Builder().build()
-        InterstitialAd.load(
-            activity,
-            adId,
-            admobRequest,
-            object : InterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    Log.d("loadAdmob?", adError.message + adError.code)
-                    callback.onFailed()
-                }
-
-                override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                    Log.d("loadAdmob?", "Ad was loaded.")
-
-                    callback.onLoaded(interstitialAd)
-                }
-            }
-        )
-    }
-
-    fun showOnDemandInterstitial(
-        activity: Activity,
-        interstitialAd: InterstitialAd?,
-        callback: InterstitialCallBack
-    ) {
-        if (interstitialAd == null) {
-            callback.onDismiss()
-        } else {
-            interstitialAd.show(activity)
-
-            interstitialAd.fullScreenContentCallback = object : FullScreenContentCallback() {
-                override fun onAdDismissedFullScreenContent() {
-                    Log.d("interAdmobShow", "Ad was dismissed.")
-                    callback.onDismiss()
-                }
-
-                override fun onAdFailedToShowFullScreenContent(adError: AdError) {
-                    Log.d("interAdmobShow", "Ad failed to show." + adError.message + adError.code)
-                    callback.onDismiss()
-                }
-
-                override fun onAdShowedFullScreenContent() {
-                    Log.d("interAdmobShow", "Ad showed fullscreen content.")
-                }
-            }
-        }
     }
 
 }

@@ -26,6 +26,7 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
 import org.dslul.openboard.translator.pro.classes.admob.Ads
+import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import java.util.*
 import java.lang.Runnable as Runnable1
 
@@ -38,23 +39,27 @@ class EnableKeyboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enable_keyboard)
 
-        Ads.showInterstitial(this, Ads.enableKeyboardInt)
+        Ads.showInterstitial(this, Ads.enableKeyboardInt, object : InterstitialCallBack{
+            override fun onDismiss() {
+                checkKeyboardActivation()
+            }
+        })
 
         Firebase.analytics.logEvent("EnableKeyboard", null)
 
-        val sharedPreferences = getSharedPreferences("settingsIsFirstTime", Context.MODE_PRIVATE)
-        if (sharedPreferences.getBoolean("settingsIsFirstTime", true)) {
-            val editor = sharedPreferences.edit()
-            editor.putBoolean("settingsIsFirstTime", false)
-            editor.apply()
-
-            val intent = Intent(
-                this,
-                org.dslul.openboard.inputmethod.latin.settings.SettingsActivity::class.java
-            )
-            intent.putExtra(Misc.data, Misc.data)
-            startActivity(intent)
-        }
+//        val sharedPreferences = getSharedPreferences("settingsIsFirstTime", Context.MODE_PRIVATE)
+//        if (sharedPreferences.getBoolean("settingsIsFirstTime", true)) {
+//            val editor = sharedPreferences.edit()
+//            editor.putBoolean("settingsIsFirstTime", false)
+//            editor.apply()
+//
+//            val intent = Intent(
+//                this,
+//                org.dslul.openboard.inputmethod.latin.settings.SettingsActivity::class.java
+//            )
+//            intent.putExtra(Misc.data, Misc.data)
+//            startActivity(intent)
+//        }
 
         tvSkip.setOnClickListener {
             finish()
@@ -120,7 +125,7 @@ class EnableKeyboardActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        checkKeyboardActivation()
+
 
         Handler().postDelayed({
             handler.post(runMainBanner)

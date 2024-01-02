@@ -2,6 +2,7 @@ package org.dslul.openboard.translator.pro.classes
 
 import android.annotation.SuppressLint
 import android.app.*
+import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -11,6 +12,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -601,6 +603,24 @@ object Misc {
         val defaultInputMethod = ComponentName.unflattenFromString(id)
         val myInputMethod = ComponentName(this, LatinIME::class.java)
         return myInputMethod == defaultInputMethod
+    }
+    fun Context.rateUs() {
+        val p = "com.guru.translate.translator.pro.translation.keyboard.translator"
+        val uri: Uri = Uri.parse("market://details?id=$p")
+        val goToMarket = Intent(Intent.ACTION_VIEW, uri)
+
+        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_NEW_DOCUMENT or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+
+        try {
+            startActivity(goToMarket)
+        } catch (e: ActivityNotFoundException) {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=$p")
+                )
+            )
+        }
     }
 
 }

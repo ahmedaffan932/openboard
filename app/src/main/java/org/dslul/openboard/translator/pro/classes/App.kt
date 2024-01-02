@@ -38,8 +38,12 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
             mFRC.fetchAndActivate().addOnCompleteListener { p0 ->
                 if (p0.isSuccessful) {
                     if (!BuildConfig.DEBUG) {
+                        Ads.splashInt = mFRC.getString("splashInt")
+                        Ads.exitNative = mFRC.getString("exitNative")
+                        Ads.translateInt = mFRC.getString("translateInt")
                         Ads.phraseInt = mFRC.getString("phraseInt")
                         Ads.phraseNative = mFRC.getString("phraseNative")
+                        Ads.onBoardingNative = mFRC.getString("onBoardingNative")
                         Ads.splashNative = mFRC.getString("splashNative")
                         Misc.lifeTimePrice = mFRC.getString("lifeTimePrice")
                         Ads.dashboardNative = mFRC.getString("dashboardNative")

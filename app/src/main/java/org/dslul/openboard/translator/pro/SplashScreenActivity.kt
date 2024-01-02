@@ -50,7 +50,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         splashViewPager.adapter = FragmentAdapter(this)
 
-        Ads.showNativeAd(this, Ads.splashNative, nativeAdFrameLayout)
+        Ads.showNativeAd(this, Ads.onBoardingNative, nativeAdFrameLayout)
 
         TabLayoutMediator(splashTabLayout, splashViewPager) { tab, position -> }.attach()
 

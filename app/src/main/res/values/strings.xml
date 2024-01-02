@@ -17,7 +17,7 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_name" translatable="false">TranslatorPro</string>
+    <string name="english_ime_name" translatable="false">Keyboard Translator</string>
     <!-- Name of Android spell checker service. AOSP(Android Open Source Project) should not be translated.
          This resource should be copied from msgid="511950477199948048" -->
     <string name="spell_checker_service_name" translatable="false">OpenBoard Spell Checker</string>
@@ -664,4 +664,5 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="sorry_no_text_found" translatable="false">Sorry no text found.</string>
     <string name="sorry_some_erroe_occurred_please_try_againg" translatable="false">Sorry some error occurred please try again.</string>
     <string name="a_translator_is_a_reader_an_interpreter_and_a_creator_all_in_one" translatable="false">A translator is a reader, an interpreter and a creator all in one.</string>
+    <string name="let_s_translate">Let\'s Translate</string>
 </resources>

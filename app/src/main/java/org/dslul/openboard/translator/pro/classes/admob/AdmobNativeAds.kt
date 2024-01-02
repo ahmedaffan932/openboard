@@ -27,7 +27,8 @@ object AdmobNativeAds {
     @SuppressLint("MissingPermission")
     fun loadAdmobNative(
         context: Context,
-        adId: String = AdIds.nativeAdIdAdMobOne
+        adId: String = AdIds.nativeAdIdAdMobOne,
+        callBack: LoadAdCallBack? = null
     ) {
         if (adId == "") {
             return
@@ -51,12 +52,14 @@ object AdmobNativeAds {
                 amInner = null
                 Log.e("logKey", "Native Ad Failed: " + adError.code + " | " + adError.message)
 
+                callBack?.onFailed()
             }
 
             override fun onAdLoaded() {
                 super.onAdLoaded()
                 isNativeAdLoading = false
                 Log.e("logKey", "Native Ad Loaded")
+                callBack?.onLoaded()
             }
 
             override fun onAdImpression() {
