@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color"
+    android:background="@drawable/bg_splash_screen"
     tools:context="org.dslul.openboard.translator.pro.PreSplashScreenActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,8 +42,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:text="@string/app_name"
+                android:text="Translator"
                 android:textColor="@color/accent"
+                android:textSize="@dimen/_18sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="@string/Pro"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_18sdp"
                 android:textStyle="bold" />
 
@@ -61,7 +70,7 @@
             android:gravity="center"
             android:textSize="@dimen/_12sdp"
             android:text="@string/a_translator_is_a_reader_an_interpreter_and_a_creator_all_in_one"
-            android:textColor="@color/gray_600"
+            android:textColor="@color/btnColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -117,6 +126,7 @@
             android:text="@string/let_s_translate"
             android:textColor="@color/white"
             android:textSize="@dimen/_16sdp"
+            android:fontFamily="@font/sf_pro_medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

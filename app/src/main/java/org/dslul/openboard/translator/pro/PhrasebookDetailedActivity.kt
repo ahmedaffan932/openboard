@@ -134,11 +134,11 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
             }
         }
 
-        btnBackPhrasebook.setOnClickListener {
+        btnBack.setOnClickListener {
             onBackPressed()
         }
 
-        llLngFrom.setOnClickListener {
+        llLanguageFrom.setOnClickListener {
             val intent = Intent(
                 this@PhrasebookDetailedActivity,
                 LanguageSelectorActivity::class.java
@@ -148,7 +148,7 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
             startActivityForResult(intent, lngSelectorLngFrom)
         }
 
-        llLngTo.setOnClickListener {
+        llLanguageTo.setOnClickListener {
             startActivityForResult(
                 Intent(
                     this@PhrasebookDetailedActivity,
@@ -158,7 +158,7 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
             )
         }
 
-        btnSwitchLngs.setOnClickListener {
+        ivSwitchLanguages.setOnClickListener {
             if (Misc.getLanguageFrom(this) != Misc.defaultLanguage) {
                 val rotate = RotateAnimation(
                     0F, 180F, Animation.RELATIVE_TO_SELF,
@@ -167,22 +167,20 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
                 rotate.duration = 100
                 rotate.interpolator = LinearInterpolator()
 
-                val image = btnSwitchLngs
+                val image = ivSwitchLanguages
                 image.startAnimation(rotate)
 
                 val temp = Misc.getLanguageFrom(this)
                 Misc.setLanguageFrom(this, Misc.getLanguageTo(this))
                 Misc.setLanguageTo(this, temp)
 
-                Misc.zoomOutView(tvHeading, this, 150)
-                Misc.zoomOutView(llLngFrom, this, 150)
-                Misc.zoomOutView(llLngTo, this, 150)
+                Misc.zoomOutView(llLanguageFrom, this, 150)
+                Misc.zoomOutView(llLanguageTo, this, 150)
 
                 Handler().postDelayed({
                     setSelectedLng()
-                    Misc.zoomInView(tvHeading, this, 150)
-                    Misc.zoomInView(llLngFrom, this, 150)
-                    Misc.zoomInView(llLngTo, this, 150)
+                    Misc.zoomInView(llLanguageFrom, this, 150)
+                    Misc.zoomInView(llLanguageTo, this, 150)
                 }, 150)
 
 
@@ -223,24 +221,16 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            textViewLngFrom.text =
+            tvLanguageFrom.text =
                 "English"
-            flagFrom.setImageResource(Misc.getFlag(this, "en"))
         } else {
-            textViewLngFrom.text = Locale(
+            tvLanguageFrom.text = Locale(
                 Misc.getLanguageFrom(this)
             ).displayName
-            flagFrom.setImageResource(
-                Misc.getFlag(
-                    this,
-                    Misc.getLanguageFrom(this)
-                )
-            )
         }
-        textViewLngTo.text = Locale(
+        tvLanguageTo.text = Locale(
             Misc.getLanguageTo(this)
         ).displayName
-        flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
     }
 
     //@DelicateCoroutinesApi
@@ -282,7 +272,6 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
                 var i = 0
                 for (t in obj.keys()) {
                     if (Misc.phrasebookPosition == i) {
-                        tvHeading.text = t
                         for (item in obj.getJSONObject(t).keys()) {
                             arrExpandableListTitle.add(item.toString())
                             val temp: MutableList<String> = ArrayList()

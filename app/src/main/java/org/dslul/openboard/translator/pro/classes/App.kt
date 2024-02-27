@@ -20,8 +20,6 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
     override fun onCreate() {
         super.onCreate()
 
-        MobileAds.initialize(this) {}
-
         registerActivityLifecycleCallbacks(this)
 
         Misc.selectThemeMode(this)

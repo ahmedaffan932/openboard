@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/secondary_color"
+    android:background="@drawable/bg_gradient_dashboard"
     tools:context="org.dslul.openboard.translator.pro.SplashScreenActivity">
 
     <androidx.viewpager2.widget.ViewPager2
@@ -31,6 +31,31 @@
         app:tabPaddingEnd="6dp"
         app:tabPaddingStart="6dp" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/btnContinue"
+        app:layout_constraintEnd_toEndOf="@id/btnContinue"
+        app:layout_constraintTop_toTopOf="@id/btnContinue"
+        app:layout_constraintStart_toStartOf="@id/btnContinue">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="loading_dots.json"
+            app:lottie_loop="true"
+            app:lottie_speed="1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <TextView
         android:id="@+id/btnContinue"
         android:layout_width="@dimen/_150sdp"
@@ -41,6 +66,7 @@
         android:padding="@dimen/fab_padding"
         android:textStyle="bold"
         android:textSize="@dimen/_14sdp"
+        android:visibility="invisible"
         android:textColor="@color/white"
         android:background="@drawable/bg_rounded"
         android:backgroundTint="@color/yellow"

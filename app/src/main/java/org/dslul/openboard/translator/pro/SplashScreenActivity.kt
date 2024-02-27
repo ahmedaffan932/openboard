@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.preference.PreferenceManager
@@ -54,11 +55,22 @@ class SplashScreenActivity : AppCompatActivity() {
 
         TabLayoutMediator(splashTabLayout, splashViewPager) { tab, position -> }.attach()
 
+        object : CountDownTimer(3000, 1500){
+            override fun onTick(millisUntilFinished: Long) {
+
+            }
+
+            override fun onFinish() {
+                btnContinue.visibility = View.VISIBLE
+            }
+
+        }.start()
+
         btnContinue.setOnClickListener {
             if (splashViewPager.currentItem < 2) {
                 splashViewPager.setCurrentItem(splashViewPager.currentItem + 1, true)
             } else {
-                startActivity(Intent(this, TranslateActivity::class.java))
+                startActivity(Intent(this, DashboardActivity::class.java))
             }
         }
     }

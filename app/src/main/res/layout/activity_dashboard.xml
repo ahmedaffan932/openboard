@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/bg_gradient_dashboard"
+    tools:context="org.dslul.openboard.translator.pro.DashboardActivity">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clTopBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:transitionName="anim_cl_languages"
+                android:layout_margin="@dimen/padding"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/btnHistory"
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_32sdp"
+                    android:padding="@dimen/padding"
+                    android:src="@drawable/ic_baseline_access_time_filled_24"
+                    android:transitionName="anim_btn_menu"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_bold"
+                    android:text="@string/translator"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sdp"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tvPro"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvPro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_bold"
+                    android:text="@string/Pro"
+                    android:textColor="@color/accent"
+                    android:textSize="@dimen/_16sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvTitle"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/btnSettings"
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_32sdp"
+                    android:src="@drawable/ic_baseline_settings_24"
+                    android:padding="@dimen/padding"
+                    android:transitionName="anim_btn_menu"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/white" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/llButtons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/clTopBar">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/llKeyboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#4285F4"
+                    android:layout_marginTop="@dimen/padding"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toTopOf="@id/llConversation">
+
+                    <ImageView
+                        android:id="@+id/ivKeyboard"
+                        android:layout_width="@dimen/_26sdp"
+                        android:layout_height="@dimen/_22sdp"
+                        android:layout_marginTop="@dimen/padding"
+                        android:scaleType="fitXY"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:src="@drawable/ic_keyboard"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/padding"
+                        android:fontFamily="@font/sf_pro_medium"
+                        app:layout_constraintTop_toBottomOf="@id/ivKeyboard"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="Keyboadr Translation"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12sdp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/llTextTranslate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#327935"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:transitionName="anim_btn_camera"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <ImageView
+                        android:id="@+id/ivTextTranslate"
+                        android:layout_width="@dimen/_22sdp"
+                        android:layout_height="@dimen/_22sdp"
+                        android:layout_marginTop="@dimen/padding"
+                        android:layout_marginBottom="@dimen/less_padding"
+                        android:src="@drawable/ic_baseline_translate_24"
+                        android:transitionName="anim_camera_icon"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/padding"
+                        android:fontFamily="@font/sf_pro_medium"
+                        android:text="Text Translate"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12sdp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llCamera"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#357f38"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:transitionName="anim_btn_camera"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <ImageView
+                        android:id="@+id/ivCamera"
+                        android:layout_width="@dimen/_22sdp"
+                        android:layout_height="@dimen/_22sdp"
+                        android:layout_marginTop="@dimen/padding"
+                        android:layout_marginBottom="@dimen/less_padding"
+                        android:src="@drawable/ic_camera"
+                        android:transitionName="anim_camera_icon"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/padding"
+                        android:fontFamily="@font/sf_pro_medium"
+                        android:text="Translate Photo"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12sdp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llVoice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#38863b"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toTopOf="@id/llConversation">
+
+                    <ImageView
+                        android:id="@+id/ivVoice"
+                        android:layout_width="@dimen/_26sdp"
+                        android:layout_height="@dimen/_26sdp"
+                        android:layout_marginTop="@dimen/padding"
+                        android:layout_marginBottom="@dimen/less_padding"
+                        android:src="@drawable/ic_voice"
+                        android:transitionName="anim_iv_voice"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/padding"
+                        android:fontFamily="@font/sf_pro_medium"
+                        android:text="Voice Translation"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12sdp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llConversation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#428c45"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:transitionName="anim_main_chat"
+                    app:layout_constraintBottom_toTopOf="@id/llPhrases">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="@dimen/_22sdp"
+                        android:layout_height="@dimen/_22sdp"
+                        android:layout_marginTop="@dimen/padding"
+                        android:layout_marginBottom="@dimen/less_padding">
+
+                        <ImageView
+                            android:id="@+id/ivChat"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_chat"
+                            android:transitionName="anim_chat_icon"
+                            app:tint="@color/white" />
+
+                        <ImageView
+                            android:id="@+id/ivChatTo"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_chat"
+                            android:transitionName="anim_chat_icon_to"
+                            app:tint="@color/white" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/padding"
+                        android:fontFamily="@font/sf_pro_medium"
+                        android:text="Chat Translate"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12sdp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llPhrases"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#4c924f"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:transitionName="anim_btn_phrasebook"
+                    app:layout_constraintBottom_toTopOf="@id/llCamera">
+
+                    <ImageView
+                        android:layout_width="@dimen/_22sdp"
+                        android:layout_height="@dimen/_22sdp"
+                        android:layout_marginTop="@dimen/padding"
+                        android:layout_marginBottom="@dimen/less_padding"
+                        android:src="@drawable/ic_phrase_book"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/padding"
+                        android:fontFamily="@font/sf_pro_medium"
+                        android:text="@string/phrasebook"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12sdp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/nativeAdFrameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/padding"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/llButtons"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            android:id="@+id/quitBottomSheet"
+            layout="@layout/bottom_sheet_quit" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</androidx.drawerlayout.widget.DrawerLayout>

@@ -8,19 +8,19 @@ import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 object Ads {
 
-    var translateInt: String = "am"
-    var exitNative: String = "am_large_hctr"
     var splashInt: String = "am"
-    var phraseNative: String = "am_small_hctr"
-    var dashboardNative: String = "am"
-    var languageSelectorOnBackInt: String = "am"
     var phraseInt: String = "am"
+    var translateInt: String = "am"
     var dashboardBanner: String = "am"
     var enableKeyboardInt: String = "am"
     var cameraTranslationInt: String = "am"
-    var cameraTranslationBanner: String = "am"
-    var onBoardingNative: String = "am_small_hctr"
+    var exitNative: String = "am_large_hctr"
     var splashNative: String = "am_large_hctr"
+    var cameraTranslationBanner: String = "am"
+    var phraseNative: String = "am_small_hctr"
+    var dashboardNative: String = "am_dashboard"
+    var languageSelectorOnBackInt: String = "am"
+    var onBoardingNative: String = "am_small_hctr"
 
     var isSplashAppOpenEnabled: Boolean = true
 

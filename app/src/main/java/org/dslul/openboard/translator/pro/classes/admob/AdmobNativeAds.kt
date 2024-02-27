@@ -85,15 +85,15 @@ object AdmobNativeAds {
                 val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)
                         as LayoutInflater
 
-                var isSmallNative = false
-                val adView = if (remoteKey.contains("large")) {
+                val adView = if (remoteKey.contains("dashboard")) {
+                    inflater.inflate(R.layout.admob_native_dashboard, null) as NativeAdView
+                } else if (remoteKey.contains("large")) {
                     if (remoteKey.contains("lctr")) {
                         inflater.inflate(R.layout.admob_native_layout_lctr, null) as NativeAdView
                     } else {
                         inflater.inflate(R.layout.admob_native_hctr, null) as NativeAdView
                     }
                 } else {
-                    isSmallNative = true
                     if (remoteKey.contains("lctr")) {
                         inflater.inflate(
                             R.layout.admob_small_native_ad_lctr,

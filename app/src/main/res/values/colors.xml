@@ -117,7 +117,7 @@
 
 
     <color name="black">#121212</color>
-    <color name="accent">#4285F4</color>
+    <color name="accent">#5BC467</color>
     <color name="orange">#9CCC65</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray_900">#212121</color>
@@ -135,6 +135,13 @@
 
     <color name="bg_color">#FFFFFF</color>
     <color name="yellow">#4285F4</color>
-    <color name="disable_color">#E4E0E3</color>
+    <color name="disable_color">#424242</color>
     <color name="secondary_color">#f5f6fb</color>
+
+    <color name="btnColor">#BDBDBD</color>
+    <color name="colorPrimary">#192024</color>
+    <color name="colorSecondary">#991e272b</color>
+    <color name="line_color">#373e41</color>
+
+
 </resources>

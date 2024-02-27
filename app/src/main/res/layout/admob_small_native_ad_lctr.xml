@@ -61,7 +61,6 @@
                     android:id="@+id/ad_app_icon"
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
-                    android:background="@drawable/bg_ad_image"
                     app:shapeAppearanceOverlay="@style/lessRoundedCorners"
                     android:layout_marginBottom="@dimen/_4sdp"
                     android:layout_marginStart="@dimen/_2sdp"
@@ -83,7 +82,7 @@
                         android:singleLine="true"
                         android:text="@string/app_name"
                         android:paddingEnd="@dimen/_6sdp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
                         android:textStyle="bold" />
 

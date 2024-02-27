@@ -28,7 +28,6 @@ import java.util.*
 class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private val arr = ArrayList<String>()
     lateinit var adapter: LanguagesAdapter
-    var showingInterstitial = false
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,26 +36,32 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
 
         Firebase.analytics.logEvent("LanguageSelectorActivity", null)
 
+
         Misc.isLngTo = intent.getBooleanExtra(Misc.lngTo, true)
+
+        if (Misc.isLngTo) {
+            tvTitle.text = getString(R.string.language_to)
+        } else {
+            tvTitle.text = getString(R.string.language_from)
+        }
 
         setBackground()
 
         for (lng in TranslateLanguage.getAllLanguages()) {
-            Log.d(Misc.logKey, lng)
             arr.add(lng)
         }
 
-        textViewLngTo.text = Locale(Misc.getLanguageTo(this)).displayName
+        tvLanguageTo.text = Locale(Misc.getLanguageTo(this)).displayName
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            textViewLngFrom.text = "Detect"
+            tvLanguageFrom.text = resources.getString(R.string.detect)
         } else {
-            textViewLngFrom.text = Locale(Misc.getLanguageFrom(this)).displayName
+            tvLanguageFrom.text = Locale(Misc.getLanguageFrom(this)).displayName
         }
 
         if (intent.getStringExtra(Misc.data) != null) {
-            textViewLngFrom.visibility = View.GONE
+            tvLanguageFrom.visibility = View.GONE
         } else if (intent.getStringExtra(Misc.data).toString().contains("ml")) {
-            textViewLngTo.visibility = View.GONE
+            tvLanguageTo.visibility = View.GONE
             Misc.isLngTo = false
         }
 
@@ -69,9 +74,6 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
             textViewRecentlyUsedLng.visibility = View.VISIBLE
         }
 
-        if(arrRecent.isEmpty()){
-            textViewRecentlyUsedLng.visibility = View.GONE
-        }
 
         recyclerViewRecentLanguages.layoutManager = LinearLayoutManager(this)
         recyclerViewRecentLanguages.adapter =
@@ -81,18 +83,12 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
         adapter = LanguagesAdapter(arr, intent.getBooleanExtra(Misc.lngTo, true), this)
         recyclerViewLanguages.adapter = adapter
 
-        simpleSearchView.setQueryHint(
-            Html.fromHtml(
-                "<font color = #BDBDBD>" + "Search Language" + "</font>"
-            )
-        )
-
-        btnBackLanguages.setOnClickListener {
+        btnBack.setOnClickListener {
             onBackPressed()
         }
         simpleSearchView.setOnQueryTextListener(this);
 
-        textViewLngFrom.setOnClickListener {
+        tvLanguageFrom.setOnClickListener {
             if (Misc.isLngTo) {
                 Misc.isLngTo = !Misc.isLngTo
 
@@ -101,7 +97,7 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
 
         }
 
-        textViewLngTo.setOnClickListener {
+        tvLanguageTo.setOnClickListener {
             if (!Misc.isLngTo) {
                 Misc.isLngTo = !Misc.isLngTo
 
@@ -132,20 +128,16 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
 
     private fun setBackground() {
         if (Misc.isLngTo) {
-            textViewLngFrom.backgroundTintList = textViewLngTo.backgroundTintList
-            textViewLngTo.backgroundTintList =
+            tvLanguageFrom.backgroundTintList = tvLanguageTo.backgroundTintList
+            tvLanguageTo.backgroundTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.accent))
-            textViewLngTo.setTextColor(resources.getColor(R.color.white))
-            textViewLngFrom.setTextColor(resources.getColor(R.color.black))
         } else {
             if (!intent.getBooleanExtra("isPhrasebook", false)) {
                 arr.add(Misc.defaultLanguage)
             }
-            textViewLngTo.backgroundTintList = textViewLngFrom.backgroundTintList
-            textViewLngFrom.backgroundTintList =
+            tvLanguageTo.backgroundTintList = tvLanguageFrom.backgroundTintList
+            tvLanguageFrom.backgroundTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.accent))
-            textViewLngFrom.setTextColor(resources.getColor(R.color.white))
-            textViewLngTo.setTextColor(resources.getColor(R.color.black))
         }
     }
 
@@ -161,14 +153,5 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
             a.duration = 150
             ll.startAnimation(a)
         }, 150)
-    }
-
-
-    override fun onBackPressed() {
-        Ads.showInterstitial(this, Ads.languageSelectorOnBackInt, object : InterstitialCallBack{
-            override fun onDismiss() {
-                finish()
-            }
-        })
     }
 }

@@ -14,6 +14,7 @@
         android:background="@drawable/bg_main_less_rounded"
         android:layout_marginBottom="@dimen/padding"
         android:paddingHorizontal="@dimen/fab_padding"
+        android:backgroundTint="@color/colorSecondary"
         app:layout_constraintBottom_toTopOf="@id/nativeAdFrameLayout"
         android:paddingVertical="@dimen/padding">
 
@@ -33,7 +34,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/padding_10"
             android:text="@string/app_name"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/imgPhraseMainItemIcon"
@@ -48,7 +49,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_baseline_navigate_next_24"
-            app:tint="@color/gray_400" />
+            app:tint="@color/gray_700" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout

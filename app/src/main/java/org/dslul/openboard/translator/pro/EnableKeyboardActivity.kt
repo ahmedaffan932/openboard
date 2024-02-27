@@ -47,20 +47,6 @@ class EnableKeyboardActivity : AppCompatActivity() {
 
         Firebase.analytics.logEvent("EnableKeyboard", null)
 
-//        val sharedPreferences = getSharedPreferences("settingsIsFirstTime", Context.MODE_PRIVATE)
-//        if (sharedPreferences.getBoolean("settingsIsFirstTime", true)) {
-//            val editor = sharedPreferences.edit()
-//            editor.putBoolean("settingsIsFirstTime", false)
-//            editor.apply()
-//
-//            val intent = Intent(
-//                this,
-//                org.dslul.openboard.inputmethod.latin.settings.SettingsActivity::class.java
-//            )
-//            intent.putExtra(Misc.data, Misc.data)
-//            startActivity(intent)
-//        }
-
         tvSkip.setOnClickListener {
             finish()
         }

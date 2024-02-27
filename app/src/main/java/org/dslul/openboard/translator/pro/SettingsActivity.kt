@@ -30,7 +30,6 @@ import org.dslul.openboard.translator.pro.classes.Misc.startProActivity
 import org.dslul.openboard.translator.pro.interfaces.LoadInterstitialCallBack
 
 class SettingsActivity : AppCompatActivity() {
-    var showingInterstitial = false
 
     private val purchasesUpdatedListener =
         PurchasesUpdatedListener { billingResult, purchases ->

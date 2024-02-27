@@ -7,6 +7,7 @@ import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.*
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.android.billingclient.api.*
 import com.google.firebase.analytics.ktx.analytics
@@ -80,6 +81,19 @@ class LanguagesAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: LanguageHolder, position: Int) {
+
+        if (lngTo) {
+            if (Misc.getLanguageTo(activity) == languages.elementAt(position)) {
+                holder.languageName.setTextColor(ContextCompat.getColor(activity, R.color.accent))
+                holder.ivSelected.visibility = View.VISIBLE
+            }
+        } else {
+            if (Misc.getLanguageFrom(activity) == languages.elementAt(position)) {
+                holder.languageName.setTextColor(ContextCompat.getColor(activity, R.color.accent))
+                holder.ivSelected.visibility = View.VISIBLE
+            }
+        }
+
         holder.lngLayout.tag = languages.elementAt(position)
 
         if (!Misc.getPurchasedStatus(activity))
@@ -227,6 +241,7 @@ class LanguagesAdapter(
     @Suppress("CAST_NEVER_SUCCEEDS")
     open class LanguageHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val languageName: TextView = itemView.findViewById(R.id.languageName)
+        val ivSelected: ImageView = itemView.findViewById(R.id.ivSelected)
         val lngLayout: LinearLayout = itemView.findViewById(R.id.lngLayoutActivity)
         val temp: ImageView = itemView.findViewById(R.id.flagView)
         val btnSpeak: ImageView = itemView.findViewById(R.id.btnSpeakTranslation)

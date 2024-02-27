@@ -1725,7 +1725,9 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     public void showSuggestionStrip(final SuggestedWords suggestedWords) {
         if (suggestedWords.isEmpty()) {
             setNeutralSuggestionStrip();
+            Log.e(Misc.logKey, "Empty Suggestions");
         } else {
+            Log.d(Misc.logKey, "Suggestions");
             setSuggestedWords(suggestedWords);
         }
         // Cache the auto-correction in accessibility code so we can speak it if the user

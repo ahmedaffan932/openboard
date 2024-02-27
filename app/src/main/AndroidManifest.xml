@@ -42,6 +42,10 @@
             android:exported="false"
             android:theme="@style/Theme.TranslatorGuru"/>
         <activity
+            android:name="org.dslul.openboard.translator.pro.ConversationActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TranslatorGuru"/>
+        <activity
             android:name="org.dslul.openboard.translator.pro.PreSplashScreenActivity"
             android:exported="true"
             android:theme="@style/ForSplash">
@@ -110,6 +114,7 @@
             <meta-data
                 android:name="android.view.textservice.scs"
                 android:resource="@xml/spellchecker" />
+
         </service> <!-- Activities -->
         <activity
             android:name="org.dslul.openboard.translator.pro.DisplayHistoryActivity"
@@ -140,6 +145,15 @@
         </activity>
         <activity
             android:name="org.dslul.openboard.translator.pro.TranslateActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="org.dslul.openboard.translator.pro.DashboardActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru">
@@ -293,7 +307,7 @@
             android:name=".DictionaryPackInstallBroadcastReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.guru.translate.translator.pro.translation.keyboard.translator.UNKNOWN_CLIENT" />
+                <action android:name="org.dslul.openboard.inputmethod.dictionarypack.aosp.UNKNOWN_CLIENT" />
             </intent-filter>
         </receiver> <!-- Content providers -->
         <provider

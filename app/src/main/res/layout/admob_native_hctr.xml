@@ -25,7 +25,6 @@
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:adjustViewBounds="true"
-                android:background="@drawable/bg_ad_image"
                 app:shapeAppearanceOverlay="@style/lessRoundedCorners"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -49,7 +48,7 @@
                     android:ellipsize="end"
                     android:maxLength="25"
                     android:maxLines="1"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 

@@ -17,7 +17,7 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_name" translatable="false">Keyboard Translator</string>
+    <string name="english_ime_name" translatable="false">Translator Pro</string>
     <!-- Name of Android spell checker service. AOSP(Android Open Source Project) should not be translated.
          This resource should be copied from msgid="511950477199948048" -->
     <string name="spell_checker_service_name" translatable="false">OpenBoard Spell Checker</string>
@@ -69,19 +69,6 @@
     <string name="settings_category_miscellaneous" translatable="false">Miscellaneous</string>
     <!--  Option for enabling or disabling the split keyboard layout. [CHAR LIMIT=65]-->
     <string name="enable_split_keyboard">Enable split keyboard</string>
-    <!-- Option title for enabling cloud sync feature [CHAR LIMIT=33]-->
-    <!-- Option summary when cloud sync feature is enabled  [CHAR LIMIT=65] -->
-    <!-- Option summary when cloud sync feature is disabled  [CHAR LIMIT=65] -->
-    <!-- Option title for starting the sync cycle now. [CHAR LIMIT=33]-->
-    <!-- Option title for letting user delete synced google keyboard data from Google servers.  [CHAR LIMIT=35] -->
-    <!-- Option summary for letting user delete synced google keyboard data from Google servers. [CHAR LIMIT=65] -->
-    <!-- Text for confirmation dialog box asking user to confirm deletion of cloud data. [CHAR LIMIT=65] -->
-    <!-- Option to confirm deleting of user data from cloud [CHAR LIMIT=20] -->
-    <!-- Option to cancel the deletion of user data from cloud [CHAR LIMIT=20] -->
-    <!-- Option to agree to terms and conditions for enabling cloud sync feature. -->
-    <!-- Text to tell the user to add a Google account to the device to enable the cloud sync feature. [CHAR LIMIT=65]-->
-    <!-- Text to tell the user that sync feature is disabled because they have Google Apps for Business account(s) on their device. [CHAR LIMIT=80]-->
-    <!-- Option name for including other IMEs in the language switch list [CHAR LIMIT=30] -->
     <string name="include_other_imes_in_language_switch_list">Switch to other input methods</string>
     <!-- Option summary for including other IMEs in the language switch list [CHAR LIMIT=65] -->
     <string name="include_other_imes_in_language_switch_list_summary">Language switch key covers other input methods too</string>
@@ -456,7 +443,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Description for the option to show setup wizard application icon of this IME in the laucher. [CHAR_LIMIT=65] -->
     <string name="show_setup_wizard_icon_summary">Display application icon in the launcher</string>
     <!-- The dictionary provider application name. Visible in Settings/Applications/Manage applications. -->
-    <string name="app_name" translatable="false">Keyboard Translator Pro</string>
+    <string name="app_name" translatable="false">Translator Pro</string>
     <!-- The dictionary provider ContentProvider name. Visible in Settings/Applications/Running services. -->
     <string name="dictionary_provider_name">Dictionary Provider</string>
     <!-- The dictionary provider Service name. Visible in Settings/Applications/Running services. -->
@@ -665,4 +652,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="sorry_some_erroe_occurred_please_try_againg" translatable="false">Sorry some error occurred please try again.</string>
     <string name="a_translator_is_a_reader_an_interpreter_and_a_creator_all_in_one" translatable="false">A translator is a reader, an interpreter and a creator all in one.</string>
     <string name="let_s_translate">Let\'s Translate</string>
+
+    <string name="language_to">LanguageTo</string>
+    <string name="language_from">LanguageFrom</string>
+
 </resources>

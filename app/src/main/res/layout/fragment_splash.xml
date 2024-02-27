@@ -18,8 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:lottie_fileName="splash_languages.json"
-        android:scaleType="centerInside"
-        android:layout_margin="@dimen/fab_padding"
+        android:scaleType="fitCenter"
+        android:layout_marginBottom="@dimen/fab_padding"
         app:layout_constraintBottom_toTopOf="@id/tvHeading"
         app:lottie_loop="true"
         app:lottie_autoPlay="true"
@@ -35,7 +35,7 @@
         android:layout_marginHorizontal="@dimen/extra_padding"
         android:layout_marginBottom="@dimen/fab_padding"
         app:layout_constraintBottom_toTopOf="@id/tvText"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/tvText"
@@ -46,6 +46,6 @@
         android:textStyle="bold"
         android:layout_margin="@dimen/extra_padding"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:textColor="@color/gray_700"/>
+        android:textColor="@color/btnColor"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

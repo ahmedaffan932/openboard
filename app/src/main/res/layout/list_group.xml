@@ -15,6 +15,7 @@
         android:orientation="horizontal"
         android:paddingVertical="@dimen/padding"
         android:paddingHorizontal="@dimen/fab_padding"
+        android:backgroundTint="@color/colorSecondary"
         android:background="@drawable/bg_main_less_rounded">
 
         <ImageView
@@ -48,7 +49,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:tint="@color/gray_700"
+            app:tint="@color/accent"
             app:srcCompat="@drawable/ic_baseline_navigate_next_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
