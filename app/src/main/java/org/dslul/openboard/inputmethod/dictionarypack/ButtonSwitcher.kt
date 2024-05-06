@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewPropertyAnimator
 import android.widget.Button
 import android.widget.FrameLayout
-import org.dslul.openboard.inputmethod.latin.R
+import com.guru.translate.translator.pro.translation.keyboard.translator.R
 
 /**
  * A view that handles buttons inside it according to a status.

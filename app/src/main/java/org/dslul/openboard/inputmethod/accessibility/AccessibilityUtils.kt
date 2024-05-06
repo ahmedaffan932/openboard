@@ -13,7 +13,7 @@ import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityManager
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.accessibility.AccessibilityEventCompat
-import org.dslul.openboard.inputmethod.latin.R
+import com.guru.translate.translator.pro.translation.keyboard.translator.R
 import org.dslul.openboard.inputmethod.latin.SuggestedWords
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
 

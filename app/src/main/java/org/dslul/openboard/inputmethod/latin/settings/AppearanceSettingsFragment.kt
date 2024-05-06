@@ -21,7 +21,7 @@ import android.preference.ListPreference
 import android.preference.Preference
 import android.preference.TwoStatePreference
 import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme
-import org.dslul.openboard.inputmethod.latin.R
+import com.guru.translate.translator.pro.translation.keyboard.translator.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.define.ProductionFlags
 import java.util.*

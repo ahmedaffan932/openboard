@@ -33,9 +33,9 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.mlkit.nl.translate.TranslateLanguage
-import org.dslul.openboard.inputmethod.latin.BuildConfig
+import com.guru.translate.translator.pro.translation.keyboard.translator.BuildConfig
 import org.dslul.openboard.inputmethod.latin.LatinIME
-import org.dslul.openboard.inputmethod.latin.R
+import com.guru.translate.translator.pro.translation.keyboard.translator.R
 import org.dslul.openboard.translator.pro.*
 import java.lang.reflect.Type
 import java.util.Locale

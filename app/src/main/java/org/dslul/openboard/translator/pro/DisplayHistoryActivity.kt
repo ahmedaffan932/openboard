@@ -10,7 +10,7 @@ import org.dslul.openboard.translator.pro.adaptor.HistoryAdapter
 import org.dslul.openboard.translator.pro.classes.Misc
 
 import kotlinx.android.synthetic.main.activity_display_history.*
-import org.dslul.openboard.inputmethod.latin.R
+import com.guru.translate.translator.pro.translation.keyboard.translator.R
 import org.dslul.openboard.translator.pro.interfaces.InterfaceHistory
 
 class DisplayHistoryActivity : AppCompatActivity() {
