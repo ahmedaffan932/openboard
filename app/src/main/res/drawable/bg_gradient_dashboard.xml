@@ -1,9 +1,11 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/gray_700">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:color="@color/gray_700"
+    >
     <item
         android:id="@android:id/background" >
         <shape android:shape="rectangle">
-            <gradient android:startColor="@color/colorPrimary" android:endColor="#263238" android:angle="90" />
+            <gradient android:startColor="#ffffff" android:endColor="#E3F2FD" android:angle="90" />
         </shape>
     </item>
 </layer-list>

@@ -18,9 +18,10 @@
 */
 -->
 
-<org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPageKeyboardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<org.dslul.openboard.inputmethod.keyboard.emoji.EmojiPageKeyboardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/emoji_keyboard_page"
+    tools:viewBindingIgnore="true"
     android:layoutDirection="ltr"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />

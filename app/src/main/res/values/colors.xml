@@ -142,6 +142,7 @@
     <color name="colorPrimary">#192024</color>
     <color name="colorSecondary">#991e272b</color>
     <color name="line_color">#373e41</color>
+    <color name="gray_300">#E0E0E0</color>
 
 
 </resources>

@@ -18,12 +18,13 @@
 */
 -->
 <!-- TODO: Remove paddingRight, layout_marginLeft, layout_marginRight for API version 17+ -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:gravity="center_vertical"
     android:paddingRight="?android:attr/scrollbarSize"
     android:paddingEnd="?android:attr/scrollbarSize"
+    tools:viewBindingIgnore="true"
     android:background="?android:attr/selectableItemBackground"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -66,12 +67,12 @@
           android:textColor="?android:attr/textColorSecondary"
           android:maxLines="1" />
 
-      <org.dslul.openboard.inputmethod.dictionarypack.DictionaryDownloadProgressBar
-          android:id="@+id/dictionary_line_progress_bar"
-          style="@android:style/Widget.Holo.ProgressBar.Horizontal"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:gravity="center" />
+<!--      <org.dslul.openboard.inputmethod.dictionarypack.DictionaryDownloadProgressBar-->
+<!--          android:id="@+id/dictionary_line_progress_bar"-->
+<!--          style="@android:style/Widget.Holo.ProgressBar.Horizontal"-->
+<!--          android:layout_width="match_parent"-->
+<!--          android:layout_height="match_parent"-->
+<!--          android:gravity="center" />-->
 
     </FrameLayout>
   </LinearLayout>

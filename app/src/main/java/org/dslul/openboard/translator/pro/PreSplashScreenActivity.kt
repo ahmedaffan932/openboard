@@ -117,15 +117,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
     }
 
     private fun startSplashActivity() {
-        if (Misc.isFirstTime(this)) {
-            Ads.showInterstitial(this, Ads.splashInt, object : InterstitialCallBack{
-                override fun onDismiss() {
-                    startActivity(Intent(this@PreSplashScreenActivity, SplashScreenActivity::class.java))
-                }
-            })
-        } else {
-            startActivity(Intent(this, DashboardActivity::class.java))
-        }
+        startActivity(Intent(this, NewDashboardActivity::class.java))
         finish()
         return
     }
@@ -158,7 +150,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
     }
 
 
-    private fun loadAds(){
+    private fun loadAds() {
         AdmobNativeAds.loadAdmobNative(this, AdIds.nativeAdIdAdMobSplash, object : LoadAdCallBack {
             override fun onLoaded() {
                 isNativeAdLoaded = true
