@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.billingclient.api.*
 import kotlinx.android.synthetic.main.activity_pro_screen.*
 import kotlinx.coroutines.*
-import org.dslul.openboard.inputmethod.latin.R
+import com.guru.translate.translator.pro.translation.keyboard.translator.R
 import org.dslul.openboard.translator.pro.classes.Misc
 
 

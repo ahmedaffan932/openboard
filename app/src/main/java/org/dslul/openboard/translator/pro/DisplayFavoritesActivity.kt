@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.dslul.openboard.translator.pro.classes.Misc
 
 import kotlinx.android.synthetic.main.activity_display_favorites.*
-import org.dslul.openboard.inputmethod.latin.R
+import com.guru.translate.translator.pro.translation.keyboard.translator.R
 import org.dslul.openboard.translator.pro.adaptor.FavoritesAdapter
 
 class DisplayFavoritesActivity : AppCompatActivity() {

@@ -16,7 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.dslul.openboard.inputmethod.latin.R
+import com.guru.translate.translator.pro.translation.keyboard.translator.R
 import org.dslul.openboard.translator.pro.SplashScreenActivity
 import org.dslul.openboard.translator.pro.classes.CustomDialog
 import org.dslul.openboard.translator.pro.classes.Misc

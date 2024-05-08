@@ -17,7 +17,7 @@ import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdOptions
 import com.google.android.gms.ads.nativead.NativeAdView
 import com.google.android.material.imageview.ShapeableImageView
-import org.dslul.openboard.inputmethod.latin.R
+import com.guru.translate.translator.pro.translation.keyboard.translator.R
 import org.dslul.openboard.translator.pro.classes.Misc
 
 object AdmobNativeAds {

@@ -3,7 +3,7 @@ package org.dslul.openboard.translator.pro.classes.admob
 import android.app.Activity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
-import org.dslul.openboard.inputmethod.latin.BuildConfig
+import com.guru.translate.translator.pro.translation.keyboard.translator.BuildConfig
 
 object AdIds {
 

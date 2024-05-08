@@ -4,7 +4,7 @@ import android.util.Log
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
-import org.dslul.openboard.inputmethod.latin.BuildConfig
+import com.guru.translate.translator.pro.translation.keyboard.translator.BuildConfig
 
 open class FcmFireBaseID : FirebaseMessagingService() {
 

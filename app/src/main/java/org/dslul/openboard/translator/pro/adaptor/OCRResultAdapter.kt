@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import org.dslul.openboard.inputmethod.latin.R
+import com.guru.translate.translator.pro.translation.keyboard.translator.R
 import org.dslul.openboard.translator.pro.classes.Misc
 import java.util.*
 import kotlin.collections.ArrayList

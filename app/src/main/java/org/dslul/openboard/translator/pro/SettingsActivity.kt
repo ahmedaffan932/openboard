@@ -21,7 +21,7 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.coroutines.*
-import org.dslul.openboard.inputmethod.latin.R
+import com.guru.translate.translator.pro.translation.keyboard.translator.R
 import org.dslul.openboard.translator.pro.classes.*
 import org.dslul.openboard.translator.pro.classes.Misc.rateUs
 import org.dslul.openboard.translator.pro.classes.Misc.startProActivity

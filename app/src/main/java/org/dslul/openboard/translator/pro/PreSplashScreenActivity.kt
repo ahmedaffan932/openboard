@@ -19,7 +19,7 @@ import com.google.android.ump.ConsentRequestParameters
 import com.google.android.ump.UserMessagingPlatform
 import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.activity_pre_splash_screen.*
-import org.dslul.openboard.inputmethod.latin.R
+import com.guru.translate.translator.pro.translation.keyboard.translator.R
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.admob.AdIds
 import org.dslul.openboard.translator.pro.classes.admob.AdmobBannerAds

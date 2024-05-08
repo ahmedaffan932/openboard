@@ -5,7 +5,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.view.Window
-import org.dslul.openboard.inputmethod.latin.R
+import com.guru.translate.translator.pro.translation.keyboard.translator.R
 
 class RateUsDialog
     (var c: Activity) : Dialog(c), View.OnClickListener {

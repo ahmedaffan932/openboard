@@ -16,7 +16,7 @@ import org.dslul.openboard.translator.pro.classes.CustomDialog
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
 import com.google.gson.Gson
-import org.dslul.openboard.inputmethod.latin.R
+import com.guru.translate.translator.pro.translation.keyboard.translator.R
 import org.dslul.openboard.translator.pro.interfaces.OnBackPressedHistoryInterface
 import java.util.*
 import kotlin.collections.ArrayList

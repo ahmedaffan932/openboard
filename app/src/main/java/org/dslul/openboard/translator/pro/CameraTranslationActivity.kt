@@ -22,7 +22,7 @@ import android.view.animation.RotateAnimation
 import org.dslul.openboard.objects.CameraMisc
 import androidx.activity.result.ActivityResult
 import androidx.appcompat.app.AppCompatActivity
-import org.dslul.openboard.inputmethod.latin.R
+import com.guru.translate.translator.pro.translation.keyboard.translator.R
 import android.view.animation.LinearInterpolator
 import androidx.camera.lifecycle.ProcessCameraProvider
 import org.dslul.openboard.objects.CameraMisc.getFlash
