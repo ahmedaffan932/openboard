@@ -13,7 +13,7 @@ import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityManager
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.accessibility.AccessibilityEventCompat
-import com.guru.translate.translator.pro.translation.keyboard.translator.R
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.SuggestedWords
 import org.dslul.openboard.inputmethod.latin.utils.InputTypeUtils
 
@@ -107,7 +107,8 @@ class AccessibilityUtils private constructor() {
                 return if (shouldObscure) { // This should never happen, but just in case...
                     mContext!!.getString(R.string.spoken_auto_correct_obscured,
                             keyCodeDescription)
-                } else mContext!!.getString(R.string.spoken_auto_correct, keyCodeDescription,
+                } else mContext!!.getString(
+                    R.string.spoken_auto_correct, keyCodeDescription,
                         mTypedWord, mAutoCorrectionWord)
             }
         }

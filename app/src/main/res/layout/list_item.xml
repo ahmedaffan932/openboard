@@ -5,17 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:animateLayoutChanges="true"
-    android:paddingBottom="@dimen/padding">
+    android:animateLayoutChanges="true">
 
     <LinearLayout
         android:id="@+id/llMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_main_less_rounded"
-        android:backgroundTint="@color/colorSecondary"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/fab_padding"
+        android:layout_marginVertical="@dimen/less_padding"
+        android:layout_marginHorizontal="@dimen/fab_padding"
         android:paddingVertical="@dimen/padding">
 
         <TextView
@@ -26,7 +26,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:text="@string/app_name"
-            android:textColor="@color/white"
+            android:textColor="?attr/colorSecondary"
             tools:ignore="RtlSymmetry" />
 
         <LinearLayout
@@ -44,7 +44,7 @@
                 android:paddingTop="10dp"
                 android:text="@string/app_name"
                 android:paddingBottom="10dp"
-                android:textColor="@color/white" />
+                android:textColor="?attr/colorSecondary" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

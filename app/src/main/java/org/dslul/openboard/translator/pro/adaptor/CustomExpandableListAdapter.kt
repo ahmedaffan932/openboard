@@ -22,7 +22,7 @@ import androidx.core.content.ContextCompat
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
 import com.google.gson.Gson
-import com.guru.translate.translator.pro.translation.keyboard.translator.R
+import org.dslul.openboard.inputmethod.latin.R
 import java.util.*
 
 @Suppress("NAME_SHADOWING")

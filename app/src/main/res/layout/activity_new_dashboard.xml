@@ -368,43 +368,43 @@
                         app:layout_constraintTop_toBottomOf="@id/nativeAdFrameLayoutInBetween">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/btnCameraTranslate"
-                            android:layout_width="0dp"
+                            android:id="@+id/btnKeyboardTranslate"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/fab_padding"
+                            android:layout_marginHorizontal="@dimen/fab_padding"
+                            android:elevation="@dimen/less_padding"
                             android:layout_marginTop="@dimen/fab_padding"
-                            android:layout_marginEnd="@dimen/padding"
                             android:background="@drawable/bg_dashboard_gradient_one"
                             android:visibility="visible"
-                            app:layout_constraintEnd_toEndOf="@id/verticalView"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
                             <ImageView
-                                android:id="@+id/imgCamera"
+                                android:id="@+id/imgKeyboard"
                                 android:layout_width="@dimen/_40sdp"
                                 android:layout_height="@dimen/_40sdp"
                                 android:layout_margin="@dimen/padding"
                                 android:padding="@dimen/padding"
                                 android:scaleType="fitCenter"
-                                android:src="@drawable/ic_baseline_camera_alt_24"
+                                android:src="@drawable/ic_keyboard"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:tint="@color/accent" />
 
                             <TextView
-                                android:id="@+id/tvCamera"
+                                android:id="@+id/tvKeyboard"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="start"
-                                android:text="@string/title_camera"
+                                android:text="Keyboard"
                                 android:textColor="@color/black"
                                 android:textSize="16sp"
-                                app:layout_constraintBottom_toBottomOf="@id/imgCamera"
-                                app:layout_constraintStart_toEndOf="@+id/imgCamera"
-                                app:layout_constraintTop_toTopOf="@id/imgCamera" />
+                                app:layout_constraintBottom_toBottomOf="@id/imgKeyboard"
+                                app:layout_constraintStart_toEndOf="@+id/imgKeyboard"
+                                app:layout_constraintTop_toTopOf="@id/imgKeyboard" />
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="@dimen/_50sdp"
@@ -413,14 +413,14 @@
                                 app:layout_constraintEnd_toEndOf="parent">
 
                                 <ImageView
-                                    android:id="@+id/imgCameraBlur"
+                                    android:id="@+id/imgKeyboardBlur"
                                     android:layout_width="@dimen/_50sdp"
                                     android:layout_height="@dimen/_50sdp"
                                     android:layout_margin="@dimen/padding"
                                     android:alpha="0.09"
                                     android:rotation="320"
                                     android:scaleType="centerCrop"
-                                    android:src="@drawable/ic_baseline_camera_alt_24"
+                                    android:src="@drawable/ic_keyboard"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:tint="@color/accent" />
@@ -433,15 +433,15 @@
                             android:id="@+id/btnChat"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:layout_marginStart="@dimen/padding"
-                            android:layout_marginTop="@dimen/fab_padding"
-                            android:layout_marginEnd="@dimen/fab_padding"
+                            android:layout_marginStart="@dimen/fab_padding"
+                            android:layout_marginEnd="@dimen/padding"
                             android:background="@drawable/bg_dashboard_gradient_one"
                             android:visibility="visible"
-                            app:layout_constraintBottom_toBottomOf="@+id/btnCameraTranslate"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/verticalView"
-                            app:layout_constraintTop_toTopOf="parent">
+                            app:layout_constraintBottom_toBottomOf="@+id/btnPhrasebook"
+                            android:elevation="@dimen/less_padding"
+                            app:layout_constraintEnd_toEndOf="@id/verticalView"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/btnPhrasebook">
 
                             <ImageView
                                 android:id="@+id/imgChat"
@@ -502,78 +502,20 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/btnGame"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="@dimen/fab_padding"
-                            android:layout_marginStart="@dimen/fab_padding"
-                            android:layout_marginEnd="@dimen/padding"
-                            android:background="@drawable/bg_dashboard_gradient_one"
-                            android:visibility="visible"
-                            app:layout_constraintEnd_toEndOf="@id/verticalView"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/btnCameraTranslate">
-
-                            <ImageView
-                                android:id="@+id/imgGame"
-                                android:layout_width="@dimen/_40sdp"
-                                android:layout_height="@dimen/_40sdp"
-                                android:layout_margin="@dimen/padding"
-                                android:padding="@dimen/padding"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/ic_game"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:tint="@color/accent" />
-
-                            <TextView
-                                android:id="@+id/tvGame"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center_vertical"
-                                android:text="@string/fun"
-                                android:textColor="@color/black"
-                                android:textSize="16sp"
-                                app:layout_constraintBottom_toBottomOf="@id/imgGame"
-                                app:layout_constraintStart_toEndOf="@+id/imgGame"
-                                app:layout_constraintTop_toTopOf="@id/imgGame" />
-
-                            <androidx.constraintlayout.widget.ConstraintLayout
-                                android:layout_width="@dimen/_50sdp"
-                                android:layout_height="@dimen/_50sdp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent">
-
-                                <ImageView
-                                    android:layout_width="@dimen/_50sdp"
-                                    android:layout_height="@dimen/_50sdp"
-                                    android:layout_margin="@dimen/padding"
-                                    android:alpha="0.09"
-                                    android:rotation="320"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/ic_game"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    app:tint="@color/accent" />
-
-                            </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/btnPhrasebook"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginVertical="@dimen/fab_padding"
                             android:layout_marginStart="@dimen/padding"
                             android:layout_marginEnd="@dimen/fab_padding"
+                            app:layout_constraintBaseline_toBaselineOf="parent"
                             android:background="@drawable/bg_dashboard_gradient_one"
                             android:visibility="visible"
+                            android:elevation="@dimen/less_padding"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@id/verticalView"
-                            app:layout_constraintTop_toBottomOf="@id/btnChat">
+                            app:layout_constraintTop_toBottomOf="@+id/btnKeyboardTranslate">
 
                             <ImageView
                                 android:id="@+id/imgPhrase"
@@ -666,9 +608,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <include
-        android:id="@+id/quitBottomSheet"
-        layout="@layout/bottom_sheet_quit" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

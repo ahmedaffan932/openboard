@@ -7,7 +7,7 @@ import android.util.SparseIntArray
 import android.view.MotionEvent
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityLongPressTimer.LongPressTimerCallback
 import org.dslul.openboard.inputmethod.keyboard.*
-import com.guru.translate.translator.pro.translation.keyboard.translator.R
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils
 
 /**

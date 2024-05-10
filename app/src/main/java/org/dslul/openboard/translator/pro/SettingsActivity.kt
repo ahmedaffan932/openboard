@@ -1,48 +1,35 @@
 package org.dslul.openboard.translator.pro
 
+
 import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.util.Log
-import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.*
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.android.billingclient.api.*
-import com.android.billingclient.api.BillingClient.*
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.coroutines.*
-import com.guru.translate.translator.pro.translation.keyboard.translator.R
-import org.dslul.openboard.translator.pro.classes.*
+import kotlinx.android.synthetic.main.activity_settings.btnBackSettings
+import kotlinx.android.synthetic.main.activity_settings.btnSwitchDarkTheme
+import kotlinx.android.synthetic.main.activity_settings.llFeedback
+import kotlinx.android.synthetic.main.activity_settings.llPrivacyPolicy
+import kotlinx.android.synthetic.main.activity_settings.llRateUs
+import kotlinx.android.synthetic.main.activity_settings.llShareApp
+import kotlinx.android.synthetic.main.activity_settings.llTermsAndConditions
+import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.translator.pro.classes.EmailUsDialogBox
+import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.rateUs
-import org.dslul.openboard.translator.pro.classes.Misc.startProActivity
-
-
-import org.dslul.openboard.translator.pro.interfaces.LoadInterstitialCallBack
+import org.dslul.openboard.translator.pro.classes.RateUsDialog
 
 class SettingsActivity : AppCompatActivity() {
-
-    private val purchasesUpdatedListener =
-        PurchasesUpdatedListener { billingResult, purchases ->
-            if (billingResult.responseCode == BillingResponseCode.OK && purchases != null) {
-                Misc.setPurchasedStatus(this, true)
-                Log.d(Misc.logKey, "Ya hooo.....")
-                Toast.makeText(this, "Restarting Application.", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, SplashScreenActivity::class.java))
-                finish()
-            }
-        }
-
-    private lateinit var billingClient: BillingClient
 
     @SuppressLint("QueryPermissionsNeeded")
     //@DelicateCoroutinesApi
@@ -52,33 +39,8 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
 
 
-        if (Misc.isNightModeOn(this)) {
-            tvUpgradeToPremium.setBackgroundResource(R.drawable.ic_bg_pro_yellow)
-        }
-
         Misc.isActivityCreatingFirstTime = true
 
-        billingClient = newBuilder(this)
-            .setListener(purchasesUpdatedListener)
-            .enablePendingPurchases()
-            .build()
-
-        billingClient.startConnection(object : BillingClientStateListener {
-            override fun onBillingSetupFinished(billingResult: BillingResult) {
-                if (billingResult.responseCode == BillingResponseCode.OK) {
-                    Log.d(Misc.logKey, "Billing Result Ok")
-                }
-            }
-
-            override fun onBillingServiceDisconnected() {
-                Log.d(Misc.logKey, "Service disconnected")
-            }
-        })
-
-        tvUpgradeToPremium.setOnClickListener {
-            Firebase.analytics.logEvent("ProScreenFromSettings", null)
-            startProActivity(Misc.data)
-        }
 
         if (Misc.selectThemeMode(this)) {
             btnSwitchDarkTheme.isChecked = true
@@ -204,38 +166,6 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-
-    private suspend fun querySkuDetails() {
-        try {
-            val skuList = ArrayList<String>()
-            skuList.add(Misc.inAppKey)
-
-            val params = SkuDetailsParams.newBuilder()
-            params.setSkusList(skuList).setType(SkuType.INAPP)
-
-            // leverage querySkuDetails Kotlin extension function
-            val skuDetailsResult = withContext(Dispatchers.IO) {
-                billingClient.querySkuDetails(params.build())
-            }
-
-            val flowParams = skuDetailsResult.skuDetailsList?.get(0)?.let {
-                BillingFlowParams.newBuilder()
-                    .setSkuDetails(it)
-                    .build()
-            }
-            val responseCode = flowParams?.let {
-                billingClient.launchBillingFlow(
-                    this,
-                    it
-                ).responseCode
-            }
-
-            // Process the result.
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Toast.makeText(this, "Not available yet.", Toast.LENGTH_SHORT).show()
-        }
-    }
 
 
     override fun onBackPressed() {

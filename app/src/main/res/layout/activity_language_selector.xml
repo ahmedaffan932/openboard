@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/bg_gradient_dashboard"
     tools:context="org.dslul.openboard.translator.pro.LanguageSelectorActivity">
 
     <LinearLayout
@@ -34,7 +34,7 @@
                 android:transitionName="anim_btn_menu"
                 android:contentDescription="@string/todo"
                 app:srcCompat="@drawable/ic_baseline_arrow_back_24"
-                app:tint="@color/white" />
+                app:tint="?attr/colorSecondary" />
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -43,7 +43,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/select"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -57,7 +57,7 @@
                 android:padding="@dimen/less_padding"
                 android:visibility="invisible"
                 app:srcCompat="@drawable/ic_baseline_access_time_filled_24"
-                app:tint="@color/white" />
+                app:tint="?attr/colorSecondary" />
         </LinearLayout>
 
         <View
@@ -88,7 +88,7 @@
                 android:gravity="center"
                 android:padding="@dimen/padding_10"
                 android:text="@string/english"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorSecondary"
                 android:textSize="15sp"
                 tools:ignore="NestedWeights" />
 
@@ -102,7 +102,7 @@
                 android:gravity="center"
                 android:padding="@dimen/padding_10"
                 android:text="@string/textView"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorSecondary"
                 android:textSize="15sp" />
         </LinearLayout>
 
@@ -146,6 +146,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_nothing_rounded_ripple"
                 android:elevation="@dimen/_14sdp"
+                tools:listitem="@layout/languages_list"
                 android:paddingTop="@dimen/padding" />
 
             <TextView

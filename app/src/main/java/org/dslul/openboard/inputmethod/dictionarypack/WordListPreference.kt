@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
-import com.guru.translate.translator.pro.translation.keyboard.translator.R
+import org.dslul.openboard.inputmethod.latin.R
 import java.util.*
 
 /**
@@ -51,7 +51,8 @@ class WordListPreference(context: Context?,
     private fun getSummary(status: Int): String {
         val context = context
         return when (status) {
-            MetadataDbHelper.Companion.STATUS_DELETING, MetadataDbHelper.Companion.STATUS_AVAILABLE -> context.getString(R.string.dictionary_available)
+            MetadataDbHelper.Companion.STATUS_DELETING, MetadataDbHelper.Companion.STATUS_AVAILABLE -> context.getString(
+                R.string.dictionary_available)
             MetadataDbHelper.Companion.STATUS_DOWNLOADING -> context.getString(R.string.dictionary_downloading)
             MetadataDbHelper.Companion.STATUS_INSTALLED -> context.getString(R.string.dictionary_installed)
             MetadataDbHelper.Companion.STATUS_DISABLED -> context.getString(R.string.dictionary_disabled)

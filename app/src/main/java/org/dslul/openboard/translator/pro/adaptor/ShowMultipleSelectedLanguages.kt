@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import org.dslul.openboard.translator.pro.classes.Misc
-import com.guru.translate.translator.pro.translation.keyboard.translator.R
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.interfaces.OnItemClick
 
 class ShowMultipleSelectedLanguages(

@@ -8,6 +8,8 @@ import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 object Ads {
 
+    var translateNative: String = "am_small_hctr"
+    var isCameraAdEnabled: Boolean = false
     var splashInt: String = "am"
     var phraseInt: String = "am"
     var translateInt: String = "am"
@@ -18,7 +20,7 @@ object Ads {
     var splashNative: String = "am_large_hctr"
     var cameraTranslationBanner: String = "am"
     var phraseNative: String = "am_small_hctr"
-    var dashboardNative: String = "am_dashboard"
+    var dashboardNative: String = "am_small_hctr"
     var languageSelectorOnBackInt: String = "am"
     var onBoardingNative: String = "am_small_hctr"
 

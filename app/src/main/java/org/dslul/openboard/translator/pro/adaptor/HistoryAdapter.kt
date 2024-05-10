@@ -15,7 +15,7 @@ import org.dslul.openboard.translator.pro.classes.CustomDialog
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
 import com.google.gson.Gson
-import com.guru.translate.translator.pro.translation.keyboard.translator.R
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.interfaces.InterfaceHistory
 import org.dslul.openboard.translator.pro.interfaces.OnBackPressedHistoryInterface
 import java.util.*
@@ -168,7 +168,6 @@ class HistoryAdapter(private var arr: ArrayList<TranslateHistoryClass>, val acti
         val btnShare: ImageButton = itemView.findViewById(R.id.btnShareHistory)
         val tvTranslation: TextView = itemView.findViewById(R.id.tvTranslationHistory)
         val btnFavoriteHistory: ImageButton = itemView.findViewById(R.id.btnFavoriteHistory)
-        val nativeAdFrameLayout: FrameLayout = itemView.findViewById(R.id.nativeAdFrameLayout)
     }
 
     private fun speak(text: String, lng: String) {

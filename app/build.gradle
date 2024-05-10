@@ -11,8 +11,8 @@ android {
         applicationId "com.guru.translate.translator.pro.translation.keyboard.translator"
         minSdkVersion 27
         targetSdkVersion 34
-        versionCode 12
-        versionName '2.9'
+        versionCode 14
+        versionName '2.11'
     }
 
     buildTypes {
@@ -102,7 +102,7 @@ dependencies {
     // For Kotlin users also add the Kotlin extensions library for Play In-App Review:
     implementation 'com.google.android.play:review-ktx:2.0.1'
 
-    implementation "com.android.billingclient:billing-ktx:5.1.0"
+//    implementation "com.android.billingclient:billing-ktx:6.2.1"
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     implementation 'androidx.lifecycle:lifecycle-process:2.5.1'

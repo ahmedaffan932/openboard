@@ -658,5 +658,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="title_camera">Camera</string>
     <string name="chat">Chat</string>
     <string name="enter_some_text_to_translate">Enter some text to translate.</string>
+    <string name="please_cehck_your_internet">Please check your internet and try again.</string>
+    <string name="some_error_occurred_in_translation">Sorry, some error occured in translation.</string>
 
 </resources>

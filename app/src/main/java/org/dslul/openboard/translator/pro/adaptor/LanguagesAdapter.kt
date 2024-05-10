@@ -9,14 +9,13 @@ import android.view.*
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.android.billingclient.api.*
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.guru.translate.translator.pro.translation.keyboard.translator.R
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.SplashScreenActivity
 import org.dslul.openboard.translator.pro.classes.CustomDialog
 import org.dslul.openboard.translator.pro.classes.Misc
@@ -34,47 +33,10 @@ class LanguagesAdapter(
     RecyclerView.Adapter<LanguagesAdapter.LanguageHolder>(), Filterable {
 
     val tempLanguages = languages
-
-    private val purchasesUpdatedListener =
-        PurchasesUpdatedListener { billingResult, purchases ->
-            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
-                Misc.setPurchasedStatus(activity, true)
-                Log.d(Misc.logKey, "Ya ho.....")
-                Toast.makeText(activity, "Restarting Application.", Toast.LENGTH_SHORT).show()
-                activity.startActivity(Intent(activity, SplashScreenActivity::class.java))
-                activity.finish()
-            }
-        }
-
-    private lateinit var billingClient: BillingClient
-
     var speak: TextToSpeech? = null
-    var isBillingResultOk = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LanguageHolder {
         val inflater = LayoutInflater.from(parent.context)
-
-        billingClient = BillingClient.newBuilder(activity)
-            .setListener(purchasesUpdatedListener)
-            .enablePendingPurchases()
-            .build()
-
-        billingClient.startConnection(object : BillingClientStateListener {
-            override fun onBillingSetupFinished(billingResult: BillingResult) {
-                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                    isBillingResultOk = true
-
-                    Log.d(Misc.logKey, "Billing Result Ok")
-                    // The BillingClient is ready. You can query purchases here.
-                }
-            }
-
-            override fun onBillingServiceDisconnected() {
-                Log.d(Misc.logKey, "Service disconnected")
-                // Try to restart the connection on the next request to
-                // Google Play by calling the startConnection() method.
-            }
-        })
         val view = inflater.inflate(R.layout.languages_list, parent, false)
         return LanguageHolder(view)
     }
@@ -96,10 +58,6 @@ class LanguagesAdapter(
 
         holder.lngLayout.tag = languages.elementAt(position)
 
-        if (!Misc.getPurchasedStatus(activity))
-            if ((languages[position] == "he" || languages[position] == "zh")) {
-                holder.textViewPremium.visibility = View.VISIBLE
-            }
         if (languages.elementAt(position) == Misc.defaultLanguage) {
             holder.languageName.text = "Detect"
             holder.temp.setImageResource(Misc.getFlag(activity, "100"))
@@ -119,54 +77,21 @@ class LanguagesAdapter(
             holder.temp.setImageResource(Misc.getFlag(activity, languages.elementAt(position)))
 
             holder.lngLayout.setOnClickListener {
-                if ((languages[position] == "he" || languages[position] == "zh") && !Misc.getPurchasedStatus(
-                        activity
-                    )
-                ) {
-                    val objCustomDialog = CustomDialog(activity)
-                    objCustomDialog.show()
-            
-                    val window: Window = objCustomDialog.window!!
-                    window.setLayout(
-                        WindowManager.LayoutParams.FILL_PARENT,
-                        WindowManager.LayoutParams.WRAP_CONTENT
-                    )
-                    window.setBackgroundDrawableResource(R.color.color_nothing)
-
-                    objCustomDialog.findViewById<TextView>(R.id.tvTitle).text =
-                        "You need to upgrade for this language."
-                    objCustomDialog.findViewById<TextView>(R.id.btnYes).text = "Upgrade"
-                    objCustomDialog.findViewById<TextView>(R.id.btnNo).text = "May be later."
-                    objCustomDialog.setCancelable(true)
-
-                    objCustomDialog.findViewById<TextView>(R.id.btnYes).setOnClickListener {
-                        GlobalScope.launch {
-                            querySkuDetails()
-                        }
-                        objCustomDialog.dismiss()
-                    }
-
-                    objCustomDialog.findViewById<TextView>(R.id.btnNo).setOnClickListener {
-                        objCustomDialog.dismiss()
-                    }
-
+                if (lngTo) {
+                    Misc.setLanguageTo(activity, languages.elementAt(position))
                 } else {
-                    if (lngTo) {
-                        Misc.setLanguageTo(activity, languages.elementAt(position))
-                    } else {
-                        Misc.setLanguageFrom(activity, languages.elementAt(position))
-                    }
-                    activity.onBackPressed()
-                    callback?.onDismiss()
-
-                    Firebase.analytics.logEvent(Locale(languages[position]).displayName, null)
-
-                    if (callback == null)
-                        activity.onBackPressed()
+                    Misc.setLanguageFrom(activity, languages.elementAt(position))
                 }
+                activity.onBackPressed()
+                callback?.onDismiss()
 
-                ObservableBool.setMyBoolean(!ObservableBool.getMyBoolean())
+                Firebase.analytics.logEvent(Locale(languages[position]).displayName, null)
+
+                if (callback == null)
+                    activity.onBackPressed()
             }
+
+            ObservableBool.setMyBoolean(!ObservableBool.getMyBoolean())
 
             funSpeak()
             holder.btnSpeak.setOnClickListener {
@@ -179,38 +104,6 @@ class LanguagesAdapter(
 
         }
 
-    }
-
-    private suspend fun querySkuDetails() {
-        try {
-            val skuList = ArrayList<String>()
-            skuList.add(Misc.inAppKey)
-
-            val params = SkuDetailsParams.newBuilder()
-            params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP)
-
-            // leverage querySkuDetails Kotlin extension function
-            val skuDetailsResult = withContext(Dispatchers.IO) {
-                billingClient.querySkuDetails(params.build())
-            }
-
-            val flowParams = skuDetailsResult.skuDetailsList?.get(0)?.let {
-                BillingFlowParams.newBuilder()
-                    .setSkuDetails(it)
-                    .build()
-            }
-            val responseCode = flowParams?.let {
-                billingClient.launchBillingFlow(
-                    activity,
-                    it
-                ).responseCode
-            }
-
-            // Process the result.
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Toast.makeText(activity, "Not available yet.", Toast.LENGTH_SHORT).show()
-        }
     }
 
 

@@ -18,8 +18,8 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.squareup.picasso.Picasso
-import com.guru.translate.translator.pro.translation.keyboard.translator.BuildConfig
-import com.guru.translate.translator.pro.translation.keyboard.translator.R
+import org.dslul.openboard.inputmethod.latin.BuildConfig
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.fcm.utils.DB
 import java.util.concurrent.atomic.AtomicInteger
 

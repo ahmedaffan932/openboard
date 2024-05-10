@@ -13,7 +13,7 @@ import android.os.ParcelFileDescriptor
 import android.text.TextUtils
 import android.util.Log
 import org.dslul.openboard.inputmethod.dictionarypack.ActionBatch.MarkPreInstalledAction
-import com.guru.translate.translator.pro.translation.keyboard.translator.R
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
 import org.dslul.openboard.inputmethod.latin.utils.DebugLogUtils
 import java.io.FileNotFoundException

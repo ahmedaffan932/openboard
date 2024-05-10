@@ -22,7 +22,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_enable_keyboard.*
 import kotlinx.android.synthetic.main.phrase_book_main_item.*
 import org.dslul.openboard.inputmethod.latin.LatinIME
-import com.guru.translate.translator.pro.translation.keyboard.translator.R
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
 import org.dslul.openboard.translator.pro.classes.admob.Ads

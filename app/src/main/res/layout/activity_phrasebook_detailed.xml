@@ -33,7 +33,7 @@
                 android:scaleType="fitCenter"
                 android:transitionName="anim_btn_menu"
                 app:srcCompat="@drawable/ic_baseline_arrow_back_24"
-                app:tint="@color/white" />
+                app:tint="?attr/colorSecondary" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clLanguages"
@@ -60,7 +60,7 @@
                         android:fontFamily="@font/sf_pro_regular"
                         android:padding="@dimen/padding"
                         android:text="@string/english"
-                        android:textColor="@color/white"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="@dimen/_12sdp" />
 
                     <ImageView
@@ -108,7 +108,7 @@
                         android:fontFamily="@font/sf_pro_regular"
                         android:padding="@dimen/padding"
                         android:text="@string/english"
-                        android:textColor="@color/white"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="@dimen/_12sdp" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -124,7 +124,7 @@
                 android:padding="@dimen/less_padding"
                 android:visibility="invisible"
                 app:srcCompat="@drawable/ic_baseline_access_time_filled_24"
-                app:tint="@color/white" />
+                app:tint="?attr/colorSecondary" />
         </LinearLayout>
 
         <View
@@ -144,7 +144,6 @@
                 android:animateLayoutChanges="true"
                 android:divider="@android:color/darker_gray"
                 android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
-                android:padding="@dimen/fab_padding"
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
                 app:layout_constraintTop_toTopOf="parent" />
 

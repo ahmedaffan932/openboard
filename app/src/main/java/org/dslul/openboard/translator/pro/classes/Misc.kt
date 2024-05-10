@@ -33,9 +33,9 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.mlkit.nl.translate.TranslateLanguage
-import com.guru.translate.translator.pro.translation.keyboard.translator.BuildConfig
+import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.LatinIME
-import com.guru.translate.translator.pro.translation.keyboard.translator.R
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.*
 import java.lang.reflect.Type
 import java.util.Locale
@@ -100,24 +100,6 @@ object Misc {
     var canWeProceed = true
     var phrasebookPosition = 0
     const val defaultLanguage = "100"
-
-    fun Context.startProActivity(extra: String? = null) {
-        val intent = when (proScreen) {
-            "1" -> {
-                Intent(this, ProScreenActivity::class.java)
-            }
-            "2" -> {
-                Intent(this, PremiumScreenActivity::class.java)
-            }
-            else -> {
-                Intent(this, ProActivity::class.java)
-            }
-        }
-
-        if (extra != null)
-            intent.putExtra(data, extra)
-        startActivity(intent)
-    }
 
     fun setAppOpenIntAm(key: String, activity: Context) {
         val sharedPreferences =

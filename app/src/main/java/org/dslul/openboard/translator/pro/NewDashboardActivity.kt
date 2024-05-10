@@ -33,26 +33,28 @@ import com.rw.keyboardlistener.KeyboardUtils
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityNewDashboardBinding
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
 import org.dslul.openboard.translator.pro.classes.admob.AdIds
 import org.dslul.openboard.translator.pro.classes.admob.Ads
 import java.util.Locale
 
 class NewDashboardActivity : AppCompatActivity() {
     lateinit var binding: ActivityNewDashboardBinding
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
     private var isBtnTranslateVisible = false
     private val speechRequestCode = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
         binding = ActivityNewDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+//            insets
+//        }
 
+        Ads.showNativeAd(this, Ads.dashboardNative, binding.nativeAdFrameLayoutInBetween)
 
         Misc.setIsFirstTime(this, false)
 
@@ -67,14 +69,24 @@ class NewDashboardActivity : AppCompatActivity() {
         Firebase.analytics.logEvent("Dashboard", null)
         Misc.selectThemeMode(this)
 
-        showAds()
+        binding.btnCamera.setOnClickListener {
+            startActivity(Intent(this, CameraTranslationActivity::class.java))
+        }
 
-        setUpQuitBottomSheet()
+        showAds()
 
         setUpClickListeners()
 
         translationViewImplementation()
 
+
+        binding.btnKeyboardTranslate.setOnClickListener {
+            if (isInputMethodSelected()) {
+                Toast.makeText(this, "Keyboard is already enabled.", Toast.LENGTH_SHORT).show()
+            } else {
+                startActivity(Intent(this, EnableKeyboardActivity::class.java))
+            }
+        }
 
         binding.etText.doOnTextChanged { text, start, before, count ->
             isBtnTranslateVisible = if (binding.etText.text.toString() == "") {
@@ -223,53 +235,15 @@ class NewDashboardActivity : AppCompatActivity() {
         handler.post(runnable)
     }
 
-    private fun setUpQuitBottomSheet() {
-        bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.quitBottomSheet))
-        binding.quitBottomSheet.quitBottomSheet.setOnClickListener { }
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-
-        binding.blockView.setOnClickListener {
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            binding.blockView.visibility = View.GONE
-        }
-
-        bottomSheetBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-            }
-
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-                    binding.blockView.visibility = View.VISIBLE
-                } else if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
-                    binding.blockView.visibility = View.GONE
-                }
-            }
-        })
-
-        binding.quitBottomSheet.btnYes.setOnClickListener {
-            finishAffinity()
-        }
-
-        binding.quitBottomSheet.btnNo.setOnClickListener {
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-        }
-    }
 
     private fun setUpClickListeners() {
-        binding.btnCameraTranslate.setOnClickListener {
-            startActivity(Intent(this, CameraTranslationActivity::class.java))
-        }
-
         binding.btnSettings.setOnClickListener {
             Firebase.analytics.logEvent("Settings", null)
             startActivity(Intent(this@NewDashboardActivity, SettingsActivity::class.java))
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
         binding.btnHistory.setOnClickListener {
             Firebase.analytics.logEvent("History", null)
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             startActivity(
                 Intent(
                     this@NewDashboardActivity,
@@ -280,21 +254,14 @@ class NewDashboardActivity : AppCompatActivity() {
 
         binding.btnChat.setOnClickListener {
             Firebase.analytics.logEvent("Chat", null)
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             startActivity(Intent(this@NewDashboardActivity, ConversationActivity::class.java))
         }
 
         binding.btnPhrasebook.setOnClickListener {
             Firebase.analytics.logEvent("Phrasebook", null)
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             startActivity(Intent(this@NewDashboardActivity, PhrasesActivity::class.java))
         }
 
-//        binding.btnGame.setOnClickListener {
-//            Firebase.analytics.logEvent("Game", null)
-//            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-//            startActivity(Intent(this@NewDashboardActivity, GameActivity::class.java))
-//        }
     }
 
     private fun setSelectedLng() {

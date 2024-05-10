@@ -15,7 +15,7 @@ import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyboardIconsSet
 import org.dslul.openboard.inputmethod.latin.ClipboardHistoryManager
-import com.guru.translate.translator.pro.translation.keyboard.translator.R
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils
 

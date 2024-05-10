@@ -17,7 +17,7 @@ import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdOptions
 import com.google.android.gms.ads.nativead.NativeAdView
 import com.google.android.material.imageview.ShapeableImageView
-import com.guru.translate.translator.pro.translation.keyboard.translator.R
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 
 object AdmobNativeAds {
@@ -84,6 +84,7 @@ object AdmobNativeAds {
 
                 val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)
                         as LayoutInflater
+                var showMedia = true
 
                 val adView = if (remoteKey.contains("dashboard")) {
                     inflater.inflate(R.layout.admob_native_dashboard, null) as NativeAdView
@@ -100,6 +101,7 @@ object AdmobNativeAds {
                             null
                         ) as NativeAdView
                     } else {
+                        showMedia = false
                         inflater.inflate(
                             R.layout.admob_small_native_ad_hctr,
                             null
@@ -110,7 +112,11 @@ object AdmobNativeAds {
                 amLayout.removeAllViews()
                 amLayout.addView(adView)
 
-                adView.mediaView = adView.findViewById(R.id.ad_media)
+                if(showMedia) {
+                    adView.mediaView = adView.findViewById(R.id.ad_media)
+                }else{
+                    adView.mediaView = null
+                }
 
                 adView.headlineView = adView.findViewById(R.id.ad_headline)
                 adView.bodyView = adView.findViewById(R.id.ad_body)

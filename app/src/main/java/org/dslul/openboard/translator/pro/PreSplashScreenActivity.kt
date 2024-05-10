@@ -19,7 +19,7 @@ import com.google.android.ump.ConsentRequestParameters
 import com.google.android.ump.UserMessagingPlatform
 import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.activity_pre_splash_screen.*
-import com.guru.translate.translator.pro.translation.keyboard.translator.R
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.admob.AdIds
 import org.dslul.openboard.translator.pro.classes.admob.AdmobBannerAds
@@ -63,7 +63,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
 
                     if (loadAndShowError != null) {
                         // Consent gathering failed.
-                        Log.d(Misc.logKey, String.format("%s: %s", loadAndShowError.message))
+                        Log.d(Misc.logKey, loadAndShowError.message)
                     }
 
                     if (consentInformation.canRequestAds()) {
@@ -117,7 +117,11 @@ class PreSplashScreenActivity : AppCompatActivity() {
     }
 
     private fun startSplashActivity() {
-        startActivity(Intent(this, NewDashboardActivity::class.java))
+        if (Misc.isFirstTime(this)) {
+            startActivity(Intent(this, SplashScreenActivity::class.java))
+        } else {
+            startActivity(Intent(this, NewDashboardActivity::class.java))
+        }
         finish()
         return
     }

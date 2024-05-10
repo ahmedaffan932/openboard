@@ -7,9 +7,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.google.android.gms.ads.*
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.guru.translate.translator.pro.translation.keyboard.translator.BuildConfig
+import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.translator.pro.classes.admob.Ads
 import org.dslul.openboard.translator.pro.classes.admob.AppOpenAdManager
 

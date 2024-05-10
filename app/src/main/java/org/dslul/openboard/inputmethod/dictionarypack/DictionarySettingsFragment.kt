@@ -11,7 +11,7 @@ import android.preference.PreferenceFragment
 import android.preference.PreferenceGroup
 import android.util.Log
 import android.view.*
-import com.guru.translate.translator.pro.translation.keyboard.translator.R
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils
 import java.util.*
 
