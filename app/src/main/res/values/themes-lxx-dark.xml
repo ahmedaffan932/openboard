@@ -104,7 +104,7 @@
             name="ClipboardHistoryView.LXX_Dark"
             parent="MainKeyboardView.LXX_Dark"
             >
-        <item name="iconPinnedClip">@drawable/ic_clipboard_pin_lxx_dark</item>
+        <item name="iconPinnedClip">@drawable/ic_round_push_pin_24</item>
         <item name="dividerBackground">@color/emoji_tab_page_indicator_background_lxx_dark</item>
     </style>
     <style

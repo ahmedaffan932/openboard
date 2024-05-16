@@ -205,7 +205,6 @@ class TranslateActivity : AppCompatActivity() {
             }, 150)
 
             binding.etText.clearFocus()
-
             KeyboardUtils.forceCloseKeyboard(binding.etText)
 
 //            binding.llText.setBackgroundResource(R.drawable.bg_main_less_rounded)

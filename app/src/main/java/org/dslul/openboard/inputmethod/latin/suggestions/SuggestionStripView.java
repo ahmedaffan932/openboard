@@ -85,6 +85,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         void startSettingsActivity();
 
+//        void
+
         CharSequence getSelection();
     }
 
@@ -212,14 +214,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             Misc.isTranslated.postValue(false);
             Log.d("logKey", "Translate");
             new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                String str = mListener.onTranslateText();
-
-                String to = str.split("#")[1];
-                String from = str.split("#")[0];
-
-//                mTextLngTo.setText(to);
-//                mTextLngFrom.setText(from);
-            }, 100);
+                mListener.onTranslateText();
+                }, 100);
 
         });
 
@@ -291,7 +287,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         setVisibility(visibility);
         final SettingsValues currentSettingsValues = Settings.getInstance().getCurrent();
         mVoiceKey.setVisibility(currentSettingsValues.mShowsVoiceInputKey ? VISIBLE : GONE);
-        mClipboardKey.setVisibility(currentSettingsValues.mShowsClipboardKey ? VISIBLE : (mVoiceKey.getVisibility() == GONE ? INVISIBLE : GONE));
+        mClipboardKey.setVisibility(currentSettingsValues.mShowsClipboardKey ? VISIBLE : (mVoiceKey.getVisibility() == VISIBLE ? INVISIBLE : VISIBLE));
 //        mOtherKey.setVisibility(currentSettingsValues.mIncognitoModeEnabled ? VISIBLE : INVISIBLE);
     }
 

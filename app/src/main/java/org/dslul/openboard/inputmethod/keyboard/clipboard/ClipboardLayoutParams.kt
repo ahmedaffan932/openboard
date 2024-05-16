@@ -53,16 +53,6 @@ class ClipboardLayoutParams(res: Resources) {
         }
     }
 
-    fun setItemProperties(view: View) {
-        (view.layoutParams as RecyclerView.LayoutParams).apply {
-            topMargin = keyHorizontalGap / 2
-            bottomMargin = keyVerticalGap / 2
-            marginStart = keyHorizontalGap / 2
-            marginEnd = keyHorizontalGap / 2
-            view.layoutParams = this
-        }
-    }
-
     val actionBarContentHeight
         get() = actionBarHeight
 }

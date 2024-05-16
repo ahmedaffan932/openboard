@@ -7,6 +7,7 @@ import android.util.Base64
 import android.util.Log
 import org.dslul.openboard.inputmethod.compat.ClipboardManagerCompat
 import org.dslul.openboard.inputmethod.latin.utils.JsonUtils
+import org.dslul.openboard.translator.pro.classes.Misc
 import java.io.File
 import java.lang.Exception
 import java.util.*
@@ -17,7 +18,7 @@ class ClipboardHistoryManager(
 
     private lateinit var pinnedHistoryClipsFile: File
     private lateinit var clipboardManager: ClipboardManager
-    private val historyEntries: MutableList<ClipboardHistoryEntry>
+    private val historyEntries: MutableList<ClipboardHistoryEntry> = LinkedList()
     private var onHistoryChangeListener: OnHistoryChangeListener? = null
 
     fun onCreate() {
@@ -45,6 +46,7 @@ class ClipboardHistoryManager(
     override fun onPrimaryClipChanged() {
         // Make sure we read clipboard content only if history settings is set
         if (latinIME.mSettings.current?.mClipboardHistoryEnabled == true) {
+            Log.d(Misc.logKey, "Here ? ? /")
             fetchPrimaryClip()
         }
     }
@@ -187,9 +189,5 @@ class ClipboardHistoryManager(
     companion object {
         const val PINNED_CLIPS_DATA_FILE_NAME = "pinned_clips.data"
         const val TAG = "ClipboardHistoryManager"
-    }
-
-    init {
-        historyEntries = LinkedList()
     }
 }

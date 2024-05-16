@@ -2,6 +2,7 @@ package org.dslul.openboard.inputmethod.keyboard.clipboard
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
@@ -9,7 +10,7 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyVisualAttributes
@@ -18,6 +19,7 @@ import org.dslul.openboard.inputmethod.latin.ClipboardHistoryManager
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.common.Constants
 import org.dslul.openboard.inputmethod.latin.utils.ResourceUtils
+import org.dslul.openboard.translator.pro.classes.Misc
 
 class ClipboardHistoryView @JvmOverloads constructor(
         context: Context,
@@ -72,14 +74,15 @@ class ClipboardHistoryView @JvmOverloads constructor(
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        clipboardAdapter = ClipboardAdapter(clipboardLayoutParams, this).apply {
+        clipboardAdapter = ClipboardAdapter(context, this).apply {
             itemBackgroundId = keyBackgroundId
-            pinnedIconResId = pinIconId
+            pinnedIconResId = R.drawable.ic_outline_push_pin_24
         }
         placeholderView = findViewById(R.id.clipboard_empty_view)
         clipboardRecyclerView = findViewById<ClipboardHistoryRecyclerView>(R.id.clipboard_list).apply {
-            val colCount = resources.getInteger(R.integer.config_clipboard_keyboard_col_count)
-            layoutManager = StaggeredGridLayoutManager(colCount, StaggeredGridLayoutManager.VERTICAL)
+//            val colCount = resources.getInteger(R.integer.config_clipboard_keyboard_col_count)
+//            layoutManager = StaggeredGridLayoutManager(colCount, StaggeredGridLayoutManager.VERTICAL)
+            layoutManager = LinearLayoutManager(context)
             val dividerHeight = resources.getDimensionPixelSize(R.dimen.config_clipboard_divider_height)
             addItemDecoration(ClipboardHistoryRecyclerView.BottomDividerItemDecoration(dividerHeight, dividerColor))
             persistentDrawingCache = PERSISTENT_NO_CACHE
@@ -203,9 +206,9 @@ class ClipboardHistoryView @JvmOverloads constructor(
                 true /* isSinglePointer */)
     }
 
-    override fun onKeyUp(clipId: Long) {
-        val clipContent = clipboardHistoryManager?.getHistoryEntryContent(clipId)
-        keyboardActionListener?.onTextInput(clipContent?.content.toString())
+    override fun onKeyUp(/*clipId: Long,*/ text: String) {
+//        val clipContent = clipboardHistoryManager?.getHistoryEntryContent(clipId)
+        keyboardActionListener?.onTextInput(text)
         keyboardActionListener?.onReleaseKey(Constants.CODE_UNSPECIFIED,
                 false /* withSliding */)
     }

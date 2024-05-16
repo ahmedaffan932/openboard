@@ -4,6 +4,6 @@ interface OnKeyEventListener {
 
     fun onKeyDown(clipId: Long)
 
-    fun onKeyUp(clipId: Long)
+    fun onKeyUp(/*clipId: Long, */text: String)
 
 }

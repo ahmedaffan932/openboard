@@ -43,7 +43,6 @@ object AdmobInterstitialAd {
                     interAdmob = null
                     isIntLoading = false
                     callback?.onFailed()
-
                 }
 
                 override fun onAdLoaded(interstitialAd: InterstitialAd) {
