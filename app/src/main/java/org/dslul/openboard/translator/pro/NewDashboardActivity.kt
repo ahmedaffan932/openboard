@@ -3,11 +3,9 @@ package org.dslul.openboard.translator.pro
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,25 +15,18 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
-import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.doOnTextChanged
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
-import com.google.gson.Gson
 import com.rw.keyboardlistener.KeyboardUtils
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityNewDashboardBinding
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
-import org.dslul.openboard.translator.pro.classes.admob.AdIds
-import org.dslul.openboard.translator.pro.classes.admob.Ads
+import org.dslul.openboard.translator.pro.classes.ads.Ads
 import java.util.Locale
 
 class NewDashboardActivity : AppCompatActivity() {
@@ -54,7 +45,6 @@ class NewDashboardActivity : AppCompatActivity() {
 //            insets
 //        }
 
-        Ads.showNativeAd(this, Ads.dashboardNative, binding.nativeAdFrameLayoutInBetween)
 
         Misc.setIsFirstTime(this, false)
 

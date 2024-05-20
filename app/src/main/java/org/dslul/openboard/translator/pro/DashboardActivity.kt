@@ -12,11 +12,10 @@ import com.blongho.country_data.World
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_dashboard.*
-import org.dslul.openboard.inputmethod.keyboard.Keyboard
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
-import org.dslul.openboard.translator.pro.classes.admob.Ads
+import org.dslul.openboard.translator.pro.classes.ads.Ads
 
 class DashboardActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n", "RemoteViewLayout")
@@ -114,7 +113,6 @@ class DashboardActivity : AppCompatActivity() {
 
 
     private fun showNativeAd() {
-        Ads.showNativeAd(this, Ads.dashboardNative, findViewById(R.id.nativeAdFrameLayout))
     }
 
 }

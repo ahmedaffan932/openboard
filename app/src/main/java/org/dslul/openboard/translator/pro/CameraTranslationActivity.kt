@@ -31,7 +31,7 @@ import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.objects.CameraMisc.getCameraFace
 import androidx.activity.result.contract.ActivityResultContracts
 import kotlinx.android.synthetic.main.activity_camera_translation.*
-import org.dslul.openboard.translator.pro.classes.admob.Ads
+import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 class CameraTranslationActivity : AppCompatActivity() {

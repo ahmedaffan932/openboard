@@ -32,7 +32,7 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityTranslateBinding
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
-import org.dslul.openboard.translator.pro.classes.admob.Ads
+import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.jsoup.Jsoup
 import java.net.URLEncoder
 import java.util.*
@@ -55,8 +55,6 @@ class TranslateActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         setContentView(binding.root)
-
-        Ads.showNativeAd(this, Ads.translateNative, binding.nativeAdFrameLayoutInBetween)
 
         if (intent.getStringExtra(Misc.key) != null) {
             if (intent.getStringExtra(Misc.key) != "") {

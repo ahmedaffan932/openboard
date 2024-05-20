@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
-import android.text.Html
-import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -21,8 +19,6 @@ import kotlinx.android.synthetic.main.activity_language_selector.*
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.adaptor.LanguagesAdapter
 import org.dslul.openboard.translator.pro.classes.Misc
-import org.dslul.openboard.translator.pro.classes.admob.Ads
-import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import java.util.*
 
 class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextListener {

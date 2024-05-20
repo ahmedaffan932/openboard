@@ -10,9 +10,11 @@ import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.RatingBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.translatorguru.ads.admob.LoadAdCallBack
 import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.ump.ConsentDebugSettings
 import com.google.android.ump.ConsentInformation
 import com.google.android.ump.ConsentRequestParameters
@@ -20,25 +22,27 @@ import com.google.android.ump.UserMessagingPlatform
 import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.activity_pre_splash_screen.*
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.databinding.ActivityPreSplashScreenBinding
 import org.dslul.openboard.translator.pro.classes.Misc
-import org.dslul.openboard.translator.pro.classes.admob.AdIds
-import org.dslul.openboard.translator.pro.classes.admob.AdmobBannerAds
-import org.dslul.openboard.translator.pro.classes.admob.AdmobInterstitialAd
-import org.dslul.openboard.translator.pro.classes.admob.AdmobNativeAds
-import org.dslul.openboard.translator.pro.classes.admob.Ads
-import org.dslul.openboard.translator.pro.classes.admob.LoadAdCallBack
+import org.dslul.openboard.translator.pro.classes.Misc.isSplashScreen
+import org.dslul.openboard.translator.pro.classes.ads.AdIds
+import org.dslul.openboard.translator.pro.classes.ads.Ads
+import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobInterstitialAd
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 @SuppressLint("CustomSplashScreen")
 class PreSplashScreenActivity : AppCompatActivity() {
+    lateinit var binding: ActivityPreSplashScreenBinding
     private lateinit var consentInformation: ConsentInformation
     private var isIntAdLoaded = false
     private var isNativeAdLoaded = false
     private var isStartButtonVisible = false
+    private lateinit var objDialog: Misc.LoadingAdDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pre_splash_screen)
+        binding = ActivityPreSplashScreenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         FirebaseApp.initializeApp(this)
 
@@ -62,125 +66,113 @@ class PreSplashScreenActivity : AppCompatActivity() {
                 ) { loadAndShowError ->
 
                     if (loadAndShowError != null) {
-                        // Consent gathering failed.
                         Log.d(Misc.logKey, loadAndShowError.message)
+                        showStartButton()
                     }
 
                     if (consentInformation.canRequestAds()) {
                         MobileAds.initialize(this) {}
 
                         loadAds()
-                    }
-                    object : CountDownTimer(12000, 3000) {
-                        @SuppressLint("SetTextI18n")
-                        override fun onTick(p0: Long) {
-                            if (isIntAdLoaded && isNativeAdLoaded) {
+
+                        object : CountDownTimer(8000, 3000) {
+                            @SuppressLint("SetTextI18n")
+                            override fun onTick(p0: Long) {
+                            }
+
+                            override fun onFinish() {
                                 showStartButton()
                             }
-                        }
+                        }.start()
 
-                        override fun onFinish() {
-                            showStartButton()
-                        }
-                    }.start()
-
+                    } else {
+                        showStartButton()
+                    }
                 }
             },
             { requestConsentError ->
-                Log.w(
-                    Misc.logKey, String.format(
-                        "%s: %s",
-                        requestConsentError.errorCode,
-                        requestConsentError.message
-                    )
+                Log.d(
+                    Misc.logKey, "${requestConsentError.errorCode} ${requestConsentError.message}"
                 )
-                object : CountDownTimer(12000, 3000) {
-                    @SuppressLint("SetTextI18n")
-                    override fun onTick(p0: Long) {
-                        if (isIntAdLoaded && isNativeAdLoaded) {
-                            showStartButton()
-                        }
-                    }
-
-                    override fun onFinish() {
-                        showStartButton()
-                    }
-                }.start()
+                showStartButton()
 
             }
         )
 
-        btnStart.setOnClickListener {
-            startSplashActivity()
+        binding.btnStart.setOnClickListener {
+            startNextActivity()
         }
+
+//        binding.ratingBar.onRatingBarChangeListener =
+//            RatingBar.OnRatingBarChangeListener { _, p1, _ ->
+//                if (p1 > 3f) {
+//                    rateUs()
+//                } else {
+//                    Toast.makeText(this, "Thanks for your review.", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+
 
     }
 
-    private fun startSplashActivity() {
-        if (Misc.isFirstTime(this)) {
-            startActivity(Intent(this, SplashScreenActivity::class.java))
-        } else {
-            startActivity(Intent(this, NewDashboardActivity::class.java))
-        }
-        finish()
-        return
+
+    private fun startNextActivity() {
+        Ads.showInterstitial(this, Ads.splashInt, object : InterstitialCallBack {
+            override fun onDismiss() {
+                if (Misc.isFirstTime(this@PreSplashScreenActivity)) {
+                    startActivity(
+                        Intent(
+                            this@PreSplashScreenActivity,
+                            SplashScreenActivity::class.java
+                        )
+                    )
+                    finish()
+                } else {
+                    startActivity(Intent(this@PreSplashScreenActivity, NewDashboardActivity::class.java))
+                    finish()
+                }
+            }
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isSplashScreen = true
+    }
+
+    override fun onPause() {
+        super.onPause()
+        isSplashScreen = false
     }
 
     private fun showStartButton() {
         if (!isStartButtonVisible) {
+
+            try {
+                objDialog.show()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
             Handler(Looper.getMainLooper()).postDelayed({
-                Misc.zoomInView(btnStart, this, 250)
-            }, 250)
-
-            spline.visibility = View.INVISIBLE
-
-            val a: Animation = AnimationUtils.loadAnimation(this, R.anim.zoom_in_logo)
-            a.duration = 500
-
-            a.setAnimationListener(object : Animation.AnimationListener {
-                override fun onAnimationStart(p0: Animation?) {
-
-                }
-
-                override fun onAnimationEnd(p0: Animation?) {
-                }
-
-                override fun onAnimationRepeat(p0: Animation?) {
-
-                }
-            })
+                startNextActivity()
+            }, 1000)
         }
         isStartButtonVisible = true
     }
 
-
     private fun loadAds() {
-        AdmobNativeAds.loadAdmobNative(this, AdIds.nativeAdIdAdMobSplash, object : LoadAdCallBack {
-            override fun onLoaded() {
-                isNativeAdLoaded = true
-                AdmobNativeAds.showNativeAd(
-                    this@PreSplashScreenActivity,
-                    Ads.splashNative,
-                    nativeAdFrameLayout
-                )
+        AdmobInterstitialAd.loadInterAdmob(
+            this,
+            AdIds.interstitialAdIdAdMobSplash,
+            object : LoadAdCallBack {
+                override fun onLoaded() {
+                    showStartButton()
+                }
+
+                override fun onFailed() {
+                    showStartButton()
+                }
             }
-        })
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            AdmobBannerAds.load(this)
-        }, 2000)
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            AdmobInterstitialAd.loadInterAdmob(
-                this,
-                AdIds.interstitialAdIdAdMobSplash,
-                object : LoadAdCallBack {
-                    override fun onLoaded() {
-                        isIntAdLoaded = true
-                    }
-                })
-        }, 1000)
-
+        )
     }
-
 }

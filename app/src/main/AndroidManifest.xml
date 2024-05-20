@@ -41,6 +41,10 @@
             android:name="org.dslul.openboard.translator.pro.NewDashboardActivity"
             android:exported="false"
             android:theme="@style/Theme.TranslatorGuru" />
+        <activity
+            android:name="org.dslul.openboard.translator.pro.OnResumeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TranslatorGuru" />
 
         <activity
             android:name="org.dslul.openboard.translator.pro.ViewTranslatedTextActivity"
@@ -207,35 +211,6 @@
                 android:value="" />
         </activity>
 
-        <activity
-            android:name="org.dslul.openboard.translator.pro.PremiumScreenActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.TranslatorGuru">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-
-        <activity
-            android:name="org.dslul.openboard.translator.pro.ProActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.TranslatorGuru">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-
-        <activity
-            android:name="org.dslul.openboard.translator.pro.ProScreenActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.TranslatorGuru">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
 
         <activity
             android:name="org.dslul.openboard.translator.pro.SettingsActivity"

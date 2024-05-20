@@ -11,8 +11,7 @@ import com.google.android.play.core.review.ReviewManagerFactory
 import kotlinx.android.synthetic.main.activity_exit.*
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
-import org.dslul.openboard.translator.pro.classes.Misc.rateUs
-import org.dslul.openboard.translator.pro.classes.admob.Ads
+import org.dslul.openboard.translator.pro.classes.ads.Ads
 
 class ExitActivity : AppCompatActivity() {
     private var reviewManager: ReviewManager? = null
@@ -27,7 +26,6 @@ class ExitActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exit)
 
-        Ads.showNativeAd(this, Ads.exitNative, nativeAdFrameLayout)
 
         init()
 

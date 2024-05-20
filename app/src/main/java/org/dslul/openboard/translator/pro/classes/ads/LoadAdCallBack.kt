@@ -1,4 +1,4 @@
-package org.dslul.openboard.translator.pro.classes.admob
+package com.example.translatorguru.ads.admob
 
 import com.google.android.gms.ads.interstitial.InterstitialAd
 

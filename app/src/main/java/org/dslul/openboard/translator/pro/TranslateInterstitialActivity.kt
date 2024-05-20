@@ -6,7 +6,7 @@ import android.view.WindowManager
 
 import kotlinx.android.synthetic.main.activity_translate_interstitial.*
 import org.dslul.openboard.inputmethod.latin.R
-import org.dslul.openboard.translator.pro.classes.admob.Ads
+import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 class TranslateInterstitialActivity : AppCompatActivity() {

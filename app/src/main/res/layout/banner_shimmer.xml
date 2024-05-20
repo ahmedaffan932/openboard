@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout android:id="@+id/shimmerViewThe"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:shimmer_auto_start="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/less_padding">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/padding">
+
+                    <View
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/padding"
+                        android:background="@color/gray_400" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/firstT"
+                            android:layout_width="@dimen/_120sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:background="@color/gray_400"
+                            android:ellipsize="end"
+                            android:lines="1"
+                            android:singleLine="true"
+                            android:text="Facebook advertiser"
+                            android:textColor="@color/gray_400"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/secondT"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:background="@color/gray_400"
+                            android:ellipsize="end"
+                            android:lines="1"
+                            android:singleLine="true"
+                            android:text="This is a facebook demo ad"
+                            android:textColor="@color/gray_400"
+                            android:textSize="8sp" />
+
+
+                        <TextView
+                            android:id="@+id/thirdT"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:background="@color/gray_400"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical"
+                            android:lines="1"
+                            android:singleLine="true"
+                            android:text="Tour ad integration works."
+                            android:textColor="@color/gray_400"
+                            android:textSize="8sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.facebook.shimmer.ShimmerFrameLayout>

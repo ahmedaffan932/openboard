@@ -8,15 +8,11 @@ import android.content.Intent
 import android.os.*
 import android.speech.RecognizerIntent
 import android.speech.tts.TextToSpeech
-import android.text.Editable
-import android.text.TextUtils
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.postDelayed
 import androidx.core.widget.addTextChangedListener
 import kotlinx.android.synthetic.main.activity_conversation.*
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +21,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
-import org.dslul.openboard.translator.pro.classes.admob.Ads
+import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import org.jsoup.Jsoup
 import java.net.URLEncoder

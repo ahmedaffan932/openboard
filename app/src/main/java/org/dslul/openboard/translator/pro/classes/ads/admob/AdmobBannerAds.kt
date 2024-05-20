@@ -1,56 +1,31 @@
-package org.dslul.openboard.translator.pro.classes.admob
+package org.dslul.openboard.translator.pro.classes.ads.admob
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Display
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.LinearLayout
+import com.example.translatorguru.ads.admob.LoadAdCallBack
 import com.google.ads.mediation.admob.AdMobAdapter
-import com.google.android.gms.ads.*
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest.Builder
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.LoadAdError
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.ads.AdIds
 
 
 object AdmobBannerAds {
     private var adView: AdView? = null
     var isLoaded = false
-
-    fun load(context: Activity, adId: String = AdIds.bannerAdIdAdOne) {
-        if (!Misc.getPurchasedStatus(context)) {
-            adView = AdView(context)
-            adView?.adUnitId = adId
-            val adSize = getAdSize(context)
-            adView?.setAdSize(adSize)
-            val adRequest = Builder().build()
-            adView?.loadAd(adRequest)
-
-            adView!!.adListener = object : AdListener() {
-                override fun onAdLoaded() {
-                    isLoaded = true
-                }
-
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    Log.e(
-                        Misc.logKey,
-                        "onAdFailedToLoad:Adaptive Banner  ${adError.code}: ${adError.message}"
-                    )
-                    isLoaded = false
-
-                }
-
-                override fun onAdOpened() {}
-                override fun onAdClicked() {}
-                override fun onAdClosed() {}
-            }
-
-        } else {
-            adView = null
-        }
-
-    }
 
     private fun getAdSize(context: Activity): AdSize {
         val display: Display = context.windowManager.defaultDisplay
@@ -63,6 +38,7 @@ object AdmobBannerAds {
         }
         val adWith = (adwidthpixels / density).toInt()
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context, adWith)
+
     }
 
     fun show(view: FrameLayout) {
@@ -81,25 +57,41 @@ object AdmobBannerAds {
     fun loadCollapsibleBanner(
         context: Activity,
         remoteKey: String,
-        collapsibleAdView: AdView,
-        callback: LoadAdCallBack? = null
+        view: LinearLayout,
+        adId: String = AdIds.collapsibleBannerAdIdAd,
+        callBack: LoadAdCallBack? = null
     ) {
         if (Misc.getPurchasedStatus(context)) {
             return
         }
-        if (remoteKey.contains("am_collapsible")) {
+
+        if (remoteKey.contains("am")) {
+
+            val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)
+                    as LayoutInflater
+
+            val shimmerView = inflater.inflate(R.layout.banner_shimmer, null)
+            view.addView(shimmerView)
+
+            val collapsibleAdView = AdView(context)
+            collapsibleAdView.adUnitId = adId
             val extras = Bundle()
             extras.putString("collapsible", "bottom")
+
+            collapsibleAdView.setAdSize(getAdSize(context))
 
             val adRequest = Builder()
                 .addNetworkExtrasBundle(AdMobAdapter::class.java, extras)
                 .build()
+
             collapsibleAdView.loadAd(adRequest)
 
             collapsibleAdView.adListener = object : AdListener() {
                 override fun onAdLoaded() {
                     isLoaded = true
-                    collapsibleAdView.visibility = View.VISIBLE
+                    view.removeAllViews()
+                    view.addView(collapsibleAdView)
+                    callBack?.onLoaded()
                 }
 
                 override fun onAdFailedToLoad(adError: LoadAdError) {
@@ -108,7 +100,8 @@ object AdmobBannerAds {
                         "Banner  ${adError.code}: ${adError.message}"
                     )
                     isLoaded = false
-                    callback?.onFailed()
+                    view.removeAllViews()
+                    callBack?.onFailed()
                 }
 
                 override fun onAdOpened() {}
@@ -117,4 +110,5 @@ object AdmobBannerAds {
             }
         }
     }
+
 }

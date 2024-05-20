@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.adaptor.PhraseBookMainAdapter
-import org.dslul.openboard.translator.pro.classes.admob.Ads
+import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.json.JSONObject
 import java.util.*
 
@@ -42,7 +42,6 @@ class PhrasesActivity : AppCompatActivity() {
 
         Ads.showInterstitial(this, Ads.phraseInt)
 
-        Ads.showNativeAd(this, Ads.phraseNative, nativeAdFrameLayout)
         setSelectedLng()
 
         btnBack.setOnClickListener {

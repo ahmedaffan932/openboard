@@ -1,8 +1,5 @@
-package org.dslul.openboard.translator.pro.classes.admob
+package org.dslul.openboard.translator.pro.classes.ads
 
-import android.app.Activity
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import org.dslul.openboard.inputmethod.latin.BuildConfig
 
 object AdIds {
@@ -19,7 +16,7 @@ object AdIds {
         "ca-app-pub-6814505709397727/2248951904"
     }
 
-    var nativeAdIdAdMobOne: String = if (BuildConfig.DEBUG) {
+    var nativeAdIdAdMob: String = if (BuildConfig.DEBUG) {
         "ca-app-pub-3940256099942544/2247696110"
     } else {
         "ca-app-pub-6814505709397727/1291093454"
@@ -37,10 +34,16 @@ object AdIds {
         "ca-app-pub-6814505709397727/6566087979"
     }
 
-    var interstitialAdIdAdMobOne: String = if (BuildConfig.DEBUG) {
+    var interstitialAdIdAdMob: String = if (BuildConfig.DEBUG) {
         "ca-app-pub-3940256099942544/1033173712"
     } else {
         "ca-app-pub-6814505709397727/1853366084"
+    }
+
+    var collapsibleBannerAdIdAd: String = if (BuildConfig.DEBUG) {
+        "ca-app-pub-3940256099942544/2014213617"
+    } else {
+        ""
     }
 
 }

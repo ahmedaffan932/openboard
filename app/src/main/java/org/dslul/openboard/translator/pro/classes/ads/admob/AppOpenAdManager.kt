@@ -1,13 +1,15 @@
-package org.dslul.openboard.translator.pro.classes.admob
+package org.dslul.openboard.translator.pro.classes.ads.admob
 
 import android.app.Activity
 import android.util.Log
+import com.example.translatorguru.ads.admob.LoadAdCallBack
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import java.util.Date
 
@@ -16,7 +18,6 @@ object AppOpenAdManager {
     private var isLoadingAd = false
     var isShowingAd = false
 
-    /** Keep track of the time an app open ad is loaded to ensure you don't show an expired ad. */
     private var loadTime: Long = 0
 
     fun loadAd(
@@ -24,7 +25,6 @@ object AppOpenAdManager {
         adId: String = AdIds.appOpenAdIdOne,
         callBack: LoadAdCallBack? = null
     ) {
-        // Do not load ad if there is an unused ad or one is already loading.
         if (isLoadingAd || isAdAvailable()) {
             return
         }
@@ -34,7 +34,6 @@ object AppOpenAdManager {
         }
 
         Log.d(Misc.logKey, "AppOpen Loading.....")
-
 
         isLoadingAd = true
         val request = AdRequest.Builder().build()
@@ -48,8 +47,9 @@ object AppOpenAdManager {
                     appOpenAd = ad
                     isLoadingAd = false
                     loadTime = Date().time
-                    callBack?.onLoaded()
                     Log.d(Misc.logKey, "AppOpen onAdLoaded.")
+
+                    callBack?.onLoaded()
                 }
 
                 override fun onAdFailedToLoad(loadAdError: LoadAdError) {
@@ -67,20 +67,28 @@ object AppOpenAdManager {
         return dateDifference < numMilliSecondsPerHour * numHours
     }
 
-    private fun isAdAvailable(): Boolean {
+    fun isAdAvailable(): Boolean {
         return appOpenAd != null && wasLoadTimeLessThanNHoursAgo(4)
     }
 
-    fun showAdIfAvailable(
+    fun showIfAvailable(
         activity: Activity,
         remoteKey: Boolean = true,
         callBack: InterstitialCallBack? = null
     ) {
-        if (!isAdAvailable() || !remoteKey || isShowingAd) {
-            loadAd(activity,)
+        if (!isAdAvailable()) {
+            Log.d(Misc.logKey, "Ad not available.")
+            callBack?.onDismiss()
+//            loadAd(activity)
             return
         }
 
+
+        if (!remoteKey) {
+            Log.d(Misc.logKey, "App open ad is off.")
+            callBack?.onDismiss()
+            return
+        }
         appOpenAd!!.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
                 appOpenAd = null

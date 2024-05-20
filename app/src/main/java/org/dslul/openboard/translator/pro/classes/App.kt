@@ -1,6 +1,7 @@
 package org.dslul.openboard.translator.pro.classes
 
 import android.app.*
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Lifecycle
@@ -9,8 +10,9 @@ import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import org.dslul.openboard.inputmethod.latin.BuildConfig
-import org.dslul.openboard.translator.pro.classes.admob.Ads
-import org.dslul.openboard.translator.pro.classes.admob.AppOpenAdManager
+import org.dslul.openboard.translator.pro.OnResumeActivity
+import org.dslul.openboard.translator.pro.classes.ads.Ads
+import org.dslul.openboard.translator.pro.classes.ads.admob.AppOpenAdManager
 
 
 class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObserver {
@@ -41,16 +43,8 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
                         Ads.phraseInt = mFRC.getString("phraseInt")
                         Ads.phraseNative = mFRC.getString("phraseNative")
                         Ads.onBoardingNative = mFRC.getString("onBoardingNative")
-                        Ads.splashNative = mFRC.getString("splashNative")
                         Misc.lifeTimePrice = mFRC.getString("lifeTimePrice")
                         Ads.dashboardNative = mFRC.getString("dashboardNative")
-                        Ads.dashboardBanner = mFRC.getString("dashboardBanner")
-                        Ads.enableKeyboardInt = mFRC.getString("enableKeyboardInt")
-                        Ads.cameraTranslationInt = mFRC.getString("cameraTranslationInt")
-                        Ads.cameraTranslationBanner = mFRC.getString("cameraTranslationBanner")
-                        Ads.languageSelectorOnBackInt = mFRC.getString("languageSelectorOnBackInt")
-
-                        Ads.isSplashAppOpenEnabled = mFRC.getBoolean("isSplashAppOpenEnabled")
 
                         try {
                             Misc.showInterstitialAfter =
@@ -78,9 +72,15 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onMoveToForeground() {
         // Show the ad (if available) when the app moves to foreground.
-        currentActivity?.let {
-            if (!Misc.isInterstitialDisplaying)
-                AppOpenAdManager.showAdIfAvailable(it, Ads.isSplashAppOpenEnabled)
+        if(!Ads.isShowingInt) {
+            currentActivity?.let {
+                Log.d(Misc.logKey, "App OnResume")
+                if (Ads.isAppOpenAdEnabled && AppOpenAdManager.isAdAvailable()) {
+                    val intent = Intent(this, OnResumeActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
+            }
         }
     }
 

@@ -96,6 +96,8 @@ object Misc {
     private const val languageFrom: String = "languageFrom"
     private const val purchasedStatus: String = "purchasedStatus"
 
+    var isSplashScreen = false
+
     var isLngTo = true
     var canWeProceed = true
     var phrasebookPosition = 0
@@ -170,10 +172,13 @@ object Misc {
             activity!!.getSharedPreferences(languageTo, Context.MODE_PRIVATE)
         return sharedPreferences.getString(languageTo, TranslateLanguage.SPANISH).toString()
     }
+
     fun getLanguageToForKB(activity: Context?): String {
         val sharedPreferences =
             activity!!.getSharedPreferences(languageTo, Context.MODE_PRIVATE)
-        return Locale(sharedPreferences.getString(languageTo, TranslateLanguage.SPANISH).toString()).displayName
+        return Locale(
+            sharedPreferences.getString(languageTo, TranslateLanguage.SPANISH).toString()
+        ).displayName
     }
 
     fun getLanguageFrom(activity: Context): String {
@@ -185,10 +190,12 @@ object Misc {
     fun getLanguageFromForKB(activity: Context): String {
         val sharedPreferences =
             activity.getSharedPreferences(languageFrom, Context.MODE_PRIVATE)
-        return if (sharedPreferences.getString(languageFrom, defaultLanguage) == defaultLanguage){
+        return if (sharedPreferences.getString(languageFrom, defaultLanguage) == defaultLanguage) {
             "Default"
-        }else {
-            Locale(sharedPreferences.getString(languageFrom, defaultLanguage).toString()).displayName
+        } else {
+            Locale(
+                sharedPreferences.getString(languageFrom, defaultLanguage).toString()
+            ).displayName
         }
     }
 
@@ -264,165 +271,219 @@ object Misc {
             TranslateLanguage.AFRIKAANS -> {
                 World.getFlagOf(140)
             }
+
             TranslateLanguage.ARABIC -> {
                 World.getFlagOf(682)
             }
+
             TranslateLanguage.BELARUSIAN -> {
                 R.drawable.by_flag
             }
+
             TranslateLanguage.BENGALI -> {
                 World.getFlagOf(50)
             }
+
             TranslateLanguage.BULGARIAN -> {
                 World.getFlagOf(100)
             }
+
             TranslateLanguage.CATALAN, TranslateLanguage.SPANISH -> {
                 World.getFlagOf(724)
             }
+
             TranslateLanguage.CZECH -> {
                 World.getFlagOf(203)
             }
+
             TranslateLanguage.WELSH -> {
                 World.getFlagOf(826)
             }
+
             TranslateLanguage.DANISH -> {
                 World.getFlagOf(276)
             }
+
             TranslateLanguage.GREEK -> {
                 World.getFlagOf(300)
             }
+
             TranslateLanguage.GERMAN -> {
                 World.getFlagOf(276)
             }
+
             TranslateLanguage.ENGLISH -> {
                 R.drawable.us_flag
             }
+
             TranslateLanguage.ESPERANTO -> {
                 World.getFlagOf(826)
             }
+
             TranslateLanguage.ESTONIAN -> {
                 World.getFlagOf(372)
             }
+
             TranslateLanguage.FINNISH -> {
                 World.getFlagOf(246)
             }
+
             TranslateLanguage.FRENCH -> {
                 World.getFlagOf(250)
             }
+
             TranslateLanguage.IRISH -> {
                 World.getFlagOf(372)
             }
+
             TranslateLanguage.GALICIAN -> {
                 World.getFlagOf(40)
             }
+
             TranslateLanguage.PERSIAN -> {
                 World.getFlagOf(364)
             }
+
             TranslateLanguage.HEBREW -> {
                 World.getFlagOf(376)
             }
+
             TranslateLanguage.CROATIAN -> {
                 World.getFlagOf(191)
             }
+
             TranslateLanguage.HAITIAN_CREOLE -> {
                 World.getFlagOf(332)
             }
+
             TranslateLanguage.HUNGARIAN -> {
                 World.getFlagOf(348)
             }
+
             TranslateLanguage.INDONESIAN -> {
                 World.getFlagOf(458)
             }
+
             TranslateLanguage.ICELANDIC -> {
                 World.getFlagOf(352)
             }
+
             TranslateLanguage.ITALIAN -> {
                 World.getFlagOf(380)
             }
+
             TranslateLanguage.JAPANESE -> {
                 World.getFlagOf(392)
             }
+
             TranslateLanguage.GEORGIAN -> {
                 R.drawable.ic_georgia
             }
+
             TranslateLanguage.HINDI, TranslateLanguage.TELUGU, TranslateLanguage.KANNADA, TranslateLanguage.TAMIL, TranslateLanguage.GUJARATI, TranslateLanguage.MARATHI -> {
                 World.getFlagOf(356)
             }
+
             TranslateLanguage.KOREAN -> {
                 R.drawable.kr_flag
             }
+
             TranslateLanguage.LITHUANIAN -> {
                 World.getFlagOf(440)
             }
+
             TranslateLanguage.LATVIAN -> {
                 World.getFlagOf(428)
             }
+
             TranslateLanguage.MACEDONIAN -> {
                 World.getFlagOf(807)
             }
+
             TranslateLanguage.MALAY -> {
                 World.getFlagOf(458)
             }
+
             TranslateLanguage.MALTESE -> {
                 World.getFlagOf(470)
             }
+
             TranslateLanguage.NORWEGIAN -> {
                 World.getFlagOf(578)
             }
+
             TranslateLanguage.DUTCH -> {
                 World.getFlagOf(528)
             }
+
             TranslateLanguage.POLISH -> {
                 World.getFlagOf(616)
             }
+
             TranslateLanguage.PORTUGUESE -> {
                 World.getFlagOf(620)
             }
+
             TranslateLanguage.ROMANIAN -> {
                 World.getFlagOf(642)
             }
+
             TranslateLanguage.RUSSIAN -> {
                 World.getFlagOf(643)
             }
+
             TranslateLanguage.SLOVAK -> {
                 World.getFlagOf(703)
             }
+
             TranslateLanguage.SLOVENIAN -> {
                 World.getFlagOf(705)
             }
+
             TranslateLanguage.ALBANIAN -> {
                 World.getFlagOf(8)
             }
+
             TranslateLanguage.SWEDISH -> {
                 World.getFlagOf(752)
             }
+
             TranslateLanguage.SWAHILI -> {
                 World.getFlagOf(404)
             }
+
             TranslateLanguage.UKRAINIAN -> {
                 World.getFlagOf(804)
             }
+
             TranslateLanguage.THAI -> {
                 World.getFlagOf(764)
             }
+
             TranslateLanguage.TAGALOG -> {
                 World.getFlagOf(608)
             }
+
             TranslateLanguage.TURKISH -> {
                 World.getFlagOf(792)
             }
+
             TranslateLanguage.URDU -> {
                 World.getFlagOf(586)
             }
+
             TranslateLanguage.VIETNAMESE -> {
                 World.getFlagOf(704)
             }
+
             TranslateLanguage.CHINESE -> {
                 World.getFlagOf(156)
             }
+
             "100" -> {
                 com.blongho.country_data.R.drawable.globe
             }
+
             else -> World.getFlagOf(lng)
         }
     }
@@ -526,20 +587,14 @@ object Misc {
         return arrayList
     }
 
-    fun zoomInView(view: View, activity: Activity, duration: Int) {
+    fun zoomInView(view: View, activity: Activity, duration: Int, isInterpolate: Boolean = false) {
         view.visibility = View.VISIBLE
         val a: Animation =
             AnimationUtils.loadAnimation(activity, R.anim.zoom_in)
         a.duration = duration.toLong()
-        view.startAnimation(a)
-    }
+        if (isInterpolate)
+            a.interpolator = OvershootInterpolator()
 
-
-    fun zoomInViewOvershootInterpolator(view: View, activity: Activity, duration: Int) {
-        val a: Animation =
-            AnimationUtils.loadAnimation(activity, R.anim.zoom_in)
-        a.duration = duration.toLong()
-        a.interpolator = OvershootInterpolator()
         view.startAnimation(a)
     }
 
@@ -586,6 +641,7 @@ object Misc {
         val myInputMethod = ComponentName(this, LatinIME::class.java)
         return myInputMethod == defaultInputMethod
     }
+
     fun Context.rateUs() {
         val p = "com.guru.translate.translator.pro.translation.keyboard.translator"
         val uri: Uri = Uri.parse("market://details?id=$p")

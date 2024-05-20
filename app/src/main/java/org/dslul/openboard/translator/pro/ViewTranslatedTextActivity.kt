@@ -11,8 +11,6 @@ import android.os.Handler
 import android.os.Looper
 import android.os.StrictMode
 import android.speech.tts.TextToSpeech
-import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.Animation
@@ -22,11 +20,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
-import com.google.mlkit.nl.languageid.LanguageIdentification
 import com.rw.keyboardlistener.KeyboardUtils
 import kotlinx.android.synthetic.main.activity_view_translated_text.*
 import kotlinx.coroutines.Dispatchers
@@ -34,9 +28,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
-import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
-import org.dslul.openboard.translator.pro.classes.admob.Ads
+import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.jsoup.Jsoup
 import java.net.URLEncoder
 import java.util.Locale
@@ -59,8 +52,6 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
         setContentView(R.layout.activity_view_translated_text)
 
         Misc.setIsFirstTime(this, false)
-
-        Ads.showNativeAd(this, Ads.dashboardNative, nativeAdFrameLayoutInBetween)
 
         initializeAnimation()
 

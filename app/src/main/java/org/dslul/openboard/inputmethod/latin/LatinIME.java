@@ -177,6 +177,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     private final BroadcastReceiver mDictionaryDumpBroadcastReceiver =
             new DictionaryDumpBroadcastReceiver(this);
 
+
     final static class HideSoftInputReceiver extends BroadcastReceiver {
         private final InputMethodService mIms;
 
@@ -222,7 +223,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     private GestureConsumer mGestureConsumer = GestureConsumer.NULL_GESTURE_CONSUMER;
 
-    private final ClipboardHistoryManager mClipboardHistoryManager = new ClipboardHistoryManager(this);
+    private final ClipboardHistoryManager mClipboardHistoryManager = new ClipboardHistoryManager(this/*, mSuggestionStripView*/);
 
     public final UIHandler mHandler = new UIHandler(this);
 
@@ -636,6 +637,11 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         super.onCreate();
 
         mClipboardHistoryManager.onCreate();
+        mClipboardHistoryManager.setHistoryChanged(() -> {
+            Log.d(Misc.logKey, "Ooo Yes");
+            mSuggestionStripView.onTextCopy();
+        });
+
         mHandler.onCreate();
 
         // TODO: Resolve mutual dependencies of {@link #loadSettings()} and
@@ -1921,6 +1927,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     };
 
     public ClipboardHistoryManager getClipboardHistoryManager() {
+        mClipboardHistoryManager.onPrimaryClipChanged();
         return mClipboardHistoryManager;
     }
 

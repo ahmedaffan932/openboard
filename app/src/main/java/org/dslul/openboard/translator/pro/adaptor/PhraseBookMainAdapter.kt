@@ -39,18 +39,6 @@ class PhraseBookMainAdapter(
                 onClick(position)
             }
 
-//            if (position == 4) {
-//                Ads.showNativeAd(
-//                    activity,
-//                    holder.nativeAdFrameLayout,
-//                    Misc.phraseBookNativeAm_Al,
-//                    object : NativeAdCallBack {
-//                        override fun onLoad() {
-//                            holder.nativeAdFrameLayout.visibility = View.VISIBLE
-//                        }
-//
-//                    })
-//            }
         } catch (e: Exception) {
             e.printStackTrace()
         }

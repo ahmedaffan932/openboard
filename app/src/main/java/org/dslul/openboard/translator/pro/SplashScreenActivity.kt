@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_splash_screen.splashTabLayout
 import kotlinx.android.synthetic.main.activity_splash_screen.splashViewPager
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
-import org.dslul.openboard.translator.pro.classes.admob.Ads
+import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.fragments.SplashFragment
 
 @SuppressLint("CustomSplashScreen")
@@ -36,8 +36,6 @@ class SplashScreenActivity : AppCompatActivity() {
         Firebase.analytics.logEvent("SplashScreenStarted", null)
 
         splashViewPager.adapter = FragmentAdapter(this)
-
-        Ads.showNativeAd(this, Ads.onBoardingNative, nativeAdFrameLayout)
 
         TabLayoutMediator(splashTabLayout, splashViewPager) { tab, position -> }.attach()
 

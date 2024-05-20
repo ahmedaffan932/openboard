@@ -61,7 +61,7 @@
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:text="@string/enter_your_topic_and_let_us_know_about_your_feedback"
-                    android:textColor="@color/gray_400"
+                    android:textColor="@color/gray_700"
                     android:textSize="11sp" />
 
             </LinearLayout>
