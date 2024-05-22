@@ -11,35 +11,85 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_splash_screen.btnContinue
-import kotlinx.android.synthetic.main.activity_splash_screen.nativeAdFrameLayout
-import kotlinx.android.synthetic.main.activity_splash_screen.splashTabLayout
-import kotlinx.android.synthetic.main.activity_splash_screen.splashViewPager
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.databinding.ActivitySplashScreenBinding
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
-import org.dslul.openboard.translator.pro.fragments.SplashFragment
+import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobBannerAds
+import org.dslul.openboard.translator.pro.fragments.OnBaordingFragment
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
+    lateinit var binding: ActivitySplashScreenBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        setContentView(R.layout.activity_splash_screen)
+        binding = ActivitySplashScreenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         Firebase.analytics.logEvent("SplashScreenStarted", null)
 
-        splashViewPager.adapter = FragmentAdapter(this)
+        if (Ads.onBoardingNative.contains("collapsible")) {
+            AdmobBannerAds.loadCollapsibleBanner(
+                this,
+                AdIds.collapsibleBannerAdIdAd,
+                Ads.onBoardingNative,
+                binding.llCollapsibleBanner
+            )
+        }
 
-        TabLayoutMediator(splashTabLayout, splashViewPager) { tab, position -> }.attach()
+        if (Ads.onBoardingNative.contains("native")) {
+            Ads.loadAndShowNativeAd(
+                this,
+                remoteKey = Ads.onBoardingNative,
+                frameLayout = binding.nativeAdFrameLayout,
+                adLayout = R.layout.admob_small_native_ad_hctr,
+                shimmerLayout = R.layout.small_native_shimmer
+            )
+        }
 
-        object : CountDownTimer(3000, 1500){
+        binding.splashViewPager.adapter = FragmentAdapter(this)
+
+        TabLayoutMediator(
+            binding.splashTabLayout,
+            binding.splashViewPager
+        ) { tab, position -> }.attach()
+
+        binding.splashTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(p0: TabLayout.Tab?) {
+                when (p0?.position) {
+                    0 -> {
+                        changeImage(R.drawable.on_boarding_tab_one)
+                    }
+
+                    1 -> {
+                        changeImage(R.drawable.on_boarding_tab_two)
+                    }
+
+                    else -> {
+                        changeImage(R.drawable.on_boarding_tab_three)
+                    }
+                }
+            }
+
+            override fun onTabUnselected(p0: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(p0: TabLayout.Tab?) {
+            }
+
+        })
+
+        object : CountDownTimer(3000, 1500) {
             override fun onTick(millisUntilFinished: Long) {
 
             }
@@ -50,11 +100,18 @@ class SplashScreenActivity : AppCompatActivity() {
 
         }.start()
 
-        btnContinue.setOnClickListener {
-            if (splashViewPager.currentItem < 2) {
-                splashViewPager.setCurrentItem(splashViewPager.currentItem + 1, true)
+        binding.btnContinue.setOnClickListener {
+            startActivity(Intent(this, FragmentsDashboardActivity::class.java))
+        }
+
+        binding.btnNext.setOnClickListener {
+            if (binding.splashViewPager.currentItem < 2) {
+                binding.splashViewPager.setCurrentItem(
+                    binding.splashViewPager.currentItem + 1,
+                    true
+                )
             } else {
-                startActivity(Intent(this, NewDashboardActivity::class.java))
+                startActivity(Intent(this, FragmentsDashboardActivity::class.java))
             }
         }
     }
@@ -72,8 +129,17 @@ class SplashScreenActivity : AppCompatActivity() {
         }
 
         override fun createFragment(position: Int): Fragment {
-            return SplashFragment.newInstance(position.toString())
+            return OnBaordingFragment.newInstance(position.toString())
         }
+    }
+
+    private fun changeImage(newImage: Int) {
+        binding.btnNext.animate().alpha(0.5f).setDuration(150)
+            .withEndAction { // Change the image resource
+                binding.btnNext.setImageResource(newImage)
+
+                binding.btnNext.animate().alpha(1f).setDuration(100).start()
+            }.start()
     }
 
 }

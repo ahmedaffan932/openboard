@@ -16,6 +16,7 @@ import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
 import com.google.gson.Gson
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.translator.pro.TranslateActivity
 import org.dslul.openboard.translator.pro.interfaces.InterfaceHistory
 import org.dslul.openboard.translator.pro.interfaces.OnBackPressedHistoryInterface
 import java.util.*
@@ -110,6 +111,12 @@ class HistoryAdapter(private var arr: ArrayList<TranslateHistoryClass>, val acti
 
         holder.btnSpeak.setOnClickListener {
             speak(arr[position].translation, arr[position].translatedTo)
+        }
+
+        holder.llMain.setOnClickListener{
+            val intent = Intent(activity, TranslateActivity::class.java)
+            intent.putExtra(Misc.key, arr[position].text)
+            activity.startActivity(intent)
         }
 
         holder.llMain.setOnLongClickListener {

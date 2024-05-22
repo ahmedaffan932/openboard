@@ -29,9 +29,9 @@ object AdmobNativeAds {
     fun loadAdmobNative(
         context: Context,
         adId: String = AdIds.nativeAdIdAdMob,
+        shimmerLayout: Int? = null,
         callBack: LoadAdCallBack? = null,
         frameLayout: FrameLayout? = null,
-        isSmall: Boolean = true
     ) {
         if (adId == "") {
             callBack?.onFailed()
@@ -42,24 +42,22 @@ object AdmobNativeAds {
             return
         }
 
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)
-                as LayoutInflater
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-        val shimmerView = if (isSmall) {
-            inflater.inflate(R.layout.small_native_shimmer, null)
-        } else {
-            inflater.inflate(R.layout.large_native_shimmer, null)
+        if (shimmerLayout != null) {
+            val shimmerView = inflater.inflate(shimmerLayout, null)
+            frameLayout?.addView(shimmerView)
+            frameLayout?.visibility = View.VISIBLE
+
         }
-        frameLayout?.addView(shimmerView)
-        frameLayout?.visibility = View.VISIBLE
+
 
 
         if (amNative != null) {
             callBack?.onLoaded()
         } else {
             val adLoader = AdLoader.Builder(
-                context,
-                adId
+                context, adId
             ).forNativeAd { ad: NativeAd ->
                 amNative = ad
             }.withAdListener(object : AdListener() {
@@ -97,8 +95,8 @@ object AdmobNativeAds {
             if (remoteKey.contains("am")) {
                 amLayout.visibility = View.VISIBLE
 
-                val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)
-                        as LayoutInflater
+                val inflater =
+                    context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
                 val adView = inflater.inflate(adLayout, null) as NativeAdView
 
@@ -117,8 +115,8 @@ object AdmobNativeAds {
                 adView.iconView = adView.findViewById(R.id.ad_app_icon)
 
                 (adView.headlineView as TextView).text = nativeAdToShow?.headline
-                if (adView.mediaView != null)
-                    adView.mediaView?.mediaContent = nativeAdToShow?.mediaContent
+                if (adView.mediaView != null) adView.mediaView?.mediaContent =
+                    nativeAdToShow?.mediaContent
 
                 if (nativeAdToShow?.body == null) {
                     adView.bodyView?.visibility = View.INVISIBLE
@@ -143,12 +141,10 @@ object AdmobNativeAds {
                 adView.setNativeAd(nativeAdToShow!!)
                 amNative = null
 
-                if (Ads.isNativeAdPreload)
-                    loadAdmobNative(context, AdIds.nativeAdIdAdMob)
+                if (Ads.isNativeAdPreload) loadAdmobNative(context, AdIds.nativeAdIdAdMob)
             }
         } else {
-            if (Ads.isNativeAdPreload)
-                loadAdmobNative(context, AdIds.nativeAdIdAdMob)
+            if (Ads.isNativeAdPreload) loadAdmobNative(context, AdIds.nativeAdIdAdMob)
 
             amLayout.visibility = View.GONE
         }

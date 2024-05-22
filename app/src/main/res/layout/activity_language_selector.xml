@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient_dashboard"
+    android:background="@color/bg_color"
     tools:context="org.dslul.openboard.translator.pro.LanguageSelectorActivity">
 
     <LinearLayout
@@ -12,53 +12,41 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/llTopBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:gravity="center"
-            android:transitionName="anim_language"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:background="@drawable/bg_top_bar"
+            android:elevation="@dimen/padding">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/btnBack"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_margin="@dimen/padding"
-                android:background="@drawable/bg_nothing_rounded_ripple"
-                android:padding="@dimen/less_padding"
-                android:scaleType="fitCenter"
-                android:transitionName="anim_btn_menu"
-                android:contentDescription="@string/todo"
-                app:srcCompat="@drawable/ic_baseline_arrow_back_24"
-                app:tint="?attr/colorSecondary" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="@dimen/fab_padding"
+                android:padding="@dimen/padding"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvTitle" />
 
             <TextView
                 android:id="@+id/tvTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/select"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/m_padding"
+                android:layout_marginTop="@dimen/extra_padding"
+                android:layout_marginBottom="@dimen/fab_padding"
+                android:fontFamily="@font/poppins_regular"
+                android:paddingStart="@dimen/padding"
+                android:text="@string/app_name"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btnBack"
+                app:layout_constraintTop_toTopOf="parent" />
 
-
-            <ImageButton
-                android:id="@+id/btnHistory"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_marginEnd="@dimen/padding"
-                android:background="@drawable/bg_nothing_rounded_ripple"
-                android:padding="@dimen/less_padding"
-                android:visibility="invisible"
-                app:srcCompat="@drawable/ic_baseline_access_time_filled_24"
-                app:tint="?attr/colorSecondary" />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:layout_width="match_parent"

@@ -36,14 +36,8 @@ class NewDashboardActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
         binding = ActivityNewDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
 
 
         Misc.setIsFirstTime(this, false)
@@ -68,7 +62,6 @@ class NewDashboardActivity : AppCompatActivity() {
         setUpClickListeners()
 
         translationViewImplementation()
-
 
         binding.btnKeyboardTranslate.setOnClickListener {
             if (isInputMethodSelected()) {
@@ -316,4 +309,6 @@ class NewDashboardActivity : AppCompatActivity() {
         }
 
     }
+
+
 }

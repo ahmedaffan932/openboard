@@ -12,11 +12,12 @@ import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 object Ads {
 
+    var splashNative: String = "am_native_splash"
     var enableKeyboardInt: String = "am"
     var cameraTranslationBanner: String = "am"
     var cameraTranslationInt: String = "am"
     var exitInt: String = "am"
-    var onBoardingNative: String = "am_lctr"
+    var onBoardingNative: String = "am_small_hctr_native"
     var dashboardInt: String = "am"
     var showIntAfterBreak: Boolean = false
     var isIntPreLoad: Boolean = false
@@ -57,22 +58,25 @@ object Ads {
 
     fun loadAndShowNativeAd(
         activity: Activity,
-        adId: String,
+        adId: String = AdIds.nativeAdIdAdMob,
         remoteKey: String,
         frameLayout: FrameLayout,
         adLayout: Int,
-        isSmall: Boolean = true
+        shimmerLayout: Int? = null,
+        callBack: LoadAdCallBack? = null
     ) {
         if (remoteKey.contains("am"))
-            AdmobNativeAds.loadAdmobNative(activity, adId, object : LoadAdCallBack {
+            AdmobNativeAds.loadAdmobNative(activity, adId, shimmerLayout, callBack = object : LoadAdCallBack {
                 override fun onLoaded() {
                     AdmobNativeAds.showNativeAd(activity, remoteKey, frameLayout, adLayout)
+                    callBack?.onLoaded()
                 }
 
                 override fun onFailed() {
+                    callBack?.onFailed()
                     frameLayout.removeAllViews()
                 }
-            }, frameLayout, isSmall)
+            }, frameLayout)
     }
 
     fun showInterstitial(

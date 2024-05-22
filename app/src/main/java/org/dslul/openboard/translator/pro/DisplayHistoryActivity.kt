@@ -9,42 +9,43 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.dslul.openboard.translator.pro.adaptor.HistoryAdapter
 import org.dslul.openboard.translator.pro.classes.Misc
 
-import kotlinx.android.synthetic.main.activity_display_history.*
-import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.databinding.ActivityDisplayHistoryBinding
 import org.dslul.openboard.translator.pro.interfaces.InterfaceHistory
 
 class DisplayHistoryActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityDisplayHistoryBinding
     lateinit var adapter: HistoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_display_history)
+        binding = ActivityDisplayHistoryBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (Misc.getHistory(this).size == 0) {
-            tvNoHistory.visibility = View.VISIBLE
-            animLoading.visibility = View.VISIBLE
+            binding.tvNoHistory.visibility = View.VISIBLE
+            binding.animLoading.visibility = View.VISIBLE
         } else {
             Toast.makeText(this, "Long press to Remove item from history.", Toast.LENGTH_SHORT)
                 .show()
         }
 
-        btnBackHistory.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             onBackPressed()
         }
 
-        btnFav.setOnClickListener {
+        binding.btnFav.setOnClickListener {
             startActivity(Intent(this@DisplayHistoryActivity, DisplayFavoritesActivity::class.java))
         }
 
         adapter = HistoryAdapter(Misc.getHistory(this), this, object : InterfaceHistory {
             override fun onHistoryCrash() {
-                tvNoHistory.visibility = View.VISIBLE
-                animLoading.visibility = View.VISIBLE
-                recyclerViewHistory.visibility = View.GONE
+                binding.tvNoHistory.visibility = View.VISIBLE
+                binding.animLoading.visibility = View.VISIBLE
+                binding.recyclerViewHistory.visibility = View.GONE
             }
         })
-        recyclerViewHistory.layoutManager = LinearLayoutManager(this)
-        recyclerViewHistory.adapter = adapter
+        binding.recyclerViewHistory.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewHistory.adapter = adapter
     }
 
     @Deprecated("Deprecated in Java")

@@ -23,7 +23,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.google.mlkit.nl.languageid.LanguageIdentification
 import com.rw.keyboardlistener.KeyboardUtils
-import kotlinx.android.synthetic.main.activity_translate.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -32,7 +31,9 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityTranslateBinding
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
+import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
+import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import org.jsoup.Jsoup
 import java.net.URLEncoder
 import java.util.*
@@ -74,31 +75,46 @@ class TranslateActivity : AppCompatActivity() {
             binding.btnClearText.visibility = View.VISIBLE
         }
 
-        if (Ads.isCameraAdEnabled) {
-            binding.tvAdCamera.visibility = View.VISIBLE
-        } else {
-            binding.tvAdCamera.visibility = View.INVISIBLE
-        }
 
-        binding.btnCamera.setOnClickListener {
-            startActivity(Intent(this, CameraTranslationActivity::class.java))
-        }
 
-        val handler = Handler()
-        var count = 0
-        val hint = getString(R.string.enter_some_text_to_translate)
-        val runnable: Runnable by lazy {
-            return@lazy object : Runnable {
-                override fun run() {
-                    if (count < hint.length) {
-                        binding.etText.hint = hint.substring(0, count)
-                        count++
-                        handler.postDelayed(this, 75);
+        Ads.loadAndShowInterstitial(
+            this,
+            Ads.translateInt,
+            AdIds.translateIntAdId,
+            object : InterstitialCallBack {
+                override fun onDismiss() {
+                    val handler = Handler()
+                    var count = 0
+                    val hint = getString(R.string.enter_some_text_to_translate)
+                    val runnable: Runnable by lazy {
+                        return@lazy object : Runnable {
+                            override fun run() {
+                                if (count < hint.length) {
+                                    binding.etText.hint = hint.substring(0, count)
+                                    count++
+                                    handler.postDelayed(this, 75);
+                                }
+                            }
+                        }
                     }
+                    handler.post(runnable)
                 }
-            }
-        }
-        handler.post(runnable)
+            })
+
+        Ads.loadAndShowNativeAd(
+            this,
+            AdIds.translateNativeAdId,
+            Ads.translateNative,
+            binding.nativeAdFrameLayoutInBetween,
+            if (Ads.translateNative.contains("splash")) R.layout.admob_native_splash else if (Ads.translateNative.contains(
+                    "hctr"
+                )
+            ) R.layout.admob_small_native_ad_hctr else R.layout.admob_small_native_ad_lctr,
+            if (Ads.translateNative.contains("splash"))
+                R.layout.shimmer_native_splash else
+                R.layout.small_native_shimmer,
+        )
+
 
 
         if (!Misc.isNightModeOn(this)) {
@@ -106,6 +122,10 @@ class TranslateActivity : AppCompatActivity() {
         }
 
         binding.etText.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            binding.clTranslation.setBackgroundResource(
+                if (hasFocus)
+                    R.drawable.bg_accent_bordered_less_rounded else R.drawable.bg_translate_dashboard
+            )
         }
 
 
@@ -113,8 +133,10 @@ class TranslateActivity : AppCompatActivity() {
         KeyboardUtils.addKeyboardToggleListener(this) { isVisible ->
             if (isVisible) {
                 Misc.zoomOutView(binding.btnSpeakInput, this, 150)
+                Misc.zoomOutView(binding.btnCopyInput, this, 150)
                 Handler().postDelayed({
                     binding.btnSpeakInput.visibility = View.GONE
+                    binding.btnCopyInput.visibility = View.GONE
                 }, 150)
 
                 if (!isBtnTranslateVisible) {
@@ -134,6 +156,7 @@ class TranslateActivity : AppCompatActivity() {
                     isBtnTranslateVisible = false
                 }
                 Misc.zoomInView(binding.btnSpeakInput, this, 150)
+                Misc.zoomInView(binding.btnCopyInput, this, 150)
             }
         }
 
@@ -151,18 +174,14 @@ class TranslateActivity : AppCompatActivity() {
             Toast.makeText(this, "Copied", Toast.LENGTH_SHORT).show()
         }
 
-        binding.btnClearTranslation.setOnClickListener {
-//            binding.llText.setBackgroundResource(R.drawable.bg_main_less_rounded)
-
-            Misc.zoomOutView(binding.clTranslatedText, this, 150)
-            Handler().postDelayed({
-                binding.clTranslatedText.visibility = View.GONE
-            }, 150)
-
-            Misc.zoomInView(binding.btnTranslate, this, 150)
-            binding.btnTranslate.visibility = View.VISIBLE
-            isBtnTranslateVisible = true
-            isLLTranslateVisible = false
+        binding.btnCopyInput.setOnClickListener {
+            val clipboard: ClipboardManager =
+                getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText(
+                "TranslatorPro", binding.etText.text
+            )
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(this, "Copied", Toast.LENGTH_SHORT).show()
         }
 
         binding.etText.doOnTextChanged { text, start, before, count ->
@@ -182,10 +201,10 @@ class TranslateActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        binding.btnHistory.setOnClickListener {
+        binding.btnSettings.setOnClickListener {
             startActivity(
                 Intent(
-                    this@TranslateActivity, DisplayHistoryActivity::class.java
+                    this@TranslateActivity, SettingsActivity::class.java
                 )
             )
         }

@@ -28,6 +28,8 @@ import org.dslul.openboard.translator.pro.classes.Misc.isSplashScreen
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobInterstitialAd
+import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobMRECAds
+import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobNativeAds
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 @SuppressLint("CustomSplashScreen")
@@ -103,16 +105,6 @@ class PreSplashScreenActivity : AppCompatActivity() {
             startNextActivity()
         }
 
-//        binding.ratingBar.onRatingBarChangeListener =
-//            RatingBar.OnRatingBarChangeListener { _, p1, _ ->
-//                if (p1 > 3f) {
-//                    rateUs()
-//                } else {
-//                    Toast.makeText(this, "Thanks for your review.", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-
-
     }
 
 
@@ -128,7 +120,12 @@ class PreSplashScreenActivity : AppCompatActivity() {
                     )
                     finish()
                 } else {
-                    startActivity(Intent(this@PreSplashScreenActivity, NewDashboardActivity::class.java))
+                    startActivity(
+                        Intent(
+                            this@PreSplashScreenActivity,
+                            FragmentsDashboardActivity::class.java
+                        )
+                    )
                     finish()
                 }
             }
@@ -147,32 +144,38 @@ class PreSplashScreenActivity : AppCompatActivity() {
 
     private fun showStartButton() {
         if (!isStartButtonVisible) {
-
-            try {
-                objDialog.show()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-            Handler(Looper.getMainLooper()).postDelayed({
-                startNextActivity()
-            }, 1000)
+            Misc.zoomInView(binding.btnStart, this, 250)
+            binding.spline.visibility = View.INVISIBLE
         }
         isStartButtonVisible = true
     }
 
     private fun loadAds() {
-        AdmobInterstitialAd.loadInterAdmob(
-            this,
-            AdIds.interstitialAdIdAdMobSplash,
-            object : LoadAdCallBack {
-                override fun onLoaded() {
-                    showStartButton()
-                }
+        Handler(Looper.getMainLooper()).postDelayed({
+            AdmobInterstitialAd.loadInterAdmob(
+                this,
+                AdIds.interstitialAdIdAdMobSplash,
+                object : LoadAdCallBack {
+                    override fun onLoaded() {
+                        showStartButton()
+                    }
 
-                override fun onFailed() {
-                    showStartButton()
+                    override fun onFailed() {
+                        showStartButton()
+                    }
                 }
-            }
+            )
+        }, 1000)
+
+        Ads.loadAndShowNativeAd(
+            this,
+            AdIds.nativeAdIdAdMobSplash,
+            Ads.splashNative,
+            binding.nativeAdFrameLayout,
+            R.layout.admob_native_splash,
+            R.layout.shimmer_native_splash
         )
+
+        AdmobMRECAds.loadMREC(this)
     }
 }

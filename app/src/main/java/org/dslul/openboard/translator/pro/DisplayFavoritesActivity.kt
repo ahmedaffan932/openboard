@@ -6,29 +6,31 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.dslul.openboard.translator.pro.classes.Misc
 
-import kotlinx.android.synthetic.main.activity_display_favorites.*
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.databinding.ActivityDisplayFavoritesBinding
 import org.dslul.openboard.translator.pro.adaptor.FavoritesAdapter
 
 class DisplayFavoritesActivity : AppCompatActivity() {
     lateinit var adapter: FavoritesAdapter
+    private lateinit var binding: ActivityDisplayFavoritesBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_display_favorites)
+        binding = ActivityDisplayFavoritesBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
         if (Misc.getFavorites(this).size == 0) {
-            tvNoFavorites.visibility = View.VISIBLE
-            animLoading.visibility = View.VISIBLE
+            binding.tvNoFavorites.visibility = View.VISIBLE
+            binding.animLoading.visibility = View.VISIBLE
         }
 
-        btnBackFavorites.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             onBackPressed()
         }
 
-        recyclerViewFavorites.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewFavorites.layoutManager = LinearLayoutManager(this)
         adapter = FavoritesAdapter(Misc.getFavorites(this), this)
-        recyclerViewFavorites.adapter = adapter
+        binding.recyclerViewFavorites.adapter = adapter
 
     }
 

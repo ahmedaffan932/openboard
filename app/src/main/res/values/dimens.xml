@@ -8,5 +8,5 @@
     <dimen name="padding_10">10dp</dimen>
     <dimen name="icon_size">37sp</dimen>
     <dimen name="border_width">2dp</dimen>
-
+    <dimen name="m_padding">12dp</dimen>
 </resources>

@@ -11,7 +11,7 @@ import org.dslul.openboard.inputmethod.latin.R
 
 private const val ARG_PARAM1 = "param1"
 
-class SplashFragment : Fragment() {
+class OnBaordingFragment : Fragment() {
     private var param1: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,31 +28,31 @@ class SplashFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_splash, container, false)
         view.findViewById<TextView>(R.id.tvHeading).text = when (param1.toString()) {
             "1" -> {
-                "Translator keyboard for any app"
+                "Enable Keyboard"
             }
 
             "2" -> {
-                "Translate everything with camera"
+                "Camera Translation"
             }
 
             else -> {
-                "Speak & Translate in 50+ Languages."
+                "Translate in any Languages."
             }
         }
 
-        view.findViewById<TextView>(R.id.tvText).text = when (param1.toString()) {
-            "1" -> {
-                "Get instant translation right in your favourite messaging app."
-            }
-
-            "2" -> {
-                "Just take take a photo of any object and get a fast and accurate translation"
-            }
-
-            else -> {
-                "Easily translate text, photos or voice in over 50 languages"
-            }
-        }
+//        view.findViewById<TextView>(R.id.tvText).text = when (param1.toString()) {
+//            "1" -> {
+//                "Get instant translation right in your favourite messaging app."
+//            }
+//
+//            "2" -> {
+//                "Just take take a photo of any object and get a fast and accurate translation"
+//            }
+//
+//            else -> {
+//                "Easily translate text, photos or voice in over 50 languages"
+//            }
+//        }
 
         view.findViewById<LottieAnimationView>(R.id.animation).setAnimation(
             when (param1.toString()) {
@@ -75,7 +75,7 @@ class SplashFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(param1: String) =
-            SplashFragment().apply {
+            OnBaordingFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                 }

@@ -1,25 +1,19 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#00ff00ff"
-    tools:context="org.dslul.openboard.translator.pro.fragments.SplashFragment">
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        app:shapeAppearanceOverlay="@style/roundedCorners5Percent"
-        android:src="@drawable/bg_splash_frag"/>
+    android:orientation="vertical"
+    tools:context="org.dslul.openboard.translator.pro.fragments.OnBaordingFragment">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         app:lottie_fileName="splash_languages.json"
         android:scaleType="fitCenter"
-        android:layout_marginBottom="@dimen/fab_padding"
+        android:layout_weight="1"
         app:layout_constraintBottom_toTopOf="@id/tvHeading"
         app:lottie_loop="true"
         app:lottie_autoPlay="true"
@@ -30,22 +24,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Speak &amp; Translate in 50+ Languages."
-        android:textSize="@dimen/_22sdp"
+        android:gravity="center"
+        android:textSize="@dimen/_18sdp"
+        android:fontFamily="@font/poppins_regular"
         android:textStyle="bold"
         android:layout_marginHorizontal="@dimen/extra_padding"
         android:layout_marginBottom="@dimen/fab_padding"
         app:layout_constraintBottom_toTopOf="@id/tvText"
-        android:textColor="@color/white"/>
+        android:textColor="@color/gray_7070"/>
 
-    <TextView
-        android:id="@+id/tvText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Easily translate text, photos or voice in over 50 languages"
-        android:textSize="@dimen/_12sdp"
-        android:textStyle="bold"
-        android:layout_margin="@dimen/extra_padding"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:textColor="@color/btnColor"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
