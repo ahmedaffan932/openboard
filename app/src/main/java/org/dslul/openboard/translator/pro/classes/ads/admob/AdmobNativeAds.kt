@@ -28,7 +28,7 @@ object AdmobNativeAds {
     @SuppressLint("MissingPermission")
     fun loadAdmobNative(
         context: Context,
-        adId: String = AdIds.nativeAdIdAdMob,
+        adId: String = AdIds.nativeAdIdAdMobExit,
         shimmerLayout: Int? = null,
         callBack: LoadAdCallBack? = null,
         frameLayout: FrameLayout? = null,
@@ -79,7 +79,9 @@ object AdmobNativeAds {
                     super.onAdImpression()
                     amNative = null
                 }
-            }).withNativeAdOptions(NativeAdOptions.Builder().build()).build()
+            }).withNativeAdOptions(NativeAdOptions.Builder()
+                .setAdChoicesPlacement(NativeAdOptions.ADCHOICES_TOP_LEFT)
+                .build()).build()
             adLoader.loadAd(AdRequest.Builder().build())
         }
     }
@@ -141,10 +143,10 @@ object AdmobNativeAds {
                 adView.setNativeAd(nativeAdToShow!!)
                 amNative = null
 
-                if (Ads.isNativeAdPreload) loadAdmobNative(context, AdIds.nativeAdIdAdMob)
+                if (Ads.isNativeAdPreload) loadAdmobNative(context, AdIds.nativeAdIdAdMobExit)
             }
         } else {
-            if (Ads.isNativeAdPreload) loadAdmobNative(context, AdIds.nativeAdIdAdMob)
+            if (Ads.isNativeAdPreload) loadAdmobNative(context, AdIds.nativeAdIdAdMobExit)
 
             amLayout.visibility = View.GONE
         }

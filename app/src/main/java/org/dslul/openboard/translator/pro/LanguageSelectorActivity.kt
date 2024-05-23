@@ -15,30 +15,41 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.mlkit.nl.translate.TranslateLanguage
-import kotlinx.android.synthetic.main.activity_language_selector.*
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.databinding.ActivityLanguageSelectorBinding
 import org.dslul.openboard.translator.pro.adaptor.LanguagesAdapter
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.ads.AdIds
+import org.dslul.openboard.translator.pro.classes.ads.Ads
+import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobBannerAds
 import java.util.*
 
 class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private val arr = ArrayList<String>()
     lateinit var adapter: LanguagesAdapter
+    private lateinit var binding: ActivityLanguageSelectorBinding
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_language_selector)
+        binding = ActivityLanguageSelectorBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         Firebase.analytics.logEvent("LanguageSelectorActivity", null)
 
+        AdmobBannerAds.loadCollapsibleBanner(
+            this,
+            AdIds.collapsibleBannerAdIdAdLanguages,
+            Ads.languageSelectorBanner,
+            binding.llCollapsibleBanner
+        )
 
         Misc.isLngTo = intent.getBooleanExtra(Misc.lngTo, true)
 
         if (Misc.isLngTo) {
-            tvTitle.text = getString(R.string.language_to)
+            binding.tvTitle.text = getString(R.string.language_to)
         } else {
-            tvTitle.text = getString(R.string.language_from)
+            binding.tvTitle.text = getString(R.string.language_from)
         }
 
         setBackground()
@@ -47,17 +58,17 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
             arr.add(lng)
         }
 
-        tvLanguageTo.text = Locale(Misc.getLanguageTo(this)).displayName
+        binding.tvLanguageTo.text = Locale(Misc.getLanguageTo(this)).displayName
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            tvLanguageFrom.text = resources.getString(R.string.detect)
+            binding.tvLanguageFrom.text = resources.getString(R.string.detect)
         } else {
-            tvLanguageFrom.text = Locale(Misc.getLanguageFrom(this)).displayName
+            binding.tvLanguageFrom.text = Locale(Misc.getLanguageFrom(this)).displayName
         }
 
         if (intent.getStringExtra(Misc.data) != null) {
-            tvLanguageFrom.visibility = View.GONE
+            binding.tvLanguageFrom.visibility = View.GONE
         } else if (intent.getStringExtra(Misc.data).toString().contains("ml")) {
-            tvLanguageTo.visibility = View.GONE
+            binding.tvLanguageTo.visibility = View.GONE
             Misc.isLngTo = false
         }
 
@@ -67,24 +78,24 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
                 break
             }
             arrRecent.add(Misc.getRecentLngs(this)[i])
-            textViewRecentlyUsedLng.visibility = View.VISIBLE
+            binding.textViewRecentlyUsedLng.visibility = View.VISIBLE
         }
 
 
-        recyclerViewRecentLanguages.layoutManager = LinearLayoutManager(this)
-        recyclerViewRecentLanguages.adapter =
+        binding.recyclerViewRecentLanguages.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewRecentLanguages.adapter =
             LanguagesAdapter(arrRecent, intent.getBooleanExtra(Misc.lngTo, true), this)
 
-        recyclerViewLanguages.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewLanguages.layoutManager = LinearLayoutManager(this)
         adapter = LanguagesAdapter(arr, intent.getBooleanExtra(Misc.lngTo, true), this)
-        recyclerViewLanguages.adapter = adapter
+        binding.recyclerViewLanguages.adapter = adapter
 
-        btnBack.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             onBackPressed()
         }
-        simpleSearchView.setOnQueryTextListener(this);
+        binding.simpleSearchView.setOnQueryTextListener(this);
 
-        tvLanguageFrom.setOnClickListener {
+        binding.tvLanguageFrom.setOnClickListener {
             if (Misc.isLngTo) {
                 Misc.isLngTo = !Misc.isLngTo
 
@@ -93,7 +104,7 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
 
         }
 
-        tvLanguageTo.setOnClickListener {
+        binding.tvLanguageTo.setOnClickListener {
             if (!Misc.isLngTo) {
                 Misc.isLngTo = !Misc.isLngTo
 
@@ -118,21 +129,21 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
 
     override fun onQueryTextChange(newText: String?): Boolean {
         adapter.filter.filter(newText)
-        recyclerViewLanguages.adapter = adapter
+        binding.recyclerViewLanguages.adapter = adapter
         return true
     }
 
     private fun setBackground() {
         if (Misc.isLngTo) {
-            tvLanguageFrom.backgroundTintList = tvLanguageTo.backgroundTintList
-            tvLanguageTo.backgroundTintList =
+            binding.tvLanguageFrom.backgroundTintList = binding.tvLanguageTo.backgroundTintList
+            binding.tvLanguageTo.backgroundTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.accent))
         } else {
             if (!intent.getBooleanExtra("isPhrasebook", false)) {
                 arr.add(Misc.defaultLanguage)
             }
-            tvLanguageTo.backgroundTintList = tvLanguageFrom.backgroundTintList
-            tvLanguageFrom.backgroundTintList =
+            binding.tvLanguageTo.backgroundTintList = binding.tvLanguageFrom.backgroundTintList
+            binding.tvLanguageFrom.backgroundTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.accent))
         }
     }
@@ -141,13 +152,13 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
         val a: Animation =
             AnimationUtils.loadAnimation(this, R.anim.fade_out)
         a.duration = 150
-        ll.startAnimation(a)
+        binding.ll.startAnimation(a)
         Handler().postDelayed({
             setBackground()
             val a: Animation =
                 AnimationUtils.loadAnimation(this, R.anim.fade_in)
             a.duration = 150
-            ll.startAnimation(a)
+            binding.ll.startAnimation(a)
         }, 150)
     }
 }

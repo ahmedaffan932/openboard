@@ -3,22 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ads_bg"
-    android:layoutDirection="ltr"
-    android:padding="@dimen/_4sdp">
+    android:layoutDirection="ltr">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/ad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="AD"
+            android:fontFamily="@font/poppins_regular"
+            android:paddingVertical="@dimen/_2sdp"
+            android:paddingHorizontal="@dimen/padding"
+            android:backgroundTint="@color/accent"
+            android:background="@drawable/bg_cl_remove_ads"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp"
             android:orientation="horizontal"
+            android:layout_marginHorizontal="@dimen/padding"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/ad">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ad_app_icon"
@@ -37,8 +50,8 @@
                 android:orientation="vertical"
                 android:padding="@dimen/_2sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/ad_app_icon"
-                app:layout_constraintRight_toLeftOf="@id/ad"
+                app:layout_constraintStart_toEndOf="@id/ad_app_icon"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
@@ -63,25 +76,13 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/ad"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:gravity="center"
-                android:text="Ad"
-                android:textColor="@color/gray_700"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.gms.ads.nativead.MediaView
             android:id="@+id/ad_media"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/padding"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_5sdp"
@@ -94,6 +95,7 @@
             android:id="@+id/bottom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
@@ -102,7 +104,7 @@
                 android:id="@+id/ad_call_to_action"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
-                android:backgroundTint="@color/yellow"
+                android:backgroundTint="@color/accent"
                 android:background="@drawable/bg_main_rounded"
                 android:gravity="center"
                 android:text="install"

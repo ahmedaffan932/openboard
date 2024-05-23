@@ -42,26 +42,13 @@ import java.util.Locale
 import kotlin.properties.Delegates
 
 object Misc {
+    var isItemClicked: Boolean = false
 
     const val text: String = "text"
-
-    var isInterstitialDisplaying = false
-
-    var showInterstitialAfter: Int = 1
-    var isLanguageSelectorInBetweenNativeEnabled: Boolean = false
-
-    var proScreenDismissBtnVisibleAfter: Long = 3000
     var isRemoteConfigFetched: MutableLiveData<Boolean> = MutableLiveData()
 
     @JvmField
     var isTranslated: MutableLiveData<Boolean> = MutableLiveData()
-    var proScreen = "1"
-
-    var banner_id = if (BuildConfig.DEBUG) {
-        "ca-app-pub-3940256099942544/6300978111"
-    } else {
-        "abc"
-    }
 
     var lifeTimePrice: String = "Price: $12.99"
     var splashScreenOnBackPressDoNothing: Boolean = true
@@ -620,17 +607,15 @@ object Misc {
             super.onCreate(savedInstanceState)
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             setContentView(R.layout.loading_ads_dialog)
+            window?.setBackgroundDrawableResource(android.R.color.transparent)
+
         }
 
         override fun onClick(v: View) {}
     }
 
 
-    lateinit var notificationManager: NotificationManager
-    lateinit var notificationChannel: NotificationChannel
     lateinit var builder: Notification.Builder
-    private val channelId = BuildConfig.APPLICATION_ID
-    private val description = "Translate All Languages."
 
     fun Context.isInputMethodSelected(): Boolean {
         val id: String = Settings.Secure.getString(

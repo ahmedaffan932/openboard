@@ -21,7 +21,7 @@ object AdmobInterstitialAd {
 
     fun loadInterAdmob(
         context: Context,
-        adId: String = AdIds.interstitialAdIdAdMob,
+        adId: String = AdIds.interstitialAdIdAdMobPhrases,
         callBack: LoadAdCallBack? = null
     ) {
         if (adId == "") {

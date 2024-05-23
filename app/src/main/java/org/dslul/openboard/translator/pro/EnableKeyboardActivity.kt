@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.phrase_book_main_item.*
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
+import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import java.util.*
@@ -34,11 +35,7 @@ class EnableKeyboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enable_keyboard)
 
-        Ads.showInterstitial(this, Ads.enableKeyboardInt, object : InterstitialCallBack{
-            override fun onDismiss() {
-                checkKeyboardActivation()
-            }
-        })
+        checkKeyboardActivation()
 
         Firebase.analytics.logEvent("EnableKeyboard", null)
 
@@ -129,8 +126,10 @@ class EnableKeyboardActivity : AppCompatActivity() {
             clEnableKeyboard.background =
                 resources.getDrawable(R.drawable.bg_main_rounded)
 
-            tvHintMeaning.backgroundTintList = ContextCompat.getColorStateList(this, R.color.gray_400);
-            clEnableKeyboard.backgroundTintList = ContextCompat.getColorStateList(this, R.color.disable_color);
+            tvHintMeaning.backgroundTintList =
+                ContextCompat.getColorStateList(this, R.color.gray_400);
+            clEnableKeyboard.backgroundTintList =
+                ContextCompat.getColorStateList(this, R.color.disable_color);
 
             textEnable.setTextColor(resources.getColor(R.color.gray_700))
             tvHintMeaning.setTextColor(resources.getColor(R.color.gray_700))

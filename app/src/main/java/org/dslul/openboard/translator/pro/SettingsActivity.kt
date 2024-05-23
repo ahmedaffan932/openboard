@@ -16,13 +16,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
-import kotlinx.android.synthetic.main.activity_settings.btnBackSettings
-import kotlinx.android.synthetic.main.activity_settings.btnSwitchDarkTheme
-import kotlinx.android.synthetic.main.activity_settings.llFeedback
-import kotlinx.android.synthetic.main.activity_settings.llPrivacyPolicy
-import kotlinx.android.synthetic.main.activity_settings.llRateUs
-import kotlinx.android.synthetic.main.activity_settings.llShareApp
-import kotlinx.android.synthetic.main.activity_settings.llTermsAndConditions
+import kotlinx.android.synthetic.main.activity_settings.*
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.EmailUsDialogBox
 import org.dslul.openboard.translator.pro.classes.Misc
@@ -82,7 +76,7 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
-        btnBackSettings.setOnClickListener {
+        btnBack.setOnClickListener {
             onBackPressed()
         }
 

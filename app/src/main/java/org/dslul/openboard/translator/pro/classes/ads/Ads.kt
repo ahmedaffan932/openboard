@@ -12,41 +12,21 @@ import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 object Ads {
 
+    var chatBanner: String = "am"
+    var languageSelectorBanner: String = "am"
     var splashNative: String = "am_native_splash"
-    var enableKeyboardInt: String = "am"
-    var cameraTranslationBanner: String = "am"
     var cameraTranslationInt: String = "am"
     var exitInt: String = "am"
     var onBoardingNative: String = "am_small_hctr_native"
-    var dashboardInt: String = "am"
-    var showIntAfterBreak: Boolean = false
     var isIntPreLoad: Boolean = false
-    var isNativeAdPreload: Boolean = true
-    var documentTranslateAdEnable: Boolean = true
-    var isCameraAdEnabled: Boolean = false
-    var showAppLanguageSelectorLoading: Boolean = true
-    var cameraInt: String = "am"
+    var isNativeAdPreload: Boolean = false
     var isAppOpenAdEnabled: Boolean = true
     var exitNative: String = "am_large_hctr"
-    var gameNative: String = "am_large_hctr"
-    var ocrInt: String = "am"
-    var gameInt: String = "am"
-    var chatInt: String = "am"
     var phraseInt: String = "am"
-
-    var viewDailyQuoteAdEnabled: Boolean = true
-    var phraseNative: String = "am_small_lctr"
-    var chatNative: String = "am_small_hctr"
-    var languageSelectorInt: String = "am"
     var translateNative: String = "am_large_hctr_bottom"
     var dashboardNative: String = "am_small_lctr_collapsible_native"
     var splashInt: String = "am"
-    var appLanguageSelectorNative: String = "am_small_hctr_native_collapsible"
-    var translateInt: String = "am_fb"
-
-    private var lastAdLoadStartTime: Long = 0
-    private val MIN_AD_LOAD_TIME: Long = 30000
-
+    var translateInt: String = "am"
 
     var isShowingInt = false
 
@@ -58,7 +38,7 @@ object Ads {
 
     fun loadAndShowNativeAd(
         activity: Activity,
-        adId: String = AdIds.nativeAdIdAdMob,
+        adId: String = AdIds.nativeAdIdAdMobExit,
         remoteKey: String,
         frameLayout: FrameLayout,
         adLayout: Int,
@@ -97,18 +77,10 @@ object Ads {
     fun loadAndShowInterstitial(
         activity: Activity,
         remoteKey: String,
-        adId: String = AdIds.interstitialAdIdAdMob,
+        adId: String = AdIds.interstitialAdIdAdMobPhrases,
         callBack: InterstitialCallBack? = null
     ) {
         if (remoteKey.contains("am")) {
-            if(showIntAfterBreak) {
-                val currentTime = System.currentTimeMillis()
-                if (currentTime - lastAdLoadStartTime < MIN_AD_LOAD_TIME) {
-                    callBack?.onDismiss()
-                    return
-                }
-                lastAdLoadStartTime = currentTime
-            }
             val objDialog = Misc.LoadingAdDialog(activity)
             objDialog.show()
             isShowingInt = true

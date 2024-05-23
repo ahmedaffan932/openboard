@@ -4,238 +4,287 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical"
     tools:context="org.dslul.openboard.translator.pro.ViewTranslatedTextActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/llTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_top_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="@dimen/padding">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="@dimen/fab_padding"
+            android:padding="@dimen/padding"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvTitle" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/m_padding"
+            android:layout_marginTop="@dimen/extra_padding"
+            android:layout_marginBottom="@dimen/fab_padding"
+            android:fontFamily="@font/poppins_regular"
+            android:paddingStart="@dimen/padding"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnBack"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btnSettings"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="@dimen/fab_padding"
+            android:padding="@dimen/padding"
+            android:src="@drawable/ic_baseline_settings_24"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvTitle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/llTopBar">
 
-        <LinearLayout
-            android:id="@+id/llTopBar"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:elevation="@dimen/padding_10"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/fab_padding"
-            android:paddingTop="@dimen/padding"
-            android:paddingBottom="@dimen/padding"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
-            <ImageButton
-                android:id="@+id/btnBack"
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:background="@drawable/bg_nothing_rounded_ripple"
-                android:contentDescription="@string/todo"
-                android:paddingVertical="@dimen/less_padding"
-                android:paddingEnd="@dimen/less_padding"
-                app:srcCompat="@drawable/ic_baseline_arrow_back_24"
-                app:tint="@color/black" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50sp"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:text="@string/translator"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_16sdp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/Pro"
-                android:textColor="@color/yellow"
-                android:textSize="@dimen/_16sdp"
-                android:textStyle="bold" />
-
-            <ImageButton
-                android:layout_width="@dimen/icon_size"
-                android:layout_height="@dimen/icon_size"
-                android:background="@drawable/bg_nothing_rounded_ripple"
-                android:paddingVertical="@dimen/less_padding"
-                android:paddingStart="@dimen/less_padding"
-                android:scaleType="fitCenter"
-                app:tint="@color/black" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/padding"
-            android:animateLayoutChanges="true"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/llTopBar">
-
-            <LinearLayout
-                android:id="@+id/linearLayout2"
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/scrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/fab_padding"
-                android:animateLayoutChanges="true"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/padding"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                app:layout_behavior="com.example.translatorguru.classes.OverScrollBounceBehavior"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="15dp">
+                app:layout_constraintVertical_bias="0">
 
                 <LinearLayout
-                    android:id="@+id/llLngFrom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/padding_10"
-                    android:layout_weight="1"
-                    android:background="@drawable/ripple_effect_rounded"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    tools:targetApi="m">
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/flagFrom"
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_30sdp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/kr_flag"
-                        app:shapeAppearanceOverlay="@style/roundedCorners" />
-
-                    <TextView
-                        android:id="@+id/textViewLngFrom"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/padding_10"
-                        android:layout_weight="1"
-                        android:gravity="start"
-                        android:paddingVertical="@dimen/_7sdp"
-                        android:text="@string/english"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        tools:ignore="NestedWeights" />
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/btnSwitchLngs"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/ripple_effect_rounded"
-                    android:contentDescription="@string/todo"
-                    android:padding="@dimen/padding_10"
-                    android:paddingVertical="20dp"
-                    app:srcCompat="@drawable/ic_switch_lang"
-                    app:tint="@color/black" />
-
-                <LinearLayout
-                    android:id="@+id/llLngTo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/padding_10"
-                    android:layout_weight="1"
-                    android:background="@drawable/ripple_effect_rounded"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textViewLngTo"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/padding_10"
-                        android:layout_weight="1"
-                        android:gravity="start"
-                        android:paddingVertical="@dimen/_7sdp"
-                        android:text="@string/textview"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        tools:ignore="NestedWeights" />
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/flagTo"
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_30sdp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/kr_flag"
-                        app:shapeAppearanceOverlay="@style/roundedCorners" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.core.widget.NestedScrollView
-                    android:id="@+id/scrollView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="@dimen/fab_padding"
-                    app:layout_behavior="org.dslul.openboard.translator.pro.classes.OverScrollBounceBehavior"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0">
+                    android:orientation="vertical">
 
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clTranslation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_marginHorizontal="@dimen/fab_padding"
+                        android:layout_marginTop="@dimen/fab_padding"
+                        android:background="@drawable/bg_translate_dashboard"
+                        android:elevation="@dimen/less_padding"
+                        android:transitionName="cl_translation"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <LinearLayout
+                            android:id="@+id/llLanguageSelector"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:animateLayoutChanges="true"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="@dimen/m_padding"
+                            android:transitionName="anim_ll_languages"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <LinearLayout
+                                android:id="@+id/llLanguageFrom"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="@dimen/m_padding"
+                                android:background="@drawable/bg_nothing_rounded_ripple"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <com.google.android.material.imageview.ShapeableImageView
+                                    android:id="@+id/flagFrom"
+                                    android:layout_width="@dimen/_24sdp"
+                                    android:layout_height="@dimen/_24sdp"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/us_flag"
+                                    app:shapeAppearanceOverlay="@style/roundedCorners" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/m_padding"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/tvLanguageFrom"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/poppins_regular"
+                                        android:gravity="center"
+                                        android:text="@string/english"
+                                        android:textColor="@color/black"
+                                        android:textSize="12sp"
+                                        tools:ignore="NestedWeights" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0.7dp"
+                                        android:background="@drawable/bg_rounded"
+                                        android:backgroundTint="@color/black" />
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:layout_width="0dp"
+                                    android:layout_height="@dimen/fab_padding"
+                                    android:layout_marginHorizontal="6dp"
+                                    android:layout_marginVertical="@dimen/padding"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/bg_nothing_rounded_ripple"
+                                    android:contentDescription="@string/todo"
+                                    android:src="@drawable/ic_arrow_down" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/btnSwitchLngs"
+                                    android:layout_width="34dp"
+                                    android:layout_height="34dp"
+                                    android:background="@drawable/bg_nothing_rounded_ripple"
+                                    android:contentDescription="@string/todo"
+                                    android:padding="@dimen/padding"
+                                    app:srcCompat="@drawable/ic_switch_lang" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/llLanguageTo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="@dimen/m_padding"
+                                android:background="@drawable/bg_nothing_rounded_ripple"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="0dp"
+                                    android:layout_height="@dimen/fab_padding"
+                                    android:layout_marginHorizontal="6dp"
+                                    android:layout_marginVertical="@dimen/padding"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/bg_nothing_rounded_ripple"
+                                    android:contentDescription="@string/todo"
+                                    android:src="@drawable/ic_arrow_down" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="@dimen/m_padding"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/tvLanguageTo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/poppins_regular"
+                                        android:gravity="center"
+                                        android:text="@string/textView"
+                                        android:textColor="@color/black"
+                                        android:textSize="12sp"
+                                        tools:ignore="NestedWeights" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0.7dp"
+                                        android:background="@drawable/bg_rounded"
+                                        android:backgroundTint="@color/black" />
+                                </LinearLayout>
+
+                                <com.google.android.material.imageview.ShapeableImageView
+                                    android:id="@+id/flagTo"
+                                    android:layout_width="@dimen/_24sdp"
+                                    android:layout_height="@dimen/_24sdp"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/by_flag"
+                                    app:shapeAppearanceOverlay="@style/roundedCorners" />
+
+                            </LinearLayout>
+                        </LinearLayout>
 
                         <LinearLayout
                             android:id="@+id/llText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/padding"
+                            android:layout_marginBottom="@dimen/padding"
                             android:layout_weight="1"
-                            android:background="@drawable/bg_main_less_rounded"
+                            android:animateLayoutChanges="true"
                             android:orientation="vertical"
-                            android:paddingVertical="@dimen/padding">
-
-                            <ImageView
-                                android:id="@+id/btnClearText"
-                                android:layout_width="50dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="end"
-                                android:background="@drawable/bg_nothing_rounded_ripple"
-                                android:rotation="45"
-                                android:src="@drawable/ic_baseline_add_circle_24"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:tint="@color/gray_700" />
+                            android:paddingBottom="@dimen/padding"
+                            android:transitionName="anim_main_view"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/llLanguageSelector">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:id="@+id/clEditText"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingHorizontal="@dimen/fab_padding">
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/btnClearText"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_gravity="end"
+                                    android:background="@drawable/bg_nothing_rounded_ripple"
+                                    android:elevation="@dimen/extra_padding"
+                                    android:padding="@dimen/less_padding"
+                                    android:src="@drawable/ic_baseline_add_circle_24"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
                                 <EditText
-                                    android:id="@+id/textViewTextFrag"
+                                    android:id="@+id/etText"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:gravity="top"
-                                    android:textSize="18sp"
-                                    android:scrollbars="vertical"
-                                    android:imeOptions="actionGo"
-                                    android:overScrollMode="never"
-                                    android:textColor="@color/black"
-                                    android:inputType="textMultiLine"
-                                    android:minHeight="@dimen/_100sdp"
-                                    android:textColorHint="@color/gray_700"
-                                    android:paddingBottom="@dimen/padding_10"
                                     android:background="@color/color_nothing"
-                                    app:layout_constraintTop_toTopOf="parent"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:gravity="top"
+                                    android:imeOptions="actionGo"
+                                    android:inputType="textMultiLine"
+                                    android:hint="@string/enter_some_text_to_translate"
+                                    android:minHeight="@dimen/_80sdp"
+                                    android:overScrollMode="never"
                                     android:paddingHorizontal="@dimen/less_padding"
-                                    android:textCursorDrawable="@drawable/cursor_color" />
+                                    android:paddingVertical="@dimen/padding"
+                                    android:paddingBottom="@dimen/padding_10"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="@color/gray_700"
+                                    android:textCursorDrawable="@drawable/cursor_color"
+                                    android:textSize="14sp"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:ignore="NestedWeights" />
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -243,17 +292,46 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
 
+                                <ImageView
+                                    android:id="@+id/btnSpeakInput"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginHorizontal="@dimen/m_padding"
+                                    android:background="@drawable/bg_nothing_rounded_ripple"
+                                    android:contentDescription="@string/todo"
+                                    android:elevation="@dimen/fab_padding"
+                                    android:src="@drawable/ic_microphone"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <ImageView
+                                    android:id="@+id/btnCopyInput"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginHorizontal="@dimen/m_padding"
+                                    android:background="@drawable/bg_nothing_rounded_ripple"
+                                    android:contentDescription="@string/todo"
+                                    android:elevation="@dimen/fab_padding"
+                                    android:src="@drawable/ic_copy"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/btnSpeakInput"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
                                 <LinearLayout
                                     android:id="@+id/btnTranslate"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="end"
-                                    android:layout_marginEnd="@dimen/fab_padding"
+                                    android:layout_marginEnd="@dimen/m_padding"
                                     android:background="@drawable/bg_main_less_rounded"
                                     android:backgroundTint="@color/accent"
                                     android:orientation="horizontal"
-                                    android:paddingHorizontal="@dimen/padding_10"
-                                    android:visibility="visible"
+                                    android:paddingHorizontal="@dimen/padding"
+                                    android:paddingVertical="@dimen/padding"
+                                    android:visibility="invisible"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent">
@@ -261,33 +339,47 @@
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginStart="@dimen/padding_10"
-                                        android:layout_marginEnd="@dimen/padding_10"
                                         android:contentDescription="@string/todo"
+                                        android:fontFamily="@font/poppins_regular"
                                         android:gravity="center"
-                                        android:paddingHorizontal="@dimen/less_padding"
-                                        android:paddingVertical="@dimen/padding_10"
+                                        android:paddingHorizontal="@dimen/m_padding"
                                         android:text="@string/translate"
                                         android:textColor="@color/btnTextColor"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold"
+                                        android:textSize="12sp"
                                         android:visibility="visible" />
 
                                 </LinearLayout>
+
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                         </LinearLayout>
 
-                        <FrameLayout
-                            android:id="@+id/nativeAdFrameLayoutInBetween"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:background="@drawable/bg_main_less_rounded"
-                            android:visibility="visible"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/llText" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <FrameLayout
+                        android:id="@+id/nativeAdFrameLayoutInBetween"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/fab_padding"
+                        android:layout_marginTop="2dp"
+                        android:background="@drawable/ads_bg"
+                        android:elevation="@dimen/less_padding"
+                        android:layout_marginBottom="2dp"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clTranslatedText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/fab_padding"
+                        android:layout_marginBottom="@dimen/padding"
+                        android:background="@drawable/bg_accent_border_rounded"
+                        android:elevation="@dimen/less_padding"
+                        android:padding="@dimen/m_padding"
+                        android:visibility="visible"
+                        app:layout_constraintTop_toBottomOf="@+id/llText">
 
                         <LinearLayout
                             android:id="@+id/llTranslatedText"
@@ -295,17 +387,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:layout_weight="1"
-                            android:background="@drawable/bg_main_less_rounded"
                             android:orientation="vertical"
-                            android:paddingHorizontal="@dimen/fab_padding"
-                            android:paddingVertical="@dimen/padding"
-                            android:visibility="visible"
-                            app:layout_constraintTop_toBottomOf="@+id/llText"
-                            tools:layout_editor_absoluteX="15dp">
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:visibility="gone">
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -340,18 +429,6 @@
                                         android:textSize="15sp" />
 
                                 </LinearLayout>
-
-                                <ImageView
-                                    android:id="@+id/btnClearTranslation"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="end"
-                                    android:background="?android:attr/selectableItemBackground"
-                                    android:rotation="45"
-                                    android:src="@drawable/ic_baseline_add_circle_24"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    app:tint="@color/gray_700" />
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <TextView
@@ -359,11 +436,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/less_padding"
-                                android:minLines="3"
+                                android:fontFamily="@font/poppins_regular"
+                                android:minLines="4"
                                 android:paddingHorizontal="@dimen/less_padding"
                                 android:text=""
-                                android:textColor="@color/black"
-                                android:textSize="18sp"
+                                android:textColor="?attr/colorOnPrimary"
+                                android:textSize="14sp"
                                 tools:ignore="NestedWeights,RtlSymmetry" />
 
 
@@ -371,81 +449,74 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="start"
-                                android:orientation="horizontal"
-                                android:paddingTop="@dimen/padding_10">
-
-                                <ImageView
-                                    android:id="@+id/btnCopyTextTranslatedFrag"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/ripple_effect_transparent_rounded"
-                                    android:backgroundTint="@color/accent"
-                                    android:contentDescription="@string/todo"
-                                    android:padding="10dp"
-                                    android:scaleType="fitCenter"
-                                    app:srcCompat="@drawable/ic_copy"
-                                    app:tint="@color/gray_700" />
+                                android:orientation="horizontal">
 
                                 <ImageButton
                                     android:id="@+id/btnSpeakTranslation"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:layout_marginStart="@dimen/padding_10"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
                                     android:background="@drawable/ripple_effect_transparent_rounded"
-                                    android:backgroundTint="@color/accent"
                                     android:contentDescription="@string/todo"
-                                    android:padding="@dimen/padding"
+                                    android:padding="@dimen/less_padding"
                                     android:scaleType="fitCenter"
                                     app:srcCompat="@drawable/ic_speak_ic"
                                     app:tint="@color/gray_700" />
 
                                 <ImageView
-                                    android:id="@+id/btnShareTranslation"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:id="@+id/btnCopyTextTranslatedFrag"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
                                     android:layout_marginStart="@dimen/padding_10"
                                     android:background="@drawable/ripple_effect_transparent_rounded"
-                                    android:backgroundTint="@color/accent"
                                     android:contentDescription="@string/todo"
-                                    android:padding="@dimen/padding_10"
+                                    android:padding="@dimen/less_padding"
                                     android:scaleType="fitCenter"
-                                    app:srcCompat="@drawable/ic_baseline_share_24"
-                                    app:tint="@color/gray_700" />
+                                    android:src="@drawable/ic_copy" />
+
+                                <ImageView
+                                    android:id="@+id/btnShareTranslation"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_marginStart="@dimen/padding_10"
+                                    android:background="@drawable/ripple_effect_transparent_rounded"
+                                    android:contentDescription="@string/todo"
+                                    android:padding="@dimen/less_padding"
+                                    android:scaleType="fitCenter"
+                                    app:srcCompat="@drawable/ic_baseline_share_24" />
 
                             </LinearLayout>
                         </LinearLayout>
-                    </LinearLayout>
-                </androidx.core.widget.NestedScrollView>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </LinearLayout>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/llPBTranslateFrag"
+    <LinearLayout
+        android:id="@+id/llPBTranslateFrag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#50616161"
+        android:elevation="@dimen/padding_10"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:elevation="@dimen/padding_10"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/accent" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-            <ProgressBar
-                style="?android:attr/progressBarStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:indeterminateTint="@color/accent" />
-
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/translating"
-                android:textColor="@color/accent" />
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+            android:text="@string/translating"
+            android:textColor="@color/accent" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,55 +6,45 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient_dashboard"
+    android:background="@color/bg_color"
     tools:context="org.dslul.openboard.translator.pro.SettingsActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/llTopBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/fab_padding"
-        android:paddingTop="@dimen/padding"
-        android:paddingBottom="@dimen/padding"
-        app:layout_constraintStart_toStartOf="parent"
-        android:elevation="@dimen/padding_10"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@drawable/bg_top_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="@dimen/padding">
 
-        <ImageButton
-            android:id="@+id/btnBackSettings"
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
-            android:background="@drawable/bg_nothing_rounded_ripple"
-            android:contentDescription="@string/todo"
-            android:paddingVertical="@dimen/padding"
-            android:paddingEnd="@dimen/padding"
-            app:srcCompat="@drawable/ic_baseline_arrow_back_24"
-            app:tint="?attr/colorSecondary" />
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="@dimen/fab_padding"
+            android:padding="@dimen/padding"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvTitle" />
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/settings"
-            android:textColor="?attr/colorSecondary"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/m_padding"
+            android:layout_marginTop="@dimen/extra_padding"
+            android:layout_marginBottom="@dimen/fab_padding"
+            android:fontFamily="@font/poppins_regular"
+            android:paddingStart="@dimen/padding"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnBack"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
-            android:background="@drawable/bg_nothing_rounded_ripple"
-            android:contentDescription="@string/todo"
-            android:padding="@dimen/padding"
-            android:visibility="invisible"
-            app:srcCompat="@drawable/ic_baseline_arrow_back_24"
-            app:tint="#f5f6fb" />
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -62,7 +52,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/padding"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/llTopBar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,19 +65,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/fab_padding"
                 android:layout_marginTop="@dimen/padding"
-                android:background="@drawable/bg_main_less_rounded"
+                android:background="@drawable/bg_accent_border_rounded"
                 android:elevation="2dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/fab_padding"
-                android:paddingVertical="@dimen/padding">
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:rotation="180"
-                    app:tint="@color/gray_700"
-                    android:layout_marginEnd="@dimen/padding_10"
+                    android:layout_margin="@dimen/m_padding"
                     app:srcCompat="@drawable/ic_baseline_share_24" />
 
                 <TextView
@@ -95,9 +82,10 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="@string/share_app"
-                    android:textColor="?attr/colorSecondary"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24"
+                    android:layout_marginEnd="@dimen/m_padding"
                     android:drawableTint="@color/accent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -110,26 +98,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/fab_padding"
                 android:layout_marginTop="@dimen/padding"
-                android:background="@drawable/bg_main_less_rounded"
+                android:background="@drawable/bg_accent_bordered_less_rounded"
                 android:elevation="2dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/fab_padding"
-                android:paddingVertical="@dimen/padding">
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/padding_10"
-                    app:srcCompat="@drawable/ic_baseline_feedback_24"
-                    app:tint="@color/gray_700" />
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_margin="@dimen/m_padding"
+                    app:srcCompat="@drawable/ic_baseline_feedback_24" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="@string/feedback"
-                    android:textColor="?attr/colorSecondary"
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="@dimen/fab_padding"
                     android:textSize="16sp"
                     android:drawableTint="@color/accent"
                     app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24"
@@ -144,26 +130,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/fab_padding"
                 android:layout_marginTop="@dimen/padding"
-                android:background="@drawable/bg_main_less_rounded"
+                android:background="@drawable/bg_accent_bordered_less_rounded"
                 android:elevation="2dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/fab_padding"
-                android:paddingVertical="@dimen/padding">
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/padding_10"
-                    app:srcCompat="@drawable/ic_baseline_star_rate_24"
-                    app:tint="@color/gray_700" />
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_margin="@dimen/m_padding"
+                    app:srcCompat="@drawable/ic_baseline_star_rate_24" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/fab_padding"
                     android:text="@string/rate_us"
-                    android:textColor="?attr/colorSecondary"
+                    android:textColor="@color/black"
                     android:drawableTint="@color/accent"
                     android:textSize="16sp"
                     app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24"
@@ -189,28 +173,28 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/fab_padding"
                 android:layout_marginTop="@dimen/padding"
-                android:background="@drawable/bg_main_less_rounded"
+                android:background="@drawable/bg_accent_bordered_less_rounded"
                 android:elevation="2dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/fab_padding"
-                android:paddingVertical="@dimen/padding">
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/padding_10"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+
+                    android:layout_margin="@dimen/m_padding"
                     app:srcCompat="@drawable/ic_baseline_insert_drive_file_24"
-                    app:tint="@color/gray_700" />
+                     />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="@string/privacy_policy"
-                    android:textColor="?attr/colorSecondary"
+                    android:textColor="@color/black"
                     android:drawableTint="@color/accent"
                     android:textSize="16sp"
+                    android:layout_marginEnd="@dimen/fab_padding"
                     app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -223,26 +207,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/fab_padding"
                 android:layout_marginVertical="@dimen/padding"
-                android:background="@drawable/bg_main_less_rounded"
+                android:background="@drawable/bg_accent_bordered_less_rounded"
                 android:elevation="2dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/fab_padding"
-                android:paddingVertical="@dimen/padding">
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/padding_10"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_margin="@dimen/m_padding"
                     app:srcCompat="@drawable/ic_baseline_privacy_tip_24"
-                    app:tint="@color/gray_700" />
+                     />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="@string/terms_of_use"
-                    android:textColor="?attr/colorSecondary"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:drawableTint="@color/accent"
                     app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24"
@@ -257,7 +239,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/fab_padding"
                 android:layout_marginTop="@dimen/padding"
-                android:background="@drawable/bg_main_less_rounded"
+                android:background="@drawable/bg_accent_bordered_less_rounded"
                 android:drawableStart="@drawable/ic_baseline_brightness_medium_24"
                 android:drawablePadding="@dimen/padding_10"
                 android:drawableTint="@color/gray_700"

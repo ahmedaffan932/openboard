@@ -82,19 +82,8 @@ class CustomExpandableListAdapter(
             val btnCopyItem = convertView.findViewById<ImageButton>(R.id.btnCopyItem)
             val btnSpeakItem = convertView.findViewById<ImageButton>(R.id.btnSpeakItem)
             val btnShareItem = convertView.findViewById<ImageButton>(R.id.btnShareItem)
-            val btnFavoriteItem = convertView.findViewById<ImageButton>(R.id.btnFavoriteItem)
+//            val btnFavoriteItem = convertView.findViewById<ImageButton>(R.id.btnFavoriteItem)
 
-//            if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
-//                llMain.setBackgroundDrawable(
-//                    ContextCompat.getDrawable(
-//                        activity,
-//                        R.drawable.bg_primary_borderd
-//                    )
-//                )
-//            } else {
-//                llMain.background =
-//                    ContextCompat.getDrawable(activity, R.drawable.bg_primary_borderd);
-//            }
 
             val obj = TranslateHistoryClass(
                 expandedListText,
@@ -103,13 +92,13 @@ class CustomExpandableListAdapter(
                 Misc.getLanguageFrom(activity)
             )
 
-            btnFavoriteItem.setOnClickListener {
-                if (saveInFavorites(obj)) {
-                    btnFavoriteItem.setImageResource(R.drawable.ic_baseline_favorite_24)
-                } else {
-                    btnFavoriteItem.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-                }
-            }
+//            btnFavoriteItem.setOnClickListener {
+//                if (saveInFavorites(obj)) {
+//                    btnFavoriteItem.setImageResource(R.drawable.ic_baseline_favorite_24)
+//                } else {
+//                    btnFavoriteItem.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+//                }
+//            }
 
             btnSpeakItem.setOnClickListener {
                 speak(expandedListTVTranslation.text.toString())
@@ -134,13 +123,13 @@ class CustomExpandableListAdapter(
             }
 
             llMain.setOnClickListener {
-                if (llItem.visibility == View.VISIBLE) {
-                    llItem.visibility = View.GONE
-
-
-                } else {
-                    llItem.visibility = View.VISIBLE
-                }
+//                if (llItem.visibility == View.VISIBLE) {
+//                    llItem.visibility = View.GONE
+//
+//
+//                } else {
+//                    llItem.visibility = View.VISIBLE
+//                }
                 getChildView(listPosition, expandedListPosition, isLastChild, convertView, parent)
             }
         } catch (e: Exception) {
@@ -183,7 +172,7 @@ class CustomExpandableListAdapter(
             convertView = layoutInflater.inflate(R.layout.list_group, null)
         }
         val listTitleTextView = convertView?.findViewById<View>(R.id.listTitle) as TextView
-        listTitleTextView.setTypeface(null, Typeface.BOLD)
+//        listTitleTextView.setTypeface(null, Typeface.BOLD)
         listTitleTextView.text = listTitle
 
         convertView.findViewById<ImageView>(R.id.imgItemIcon).setImageResource(images[listPosition])

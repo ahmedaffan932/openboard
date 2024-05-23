@@ -2,58 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/fab_padding"
+        android:layout_marginBottom="@dimen/padding"
+        android:background="@drawable/bg_accent_bordered_less_rounded"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        android:paddingVertical="@dimen/padding"
-        android:paddingHorizontal="@dimen/fab_padding"
-        android:elevation="@dimen/less_padding"
-        android:layout_marginVertical="@dimen/less_padding"
-        android:layout_marginHorizontal="@dimen/fab_padding"
-        android:background="@drawable/bg_main_less_rounded">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imgItemIcon"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/listTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="@dimen/padding"
-            android:textColor="@color/accent"
-            android:textSize="@dimen/_11sdp"
-            app:layout_constraintStart_toEndOf="@+id/imgItemIcon"
-            android:elevation="@dimen/less_padding"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="@dimen/m_padding"
+            android:fontFamily="@font/poppins_regular"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
+            android:paddingBottom="10dp"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgItemIcon"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btnItemNext"
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:scaleType="fitCenter"
-            android:background="@drawable/bg_nothing_rounded_ripple"
+            android:layout_margin="@dimen/m_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:tint="@color/accent"
             app:srcCompat="@drawable/ic_baseline_navigate_next_24" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </LinearLayout>

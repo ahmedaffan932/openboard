@@ -57,15 +57,25 @@ class TranslateActivity : AppCompatActivity() {
         )
         setContentView(binding.root)
 
-        if (intent.getStringExtra(Misc.key) != null) {
-            if (intent.getStringExtra(Misc.key) != "") {
-                binding.etText.setText(intent.getStringExtra(Misc.key))
-                binding.llPBTranslateFrag.visibility = View.VISIBLE
-                Handler(Looper.getMainLooper()).postDelayed({
-                    jugarTranslation(binding.etText.text.toString())
-                }, 500)
-            }
-        }
+        Misc.isItemClicked = true
+
+        Ads.loadAndShowInterstitial(
+            this,
+            Ads.translateInt,
+            AdIds.interstitialAdIdAdMobTranslate,
+            object : InterstitialCallBack {
+                override fun onDismiss() {
+                    if (intent.getStringExtra(Misc.key) != null) {
+                        if (intent.getStringExtra(Misc.key) != "") {
+                            binding.etText.setText(intent.getStringExtra(Misc.key))
+                            binding.llPBTranslateFrag.visibility = View.VISIBLE
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                jugarTranslation(binding.etText.text.toString())
+                            }, 500)
+                        }
+                    }
+                }
+            })
 
         initializeAnimation()
 
@@ -75,35 +85,9 @@ class TranslateActivity : AppCompatActivity() {
             binding.btnClearText.visibility = View.VISIBLE
         }
 
-
-
-        Ads.loadAndShowInterstitial(
-            this,
-            Ads.translateInt,
-            AdIds.translateIntAdId,
-            object : InterstitialCallBack {
-                override fun onDismiss() {
-                    val handler = Handler()
-                    var count = 0
-                    val hint = getString(R.string.enter_some_text_to_translate)
-                    val runnable: Runnable by lazy {
-                        return@lazy object : Runnable {
-                            override fun run() {
-                                if (count < hint.length) {
-                                    binding.etText.hint = hint.substring(0, count)
-                                    count++
-                                    handler.postDelayed(this, 75);
-                                }
-                            }
-                        }
-                    }
-                    handler.post(runnable)
-                }
-            })
-
         Ads.loadAndShowNativeAd(
             this,
-            AdIds.translateNativeAdId,
+            AdIds.nativeAdIdAdMobTranslate,
             Ads.translateNative,
             binding.nativeAdFrameLayoutInBetween,
             if (Ads.translateNative.contains("splash")) R.layout.admob_native_splash else if (Ads.translateNative.contains(
@@ -268,8 +252,8 @@ class TranslateActivity : AppCompatActivity() {
                 val image = binding.btnSwitchLngs
                 image.startAnimation(rotate)
 
-                Misc.zoomOutView(binding.llLngToFrag, this, 150)
-                Misc.zoomOutView(binding.llLngFromFrag, this, 150)
+                Misc.zoomOutView(binding.llLanguageTo, this, 150)
+                Misc.zoomOutView(binding.llLanguageFrom, this, 150)
 
                 Handler().postDelayed({
                     val temp = Misc.getLanguageFrom(this)
@@ -284,8 +268,8 @@ class TranslateActivity : AppCompatActivity() {
                             jugarTranslation(binding.etText.text.toString())
                         }, 150)
                     }
-                    Misc.zoomInView(binding.llLngToFrag, this, 150)
-                    Misc.zoomInView(binding.llLngFromFrag, this, 150)
+                    Misc.zoomInView(binding.llLanguageTo, this, 150)
+                    Misc.zoomInView(binding.llLanguageFrom, this, 150)
 
                 }, 150)
             } else {
@@ -297,13 +281,13 @@ class TranslateActivity : AppCompatActivity() {
             }
         }
 
-        binding.llLngFromFrag.setOnClickListener {
+        binding.llLanguageFrom.setOnClickListener {
             val intent = Intent(this@TranslateActivity, LanguageSelectorActivity::class.java)
             intent.putExtra(Misc.lngTo, false)
             startActivityForResult(intent, lngSelectorRequestCode)
         }
 
-        binding.llLngToFrag.setOnClickListener {
+        binding.llLanguageTo.setOnClickListener {
             startActivityForResult(
                 Intent(
                     this@TranslateActivity, LanguageSelectorActivity::class.java
@@ -412,26 +396,25 @@ class TranslateActivity : AppCompatActivity() {
 
         binding.etText.clearFocus()
         KeyboardUtils.forceCloseKeyboard(binding.etText)
-//        manageTranslationInterstitial()
     }
 
     @SuppressLint("SetTextI18n")
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            binding.textViewLngFromFrag.text = resources.getString(R.string.detect)
+            binding.tvLanguageFrom.text = resources.getString(R.string.detect)
             binding.textLngFrom.text = resources.getString(R.string.detect)
-            binding.flagFromFrag.setImageResource(Misc.getFlag(this, "100"))
+            binding.flagFrom.setImageResource(Misc.getFlag(this, "100"))
         } else {
-            binding.textViewLngFromFrag.text = Locale(
+            binding.tvLanguageFrom.text = Locale(
                 Misc.getLanguageFrom(this)
             ).displayName
             binding.textLngFrom.text = Misc.getLanguageFrom(this)
 
-            binding.flagFromFrag.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
+            binding.flagFrom.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
         }
 
-        binding.flagToFrag.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
-        binding.textViewLngToFrag.text = Locale(
+        binding.flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
+        binding.tvLanguageTo.text = Locale(
             Misc.getLanguageTo(this)
         ).displayName
         binding.textLngTo.text = Misc.getLanguageTo(this)

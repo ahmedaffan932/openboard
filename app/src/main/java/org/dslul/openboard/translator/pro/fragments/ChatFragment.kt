@@ -27,6 +27,9 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.FragmentChatBinding
 import org.dslul.openboard.translator.pro.LanguageSelectorActivity
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.ads.AdIds
+import org.dslul.openboard.translator.pro.classes.ads.Ads
+import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobBannerAds
 import org.jsoup.Jsoup
 import java.net.URLEncoder
 import java.util.Locale
@@ -42,6 +45,14 @@ class ChatFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentChatBinding.inflate(layoutInflater, container, false)
+
+        AdmobBannerAds.loadCollapsibleBanner(
+            requireActivity(),
+            AdIds.collapsibleBannerAdIdAdChat,
+            Ads.chatBanner,
+            binding.llCollapsibleBanner
+        )
+
 
         binding.clLanguageFrom.setOnClickListener {
             val intent = Intent(requireActivity(), LanguageSelectorActivity::class.java)

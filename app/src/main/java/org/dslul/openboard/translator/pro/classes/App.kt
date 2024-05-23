@@ -11,6 +11,7 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.translator.pro.OnResumeActivity
+import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.classes.ads.admob.AppOpenAdManager
 
@@ -37,26 +38,43 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
             mFRC.fetchAndActivate().addOnCompleteListener { p0 ->
                 if (p0.isSuccessful) {
                     if (!BuildConfig.DEBUG) {
-                        Ads.splashInt = mFRC.getString("splashInt")
-                        Ads.exitNative = mFRC.getString("exitNative")
-                        Ads.translateInt = mFRC.getString("translateInt")
-                        Ads.phraseInt = mFRC.getString("phraseInt")
-                        Ads.phraseNative = mFRC.getString("phraseNative")
+                        Ads.chatBanner = mFRC.getString("chatBanner")
+                        Ads.languageSelectorBanner = mFRC.getString("languageSelectorBanner")
+                        Ads.splashNative = mFRC.getString("splashNative")
+                        Ads.cameraTranslationInt = mFRC.getString("cameraTranslationInt")
+                        Ads.exitInt = mFRC.getString("exitInt")
                         Ads.onBoardingNative = mFRC.getString("onBoardingNative")
-                        Misc.lifeTimePrice = mFRC.getString("lifeTimePrice")
+                        Ads.exitNative = mFRC.getString("exitNative")
+                        Ads.phraseInt = mFRC.getString("phraseInt")
+                        Ads.translateNative = mFRC.getString("translateNative")
                         Ads.dashboardNative = mFRC.getString("dashboardNative")
+                        Ads.splashInt = mFRC.getString("splashInt")
+                        Ads.translateInt = mFRC.getString("translateInt")
 
-                        try {
-                            Misc.showInterstitialAfter =
-                                mFRC.getString("showInterstitialAfter").toInt()
-                        } catch (e: Exception) {
-                            Misc.showInterstitialAfter = 1
-                        }
+                        Ads.isIntPreLoad = mFRC.getBoolean("isIntPreLoad")
+                        Ads.isNativeAdPreload = mFRC.getBoolean("isNativeAdPreload")
+                        Ads.isAppOpenAdEnabled = mFRC.getBoolean("isAppOpenAdEnabled")
                     }
                     mFRC.reset()
                     Misc.isRemoteConfigFetched.value = true
 
                     Log.d(Misc.logKey, p0.exception.toString())
+
+                    AdIds.mrecAdIdAd = mFRC.getString("mrecAdIdAd")
+                    AdIds.appOpenAdIdOne = mFRC.getString("appOpenAdIdOne")
+                    AdIds.nativeAdIdAdMobExit = mFRC.getString("nativeAdIdAdMobExit")
+                    AdIds.nativeAdIdAdMobTranslate = mFRC.getString("nativeAdIdAdMobTranslate")
+                    AdIds.nativeAdIdAdMobSplash = mFRC.getString("nativeAdIdAdMobSplash")
+                    AdIds.interstitialAdIdAdMobSplash = mFRC.getString("interstitialAdIdAdMobSplash")
+                    AdIds.interstitialAdIdAdMobPhrases = mFRC.getString("interstitialAdIdAdMobPhrases")
+                    AdIds.interstitialAdIdAdMobExit = mFRC.getString("interstitialAdIdAdMobExit")
+                    AdIds.interstitialAdIdAdMobTranslate = mFRC.getString("interstitialAdIdAdMobTranslate")
+                    AdIds.interstitialAdIdAdMobCameraTranslate = mFRC.getString("interstitialAdIdAdMobCameraTranslate")
+                    AdIds.collapsibleBannerAdIdAdChat = mFRC.getString("collapsibleBannerAdIdAdChat")
+                    AdIds.collapsibleBannerAdIdAdLanguages = mFRC.getString("collapsibleBannerAdIdAdLanguages")
+                    AdIds.collapsibleBannerAdIdAdOnboarding = mFRC.getString("collapsibleBannerAdIdAdOnboarding")
+
+                    AppOpenAdManager.loadAd(applicationContext, AdIds.appOpenAdIdOne)
                 } else {
                     Misc.isRemoteConfigFetched.value = true
                 }

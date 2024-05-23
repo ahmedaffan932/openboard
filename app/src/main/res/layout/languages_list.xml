@@ -33,7 +33,8 @@
             android:text="@string/textview"
             android:gravity="center_vertical"
             android:layout_height="wrap_content"
-            android:textColor="?attr/colorSecondary"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/black"
             android:paddingVertical="@dimen/fab_padding" />
 
         <TextView

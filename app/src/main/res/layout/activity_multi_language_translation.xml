@@ -94,7 +94,7 @@
         app:layout_constraintTop_toBottomOf="@id/llTopBar">
 
         <LinearLayout
-            android:id="@+id/llLngFromFrag"
+            android:id="@+id/llLanguageFrom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/less_padding"
@@ -105,7 +105,7 @@
             tools:targetApi="m">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/flagFromFrag"
+                android:id="@+id/flagFrom"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -113,7 +113,7 @@
                 app:shapeAppearanceOverlay="@style/roundedCorners" />
 
             <TextView
-                android:id="@+id/textViewLngFromFrag"
+                android:id="@+id/tvLanguageFrom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -127,7 +127,7 @@
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/llLngToFrag"
+            android:id="@+id/llLanguageTo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/less_padding"

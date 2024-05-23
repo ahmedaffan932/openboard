@@ -14,20 +14,19 @@ import android.view.animation.RotateAnimation
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import org.dslul.openboard.translator.pro.classes.Misc
-
-import kotlinx.android.synthetic.main.activity_phrasebook_detailed.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.databinding.ActivityPhrasebookDetailedBinding
 import org.dslul.openboard.translator.pro.adaptor.CustomExpandableListAdapter
 import org.json.JSONObject
 import java.util.*
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "UNREACHABLE_CODE")
 class PhrasebookDetailedActivity : AppCompatActivity() {
-
+    private lateinit var binding: ActivityPhrasebookDetailedBinding
     private val expandableListTitle: ArrayList<String> = ArrayList()
     private val expandableListTitleTranslation: ArrayList<String> = ArrayList()
     private lateinit var expandableListAdapter: ExpandableListAdapter
@@ -95,7 +94,8 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        setContentView(R.layout.activity_phrasebook_detailed)
+        binding = ActivityPhrasebookDetailedBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         Misc.isActivityCreatingFirstTime = true
 
@@ -134,11 +134,11 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
             }
         }
 
-        btnBack.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             onBackPressed()
         }
 
-        llLanguageFrom.setOnClickListener {
+        binding.llLanguageFrom.setOnClickListener {
             val intent = Intent(
                 this@PhrasebookDetailedActivity,
                 LanguageSelectorActivity::class.java
@@ -148,7 +148,7 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
             startActivityForResult(intent, lngSelectorLngFrom)
         }
 
-        llLanguageTo.setOnClickListener {
+        binding.llLanguageTo.setOnClickListener {
             startActivityForResult(
                 Intent(
                     this@PhrasebookDetailedActivity,
@@ -158,7 +158,7 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
             )
         }
 
-        ivSwitchLanguages.setOnClickListener {
+        binding.ivSwitchLanguages.setOnClickListener {
             if (Misc.getLanguageFrom(this) != Misc.defaultLanguage) {
                 val rotate = RotateAnimation(
                     0F, 180F, Animation.RELATIVE_TO_SELF,
@@ -167,20 +167,20 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
                 rotate.duration = 100
                 rotate.interpolator = LinearInterpolator()
 
-                val image = ivSwitchLanguages
+                val image = binding.ivSwitchLanguages
                 image.startAnimation(rotate)
 
                 val temp = Misc.getLanguageFrom(this)
                 Misc.setLanguageFrom(this, Misc.getLanguageTo(this))
                 Misc.setLanguageTo(this, temp)
 
-                Misc.zoomOutView(llLanguageFrom, this, 150)
-                Misc.zoomOutView(llLanguageTo, this, 150)
+                Misc.zoomOutView(binding.llLanguageFrom, this, 150)
+                Misc.zoomOutView(binding.llLanguageTo, this, 150)
 
                 Handler().postDelayed({
                     setSelectedLng()
-                    Misc.zoomInView(llLanguageFrom, this, 150)
-                    Misc.zoomInView(llLanguageTo, this, 150)
+                    Misc.zoomInView(binding.llLanguageFrom, this, 150)
+                    Misc.zoomInView(binding.llLanguageTo, this, 150)
                 }, 150)
 
 
@@ -218,19 +218,77 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            tvLanguageFrom.text =
-                "English"
+            binding.tvLanguageFrom.text = resources.getString(R.string.detect)
+            binding.flagFrom.setImageResource(Misc.getFlag(this, "100"))
         } else {
-            tvLanguageFrom.text = Locale(
+            binding.tvLanguageFrom.text = Locale(
                 Misc.getLanguageFrom(this)
             ).displayName
+
+            binding.flagFrom.setImageResource(
+                Misc.getFlag(
+                    this,
+                    Misc.getLanguageFrom(this)
+                )
+            )
         }
-        tvLanguageTo.text = Locale(
+
+        binding.flagTo.setImageResource(
+            Misc.getFlag(
+                this,
+                Misc.getLanguageTo(this)
+            )
+        )
+        binding.tvLanguageTo.text = Locale(
             Misc.getLanguageTo(this)
         ).displayName
+
+
+        binding.llLanguageFrom.setOnClickListener {
+            val intent = Intent(this, LanguageSelectorActivity::class.java)
+            intent.putExtra(Misc.lngTo, false)
+            startActivity(intent)
+        }
+
+        binding.llLanguageTo.setOnClickListener {
+            startActivity(Intent(this, LanguageSelectorActivity::class.java))
+        }
+
+        binding.ivSwitchLanguages.setOnClickListener {
+            if (Misc.getLanguageFrom(this) != Misc.defaultLanguage) {
+                val rotate = RotateAnimation(
+                    0F, 180F, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f
+                )
+                rotate.duration = 150
+                rotate.interpolator = LinearInterpolator()
+                val image = binding.ivSwitchLanguages
+                image.startAnimation(rotate)
+
+                Misc.zoomOutView(binding.llLanguageTo, this, 150)
+                Misc.zoomOutView(binding.llLanguageFrom, this, 150)
+
+                Handler().postDelayed({
+                    val temp = Misc.getLanguageFrom(this)
+                    Misc.setLanguageFrom(this, Misc.getLanguageTo(this))
+                    Misc.setLanguageTo(this, temp)
+
+                    setSelectedLng()
+
+                    Misc.zoomInView(binding.llLanguageTo, this, 150)
+                    Misc.zoomInView(binding.llLanguageFrom, this, 150)
+
+                }, 150)
+            } else {
+                Toast.makeText(
+                    this,
+                    resources.getString(R.string.please_select_language_you_want_to_translate),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
     }
 
     //@DelicateCoroutinesApi
@@ -320,8 +378,8 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
                             expandableListDetail,
                             imagesResId
                         )
-                        expandableListView!!.setAdapter(expandableListAdapter)
-                        expandableListView!!.setGroupIndicator(null)
+                        binding.expandableListView!!.setAdapter(expandableListAdapter)
+                        binding.expandableListView!!.setGroupIndicator(null)
                     } catch (e: java.lang.Exception) {
                         e.printStackTrace()
                         Toast.makeText(

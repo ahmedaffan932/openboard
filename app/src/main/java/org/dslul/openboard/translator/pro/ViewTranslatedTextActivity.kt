@@ -5,7 +5,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -19,17 +18,16 @@ import android.view.animation.RotateAnimation
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import com.google.gson.Gson
 import com.rw.keyboardlistener.KeyboardUtils
-import kotlinx.android.synthetic.main.activity_view_translated_text.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.databinding.ActivityViewTranslatedTextBinding
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
-import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.jsoup.Jsoup
 import java.net.URLEncoder
 import java.util.Locale
@@ -42,6 +40,7 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
     private val speechRequestCode = 0
     private var textToSpeechLngTo: TextToSpeech? = null
     private var translationsCount = 0
+    lateinit var binding: ActivityViewTranslatedTextBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,19 +48,18 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        setContentView(R.layout.activity_view_translated_text)
+        binding = ActivityViewTranslatedTextBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         Misc.setIsFirstTime(this, false)
 
         initializeAnimation()
 
-        translationsCount = Misc.showInterstitialAfter
-
         Misc.isActivityCreatingFirstTime = true
 
         if (intent?.action == Intent.ACTION_SEND && intent?.type == "text/plain") {
-            textViewTextFrag.setText(intent.getStringExtra(Intent.EXTRA_TEXT) ?: "")
-            btnClearText.visibility = View.VISIBLE
+            binding.etText.setText(intent.getStringExtra(Intent.EXTRA_TEXT) ?: "")
+            binding.btnClearText.visibility = View.VISIBLE
         }
 
         Misc.isActivityCreatingFirstTime = true
@@ -73,7 +71,7 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
             return@lazy object : Runnable {
                 override fun run() {
                     if (count < hint.length) {
-                        textViewTextFrag.hint = hint.substring(0, count)
+                        binding.etText.hint = hint.substring(0, count)
                         count++
                         handler.postDelayed(this, 75);
                     }
@@ -91,16 +89,16 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
                 ).show()
                 finish()
             } else {
-                textViewTextFrag.setText(intent.getStringExtra(Misc.key))
-                jugarTranslation(textViewTextFrag.text.toString())
+                binding.etText.setText(intent.getStringExtra(Misc.key))
+                jugarTranslation(binding.etText.text.toString())
             }
         }, 100)
 
-        textViewTextFrag.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+        binding.etText.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
         }
 
 
-        scrollView.isSmoothScrollingEnabled = true
+        binding.scrollView.isSmoothScrollingEnabled = true
         KeyboardUtils.addKeyboardToggleListener(this) { isVisible ->
             if (isVisible) {
                 if (!isBtnTranslateVisible) {
@@ -108,117 +106,107 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
                 }
 
             } else {
-                textViewTextFrag.clearFocus()
-                if (textViewTextFrag.text.toString() == "") {
+                binding.etText.clearFocus()
+                if (binding.etText.text.toString() == "") {
 
                     isBtnTranslateVisible = false
                 }
             }
         }
 
-        textViewTextTranslatedFrag.doOnTextChanged { _, _, _, _ ->
-            llPBTranslateFrag.visibility = View.GONE
+        binding.textViewTextTranslatedFrag.doOnTextChanged { _, _, _, _ ->
+            binding.llPBTranslateFrag.visibility = View.GONE
         }
 
-        btnCopyTextTranslatedFrag.setOnClickListener {
+        binding.btnCopyTextTranslatedFrag.setOnClickListener {
             val clipboard: ClipboardManager =
                 getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText(
-                "Camera Translator", textViewTextTranslatedFrag.text
+                "Camera Translator", binding.textViewTextTranslatedFrag.text
             )
             clipboard.setPrimaryClip(clip)
             Toast.makeText(this, "Copied", Toast.LENGTH_SHORT).show()
         }
 
-        btnClearTranslation.setOnClickListener {
-            Misc.zoomOutView(llTranslatedText, this, 150)
-            Handler().postDelayed({
-                llTranslatedText.visibility = View.GONE
-            }, 150)
-
-            isBtnTranslateVisible = true
-            isLLTranslateVisible = false
-        }
-
-        textViewTextFrag.doOnTextChanged { text, start, before, count ->
-            isBtnTranslateVisible = if (textViewTextFrag.text.toString() == "") {
-                Misc.zoomOutView(btnClearText, this, 150)
+        binding.etText.doOnTextChanged { text, start, before, count ->
+            isBtnTranslateVisible = if (binding.etText.text.toString() == "") {
+                Misc.zoomOutView(binding.btnClearText, this, 150)
                 Handler().postDelayed({
-                    btnClearText.visibility = View.INVISIBLE
+                    binding.btnClearText.visibility = View.INVISIBLE
                 }, 150)
                 false
             } else {
-                if (before == 0) Misc.zoomInView(btnClearText, this, 150)
+                if (before == 0) Misc.zoomInView(binding.btnClearText, this, 150)
                 true
             }
         }
 
-        btnBack.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             onBackPressed()
         }
 
-        btnClearText.setOnClickListener {
-            textViewTextFrag.setText("")
-            textViewTextTranslatedFrag.text = ""
-            btnClearText.visibility = View.INVISIBLE
-            Misc.zoomOutView(btnClearText, this, 150)
+        binding.btnClearText.setOnClickListener {
+            binding.etText.setText("")
+            binding.textViewTextTranslatedFrag.text = ""
+            binding.btnClearText.visibility = View.INVISIBLE
+            Misc.zoomOutView(binding.btnClearText, this, 150)
 //            Misc.zoomOutView(btnTranslate, this, 150)
             Handler().postDelayed({
-                btnClearText.visibility = View.INVISIBLE
+                binding.btnClearText.visibility = View.INVISIBLE
 //                btnTranslate.visibility = View.INVISIBLE
 
             }, 150)
 
-            textViewTextFrag.clearFocus()
+            binding.etText.clearFocus()
 
-            KeyboardUtils.forceCloseKeyboard(textViewTextFrag)
+            KeyboardUtils.forceCloseKeyboard(binding.etText)
 
 //            llText.setBackgroundResource(R.drawable.bg_main_less_rounded)
 
             if (isLLTranslateVisible) {
-                Misc.zoomOutView(llTranslatedText, this, 150)
+                Misc.zoomOutView(binding.llTranslatedText, this, 150)
 
                 Handler().postDelayed({
-                    llTranslatedText.visibility = View.GONE
+                    binding.llTranslatedText.visibility = View.GONE
                 }, 150)
                 isLLTranslateVisible = false
             }
         }
 
-        btnSpeakTranslation.setOnClickListener {
+        binding.btnSpeakTranslation.setOnClickListener {
             speakLngTo()
         }
 
-        btnShareTranslation.setOnClickListener {
-            if (textViewTextTranslatedFrag.text != "") {
+        binding.btnShareTranslation.setOnClickListener {
+            if (binding.textViewTextTranslatedFrag.text != "") {
                 val sharingIntent = Intent(Intent.ACTION_SEND)
                 sharingIntent.type = "text/plain"
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, textViewTextTranslatedFrag.text)
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, binding.textViewTextTranslatedFrag.text)
                 startActivity(Intent.createChooser(sharingIntent, "Share."))
             }
         }
 
-        btnTranslate.setOnClickListener {
-            if (textViewTextFrag.text.toString() != "") {
-                llPBTranslateFrag.visibility = View.VISIBLE
+        binding.btnTranslate.setOnClickListener {
+            if (binding.etText.text.toString() != "") {
+                binding.llPBTranslateFrag.visibility = View.VISIBLE
                 Handler().postDelayed({
-                    jugarTranslation(textViewTextFrag.text.toString())
+                    jugarTranslation(binding.etText.text.toString())
                 }, 100)
             }
         }
 
-        btnSwitchLngs.setOnClickListener {
+        binding.btnSwitchLngs.setOnClickListener {
             if (Misc.getLanguageFrom(this) != Misc.defaultLanguage) {
                 val rotate = RotateAnimation(
                     0F, 180F, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f
                 )
                 rotate.duration = 150
                 rotate.interpolator = LinearInterpolator()
-                val image = btnSwitchLngs
+                val image = binding.btnSwitchLngs
                 image.startAnimation(rotate)
 
-                Misc.zoomOutView(llLngTo, this, 150)
-                Misc.zoomOutView(llLngFrom, this, 150)
+                Misc.zoomOutView(binding.llLanguageTo, this, 150)
+                Misc.zoomOutView(binding.llLanguageFrom, this, 150)
 
                 Handler().postDelayed({
                     val temp = Misc.getLanguageFrom(this)
@@ -227,14 +215,14 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
 
                     setSelectedLng()
 
-                    if (textViewTextFrag.text.toString() != "") {
-                        llPBTranslateFrag.visibility = View.VISIBLE
+                    if (binding.etText.text.toString() != "") {
+                        binding.llPBTranslateFrag.visibility = View.VISIBLE
                         Handler().postDelayed({
-                            jugarTranslation(textViewTextFrag.text.toString())
+                            jugarTranslation(binding.etText.text.toString())
                         }, 150)
                     }
-                    Misc.zoomInView(llLngTo, this, 150)
-                    Misc.zoomInView(llLngFrom, this, 150)
+                    Misc.zoomInView(binding.llLanguageTo, this, 150)
+                    Misc.zoomInView(binding.llLanguageFrom, this, 150)
 
                 }, 150)
             } else {
@@ -244,13 +232,13 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
             }
         }
 
-        llLngFrom.setOnClickListener {
+        binding.llLanguageFrom.setOnClickListener {
             val intent = Intent(this, LanguageSelectorActivity::class.java)
             intent.putExtra(Misc.lngTo, false)
             startActivityForResult(intent, lngSelectorRequestCode)
         }
 
-        llLngTo.setOnClickListener {
+        binding.llLanguageTo.setOnClickListener {
             startActivityForResult(
                 Intent(
                     this, LanguageSelectorActivity::class.java
@@ -259,7 +247,7 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
         }
 
 
-        textViewTextFrag.setOnEditorActionListener { _, actionId, _ ->
+        binding.etText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val inputManager: InputMethodManager =
                     getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -269,12 +257,12 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
                         this.currentFocus!!.windowToken, InputMethodManager.HIDE_NOT_ALWAYS
                     )
                 }
-                llPBTranslateFrag.visibility = View.VISIBLE
+                binding.llPBTranslateFrag.visibility = View.VISIBLE
 //                if (Misc.getPurchasedStatus(this)) {
-//                    translate(textViewTextFrag.text.toString())
+//                    translate(etText.text.toString())
 //                } else {
                 Handler().postDelayed({
-                    jugarTranslation(textViewTextFrag.text.toString())
+                    jugarTranslation(binding.etText.text.toString())
                 }, 1)
 //                }
                 true
@@ -284,11 +272,11 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
     }
 
     private fun initializeAnimation() {
-        Misc.zoomOutView(btnClearText, this, 0)
-        btnClearText.visibility = View.INVISIBLE
+        Misc.zoomOutView(binding.btnClearText, this, 0)
+        binding.btnClearText.visibility = View.INVISIBLE
 
-        Misc.zoomOutView(llTranslatedText, this, 0)
-        llTranslatedText.visibility = View.GONE
+        Misc.zoomOutView(binding.llTranslatedText, this, 0)
+        binding.llTranslatedText.visibility = View.GONE
     }
 
     @SuppressLint("SetTextI18n")
@@ -300,13 +288,13 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
                 "Please check your Internet connection and try again later.",
                 Toast.LENGTH_SHORT
             ).show()
-            llPBTranslateFrag.visibility = View.GONE
+            binding.llPBTranslateFrag.visibility = View.GONE
             return
         }
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            textLngFrom.text = "Detected"
+            binding.textLngFrom.text = "Detected"
         }
-        llPBTranslateFrag.visibility = View.VISIBLE
+        binding.llPBTranslateFrag.visibility = View.VISIBLE
         val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
@@ -333,7 +321,7 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
             GlobalScope.launch(Dispatchers.Main) {
                 try {
                     if (element.text().isNotBlank()) {
-                        textViewTextTranslatedFrag.text = element.text()
+                        binding.textViewTextTranslatedFrag.text = element.text()
                         saveInHistory(text, element.text())
                     } else {
                         showToast("Translation result is empty.")
@@ -342,11 +330,11 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
                     showToast("Some error occurred. Please try again.")
                     e.printStackTrace()
                 } finally {
-                    llPBTranslateFrag.visibility = View.GONE
+                    binding.llPBTranslateFrag.visibility = View.GONE
                 }
             }
         } catch (e: Exception) {
-            llPBTranslateFrag.visibility = View.GONE
+            binding.llPBTranslateFrag.visibility = View.GONE
             Toast.makeText(
                 this,
                 "Some error occurred in translation please try again later.",
@@ -363,23 +351,23 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
 
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            textViewLngFrom.text = "Detect"
-            textLngFrom.text = "Detect"
-            flagFrom.setImageResource(Misc.getFlag(this, "100"))
+            binding.tvLanguageFrom.text = "Detect"
+            binding.textLngFrom.text = "Detect"
+            binding.flagFrom.setImageResource(Misc.getFlag(this, "100"))
         } else {
-            textViewLngFrom.text = Locale(
+            binding.tvLanguageFrom.text = Locale(
                 Misc.getLanguageFrom(this)
             ).displayName
-            textLngFrom.text = Misc.getLanguageFrom(this)
+            binding.textLngFrom.text = Misc.getLanguageFrom(this)
 
-            flagFrom.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
+            binding.flagFrom.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
         }
 
-        flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
-        textViewLngTo.text = Locale(
+        binding.flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
+        binding.tvLanguageTo.text = Locale(
             Misc.getLanguageTo(this)
         ).displayName
-        textLngTo.text = Misc.getLanguageTo(this)
+        binding.textLngTo.text = Misc.getLanguageTo(this)
     }
 
     private fun saveInHistory(text: String, translation: String) {
@@ -404,20 +392,20 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
         }
         if (!isLLTranslateVisible) {
             Handler().postDelayed({
-                llTranslatedText.visibility = View.VISIBLE
-                Misc.zoomInView(llTranslatedText, this, 150)
+                binding.llTranslatedText.visibility = View.VISIBLE
+                Misc.zoomInView(binding.llTranslatedText, this, 150)
             }, 150)
 
 
             isLLTranslateVisible = true
         }
         Handler().postDelayed({
-            scrollView.smoothScrollTo(0, scrollView.height)
+            binding.scrollView.smoothScrollTo(0, binding.scrollView.height)
         }, 10)
 
 
-        textViewTextFrag.clearFocus()
-        KeyboardUtils.forceCloseKeyboard(textViewTextFrag)
+        binding.etText.clearFocus()
+        KeyboardUtils.forceCloseKeyboard(binding.etText)
 //        manageTranslationInterstitial()
     }
 
@@ -431,7 +419,7 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
                 textToSpeechLngTo?.language = Locale(Misc.getLanguageTo(this))
 
                 textToSpeechLngTo?.speak(
-                    textViewTextTranslatedFrag.text.toString(),
+                    binding.textViewTextTranslatedFrag.text.toString(),
                     TextToSpeech.QUEUE_FLUSH,
                     null
                 )

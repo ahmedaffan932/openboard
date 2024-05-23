@@ -56,7 +56,7 @@ object AdmobBannerAds {
 
     fun loadCollapsibleBanner(
         context: Activity,
-        adId: String = AdIds.collapsibleBannerAdIdAd,
+        adId: String = AdIds.collapsibleBannerAdIdAdOnboarding,
         remoteKey: String,
         view: LinearLayout,
         callBack: LoadAdCallBack? = null

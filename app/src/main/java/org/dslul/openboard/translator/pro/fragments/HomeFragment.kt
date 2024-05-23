@@ -22,11 +22,13 @@ import com.rw.keyboardlistener.KeyboardUtils
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.FragmentHomeBinding
 import org.dslul.openboard.translator.pro.DisplayHistoryActivity
+import org.dslul.openboard.translator.pro.EnableKeyboardActivity
 import org.dslul.openboard.translator.pro.LanguageSelectorActivity
 import org.dslul.openboard.translator.pro.SettingsActivity
 import org.dslul.openboard.translator.pro.TranslateActivity
 import org.dslul.openboard.translator.pro.adaptor.HistoryAdapter
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobMRECAds
@@ -59,6 +61,18 @@ class HomeFragment : Fragment() {
             }
         }
 
+        if (requireContext().isInputMethodSelected()) {
+            binding.btnKeyboard.visibility = View.GONE
+        }
+
+        binding.btnKeyboard.setOnClickListener {
+            if (requireContext().isInputMethodSelected()) {
+                Toast.makeText(requireContext(), "Keyboard is already enabled.", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                startActivity(Intent(requireContext(), EnableKeyboardActivity::class.java))
+            }
+        }
 
         binding.etText.doOnTextChanged { text, start, before, count ->
             isBtnTranslateVisible = if (binding.etText.text.toString() == "") {
@@ -111,14 +125,14 @@ class HomeFragment : Fragment() {
 
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(requireActivity()) == Misc.defaultLanguage) {
-            binding.textViewLngFromFrag.text = resources.getString(R.string.detect)
-            binding.flagFromFrag.setImageResource(Misc.getFlag(requireActivity(), "100"))
+            binding.tvLanguageFrom.text = resources.getString(R.string.detect)
+            binding.flagFrom.setImageResource(Misc.getFlag(requireActivity(), "100"))
         } else {
-            binding.textViewLngFromFrag.text = Locale(
+            binding.tvLanguageFrom.text = Locale(
                 Misc.getLanguageFrom(requireActivity())
             ).displayName
 
-            binding.flagFromFrag.setImageResource(
+            binding.flagFrom.setImageResource(
                 Misc.getFlag(
                     requireActivity(),
                     Misc.getLanguageFrom(requireActivity())
@@ -126,24 +140,24 @@ class HomeFragment : Fragment() {
             )
         }
 
-        binding.flagToFrag.setImageResource(
+        binding.flagTo.setImageResource(
             Misc.getFlag(
                 requireActivity(),
                 Misc.getLanguageTo(requireActivity())
             )
         )
-        binding.textViewLngToFrag.text = Locale(
+        binding.tvLanguageTo.text = Locale(
             Misc.getLanguageTo(requireActivity())
         ).displayName
 
 
-        binding.llLngFromFrag.setOnClickListener {
+        binding.llLanguageFrom.setOnClickListener {
             val intent = Intent(requireActivity(), LanguageSelectorActivity::class.java)
             intent.putExtra(Misc.lngTo, false)
             startActivity(intent)
         }
 
-        binding.llLngToFrag.setOnClickListener {
+        binding.llLanguageTo.setOnClickListener {
             startActivity(Intent(requireActivity(), LanguageSelectorActivity::class.java))
         }
 
@@ -157,8 +171,8 @@ class HomeFragment : Fragment() {
                 val image = binding.btnSwitchLngs
                 image.startAnimation(rotate)
 
-                Misc.zoomOutView(binding.llLngToFrag, requireActivity(), 150)
-                Misc.zoomOutView(binding.llLngFromFrag, requireActivity(), 150)
+                Misc.zoomOutView(binding.llLanguageTo, requireActivity(), 150)
+                Misc.zoomOutView(binding.llLanguageFrom, requireActivity(), 150)
 
                 Handler().postDelayed({
                     val temp = Misc.getLanguageFrom(requireActivity())
@@ -167,8 +181,8 @@ class HomeFragment : Fragment() {
 
                     setSelectedLng()
 
-                    Misc.zoomInView(binding.llLngToFrag, requireActivity(), 150)
-                    Misc.zoomInView(binding.llLngFromFrag, requireActivity(), 150)
+                    Misc.zoomInView(binding.llLanguageTo, requireActivity(), 150)
+                    Misc.zoomInView(binding.llLanguageFrom, requireActivity(), 150)
 
                 }, 150)
             } else {
@@ -251,17 +265,21 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         setSelectedLng()
-
-        val arr = ArrayList<TranslateHistoryClass>()
-        arr.add(
-            Misc.getHistory(requireActivity())[Misc.getHistory(requireActivity()).lastIndex]
-        )
-        adapter = HistoryAdapter(arr, requireActivity(), object : InterfaceHistory {
-            override fun onHistoryCrash() {
-                binding.clHistory.visibility = View.GONE
-            }
-        })
-        binding.rvHistory.layoutManager = LinearLayoutManager(requireActivity())
-        binding.rvHistory.adapter = adapter
+        try {
+            val arr = ArrayList<TranslateHistoryClass>()
+            arr.add(
+                Misc.getHistory(requireActivity())[Misc.getHistory(requireActivity()).lastIndex]
+            )
+            adapter = HistoryAdapter(arr, requireActivity(), object : InterfaceHistory {
+                override fun onHistoryCrash() {
+                    binding.clHistory.visibility = View.GONE
+                }
+            })
+            binding.rvHistory.layoutManager = LinearLayoutManager(requireActivity())
+            binding.rvHistory.adapter = adapter
+            binding.clHistory.visibility = View.VISIBLE
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }

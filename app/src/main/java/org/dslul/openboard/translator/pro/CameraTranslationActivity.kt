@@ -68,54 +68,8 @@ class CameraTranslationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera_translation)
 
-        Ads.showInterstitial(this, Ads.cameraTranslationInt, object : InterstitialCallBack{
-            override fun onDismiss() {
-                getCameraPermission()
-            }
-        })
-
-        Ads.showBannerAd(frameLayoutBanner, Ads.cameraTranslationBanner)
-
         btnBack.setOnClickListener {
             onBackPressed()
-        }
-
-        btnSwitchLngs.setOnClickListener {
-            if (Misc.getLanguageFrom(this) != Misc.defaultLanguage) {
-                val rotate = RotateAnimation(
-                    0F, 180F, Animation.RELATIVE_TO_SELF,
-                    0.5f, Animation.RELATIVE_TO_SELF, 0.5f
-                )
-                rotate.duration = 100
-                rotate.interpolator = LinearInterpolator()
-
-                val image = btnSwitchLngs
-                image.startAnimation(rotate)
-
-                val temp = Misc.getLanguageFrom(this)
-                Misc.setLanguageFrom(
-                    this,
-                    Misc.getLanguageTo(this)
-                )
-                Misc.setLanguageTo(this, temp)
-
-                if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-                    textViewLngFrom.text = resources.getString(R.string.detect)
-                    flagFrom.setImageResource(Misc.getFlag(this, "100"))
-                } else {
-                    textViewLngFrom.text =
-                        Locale(
-                            Misc.getLanguageFrom(this)
-                        ).displayName
-                    flagFrom.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
-                }
-                textViewLngTo.text =
-                    Locale(
-                        Misc.getLanguageTo(this)
-                    ).displayName
-                flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
-
-            }
         }
 
         btnFlashOCR.setOnClickListener {

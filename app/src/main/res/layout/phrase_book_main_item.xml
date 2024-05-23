@@ -11,17 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/bg_main_less_rounded"
+        android:background="@drawable/bg_accent_bordered_less_rounded"
         android:layout_marginBottom="@dimen/padding"
-        android:paddingHorizontal="@dimen/fab_padding"
-        app:layout_constraintBottom_toTopOf="@id/nativeAdFrameLayout"
-        android:paddingVertical="@dimen/padding">
+        app:layout_constraintBottom_toTopOf="@id/nativeAdFrameLayout">
 
         <ImageView
             android:id="@+id/imgPhraseMainItemIcon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:scaleType="fitCenter"
+            android:layout_marginStart="@dimen/m_padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,9 +30,10 @@
             android:id="@+id/tvPhraseBookMainItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/padding_10"
+            android:paddingStart="@dimen/m_padding"
             android:text="@string/app_name"
             android:textColor="@color/black"
+            android:fontFamily="@font/poppins_regular"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/imgPhraseMainItemIcon"
@@ -41,14 +41,15 @@
             tools:ignore="RtlSymmetry" />
 
         <ImageView
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
+            android:id="@+id/btnItemNext"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:scaleType="fitCenter"
+            android:layout_margin="@dimen/m_padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_navigate_next_24"
-            app:tint="@color/gray_700" />
+            app:srcCompat="@drawable/ic_baseline_navigate_next_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout

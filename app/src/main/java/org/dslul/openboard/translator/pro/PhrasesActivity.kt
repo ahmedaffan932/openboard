@@ -40,17 +40,7 @@ class PhrasesActivity : AppCompatActivity() {
         )
         setContentView(R.layout.activity_phrases)
 
-        Ads.showInterstitial(this, Ads.phraseInt)
-
         setSelectedLng()
-
-        btnBack.setOnClickListener {
-            onBackPressed()
-        }
-
-//        btnFavorite.setOnClickListener {
-//            startActivity(Intent(this@PhrasesActivity, DisplayFavoritesActivity::class.java))
-//        }
 
         llLanguageFrom.setOnClickListener {
             val intent = Intent(this@PhrasesActivity, LanguageSelectorActivity::class.java)

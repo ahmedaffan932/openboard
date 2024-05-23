@@ -249,29 +249,29 @@ class NewDashboardActivity : AppCompatActivity() {
 
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            binding.textViewLngFromFrag.text = resources.getString(R.string.detect)
-            binding.flagFromFrag.setImageResource(Misc.getFlag(this, "100"))
+            binding.tvLanguageFrom.text = resources.getString(R.string.detect)
+            binding.flagFrom.setImageResource(Misc.getFlag(this, "100"))
         } else {
-            binding.textViewLngFromFrag.text = Locale(
+            binding.tvLanguageFrom.text = Locale(
                 Misc.getLanguageFrom(this)
             ).displayName
 
-            binding.flagFromFrag.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
+            binding.flagFrom.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
         }
 
-        binding.flagToFrag.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
-        binding.textViewLngToFrag.text = Locale(
+        binding.flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
+        binding.tvLanguageTo.text = Locale(
             Misc.getLanguageTo(this)
         ).displayName
 
 
-        binding.llLngFromFrag.setOnClickListener {
+        binding.llLanguageFrom.setOnClickListener {
             val intent = Intent(this, LanguageSelectorActivity::class.java)
             intent.putExtra(Misc.lngTo, false)
             startActivity(intent)
         }
 
-        binding.llLngToFrag.setOnClickListener {
+        binding.llLanguageTo.setOnClickListener {
             startActivity(Intent(this, LanguageSelectorActivity::class.java))
         }
 
@@ -285,8 +285,8 @@ class NewDashboardActivity : AppCompatActivity() {
                 val image = binding.btnSwitchLngs
                 image.startAnimation(rotate)
 
-                Misc.zoomOutView(binding.llLngToFrag, this, 150)
-                Misc.zoomOutView(binding.llLngFromFrag, this, 150)
+                Misc.zoomOutView(binding.llLanguageTo, this, 150)
+                Misc.zoomOutView(binding.llLanguageFrom, this, 150)
 
                 Handler().postDelayed({
                     val temp = Misc.getLanguageFrom(this)
@@ -295,8 +295,8 @@ class NewDashboardActivity : AppCompatActivity() {
 
                     setSelectedLng()
 
-                    Misc.zoomInView(binding.llLngToFrag, this, 150)
-                    Misc.zoomInView(binding.llLngFromFrag, this, 150)
+                    Misc.zoomInView(binding.llLanguageTo, this, 150)
+                    Misc.zoomInView(binding.llLanguageFrom, this, 150)
 
                 }, 150)
             } else {

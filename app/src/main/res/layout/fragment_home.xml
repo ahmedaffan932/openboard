@@ -51,15 +51,18 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clTranslation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/fab_padding"
                 android:layout_marginTop="@dimen/fab_padding"
+                android:layout_marginBottom="@dimen/fab_padding"
                 android:background="@drawable/bg_translate_dashboard"
                 android:elevation="@dimen/less_padding"
                 android:transitionName="cl_translation"
+                app:layout_constraintBottom_toTopOf="@id/clHistory"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
@@ -74,7 +77,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <LinearLayout
-                        android:id="@+id/llLngFromFrag"
+                        android:id="@+id/llLanguageFrom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="@dimen/m_padding"
@@ -83,7 +86,7 @@
                         android:orientation="horizontal">
 
                         <com.google.android.material.imageview.ShapeableImageView
-                            android:id="@+id/flagFromFrag"
+                            android:id="@+id/flagFrom"
                             android:layout_width="@dimen/_24sdp"
                             android:layout_height="@dimen/_24sdp"
                             android:scaleType="centerCrop"
@@ -97,7 +100,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/textViewLngFromFrag"
+                                android:id="@+id/tvLanguageFrom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
@@ -145,7 +148,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/llLngToFrag"
+                        android:id="@+id/llLanguageTo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="@dimen/m_padding"
@@ -170,7 +173,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/textViewLngToFrag"
+                                android:id="@+id/tvLanguageTo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
@@ -189,7 +192,7 @@
                         </LinearLayout>
 
                         <com.google.android.material.imageview.ShapeableImageView
-                            android:id="@+id/flagToFrag"
+                            android:id="@+id/flagTo"
                             android:layout_width="@dimen/_24sdp"
                             android:layout_height="@dimen/_24sdp"
                             android:scaleType="centerCrop"
@@ -298,12 +301,14 @@
                 android:id="@+id/clHistory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_padding"
+                android:layout_marginHorizontal="@dimen/fab_padding"
+                android:layout_marginBottom="@dimen/fab_padding"
                 android:background="@drawable/bg_translate_dashboard"
                 android:elevation="@dimen/less_padding"
                 android:paddingHorizontal="@dimen/m_padding"
                 android:paddingTop="6dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="gone"
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@id/clTranslation">
@@ -343,8 +348,20 @@
         android:id="@+id/mrecFrameLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fab_padding"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    
+    <ImageView
+        android:id="@+id/btnKeyboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_keyboard"
+        android:layout_margin="@dimen/fab_padding"
+        android:padding="@dimen/m_padding"
+        android:background="@drawable/bg_rounded"
+        android:backgroundTint="@color/accent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_top_bar"
+        app:layout_constraintTop_toTopOf="parent"
         android:elevation="@dimen/padding">
 
         <ImageView
@@ -57,7 +58,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:animateLayoutChanges="true"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -106,7 +107,7 @@
                             app:layout_constraintTop_toTopOf="parent">
 
                             <LinearLayout
-                                android:id="@+id/llLngFromFrag"
+                                android:id="@+id/llLanguageFrom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginVertical="@dimen/m_padding"
@@ -115,7 +116,7 @@
                                 android:orientation="horizontal">
 
                                 <com.google.android.material.imageview.ShapeableImageView
-                                    android:id="@+id/flagFromFrag"
+                                    android:id="@+id/flagFrom"
                                     android:layout_width="@dimen/_24sdp"
                                     android:layout_height="@dimen/_24sdp"
                                     android:scaleType="centerCrop"
@@ -129,7 +130,7 @@
                                     android:orientation="vertical">
 
                                     <TextView
-                                        android:id="@+id/textViewLngFromFrag"
+                                        android:id="@+id/tvLanguageFrom"
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
                                         android:layout_weight="1"
@@ -178,7 +179,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/llLngToFrag"
+                                android:id="@+id/llLanguageTo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginVertical="@dimen/m_padding"
@@ -203,7 +204,7 @@
                                     android:orientation="vertical">
 
                                     <TextView
-                                        android:id="@+id/textViewLngToFrag"
+                                        android:id="@+id/tvLanguageTo"
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
                                         android:layout_weight="1"
@@ -222,7 +223,7 @@
                                 </LinearLayout>
 
                                 <com.google.android.material.imageview.ShapeableImageView
-                                    android:id="@+id/flagToFrag"
+                                    android:id="@+id/flagTo"
                                     android:layout_width="@dimen/_24sdp"
                                     android:layout_height="@dimen/_24sdp"
                                     android:scaleType="centerCrop"
@@ -272,6 +273,7 @@
                                     android:gravity="top"
                                     android:imeOptions="actionGo"
                                     android:inputType="textMultiLine"
+                                    android:hint="@string/enter_some_text_to_translate"
                                     android:minHeight="@dimen/_80sdp"
                                     android:overScrollMode="never"
                                     android:paddingHorizontal="@dimen/less_padding"
@@ -362,18 +364,16 @@
                         android:layout_marginTop="2dp"
                         android:background="@drawable/ads_bg"
                         android:elevation="@dimen/less_padding"
+                        android:layout_marginBottom="2dp"
                         android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"/>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/clTranslatedText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/fab_padding"
-                        android:layout_marginTop="2dp"
                         android:layout_marginBottom="@dimen/padding"
                         android:background="@drawable/bg_accent_border_rounded"
                         android:elevation="@dimen/less_padding"
@@ -519,4 +519,4 @@
             android:text="@string/translating"
             android:textColor="@color/accent" />
     </LinearLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

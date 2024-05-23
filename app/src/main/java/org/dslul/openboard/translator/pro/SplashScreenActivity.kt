@@ -41,7 +41,7 @@ class SplashScreenActivity : AppCompatActivity() {
         if (Ads.onBoardingNative.contains("collapsible")) {
             AdmobBannerAds.loadCollapsibleBanner(
                 this,
-                AdIds.collapsibleBannerAdIdAd,
+                AdIds.collapsibleBannerAdIdAdOnboarding,
                 Ads.onBoardingNative,
                 binding.llCollapsibleBanner
             )

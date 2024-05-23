@@ -1,6 +1,7 @@
 package org.dslul.openboard.translator.pro.classes.ads.admob
 
 import android.app.Activity
+import android.content.Context
 import android.util.Log
 import com.example.translatorguru.ads.admob.LoadAdCallBack
 import com.google.android.gms.ads.AdError
@@ -21,7 +22,7 @@ object AppOpenAdManager {
     private var loadTime: Long = 0
 
     fun loadAd(
-        context: Activity,
+        context: Context,
         adId: String = AdIds.appOpenAdIdOne,
         callBack: LoadAdCallBack? = null
     ) {

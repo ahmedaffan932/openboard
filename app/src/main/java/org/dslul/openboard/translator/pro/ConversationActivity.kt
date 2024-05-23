@@ -354,14 +354,6 @@ class ConversationActivity : AppCompatActivity() {
         handler.post(runnable)
     }
 
-    override fun onBackPressed() {
-        Ads.showInterstitial(this, Ads.phraseInt, object : InterstitialCallBack {
-            override fun onDismiss() {
-                finish()
-            }
-        })
-    }
-
     private fun speakLngTo(text: String = "") {
         textToSpeechLngTo = TextToSpeech(applicationContext) { i ->
             if (i == TextToSpeech.ERROR) {

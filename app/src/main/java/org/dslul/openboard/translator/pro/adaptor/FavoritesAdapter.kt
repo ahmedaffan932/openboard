@@ -142,7 +142,6 @@ class FavoritesAdapter(private var arr: ArrayList<TranslateHistoryClass>, val ac
         val btnShare: ImageButton = itemView.findViewById(R.id.btnShareHistory)
         val tvTranslation: TextView = itemView.findViewById(R.id.tvTranslationHistory)
         val btnFavoriteHistory: ImageButton = itemView.findViewById(R.id.btnFavoriteHistory)
-        val nativeAdFrameLayout: FrameLayout = itemView.findViewById(R.id.nativeAdFrameLayout)
     }
     private fun speak(text: String, lng: String) {
         textToSpeech = TextToSpeech(
