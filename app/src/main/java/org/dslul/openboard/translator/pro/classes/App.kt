@@ -41,40 +41,40 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
                         Ads.chatBanner = mFRC.getString("chatBanner")
                         Ads.languageSelectorBanner = mFRC.getString("languageSelectorBanner")
                         Ads.splashNative = mFRC.getString("splashNative")
-                        Ads.cameraTranslationInt = mFRC.getString("cameraTranslationInt")
                         Ads.exitInt = mFRC.getString("exitInt")
-                        Ads.onBoardingNative = mFRC.getString("onBoardingNative")
-                        Ads.exitNative = mFRC.getString("exitNative")
                         Ads.phraseInt = mFRC.getString("phraseInt")
+                        Ads.exitNative = mFRC.getString("exitNative")
                         Ads.translateNative = mFRC.getString("translateNative")
                         Ads.dashboardNative = mFRC.getString("dashboardNative")
+                        Ads.onBoardingNative = mFRC.getString("onBoardingNative")
+                        Ads.cameraTranslationInt = mFRC.getString("cameraTranslationInt")
                         Ads.splashInt = mFRC.getString("splashInt")
                         Ads.translateInt = mFRC.getString("translateInt")
 
                         Ads.isIntPreLoad = mFRC.getBoolean("isIntPreLoad")
                         Ads.isNativeAdPreload = mFRC.getBoolean("isNativeAdPreload")
                         Ads.isAppOpenAdEnabled = mFRC.getBoolean("isAppOpenAdEnabled")
+
+                        AdIds.mrecAdIdAd = mFRC.getString("mrecAdIdAd")
+                        AdIds.appOpenAdIdOne = mFRC.getString("appOpenAdIdOne")
+                        AdIds.nativeAdIdAdMobExit = mFRC.getString("nativeAdIdAdMobExit")
+                        AdIds.nativeAdIdAdMobTranslate = mFRC.getString("nativeAdIdAdMobTranslate")
+                        AdIds.nativeAdIdAdMobSplash = mFRC.getString("nativeAdIdAdMobSplash")
+                        AdIds.interstitialAdIdAdMobSplash = mFRC.getString("interstitialAdIdAdMobSplash")
+                        AdIds.interstitialAdIdAdMobPhrases = mFRC.getString("interstitialAdIdAdMobPhrases")
+                        AdIds.interstitialAdIdAdMobExit = mFRC.getString("interstitialAdIdAdMobExit")
+                        AdIds.interstitialAdIdAdMobTranslate = mFRC.getString("interstitialAdIdAdMobTranslate")
+                        AdIds.interstitialAdIdAdMobCameraTranslate = mFRC.getString("interstitialAdIdAdMobCameraTranslate")
+                        AdIds.collapsibleBannerAdIdAdChat = mFRC.getString("collapsibleBannerAdIdAdChat")
+                        AdIds.collapsibleBannerAdIdAdLanguages = mFRC.getString("collapsibleBannerAdIdAdLanguages")
+                        AdIds.collapsibleBannerAdIdAdOnboarding = mFRC.getString("collapsibleBannerAdIdAdOnboarding")
+
+                        AppOpenAdManager.loadAd(applicationContext, AdIds.appOpenAdIdOne)
+
                     }
+
                     mFRC.reset()
                     Misc.isRemoteConfigFetched.value = true
-
-                    Log.d(Misc.logKey, p0.exception.toString())
-
-                    AdIds.mrecAdIdAd = mFRC.getString("mrecAdIdAd")
-                    AdIds.appOpenAdIdOne = mFRC.getString("appOpenAdIdOne")
-                    AdIds.nativeAdIdAdMobExit = mFRC.getString("nativeAdIdAdMobExit")
-                    AdIds.nativeAdIdAdMobTranslate = mFRC.getString("nativeAdIdAdMobTranslate")
-                    AdIds.nativeAdIdAdMobSplash = mFRC.getString("nativeAdIdAdMobSplash")
-                    AdIds.interstitialAdIdAdMobSplash = mFRC.getString("interstitialAdIdAdMobSplash")
-                    AdIds.interstitialAdIdAdMobPhrases = mFRC.getString("interstitialAdIdAdMobPhrases")
-                    AdIds.interstitialAdIdAdMobExit = mFRC.getString("interstitialAdIdAdMobExit")
-                    AdIds.interstitialAdIdAdMobTranslate = mFRC.getString("interstitialAdIdAdMobTranslate")
-                    AdIds.interstitialAdIdAdMobCameraTranslate = mFRC.getString("interstitialAdIdAdMobCameraTranslate")
-                    AdIds.collapsibleBannerAdIdAdChat = mFRC.getString("collapsibleBannerAdIdAdChat")
-                    AdIds.collapsibleBannerAdIdAdLanguages = mFRC.getString("collapsibleBannerAdIdAdLanguages")
-                    AdIds.collapsibleBannerAdIdAdOnboarding = mFRC.getString("collapsibleBannerAdIdAdOnboarding")
-
-                    AppOpenAdManager.loadAd(applicationContext, AdIds.appOpenAdIdOne)
                 } else {
                     Misc.isRemoteConfigFetched.value = true
                 }
@@ -101,8 +101,6 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
             }
         }
     }
-
-    /** Show the ad if one isn't already showing. */
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
 

@@ -24,7 +24,7 @@ object Ads {
     var exitNative: String = "am_large_hctr"
     var phraseInt: String = "am"
     var translateNative: String = "am_large_hctr_bottom"
-    var dashboardNative: String = "am_small_lctr_collapsible_native"
+    var dashboardNative: String = "am"
     var splashInt: String = "am"
     var translateInt: String = "am"
 

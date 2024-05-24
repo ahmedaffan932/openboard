@@ -39,7 +39,6 @@ class PreSplashScreenActivity : AppCompatActivity() {
     private var isIntAdLoaded = false
     private var isNativeAdLoaded = false
     private var isStartButtonVisible = false
-    private lateinit var objDialog: Misc.LoadingAdDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,9 +76,12 @@ class PreSplashScreenActivity : AppCompatActivity() {
 
                         loadAds()
 
-                        object : CountDownTimer(8000, 3000) {
+                        object : CountDownTimer(8000, 1000) {
                             @SuppressLint("SetTextI18n")
                             override fun onTick(p0: Long) {
+                                if (isIntAdLoaded && isNativeAdLoaded) {
+                                    showStartButton()
+                                }
                             }
 
                             override fun onFinish() {
@@ -157,11 +159,11 @@ class PreSplashScreenActivity : AppCompatActivity() {
                 AdIds.interstitialAdIdAdMobSplash,
                 object : LoadAdCallBack {
                     override fun onLoaded() {
-                        showStartButton()
+                        isIntAdLoaded = true
                     }
 
                     override fun onFailed() {
-                        showStartButton()
+                        isIntAdLoaded = true
                     }
                 }
             )
@@ -173,7 +175,16 @@ class PreSplashScreenActivity : AppCompatActivity() {
             Ads.splashNative,
             binding.nativeAdFrameLayout,
             R.layout.admob_native_splash,
-            R.layout.shimmer_native_splash
+            R.layout.shimmer_native_splash,
+            object : LoadAdCallBack {
+                override fun onFailed() {
+                    isNativeAdLoaded = true
+                }
+
+                override fun onLoaded() {
+                    isNativeAdLoaded = true
+                }
+            }
         )
 
         AdmobMRECAds.loadMREC(this)
