@@ -64,6 +64,7 @@ import org.dslul.openboard.inputmethod.latin.suggestions.MoreSuggestionsView.Mor
 import org.dslul.openboard.translator.pro.classes.Misc;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
@@ -148,13 +149,16 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     public void onTextCopy() {
-        vibrateView(mClipboardKey, getContext(), false);
-        mClipboardKey.setColorFilter(ContextCompat.getColor(getContext(), R.color.accent), android.graphics.PorterDuff.Mode.SRC_IN);
+        try {
+            vibrateView(mClipboardKey, getContext(), false);
+            mClipboardKey.setColorFilter(ContextCompat.getColor(getContext(), R.color.accent), android.graphics.PorterDuff.Mode.SRC_IN);
 
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            mClipboardKey.setColorFilter(ContextCompat.getColor(getContext(), R.color.gray_800), android.graphics.PorterDuff.Mode.SRC_IN);
-        }, 1000L);
-
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                mClipboardKey.setColorFilter(ContextCompat.getColor(getContext(), R.color.gray_800), android.graphics.PorterDuff.Mode.SRC_IN);
+            }, 1000L);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -555,19 +559,17 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     @Override
     protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
-        // Called by the framework when the size is known. Show the important notice if applicable.
-        // This may be overriden by showing suggestions later, if applicable.
     }
 
     private void setSelectedLng(Context context) {
-        mTVLngFrom.setText(Misc.INSTANCE.getLanguageFromForKB(context));
+        mTVLngFrom.setText(new Locale(Misc.INSTANCE.getLanguageFrom(context)).getDisplayName());
         if (Misc.INSTANCE.getLanguageFrom(context).equals(Misc.defaultLanguage)) {
             flagFrom.setImageResource(Misc.INSTANCE.getFlag(context, "100"));
         } else {
             flagFrom.setImageResource(Misc.INSTANCE.getFlag(context, Misc.INSTANCE.getLanguageFrom(context)));
         }
 
-        mTVLngTo.setText(Misc.INSTANCE.getLanguageToForKB(context));
+        mTVLngTo.setText(new Locale(Misc.INSTANCE.getLanguageTo(context)).getDisplayName());
         flagTo.setImageResource(Misc.INSTANCE.getFlag(context, Misc.INSTANCE.getLanguageTo(context)));
     }
 }

@@ -660,5 +660,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="enter_some_text_to_translate">Enter some text to translate.</string>
     <string name="please_cehck_your_internet">Please check your internet and try again.</string>
     <string name="some_error_occurred_in_translation">Sorry, some error occured in translation.</string>
+    <string name="some_error_occurred_in_translation_please_try_again_later">Some error occurred in translation please try again later.</string>
 
 </resources>

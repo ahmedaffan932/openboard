@@ -51,19 +51,19 @@ class CameraFragment : Fragment() {
             try {
                 val fileUri = data!!.data!!
                 CameraMisc.fileUri = fileUri.data!!
-                if (Misc.checkInternetConnection(requireContext())) {
-                    val intent =
-                        Intent(requireContext(), OCRActivity::class.java)
-                    intent.putExtra(CameraMisc.uri, fileUri.data?.path.toString())
-                    intent.putExtra(CameraMisc.typeGallery, true)
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(
-                        requireContext(),
-                        resources.getString(R.string.please_check_your_internet_connection_and_try_again),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+//                if (Misc.checkInternetConnection(requireContext())) {
+                val intent =
+                    Intent(requireContext(), OCRActivity::class.java)
+                intent.putExtra(CameraMisc.uri, fileUri.data?.path.toString())
+                intent.putExtra(CameraMisc.typeGallery, true)
+                startActivity(intent)
+//                } else {
+//                    Toast.makeText(
+//                        requireContext(),
+//                        resources.getString(R.string.please_check_your_internet_connection_and_try_again),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -76,11 +76,16 @@ class CameraFragment : Fragment() {
         binding = FragmentCameraBinding.inflate(layoutInflater, container, false)
         Misc.isItemClicked = true
 
-        Ads.loadAndShowInterstitial(requireActivity(),Ads.cameraTranslationInt, AdIds.interstitialAdIdAdMobCameraTranslate, object : InterstitialCallBack{
-            override fun onDismiss() {
-                getCameraPermission()
+        Ads.loadAndShowInterstitial(
+            requireActivity(),
+            Ads.cameraTranslationInt,
+            AdIds.interstitialAdIdAdMobCameraTranslate,
+            object : InterstitialCallBack {
+                override fun onDismiss() {
+                    getCameraPermission()
+                }
             }
-        })
+        )
 
         binding.btnFlashOCR.setOnClickListener {
             requireContext().setFlash(!requireContext().getFlash())
@@ -222,19 +227,19 @@ class CameraFragment : Fragment() {
 
                             binding.ocrFragmentPB.visibility =
                                 View.GONE
-                            if (Misc.checkInternetConnection(requireContext())) {
-                                val intent =
-                                    Intent(requireContext(), OCRActivity::class.java)
-                                intent.putExtra(CameraMisc.uri, imagePath)
-                                intent.putExtra(CameraMisc.typeGallery, false)
-                                startActivity(intent)
-                            } else {
-                                Toast.makeText(
-                                    requireContext(),
-                                    resources.getString(R.string.please_check_your_internet_connection_and_try_again),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+//                            if (Misc.checkInternetConnection(requireContext())) {
+                            val intent =
+                                Intent(requireContext(), OCRActivity::class.java)
+                            intent.putExtra(CameraMisc.uri, imagePath)
+                            intent.putExtra(CameraMisc.typeGallery, false)
+                            startActivity(intent)
+//                            } else {
+//                                Toast.makeText(
+//                                    requireContext(),
+//                                    resources.getString(R.string.please_check_your_internet_connection_and_try_again),
+//                                    Toast.LENGTH_SHORT
+//                                ).show()
+//                            }
                         }
                     }
                 )
@@ -250,12 +255,23 @@ class CameraFragment : Fragment() {
             binding.flagFrom.setImageResource(Misc.getFlag(requireActivity(), "100"))
 
         } else {
-            binding.tvLanguageFrom.text = Locale(Misc.getLanguageFrom(requireActivity())).displayName
-            binding.flagFrom.setImageResource(Misc.getFlag(requireActivity(), Misc.getLanguageFrom(requireActivity())))
+            binding.tvLanguageFrom.text =
+                Locale(Misc.getLanguageFrom(requireActivity())).displayName
+            binding.flagFrom.setImageResource(
+                Misc.getFlag(
+                    requireActivity(),
+                    Misc.getLanguageFrom(requireActivity())
+                )
+            )
         }
 
         binding.tvLanguageTo.text = Locale(Misc.getLanguageTo(requireActivity())).displayName
-        binding.flagTo.setImageResource(Misc.getFlag(requireActivity(), Misc.getLanguageTo(requireActivity())))
+        binding.flagTo.setImageResource(
+            Misc.getFlag(
+                requireActivity(),
+                Misc.getLanguageTo(requireActivity())
+            )
+        )
     }
 
     private fun getStorageReadPermission(): Boolean {

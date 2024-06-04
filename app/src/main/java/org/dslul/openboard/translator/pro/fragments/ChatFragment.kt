@@ -27,9 +27,11 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.FragmentChatBinding
 import org.dslul.openboard.translator.pro.LanguageSelectorActivity
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.MiscTranslate
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobBannerAds
+import org.dslul.openboard.translator.pro.interfaces.TranslationInterface
 import org.jsoup.Jsoup
 import java.net.URLEncoder
 import java.util.Locale
@@ -237,7 +239,7 @@ class ChatFragment : Fragment() {
         val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
-        val encoded = URLEncoder.encode(text, "utf-8")
+        URLEncoder.encode(text, "utf-8")
 
         var fromCode = if (Misc.getLanguageFrom(requireActivity()) == Misc.defaultLanguage) ""
         else if (Misc.getLanguageFrom(requireActivity()) == "zh") "zh-CN"
@@ -259,7 +261,53 @@ class ChatFragment : Fragment() {
             fromCode = temp
         }
 
-        translateAsync(fromCode, toCode, encoded, isLanguageTo)
+        MiscTranslate.offlineTranslation(
+            requireContext(),
+            fromCode,
+            toCode,
+            text,
+            object : TranslationInterface {
+                override fun onTranslate(translation: String) {
+                    setText(
+                        if (isLanguageTo) {
+                            speakLngFrom(translation)
+                            binding.tvTextFrom
+                        } else {
+                            speakLngTo(translation)
+                            binding.tvTextTo
+                        }, translation
+                    )
+                    binding.llPBTranslateFrag.visibility = View.GONE
+                }
+
+                override fun onFailed() {
+                    MiscTranslate.onlineTranslation(
+                        requireContext(),
+                        fromCode,
+                        toCode,
+                        text,
+                        object : TranslationInterface {
+                            override fun onTranslate(translation: String) {
+                                setText(
+                                    if (isLanguageTo) {
+                                        speakLngFrom(translation)
+                                        binding.tvTextFrom
+                                    } else {
+                                        speakLngTo(translation)
+                                        binding.tvTextTo
+                                    }, translation
+                                )
+                                binding.llPBTranslateFrag.visibility = View.GONE
+                            }
+
+                            override fun onFailed() {
+                                handleTranslationError()
+                            }
+                        })
+                }
+            })
+
+//        translateAsync(fromCode, toCode, encoded, isLanguageTo)
     }
 
     private fun translateAsync(

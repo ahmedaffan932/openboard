@@ -247,45 +247,9 @@ class ConversationActivity : AppCompatActivity() {
         }
 
 
-//        try {
-//            val doc =
-//                Jsoup.connect("https://translate.google.com/m?hl=en&sl=$fromCode&tl=$toCode&q=$encoded")
-//                    .get()
-//
-//            val element = doc.getElementsByClass("result-container")
-//
-//            if (element.text() != "" && !TextUtils.isEmpty(element.text())) {
-//                this.runOnUiThread {
-//                    Log.d(Misc.logKey, "Element: ${element.text()}")
-//                    setText(
-//                        if (isLanguageTo) {
-//                            tvTextFrom
-//                        } else {
-//                            tvTextTo
-//                        }, element.text()
-//                    )
-//                    llPBTranslateFrag.visibility = View.GONE
-////                    saveInHistory(text, element.text())
-//                }
-//            } else {
-//                llPBTranslateFrag.visibility = View.GONE
-//                Toast.makeText(
-//                    this,
-//                    resources.getString(R.string.sorry_some_erroe_occurred_please_try_againg),
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//                Log.e(Misc.logKey, "its empty")
-//            }
-//        } catch (e: Exception) {
-//            llPBTranslateFrag.visibility = View.GONE
-//            Toast.makeText(
-//                this,
-//                resources.getString(R.string.sorry_some_erroe_occurred_please_try_againg),
-//                Toast.LENGTH_SHORT
-//            ).show()
-//        }
 
         translateAsync(fromCode, toCode, encoded, isLanguageTo)
+
     }
 
     private fun translateAsync(

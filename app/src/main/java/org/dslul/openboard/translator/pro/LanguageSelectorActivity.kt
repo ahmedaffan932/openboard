@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -14,7 +15,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
+import com.google.mlkit.common.model.RemoteModelManager
 import com.google.mlkit.nl.translate.TranslateLanguage
+import com.google.mlkit.nl.translate.TranslateRemoteModel
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityLanguageSelectorBinding
 import org.dslul.openboard.translator.pro.adaptor.LanguagesAdapter
@@ -81,14 +84,50 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
             binding.textViewRecentlyUsedLng.visibility = View.VISIBLE
         }
 
-
         binding.recyclerViewRecentLanguages.layoutManager = LinearLayoutManager(this)
-        binding.recyclerViewRecentLanguages.adapter =
-            LanguagesAdapter(arrRecent, intent.getBooleanExtra(Misc.lngTo, true), this)
-
         binding.recyclerViewLanguages.layoutManager = LinearLayoutManager(this)
-        adapter = LanguagesAdapter(arr, intent.getBooleanExtra(Misc.lngTo, true), this)
-        binding.recyclerViewLanguages.adapter = adapter
+
+        val modelManager = RemoteModelManager.getInstance()
+        modelManager.getDownloadedModels(TranslateRemoteModel::class.java)
+            .addOnSuccessListener { models ->
+                val downloadedLanguages = models.map { it.language }
+
+                binding.recyclerViewRecentLanguages.adapter =
+                    LanguagesAdapter(
+                        arrRecent,
+                        intent.getBooleanExtra(Misc.lngTo, true),
+                        this,
+                        downloadedLanguages
+                    )
+
+                binding.recyclerViewLanguages.adapter =
+                    LanguagesAdapter(
+                        arr,
+                        intent.getBooleanExtra(Misc.lngTo, true),
+                        this,
+                        downloadedLanguages
+                    )
+
+            }
+            .addOnFailureListener { exception ->
+                exception.printStackTrace()
+
+                binding.recyclerViewRecentLanguages.adapter =
+                    LanguagesAdapter(
+                        arrRecent,
+                        intent.getBooleanExtra(Misc.lngTo, true),
+                        this
+                    )
+
+                binding.recyclerViewLanguages.adapter =
+                    LanguagesAdapter(
+                        arr,
+                        intent.getBooleanExtra(Misc.lngTo, true),
+                        this
+                    )
+            }
+
+
 
         binding.btnBack.setOnClickListener {
             onBackPressed()
@@ -140,7 +179,7 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
                 ColorStateList.valueOf(resources.getColor(R.color.accent))
         } else {
             if (!intent.getBooleanExtra("isPhrasebook", false)) {
-                arr.add(Misc.defaultLanguage)
+//                arr.add(Misc.defaultLanguage)
             }
             binding.tvLanguageTo.backgroundTintList = binding.tvLanguageFrom.backgroundTintList
             binding.tvLanguageFrom.backgroundTintList =

@@ -638,8 +638,12 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
         mClipboardHistoryManager.onCreate();
         mClipboardHistoryManager.setHistoryChanged(() -> {
-            Log.d(Misc.logKey, "Ooo Yes");
-            mSuggestionStripView.onTextCopy();
+            try {
+                Log.d(Misc.logKey, "Ooo Yes");
+                mSuggestionStripView.onTextCopy();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
 
         mHandler.onCreate();

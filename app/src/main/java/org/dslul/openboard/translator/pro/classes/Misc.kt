@@ -171,7 +171,7 @@ object Misc {
     fun getLanguageFrom(activity: Context): String {
         val sharedPreferences =
             activity.getSharedPreferences(languageFrom, Context.MODE_PRIVATE)
-        return sharedPreferences.getString(languageFrom, defaultLanguage).toString()
+        return sharedPreferences.getString(languageFrom, "en").toString()
     }
 
     fun getLanguageFromForKB(activity: Context): String {
@@ -608,7 +608,6 @@ object Misc {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             setContentView(R.layout.loading_ads_dialog)
             window?.setBackgroundDrawableResource(android.R.color.transparent)
-
         }
 
         override fun onClick(v: View) {}

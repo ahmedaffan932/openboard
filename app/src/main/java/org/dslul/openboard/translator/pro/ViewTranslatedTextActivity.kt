@@ -8,7 +8,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.os.StrictMode
 import android.speech.tts.TextToSpeech
 import android.view.View
 import android.view.WindowManager
@@ -22,14 +21,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import com.google.gson.Gson
 import com.rw.keyboardlistener.KeyboardUtils
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityViewTranslatedTextBinding
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.MiscTranslate
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
-import org.jsoup.Jsoup
-import java.net.URLEncoder
+import org.dslul.openboard.translator.pro.interfaces.TranslationInterface
 import java.util.Locale
 
 class ViewTranslatedTextActivity : AppCompatActivity() {
@@ -90,7 +87,7 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
                 finish()
             } else {
                 binding.etText.setText(intent.getStringExtra(Misc.key))
-                jugarTranslation(binding.etText.text.toString())
+                translateNow(binding.etText.text.toString())
             }
         }, 100)
 
@@ -123,6 +120,16 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
                 getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText(
                 "Camera Translator", binding.textViewTextTranslatedFrag.text
+            )
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(this, "Copied", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.btnCopyInput.setOnClickListener {
+            val clipboard: ClipboardManager =
+                getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText(
+                "Camera Translator", binding.etText.text
             )
             clipboard.setPrimaryClip(clip)
             Toast.makeText(this, "Copied", Toast.LENGTH_SHORT).show()
@@ -164,10 +171,10 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
 //            llText.setBackgroundResource(R.drawable.bg_main_less_rounded)
 
             if (isLLTranslateVisible) {
-                Misc.zoomOutView(binding.llTranslatedText, this, 150)
+                Misc.zoomOutView(binding.clTranslatedText, this, 150)
 
                 Handler().postDelayed({
-                    binding.llTranslatedText.visibility = View.GONE
+                    binding.clTranslatedText.visibility = View.GONE
                 }, 150)
                 isLLTranslateVisible = false
             }
@@ -190,7 +197,7 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
             if (binding.etText.text.toString() != "") {
                 binding.llPBTranslateFrag.visibility = View.VISIBLE
                 Handler().postDelayed({
-                    jugarTranslation(binding.etText.text.toString())
+                    translateNow(binding.etText.text.toString())
                 }, 100)
             }
         }
@@ -218,7 +225,7 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
                     if (binding.etText.text.toString() != "") {
                         binding.llPBTranslateFrag.visibility = View.VISIBLE
                         Handler().postDelayed({
-                            jugarTranslation(binding.etText.text.toString())
+                            translateNow(binding.etText.text.toString())
                         }, 150)
                     }
                     Misc.zoomInView(binding.llLanguageTo, this, 150)
@@ -262,7 +269,7 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
 //                    translate(etText.text.toString())
 //                } else {
                 Handler().postDelayed({
-                    jugarTranslation(binding.etText.text.toString())
+                    translateNow(binding.etText.text.toString())
                 }, 1)
 //                }
                 true
@@ -275,72 +282,30 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
         Misc.zoomOutView(binding.btnClearText, this, 0)
         binding.btnClearText.visibility = View.INVISIBLE
 
-        Misc.zoomOutView(binding.llTranslatedText, this, 0)
-        binding.llTranslatedText.visibility = View.GONE
+        Misc.zoomOutView(binding.clTranslatedText, this, 0)
+        binding.clTranslatedText.visibility = View.GONE
     }
 
     @SuppressLint("SetTextI18n")
-    private fun jugarTranslation(text: String) {
+    private fun translateNow(text: String) {
         setSelectedLng()
-        if (!Misc.checkInternetConnection(this)) {
-            Toast.makeText(
-                this,
-                "Please check your Internet connection and try again later.",
-                Toast.LENGTH_SHORT
-            ).show()
-            binding.llPBTranslateFrag.visibility = View.GONE
-            return
-        }
-        if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            binding.textLngFrom.text = "Detected"
-        }
         binding.llPBTranslateFrag.visibility = View.VISIBLE
-        val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
 
-        val encoded = URLEncoder.encode(text, "utf-8")
-
-        val fromCode = if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) ""
-        else if (Misc.getLanguageFrom(this) == "zh") "zh-CN"
-        else if (Misc.getLanguageFrom(this) == "he") "iw"
-        else Misc.getLanguageFrom(this)
-
-        val toCode = when (Misc.getLanguageTo(this)) {
-            "zh" -> "zh-CN"
-            "he" -> "iw"
-            else -> Misc.getLanguageTo(this)
-        }
-
-        try {
-            val doc =
-                Jsoup.connect("https://translate.google.com/m?hl=en&sl=$fromCode&tl=$toCode&q=$encoded")
-                    .get()
-
-            val element = doc.getElementsByClass("result-container")
-
-            GlobalScope.launch(Dispatchers.Main) {
-                try {
-                    if (element.text().isNotBlank()) {
-                        binding.textViewTextTranslatedFrag.text = element.text()
-                        saveInHistory(text, element.text())
-                    } else {
-                        showToast("Translation result is empty.")
-                    }
-                } catch (e: Exception) {
-                    showToast("Some error occurred. Please try again.")
-                    e.printStackTrace()
-                } finally {
-                    binding.llPBTranslateFrag.visibility = View.GONE
-                }
+        MiscTranslate.translate(this, text, object : TranslationInterface{
+            override fun onTranslate(translation: String) {
+                binding.textViewTextTranslatedFrag.text = translation
+                saveInHistory(text, translation)
             }
-        } catch (e: Exception) {
-            binding.llPBTranslateFrag.visibility = View.GONE
-            Toast.makeText(
-                this,
-                "Some error occurred in translation please try again later.",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+
+            override fun onFailed() {
+                binding.llPBTranslateFrag.visibility = View.GONE
+                Toast.makeText(
+                    this@ViewTranslatedTextActivity,
+                    getString(R.string.some_error_occurred_in_translation_please_try_again_later),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
     }
 
     private fun showToast(message: String) {
@@ -392,8 +357,8 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
         }
         if (!isLLTranslateVisible) {
             Handler().postDelayed({
-                binding.llTranslatedText.visibility = View.VISIBLE
-                Misc.zoomInView(binding.llTranslatedText, this, 150)
+                binding.clTranslatedText.visibility = View.VISIBLE
+                Misc.zoomInView(binding.clTranslatedText, this, 150)
             }, 150)
 
 

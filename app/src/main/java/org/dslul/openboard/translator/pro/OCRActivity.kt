@@ -30,17 +30,13 @@ import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.bottom_sheet_ocr_translation_result.rvOCRResult
 import kotlinx.android.synthetic.main.bottom_sheet_ocr_translation_result.tvViewAll
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityOcrBinding
 import org.dslul.openboard.objects.CameraMisc
 import org.dslul.openboard.translator.pro.adaptor.OCRResultAdapter
 import org.dslul.openboard.translator.pro.classes.Misc
-import org.jsoup.Jsoup
-import java.net.URLEncoder
+import org.dslul.openboard.translator.pro.classes.MiscTranslate
+import org.dslul.openboard.translator.pro.interfaces.TranslationInterface
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -247,56 +243,24 @@ class OCRActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             Log.d(Misc.logKey, "Size: ${arrText.size}")
-            jugarTranslation(arrText, 0)
+            translateNow(arrText, 0)
         }, 100)
     }
 
-    private fun jugarTranslation(arrText: ArrayList<String>, position: Int) {
+    private fun translateNow(arrText: ArrayList<String>, position: Int) {
         setSelectedLng()
-        if (!Misc.checkInternetConnection(this)) {
-            Toast.makeText(
-                this,
-                resources.getString(R.string.please_check_your_internet_connection_and_try_again),
-                Toast.LENGTH_SHORT
-            ).show()
-            binding.progressBar.visibility = View.GONE
-            return
-        }
         binding.progressBar.visibility = View.VISIBLE
         try {
-            val fromCode =
-                if (Misc.getLanguageFrom(this) == Misc.defaultLanguage)
-                    ""
-                else if (Misc.getLanguageFrom(this) == "zh")
-                    "zh-CN"
-                else if (Misc.getLanguageFrom(this) == "he")
-                    "iw"
-                else
-                    Misc.getLanguageFrom(this)
-
-            val toCode = when (Misc.getLanguageTo(this)) {
-                "zh" -> "zh-CN"
-                "he" -> "iw"
-                else -> Misc.getLanguageTo(this)
-            }
 
             if (position < arrText.size) {
-                val encoded = URLEncoder.encode(arrText[position], "utf-8")
-                GlobalScope.launch(Dispatchers.Main) {
-                    val result = withContext(Dispatchers.IO) {
-                        // Perform network request on IO thread
-                        val doc =
-                            Jsoup.connect("https://translate.google.com/m?hl=en&sl=$fromCode&tl=$toCode&q=$encoded")
-                                .get()
-                        val element = doc.getElementsByClass("result-container")
-                        element.text()
+                MiscTranslate.translate(this, arrText[position], object : TranslationInterface{
+                    override fun onTranslate(translation: String) {
+                        arrTranslation.add(translation)
+                        Log.d(Misc.logKey, "Text: ${arrText[position]} OCR: $translation")
+                        translateNow(arrText, position + 1)
                     }
 
-                    if (result.isNotBlank()) {
-                        arrTranslation.add(result)
-                        Log.d(Misc.logKey, "Text: ${arrText[position]} OCR: $result")
-                        jugarTranslation(arrText, position + 1)
-                    } else {
+                    override fun onFailed() {
                         binding.progressBar.visibility =
                             View.GONE
                         Toast.makeText(
@@ -304,10 +268,8 @@ class OCRActivity : AppCompatActivity() {
                             resources.getString(R.string.sorry_some_erroe_occurred_please_try_againg),
                             Toast.LENGTH_SHORT
                         ).show()
-                        Log.e(Misc.logKey, "its empty")
                     }
-
-                }
+                })
             } else {
                 Log.d(Misc.logKey, "Here.")
                 binding.progressBar.visibility = View.GONE

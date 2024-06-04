@@ -214,11 +214,15 @@ class PhrasesFragment : Fragment() {
                     if (binding.recyclerViewPhraseBookMain.adapter != null)
                         binding.recyclerViewPhraseBookMain.adapter!!.notifyDataSetChanged()
                     Misc.canWeProceed = false
-                    Toast.makeText(
-                        requireContext(),
-                        "Sorry! ${Locale(srcLng).displayName} is not available in phrasebook yet.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    try {
+                        Toast.makeText(
+                            requireContext(),
+                            "Sorry! ${Locale(srcLng).displayName} is not available in phrasebook yet.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
 
             }

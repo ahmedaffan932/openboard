@@ -135,7 +135,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private fun changeImage(newImage: Int) {
         binding.btnNext.animate().alpha(0.5f).setDuration(150)
-            .withEndAction { // Change the image resource
+            .withEndAction {
                 binding.btnNext.setImageResource(newImage)
 
                 binding.btnNext.animate().alpha(1f).setDuration(100).start()

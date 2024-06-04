@@ -39,7 +39,7 @@
         <activity
             android:name="org.dslul.openboard.translator.pro.FragmentsDashboardActivity"
             android:exported="false"
-            android:theme="@style/Theme.TranslatorGuru"/>
+            android:theme="@style/Theme.TranslatorGuru" />
         <activity
             android:name="org.dslul.openboard.translator.pro.NewDashboardActivity"
             android:exported="false"
@@ -148,6 +148,7 @@
             android:name="org.dslul.openboard.translator.pro.LanguageSelectorActivity"
             android:exported="false"
             android:screenOrientation="portrait"
+            android:excludeFromRecents="true"
             android:theme="@style/Theme.TranslatorGuru">
             <meta-data
                 android:name="android.app.lib_name"
@@ -299,6 +300,7 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-6814505709397727~1751762147" />
+
     </application>
 
 </manifest>

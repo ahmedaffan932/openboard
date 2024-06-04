@@ -21,7 +21,6 @@ import androidx.core.widget.doOnTextChanged
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
-import com.google.mlkit.nl.languageid.LanguageIdentification
 import com.rw.keyboardlistener.KeyboardUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -29,11 +28,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityTranslateBinding
+import org.dslul.openboard.translator.pro.classes.MiscTranslate
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
+import org.dslul.openboard.translator.pro.interfaces.TranslationInterface
 import org.jsoup.Jsoup
 import java.net.URLEncoder
 import java.util.*
@@ -70,7 +71,7 @@ class TranslateActivity : AppCompatActivity() {
                             binding.etText.setText(intent.getStringExtra(Misc.key))
                             binding.llPBTranslateFrag.visibility = View.VISIBLE
                             Handler(Looper.getMainLooper()).postDelayed({
-                                jugarTranslation(binding.etText.text.toString())
+                                translateNow(binding.etText.text.toString())
                             }, 500)
                         }
                     }
@@ -237,7 +238,7 @@ class TranslateActivity : AppCompatActivity() {
             if (binding.etText.text.toString() != "") {
                 binding.llPBTranslateFrag.visibility = View.VISIBLE
                 Handler().postDelayed({
-                    jugarTranslation(binding.etText.text.toString())
+                    translateNow(binding.etText.text.toString())
                 }, 100)
             }
         }
@@ -265,7 +266,7 @@ class TranslateActivity : AppCompatActivity() {
                     if (binding.etText.text.toString() != "") {
                         binding.llPBTranslateFrag.visibility = View.VISIBLE
                         Handler().postDelayed({
-                            jugarTranslation(binding.etText.text.toString())
+                            translateNow(binding.etText.text.toString())
                         }, 150)
                     }
                     Misc.zoomInView(binding.llLanguageTo, this, 150)
@@ -311,7 +312,7 @@ class TranslateActivity : AppCompatActivity() {
 //                    translate(binding.etText.text.toString())
 //                } else {
                 Handler().postDelayed({
-                    jugarTranslation(binding.etText.text.toString())
+                    translateNow(binding.etText.text.toString())
                 }, 1)
 //                }
                 true
@@ -401,13 +402,11 @@ class TranslateActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            binding.tvLanguageFrom.text = resources.getString(R.string.detect)
             binding.textLngFrom.text = resources.getString(R.string.detect)
+            binding.tvLanguageFrom.text = resources.getString(R.string.detect)
             binding.flagFrom.setImageResource(Misc.getFlag(this, "100"))
         } else {
-            binding.tvLanguageFrom.text = Locale(
-                Misc.getLanguageFrom(this)
-            ).displayName
+            binding.tvLanguageFrom.text = Locale(Misc.getLanguageFrom(this)).displayName
             binding.textLngFrom.text = Misc.getLanguageFrom(this)
 
             binding.flagFrom.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
@@ -421,52 +420,30 @@ class TranslateActivity : AppCompatActivity() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun jugarTranslation(text: String) {
+    private fun translateNow(text: String) {
         setSelectedLng()
-        if (!Misc.checkInternetConnection(this)) {
-            Toast.makeText(
-                this,
-                resources.getString(R.string.please_cehck_your_internet),
-                Toast.LENGTH_SHORT
-            ).show()
-            binding.llPBTranslateFrag.visibility = View.GONE
-            return
-        }
-        if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            val languageIdentifier = LanguageIdentification.getClient()
-            languageIdentifier.identifyLanguage(text).addOnSuccessListener { languageCode ->
-                if (languageCode == "und") {
-                    Toast.makeText(
-                        this, "Unable to detect Language. ", Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    binding.textLngFrom.text =
-                        "${resources.getString(R.string.detect)} -> $languageCode"
-                }
-            }.addOnFailureListener {
-                Toast.makeText(
-                    this, "Unable to detect Language. ", Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
+
         binding.llPBTranslateFrag.visibility = View.VISIBLE
 
-        val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
+        MiscTranslate.translate(this, text, object : TranslationInterface {
+            override fun onTranslate(translation: String) {
+                binding.textViewTextTranslatedFrag.text = translation
+                saveInHistory(text, translation)
+            }
 
+            override fun onFailed() {
+                binding.llPBTranslateFrag.visibility = View.GONE
+                Toast.makeText(
+                    this@TranslateActivity,
+                    resources.getString(R.string.some_error_occurred_in_translation),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
+
+    private fun onlineTranslation(fromCode: String, toCode: String, text: String) {
         val encoded = URLEncoder.encode(text, "utf-8")
-
-        val fromCode = if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) ""
-        else if (Misc.getLanguageFrom(this) == "zh") "zh-CN"
-        else if (Misc.getLanguageFrom(this) == "he") "iw"
-        else Misc.getLanguageFrom(this)
-
-        val toCode = when (Misc.getLanguageTo(this)) {
-            "zh" -> "zh-CN"
-            "he" -> "iw"
-            else -> Misc.getLanguageTo(this)
-        }
-
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 val translation = withContext(Dispatchers.IO) {
@@ -479,7 +456,6 @@ class TranslateActivity : AppCompatActivity() {
                 }
 
                 if (translation.isNotEmpty()) {
-                    binding.textViewTextTranslatedFrag.text = ""
                     binding.textViewTextTranslatedFrag.text = translation
 
                     saveInHistory(text, translation)
@@ -501,8 +477,8 @@ class TranslateActivity : AppCompatActivity() {
                 ).show()
             }
         }
-    }
 
+    }
 
     private fun displaySpeechRecognizer() {
         try {
@@ -537,7 +513,7 @@ class TranslateActivity : AppCompatActivity() {
                     binding.etText.setText(spokenText)
                     binding.llPBTranslateFrag.visibility = View.VISIBLE
                     Handler().postDelayed({
-                        jugarTranslation(binding.etText.text.toString())
+                        translateNow(binding.etText.text.toString())
                     }, 1)
                 }
             } catch (e: Exception) {
@@ -548,7 +524,7 @@ class TranslateActivity : AppCompatActivity() {
             if (binding.etText.text.toString() != "") {
                 binding.llPBTranslateFrag.visibility = View.VISIBLE
                 Handler().postDelayed({
-                    jugarTranslation(binding.etText.text.toString())
+                    translateNow(binding.etText.text.toString())
                 }, 1)
             }
         }

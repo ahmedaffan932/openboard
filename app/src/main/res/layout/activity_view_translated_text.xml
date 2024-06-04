@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_top_bar"
-        app:layout_constraintTop_toTopOf="parent"
-        android:elevation="@dimen/padding">
+        android:elevation="@dimen/padding"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/btnBack"
@@ -271,9 +271,9 @@
                                     android:background="@color/color_nothing"
                                     android:fontFamily="@font/poppins_regular"
                                     android:gravity="top"
+                                    android:hint="@string/enter_some_text_to_translate"
                                     android:imeOptions="actionGo"
                                     android:inputType="textMultiLine"
-                                    android:hint="@string/enter_some_text_to_translate"
                                     android:minHeight="@dimen/_80sdp"
                                     android:overScrollMode="never"
                                     android:paddingHorizontal="@dimen/less_padding"
@@ -292,19 +292,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
 
-                                <ImageView
-                                    android:id="@+id/btnSpeakInput"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:layout_gravity="center"
-                                    android:layout_marginHorizontal="@dimen/m_padding"
-                                    android:background="@drawable/bg_nothing_rounded_ripple"
-                                    android:contentDescription="@string/todo"
-                                    android:elevation="@dimen/fab_padding"
-                                    android:src="@drawable/ic_microphone"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
 
                                 <ImageView
                                     android:id="@+id/btnCopyInput"
@@ -317,7 +304,7 @@
                                     android:elevation="@dimen/fab_padding"
                                     android:src="@drawable/ic_copy"
                                     app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintStart_toEndOf="@id/btnSpeakInput"
+                                    app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
 
                                 <LinearLayout
@@ -362,12 +349,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/fab_padding"
                         android:layout_marginTop="2dp"
+                        android:layout_marginBottom="2dp"
                         android:background="@drawable/ads_bg"
                         android:elevation="@dimen/less_padding"
-                        android:layout_marginBottom="2dp"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"/>
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/clTranslatedText"
