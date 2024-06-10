@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityFragmentsDashboardBinding
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.fragments.CameraFragment
 import org.dslul.openboard.translator.pro.fragments.ChatFragment
 import org.dslul.openboard.translator.pro.fragments.HomeFragment
@@ -18,6 +19,7 @@ class FragmentsDashboardActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setAppLanguage()
         binding = ActivityFragmentsDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

@@ -146,7 +146,7 @@
     <string name="setup_finish_action" msgid="276559243409465389">"완료됨"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"앱 아이콘 표시"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"런처에 애플리케이션 아이콘 표시"</string>
-    <string name="app_name" msgid="6320102637491234792">"사전 제공업체"</string>
+    <string name="app_name_temp" msgid="6320102637491234792">"사전 제공업체"</string>
     <string name="dictionary_provider_name" msgid="3027315045397363079">"사전 제공업체"</string>
     <string name="dictionary_service_name" msgid="6237472350693511448">"사전 서비스"</string>
     <string name="download_description" msgid="6014835283119198591">"사전 업데이트 정보"</string>
@@ -190,4 +190,94 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"더보기…"</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"삭제"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+
+    <string name="word_phrase_or_sentence">단어 구 또는 문장</string>
+    <string name="todo">할 것</string>
+    <string name="translator">역자</string>
+    <string name="Pro">찬성</string>
+    <string name="enjoy_ou_best_translation_features_and_translate_on_the_goo">최고의 번역 기능을 즐기고 이동 중에도 번역하세요</string>
+    <string name="fun_words">재미있는 단어</string>
+    <string name="relax_your_brain_with_this_fun_word_puzzle_game_and_improve_your_vocabulary">이 재미있는 단어 퍼즐 게임으로 두뇌의 긴장을 풀고 어휘력을 향상해보세요.</string>
+    <string name="textview">텍스트뷰</string>
+    <string name="premium">프리미엄</string>
+    <string name="yes">예</string>
+    <string name="no">아니요</string>
+    <string name="fun">재미있는 단어</string>
+    <string name="phrasebook">외국어 숙어집</string>
+    <string name="quit">그만두다</string>
+    <string name="do_you_really_want_to_quit">정말 그만두고 싶나요?</string>
+    <string name="english">영어</string>
+    <string name="translating">번역 중</string>
+    <string name="ad">기원 후</string>
+    <string name="favorites">즐겨찾기</string>
+    <string name="no_favorites_found">즐겨찾기를 찾을 수 없습니다</string>
+    <string name="language">언어</string>
+    <string name="recently_used">최근에 사용됨</string>
+    <string name="all_languages">모든 언어</string>
+    <string name="downloading">다운로드 중</string>
+    <string name="history">역사</string>
+    <string name="translate_something_to_see_history">역사를 보려면 번역하세요.</string>
+    <string name="feedback">피드백</string>
+    <string name="enter_your_topic_and_let_us_know_about_your_feedback">주제를 입력하고 피드백을 알려주세요.</string>
+    <string name="enter_topic_here">여기에 주제를 입력하세요</string>
+    <string name="write_your_suggestion">당신의 제안을 적어주세요</string>
+    <string name="publish_feedback">피드백 게시</string>
+    <string name="do_you_suggestion_or_found_some_bug_n_do_let_us_know_your_feedback">버그를 제안하거나 발견한 후 피드백을 알려주십시오.</string>
+    <string name="rate_us">우리를 평가해 주세요</string>
+    <string name="did_you_enjoy_the_app">우리 앱을 즐겼나요?</string>
+    <string name="let_s_record_your_message_to_communicate">메시지를 녹음해 소통해보세요</string>
+    <string name="selector">선택자</string>
+    <string name="loading_words">단어 로드 중.</string>
+    <string name="hint">힌트</string>
+    <string name="level">수준</string>
+    <string name="hint_meaning">힌트 의미</string>
+    <string name="translate">번역하다</string>
+    <string name="remove_annoying_ads_save_your_time">성가신 광고를 제거하세요.</string>
+    <string name="unlimited_chat_translator">무제한 채팅 번역기</string>
+    <string name="one_time">라이프타임플랜</string>
+    <string name="save_50">50% 할인</string>
+    <string name="get_pro">계속하다</string>
+    <string name="_50_languages_learn_with_unlimited_language_options">50개 이상의 언어 지원으로 학습하세요.</string>
+    <string name="access_full_translation_history">전체 번역 기록에 액세스</string>
+    <string name="settings">설정</string>
+    <string name="upgrade_to_pro">프로로 업그레이드</string>
+    <string name="share_app">앱 공유</string>
+    <string name="privacy_policy">개인 정보 정책</string>
+    <string name="terms_of_use"><![CDATA[이용약관]]></string>
+    <string name="dark_theme">어두운 테마</string>
+    <string name="good">좋은</string>
+    <string name="enable_keyboard">키보드 활성화</string>
+    <string name="select">선택하다</string>
+    <string name="skip"><u>건너뛰기</u></string>
+    <string name="step_2">2 단계:</string>
+    <string name="by_continuing_you_accept_our">계속하면 귀하는 당사의</string>
+    <string name="hello_blank_fragment">안녕하세요 빈 조각</string>
+    <string name="camera_translation">카메라 번역</string>
+    <string name="textView">텍스트 보기</string>
+    <string name="detect">감지하다</string>
+    <string name="please_check_your_internet_connection_and_try_again">인터넷 연결을 확인하고 다시 시도하십시오.</string>
+    <string name="please_select_language_you_want_to_translate">번역하려는 언어를 선택하세요.</string>
+    <string name="you_can_not_start_this_module">권한이 없으면 이 모듈을 시작할 수 없습니다.</string>
+    <string name="detecting_text">텍스트 감지</string>
+    <string name="view_all">모두보기</string>
+    <string name="result">결과</string>
+    <string name="your_are_using_limited_version_please_upgrade_or_watch_ad_to_use_camera_translate">제한된 버전을 사용하고 계시다면 카메라 번역을 사용하려면 업그레이드하거나 광고를 시청하세요.</string>
+    <string name="upgrade_or_watch_ad">업그레이드 또는 광고 시청</string>
+    <string name="watch_ad">광고 시청</string>
+    <string name="upgrade">업그레이드</string>
+    <string name="text">텍스트</string>
+    <string name="translation">번역</string>
+    <string name="sorry_no_text_found">죄송합니다. 텍스트를 찾을 수 없습니다.</string>
+    <string name="sorry_some_erroe_occurred_please_try_againg">죄송합니다. 오류가 발생했습니다. 다시 시도해 주세요.</string>
+    <string name="a_translator_is_a_reader_an_interpreter_and_a_creator_all_in_one">번역가는 독자이자 통역사이자 창작자입니다.</string>
+    <string name="let_s_translate">번역하자</string>
+    <string name="title_camera">카메라</string>
+    <string name="chat">채팅</string>
+    <string name="enter_some_text_to_translate">번역할 텍스트를 입력하세요.</string>
+    <string name="please_cehck_your_internet">인터넷을 확인하고 다시 시도해 주세요.</string>
+    <string name="some_error_occurred_in_translation">죄송합니다. 번역 중 일부 오류가 발생했습니다.</string>
+    <string name="some_error_occurred_in_translation_please_try_again_later">번역 중에 오류가 발생했습니다. 나중에 다시 시도해 주세요.</string>
+    <string name="loading_monetization">수익 창출을 로드 중입니다.</string>
+    <string name="languages">언어</string>
+    <string name="next">다음</string>
 </resources>

@@ -11,6 +11,7 @@ import com.google.android.play.core.review.ReviewManagerFactory
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityExitBinding
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 
@@ -27,6 +28,7 @@ class ExitActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setAppLanguage()
         binding = ActivityExitBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

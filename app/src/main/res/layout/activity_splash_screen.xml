@@ -2,75 +2,158 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/clMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@drawable/bg_on_boarding"
+    android:background="@drawable/bg_splash_screen"
     tools:context="org.dslul.openboard.translator.pro.SplashScreenActivity">
 
-    <TextView
-        android:id="@+id/btnContinue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Skip"
-        android:gravity="center"
-        android:padding="@dimen/fab_padding"
-        android:textStyle="bold"
-        android:textSize="@dimen/_14sdp"
-        android:elevation="@dimen/fab_padding"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/yellow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/splashTabLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/btnContinue"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginHorizontal="@dimen/extra_padding"
-        app:layout_constraintTop_toTopOf="@+id/btnContinue"
-        app:tabBackground="@drawable/selector_tab_indicator_dot"
-        android:visibility="invisible"
-        app:tabGravity="center"
-        app:tabIndicator="@null"
-        app:tabPaddingEnd="6dp"
-        app:tabPaddingStart="6dp" />
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/splashViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btnNext" />
-
-    <ImageView
-        android:id="@+id/btnNext"
-        android:layout_width="125dp"
-        android:layout_height="110dp"
-        android:src="@drawable/on_boarding_tab_one"
-        android:padding="@dimen/fab_padding"
-        app:layout_constraintBottom_toTopOf="@id/llCollapsibleBanner"
-        android:layout_margin="@dimen/fab_padding"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <LinearLayout
-        android:id="@+id/llCollapsibleBanner"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_marginBottom="@dimen/_116sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <FrameLayout
-            android:id="@+id/nativeAdFrameLayout"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            app:srcCompat="@drawable/logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:transitionName="anim_splash"
+            android:elevation="@dimen/less_padding"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="@dimen/fab_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/bg_main_less_rounded" />
+
+        <LinearLayout
+            android:id="@+id/llLogo"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding"
+            android:gravity="center"
+            app:chainUseRtl="false"
             android:visibility="gone"
-            android:layout_margin="@dimen/padding"/>
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/logo">
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="Translator"
+                android:textColor="@color/accent"
+                android:textSize="@dimen/_18sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="@string/Pro"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvText1"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/llLogo"
+            android:layout_marginHorizontal="@dimen/padding"
+            android:fontFamily="@font/gilroy_light"
+            android:maxLines="2"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:gravity="center"
+            android:textSize="@dimen/_12sdp"
+            android:text="@string/a_translator_is_a_reader_an_interpreter_and_a_creator_all_in_one"
+            android:textColor="@color/gray_600"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/nativeAdFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/fab_padding"
+        android:background="@drawable/bg_native_ad"
+        android:elevation="2dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/spline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clMain" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/spline"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="@dimen/extra_padding"
+        android:layout_marginBottom="@dimen/padding_10"
+        android:transitionName="anim_splash"
+        android:background="@drawable/bg_nothing_rounded_ripple"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_fileName="loading_circle.json" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btnStart"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginBottom="@dimen/fab_padding"
+        android:layout_marginHorizontal="@dimen/extra_padding"
+        android:visibility="invisible"
+        android:backgroundTint="@color/accent"
+        android:elevation="@dimen/fab_padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/bg_main_rounded">
+
+        <TextView
+            android:id="@+id/tvStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="5dp"
+            android:text="@string/let_s_translate"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp"
+            android:fontFamily="@font/sf_pro_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btnStartIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/color_nothing"
+            android:scaleType="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_navigate_next_24"
+            app:tint="@color/white"
+            tools:ignore="VectorDrawableCompat" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,7 +23,7 @@ object AppOpenAdManager {
 
     fun loadAd(
         context: Context,
-        adId: String = AdIds.appOpenAdIdOne,
+        adId: String = AdIds.appOpenAdIdSplash,
         callBack: LoadAdCallBack? = null
     ) {
         if (isLoadingAd || isAdAvailable()) {
@@ -97,7 +97,6 @@ object AppOpenAdManager {
                 Log.d(Misc.logKey, "App Open Ad dismissed")
 
                 callBack?.onDismiss()
-                loadAd(activity)
             }
 
             override fun onAdFailedToShowFullScreenContent(adError: AdError) {
@@ -106,7 +105,6 @@ object AppOpenAdManager {
                 Log.d(Misc.logKey, "App Open Ad Failed to Show: " + adError.message)
 
                 callBack?.onDismiss()
-                loadAd(activity)
             }
 
             override fun onAdShowedFullScreenContent() {

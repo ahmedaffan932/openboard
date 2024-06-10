@@ -21,6 +21,7 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.EmailUsDialogBox
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.rateUs
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.RateUsDialog
 
 class SettingsActivity : AppCompatActivity() {
@@ -29,6 +30,7 @@ class SettingsActivity : AppCompatActivity() {
     //@DelicateCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setAppLanguage()
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_settings)
 

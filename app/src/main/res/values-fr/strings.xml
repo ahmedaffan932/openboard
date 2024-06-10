@@ -143,7 +143,7 @@
     <string name="setup_finish_action" msgid="276559243409465389">"OK"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Afficher icône application"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Afficher l\'icône de l\'application dans le lanceur"</string>
-    <string name="app_name" msgid="6320102637491234792">"Fournisseur de dictionnaires"</string>
+    <string name="app_name_temp" msgid="6320102637491234792">"Fournisseur de dictionnaires"</string>
     <string name="dictionary_provider_name" msgid="3027315045397363079">"Fournisseur de dictionnaires"</string>
     <string name="dictionary_service_name" msgid="6237472350693511448">"Service de dictionnaires"</string>
     <string name="download_description" msgid="6014835283119198591">"Informations relatives à la mise à jour des dictionnaires"</string>
@@ -231,4 +231,94 @@
     <string name="subtype_with_layout_bn_BD"><xliff:g id="LANGUAGE_NAME" example="Bangla">%s</xliff:g> (Akkhor)</string>
     <string name="autospace_after_punctuation">Espace auto après la ponctuation</string>
     <string name="autospace_after_punctuation_summary">Insertion automatique d\'un espace après la ponctuation lors de la saisie d\'un nouveau mot</string>
+
+    <string name="word_phrase_or_sentence">Phrase ou phrase</string>
+    <string name="todo">Faire</string>
+    <string name="translator">Traducteur</string>
+    <string name="Pro">Pro</string>
+    <string name="enjoy_ou_best_translation_features_and_translate_on_the_goo">Profitez de nos meilleures fonctionnalités de traduction et traduisez où que vous soyez</string>
+    <string name="fun_words">Mots amusants</string>
+    <string name="relax_your_brain_with_this_fun_word_puzzle_game_and_improve_your_vocabulary">Détendez votre cerveau avec ce jeu de mots amusant et améliorez votre vocabulaire.</string>
+    <string name="textview">Affichage</string>
+    <string name="premium">Prime</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="fun">Mot amusant</string>
+    <string name="phrasebook">Guide de conversation</string>
+    <string name="quit">Quitter</string>
+    <string name="do_you_really_want_to_quit">Voulez-vous vraiment arrêter ?</string>
+    <string name="english">Anglais</string>
+    <string name="translating">Traduction en cours</string>
+    <string name="ad">Annonce</string>
+    <string name="favorites">Favoris</string>
+    <string name="no_favorites_found">Aucun favori trouvé</string>
+    <string name="language">Langues</string>
+    <string name="recently_used">Utilisé récemment</string>
+    <string name="all_languages">Toutes les langues</string>
+    <string name="downloading">Téléchargement</string>
+    <string name="history">Histoire</string>
+    <string name="translate_something_to_see_history">Traduire quelque chose pour voir l\'histoire</string>
+    <string name="feedback">Retour</string>
+    <string name="enter_your_topic_and_let_us_know_about_your_feedback">Entrez votre sujet et faites-nous part de vos commentaires.</string>
+    <string name="enter_topic_here">Entrez le sujet ici</string>
+    <string name="write_your_suggestion">Écrivez votre suggestion</string>
+    <string name="publish_feedback">Publier des commentaires</string>
+    <string name="do_you_suggestion_or_found_some_bug_n_do_let_us_know_your_feedback">Suggérez-vous ou avez-vous trouvé un bug et faites-nous part de vos commentaires.</string>
+    <string name="rate_us">Évaluez nous</string>
+    <string name="did_you_enjoy_the_app">Avez-vous apprécié notre application ?</string>
+    <string name="let_s_record_your_message_to_communicate">Enregistrons votre message pour communiquer</string>
+    <string name="selector">Sélecteur</string>
+    <string name="loading_words">Chargement de mots.</string>
+    <string name="hint">Indice</string>
+    <string name="level">Niveau</string>
+    <string name="hint_meaning">Signification de l\'indice</string>
+    <string name="translate">Traduire</string>
+    <string name="remove_annoying_ads_save_your_time">Supprimez les publicités ennuyeuses.</string>
+    <string name="unlimited_chat_translator">Traducteur de chat illimité</string>
+    <string name="one_time">Plan à vie</string>
+    <string name="save_50">Économisez 50 %</string>
+    <string name="get_pro">Continuer</string>
+    <string name="_50_languages_learn_with_unlimited_language_options">Apprenez avec le support de plus de 50 langues.</string>
+    <string name="access_full_translation_history">Accéder à l’historique complet des traductions</string>
+    <string name="settings">Paramètres</string>
+    <string name="upgrade_to_pro">Passer à Pro</string>
+    <string name="share_app">Partager l\'application</string>
+    <string name="privacy_policy">politique de confidentialité</string>
+    <string name="terms_of_use"><![CDATA[Conditions générales]]></string>
+    <string name="dark_theme">Thème sombre</string>
+    <string name="good">Bien</string>
+    <string name="enable_keyboard">Activer le clavier</string>
+    <string name="select">Sélectionner</string>
+    <string name="skip"><u>Passer</u></string>
+    <string name="step_2">Étape 2:</string>
+    <string name="by_continuing_you_accept_our">En continuant, vous acceptez notre</string>
+    <string name="hello_blank_fragment">Bonjour fragment vierge</string>
+    <string name="camera_translation">Traduction de la caméra</string>
+    <string name="textView">Affichage</string>
+    <string name="detect">Détecter</string>
+    <string name="please_check_your_internet_connection_and_try_again">S\'il vous plaît, vérifiez votre connexion à internet et réessayez.</string>
+    <string name="please_select_language_you_want_to_translate">Veuillez sélectionner la langue à partir de laquelle vous souhaitez traduire.</string>
+    <string name="you_can_not_start_this_module">Vous ne pouvez pas démarrer ce module sans autorisations</string>
+    <string name="detecting_text">Détection de texte</string>
+    <string name="view_all">Voir tout</string>
+    <string name="result">Résultat</string>
+    <string name="your_are_using_limited_version_please_upgrade_or_watch_ad_to_use_camera_translate">Vous utilisez une version limitée, veuillez mettre à niveau ou regarder l\'annonce pour utiliser la traduction par caméra.</string>
+    <string name="upgrade_or_watch_ad">Mettre à niveau ou regarder l\'annonce</string>
+    <string name="watch_ad">Regarder l\'annonce</string>
+    <string name="upgrade">Mise à niveau</string>
+    <string name="text">Texte</string>
+    <string name="translation">Traduction</string>
+    <string name="sorry_no_text_found">Désolé, aucun texte trouvé.</string>
+    <string name="sorry_some_erroe_occurred_please_try_againg">Désolé, une erreur s\'est produite, veuillez réessayer.</string>
+    <string name="a_translator_is_a_reader_an_interpreter_and_a_creator_all_in_one">Un traducteur est à la fois lecteur, interprète et créateur.</string>
+    <string name="let_s_translate">Traduisons</string>
+    <string name="title_camera">Caméra</string>
+    <string name="chat">Chat</string>
+    <string name="enter_some_text_to_translate">Saisissez du texte à traduire.</string>
+    <string name="please_cehck_your_internet">Veuillez vérifier votre connexion Internet et réessayer.</string>
+    <string name="some_error_occurred_in_translation">Désolé, une erreur s\'est produite dans la traduction.</string>
+    <string name="some_error_occurred_in_translation_please_try_again_later">Une erreur s\'est produite lors de la traduction, veuillez réessayer plus tard.</string>
+    <string name="loading_monetization">Chargement de la monétisation.</string>
+    <string name="languages">Langues</string>
+    <string name="next">Suivant</string>
 </resources>

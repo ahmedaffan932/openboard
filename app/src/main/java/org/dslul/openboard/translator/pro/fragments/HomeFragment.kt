@@ -13,6 +13,7 @@ import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
 import android.widget.Toast
+import androidx.core.os.postDelayed
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +31,7 @@ import org.dslul.openboard.translator.pro.adaptor.HistoryAdapter
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
+import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobMRECAds
 import org.dslul.openboard.translator.pro.interfaces.InterfaceHistory
@@ -61,9 +63,11 @@ class HomeFragment : Fragment() {
             }
         }
 
-        if (requireContext().isInputMethodSelected()) {
-            binding.btnKeyboard.visibility = View.GONE
-        }
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (requireContext().isInputMethodSelected()) {
+                binding.btnKeyboard.visibility = View.GONE
+            }
+        }, 100)
 
         binding.btnKeyboard.setOnClickListener {
             if (requireContext().isInputMethodSelected()) {
@@ -259,7 +263,18 @@ class HomeFragment : Fragment() {
         }
         handler.post(runnable)
 
-        AdmobMRECAds.showMREC(requireActivity(), binding.mrecFrameLayout, Ads.dashboardNative)
+        if (Ads.dashboardNative.contains("mrec")) {
+            AdmobMRECAds.showMREC(requireActivity(), binding.mrecFrameLayout, Ads.dashboardNative)
+        } else {
+            Ads.loadAndShowNativeAd(
+                requireActivity(),
+                AdIds.nativeAdIdAdMobTranslate,
+                Ads.dashboardNative,
+                binding.mrecFrameLayout,
+                R.layout.admob_native_hctr,
+                R.layout.large_native_shimmer
+            )
+        }
     }
 
     override fun onResume() {

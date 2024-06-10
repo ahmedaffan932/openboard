@@ -35,6 +35,7 @@ import org.dslul.openboard.inputmethod.latin.databinding.ActivityOcrBinding
 import org.dslul.openboard.objects.CameraMisc
 import org.dslul.openboard.translator.pro.adaptor.OCRResultAdapter
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.MiscTranslate
 import org.dslul.openboard.translator.pro.interfaces.TranslationInterface
 import java.util.*
@@ -49,6 +50,7 @@ class OCRActivity : AppCompatActivity() {
     @SuppressLint("WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setAppLanguage()
         binding = ActivityOcrBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

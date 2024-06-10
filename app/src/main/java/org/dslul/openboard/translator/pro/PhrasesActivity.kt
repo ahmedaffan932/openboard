@@ -22,6 +22,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.adaptor.PhraseBookMainAdapter
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.json.JSONObject
 import java.util.*
@@ -34,6 +35,7 @@ class PhrasesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setAppLanguage()
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN

@@ -656,31 +656,30 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         // Register to receive ringer mode change.
         final IntentFilter filter = new IntentFilter();
         filter.addAction(AudioManager.RINGER_MODE_CHANGED_ACTION);
-        registerReceiver(mRingerModeChangeReceiver, filter);
+        registerReceiver(mRingerModeChangeReceiver, filter, Context.RECEIVER_VISIBLE_TO_INSTANT_APPS);
 
         // Register to receive installation and removal of a dictionary pack.
         final IntentFilter packageFilter = new IntentFilter();
         packageFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
         packageFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
         packageFilter.addDataScheme(SCHEME_PACKAGE);
-        registerReceiver(mDictionaryPackInstallReceiver, packageFilter);
+        registerReceiver(mDictionaryPackInstallReceiver, packageFilter,Context.RECEIVER_VISIBLE_TO_INSTANT_APPS);
 
         final IntentFilter newDictFilter = new IntentFilter();
         newDictFilter.addAction(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION);
-        registerReceiver(mDictionaryPackInstallReceiver, newDictFilter);
+        registerReceiver(mDictionaryPackInstallReceiver, newDictFilter,Context.RECEIVER_VISIBLE_TO_INSTANT_APPS);
 
         final IntentFilter dictDumpFilter = new IntentFilter();
         dictDumpFilter.addAction(DictionaryDumpBroadcastReceiver.DICTIONARY_DUMP_INTENT_ACTION);
-        registerReceiver(mDictionaryDumpBroadcastReceiver, dictDumpFilter);
+        registerReceiver(mDictionaryDumpBroadcastReceiver, dictDumpFilter,Context.RECEIVER_VISIBLE_TO_INSTANT_APPS);
 
         final IntentFilter hideSoftInputFilter = new IntentFilter();
         hideSoftInputFilter.addAction(ACTION_HIDE_SOFT_INPUT);
-        registerReceiver(mHideSoftInputReceiver, hideSoftInputFilter, PERMISSION_HIDE_SOFT_INPUT,
-                null /* scheduler */);
+        registerReceiver(mHideSoftInputReceiver, hideSoftInputFilter, PERMISSION_HIDE_SOFT_INPUT, null /* scheduler */, Context.RECEIVER_VISIBLE_TO_INSTANT_APPS);
 
         final IntentFilter restartAfterUnlockFilter = new IntentFilter();
         restartAfterUnlockFilter.addAction(Intent.ACTION_USER_UNLOCKED);
-        registerReceiver(mRestartAfterDeviceUnlockReceiver, restartAfterUnlockFilter);
+        registerReceiver(mRestartAfterDeviceUnlockReceiver, restartAfterUnlockFilter, Context.RECEIVER_VISIBLE_TO_INSTANT_APPS);
 
         StatsUtils.onCreate(mSettings.getCurrent(), mRichImm);
     }

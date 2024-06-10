@@ -12,6 +12,7 @@ import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 object Ads {
 
+    var appLanguagesSelectorNative: String = "am_large_hctr"
     var chatBanner: String = "am"
     var languageSelectorBanner: String = "am"
     var splashNative: String = "am_native_splash"
@@ -20,7 +21,7 @@ object Ads {
     var onBoardingNative: String = "am_small_hctr_native"
     var isIntPreLoad: Boolean = false
     var isNativeAdPreload: Boolean = false
-    var isAppOpenAdEnabled: Boolean = true
+    var isSplashAppOpenAdEnabled: Boolean = true
     var exitNative: String = "am_large_hctr"
     var phraseInt: String = "am"
     var translateNative: String = "am_large_hctr_bottom"

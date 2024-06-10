@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.phrase_book_main_item.*
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
@@ -33,6 +34,7 @@ class EnableKeyboardActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setAppLanguage()
         setContentView(R.layout.activity_enable_keyboard)
 
         checkKeyboardActivation()

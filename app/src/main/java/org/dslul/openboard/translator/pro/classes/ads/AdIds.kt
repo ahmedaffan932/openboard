@@ -10,7 +10,7 @@ object AdIds {
         "ca-app-pub-6814505709397727/9113781148"
     }
 
-    var appOpenAdIdOne = if (BuildConfig.DEBUG) {
+    var appOpenAdIdSplash = if (BuildConfig.DEBUG) {
         "ca-app-pub-3940256099942544/9257395921"
     } else {
         "ca-app-pub-6814505709397727/2248951904"

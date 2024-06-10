@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/bg_on_boarding"
+    tools:context="org.dslul.openboard.translator.pro.OnBoardingActivity">
+
+
+    <TextView
+        android:id="@+id/btnContinue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Skip"
+        android:gravity="center"
+        android:padding="@dimen/fab_padding"
+        android:textStyle="bold"
+        android:textSize="@dimen/_14sdp"
+        android:elevation="@dimen/fab_padding"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/yellow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/splashTabLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/btnContinue"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="@dimen/extra_padding"
+        app:layout_constraintTop_toTopOf="@+id/btnContinue"
+        app:tabBackground="@drawable/selector_tab_indicator_dot"
+        android:visibility="invisible"
+        app:tabGravity="center"
+        app:tabIndicator="@null"
+        app:tabPaddingEnd="6dp"
+        app:tabPaddingStart="6dp" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/splashViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnNext" />
+
+    <ImageView
+        android:id="@+id/btnNext"
+        android:layout_width="125dp"
+        android:layout_height="110dp"
+        android:src="@drawable/on_boarding_tab_one"
+        android:padding="@dimen/fab_padding"
+        app:layout_constraintBottom_toTopOf="@id/llCollapsibleBanner"
+        android:layout_margin="@dimen/fab_padding"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/llCollapsibleBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <FrameLayout
+            android:id="@+id/nativeAdFrameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_margin="@dimen/padding"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

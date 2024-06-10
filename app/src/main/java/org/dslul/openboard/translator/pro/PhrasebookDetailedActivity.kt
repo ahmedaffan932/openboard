@@ -21,6 +21,7 @@ import kotlinx.coroutines.tasks.await
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityPhrasebookDetailedBinding
 import org.dslul.openboard.translator.pro.adaptor.CustomExpandableListAdapter
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.json.JSONObject
 import java.util.*
 
@@ -89,6 +90,7 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setAppLanguage()
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,

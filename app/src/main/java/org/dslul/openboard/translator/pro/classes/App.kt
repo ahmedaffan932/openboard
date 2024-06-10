@@ -26,66 +26,9 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
 
         Misc.selectThemeMode(this)
 
-        getRemoteConfigValues()
-
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
     }
 
-    private fun getRemoteConfigValues(): Boolean {
-        return try {
-            val mFRC = FirebaseRemoteConfig.getInstance()
-            mFRC.ensureInitialized()
-            mFRC.fetchAndActivate().addOnCompleteListener { p0 ->
-                if (p0.isSuccessful) {
-                    if (!BuildConfig.DEBUG) {
-                        Ads.chatBanner = mFRC.getString("chatBanner")
-                        Ads.languageSelectorBanner = mFRC.getString("languageSelectorBanner")
-                        Ads.splashNative = mFRC.getString("splashNative")
-                        Ads.exitInt = mFRC.getString("exitInt")
-                        Ads.phraseInt = mFRC.getString("phraseInt")
-                        Ads.exitNative = mFRC.getString("exitNative")
-                        Ads.translateNative = mFRC.getString("translateNative")
-                        Ads.dashboardNative = mFRC.getString("dashboardNative")
-                        Ads.onBoardingNative = mFRC.getString("onBoardingNative")
-                        Ads.cameraTranslationInt = mFRC.getString("cameraTranslationInt")
-                        Ads.splashInt = mFRC.getString("splashInt")
-                        Ads.translateInt = mFRC.getString("translateInt")
-
-                        Ads.isIntPreLoad = mFRC.getBoolean("isIntPreLoad")
-                        Ads.isNativeAdPreload = mFRC.getBoolean("isNativeAdPreload")
-                        Ads.isAppOpenAdEnabled = mFRC.getBoolean("isAppOpenAdEnabled")
-
-                        AdIds.mrecAdIdAd = mFRC.getString("mrecAdIdAd")
-                        AdIds.appOpenAdIdOne = mFRC.getString("appOpenAdIdOne")
-                        AdIds.nativeAdIdAdMobExit = mFRC.getString("nativeAdIdAdMobExit")
-                        AdIds.nativeAdIdAdMobTranslate = mFRC.getString("nativeAdIdAdMobTranslate")
-                        AdIds.nativeAdIdAdMobSplash = mFRC.getString("nativeAdIdAdMobSplash")
-                        AdIds.interstitialAdIdAdMobSplash = mFRC.getString("interstitialAdIdAdMobSplash")
-                        AdIds.interstitialAdIdAdMobPhrases = mFRC.getString("interstitialAdIdAdMobPhrases")
-                        AdIds.interstitialAdIdAdMobExit = mFRC.getString("interstitialAdIdAdMobExit")
-                        AdIds.interstitialAdIdAdMobTranslate = mFRC.getString("interstitialAdIdAdMobTranslate")
-                        AdIds.interstitialAdIdAdMobCameraTranslate = mFRC.getString("interstitialAdIdAdMobCameraTranslate")
-                        AdIds.collapsibleBannerAdIdAdChat = mFRC.getString("collapsibleBannerAdIdAdChat")
-                        AdIds.collapsibleBannerAdIdAdLanguages = mFRC.getString("collapsibleBannerAdIdAdLanguages")
-                        AdIds.collapsibleBannerAdIdAdOnboarding = mFRC.getString("collapsibleBannerAdIdAdOnboarding")
-
-                        AppOpenAdManager.loadAd(applicationContext, AdIds.appOpenAdIdOne)
-
-                    }
-
-                    mFRC.reset()
-                    Misc.isRemoteConfigFetched.value = true
-                } else {
-                    Misc.isRemoteConfigFetched.value = true
-                }
-            }
-            true
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Misc.isRemoteConfigFetched.value = true
-            false
-        }
-    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onMoveToForeground() {
@@ -93,7 +36,7 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
         if(!Ads.isShowingInt) {
             currentActivity?.let {
                 Log.d(Misc.logKey, "App OnResume")
-                if (Ads.isAppOpenAdEnabled && AppOpenAdManager.isAdAvailable()) {
+                if (Ads.isSplashAppOpenAdEnabled && AppOpenAdManager.isAdAvailable()) {
                     val intent = Intent(this, OnResumeActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)

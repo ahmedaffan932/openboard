@@ -146,7 +146,7 @@
     <string name="setup_finish_action" msgid="276559243409465389">"खत्म"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"ऐप्लिकेशन का आइकॉन दिखाएं"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"लॉन्चर में ऐप आइकॉन दिखाएं"</string>
-    <string name="app_name" msgid="6320102637491234792">"डिक्‍शनरी प्रदाता"</string>
+    <string name="app_name_temp" msgid="6320102637491234792">"डिक्‍शनरी प्रदाता"</string>
     <string name="dictionary_provider_name" msgid="3027315045397363079">"डिक्‍शनरी प्रदाता"</string>
     <string name="dictionary_service_name" msgid="6237472350693511448">"डिक्‍शनरी सेवा"</string>
     <string name="download_description" msgid="6014835283119198591">"डिक्शनरी में बदलाव की जानकारी"</string>
@@ -190,4 +190,95 @@
     <string name="user_dict_settings_more_languages" msgid="7131268499685180461">"ज़्यादा भाषाएं…"</string>
     <string name="user_dict_settings_delete" msgid="110413335187193859">"मिटाएं"</string>
     <string name="user_dict_fast_scroll_alphabet" msgid="5431919401558285473">" ABCDEFGHIJKLMNOPQRSTUVWXYZ"</string>
+
+    <string name="word_phrase_or_sentence">शब्द वाक्यांश या वाक्य</string>
+    <string name="todo">ToDo</string>
+    <string name="translator">अनुवादक</string>
+    <string name="Pro">Pro</string>
+    <string name="enjoy_ou_best_translation_features_and_translate_on_the_goo">अपनी सर्वश्रेष्ठ अनुवाद सुविधाओं का आनंद लें और सीधे अनुवाद करें</string>
+    <string name="fun_words">मजेदार शब्द</string>
+    <string name="relax_your_brain_with_this_fun_word_puzzle_game_and_improve_your_vocabulary">इस मजेदार शब्द पहेली खेल के साथ अपने मस्तिष्क को आराम दें और अपनी शब्दावली में सुधार करें।</string>
+    <string name="textview">TextView</string>
+    <string name="premium">प्रीमियम</string>
+    <string name="yes">हाँ</string>
+    <string name="no">नहीं</string>
+    <string name="fun">मजेदार शब्द</string>
+    <string name="phrasebook">वाक्यांशपुस्तिका</string>
+    <string name="quit">छोड़ो</string>
+    <string name="do_you_really_want_to_quit">क्या तुम सच में छोड़ना चाहते हो?</string>
+    <string name="english">अंग्रेजी</string>
+    <string name="translating">अनुवाद</string>
+    <string name="ad">विज्ञापन</string>
+    <string name="favorites">पसंदीदा</string>
+    <string name="no_favorites_found">कोई पसंदीदा नहीं मिला</string>
+    <string name="language">भाषाएँ</string>
+    <string name="recently_used">हाल ही में उपयोग की गई</string>
+    <string name="all_languages">सभी भाषाएँ</string>
+    <string name="downloading">डाउनलोड हो रही हैं</string>
+    <string name="history">इतिहास</string>
+    <string name="translate_something_to_see_history">इतिहास देखने के लिए कुछ अनुवाद करें</string>
+    <string name="feedback">प्रतिक्रिया</string>
+    <string name="enter_your_topic_and_let_us_know_about_your_feedback">अपना विषय दर्ज करें और हमें अपनी प्रतिक्रिया के बारे में बताएं।</string>
+    <string name="enter_topic_here">यहाँ विषय दर्ज करें</string>
+    <string name="write_your_suggestion">अपना सुझाव लिखें</string>
+    <string name="publish_feedback">प्रतिक्रिया प्रकाशित करें</string>
+    <string name="do_you_suggestion_or_found_some_bug_n_do_let_us_know_your_feedback">क्या आप सुझाव देते हैं या कुछ बग मिला है और हमें अपनी प्रतिक्रिया बताएं।</string>
+    <string name="rate_us">हमें रेट करें</string>
+    <string name="did_you_enjoy_the_app">क्या आपको हमारा ऐप पसंद आया?</string>
+    <string name="let_s_record_your_message_to_communicate">संवाद करने के लिए अपना संदेश रिकॉर्ड करें</string>
+    <string name="selector">चयनकर्ता</string>
+    <string name="loading_words">शब्द लोड हो रहे हैं।</string>
+    <string name="hint">संकेत</string>
+    <string name="level">स्तर</string>
+    <string name="hint_meaning">संकेत का अर्थ</string>
+    <string name="translate">अनुवाद करें</string>
+    <string name="remove_annoying_ads_save_your_time">कष्टप्रद विज्ञापन हटाएँ।</string>
+    <string name="unlimited_chat_translator">असीमित चैट अनुवादक</string>
+    <string name="one_time">लाइफ टाइम प्लान</string>
+    <string name="save_50">50% की बचत</string>
+    <string name="get_pro">जारी रखें</string>
+    <string name="_50_languages_learn_with_unlimited_language_options">50+ भाषाओं के समर्थन के साथ सीखें।</string>
+    <string name="access_full_translation_history">पूर्ण अनुवाद इतिहास तक पहुँचें</string>
+    <string name="settings">सेटिंग्स</string>
+    <string name="upgrade_to_pro">प्रो में अपग्रेड करें</string>
+    <string name="share_app">ऐप साझा करें</string>
+    <string name="privacy_policy">गोपनीयता नीति</string>
+    <string name="terms_of_use"><![CDATA[नियम और शर्तें]]></string>
+    <string name="dark_theme">डार्क थीम</string>
+    <string name="good">अच्छा</string>
+    <string name="enable_keyboard">कीबोर्ड सक्षम करें</string>
+    <string name="select">इनपुट_विधि चुनें</string>
+
+    <string name="skip"><u>छोड़ें</u></string>
+    <string name="step_2">चरण 2:</string>
+    <string name="by_continuing_you_accept_our">जारी रखने से आप हमारे</string>
+    <string name="hello_blank_fragment">हैलो रिक्त अंश</string>
+    <string name="camera_translation">कैमरा अनुवाद</string>
+    <string name="textView">टेक्स्ट दृश्य</string>
+    <string name="detect">पता लगाएँ</string>
+    <string name="please_check_your_internet_connection_and_try_again">कृपया अपना इंटरनेट कनेक्शन जाँचें और पुनः प्रयास करें।</string>
+    <string name="please_select_language_you_want_to_translate">कृपया वह भाषा चुनें जिससे आप अनुवाद करना चाहते हैं।</string>
+    <string name="you_can_not_start_this_module">आप बिना अनुमति के इस मॉड्यूल को शुरू नहीं कर सकते</string>
+    <string name="detecting_text">टेक्स्ट का पता लगाना</string>
+    <string name="view_all">सभी देखें</string>
+    <string name="result">परिणाम</string>
+    <string name="your_are_using_limited_version_please_upgrade_or_watch_ad_to_use_camera_translate">आप सीमित संस्करण का उपयोग कर रहे हैं कृपया कैमरा अनुवाद का उपयोग करने के लिए अपग्रेड करें या विज्ञापन देखें।</string>
+    <string name="upgrade_or_watch_ad">अपग्रेड करें या विज्ञापन देखें</string>
+    <string name="watch_ad">विज्ञापन देखें</string>
+    <string name="upgrade">अपग्रेड करें</string>
+    <string name="text">टेक्स्ट</string>
+    <string name="translation">अनुवाद</string>
+    <string name="sorry_no_text_found">क्षमा करें कोई टेक्स्ट नहीं मिला।</string>
+    <string name="sorry_some_erroe_occurred_please_try_againg">क्षमा करें कुछ त्रुटि हुई है कृपया पुनः प्रयास करें।</string>
+    <string name="a_translator_is_a_reader_an_interpreter_and_a_creator_all_in_one">अनुवादक एक पाठक, एक दुभाषिया और एक निर्माता सभी एक में होता है।</string>
+    <string name="let_s_translate">चलो अनुवाद करते हैं</string>
+    <string name="title_camera">कैमरा</string>
+    <string name="chat">चैट</string>
+    <string name="enter_some_text_to_translate">अनुवाद करने के लिए कुछ टेक्स्ट दर्ज करें।</string>
+    <string name="please_cehck_your_internet">कृपया अपना इंटरनेट जाँचें और पुनः प्रयास करें।</string>
+    <string name="some_error_occurred_in_translation">क्षमा करें, अनुवाद में कुछ त्रुटि हुई है।</string>
+    <string name="some_error_occurred_in_translation_please_try_again_later">अनुवाद में कुछ त्रुटि हुई है कृपया बाद में पुनः प्रयास करें।</string>
+    <string name="loading_monetization">मुद्रीकरण लोड हो रहा है।</string>
+    <string name="languages">भाषाएँ</string>
+    <string name="next">अगला</string>
 </resources>

@@ -9,12 +9,14 @@ import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityDisplayFavoritesBinding
 import org.dslul.openboard.translator.pro.adaptor.FavoritesAdapter
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 
 class DisplayFavoritesActivity : AppCompatActivity() {
     lateinit var adapter: FavoritesAdapter
     private lateinit var binding: ActivityDisplayFavoritesBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setAppLanguage()
         binding = ActivityDisplayFavoritesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

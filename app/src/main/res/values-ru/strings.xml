@@ -143,7 +143,7 @@
     <string name="setup_finish_action" msgid="276559243409465389">"Готово"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Значок приложения"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">Отображать значок приложения в меню приложений</string>
-    <string name="app_name" msgid="6320102637491234792">"Поставщик словарей"</string>
+    <string name="app_name_temp" msgid="6320102637491234792">"Поставщик словарей"</string>
     <string name="dictionary_provider_name" msgid="3027315045397363079">"Поставщик словарей"</string>
     <string name="dictionary_service_name" msgid="6237472350693511448">"Служба словарей"</string>
     <string name="download_description" msgid="6014835283119198591">"Обновления словаря"</string>
@@ -231,4 +231,94 @@
     <string name="settings_category_suggestions">Предложения</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Долгое нажатие клавиши пробела вызовет меню выбора метода ввода</string>
     <string name="amoled_mode_summary">Экономия заряда батареи для AMOLED-экранов</string>
+
+    <string name="word_phrase_or_sentence">Словосочетание или предложение</string>
+    <string name="todo">Делать</string>
+    <string name="translator">Переводчик</string>
+    <string name="Pro">Про</string>
+    <string name="enjoy_ou_best_translation_features_and_translate_on_the_goo">Наслаждайтесь лучшими функциями перевода и переводите на ходу</string>
+    <string name="fun_words">Веселые слова</string>
+    <string name="relax_your_brain_with_this_fun_word_puzzle_game_and_improve_your_vocabulary">Расслабьте свой мозг с помощью этой забавной игры-головоломки со словами и улучшите свой словарный запас.</string>
+    <string name="textview">ТекстВью</string>
+    <string name="premium">Премиум</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="fun">Веселое слово</string>
+    <string name="phrasebook">Разговорник</string>
+    <string name="quit">Покидать</string>
+    <string name="do_you_really_want_to_quit">Вы действительно хотите бросить?</string>
+    <string name="english">Английский</string>
+    <string name="translating">Идет перевод</string>
+    <string name="ad">Объявление</string>
+    <string name="favorites">Избранное</string>
+    <string name="no_favorites_found">Избранного не найдено</string>
+    <string name="language">Языки</string>
+    <string name="recently_used">Недавно использовано</string>
+    <string name="all_languages">Все языки</string>
+    <string name="downloading">Загрузка</string>
+    <string name="history">История</string>
+    <string name="translate_something_to_see_history">Переведите что-нибудь, чтобы увидеть историю</string>
+    <string name="feedback">Обратная связь</string>
+    <string name="enter_your_topic_and_let_us_know_about_your_feedback">Введите свою тему и сообщите нам о своем отзыве.</string>
+    <string name="enter_topic_here">Введите тему здесь</string>
+    <string name="write_your_suggestion">Напишите свое предложение</string>
+    <string name="publish_feedback">Опубликовать отзыв</string>
+    <string name="do_you_suggestion_or_found_some_bug_n_do_let_us_know_your_feedback">Вы предлагаете или нашли какую-то ошибку и сообщите нам свой отзыв.</string>
+    <string name="rate_us">Оцените нас</string>
+    <string name="did_you_enjoy_the_app">Вам понравилось наше приложение?</string>
+    <string name="let_s_record_your_message_to_communicate">Давайте запишем ваше сообщение для общения</string>
+    <string name="selector">Селектор</string>
+    <string name="loading_words">Загрузка слов.</string>
+    <string name="hint">Намекать</string>
+    <string name="level">Уровень</string>
+    <string name="hint_meaning">Значение подсказки</string>
+    <string name="translate">Переводить</string>
+    <string name="remove_annoying_ads_save_your_time">Удалите надоедливую рекламу.</string>
+    <string name="unlimited_chat_translator">Безлимитный переводчик чата</string>
+    <string name="one_time">План жизни</string>
+    <string name="save_50">Сэкономьте 50%</string>
+    <string name="get_pro">Продолжать</string>
+    <string name="_50_languages_learn_with_unlimited_language_options">Учитесь с поддержкой более 50 языков.</string>
+    <string name="access_full_translation_history">Доступ к полной истории переводов</string>
+    <string name="settings">Настройки</string>
+    <string name="upgrade_to_pro">Обновите до профессионального уровня</string>
+    <string name="share_app">Поделиться приложением</string>
+    <string name="privacy_policy">политика конфиденциальности</string>
+    <string name="terms_of_use"><![CDATA[Правила и условия]]></string>
+    <string name="dark_theme">Темная тема</string>
+    <string name="good">Хороший</string>
+    <string name="enable_keyboard">Включить клавиатуру</string>
+    <string name="select">Выбирать</string>
+    <string name="skip"><u>Пропустить</u></string>
+    <string name="step_2">Шаг 2:</string>
+    <string name="by_continuing_you_accept_our">Продолжая, вы принимаете наши</string>
+    <string name="hello_blank_fragment">Привет, пустой фрагмент</string>
+    <string name="camera_translation">Перевод камеры</string>
+    <string name="textView">Текстовый вид</string>
+    <string name="detect">Обнаружить</string>
+    <string name="please_check_your_internet_connection_and_try_again">Пожалуйста, проверьте подключение к Интернету и повторите попытку.</string>
+    <string name="please_select_language_you_want_to_translate">Пожалуйста, выберите язык, с которого вы хотите перевести.</string>
+    <string name="you_can_not_start_this_module">Вы не можете запустить этот модуль без разрешений</string>
+    <string name="detecting_text">Обнаружение текста</string>
+    <string name="view_all">Посмотреть все</string>
+    <string name="result">Результат</string>
+    <string name="your_are_using_limited_version_please_upgrade_or_watch_ad_to_use_camera_translate">Вы используете ограниченную версию, обновите ее или посмотрите рекламу, чтобы использовать функцию перевода камеры.</string>
+    <string name="upgrade_or_watch_ad">Обновите или посмотрите рекламу</string>
+    <string name="watch_ad">Посмотреть рекламу</string>
+    <string name="upgrade">Обновление</string>
+    <string name="text">Текст</string>
+    <string name="translation">Перевод</string>
+    <string name="sorry_no_text_found">Извините, текст не найден.</string>
+    <string name="sorry_some_erroe_occurred_please_try_againg">Извините, произошла ошибка, попробуйте еще раз.</string>
+    <string name="a_translator_is_a_reader_an_interpreter_and_a_creator_all_in_one">Переводчик – это читатель, переводчик и творец в одном лице.</string>
+    <string name="let_s_translate">Давайте переведем</string>
+    <string name="title_camera">Камера</string>
+    <string name="chat">Чат</string>
+    <string name="enter_some_text_to_translate">Введите текст для перевода.</string>
+    <string name="please_cehck_your_internet">Пожалуйста, проверьте свой Интернет и повторите попытку.</string>
+    <string name="some_error_occurred_in_translation">Извините, при переводе произошла ошибка.</string>
+    <string name="some_error_occurred_in_translation_please_try_again_later">При переводе произошла ошибка. Повторите попытку позже.</string>
+    <string name="loading_monetization">Загрузка монетизации.</string>
+    <string name="languages">Языки</string>
+    <string name="next">Следующий</string>
 </resources>

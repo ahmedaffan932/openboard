@@ -31,6 +31,7 @@ import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.objects.CameraMisc.getCameraFace
 import androidx.activity.result.contract.ActivityResultContracts
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityCameraTranslationBinding
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 
 class CameraTranslationActivity : AppCompatActivity() {
     lateinit var binding: ActivityCameraTranslationBinding
@@ -65,6 +66,7 @@ class CameraTranslationActivity : AppCompatActivity() {
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setAppLanguage()
         binding = ActivityCameraTranslationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

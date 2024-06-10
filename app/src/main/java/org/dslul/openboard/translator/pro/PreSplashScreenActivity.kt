@@ -13,6 +13,8 @@ import android.view.animation.AnimationUtils
 import android.widget.RatingBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import com.example.translatorguru.ads.admob.LoadAdCallBack
 import com.google.android.gms.ads.MobileAds
 import com.google.android.ump.ConsentDebugSettings
@@ -20,32 +22,39 @@ import com.google.android.ump.ConsentInformation
 import com.google.android.ump.ConsentRequestParameters
 import com.google.android.ump.UserMessagingPlatform
 import com.google.firebase.FirebaseApp
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import kotlinx.android.synthetic.main.activity_pre_splash_screen.*
+import kotlinx.android.synthetic.main.fragment_home.mrecFrameLayout
+import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityPreSplashScreenBinding
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isSplashScreen
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobInterstitialAd
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobMRECAds
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobNativeAds
+import org.dslul.openboard.translator.pro.classes.ads.admob.AppOpenAdManager
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 @SuppressLint("CustomSplashScreen")
 class PreSplashScreenActivity : AppCompatActivity() {
     lateinit var binding: ActivityPreSplashScreenBinding
     private lateinit var consentInformation: ConsentInformation
-    private var isIntAdLoaded = false
-    private var isNativeAdLoaded = false
-    private var isStartButtonVisible = false
-
+    private var isShowingAppOpen = false
+    private var isRemoteConfigFetched = false
+    private var isNextActivityStarted = false
+    private var isAdRequestSent = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setAppLanguage()
         binding = ActivityPreSplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         FirebaseApp.initializeApp(this)
+
+        getRemoteConfigValues()
 
         val debugSettings = ConsentDebugSettings.Builder(this)
             .setDebugGeography(ConsentDebugSettings.DebugGeography.DEBUG_GEOGRAPHY_EEA)
@@ -68,29 +77,66 @@ class PreSplashScreenActivity : AppCompatActivity() {
 
                     if (loadAndShowError != null) {
                         Log.d(Misc.logKey, loadAndShowError.message)
-                        showStartButton()
+                        startNextActivity()
                     }
 
                     if (consentInformation.canRequestAds()) {
                         MobileAds.initialize(this) {}
+                        Log.d(Misc.logKey, "Initialized")
 
-                        loadAds()
+                        object : CountDownTimer(6000, 50) {
+                            override fun onTick(millisUntilFinished: Long) {
+                                if (isRemoteConfigFetched) {
+                                    Log.d(Misc.logKey, "Tick")
+                                    if (Ads.isSplashAppOpenAdEnabled) {
+                                        if (!isAdRequestSent) {
+                                            isAdRequestSent = true
+                                            AppOpenAdManager.loadAd(
+                                                this@PreSplashScreenActivity,
+                                                AdIds.appOpenAdIdSplash,
+                                                object : LoadAdCallBack {
+                                                    override fun onLoaded() {
+                                                        if (!isNextActivityStarted)
+                                                            AppOpenAdManager.showIfAvailable(
+                                                                this@PreSplashScreenActivity,
+                                                                true,
+                                                                object : InterstitialCallBack {
+                                                                    override fun onDismiss() {
+                                                                        startNextActivity()
+                                                                    }
 
-                        object : CountDownTimer(8000, 1000) {
-                            @SuppressLint("SetTextI18n")
-                            override fun onTick(p0: Long) {
-                                if (isIntAdLoaded && isNativeAdLoaded) {
-                                    showStartButton()
+                                                                    override fun onAdDisplayed() {
+                                                                        isShowingAppOpen = true
+                                                                    }
+                                                                }
+                                                            )
+                                                    }
+
+                                                    override fun onFailed() {
+                                                        startNextActivity()
+                                                    }
+                                                }
+                                            )
+
+                                            AdmobMRECAds.loadMREC(
+                                                this@PreSplashScreenActivity,
+                                                AdIds.mrecAdIdAd
+                                            )
+                                        }
+                                    } else {
+                                        startNextActivity()
+                                    }
                                 }
                             }
 
                             override fun onFinish() {
-                                showStartButton()
+                                Log.e(Misc.logKey, "finished")
+                                if (!isShowingAppOpen)
+                                    startNextActivity()
                             }
                         }.start()
 
-                    } else {
-                        showStartButton()
+
                     }
                 }
             },
@@ -98,95 +144,88 @@ class PreSplashScreenActivity : AppCompatActivity() {
                 Log.d(
                     Misc.logKey, "${requestConsentError.errorCode} ${requestConsentError.message}"
                 )
-                showStartButton()
 
+                startNextActivity()
             }
         )
 
-        binding.btnStart.setOnClickListener {
-            startNextActivity()
-        }
 
     }
 
+    private fun getRemoteConfigValues() {
+        val mFRC = FirebaseRemoteConfig.getInstance()
+        mFRC.ensureInitialized()
+        mFRC.fetchAndActivate().addOnCompleteListener { p0 ->
+            if (p0.isSuccessful) {
+                if (!BuildConfig.DEBUG) {
+                    Ads.chatBanner = mFRC.getString("chatBanner")
+                    Ads.languageSelectorBanner = mFRC.getString("languageSelectorBanner")
+                    Ads.splashNative = mFRC.getString("splashNative")
+                    Ads.exitInt = mFRC.getString("exitInt")
+                    Ads.phraseInt = mFRC.getString("phraseInt")
+                    Ads.exitNative = mFRC.getString("exitNative")
+                    Ads.translateNative = mFRC.getString("translateNative")
+                    Ads.dashboardNative = mFRC.getString("dashboardNative")
+                    Ads.onBoardingNative = mFRC.getString("onBoardingNative")
+                    Ads.cameraTranslationInt = mFRC.getString("cameraTranslationInt")
+                    Ads.splashInt = mFRC.getString("splashInt")
+                    Ads.translateInt = mFRC.getString("translateInt")
 
-    private fun startNextActivity() {
-        Ads.showInterstitial(this, Ads.splashInt, object : InterstitialCallBack {
-            override fun onDismiss() {
-                if (Misc.isFirstTime(this@PreSplashScreenActivity)) {
-                    startActivity(
-                        Intent(
-                            this@PreSplashScreenActivity,
-                            SplashScreenActivity::class.java
-                        )
-                    )
-                    finish()
+                    Ads.isIntPreLoad = mFRC.getBoolean("isIntPreLoad")
+                    Ads.isNativeAdPreload = mFRC.getBoolean("isNativeAdPreload")
+                    Ads.isSplashAppOpenAdEnabled = mFRC.getBoolean("isSplashAppOpenAdEnabled")
+
+                    AdIds.mrecAdIdAd = mFRC.getString("mrecAdIdAd")
+                    AdIds.appOpenAdIdSplash = mFRC.getString("appOpenAdIdSplash")
+                    AdIds.nativeAdIdAdMobExit = mFRC.getString("nativeAdIdAdMobExit")
+                    AdIds.nativeAdIdAdMobTranslate = mFRC.getString("nativeAdIdAdMobTranslate")
+                    AdIds.nativeAdIdAdMobSplash = mFRC.getString("nativeAdIdAdMobSplash")
+                    AdIds.interstitialAdIdAdMobSplash =
+                        mFRC.getString("interstitialAdIdAdMobSplash")
+                    AdIds.interstitialAdIdAdMobPhrases =
+                        mFRC.getString("interstitialAdIdAdMobPhrases")
+                    AdIds.interstitialAdIdAdMobExit = mFRC.getString("interstitialAdIdAdMobExit")
+                    AdIds.interstitialAdIdAdMobTranslate =
+                        mFRC.getString("interstitialAdIdAdMobTranslate")
+                    AdIds.interstitialAdIdAdMobCameraTranslate =
+                        mFRC.getString("interstitialAdIdAdMobCameraTranslate")
+                    AdIds.collapsibleBannerAdIdAdChat =
+                        mFRC.getString("collapsibleBannerAdIdAdChat")
+                    AdIds.collapsibleBannerAdIdAdLanguages =
+                        mFRC.getString("collapsibleBannerAdIdAdLanguages")
+                    AdIds.collapsibleBannerAdIdAdOnboarding =
+                        mFRC.getString("collapsibleBannerAdIdAdOnboarding")
+
+                }
+
+                isRemoteConfigFetched = true
+                mFRC.reset()
+            }
+        }
+    }
+
+    fun startNextActivity() {
+        if (!isNextActivityStarted) {
+            if (Ads.isSplashAppOpenAdEnabled) {
+                if (Misc.isFirstTime(this)) {
+                    startActivity(Intent(this, AppLanguageSelectorActivity::class.java))
                 } else {
-                    startActivity(
-                        Intent(
-                            this@PreSplashScreenActivity,
-                            FragmentsDashboardActivity::class.java
-                        )
-                    )
-                    finish()
+                    startActivity(Intent(this, FragmentsDashboardActivity::class.java))
                 }
+            } else {
+                val intent = Intent(
+                    this,
+                    SplashScreenActivity::class.java
+                )
+                val pairs = arrayOf<Pair<View, String>>(
+                    Pair(binding.logo, "logo_splash"),
+//                    Pair(binding.spline, "anim_splash")
+                )
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs)
+                startActivity(intent, options.toBundle())
             }
-        })
-    }
-
-    override fun onResume() {
-        super.onResume()
-        isSplashScreen = true
-    }
-
-    override fun onPause() {
-        super.onPause()
-        isSplashScreen = false
-    }
-
-    private fun showStartButton() {
-        if (!isStartButtonVisible) {
-            Misc.zoomInView(binding.btnStart, this, 250)
-            binding.spline.visibility = View.INVISIBLE
         }
-        isStartButtonVisible = true
-    }
 
-    private fun loadAds() {
-        Handler(Looper.getMainLooper()).postDelayed({
-            AdmobInterstitialAd.loadInterAdmob(
-                this,
-                AdIds.interstitialAdIdAdMobSplash,
-                object : LoadAdCallBack {
-                    override fun onLoaded() {
-                        isIntAdLoaded = true
-                    }
-
-                    override fun onFailed() {
-                        isIntAdLoaded = true
-                    }
-                }
-            )
-        }, 1000)
-
-        Ads.loadAndShowNativeAd(
-            this,
-            AdIds.nativeAdIdAdMobSplash,
-            Ads.splashNative,
-            binding.nativeAdFrameLayout,
-            R.layout.admob_native_splash,
-            R.layout.shimmer_native_splash,
-            object : LoadAdCallBack {
-                override fun onFailed() {
-                    isNativeAdLoaded = true
-                }
-
-                override fun onLoaded() {
-                    isNativeAdLoaded = true
-                }
-            }
-        )
-
-        AdmobMRECAds.loadMREC(this)
+        isNextActivityStarted = true
     }
 }

@@ -24,6 +24,7 @@ import com.rw.keyboardlistener.KeyboardUtils
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityViewTranslatedTextBinding
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.MiscTranslate
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
 import org.dslul.openboard.translator.pro.interfaces.TranslationInterface
@@ -41,6 +42,7 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setAppLanguage()
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN

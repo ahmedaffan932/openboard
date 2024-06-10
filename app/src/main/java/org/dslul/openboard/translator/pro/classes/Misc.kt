@@ -7,6 +7,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -16,6 +17,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.DisplayMetrics
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
@@ -644,5 +646,35 @@ object Misc {
             )
         }
     }
+
+
+    private fun sharedPreferencesVar(context: Context): SharedPreferences {
+        return context.getSharedPreferences(
+            "TranslatorPro",
+            AppCompatActivity.MODE_PRIVATE
+        )
+    }
+
+    private fun sharedPreferencesEditorVar(context: Context):SharedPreferences.Editor{
+        return sharedPreferencesVar(context).edit()
+    }
+
+    fun Activity.setAppLanguage() {
+        val res = resources
+        val dm: DisplayMetrics = res.displayMetrics
+        val conf: Configuration = res.configuration
+        conf.setLocale(Locale(getAppLanguage(this)))
+        res.updateConfiguration(conf, dm)
+
+    }
+
+    fun getAppLanguage(context: Context): String {
+        return sharedPreferencesVar(context).getString("lng", "en").toString()
+    }
+
+    fun setAppLanguage(context: Context, lng: String) {
+        sharedPreferencesEditorVar(context).putString("lng", lng).apply()
+    }
+
 
 }

@@ -30,6 +30,7 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityTranslateBinding
 import org.dslul.openboard.translator.pro.classes.MiscTranslate
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
@@ -50,7 +51,7 @@ class TranslateActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setAppLanguage()
+        setAppLanguage()
         binding = ActivityTranslateBinding.inflate(layoutInflater)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,

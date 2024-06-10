@@ -10,6 +10,7 @@ import org.dslul.openboard.translator.pro.adaptor.HistoryAdapter
 import org.dslul.openboard.translator.pro.classes.Misc
 
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityDisplayHistoryBinding
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.interfaces.InterfaceHistory
 
 class DisplayHistoryActivity : AppCompatActivity() {
@@ -18,6 +19,7 @@ class DisplayHistoryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setAppLanguage()
         binding = ActivityDisplayHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

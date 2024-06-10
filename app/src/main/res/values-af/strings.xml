@@ -16,7 +16,8 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
- --><resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ -->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="english_ime_input_options" msgid="3909945612939668554">"Invoeropsies"</string>
     <string name="use_contacts_for_spellchecking_option_title" msgid="5374120998125353898">"Soek kontakname op"</string>
     <string name="use_contacts_for_spellchecking_option_summary" msgid="8754413382543307713">"Speltoetser gebruik inskrywings uit jou kontaklys"</string>
@@ -143,7 +144,7 @@
     <string name="setup_finish_action" msgid="276559243409465389">"Klaar"</string>
     <string name="show_setup_wizard_icon" msgid="5008028590593710830">"Wys program-ikoon"</string>
     <string name="show_setup_wizard_icon_summary" msgid="4119998322536880213">"Wys program-ikoon in die lanseerpoort"</string>
-    <string name="app_name" msgid="6320102637491234792">"Woordeboekverskaffer"</string>
+<!--    <string name="app_name_temp" msgid="6320102637491234792">"Woordeboekverskaffer"</string>-->
     <string name="dictionary_provider_name" msgid="3027315045397363079">"Woordeboekverskaffer"</string>
     <string name="dictionary_service_name" msgid="6237472350693511448">"Woordeboek-diens"</string>
     <string name="download_description" msgid="6014835283119198591">"Woordeboek se opdateerinligting"</string>

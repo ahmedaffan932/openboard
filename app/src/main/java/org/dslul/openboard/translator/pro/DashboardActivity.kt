@@ -15,12 +15,14 @@ import kotlinx.android.synthetic.main.activity_dashboard.*
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 
 class DashboardActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n", "RemoteViewLayout")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setAppLanguage()
         setContentView(R.layout.activity_dashboard)
 
         showNativeAd()

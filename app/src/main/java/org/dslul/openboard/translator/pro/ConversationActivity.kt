@@ -21,6 +21,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import org.jsoup.Jsoup
@@ -35,6 +36,7 @@ class ConversationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setAppLanguage()
         setContentView(R.layout.activity_conversation)
 
         btnBack.setOnClickListener {

@@ -37,6 +37,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
         <activity
+            android:name="org.dslul.openboard.translator.pro.OnBoardingActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TranslatorGuru" />
+        <activity
             android:name="org.dslul.openboard.translator.pro.FragmentsDashboardActivity"
             android:exported="false"
             android:theme="@style/Theme.TranslatorGuru" />
@@ -73,6 +77,15 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity
             android:name="org.dslul.openboard.translator.pro.CameraTranslationActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="org.dslul.openboard.translator.pro.AppLanguageSelectorActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru">
@@ -146,9 +159,9 @@
         </activity>
         <activity
             android:name="org.dslul.openboard.translator.pro.LanguageSelectorActivity"
+            android:excludeFromRecents="true"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:excludeFromRecents="true"
             android:theme="@style/Theme.TranslatorGuru">
             <meta-data
                 android:name="android.app.lib_name"
@@ -300,7 +313,6 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-6814505709397727~1751762147" />
-
     </application>
 
 </manifest>

@@ -22,6 +22,7 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityLanguageSelectorBinding
 import org.dslul.openboard.translator.pro.adaptor.LanguagesAdapter
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobBannerAds
@@ -35,6 +36,7 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setAppLanguage()
         binding = ActivityLanguageSelectorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

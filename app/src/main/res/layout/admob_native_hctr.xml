@@ -9,34 +9,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/ad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="AD"
-            android:fontFamily="@font/poppins_regular"
-            android:paddingVertical="@dimen/_2sdp"
-            android:paddingHorizontal="@dimen/padding"
-            android:backgroundTint="@color/accent"
-            android:background="@drawable/bg_cl_remove_ads"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginHorizontal="@dimen/padding"
+            android:layout_marginTop="@dimen/padding"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ad">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ad_app_icon"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:adjustViewBounds="true"
                 app:shapeAppearanceOverlay="@style/lessRoundedCorners"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -54,23 +41,49 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/ad_headline"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLength="25"
-                    android:maxLines="1"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/ad_headline"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLength="25"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/ad"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="@string/app_name"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/ad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="AD"
+                        android:fontFamily="@font/poppins_regular"
+                        android:paddingVertical="@dimen/_1sdp"
+                        android:paddingHorizontal="@dimen/less_padding"
+                        android:backgroundTint="@color/accent"
+                        android:textSize="10dp"
+                        android:background="@drawable/bg_ad"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/ad_body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:maxLines="2"
+                    android:maxLines="1"
                     android:textColor="@color/gray_700"
                     android:textSize="11sp" />
 
@@ -84,8 +97,7 @@
             android:layout_height="0dp"
             android:layout_marginHorizontal="@dimen/padding"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginVertical="@dimen/less_padding"
             app:layout_constraintBottom_toTopOf="@id/bottom"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -95,7 +107,6 @@
             android:id="@+id/bottom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
@@ -106,6 +117,8 @@
                 android:layout_height="@dimen/_40sdp"
                 android:backgroundTint="@color/accent"
                 android:background="@drawable/bg_main_rounded"
+                android:layout_marginHorizontal="@dimen/padding"
+                android:layout_marginBottom="@dimen/padding"
                 android:gravity="center"
                 android:text="install"
                 android:textStyle="bold"
