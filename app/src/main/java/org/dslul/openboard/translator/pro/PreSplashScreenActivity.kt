@@ -90,32 +90,32 @@ class PreSplashScreenActivity : AppCompatActivity() {
                                     Log.d(Misc.logKey, "Tick")
                                     if (!isAdRequestSent) {
                                         isAdRequestSent = true
-                                        AppOpenAdManager.loadAd(
-                                            this@PreSplashScreenActivity,
-                                            AdIds.appOpenAdIdSplash,
-                                            object : LoadAdCallBack {
-                                                override fun onLoaded() {
-                                                    if (!isNextActivityStarted)
-                                                        AppOpenAdManager.showIfAvailable(
-                                                            this@PreSplashScreenActivity,
-                                                            true,
-                                                            object : InterstitialCallBack {
-                                                                override fun onDismiss() {
+//                                        AppOpenAdManager.loadAd(
+//                                            this@PreSplashScreenActivity,
+//                                            AdIds.appOpenAdIdSplash,
+//                                            object : LoadAdCallBack {
+//                                                override fun onLoaded() {
+//                                                    if (!isNextActivityStarted)
+//                                                        AppOpenAdManager.showIfAvailable(
+//                                                            this@PreSplashScreenActivity,
+//                                                            true,
+//                                                            object : InterstitialCallBack {
+//                                                                override fun onDismiss() {
                                                                     startNextActivity()
-                                                                }
-
-                                                                override fun onAdDisplayed() {
-                                                                    isShowingAppOpen = true
-                                                                }
-                                                            }
-                                                        )
-                                                }
-
-                                                override fun onFailed() {
-                                                    startNextActivity()
-                                                }
-                                            }
-                                        )
+//                                                                }
+//
+//                                                                override fun onAdDisplayed() {
+//                                                                    isShowingAppOpen = true
+//                                                                }
+//                                                            }
+//                                                        )
+//                                                }
+//
+//                                                override fun onFailed() {
+//                                                    startNextActivity()
+//                                                }
+//                                            }
+//                                        )
 
                                         AdmobMRECAds.loadMREC(
                                             this@PreSplashScreenActivity,
