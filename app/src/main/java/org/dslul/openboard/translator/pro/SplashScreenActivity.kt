@@ -143,7 +143,6 @@ class SplashScreenActivity : AppCompatActivity() {
                 }
             }
         )
-
         AdmobMRECAds.loadMREC(this)
     }
 }

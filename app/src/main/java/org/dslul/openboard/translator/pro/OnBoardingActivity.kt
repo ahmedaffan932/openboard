@@ -31,24 +31,24 @@ class OnBoardingActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        if (Ads.onBoardingNative.contains("collapsible")) {
-            AdmobBannerAds.loadCollapsibleBanner(
-                this,
-                AdIds.collapsibleBannerAdIdAdOnboarding,
-                Ads.onBoardingNative,
-                binding.llCollapsibleBanner
-            )
-        }
-
-        if (Ads.onBoardingNative.contains("native")) {
-            Ads.loadAndShowNativeAd(
-                this,
-                remoteKey = Ads.onBoardingNative,
-                frameLayout = binding.nativeAdFrameLayout,
-                adLayout = R.layout.admob_small_native_ad_hctr,
-                shimmerLayout = R.layout.small_native_shimmer
-            )
-        }
+//        if (Ads.onBoardingNative.contains("collapsible")) {
+//            AdmobBannerAds.loadCollapsibleBanner(
+//                this,
+//                AdIds.collapsibleBannerAdIdAdOnboarding,
+//                Ads.onBoardingNative,
+//                binding.llCollapsibleBanner
+//            )
+//        }
+//
+//        if (Ads.onBoardingNative.contains("native")) {
+//            Ads.loadAndShowNativeAd(
+//                this,
+//                remoteKey = Ads.onBoardingNative,
+//                frameLayout = binding.nativeAdFrameLayout,
+//                adLayout = R.layout.admob_small_native_ad_hctr,
+//                shimmerLayout = R.layout.small_native_shimmer
+//            )
+//        }
 
         binding.splashViewPager.adapter = FragmentAdapter(this)
 
