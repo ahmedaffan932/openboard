@@ -20,14 +20,14 @@ class AppLanguageSelectorActivity : AppCompatActivity() {
         binding = ActivityAppLanguageSelectorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Ads.loadAndShowNativeAd(
-            this,
-            AdIds.nativeAdIdAdMobSplash,
-            Ads.appLanguagesSelectorNative,
-            binding.nativeAdFrameLayout,
-            R.layout.admob_native_splash,
-            R.layout.shimmer_native_splash
-        )
+//        Ads.loadAndShowNativeAd(
+//            this,
+//            AdIds.nativeAdIdAdMobSplash,
+//            Ads.appLanguagesSelectorNative,
+//            binding.nativeAdFrameLayout,
+//            R.layout.admob_native_splash,
+//            R.layout.shimmer_native_splash
+//        )
 
         when (Misc.getAppLanguage(this)) {
             "pt" -> {

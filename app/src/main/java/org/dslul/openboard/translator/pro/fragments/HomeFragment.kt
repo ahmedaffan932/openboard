@@ -55,13 +55,13 @@ class HomeFragment : Fragment() {
 
         showAds()
 
-        KeyboardUtils.addKeyboardToggleListener(requireActivity()) { isVisible ->
-            if (isVisible) {
-                binding.mrecFrameLayout.visibility = View.GONE
-            } else {
-                binding.mrecFrameLayout.visibility = View.VISIBLE
-            }
-        }
+//        KeyboardUtils.addKeyboardToggleListener(requireActivity()) { isVisible ->
+//            if (isVisible) {
+//                binding.mrecFrameLayout.visibility = View.GONE
+//            } else {
+//                binding.mrecFrameLayout.visibility = View.VISIBLE
+//            }
+//        }
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (requireContext().isInputMethodSelected()) {
@@ -263,18 +263,18 @@ class HomeFragment : Fragment() {
         }
         handler.post(runnable)
 
-        if (Ads.dashboardNative.contains("mrec")) {
-            AdmobMRECAds.showMREC(requireActivity(), binding.mrecFrameLayout, Ads.dashboardNative)
-        } else {
-            Ads.loadAndShowNativeAd(
-                requireActivity(),
-                AdIds.nativeAdIdAdMobTranslate,
-                Ads.dashboardNative,
-                binding.mrecFrameLayout,
-                R.layout.admob_native_hctr,
-                R.layout.large_native_shimmer
-            )
-        }
+//        if (Ads.dashboardNative.contains("mrec")) {
+//            AdmobMRECAds.showMREC(requireActivity(), binding.mrecFrameLayout, Ads.dashboardNative)
+//        } else {
+//            Ads.loadAndShowNativeAd(
+//                requireActivity(),
+//                AdIds.nativeAdIdAdMobTranslate,
+//                Ads.dashboardNative,
+//                binding.mrecFrameLayout,
+//                R.layout.admob_native_hctr,
+//                R.layout.large_native_shimmer
+//            )
+//        }
     }
 
     override fun onResume() {

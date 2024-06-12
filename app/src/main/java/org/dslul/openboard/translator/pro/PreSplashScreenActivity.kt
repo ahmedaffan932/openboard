@@ -219,13 +219,14 @@ class PreSplashScreenActivity : AppCompatActivity() {
                 )
                 val pairs = arrayOf<Pair<View, String>>(
                     Pair(binding.logo, "logo_splash"),
-//                    Pair(binding.spline, "anim_splash")
+                    Pair(binding.spline, "anim_splash")
                 )
                 val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs)
                 startActivity(intent, options.toBundle())
+//            }
             }
-        }
 
-        isNextActivityStarted = true
+            isNextActivityStarted = true
+        }
     }
 }
