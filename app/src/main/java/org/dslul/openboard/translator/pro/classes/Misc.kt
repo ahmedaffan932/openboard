@@ -9,12 +9,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
-import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.DisplayMetrics
@@ -25,7 +22,6 @@ import android.view.Window
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.OvershootInterpolator
-import android.widget.RemoteViews
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
@@ -38,12 +34,11 @@ import com.google.mlkit.nl.translate.TranslateLanguage
 import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.LatinIME
 import org.dslul.openboard.inputmethod.latin.R
-import org.dslul.openboard.translator.pro.*
 import java.lang.reflect.Type
 import java.util.Locale
-import kotlin.properties.Delegates
 
 object Misc {
+    var showNextButtonOnLanguageScreen: Boolean = true
     var isItemClicked: Boolean = false
 
     const val text: String = "text"

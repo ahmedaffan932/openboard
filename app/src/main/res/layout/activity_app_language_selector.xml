@@ -21,29 +21,42 @@
             android:padding="@dimen/fab_padding"
             android:text="@string/languages"
             android:textColor="@color/white"
-            android:textStyle="bold"
             android:textSize="@dimen/_16sdp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <LinearLayout
             android:id="@+id/btnSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/fab_padding"
             android:paddingVertical="@dimen/padding"
-            android:background="@drawable/bg_less_rounded_borderd"
-            android:backgroundTint="@color/white"
-            android:text="@string/next"
-            android:textColor="@color/blue"
-            android:textSize="@dimen/_14sdp"
             android:layout_marginEnd="@dimen/fab_padding"
             android:layout_marginVertical="@dimen/padding"
-            android:textStyle="bold"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:text="@string/next"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:tint="@color/white"
+                android:src="@drawable/ic_arrow_down"
+                android:rotation="270"/>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -177,8 +190,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:layout_marginTop="@dimen/fab_padding"
                 android:layout_marginHorizontal="@dimen/fab_padding"
+                android:layout_marginTop="@dimen/fab_padding"
                 android:background="@drawable/bg_main_less_rounded"
                 android:backgroundTint="@color/white"
                 android:button="@null"
@@ -214,9 +227,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:layout_marginHorizontal="@dimen/fab_padding"
                 android:layout_marginTop="@dimen/fab_padding"
                 android:layout_marginBottom="@dimen/padding"
-                android:layout_marginHorizontal="@dimen/fab_padding"
                 android:background="@drawable/bg_main_less_rounded"
                 android:backgroundTint="@color/white"
                 android:button="@null"
@@ -231,8 +244,8 @@
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rbSpanish" />
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -252,9 +265,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:layout_marginHorizontal="@dimen/fab_padding"
                 android:layout_marginTop="@dimen/fab_padding"
                 android:layout_marginBottom="@dimen/padding"
-                android:layout_marginHorizontal="@dimen/fab_padding"
                 android:background="@drawable/bg_main_less_rounded"
                 android:backgroundTint="@color/white"
                 android:button="@null"
@@ -269,8 +282,8 @@
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rbHindi" />
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -290,9 +303,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:layout_marginHorizontal="@dimen/fab_padding"
                 android:layout_marginTop="@dimen/fab_padding"
                 android:layout_marginBottom="@dimen/padding"
-                android:layout_marginHorizontal="@dimen/fab_padding"
                 android:background="@drawable/bg_main_less_rounded"
                 android:backgroundTint="@color/white"
                 android:button="@null"
@@ -307,8 +320,8 @@
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rbPortuguese" />
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -328,9 +341,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:layout_marginHorizontal="@dimen/fab_padding"
                 android:layout_marginTop="@dimen/fab_padding"
                 android:layout_marginBottom="@dimen/padding"
-                android:layout_marginHorizontal="@dimen/fab_padding"
                 android:background="@drawable/bg_main_less_rounded"
                 android:backgroundTint="@color/white"
                 android:button="@null"
@@ -345,8 +358,8 @@
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rbKorean" />
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -366,12 +379,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:layout_marginHorizontal="@dimen/fab_padding"
                 android:layout_marginTop="@dimen/fab_padding"
                 android:layout_marginBottom="@dimen/padding"
-                android:layout_marginHorizontal="@dimen/fab_padding"
                 android:background="@drawable/bg_main_less_rounded"
                 android:backgroundTint="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:button="@null"
                 android:buttonTint="@color/blue"
                 android:drawableRight="?android:attr/listChoiceIndicatorSingle"
@@ -384,8 +396,9 @@
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rbItalian" />
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -410,6 +423,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

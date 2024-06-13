@@ -3,7 +3,6 @@ package org.dslul.openboard.translator.pro
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityAppLanguageSelectorBinding
@@ -14,61 +13,65 @@ import org.dslul.openboard.translator.pro.classes.ads.Ads
 
 class AppLanguageSelectorActivity : AppCompatActivity() {
     lateinit var binding: ActivityAppLanguageSelectorBinding
+    private var isLanguageSelected = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setAppLanguage()
         binding = ActivityAppLanguageSelectorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        Ads.loadAndShowNativeAd(
-//            this,
-//            AdIds.nativeAdIdAdMobSplash,
-//            Ads.appLanguagesSelectorNative,
-//            binding.nativeAdFrameLayout,
-//            R.layout.admob_native_splash,
-//            R.layout.shimmer_native_splash
-//        )
+        Ads.loadAndShowNativeAd(
+            this,
+            AdIds.nativeAdIdAdMobSplash,
+            Ads.appLanguagesSelectorNative,
+            binding.nativeAdFrameLayout,
+            R.layout.admob_native_splash,
+            R.layout.shimmer_native_splash
+        )
 
-        when (Misc.getAppLanguage(this)) {
-            "pt" -> {
-                binding.rbPortuguese.isChecked = true
-            }
+        if(Misc.showNextButtonOnLanguageScreen) {
+            binding.btnSave.visibility = View.VISIBLE
+            when (Misc.getAppLanguage(this)) {
+                "pt" -> {
+                    binding.rbPortuguese.isChecked = true
+                }
 
-            "ko" -> {
-                binding.rbKorean.isChecked = true
-            }
+                "ko" -> {
+                    binding.rbKorean.isChecked = true
+                }
 
-            "it" -> {
-                binding.rbItalian.isChecked = true
-            }
+                "it" -> {
+                    binding.rbItalian.isChecked = true
+                }
 
-            "ru" -> {
-                binding.rbRussian.isChecked = true
-            }
+                "ru" -> {
+                    binding.rbRussian.isChecked = true
+                }
 
-            "fr" -> {
-                binding.rbFrench.isChecked = true
-            }
+                "fr" -> {
+                    binding.rbFrench.isChecked = true
+                }
 
-            "de" -> {
-                binding.rbGerman.isChecked = true
-            }
+                "de" -> {
+                    binding.rbGerman.isChecked = true
+                }
 
-            "es" -> {
-                binding.rbSpanish.isChecked = true
-            }
+                "es" -> {
+                    binding.rbSpanish.isChecked = true
+                }
 
-            "hi" -> {
-                binding.rbHindi.isChecked = true
-            }
+                "hi" -> {
+                    binding.rbHindi.isChecked = true
+                }
 
-            else -> {
-                binding.rbEnglish.isChecked = true
+                else -> {
+                    binding.rbEnglish.isChecked = true
+                }
             }
         }
 
-
         binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            binding.btnSave.visibility = View.VISIBLE
             setAppLanguage(this, findViewById<View>(checkedId).tag.toString())
         }
 

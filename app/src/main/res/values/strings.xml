@@ -660,6 +660,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="some_error_occurred_in_translation_please_try_again_later">Some error occurred in translation please try again later.</string>
     <string name="loading_monetization">Loading Monetization.</string>
     <string name="languages">Languages</string>
-    <string name="next">Next</string>
+    <string name="next"><u>Next</u></string>
 
 </resources>

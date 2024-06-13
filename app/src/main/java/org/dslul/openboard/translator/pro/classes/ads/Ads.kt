@@ -12,9 +12,9 @@ import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 object Ads {
 
-    var isIntPreLoad: Boolean = false
-    var isNativeAdPreload: Boolean = false
-    var isSplashAppOpenAdEnabled: Boolean = true
+    var isIntPreLoad: Boolean = true
+    var isNativeAdPreload: Boolean = true
+    var isSplashAppOpenAdEnabled: Boolean = false
     var chatBanner: String = "am"
     var languageSelectorBanner: String = "am"
     var splashNative: String = "am_native_splash"

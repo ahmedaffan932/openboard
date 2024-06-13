@@ -87,7 +87,6 @@ class PreSplashScreenActivity : AppCompatActivity() {
                         object : CountDownTimer(6000, 50) {
                             override fun onTick(millisUntilFinished: Long) {
                                 if (isRemoteConfigFetched) {
-                                    Log.d(Misc.logKey, "Tick")
                                     if (!isAdRequestSent) {
                                         isAdRequestSent = true
                                         AppOpenAdManager.loadAd(
@@ -98,7 +97,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
                                                     if (!isNextActivityStarted)
                                                         AppOpenAdManager.showIfAvailable(
                                                             this@PreSplashScreenActivity,
-                                                            true,
+                                                            Ads.isSplashAppOpenAdEnabled,
                                                             object : InterstitialCallBack {
                                                                 override fun onDismiss() {
                                                                     startNextActivity()
@@ -121,8 +120,6 @@ class PreSplashScreenActivity : AppCompatActivity() {
                                             this@PreSplashScreenActivity,
                                             AdIds.mrecAdIdAd
                                         )
-                                    } else {
-                                        startNextActivity()
                                     }
                                 }
                             }
@@ -194,6 +191,8 @@ class PreSplashScreenActivity : AppCompatActivity() {
                     AdIds.collapsibleBannerAdIdAdOnboarding =
                         mFRC.getString("collapsibleBannerAdIdAdOnboarding")
 
+
+                    Misc.showNextButtonOnLanguageScreen = mFRC.getBoolean("showNextButtonOnLanguageScreen")
                 }
 
                 isRemoteConfigFetched = true
@@ -204,26 +203,24 @@ class PreSplashScreenActivity : AppCompatActivity() {
 
     fun startNextActivity() {
         if (!isNextActivityStarted) {
-            if (Ads.isSplashAppOpenAdEnabled) {
+//            if (Ads.isSplashAppOpenAdEnabled) {
                 if (Misc.isFirstTime(this)) {
                     startActivity(Intent(this, AppLanguageSelectorActivity::class.java))
                 } else {
                     startActivity(Intent(this, FragmentsDashboardActivity::class.java))
                 }
-            } else {
-                val intent = Intent(
-                    this,
-                    SplashScreenActivity::class.java
-                )
-                val pairs = arrayOf<Pair<View, String>>(
-                    Pair(binding.logo, "logo_splash"),
-                    Pair(binding.spline, "anim_splash")
-                )
-                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs)
-                startActivity(intent, options.toBundle())
+//            } else {
+//                val intent = Intent(
+//                    this,
+//                    SplashScreenActivity::class.java
+//                )
+//                val pairs = arrayOf<Pair<View, String>>(
+//                    Pair(binding.logo, "logo_splash"),
+//                    Pair(binding.spline, "anim_splash")
+//                )
+//                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs)
+//                startActivity(intent, options.toBundle())
 //            }
-            }
-
             isNextActivityStarted = true
         }
     }
