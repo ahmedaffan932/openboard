@@ -68,8 +68,8 @@ class SplashScreenActivity : AppCompatActivity() {
 
 
     private fun startNextActivity() {
-        Ads.showInterstitial(this, Ads.splashInt, object : InterstitialCallBack {
-            override fun onDismiss() {
+//        Ads.showInterstitial(this, Ads.splashInt, object : InterstitialCallBack {
+//            override fun onDismiss() {
                 if (Misc.isFirstTime(this@SplashScreenActivity)) {
                     startActivity(
                         Intent(
@@ -87,8 +87,8 @@ class SplashScreenActivity : AppCompatActivity() {
                     )
                     finish()
                 }
-            }
-        })
+//            }
+//        })
     }
 
     override fun onResume() {
