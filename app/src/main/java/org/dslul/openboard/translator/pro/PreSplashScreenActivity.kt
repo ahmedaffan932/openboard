@@ -84,7 +84,57 @@ class PreSplashScreenActivity : AppCompatActivity() {
                         MobileAds.initialize(this) {}
                         Log.d(Misc.logKey, "Initialized")
 
-                        startNextActivity()
+                        object : CountDownTimer(6000, 50) {
+                            override fun onTick(millisUntilFinished: Long) {
+                                if (isRemoteConfigFetched) {
+                                    Log.d(Misc.logKey, "Tick")
+                                    if (!isAdRequestSent) {
+                                        isAdRequestSent = true
+                                        AppOpenAdManager.loadAd(
+                                            this@PreSplashScreenActivity,
+                                            AdIds.appOpenAdIdSplash,
+                                            object : LoadAdCallBack {
+                                                override fun onLoaded() {
+                                                    if (!isNextActivityStarted)
+                                                        AppOpenAdManager.showIfAvailable(
+                                                            this@PreSplashScreenActivity,
+                                                            true,
+                                                            object : InterstitialCallBack {
+                                                                override fun onDismiss() {
+                                                                    startNextActivity()
+                                                                }
+
+                                                                override fun onAdDisplayed() {
+                                                                    isShowingAppOpen = true
+                                                                }
+                                                            }
+                                                        )
+                                                }
+
+                                                override fun onFailed() {
+                                                    startNextActivity()
+                                                }
+                                            }
+                                        )
+
+                                        AdmobMRECAds.loadMREC(
+                                            this@PreSplashScreenActivity,
+                                            AdIds.mrecAdIdAd
+                                        )
+                                    } else {
+                                        startNextActivity()
+                                    }
+                                }
+                            }
+
+                            override fun onFinish() {
+                                Log.e(Misc.logKey, "finished")
+                                if (!isShowingAppOpen)
+                                    startNextActivity()
+                            }
+                        }.start()
+
+
                     }
                 }
             },
@@ -152,15 +202,15 @@ class PreSplashScreenActivity : AppCompatActivity() {
         }
     }
 
-    private fun startNextActivity() {
+    fun startNextActivity() {
         if (!isNextActivityStarted) {
-//            if (Ads.isSplashAppOpenAdEnabled) {
-//                if (Misc.isFirstTime(this)) {
-//                    startActivity(Intent(this, AppLanguageSelectorActivity::class.java))
-//                } else {
-//                    startActivity(Intent(this, FragmentsDashboardActivity::class.java))
-//                }
-//            } else {
+            if (Ads.isSplashAppOpenAdEnabled) {
+                if (Misc.isFirstTime(this)) {
+                    startActivity(Intent(this, AppLanguageSelectorActivity::class.java))
+                } else {
+                    startActivity(Intent(this, FragmentsDashboardActivity::class.java))
+                }
+            } else {
                 val intent = Intent(
                     this,
                     SplashScreenActivity::class.java
@@ -171,9 +221,10 @@ class PreSplashScreenActivity : AppCompatActivity() {
                 )
                 val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs)
                 startActivity(intent, options.toBundle())
+//            }
             }
 
             isNextActivityStarted = true
-//        }
+        }
     }
 }
