@@ -21,6 +21,7 @@ import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobBannerAds
 import org.dslul.openboard.translator.pro.fragments.OnBaordingFragment
+import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 class OnBoardingActivity : AppCompatActivity() {
     lateinit var binding: ActivityOnBoardingBinding
@@ -94,7 +95,15 @@ class OnBoardingActivity : AppCompatActivity() {
         }.start()
 
         binding.btnContinue.setOnClickListener {
-            startActivity(Intent(this, FragmentsDashboardActivity::class.java))
+            Ads.loadAndShowInterstitial(
+                this,
+                Ads.dashboardInt,
+                AdIds.interstitialAdIdAdMobSplash,
+                object : InterstitialCallBack {
+                    override fun onDismiss() {
+                        startActivity(Intent(this@OnBoardingActivity, FragmentsDashboardActivity::class.java))
+                    }
+                })
         }
 
         binding.btnNext.setOnClickListener {
@@ -104,7 +113,15 @@ class OnBoardingActivity : AppCompatActivity() {
                     true
                 )
             } else {
-                startActivity(Intent(this, FragmentsDashboardActivity::class.java))
+                Ads.loadAndShowInterstitial(
+                    this,
+                    Ads.dashboardInt,
+                    AdIds.interstitialAdIdAdMobSplash,
+                    object : InterstitialCallBack {
+                        override fun onDismiss() {
+                            startActivity(Intent(this@OnBoardingActivity, FragmentsDashboardActivity::class.java))
+                        }
+                    })
             }
         }
     }

@@ -5,8 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@drawable/bg_splash_screen"
+    android:background="#FFFCF8"
     tools:context="org.dslul.openboard.translator.pro.PreSplashScreenActivity">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:lottie_autoPlay="false"
+        app:lottie_fileName="anim_bg_color_change.json"
+        app:lottie_loop="false" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clMain"
@@ -15,7 +24,7 @@
         app:layout_constraintBottom_toTopOf="@+id/spline"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.imageview.ShapeableImageView
+        <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/logo"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_100sdp"
@@ -26,8 +35,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/lessRoundedCorners"
-            app:srcCompat="@drawable/logo" />
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="anim_change_logo_color.json"
+            app:shapeAppearanceOverlay="@style/lessRoundedCorners" />
+
 
         <LinearLayout
             android:id="@+id/llLogo"
@@ -59,12 +70,12 @@
             android:layout_marginHorizontal="@dimen/padding"
             android:fontFamily="@font/gilroy_light"
             android:gravity="center"
-            android:visibility="invisible"
             android:maxLines="2"
             android:text="@string/a_translator_is_a_reader_an_interpreter_and_a_creator_all_in_one"
             android:textColor="@color/gray_700"
             android:textSize="@dimen/_12sdp"
             android:textStyle="bold"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/llLogo" />
@@ -78,23 +89,23 @@
         android:layout_gravity="center"
         android:layout_marginHorizontal="@dimen/extra_padding"
         android:layout_marginBottom="@dimen/padding_10"
-        android:transitionName="anim_splash"
         android:background="@drawable/bg_nothing_rounded_ripple"
+        android:transitionName="anim_splash"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_fileName="loading_circle.json" />
+        app:lottie_fileName="loading_circle.json"
+        app:lottie_loop="true" />
 
     <TextView
         android:id="@+id/tvLoadingMonetization"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="@dimen/fab_padding"
-        android:text="@string/loading_monetization"/>
+        android:text="@string/loading_monetization"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

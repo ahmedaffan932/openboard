@@ -16,6 +16,7 @@
 
 package org.dslul.openboard.inputmethod.latin;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -108,6 +109,8 @@ import javax.annotation.Nonnull;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.FORCE_ASCII;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE_COMPAT;
+
+import androidx.core.content.ContextCompat;
 
 import com.google.mlkit.nl.translate.TranslateLanguage;
 
@@ -624,6 +627,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         Log.i(TAG, "Hardware accelerated drawing: " + mIsHardwareAcceleratedDrawingEnabled);
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     public void onCreate() {
         Settings.init(this);
@@ -656,26 +660,26 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         // Register to receive ringer mode change.
         final IntentFilter filter = new IntentFilter();
         filter.addAction(AudioManager.RINGER_MODE_CHANGED_ACTION);
-        registerReceiver(mRingerModeChangeReceiver, filter, Context.RECEIVER_VISIBLE_TO_INSTANT_APPS);
+        registerReceiver(mRingerModeChangeReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED);
 
         // Register to receive installation and removal of a dictionary pack.
         final IntentFilter packageFilter = new IntentFilter();
         packageFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
         packageFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
         packageFilter.addDataScheme(SCHEME_PACKAGE);
-        registerReceiver(mDictionaryPackInstallReceiver, packageFilter,Context.RECEIVER_VISIBLE_TO_INSTANT_APPS);
+        registerReceiver(mDictionaryPackInstallReceiver, packageFilter,ContextCompat.RECEIVER_EXPORTED);
 
         final IntentFilter newDictFilter = new IntentFilter();
         newDictFilter.addAction(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION);
-        registerReceiver(mDictionaryPackInstallReceiver, newDictFilter,Context.RECEIVER_VISIBLE_TO_INSTANT_APPS);
+        registerReceiver(mDictionaryPackInstallReceiver, newDictFilter,ContextCompat.RECEIVER_EXPORTED);
 
         final IntentFilter dictDumpFilter = new IntentFilter();
         dictDumpFilter.addAction(DictionaryDumpBroadcastReceiver.DICTIONARY_DUMP_INTENT_ACTION);
-        registerReceiver(mDictionaryDumpBroadcastReceiver, dictDumpFilter,Context.RECEIVER_VISIBLE_TO_INSTANT_APPS);
+        registerReceiver(mDictionaryDumpBroadcastReceiver, dictDumpFilter,ContextCompat.RECEIVER_EXPORTED);
 
         final IntentFilter hideSoftInputFilter = new IntentFilter();
         hideSoftInputFilter.addAction(ACTION_HIDE_SOFT_INPUT);
-        registerReceiver(mHideSoftInputReceiver, hideSoftInputFilter, PERMISSION_HIDE_SOFT_INPUT, null /* scheduler */, Context.RECEIVER_VISIBLE_TO_INSTANT_APPS);
+        registerReceiver(mHideSoftInputReceiver, hideSoftInputFilter, PERMISSION_HIDE_SOFT_INPUT, null /* scheduler */, ContextCompat.RECEIVER_EXPORTED);
 
         final IntentFilter restartAfterUnlockFilter = new IntentFilter();
         restartAfterUnlockFilter.addAction(Intent.ACTION_USER_UNLOCKED);

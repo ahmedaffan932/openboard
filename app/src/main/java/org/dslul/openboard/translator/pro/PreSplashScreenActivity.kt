@@ -14,6 +14,7 @@ import android.widget.RatingBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.os.postDelayed
 import androidx.core.util.Pair
 import com.example.translatorguru.ads.admob.LoadAdCallBack
 import com.google.android.gms.ads.MobileAds
@@ -54,6 +55,9 @@ class PreSplashScreenActivity : AppCompatActivity() {
         setContentView(binding.root)
         FirebaseApp.initializeApp(this)
 
+        Handler(Looper.getMainLooper()).postDelayed({
+            binding.animBackground.playAnimation()
+        }, 1000)
         getRemoteConfigValues()
 
         val debugSettings = ConsentDebugSettings.Builder(this)
@@ -83,39 +87,55 @@ class PreSplashScreenActivity : AppCompatActivity() {
                     if (consentInformation.canRequestAds()) {
                         MobileAds.initialize(this) {}
                         Log.d(Misc.logKey, "Initialized")
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            if (Ads.isIntPreLoad) {
+                                AdmobInterstitialAd.loadInterAdmob(
+                                    this,
+                                    AdIds.interstitialAdIdAdMobSplash
+                                )
+                            }
 
-                        object : CountDownTimer(6000, 50) {
+                            if (Ads.isNativeAdPreload) {
+                                AdmobNativeAds.loadAdmobNative(
+                                    this,
+                                    AdIds.nativeAdIdAdMobSplash
+                                )
+                            }
+                        }, 500)
+
+                        AppOpenAdManager.loadAd(
+                            this@PreSplashScreenActivity,
+                            AdIds.appOpenAdIdSplash,
+                            object : LoadAdCallBack {
+                                override fun onLoaded() {
+                                    if (!isNextActivityStarted)
+                                        AppOpenAdManager.showIfAvailable(
+                                            this@PreSplashScreenActivity,
+                                            Ads.isSplashAppOpenAdEnabled,
+                                            object : InterstitialCallBack {
+                                                override fun onDismiss() {
+                                                    startNextActivity()
+                                                }
+
+                                                override fun onAdDisplayed() {
+                                                    isShowingAppOpen = true
+                                                }
+                                            }
+                                        )
+                                }
+
+                                override fun onFailed() {
+                                    startNextActivity()
+                                }
+                            }
+                        )
+
+
+                        object : CountDownTimer(7000, 50) {
                             override fun onTick(millisUntilFinished: Long) {
                                 if (isRemoteConfigFetched) {
                                     if (!isAdRequestSent) {
                                         isAdRequestSent = true
-                                        AppOpenAdManager.loadAd(
-                                            this@PreSplashScreenActivity,
-                                            AdIds.appOpenAdIdSplash,
-                                            object : LoadAdCallBack {
-                                                override fun onLoaded() {
-                                                    if (!isNextActivityStarted)
-                                                        AppOpenAdManager.showIfAvailable(
-                                                            this@PreSplashScreenActivity,
-                                                            Ads.isSplashAppOpenAdEnabled,
-                                                            object : InterstitialCallBack {
-                                                                override fun onDismiss() {
-                                                                    startNextActivity()
-                                                                }
-
-                                                                override fun onAdDisplayed() {
-                                                                    isShowingAppOpen = true
-                                                                }
-                                                            }
-                                                        )
-                                                }
-
-                                                override fun onFailed() {
-                                                    startNextActivity()
-                                                }
-                                            }
-                                        )
-
                                         AdmobMRECAds.loadMREC(
                                             this@PreSplashScreenActivity,
                                             AdIds.mrecAdIdAd
@@ -153,18 +173,19 @@ class PreSplashScreenActivity : AppCompatActivity() {
         mFRC.fetchAndActivate().addOnCompleteListener { p0 ->
             if (p0.isSuccessful) {
                 if (!BuildConfig.DEBUG) {
-                    Ads.chatBanner = mFRC.getString("chatBanner")
-                    Ads.languageSelectorBanner = mFRC.getString("languageSelectorBanner")
-                    Ads.splashNative = mFRC.getString("splashNative")
                     Ads.exitInt = mFRC.getString("exitInt")
                     Ads.phraseInt = mFRC.getString("phraseInt")
+                    Ads.splashInt = mFRC.getString("splashInt")
                     Ads.exitNative = mFRC.getString("exitNative")
+                    Ads.chatBanner = mFRC.getString("chatBanner")
+                    Ads.dashboardInt = mFRC.getString("dashboardInt")
+                    Ads.splashNative = mFRC.getString("splashNative")
+                    Ads.translateInt = mFRC.getString("translateInt")
                     Ads.translateNative = mFRC.getString("translateNative")
                     Ads.dashboardNative = mFRC.getString("dashboardNative")
                     Ads.onBoardingNative = mFRC.getString("onBoardingNative")
                     Ads.cameraTranslationInt = mFRC.getString("cameraTranslationInt")
-                    Ads.splashInt = mFRC.getString("splashInt")
-                    Ads.translateInt = mFRC.getString("translateInt")
+                    Ads.languageSelectorBanner = mFRC.getString("languageSelectorBanner")
 
                     Ads.isIntPreLoad = mFRC.getBoolean("isIntPreLoad")
                     Ads.isNativeAdPreload = mFRC.getBoolean("isNativeAdPreload")
@@ -175,6 +196,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
                     AdIds.nativeAdIdAdMobExit = mFRC.getString("nativeAdIdAdMobExit")
                     AdIds.nativeAdIdAdMobTranslate = mFRC.getString("nativeAdIdAdMobTranslate")
                     AdIds.nativeAdIdAdMobSplash = mFRC.getString("nativeAdIdAdMobSplash")
+
                     AdIds.interstitialAdIdAdMobSplash =
                         mFRC.getString("interstitialAdIdAdMobSplash")
                     AdIds.interstitialAdIdAdMobPhrases =
@@ -192,7 +214,8 @@ class PreSplashScreenActivity : AppCompatActivity() {
                         mFRC.getString("collapsibleBannerAdIdAdOnboarding")
 
 
-                    Misc.showNextButtonOnLanguageScreen = mFRC.getBoolean("showNextButtonOnLanguageScreen")
+                    Misc.showNextButtonOnLanguageScreen =
+                        mFRC.getBoolean("showNextButtonOnLanguageScreen")
                 }
 
                 isRemoteConfigFetched = true
@@ -204,11 +227,11 @@ class PreSplashScreenActivity : AppCompatActivity() {
     fun startNextActivity() {
         if (!isNextActivityStarted) {
 //            if (Ads.isSplashAppOpenAdEnabled) {
-                if (Misc.isFirstTime(this)) {
-                    startActivity(Intent(this, AppLanguageSelectorActivity::class.java))
-                } else {
-                    startActivity(Intent(this, FragmentsDashboardActivity::class.java))
-                }
+            if (Misc.isFirstTime(this)) {
+                startActivity(Intent(this, AppLanguageSelectorActivity::class.java))
+            } else {
+                startActivity(Intent(this, FragmentsDashboardActivity::class.java))
+            }
 //            } else {
 //                val intent = Intent(
 //                    this,

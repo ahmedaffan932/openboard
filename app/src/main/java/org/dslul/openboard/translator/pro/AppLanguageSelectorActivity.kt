@@ -29,7 +29,7 @@ class AppLanguageSelectorActivity : AppCompatActivity() {
             R.layout.shimmer_native_splash
         )
 
-        if(Misc.showNextButtonOnLanguageScreen) {
+        if (Misc.showNextButtonOnLanguageScreen) {
             binding.btnSave.visibility = View.VISIBLE
             when (Misc.getAppLanguage(this)) {
                 "pt" -> {

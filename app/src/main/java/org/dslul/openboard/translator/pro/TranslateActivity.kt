@@ -64,20 +64,18 @@ class TranslateActivity : AppCompatActivity() {
         Ads.loadAndShowInterstitial(
             this,
             Ads.translateInt,
-            AdIds.interstitialAdIdAdMobTranslate,
-            object : InterstitialCallBack {
-                override fun onDismiss() {
-                    if (intent.getStringExtra(Misc.key) != null) {
-                        if (intent.getStringExtra(Misc.key) != "") {
-                            binding.etText.setText(intent.getStringExtra(Misc.key))
-                            binding.llPBTranslateFrag.visibility = View.VISIBLE
-                            Handler(Looper.getMainLooper()).postDelayed({
-                                translateNow(binding.etText.text.toString())
-                            }, 500)
-                        }
-                    }
-                }
-            })
+            AdIds.interstitialAdIdAdMobTranslate
+        )
+
+        if (intent.getStringExtra(Misc.key) != null) {
+            if (intent.getStringExtra(Misc.key) != "") {
+                binding.etText.setText(intent.getStringExtra(Misc.key))
+                binding.llPBTranslateFrag.visibility = View.VISIBLE
+                Handler(Looper.getMainLooper()).postDelayed({
+                    translateNow(binding.etText.text.toString())
+                }, 500)
+            }
+        }
 
         initializeAnimation()
 
@@ -92,10 +90,11 @@ class TranslateActivity : AppCompatActivity() {
             AdIds.nativeAdIdAdMobTranslate,
             Ads.translateNative,
             binding.nativeAdFrameLayoutInBetween,
-            if (Ads.translateNative.contains("splash")) R.layout.admob_native_splash else if (Ads.translateNative.contains(
-                    "hctr"
-                )
-            ) R.layout.admob_small_native_ad_hctr else R.layout.admob_small_native_ad_lctr,
+            if (Ads.translateNative.contains("splash"))
+                R.layout.admob_native_splash
+            else if (Ads.translateNative.contains("hctr"))
+                R.layout.admob_small_native_ad_hctr
+            else R.layout.admob_small_native_ad_lctr,
             if (Ads.translateNative.contains("splash"))
                 R.layout.shimmer_native_splash else
                 R.layout.small_native_shimmer,

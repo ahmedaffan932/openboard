@@ -48,9 +48,7 @@ object AdmobNativeAds {
             val shimmerView = inflater.inflate(shimmerLayout, null)
             frameLayout?.addView(shimmerView)
             frameLayout?.visibility = View.VISIBLE
-
         }
-
 
 
         if (amNative != null) {
