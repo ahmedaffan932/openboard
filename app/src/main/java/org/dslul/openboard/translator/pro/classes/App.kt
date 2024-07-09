@@ -13,7 +13,6 @@ import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.translator.pro.OnResumeActivity
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
-import org.dslul.openboard.translator.pro.classes.ads.admob.AppOpenAdManager
 
 
 class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObserver {
@@ -35,16 +34,16 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
         Misc.isAppInForeground.value = true
         Log.e(Misc.logKey, "Foreground.")
         // Show the ad (if available) when the app moves to foreground.
-        if (!Ads.isShowingInt) {
-            currentActivity?.let {
-                Log.d(Misc.logKey, "App OnResume")
-                if (Ads.isSplashAppOpenAdEnabled && AppOpenAdManager.isAdAvailable()) {
-                    val intent = Intent(this, OnResumeActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                }
-            }
-        }
+//        if (!Ads.isShowingInt) {
+//            currentActivity?.let {
+//                Log.d(Misc.logKey, "App OnResume")
+//                if (Ads.isSplashAppOpenAdEnabled && AppOpenAdManager.isAdAvailable()) {
+//                    val intent = Intent(this, OnResumeActivity::class.java)
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                    startActivity(intent)
+//                }
+//            }
+//        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
@@ -57,9 +56,9 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
 
     override fun onActivityStarted(activity: Activity) {
         // Updating the currentActivity only when an ad is not showing.
-        if (!AppOpenAdManager.isShowingAd) {
-            currentActivity = activity
-        }
+//        if (!AppOpenAdManager.isShowingAd) {
+//            currentActivity = activity
+//        }
     }
 
     override fun onActivityResumed(activity: Activity) {}

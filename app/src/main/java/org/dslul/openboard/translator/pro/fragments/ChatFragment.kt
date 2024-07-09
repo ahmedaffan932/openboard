@@ -28,9 +28,6 @@ import org.dslul.openboard.inputmethod.latin.databinding.FragmentChatBinding
 import org.dslul.openboard.translator.pro.LanguageSelectorActivity
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.MiscTranslate
-import org.dslul.openboard.translator.pro.classes.ads.AdIds
-import org.dslul.openboard.translator.pro.classes.ads.Ads
-import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobBannerAds
 import org.dslul.openboard.translator.pro.interfaces.TranslationInterface
 import org.jsoup.Jsoup
 import java.net.URLEncoder

@@ -33,7 +33,6 @@ import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
-import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobMRECAds
 import org.dslul.openboard.translator.pro.interfaces.InterfaceHistory
 import java.util.Locale
 
@@ -264,7 +263,7 @@ class HomeFragment : Fragment() {
         handler.post(runnable)
 
         if (Ads.dashboardNative.contains("mrec")) {
-            AdmobMRECAds.showMREC(requireActivity(), binding.mrecFrameLayout, Ads.dashboardNative)
+//            AdmobMRECAds.showMREC(requireActivity(), binding.mrecFrameLayout, Ads.dashboardNative)
         } else {
             Ads.loadAndShowNativeAd(
                 requireActivity(),
