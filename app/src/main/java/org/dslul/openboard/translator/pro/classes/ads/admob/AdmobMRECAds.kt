@@ -48,6 +48,10 @@ object AdmobMRECAds {
     }
 
     fun showMREC(context: Activity, frameLayout: FrameLayout, remoteKey: String) {
+        if(!Misc.checkInternetConnection(context)){
+            frameLayout.removeAllViews()
+            return
+        }
         if (remoteKey.contains("am")) {
             if (mrecAdView != null && isMRECLoaded) {
                 frameLayout.visibility = View.VISIBLE

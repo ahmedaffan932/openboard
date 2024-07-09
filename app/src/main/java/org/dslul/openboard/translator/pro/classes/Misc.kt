@@ -87,9 +87,12 @@ object Misc {
     var phrasebookPosition = 0
     const val defaultLanguage = "100"
 
-    fun setAppOpenIntAm(key: String, activity: Context) {
+    @JvmField
+    var isAppInForeground: MutableLiveData<Boolean> = MutableLiveData()
+
+    fun setAppOpenIntAm(key: String, context: Context) {
         val sharedPreferences =
-            activity.getSharedPreferences("onAppOpenIntAm", AppCompatActivity.MODE_PRIVATE)
+            context.getSharedPreferences("onAppOpenIntAm", AppCompatActivity.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString("onAppOpenIntAm", key)
         editor.apply()
@@ -101,9 +104,9 @@ object Misc {
         return sharedPreferences.getString("onAppOpenIntAm", "am").toString()
     }
 
-    fun setGoogleApi(key: String, activity: Context) {
+    fun setGoogleApi(key: String, context: Context) {
         val sharedPreferences =
-            activity.getSharedPreferences("googleApiKey", AppCompatActivity.MODE_PRIVATE)
+            context.getSharedPreferences("googleApiKey", AppCompatActivity.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString("googleApiKey", key)
         editor.apply()
@@ -129,9 +132,9 @@ object Misc {
         editor.apply()
     }
 
-    fun isNightModeOn(activity: Context): Boolean {
+    fun isNightModeOn(context: Context): Boolean {
         val sharedPreferences =
-            activity.getSharedPreferences(theme, Context.MODE_PRIVATE)
+            context.getSharedPreferences(theme, Context.MODE_PRIVATE)
         return sharedPreferences.getBoolean(theme, false)
     }
 
@@ -141,8 +144,8 @@ object Misc {
         return sharedPreferences.getBoolean("isFirstTime", true)
     }
 
-    fun selectThemeMode(activity: Context): Boolean {
-        return if (isNightModeOn(activity)) {
+    fun selectThemeMode(context: Context): Boolean {
+        return if (isNightModeOn(context)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             true
         } else {
@@ -151,29 +154,29 @@ object Misc {
         }
     }
 
-    fun getLanguageTo(activity: Context?): String {
+    fun getLanguageTo(context: Context?): String {
         val sharedPreferences =
-            activity!!.getSharedPreferences(languageTo, Context.MODE_PRIVATE)
+            context!!.getSharedPreferences(languageTo, Context.MODE_PRIVATE)
         return sharedPreferences.getString(languageTo, TranslateLanguage.SPANISH).toString()
     }
 
-    fun getLanguageToForKB(activity: Context?): String {
+    fun getLanguageToForKB(context: Context?): String {
         val sharedPreferences =
-            activity!!.getSharedPreferences(languageTo, Context.MODE_PRIVATE)
+            context!!.getSharedPreferences(languageTo, Context.MODE_PRIVATE)
         return Locale(
             sharedPreferences.getString(languageTo, TranslateLanguage.SPANISH).toString()
         ).displayName
     }
 
-    fun getLanguageFrom(activity: Context): String {
+    fun getLanguageFrom(context: Context): String {
         val sharedPreferences =
-            activity.getSharedPreferences(languageFrom, Context.MODE_PRIVATE)
+            context.getSharedPreferences(languageFrom, Context.MODE_PRIVATE)
         return sharedPreferences.getString(languageFrom, "en").toString()
     }
 
-    fun getLanguageFromForKB(activity: Context): String {
+    fun getLanguageFromForKB(context: Context): String {
         val sharedPreferences =
-            activity.getSharedPreferences(languageFrom, Context.MODE_PRIVATE)
+            context.getSharedPreferences(languageFrom, Context.MODE_PRIVATE)
         return if (sharedPreferences.getString(languageFrom, defaultLanguage) == defaultLanguage) {
             "Default"
         } else {
@@ -183,9 +186,9 @@ object Misc {
         }
     }
 
-    fun setLanguageTo(activity: Activity, lng: String) {
+    fun setLanguageTo(context: Context, lng: String) {
         val sharedPreferences =
-            activity.getSharedPreferences(languageTo, AppCompatActivity.MODE_PRIVATE)
+            context.getSharedPreferences(languageTo, AppCompatActivity.MODE_PRIVATE)
 
         arr.add(lng)
         for (i in arr) {
@@ -195,26 +198,26 @@ object Misc {
         val editor = sharedPreferences.edit()
         editor.putString(languageTo, lng)
         editor.apply()
-        val arr = getRecentLngs(activity)
+        val arr = getRecentLngs(context)
         arr.remove(lng)
         if (lng != defaultLanguage)
             arr.add(0, lng)
-        saveRecentLngs(activity, arr)
+        saveRecentLngs(context, arr)
     }
 
-    fun setLanguageFrom(activity: Activity, lng: String) {
-        val sharedPreferences = activity.getSharedPreferences(
+    fun setLanguageFrom(context: Context, lng: String) {
+        val sharedPreferences = context.getSharedPreferences(
             languageFrom,
             AppCompatActivity.MODE_PRIVATE
         )
         val editor = sharedPreferences.edit()
         editor.putString(languageFrom, lng)
         editor.apply()
-        val arr = getRecentLngs(activity)
+        val arr = getRecentLngs(context)
         arr.remove(lng)
         if (lng != defaultLanguage)
             arr.add(0, lng)
-        saveRecentLngs(activity, arr)
+        saveRecentLngs(context, arr)
     }
 
     fun setPurchasedStatus(activity: Activity, boolean: Boolean) {
@@ -227,9 +230,9 @@ object Misc {
         editor.apply()
     }
 
-    fun getPurchasedStatus(activity: Context?): Boolean {
+    fun getPurchasedStatus(context: Context?): Boolean {
         val sharedPreferences =
-            activity!!.getSharedPreferences(purchasedStatus, Context.MODE_PRIVATE)
+            context!!.getSharedPreferences(purchasedStatus, Context.MODE_PRIVATE)
         return sharedPreferences.getBoolean(purchasedStatus, false)
     }
 
@@ -243,9 +246,9 @@ object Misc {
         editor.apply()
     }
 
-    fun isNotificationTurnedOff(activity: Context?): Boolean {
+    fun isNotificationTurnedOff(context: Context?): Boolean {
         val sharedPreferences =
-            activity!!.getSharedPreferences("notification", Context.MODE_PRIVATE)
+            context!!.getSharedPreferences("notification", Context.MODE_PRIVATE)
         return sharedPreferences.getBoolean("notification", false)
     }
 
@@ -473,10 +476,10 @@ object Misc {
     }
 
     @SuppressLint("MissingPermission")
-    fun checkInternetConnection(activity: Context): Boolean {
+    fun checkInternetConnection(context: Context): Boolean {
         return try {
             val connectivityManager: ConnectivityManager? =
-                activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
 
             connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)!!.state === NetworkInfo.State.CONNECTED ||
                     connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_WIFI)!!.state === NetworkInfo.State.CONNECTED
@@ -486,9 +489,9 @@ object Misc {
         }
     }
 
-    fun getRecentLngs(activity: Activity): ArrayList<String> {
+    fun getRecentLngs(context: Context): ArrayList<String> {
         val sharedPreferences: SharedPreferences =
-            activity.getSharedPreferences(recentLngs, AppCompatActivity.MODE_PRIVATE)
+            context.getSharedPreferences(recentLngs, AppCompatActivity.MODE_PRIVATE)
         val gson = Gson()
         val json = sharedPreferences.getString(recentLngs, null)
         val type: Type = object : TypeToken<ArrayList<String>>() {}.type
@@ -501,9 +504,9 @@ object Misc {
         return arrRecentLngs
     }
 
-    fun saveRecentLngs(activity: Activity, arrRecentLngs: ArrayList<String>) {
+    fun saveRecentLngs(context: Context, arrRecentLngs: ArrayList<String>) {
         val sharedPreferences =
-            activity.getSharedPreferences(recentLngs, AppCompatActivity.MODE_PRIVATE)
+            context.getSharedPreferences(recentLngs, AppCompatActivity.MODE_PRIVATE)
         val editor = sharedPreferences!!.edit()
         val gson = Gson()
         val json = gson.toJson(arrRecentLngs)
@@ -571,10 +574,10 @@ object Misc {
         return arrayList
     }
 
-    fun zoomInView(view: View, activity: Activity, duration: Int, isInterpolate: Boolean = false) {
+    fun zoomInView(view: View, context: Context, duration: Int, isInterpolate: Boolean = false) {
         view.visibility = View.VISIBLE
         val a: Animation =
-            AnimationUtils.loadAnimation(activity, R.anim.zoom_in)
+            AnimationUtils.loadAnimation(context, R.anim.zoom_in)
         a.duration = duration.toLong()
         if (isInterpolate)
             a.interpolator = OvershootInterpolator()
@@ -583,9 +586,9 @@ object Misc {
     }
 
 
-    fun zoomOutView(view: View, activity: Activity, duration: Int) {
+    fun zoomOutView(view: View, context: Context, duration: Int) {
         val a: Animation =
-            AnimationUtils.loadAnimation(activity, R.anim.zoom_out)
+            AnimationUtils.loadAnimation(context, R.anim.zoom_out)
         a.duration = duration.toLong()
         view.startAnimation(a)
     }

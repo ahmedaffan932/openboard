@@ -83,6 +83,8 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         void startSelectLanguageActivity(Boolean isLanguageTo);
 
+        void switchLanguages(Context context, View iv, View from, View to);
+
         void startSettingsActivity();
 
         CharSequence getSelection();
@@ -108,6 +110,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final ImageView mIVSwitchLanguage;
 
     private final LinearLayout mLLLngTo;
+    private final LinearLayout mLLTranslation;
 //    private final TextView mTextLngFrom;
 //    private final TextView mTextLngTo;
 
@@ -197,6 +200,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mBtnTranslate = findViewById(R.id.btn_translate);
         mTVTranslate = findViewById(R.id.tvTranslate);
         mLLLanguageFrom = findViewById(R.id.llLngFrom);
+        mLLTranslation = findViewById(R.id.llTranslation);
         mLLLngTo = findViewById(R.id.llLngTo);
         mIVSwitchLanguage = findViewById(R.id.btnSwitchLngs);
         mProgressBar = findViewById(R.id.progressBar);
@@ -212,6 +216,15 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 mProgressBar.setVisibility(VISIBLE);
             }
         });
+
+        Misc.isAppInForeground.observeForever(t -> {
+            if (t) {
+                mLLTranslation.setVisibility(GONE);
+            } else {
+                mLLTranslation.setVisibility(VISIBLE);
+            }
+        });
+
 
         setSelectedLng(context);
 
@@ -241,6 +254,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mLLLanguageFrom.setOnClickListener(view -> mListener.startSelectLanguageActivity(false));
 
         mLLLngTo.setOnClickListener(view -> mListener.startSelectLanguageActivity(true));
+
+//        mIVSwitchLanguage.setOnClickListener(view -> {
+//            mListener.switchLanguages(context, mIVSwitchLanguage, mLLLanguageFrom, mLLLngTo);
+//            new Handler().postDelayed(() -> {
+//                setSelectedLng(context);
+//            }, 100);
+//        });
 
         for (int pos = 0; pos < SuggestedWords.MAX_SUGGESTIONS; pos++) {
             final TextView word = new TextView(context, null, R.attr.suggestionWordStyle);

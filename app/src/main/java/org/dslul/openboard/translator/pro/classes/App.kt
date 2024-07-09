@@ -32,8 +32,10 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onMoveToForeground() {
+        Misc.isAppInForeground.value = true
+        Log.e(Misc.logKey, "Foreground.")
         // Show the ad (if available) when the app moves to foreground.
-        if(!Ads.isShowingInt) {
+        if (!Ads.isShowingInt) {
             currentActivity?.let {
                 Log.d(Misc.logKey, "App OnResume")
                 if (Ads.isSplashAppOpenAdEnabled && AppOpenAdManager.isAdAvailable()) {
@@ -43,6 +45,12 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
                 }
             }
         }
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    fun onAppBackgrounded() {
+        Misc.isAppInForeground.value = false
+        Log.i(Misc.logKey, "Background.")
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}

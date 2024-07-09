@@ -48,12 +48,12 @@ class ChatFragment : Fragment() {
     ): View {
         binding = FragmentChatBinding.inflate(layoutInflater, container, false)
 
-        AdmobBannerAds.loadCollapsibleBanner(
-            requireActivity(),
-            AdIds.collapsibleBannerAdIdAdChat,
-            Ads.chatBanner,
-            binding.llCollapsibleBanner
-        )
+//        AdmobBannerAds.loadCollapsibleBanner(
+//            requireActivity(),
+//            AdIds.collapsibleBannerAdIdAdChat,
+//            Ads.chatBanner,
+//            binding.llCollapsibleBanner
+//        )
 
 
         binding.clLanguageFrom.setOnClickListener {

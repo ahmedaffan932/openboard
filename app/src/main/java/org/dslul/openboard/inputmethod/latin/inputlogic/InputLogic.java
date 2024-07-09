@@ -35,6 +35,8 @@ import android.view.inputmethod.CorrectionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.google.mlkit.nl.languageid.LanguageIdentification;
 
 import org.dslul.openboard.inputmethod.compat.SuggestionSpanUtils;
@@ -67,6 +69,8 @@ import org.dslul.openboard.inputmethod.latin.utils.RecapitalizeStatus;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 import org.dslul.openboard.inputmethod.latin.utils.TextRange;
 import org.dslul.openboard.translator.pro.classes.Misc;
+import org.dslul.openboard.translator.pro.classes.MiscTranslate;
+import org.dslul.openboard.translator.pro.interfaces.TranslationInterface;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -235,13 +239,31 @@ public final class InputLogic {
         mDictionaryFacilitator.closeDictionaries();
     }
 
-    public void OnTranslateText(String from, String to) {
+    public void OnTranslateText(Context context, String from, String to) {
         mConnection.setSelection(0, 0);
         CharSequence charSequence = mConnection.getTextAfterCursor(Integer.MAX_VALUE, 0);
         Log.d("logKey", charSequence + "TestingG");
-        if (charSequence != null)
-            jugarTranslation(from, to, charSequence.toString());
+        if (charSequence != null) {
+//            if (Misc.INSTANCE.checkInternetConnection(context)) {
+//                jugarTranslation(from, to, charSequence.toString());
+//            } else {
+            MiscTranslate.INSTANCE.translate(context, charSequence.toString(), new TranslationInterface() {
+                @Override
+                public void onTranslate(@NonNull String translation) {
+                    mConnection.setSelection(charSequence.length(), charSequence.length());
+                    mConnection.deleteTextBeforeCursor(charSequence.length());
+                    mConnection.commitText(translation, 1);
 
+                    Misc.isTranslated.postValue(true);
+                }
+
+                @Override
+                public void onFailed() {
+                    Toast.makeText(context, "Sorry, check your internet or try downloading language for offline translation.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+//        }
     }
 
 //    private void jugarTranslation(String from, String to, String text) {
@@ -363,23 +385,13 @@ public final class InputLogic {
         }
     }
 
-    private void jugarTranslation(String from, String to, String text) {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+//    private void jugarTranslation(String from, String to, String text) {
+//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//        StrictMode.setThreadPolicy(policy);
+//
+//        new TranslateTask(from, to, text).execute();
+//    }
 
-        new TranslateTask(from, to, text).execute();
-    }
-
-    /**
-     * React to a string input.
-     * <p>
-     * This is triggered by keys that input many characters at once, like the ".com" key or
-     * some additional keys for example.
-     *
-     * @param settingsValues the current values of the settings.
-     * @param event          the input event containing the data.
-     * @return the complete transaction object
-     */
     public InputTransaction onTextInput(final SettingsValues settingsValues, final Event event, final int keyboardShiftMode, final LatinIME.UIHandler handler) {
         final String rawText = event.getTextToCommit().toString();
         final InputTransaction inputTransaction = new InputTransaction(settingsValues, event, SystemClock.uptimeMillis(), mSpaceState, getActualCapsMode(settingsValues, keyboardShiftMode));

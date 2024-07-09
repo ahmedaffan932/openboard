@@ -33,6 +33,7 @@ import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Debug;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Process;
@@ -48,6 +49,9 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
@@ -667,15 +671,15 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         packageFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
         packageFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
         packageFilter.addDataScheme(SCHEME_PACKAGE);
-        registerReceiver(mDictionaryPackInstallReceiver, packageFilter,ContextCompat.RECEIVER_EXPORTED);
+        registerReceiver(mDictionaryPackInstallReceiver, packageFilter, ContextCompat.RECEIVER_EXPORTED);
 
         final IntentFilter newDictFilter = new IntentFilter();
         newDictFilter.addAction(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION);
-        registerReceiver(mDictionaryPackInstallReceiver, newDictFilter,ContextCompat.RECEIVER_EXPORTED);
+        registerReceiver(mDictionaryPackInstallReceiver, newDictFilter, ContextCompat.RECEIVER_EXPORTED);
 
         final IntentFilter dictDumpFilter = new IntentFilter();
         dictDumpFilter.addAction(DictionaryDumpBroadcastReceiver.DICTIONARY_DUMP_INTENT_ACTION);
-        registerReceiver(mDictionaryDumpBroadcastReceiver, dictDumpFilter,ContextCompat.RECEIVER_EXPORTED);
+        registerReceiver(mDictionaryDumpBroadcastReceiver, dictDumpFilter, ContextCompat.RECEIVER_EXPORTED);
 
         final IntentFilter hideSoftInputFilter = new IntentFilter();
         hideSoftInputFilter.addAction(ACTION_HIDE_SOFT_INPUT);
@@ -1590,6 +1594,32 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     }
 
     @Override
+    public void switchLanguages(Context context, View iv, View from, View to) {
+        RotateAnimation rotate = new RotateAnimation(
+                0F, 180F, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f
+        );
+        rotate.setDuration(150);
+        rotate.setInterpolator(new LinearInterpolator());
+        iv.startAnimation(rotate);
+
+        Misc.INSTANCE.zoomOutView(from, context, 150);
+        Misc.INSTANCE.zoomOutView(to, context, 150);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String temp = Misc.INSTANCE.getLanguageFrom(context);
+                Misc.INSTANCE.setLanguageFrom(context, Misc.INSTANCE.getLanguageTo(context));
+                Misc.INSTANCE.setLanguageTo(context, temp);
+
+
+                Misc.INSTANCE.zoomInView(from, context, 150, false);
+                Misc.INSTANCE.zoomInView(to, context, 150, false);
+            }
+        }, 150);
+
+    }
+
+    @Override
     public void startSettingsActivity() {
         Intent intent = new Intent(this, SettingsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1608,7 +1638,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     @Override
     public String onTranslateText() {
-        mInputLogic.OnTranslateText(getLanguageFrom(this), getLanguageTo(this));
+        mInputLogic.OnTranslateText(this, getLanguageFrom(this), getLanguageTo(this));
         String to = new Locale(getLanguageTo(this)).getDisplayName();
         if (Objects.equals(getLanguageFrom(this), Misc.defaultLanguage)) {
             return "Detect#" + to;

@@ -61,6 +61,11 @@ object AdmobBannerAds {
         view: LinearLayout,
         callBack: LoadAdCallBack? = null
     ) {
+        if (!Misc.checkInternetConnection(context)) {
+            view.removeAllViews()
+            callBack?.onFailed()
+            return
+        }
         if (Misc.getPurchasedStatus(context)) {
             return
         }

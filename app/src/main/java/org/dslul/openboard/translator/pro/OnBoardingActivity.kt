@@ -32,14 +32,14 @@ class OnBoardingActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        if (Ads.onBoardingNative.contains("collapsible")) {
-            AdmobBannerAds.loadCollapsibleBanner(
-                this,
-                AdIds.collapsibleBannerAdIdAdOnboarding,
-                Ads.onBoardingNative,
-                binding.llCollapsibleBanner
-            )
-        }
+//        if (Ads.onBoardingNative.contains("collapsible")) {
+//            AdmobBannerAds.loadCollapsibleBanner(
+//                this,
+//                AdIds.collapsibleBannerAdIdAdOnboarding,
+//                Ads.onBoardingNative,
+//                binding.llCollapsibleBanner
+//            )
+//        }
 
         if (Ads.onBoardingNative.contains("native")) {
             Ads.loadAndShowNativeAd(

@@ -12,7 +12,7 @@ import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 object Ads {
 
-    var dashboardInt: String ="am"
+    var dashboardInt: String = "am"
     var isIntPreLoad: Boolean = true
     var isNativeAdPreload: Boolean = true
     var isSplashAppOpenAdEnabled: Boolean = true
@@ -47,18 +47,28 @@ object Ads {
         shimmerLayout: Int? = null,
         callBack: LoadAdCallBack? = null
     ) {
+        if (!Misc.checkInternetConnection(activity)) {
+            frameLayout.removeAllViews()
+            return
+        }
         if (remoteKey.contains("am"))
-            AdmobNativeAds.loadAdmobNative(activity, adId, shimmerLayout, callBack = object : LoadAdCallBack {
-                override fun onLoaded() {
-                    AdmobNativeAds.showNativeAd(activity, remoteKey, frameLayout, adLayout)
-                    callBack?.onLoaded()
-                }
+            AdmobNativeAds.loadAdmobNative(
+                activity,
+                adId,
+                shimmerLayout,
+                callBack = object : LoadAdCallBack {
+                    override fun onLoaded() {
+                        AdmobNativeAds.showNativeAd(activity, remoteKey, frameLayout, adLayout)
+                        callBack?.onLoaded()
+                    }
 
-                override fun onFailed() {
-                    callBack?.onFailed()
-                    frameLayout.removeAllViews()
-                }
-            }, frameLayout)
+                    override fun onFailed() {
+                        callBack?.onFailed()
+                        frameLayout.removeAllViews()
+                    }
+                },
+                frameLayout
+            )
     }
 
     fun showInterstitial(
@@ -82,18 +92,21 @@ object Ads {
         adId: String = AdIds.interstitialAdIdAdMobPhrases,
         callBack: InterstitialCallBack? = null
     ) {
+
         if (remoteKey.contains("am")) {
-            val objDialog = Misc.LoadingAdDialog(activity)
-            objDialog.show()
-            isShowingInt = true
 
             if (AdmobInterstitialAd.interAdmob != null) {
-                android.os.Handler().postDelayed({
-                    AdmobInterstitialAd.showInterstitial(activity, callBack)
-                    isShowingInt = false
-                    objDialog.dismiss()
-                }, 100)
+                AdmobInterstitialAd.showInterstitial(activity, callBack)
+                isShowingInt = false
             } else {
+                if (!Misc.checkInternetConnection(activity)) {
+                    callBack?.onDismiss()
+                    return
+                }
+                val objDialog = Misc.LoadingAdDialog(activity)
+                objDialog.show()
+                isShowingInt = true
+
                 AdmobInterstitialAd.loadInterAdmob(activity, adId, object : LoadAdCallBack {
                     override fun onLoaded() {
                         AdmobInterstitialAd.showInterstitial(

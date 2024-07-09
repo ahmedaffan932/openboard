@@ -42,12 +42,12 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
 
         Firebase.analytics.logEvent("LanguageSelectorActivity", null)
 
-        AdmobBannerAds.loadCollapsibleBanner(
-            this,
-            AdIds.collapsibleBannerAdIdAdLanguages,
-            Ads.languageSelectorBanner,
-            binding.llCollapsibleBanner
-        )
+//        AdmobBannerAds.loadCollapsibleBanner(
+//            this,
+//            AdIds.collapsibleBannerAdIdAdLanguages,
+//            Ads.languageSelectorBanner,
+//            binding.llCollapsibleBanner
+//        )
 
         Misc.isLngTo = intent.getBooleanExtra(Misc.lngTo, true)
 
