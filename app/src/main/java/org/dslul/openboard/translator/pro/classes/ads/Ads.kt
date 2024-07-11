@@ -1,7 +1,6 @@
 package org.dslul.openboard.translator.pro.classes.ads
 
 import android.app.Activity
-import android.util.Log
 import android.widget.FrameLayout
 import com.example.translatorguru.ads.admob.LoadAdCallBack
 import org.dslul.openboard.translator.pro.classes.Misc

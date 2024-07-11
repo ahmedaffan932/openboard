@@ -22,7 +22,9 @@ allprojects {
         jcenter()
         mavenCentral()
 
-
+        maven {
+            url = uri("https://artifact.bytedance.com/repository/pangle/")
+        }
         maven { url "https://jitpack.io" }
     }
 }

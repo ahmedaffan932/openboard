@@ -8,7 +8,9 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.translatorguru.ads.admob.LoadAdCallBack
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.initialization.InitializationStatus
 import com.google.android.ump.ConsentDebugSettings
 import com.google.android.ump.ConsentInformation
 import com.google.android.ump.ConsentRequestParameters
@@ -21,6 +23,9 @@ import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
+import org.dslul.openboard.translator.pro.classes.ads.AppOpenAdManager
+import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
+
 
 @SuppressLint("CustomSplashScreen")
 class PreSplashScreenActivity : AppCompatActivity() {
@@ -30,6 +35,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
     private var isRemoteConfigFetched = false
     private var isNextActivityStarted = false
     private var isAdRequestSent = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setAppLanguage()
@@ -67,50 +73,74 @@ class PreSplashScreenActivity : AppCompatActivity() {
                     }
 
                     if (consentInformation.canRequestAds()) {
-                        MobileAds.initialize(this) {}
+//                        MobileAds.initialize(this) {}
+
+                        Thread { // Initialize the Google Mobile Ads SDK on a background thread.
+                            MobileAds.initialize(
+                                this
+                            ) { initializationStatus: InitializationStatus ->
+                                val statusMap =
+                                    initializationStatus.adapterStatusMap
+                                for (adapterClass in statusMap.keys) {
+                                    val status =
+                                        statusMap[adapterClass]
+                                    Log.d(
+                                        "MyApp",
+                                        String.format(
+                                            "Adapter name: %s, Description: %s, Latency: %d",
+                                            adapterClass,
+                                            status!!.description,
+                                            status!!.latency
+                                        )
+                                    )
+                                }
+                            }
+                        }
+                            .start()
+
                         Log.d(Misc.logKey, "Initialized")
-//                        Handler(Looper.getMainLooper()).postDelayed({
+                        Handler(Looper.getMainLooper()).postDelayed({
 //                            if (Ads.isIntPreLoad) {
 //                                AdmobInterstitialAd.loadInterAdmob(
 //                                    this,
 //                                    AdIds.interstitialAdIdAdMobSplash
 //                                )
 //                            }
-//
+
 //                            if (Ads.isNativeAdPreload) {
 //                                AdmobNativeAds.loadAdmobNative(
 //                                    this,
 //                                    AdIds.nativeAdIdAdMobSplash
 //                                )
 //                            }
-//                        }, 500)
+                        }, 500)
 
-//                        AppOpenAdManager.loadAd(
-//                            this@PreSplashScreenActivity,
-//                            AdIds.appOpenAdIdSplash,
-//                            object : LoadAdCallBack {
-//                                override fun onLoaded() {
-//                                    if (!isNextActivityStarted)
-//                                        AppOpenAdManager.showIfAvailable(
-//                                            this@PreSplashScreenActivity,
-//                                            Ads.isSplashAppOpenAdEnabled,
-//                                            object : InterstitialCallBack {
-//                                                override fun onDismiss() {
-//                                                    startNextActivity()
-//                                                }
-//
-//                                                override fun onAdDisplayed() {
-//                                                    isShowingAppOpen = true
-//                                                }
-//                                            }
-//                                        )
-//                                }
-//
-//                                override fun onFailed() {
-//                                    startNextActivity()
-//                                }
-//                            }
-//                        )
+                        AppOpenAdManager.loadAd(
+                            this@PreSplashScreenActivity,
+                            AdIds.appOpenAdIdSplash,
+                            object : LoadAdCallBack {
+                                override fun onLoaded() {
+                                    if (!isNextActivityStarted)
+                                        AppOpenAdManager.showIfAvailable(
+                                            this@PreSplashScreenActivity,
+                                            Ads.isSplashAppOpenAdEnabled,
+                                            object : InterstitialCallBack {
+                                                override fun onDismiss() {
+                                                    startNextActivity()
+                                                }
+
+                                                override fun onAdDisplayed() {
+                                                    isShowingAppOpen = true
+                                                }
+                                            }
+                                        )
+                                }
+
+                                override fun onFailed() {
+                                    startNextActivity()
+                                }
+                            }
+                        )
 
 
                         object : CountDownTimer(7000, 50) {
