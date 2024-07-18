@@ -34,7 +34,6 @@ import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
-import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import org.dslul.openboard.translator.pro.interfaces.TranslationInterface
 import org.jsoup.Jsoup
 import java.net.URLEncoder
@@ -90,11 +89,6 @@ class TranslateActivity : AppCompatActivity() {
             AdIds.nativeAdIdAdMobTranslate,
             Ads.translateNative,
             binding.nativeAdFrameLayoutInBetween,
-            if (Ads.translateNative.contains("splash"))
-                R.layout.admob_native_splash
-            else if (Ads.translateNative.contains("hctr"))
-                R.layout.admob_small_native_ad_hctr
-            else R.layout.admob_small_native_ad_lctr,
             if (Ads.translateNative.contains("splash"))
                 R.layout.shimmer_native_splash else
                 R.layout.small_native_shimmer,

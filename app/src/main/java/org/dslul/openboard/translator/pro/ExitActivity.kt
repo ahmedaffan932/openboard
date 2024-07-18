@@ -37,8 +37,10 @@ class ExitActivity : AppCompatActivity() {
         if(!Misc.isItemClicked) {
             Ads.loadAndShowInterstitial(this, Ads.exitInt, AdIds.interstitialAdIdAdMobExit)
         }
-        Ads.loadAndShowNativeAd(this, AdIds.nativeAdIdAdMobExit, Ads.exitNative,binding.nativeAdFrameLayout,
-            R.layout.admob_native_hctr, R.layout.large_native_shimmer)
+        Ads.loadAndShowNativeAd(
+            this, AdIds.nativeAdIdAdMobExit, Ads.exitNative, binding.nativeAdFrameLayout,
+            R.layout.large_native_shimmer
+        )
 
         binding.exitRating.onRatingBarChangeListener =
             RatingBar.OnRatingBarChangeListener { _, p1, _ ->

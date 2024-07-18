@@ -13,7 +13,6 @@ import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
 import android.widget.Toast
-import androidx.core.os.postDelayed
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -270,7 +269,6 @@ class HomeFragment : Fragment() {
                 AdIds.nativeAdIdAdMobTranslate,
                 Ads.dashboardNative,
                 binding.mrecFrameLayout,
-                R.layout.admob_native_hctr,
                 R.layout.large_native_shimmer
             )
         }

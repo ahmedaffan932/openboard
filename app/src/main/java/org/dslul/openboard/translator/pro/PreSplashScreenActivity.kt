@@ -90,10 +90,38 @@ class PreSplashScreenActivity : AppCompatActivity() {
                                             "Adapter name: %s, Description: %s, Latency: %d",
                                             adapterClass,
                                             status!!.description,
-                                            status!!.latency
+                                            status.latency
                                         )
                                     )
                                 }
+
+
+                                AppOpenAdManager.loadAd(
+                                    this@PreSplashScreenActivity,
+                                    AdIds.appOpenAdIdSplash,
+                                    object : LoadAdCallBack {
+                                        override fun onLoaded() {
+                                            if (!isNextActivityStarted)
+                                                AppOpenAdManager.showIfAvailable(
+                                                    this@PreSplashScreenActivity,
+                                                    Ads.isSplashAppOpenAdEnabled,
+                                                    object : InterstitialCallBack {
+                                                        override fun onDismiss() {
+                                                            startNextActivity()
+                                                        }
+
+                                                        override fun onAdDisplayed() {
+                                                            isShowingAppOpen = true
+                                                        }
+                                                    }
+                                                )
+                                        }
+
+                                        override fun onFailed() {
+                                            startNextActivity()
+                                        }
+                                    }
+                                )
                             }
                         }
                             .start()
@@ -114,33 +142,6 @@ class PreSplashScreenActivity : AppCompatActivity() {
 //                                )
 //                            }
                         }, 500)
-
-                        AppOpenAdManager.loadAd(
-                            this@PreSplashScreenActivity,
-                            AdIds.appOpenAdIdSplash,
-                            object : LoadAdCallBack {
-                                override fun onLoaded() {
-                                    if (!isNextActivityStarted)
-                                        AppOpenAdManager.showIfAvailable(
-                                            this@PreSplashScreenActivity,
-                                            Ads.isSplashAppOpenAdEnabled,
-                                            object : InterstitialCallBack {
-                                                override fun onDismiss() {
-                                                    startNextActivity()
-                                                }
-
-                                                override fun onAdDisplayed() {
-                                                    isShowingAppOpen = true
-                                                }
-                                            }
-                                        )
-                                }
-
-                                override fun onFailed() {
-                                    startNextActivity()
-                                }
-                            }
-                        )
 
 
                         object : CountDownTimer(7000, 50) {

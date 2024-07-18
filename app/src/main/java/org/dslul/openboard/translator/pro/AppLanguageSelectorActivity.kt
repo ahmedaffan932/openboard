@@ -25,7 +25,6 @@ class AppLanguageSelectorActivity : AppCompatActivity() {
             AdIds.nativeAdIdAdMobSplash,
             Ads.appLanguagesSelectorNative,
             binding.nativeAdFrameLayout,
-            R.layout.admob_native_splash,
             R.layout.shimmer_native_splash
         )
 

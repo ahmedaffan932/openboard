@@ -4,10 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -45,7 +42,6 @@ class OnBoardingActivity : AppCompatActivity() {
                 this,
                 remoteKey = Ads.onBoardingNative,
                 frameLayout = binding.nativeAdFrameLayout,
-                adLayout = R.layout.admob_small_native_ad_hctr,
                 shimmerLayout = R.layout.small_native_shimmer
             )
         }

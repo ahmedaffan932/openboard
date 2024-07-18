@@ -43,7 +43,7 @@ class CameraTranslationActivity : AppCompatActivity() {
     private val getContent =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { data: ActivityResult ->
             try {
-                val fileUri = data!!.data!!
+                val fileUri = data.data!!
                 CameraMisc.fileUri = fileUri.data!!
 //                if (Misc.checkInternetConnection(this)) {
                     val intent =

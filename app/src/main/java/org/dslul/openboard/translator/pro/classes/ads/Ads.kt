@@ -4,6 +4,7 @@ import android.app.Activity
 import android.widget.FrameLayout
 import com.example.translatorguru.ads.admob.LoadAdCallBack
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobNativeAds
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 object Ads {
@@ -39,7 +40,6 @@ object Ads {
         adId: String = AdIds.nativeAdIdAdMobExit,
         remoteKey: String,
         frameLayout: FrameLayout,
-        adLayout: Int,
         shimmerLayout: Int? = null,
         callBack: LoadAdCallBack? = null
     ) {
@@ -47,24 +47,24 @@ object Ads {
             frameLayout.removeAllViews()
             return
         }
-//        if (remoteKey.contains("am"))
-//            AdmobNativeAds.loadAdmobNative(
-//                activity,
-//                adId,
-//                shimmerLayout,
-//                callBack = object : LoadAdCallBack {
-//                    override fun onLoaded() {
-//                        AdmobNativeAds.showNativeAd(activity, remoteKey, frameLayout, adLayout)
-//                        callBack?.onLoaded()
-//                    }
-//
-//                    override fun onFailed() {
-//                        callBack?.onFailed()
-//                        frameLayout.removeAllViews()
-//                    }
-//                },
-//                frameLayout
-//            )
+        if (remoteKey.contains("am"))
+            AdmobNativeAds.loadAdmobNative(
+                activity,
+                adId,
+                remoteKey,
+                frameLayout,
+                callBack = object : LoadAdCallBack {
+                    override fun onLoaded() {
+                        AdmobNativeAds.showNativeAd(activity, remoteKey, frameLayout)
+                        callBack?.onLoaded()
+                    }
+
+                    override fun onFailed() {
+                        callBack?.onFailed()
+                        frameLayout.removeAllViews()
+                    }
+                }
+            )
     }
 
     fun showInterstitial(
