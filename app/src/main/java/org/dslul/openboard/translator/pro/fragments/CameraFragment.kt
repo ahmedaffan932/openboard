@@ -76,16 +76,16 @@ class CameraFragment : Fragment() {
         binding = FragmentCameraBinding.inflate(layoutInflater, container, false)
         Misc.isItemClicked = true
 
-        Ads.loadAndShowInterstitial(
-            requireActivity(),
-            Ads.cameraTranslationInt,
-            AdIds.interstitialAdIdAdMobCameraTranslate,
-            object : InterstitialCallBack {
-                override fun onDismiss() {
-                    getCameraPermission()
-                }
-            }
-        )
+//        Ads.loadAndShowInterstitial(
+//            requireActivity(),
+//            Ads.cameraTranslationInt,
+//            AdIds.interstitialAdIdAdMobCameraTranslate,
+//            object : InterstitialCallBack {
+//                override fun onDismiss() {
+//                    getCameraPermission()
+//                }
+//            }
+//        )
 
         binding.btnFlashOCR.setOnClickListener {
             requireContext().setFlash(!requireContext().getFlash())

@@ -34,9 +34,9 @@ class ExitActivity : AppCompatActivity() {
 
         init()
 
-        if(!Misc.isItemClicked) {
-            Ads.loadAndShowInterstitial(this, Ads.exitInt, AdIds.interstitialAdIdAdMobExit)
-        }
+//        if(!Misc.isItemClicked) {
+//            Ads.loadAndShowInterstitial(this, Ads.exitInt, AdIds.interstitialAdIdAdMobExit)
+//        }
         Ads.loadAndShowNativeAd(
             this, AdIds.nativeAdIdAdMobExit, Ads.exitNative, binding.nativeAdFrameLayout,
             R.layout.large_native_shimmer

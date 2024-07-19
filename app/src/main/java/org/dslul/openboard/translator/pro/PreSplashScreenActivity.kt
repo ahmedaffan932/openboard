@@ -24,6 +24,8 @@ import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.classes.ads.AppOpenAdManager
+import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobInterstitialAd
+import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobNativeAds
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 
@@ -73,7 +75,34 @@ class PreSplashScreenActivity : AppCompatActivity() {
                     }
 
                     if (consentInformation.canRequestAds()) {
-//                        MobileAds.initialize(this) {}
+                        MobileAds.initialize(this) {}
+                        AppOpenAdManager.loadAd(
+                            this@PreSplashScreenActivity,
+                            AdIds.appOpenAdIdSplash,
+                            object : LoadAdCallBack {
+                                override fun onLoaded() {
+                                    if (!isNextActivityStarted)
+                                        AppOpenAdManager.showIfAvailable(
+                                            this@PreSplashScreenActivity,
+                                            Ads.isSplashAppOpenAdEnabled,
+                                            object : InterstitialCallBack {
+                                                override fun onDismiss() {
+                                                    startNextActivity()
+                                                }
+
+                                                override fun onAdDisplayed() {
+                                                    isShowingAppOpen = true
+                                                }
+                                            }
+                                        )
+                                }
+
+                                override fun onFailed() {
+                                    startNextActivity()
+                                }
+                            }
+                        )
+
 
                         Thread { // Initialize the Google Mobile Ads SDK on a background thread.
                             MobileAds.initialize(
@@ -94,67 +123,35 @@ class PreSplashScreenActivity : AppCompatActivity() {
                                         )
                                     )
                                 }
-
-
-                                AppOpenAdManager.loadAd(
-                                    this@PreSplashScreenActivity,
-                                    AdIds.appOpenAdIdSplash,
-                                    object : LoadAdCallBack {
-                                        override fun onLoaded() {
-                                            if (!isNextActivityStarted)
-                                                AppOpenAdManager.showIfAvailable(
-                                                    this@PreSplashScreenActivity,
-                                                    Ads.isSplashAppOpenAdEnabled,
-                                                    object : InterstitialCallBack {
-                                                        override fun onDismiss() {
-                                                            startNextActivity()
-                                                        }
-
-                                                        override fun onAdDisplayed() {
-                                                            isShowingAppOpen = true
-                                                        }
-                                                    }
-                                                )
-                                        }
-
-                                        override fun onFailed() {
-                                            startNextActivity()
-                                        }
-                                    }
-                                )
                             }
-                        }
-                            .start()
+                        }.start()
 
                         Log.d(Misc.logKey, "Initialized")
                         Handler(Looper.getMainLooper()).postDelayed({
-//                            if (Ads.isIntPreLoad) {
-//                                AdmobInterstitialAd.loadInterAdmob(
-//                                    this,
-//                                    AdIds.interstitialAdIdAdMobSplash
-//                                )
-//                            }
 
-//                            if (Ads.isNativeAdPreload) {
-//                                AdmobNativeAds.loadAdmobNative(
-//                                    this,
-//                                    AdIds.nativeAdIdAdMobSplash
-//                                )
-//                            }
                         }, 500)
 
 
                         object : CountDownTimer(7000, 50) {
                             override fun onTick(millisUntilFinished: Long) {
-//                                if (isRemoteConfigFetched) {
-//                                    if (!isAdRequestSent) {
-//                                        isAdRequestSent = true
-//                                        AdmobMRECAds.loadMREC(
-//                                            this@PreSplashScreenActivity,
-//                                            AdIds.mrecAdIdAd
-//                                        )
-//                                    }
-//                                }
+                                if (isRemoteConfigFetched) {
+                                    if (!isAdRequestSent) {
+                                        isAdRequestSent = true
+                                        if (Ads.isIntPreLoad) {
+                                            AdmobInterstitialAd.loadInterAdmob(
+                                                this@PreSplashScreenActivity,
+                                                AdIds.interstitialAdIdAdMobSplash
+                                            )
+                                        }
+
+                                        if (Ads.isNativeAdPreload) {
+                                            AdmobNativeAds.loadAdmobNative(
+                                                this@PreSplashScreenActivity,
+                                                AdIds.nativeAdIdAdMobSplash
+                                            )
+                                        }
+                                    }
+                                }
                             }
 
                             override fun onFinish() {
@@ -163,8 +160,6 @@ class PreSplashScreenActivity : AppCompatActivity() {
                                     startNextActivity()
                             }
                         }.start()
-
-
                     }
                 }
             },

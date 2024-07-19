@@ -40,15 +40,15 @@ class PhrasesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Ads.loadAndShowInterstitial(
-            requireActivity(),
-            Ads.phraseInt,
-            AdIds.interstitialAdIdAdMobPhrases,
-            object : InterstitialCallBack {
-                override fun onDismiss() {
-                    init()
-                }
-            })
+//        Ads.loadAndShowInterstitial(
+//            requireActivity(),
+//            Ads.phraseInt,
+//            AdIds.interstitialAdIdAdMobPhrases,
+//            object : InterstitialCallBack {
+//                override fun onDismiss() {
+//                    init()
+//                }
+//            })
 
     }
 
