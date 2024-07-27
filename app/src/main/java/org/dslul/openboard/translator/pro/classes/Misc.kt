@@ -38,6 +38,7 @@ import java.lang.reflect.Type
 import java.util.Locale
 
 object Misc {
+    var isProScreenEnabled: Boolean = true
     var yearlyPrice: String = "$3"
     var weeklyPrice: String = "$1"
     var monthlyPrice: String = "$2"

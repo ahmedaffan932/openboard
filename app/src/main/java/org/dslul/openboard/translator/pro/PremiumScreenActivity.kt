@@ -36,20 +36,20 @@ class PremiumScreenActivity : AppCompatActivity() {
 
         }
 
-        binding.tvYearlyPrice.text = Misc.yearlyPrice
-        binding.tvWeeklyPrice.text = Misc.weeklyPrice
-        binding.tvMonthlyPrice.text = Misc.monthlyPrice
+//        binding.tvYearlyPrice.text = Misc.yearlyPrice
+//        binding.tvWeeklyPrice.text = Misc.weeklyPrice
+//        binding.tvMonthlyPrice.text = Misc.monthlyPrice
 
         Handler(Looper.getMainLooper()).postDelayed({
             binding.clPB.visibility = View.GONE
         }, 1000)
 
 
-        binding.clOneTimePurchase.setOnClickListener {
+        binding.clMonthly.setOnClickListener {
             inAppPosition = 0
             binding.clYearly.setBackgroundResource(R.drawable.bg_in_app_item)
             binding.clWeekly.setBackgroundResource(R.drawable.bg_in_app_item)
-            binding.clOneTimePurchase.setBackgroundResource(R.drawable.bg_in_app_item_selected)
+            binding.clMonthly.setBackgroundResource(R.drawable.bg_in_app_item_selected)
 
 
             launchPurchaseFlow(productDetailsList, inAppPosition)
@@ -59,7 +59,7 @@ class PremiumScreenActivity : AppCompatActivity() {
             inAppPosition = 1
             binding.clWeekly.setBackgroundResource(R.drawable.bg_in_app_item_selected)
             binding.clYearly.setBackgroundResource(R.drawable.bg_in_app_item)
-            binding.clOneTimePurchase.setBackgroundResource(R.drawable.bg_in_app_item)
+            binding.clMonthly.setBackgroundResource(R.drawable.bg_in_app_item)
 
 
             launchPurchaseFlow(productDetailsList, inAppPosition)
@@ -69,7 +69,7 @@ class PremiumScreenActivity : AppCompatActivity() {
             inAppPosition = 2
             binding.clYearly.setBackgroundResource(R.drawable.bg_in_app_item_selected)
             binding.clWeekly.setBackgroundResource(R.drawable.bg_in_app_item)
-            binding.clOneTimePurchase.setBackgroundResource(R.drawable.bg_in_app_item)
+            binding.clMonthly.setBackgroundResource(R.drawable.bg_in_app_item)
 
 
             launchPurchaseFlow(productDetailsList, inAppPosition)
@@ -84,20 +84,24 @@ class PremiumScreenActivity : AppCompatActivity() {
         }, 3000)
 
         binding.btnDismiss.setOnClickListener {
+            if (intent.getStringExtra(Misc.logKey) == null) {
+                finish()
+            } else {
                 startActivity(
                     Intent(
                         this,
-                        DashboardActivity::class.java
+                        FragmentsDashboardActivity::class.java
                     )
                 )
                 finish()
             }
+        }
     }
 
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
-        if (intent.getStringExtra(Misc.data) != null) {
-            finish()
+        if (intent.getStringExtra(Misc.data) == null) {
+            super.onBackPressed()
         }
     }
 

@@ -96,7 +96,21 @@ class OnBoardingActivity : AppCompatActivity() {
                 AdIds.interstitialAdIdAdMobSplash,
                 object : InterstitialCallBack {
                     override fun onDismiss() {
-                        startActivity(Intent(this@OnBoardingActivity, FragmentsDashboardActivity::class.java))
+                        if (Misc.isProScreenEnabled) {
+                            startActivity(
+                                Intent(
+                                    this@OnBoardingActivity,
+                                    PremiumScreenActivity::class.java
+                                ).putExtra(Misc.data, Misc.data)
+                            )
+                        } else {
+                            startActivity(
+                                Intent(
+                                    this@OnBoardingActivity,
+                                    FragmentsDashboardActivity::class.java
+                                )
+                            )
+                        }
                     }
                 })
         }
@@ -114,7 +128,21 @@ class OnBoardingActivity : AppCompatActivity() {
                     AdIds.interstitialAdIdAdMobSplash,
                     object : InterstitialCallBack {
                         override fun onDismiss() {
-                            startActivity(Intent(this@OnBoardingActivity, FragmentsDashboardActivity::class.java))
+                            if (Misc.isProScreenEnabled) {
+                                startActivity(
+                                    Intent(
+                                        this@OnBoardingActivity,
+                                        PremiumScreenActivity::class.java
+                                    ).putExtra(Misc.data, Misc.data)
+                                )
+                            } else {
+                                startActivity(
+                                    Intent(
+                                        this@OnBoardingActivity,
+                                        FragmentsDashboardActivity::class.java
+                                    )
+                                )
+                            }
                         }
                     })
             }

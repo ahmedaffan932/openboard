@@ -54,23 +54,32 @@ class SplashScreenActivity : AppCompatActivity() {
     private fun startNextActivity() {
 //        Ads.showInterstitial(this, Ads.splashInt, object : InterstitialCallBack {
 //            override fun onDismiss() {
-                if (Misc.isFirstTime(this@SplashScreenActivity)) {
-                    startActivity(
-                        Intent(
-                            this@SplashScreenActivity,
-                            AppLanguageSelectorActivity::class.java
-                        )
+        if (Misc.isFirstTime(this@SplashScreenActivity)) {
+            startActivity(
+                Intent(
+                    this@SplashScreenActivity,
+                    AppLanguageSelectorActivity::class.java
+                )
+            )
+            finish()
+        } else {
+            if (Misc.isProScreenEnabled) {
+                startActivity(
+                    Intent(this, PremiumScreenActivity::class.java).putExtra(
+                        Misc.data,
+                        Misc.data
                     )
-                    finish()
-                } else {
-                    startActivity(
-                        Intent(
-                            this@SplashScreenActivity,
-                            FragmentsDashboardActivity::class.java
-                        )
+                )
+            } else {
+                startActivity(
+                    Intent(
+                        this@SplashScreenActivity,
+                        FragmentsDashboardActivity::class.java
                     )
-                    finish()
-                }
+                )
+            }
+            finish()
+        }
 //            }
 //        })
     }

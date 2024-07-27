@@ -78,7 +78,11 @@ class AppLanguageSelectorActivity : AppCompatActivity() {
             if (Misc.isFirstTime(this)) {
                 startActivity(Intent(this, OnBoardingActivity::class.java))
             } else {
-                startActivity(Intent(this, FragmentsDashboardActivity::class.java))
+                if(Misc.isProScreenEnabled){
+                    startActivity(Intent(this, PremiumScreenActivity::class.java).putExtra(Misc.data, Misc.data))
+                }else {
+                    startActivity(Intent(this, FragmentsDashboardActivity::class.java))
+                }
             }
             finish()
         }

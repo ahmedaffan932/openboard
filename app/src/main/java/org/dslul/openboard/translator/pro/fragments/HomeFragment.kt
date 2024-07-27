@@ -24,6 +24,7 @@ import org.dslul.openboard.inputmethod.latin.databinding.FragmentHomeBinding
 import org.dslul.openboard.translator.pro.DisplayHistoryActivity
 import org.dslul.openboard.translator.pro.EnableKeyboardActivity
 import org.dslul.openboard.translator.pro.LanguageSelectorActivity
+import org.dslul.openboard.translator.pro.PremiumScreenActivity
 import org.dslul.openboard.translator.pro.SettingsActivity
 import org.dslul.openboard.translator.pro.TranslateActivity
 import org.dslul.openboard.translator.pro.adaptor.HistoryAdapter
@@ -52,6 +53,15 @@ class HomeFragment : Fragment() {
         Firebase.analytics.logEvent("Dashboard", null)
 
         showAds()
+
+        binding.btnPro.setOnClickListener {
+            startActivity(
+                Intent(
+                    requireContext(),
+                    PremiumScreenActivity::class.java
+                )
+            )
+        }
 
         KeyboardUtils.addKeyboardToggleListener(requireActivity()) { isVisible ->
             if (isVisible) {

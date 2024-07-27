@@ -37,6 +37,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
         <activity
+            android:name="org.dslul.openboard.translator.pro.CameraPermissionActivity"
+            android:exported="false" />
+        <activity
             android:name="org.dslul.openboard.translator.pro.OnBoardingActivity"
             android:exported="false"
             android:theme="@style/Theme.TranslatorGuru" />
@@ -116,12 +119,12 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
         <service
             android:name=".LatinIME"
             android:directBootAware="true"
             android:exported="true"
             android:label="@string/english_ime_name"
-
             android:permission="android.permission.BIND_INPUT_METHOD">
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
@@ -306,7 +309,8 @@
             <intent-filter>
                 <action android:name="org.dslul.openboard.inputmethod.dictionarypack.aosp.UNKNOWN_CLIENT" />
             </intent-filter>
-        </receiver> <!-- Content providers -->
+        </receiver>
+
         <provider
             android:name="org.dslul.openboard.inputmethod.dictionarypack.DictionaryProvider"
             android:authorities="@string/authority"
@@ -318,6 +322,12 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-6814505709397727~1751762147" />
+        <meta-data
+            android:name="com.google.android.gms.ads.flag.OPTIMIZE_INITIALIZATION"
+            android:value="true" />
+        <meta-data
+            android:name="com.google.android.gms.ads.flag.OPTIMIZE_AD_LOADING"
+            android:value="true" />
     </application>
 
 </manifest>

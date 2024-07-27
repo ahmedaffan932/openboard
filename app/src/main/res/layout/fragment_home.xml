@@ -31,6 +31,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/btnPro"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="@dimen/padding"
+            android:padding="@dimen/padding"
+            android:src="@drawable/ic_pro"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+            app:layout_constraintEnd_toStartOf="@id/btnSettings"
+            app:layout_constraintTop_toTopOf="@id/tvTitle" />
+        <ImageView
             android:id="@+id/btnSettings"
             android:layout_width="40dp"
             android:layout_height="40dp"

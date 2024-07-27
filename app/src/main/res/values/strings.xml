@@ -672,5 +672,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="discover_premium_benefits">Discover Premium Benefits!</string>
     <string name="per_week">Per Week</string>
     <string name="subscription_activated">Subscription Activitrd</string>
+    <string name="remind_me_later"><u>Remind me later</u></string>
+    <string name="show_details"><u>Show Details</u></string>
 
 </resources>
