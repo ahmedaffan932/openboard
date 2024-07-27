@@ -28,6 +28,7 @@ class ExitActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Ads.loadAndShowInterstitial(this, Ads.exitInt, AdIds.interstitialAdIdAdMobExit)
         setAppLanguage()
         binding = ActivityExitBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -35,7 +36,6 @@ class ExitActivity : AppCompatActivity() {
         init()
 
 //        if(!Misc.isItemClicked) {
-//            Ads.loadAndShowInterstitial(this, Ads.exitInt, AdIds.interstitialAdIdAdMobExit)
 //        }
         Ads.loadAndShowNativeAd(
             this, AdIds.nativeAdIdAdMobExit, Ads.exitNative, binding.nativeAdFrameLayout,

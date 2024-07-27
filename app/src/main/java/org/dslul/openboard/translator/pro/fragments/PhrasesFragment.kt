@@ -59,6 +59,8 @@ class PhrasesFragment : Fragment() {
         binding = FragmentPhrasesBinding.inflate(layoutInflater, container, false)
         Misc.isItemClicked = true
 
+        init()
+
         return binding.root
     }
 

@@ -661,5 +661,16 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="loading_monetization">Loading Monetization.</string>
     <string name="languages">Languages</string>
     <string name="next"><u>Next</u></string>
+    <string name="monthly">Monthly</string>
+    <string name="pre_month">Per Month</string>
+    <string name="per_year">Per Year</string>
+    <string name="yearly">Yearly</string>
+    <string name="pre_week">Per Week</string>
+    <string name="weekly">Weekly</string>
+    <string name="you_can_cancel_subscription_any_time">You can cancel subscription any time.</string>
+    <string name="fetching_information">Fetching Information</string>
+    <string name="discover_premium_benefits">Discover Premium Benefits!</string>
+    <string name="per_week">Per Week</string>
+    <string name="subscription_activated">Subscription Activitrd</string>
 
 </resources>

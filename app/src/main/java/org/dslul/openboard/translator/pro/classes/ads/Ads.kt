@@ -21,7 +21,7 @@ object Ads {
     var appLanguagesSelectorNative: String = "am_large_hctr"
     var cameraTranslationInt: String = "am"
     var exitInt: String = "am"
-    var onBoardingNative: String = "am_small_hctr_native"
+    var onBoardingNative: String = "am_small_hctr_native_btn_up"
     var exitNative: String = "am_large_hctr"
     var phraseInt: String = "am"
     var translateNative: String = "am_large_hctr_bottom"

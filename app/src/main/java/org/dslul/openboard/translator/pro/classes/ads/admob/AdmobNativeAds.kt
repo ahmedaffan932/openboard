@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import com.example.translatorguru.ads.admob.LoadAdCallBack
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
@@ -172,9 +171,14 @@ object AdmobNativeAds {
                     R.layout.admob_small_native_ad_lctr,
                     null
                 ) as NativeAdView
-            else
+            else if(remoteKey.contains("btn_up")){
                 inflater.inflate(
                     R.layout.admob_small_native_ad_hctr,
+                    null
+                ) as NativeAdView
+            }else
+                inflater.inflate(
+                    R.layout.admob_small_native_ad_hctr_btn_bottom,
                     null
                 ) as NativeAdView
         else if (remoteKey.contains("lctr"))

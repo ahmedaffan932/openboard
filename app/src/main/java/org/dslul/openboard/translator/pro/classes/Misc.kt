@@ -38,11 +38,16 @@ import java.lang.reflect.Type
 import java.util.Locale
 
 object Misc {
+    var yearlyPrice: String = "$3"
+    var weeklyPrice: String = "$1"
+    var monthlyPrice: String = "$2"
+    var weeklyKey: String = "weeklyKey"
+    var monthlyKey: String = "monthlyKey"
+    var yearlyKey: String = "yearlyKey"
+    var adsCtrCount: Int = 0
     var showNextButtonOnLanguageScreen: Boolean = true
     var isItemClicked: Boolean = false
-
     const val text: String = "text"
-    var isRemoteConfigFetched: MutableLiveData<Boolean> = MutableLiveData()
 
     @JvmField
     var isTranslated: MutableLiveData<Boolean> = MutableLiveData()

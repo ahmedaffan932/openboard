@@ -23,7 +23,8 @@ import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
-import org.dslul.openboard.translator.pro.classes.ads.AppOpenAdManager
+import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobBannerAd
+import org.dslul.openboard.translator.pro.classes.ads.admob.AppOpenAdManager
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobInterstitialAd
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobNativeAds
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
@@ -48,6 +49,8 @@ class PreSplashScreenActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             binding.animBackground.playAnimation()
         }, 1000)
+
+        AdmobBannerAd.loadAdmobAdaptiveBanner(this, binding.bannerFrameLayout,"am")
         getRemoteConfigValues()
 
         val debugSettings = ConsentDebugSettings.Builder(this)
@@ -81,20 +84,6 @@ class PreSplashScreenActivity : AppCompatActivity() {
                             AdIds.appOpenAdIdSplash,
                             object : LoadAdCallBack {
                                 override fun onLoaded() {
-                                    if (!isNextActivityStarted)
-                                        AppOpenAdManager.showIfAvailable(
-                                            this@PreSplashScreenActivity,
-                                            Ads.isSplashAppOpenAdEnabled,
-                                            object : InterstitialCallBack {
-                                                override fun onDismiss() {
-                                                    startNextActivity()
-                                                }
-
-                                                override fun onAdDisplayed() {
-                                                    isShowingAppOpen = true
-                                                }
-                                            }
-                                        )
                                 }
 
                                 override fun onFailed() {
@@ -156,8 +145,19 @@ class PreSplashScreenActivity : AppCompatActivity() {
 
                             override fun onFinish() {
                                 Log.e(Misc.logKey, "finished")
-                                if (!isShowingAppOpen)
-                                    startNextActivity()
+                                AppOpenAdManager.showIfAvailable(
+                                    this@PreSplashScreenActivity,
+                                    Ads.isSplashAppOpenAdEnabled,
+                                    object : InterstitialCallBack {
+                                        override fun onDismiss() {
+                                            startNextActivity()
+                                        }
+
+                                        override fun onAdDisplayed() {
+                                            isShowingAppOpen = true
+                                        }
+                                    }
+                                )
                             }
                         }.start()
                     }
@@ -234,24 +234,11 @@ class PreSplashScreenActivity : AppCompatActivity() {
 
     fun startNextActivity() {
         if (!isNextActivityStarted) {
-//            if (Ads.isSplashAppOpenAdEnabled) {
             if (Misc.isFirstTime(this)) {
                 startActivity(Intent(this, AppLanguageSelectorActivity::class.java))
             } else {
                 startActivity(Intent(this, FragmentsDashboardActivity::class.java))
             }
-//            } else {
-//                val intent = Intent(
-//                    this,
-//                    SplashScreenActivity::class.java
-//                )
-//                val pairs = arrayOf<Pair<View, String>>(
-//                    Pair(binding.logo, "logo_splash"),
-//                    Pair(binding.spline, "anim_splash")
-//                )
-//                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs)
-//                startActivity(intent, options.toBundle())
-//            }
             isNextActivityStarted = true
         }
     }

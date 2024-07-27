@@ -15,12 +15,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.dslul.openboard.translator.pro.classes.Misc
-import kotlinx.android.synthetic.main.activity_phrases.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.databinding.ActivityPhrasesBinding
 import org.dslul.openboard.translator.pro.adaptor.PhraseBookMainAdapter
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.Ads
@@ -28,6 +28,7 @@ import org.json.JSONObject
 import java.util.*
 
 class PhrasesActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityPhrasesBinding
     private val arrTo = ArrayList<String>()
     private val arrFrom = ArrayList<String>()
     private val lngSelectorLngTo = 1230
@@ -40,25 +41,26 @@ class PhrasesActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        setContentView(R.layout.activity_phrases)
+        binding = ActivityPhrasesBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setSelectedLng()
 
-        llLanguageFrom.setOnClickListener {
+        binding.llLanguageFrom.setOnClickListener {
             val intent = Intent(this@PhrasesActivity, LanguageSelectorActivity::class.java)
             intent.putExtra("isPhrasebook", true)
             intent.putExtra(Misc.lngTo, false)
             startActivityForResult(intent, lngSelectorLngFrom)
         }
 
-        llLanguageTo.setOnClickListener {
+        binding.llLanguageTo.setOnClickListener {
             startActivityForResult(
                 Intent(this@PhrasesActivity, LanguageSelectorActivity::class.java),
                 lngSelectorLngTo
             )
         }
 
-        ivSwitchLanguages.setOnClickListener {
+        binding.ivSwitchLanguages.setOnClickListener {
             if (Misc.getLanguageFrom(this) != Misc.defaultLanguage) {
                 val rotate = RotateAnimation(
                     0F, 180F, Animation.RELATIVE_TO_SELF,
@@ -67,11 +69,11 @@ class PhrasesActivity : AppCompatActivity() {
                 rotate.duration = 200
                 rotate.interpolator = LinearInterpolator()
 
-                val image = ivSwitchLanguages
+                val image = binding.ivSwitchLanguages
                 image.startAnimation(rotate)
 
-                Misc.zoomOutView(llLanguageTo, this, 150)
-                Misc.zoomOutView(llLanguageFrom, this, 150)
+                Misc.zoomOutView(binding.llLanguageTo, this, 150)
+                Misc.zoomOutView(binding.llLanguageFrom, this, 150)
 
                 val temp = Misc.getLanguageFrom(this)
                 Misc.setLanguageFrom(this, Misc.getLanguageTo(this))
@@ -81,8 +83,8 @@ class PhrasesActivity : AppCompatActivity() {
                     setSelectedLng()
                     getTextFrom()
 
-                    Misc.zoomInView(llLanguageTo, this, 150)
-                    Misc.zoomInView(llLanguageFrom, this, 150)
+                    Misc.zoomInView(binding.llLanguageTo, this, 150)
+                    Misc.zoomInView(binding.llLanguageFrom, this, 150)
 
                 }, 150)
 
@@ -104,7 +106,7 @@ class PhrasesActivity : AppCompatActivity() {
             if (valueString != null) {
                 Log.d("Getting Language", "Getting value from SP")
                 Log.e("Getting Language", valueString)
-                llPBPhrasebookFrag.visibility = View.GONE
+                binding.llPBPhrasebookFrag.visibility = View.GONE
                 return valueString
             }
 
@@ -114,11 +116,11 @@ class PhrasesActivity : AppCompatActivity() {
             valueString = String(islandRef.getBytes(fiftyKBs).await())
             Log.e("Getting Language", valueString)
             sharedPref?.edit()?.putString(lan, valueString)?.apply()
-            llPBPhrasebookFrag.visibility = View.GONE
+            binding.llPBPhrasebookFrag.visibility = View.GONE
 
             valueString
         } catch (e: Exception) {
-            llPBPhrasebookFrag.visibility = View.GONE
+            binding.llPBPhrasebookFrag.visibility = View.GONE
             e.printStackTrace()
             "Unable to fetch value, please check your internet."
         }
@@ -128,7 +130,7 @@ class PhrasesActivity : AppCompatActivity() {
     private fun getLngTo() {
 
         try {
-            llPBPhrasebookFrag.visibility = View.VISIBLE
+            binding.llPBPhrasebookFrag.visibility = View.VISIBLE
             GlobalScope.launch(Dispatchers.Main) {
                 Log.d("Button", "English")
                 val srcLng = Misc.getLanguageTo(this@PhrasesActivity)
@@ -160,7 +162,7 @@ class PhrasesActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     private fun getTextFrom() {
         try {
-            llPBPhrasebookFrag.visibility = View.VISIBLE
+            binding.llPBPhrasebookFrag.visibility = View.VISIBLE
             GlobalScope.launch(Dispatchers.Main) {
                 Log.d("Button", "English")
                 val srcLng =
@@ -178,15 +180,15 @@ class PhrasesActivity : AppCompatActivity() {
                         arrFrom.add(t.toString())
                     }
 
-                    recyclerViewPhraseBookMain.layoutManager =
+                    binding.recyclerViewPhraseBookMain.layoutManager =
                         LinearLayoutManager(this@PhrasesActivity)
-                    recyclerViewPhraseBookMain.adapter =
+                    binding.recyclerViewPhraseBookMain.adapter =
                         PhraseBookMainAdapter(arrFrom, this@PhrasesActivity)
                     getLngTo()
 
                 } catch (e: java.lang.Exception) {
-                    if (recyclerViewPhraseBookMain.adapter != null)
-                        recyclerViewPhraseBookMain.adapter!!.notifyDataSetChanged()
+                    if (binding.recyclerViewPhraseBookMain.adapter != null)
+                        binding.recyclerViewPhraseBookMain.adapter!!.notifyDataSetChanged()
                     Misc.canWeProceed = false
                     Toast.makeText(
                         this@PhrasesActivity,
@@ -205,13 +207,13 @@ class PhrasesActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            tvLanguageFrom.text = "English"
+            binding.tvLanguageFrom.text = "English"
         } else {
-            tvLanguageFrom.text = Locale(
+            binding.tvLanguageFrom.text = Locale(
                 Misc.getLanguageFrom(this)
             ).displayName
         }
-        tvLanguageTo.text = Locale(
+        binding.tvLanguageTo.text = Locale(
             Misc.getLanguageTo(this)
         ).displayName
         Misc.canWeProceed = true

@@ -1,4 +1,4 @@
-package org.dslul.openboard.translator.pro.classes.ads
+package org.dslul.openboard.translator.pro.classes.ads.admob
 
 import android.app.Activity
 import android.content.Context
@@ -10,6 +10,7 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import java.util.Date
 

@@ -15,19 +15,16 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_enable_keyboard.*
-import kotlinx.android.synthetic.main.phrase_book_main_item.*
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.databinding.ActivityEnableKeyboardBinding
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
-import org.dslul.openboard.translator.pro.classes.ads.AdIds
-import org.dslul.openboard.translator.pro.classes.ads.Ads
-import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import java.util.*
 import java.lang.Runnable as Runnable1
 
 class EnableKeyboardActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityEnableKeyboardBinding
     private val t = Timer()
     private val handler: Handler = Handler()
     private var isSettingUpKeyboardWillingly = false
@@ -35,25 +32,26 @@ class EnableKeyboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setAppLanguage()
-        setContentView(R.layout.activity_enable_keyboard)
+        binding = ActivityEnableKeyboardBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         checkKeyboardActivation()
 
         Firebase.analytics.logEvent("EnableKeyboard", null)
 
-        tvSkip.setOnClickListener {
+        binding.tvSkip.setOnClickListener {
             finish()
         }
 
         if (intent.getStringExtra(Misc.data) != null) {
-            tvSkip.visibility = View.VISIBLE
+            binding.tvSkip.visibility = View.VISIBLE
         }
 
-        clEnableKeyboard.setOnClickListener {
+        binding.clEnableKeyboard.setOnClickListener {
             startActivityForResult(Intent("android.settings.INPUT_METHOD_SETTINGS"), 0)
         }
 
-        clSelectKeyboard.setOnClickListener {
+        binding.clSelectKeyboard.setOnClickListener {
             Toast.makeText(
                 this,
                 "Please Enable Keyboard first and then switch it.",
@@ -121,36 +119,36 @@ class EnableKeyboardActivity : AppCompatActivity() {
         val mActKeyboard = lists.contains(packageLocal)
 
         if (mActKeyboard) {
-            clEnableKeyboard.setOnClickListener {
+            binding.clEnableKeyboard.setOnClickListener {
                 Toast.makeText(this, "Step 1 is completed.", Toast.LENGTH_SHORT).show()
             }
 
-            clEnableKeyboard.background =
+            binding.clEnableKeyboard.background =
                 resources.getDrawable(R.drawable.bg_main_rounded)
 
-            tvHintMeaning.backgroundTintList =
+            binding.tvHintMeaning.backgroundTintList =
                 ContextCompat.getColorStateList(this, R.color.gray_400);
-            clEnableKeyboard.backgroundTintList =
+            binding.clEnableKeyboard.backgroundTintList =
                 ContextCompat.getColorStateList(this, R.color.disable_color);
 
-            textEnable.setTextColor(resources.getColor(R.color.gray_700))
-            tvHintMeaning.setTextColor(resources.getColor(R.color.gray_700))
+            binding.textEnable.setTextColor(resources.getColor(R.color.gray_700))
+            binding.tvHintMeaning.setTextColor(resources.getColor(R.color.gray_700))
 
-            clSelectKeyboard.visibility = View.VISIBLE
+            binding.clSelectKeyboard.visibility = View.VISIBLE
 
             Handler(Looper.getMainLooper()).postDelayed({
                 (getSystemService(getString(R.string.input_method)) as InputMethodManager).showInputMethodPicker()
             }, 100)
             isSettingUpKeyboardWillingly = true
 
-            clSelectKeyboard.setOnClickListener {
+            binding.clSelectKeyboard.setOnClickListener {
                 (getSystemService(
                     getString(R.string.input_method)
                 ) as InputMethodManager).showInputMethodPicker()
                 isSettingUpKeyboardWillingly = true
             }
         }
-        clEnableKeyboard.setPadding(dpToPx(8).toInt())
+        binding.clEnableKeyboard.setPadding(dpToPx(8).toInt())
     }
 
 

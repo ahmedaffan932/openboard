@@ -11,19 +11,21 @@ import androidx.core.util.Pair
 import com.blongho.country_data.World
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_dashboard.*
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.databinding.ActivityDashboardBinding
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 
 class DashboardActivity : AppCompatActivity() {
+    lateinit var binding: ActivityDashboardBinding
     @SuppressLint("SetTextI18n", "RemoteViewLayout")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setAppLanguage()
-        setContentView(R.layout.activity_dashboard)
+        binding = ActivityDashboardBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         showNativeAd()
 
@@ -36,7 +38,7 @@ class DashboardActivity : AppCompatActivity() {
 
         Misc.isActivityCreatingFirstTime = true
 
-        llKeyboard.setOnClickListener {
+        binding.llKeyboard.setOnClickListener {
             if (isInputMethodSelected()) {
                 Toast.makeText(this, "Keyboard is already enabled.", Toast.LENGTH_SHORT).show()
             } else {
@@ -44,15 +46,15 @@ class DashboardActivity : AppCompatActivity() {
             }
         }
 
-        btnHistory.setOnClickListener {
+        binding.btnHistory.setOnClickListener {
             startActivity(Intent(this, DisplayHistoryActivity::class.java))
         }
 
-        btnSettings.setOnClickListener {
+        binding.btnSettings.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
 
-        llVoice.setOnClickListener {
+        binding.llVoice.setOnClickListener {
             val intent = Intent(this, TranslateActivity::class.java)
             val pairs = arrayOf<Pair<View, String>>(
 //                Pair(binding.clTopBar, "anim_cl_languages"),

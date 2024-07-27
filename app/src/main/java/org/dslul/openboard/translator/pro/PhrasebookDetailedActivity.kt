@@ -22,6 +22,7 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityPhrasebookDetailedBinding
 import org.dslul.openboard.translator.pro.adaptor.CustomExpandableListAdapter
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
+import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.json.JSONObject
 import java.util.*
 
@@ -98,6 +99,8 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
         )
         binding = ActivityPhrasebookDetailedBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        Ads.loadAndShowInterstitial(this, Ads.phraseInt)
 
         Misc.isActivityCreatingFirstTime = true
 

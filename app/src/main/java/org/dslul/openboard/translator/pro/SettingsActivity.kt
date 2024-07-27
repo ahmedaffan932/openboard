@@ -16,8 +16,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
-import kotlinx.android.synthetic.main.activity_settings.*
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.databinding.ActivitySettingsBinding
 import org.dslul.openboard.translator.pro.classes.EmailUsDialogBox
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.rateUs
@@ -25,6 +25,7 @@ import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.RateUsDialog
 
 class SettingsActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySettingsBinding
 
     @SuppressLint("QueryPermissionsNeeded")
     //@DelicateCoroutinesApi
@@ -32,17 +33,18 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setAppLanguage()
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        setContentView(R.layout.activity_settings)
+        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
         Misc.isActivityCreatingFirstTime = true
 
 
         if (Misc.selectThemeMode(this)) {
-            btnSwitchDarkTheme.isChecked = true
+            binding.btnSwitchDarkTheme.isChecked = true
         }
 
-        llShareApp.setOnClickListener {
+        binding.llShareApp.setOnClickListener {
             val sharingIntent = Intent(Intent.ACTION_SEND)
             sharingIntent.type = "text/plain"
             sharingIntent.putExtra(
@@ -52,7 +54,7 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(Intent.createChooser(sharingIntent, "Share via"))
         }
 
-        llPrivacyPolicy.setOnClickListener {
+        binding.llPrivacyPolicy.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse("https://sites.google.com/view/elite-translator/translatorpro")
@@ -60,7 +62,7 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        llTermsAndConditions.setOnClickListener {
+        binding.llTermsAndConditions.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse("https://sites.google.com/view/elite-translator/translatorpro-term-conditions")
@@ -68,7 +70,7 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btnSwitchDarkTheme.setOnCheckedChangeListener { _, _ ->
+        binding.btnSwitchDarkTheme.setOnCheckedChangeListener { _, _ ->
             if (Misc.isNightModeOn(this)) {
                 Misc.setNightMode(this, false)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -78,11 +80,11 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
-        btnBack.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             onBackPressed()
         }
 
-        llFeedback.setOnClickListener {
+        binding.llFeedback.setOnClickListener {
             val objEmailUsDialog = EmailUsDialogBox(this)
             objEmailUsDialog.show()
             val window: Window = objEmailUsDialog.window!!
@@ -122,7 +124,7 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
-        llRateUs.setOnClickListener {
+        binding.llRateUs.setOnClickListener {
             val objRateUsDialog = RateUsDialog(this)
             objRateUsDialog.show()
             val window: Window = objRateUsDialog.window!!

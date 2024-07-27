@@ -61,17 +61,23 @@ object AdIds {
     var collapsibleBannerAdIdAdChat: String = if (BuildConfig.DEBUG) {
         "ca-app-pub-3940256099942544/2014213617"
     } else {
-        "ca-app-pub-6814505709397727/8212784823"
+        "ca-app-pub-6814505709397727/6358779115"
     }
     var collapsibleBannerAdIdAdLanguages: String = if (BuildConfig.DEBUG) {
         "ca-app-pub-3940256099942544/2014213617"
     } else {
-        "ca-app-pub-6814505709397727/1298024121"
+        "ca-app-pub-6814505709397727/6358779115"
     }
     var collapsibleBannerAdIdAdOnboarding: String = if (BuildConfig.DEBUG) {
         "ca-app-pub-3940256099942544/2014213617"
     } else {
         "ca-app-pub-6814505709397727/6358779115"
+    }
+
+    var bannerAdIdAdSplash: String = if (BuildConfig.DEBUG) {
+        "ca-app-pub-3940256099942544/2014213617"
+    } else {
+        "ca-app-pub-6814505709397727/7165137866"
     }
 
 }

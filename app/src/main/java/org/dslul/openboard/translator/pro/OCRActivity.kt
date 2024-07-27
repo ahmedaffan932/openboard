@@ -28,8 +28,6 @@ import com.google.mlkit.vision.text.japanese.JapaneseTextRecognizerOptions
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.theartofdev.edmodo.cropper.CropImage
-import kotlinx.android.synthetic.main.bottom_sheet_ocr_translation_result.rvOCRResult
-import kotlinx.android.synthetic.main.bottom_sheet_ocr_translation_result.tvViewAll
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityOcrBinding
 import org.dslul.openboard.objects.CameraMisc
@@ -235,7 +233,7 @@ class OCRActivity : AppCompatActivity() {
             }
         }
 
-        tvViewAll.setOnClickListener {
+        binding.bottomSheetResult.tvViewAll.setOnClickListener {
             val intent = Intent(this, ViewTranslatedTextActivity::class.java)
             intent.putExtra(Misc.key, visionText.text)
             startActivity(intent)
@@ -276,11 +274,11 @@ class OCRActivity : AppCompatActivity() {
                 Log.d(Misc.logKey, "Here.")
                 binding.progressBar.visibility = View.GONE
 
-                tvViewAll.visibility = View.VISIBLE
+                binding.bottomSheetResult.tvViewAll.visibility = View.VISIBLE
 
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                rvOCRResult.layoutManager = LinearLayoutManager(this)
-                rvOCRResult.adapter =
+                binding.bottomSheetResult.rvOCRResult.layoutManager = LinearLayoutManager(this)
+                binding.bottomSheetResult.rvOCRResult.adapter =
                     OCRResultAdapter(this, arrText, arrTranslation)
             }
         } catch (e: Exception) {
