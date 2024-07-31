@@ -296,10 +296,14 @@ public final class InputAttributes {
                 mTargetApplicationPackageName);
     }
 
-    public static boolean inPrivateImeOptions(final String packageName, final String key,
-            final EditorInfo editorInfo) {
+    public static boolean inPrivateImeOptions(
+            final String packageName,
+            final String key,
+            final EditorInfo editorInfo
+    ) {
         if (editorInfo == null) return false;
         final String findingKey = (packageName != null) ? packageName + "." + key : key;
+        Log.e("testingSuggestion", "inPrivateImeOptions: "+packageName+" , findingKey: "+findingKey );
         return StringUtils.containsInCommaSplittableText(findingKey, editorInfo.privateImeOptions);
     }
 }

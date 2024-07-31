@@ -9,10 +9,12 @@ import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import com.android.billingclient.api.*
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.common.collect.ImmutableList
 import kotlinx.coroutines.*
 import org.dslul.openboard.inputmethod.latin.R
@@ -21,9 +23,10 @@ import org.dslul.openboard.translator.pro.classes.Misc
 
 class PremiumScreenActivity : AppCompatActivity() {
     lateinit var binding: ActivityPremiumScreenBinding
-    var inAppPosition = 1
+    var inAppPosition = 0
     private lateinit var billingClient: BillingClient
     private var productDetailsList = ArrayList<ProductDetails>()
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +34,21 @@ class PremiumScreenActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         billing()
+
+        bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheetInAppDetails))
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+        binding.clMain.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        }
+
+        binding.tvShowDetails.setOnClickListener{
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+        binding.bottomSheetInAppDetails.bottomSheetMain.setOnClickListener {
+
+        }
 
         binding.clPB.setOnClickListener {
 
@@ -45,21 +63,21 @@ class PremiumScreenActivity : AppCompatActivity() {
         }, 1000)
 
 
-        binding.clMonthly.setOnClickListener {
+        binding.clWeekly.setOnClickListener {
             inAppPosition = 0
+            binding.clWeekly.setBackgroundResource(R.drawable.bg_in_app_item_selected)
             binding.clYearly.setBackgroundResource(R.drawable.bg_in_app_item)
-            binding.clWeekly.setBackgroundResource(R.drawable.bg_in_app_item)
-            binding.clMonthly.setBackgroundResource(R.drawable.bg_in_app_item_selected)
+            binding.clMonthly.setBackgroundResource(R.drawable.bg_in_app_item)
 
 
             launchPurchaseFlow(productDetailsList, inAppPosition)
         }
 
-        binding.clWeekly.setOnClickListener {
+        binding.clMonthly.setOnClickListener {
             inAppPosition = 1
-            binding.clWeekly.setBackgroundResource(R.drawable.bg_in_app_item_selected)
             binding.clYearly.setBackgroundResource(R.drawable.bg_in_app_item)
-            binding.clMonthly.setBackgroundResource(R.drawable.bg_in_app_item)
+            binding.clWeekly.setBackgroundResource(R.drawable.bg_in_app_item)
+            binding.clMonthly.setBackgroundResource(R.drawable.bg_in_app_item_selected)
 
 
             launchPurchaseFlow(productDetailsList, inAppPosition)
@@ -84,7 +102,21 @@ class PremiumScreenActivity : AppCompatActivity() {
         }, 3000)
 
         binding.btnDismiss.setOnClickListener {
-            if (intent.getStringExtra(Misc.logKey) == null) {
+            if (intent.getStringExtra(Misc.data) == null) {
+                finish()
+            } else {
+                startActivity(
+                    Intent(
+                        this,
+                        FragmentsDashboardActivity::class.java
+                    )
+                )
+                finish()
+            }
+        }
+
+        binding.tvRemindMeLater.setOnClickListener {
+            if (intent.getStringExtra(Misc.data) == null) {
                 finish()
             } else {
                 startActivity(

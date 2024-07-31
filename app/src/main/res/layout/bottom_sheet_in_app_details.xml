@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_half_up_rounded"
+    android:backgroundTint="@color/secondary_color"
+    android:elevation="@dimen/padding"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:id="@+id/bottomSheetMain"
+    app:behavior_hideable="true"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fab_padding"
+        android:layout_marginHorizontal="@dimen/fab_padding"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="Features"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_18sdp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/padding"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivBanishAds"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_marginHorizontal="@dimen/fab_padding"
+            android:src="@drawable/ic_arrow_in_app"
+            android:paddingHorizontal="@dimen/less_padding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvBanishAds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Banish Ads"
+            android:layout_marginStart="@dimen/fab_padding"
+            app:layout_constraintTop_toTopOf="@id/ivBanishAds"
+            app:layout_constraintBottom_toBottomOf="@id/ivBanishAds"
+            app:layout_constraintStart_toEndOf="@id/ivBanishAds"
+            android:textColor="@color/accent"
+            android:textSize="@dimen/_16sdp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Use the app ad free."
+            android:layout_marginStart="@dimen/fab_padding"
+            android:textColor="@color/gray_7070"
+            app:layout_constraintStart_toEndOf="@id/ivBanishAds"
+            app:layout_constraintTop_toBottomOf="@id/tvBanishAds"
+            android:textSize="@dimen/_12sdp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/padding"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivUnlockChat"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_marginHorizontal="@dimen/fab_padding"
+            android:src="@drawable/ic_arrow_in_app"
+            android:paddingHorizontal="@dimen/less_padding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvUnlockChat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Unlock Chat Translation"
+            android:layout_marginStart="@dimen/fab_padding"
+            app:layout_constraintTop_toTopOf="@id/ivUnlockChat"
+            app:layout_constraintBottom_toBottomOf="@id/ivUnlockChat"
+            app:layout_constraintStart_toEndOf="@id/ivUnlockChat"
+            android:textColor="@color/accent"
+            android:textSize="@dimen/_16sdp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Unlock the ability to chat effortlessly with anyone."
+            android:layout_marginStart="@dimen/fab_padding"
+            android:textColor="@color/gray_7070"
+            app:layout_constraintStart_toEndOf="@id/ivUnlockChat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvUnlockChat"
+            android:textSize="@dimen/_12sdp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/padding"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivCameraTranslation"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_marginHorizontal="@dimen/fab_padding"
+            android:src="@drawable/ic_arrow_in_app"
+            android:paddingHorizontal="@dimen/less_padding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvCameraTranslation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Camera Translation"
+            android:layout_marginStart="@dimen/fab_padding"
+            app:layout_constraintTop_toTopOf="@id/ivCameraTranslation"
+            app:layout_constraintBottom_toBottomOf="@id/ivCameraTranslation"
+            app:layout_constraintStart_toEndOf="@id/ivCameraTranslation"
+            android:textColor="@color/accent"
+            android:textSize="@dimen/_16sdp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Translate any sign or text by just taking a picture."
+            android:layout_marginStart="@dimen/fab_padding"
+            android:textColor="@color/gray_7070"
+            app:layout_constraintStart_toEndOf="@id/ivCameraTranslation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCameraTranslation"
+            android:textSize="@dimen/_12sdp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginVertical="@dimen/padding"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivUnlimitedTranslation"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_marginHorizontal="@dimen/fab_padding"
+            android:src="@drawable/ic_arrow_in_app"
+            android:paddingHorizontal="@dimen/less_padding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvUnlimitedTranslation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Unlimited Translation"
+            android:layout_marginStart="@dimen/fab_padding"
+            app:layout_constraintTop_toTopOf="@id/ivUnlimitedTranslation"
+            app:layout_constraintBottom_toBottomOf="@id/ivUnlimitedTranslation"
+            app:layout_constraintStart_toEndOf="@id/ivUnlimitedTranslation"
+            android:textColor="@color/accent"
+            android:textSize="@dimen/_16sdp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Translate as much as you Want, anytime."
+            android:layout_marginStart="@dimen/fab_padding"
+            android:textColor="@color/gray_7070"
+            app:layout_constraintStart_toEndOf="@id/ivUnlimitedTranslation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvUnlimitedTranslation"
+            android:textSize="@dimen/_12sdp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

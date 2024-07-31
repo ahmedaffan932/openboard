@@ -50,7 +50,6 @@ class PreSplashScreenActivity : AppCompatActivity() {
             binding.animBackground.playAnimation()
         }, 1000)
 
-        AdmobBannerAd.loadAdmobAdaptiveBanner(this, binding.bannerFrameLayout,"am")
         getRemoteConfigValues()
 
         val debugSettings = ConsentDebugSettings.Builder(this)
@@ -79,6 +78,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
 
                     if (consentInformation.canRequestAds()) {
                         MobileAds.initialize(this) {}
+                        AdmobBannerAd.loadAdmobAdaptiveBanner(this, binding.bannerFrameLayout, "am")
                         AppOpenAdManager.loadAd(
                             this@PreSplashScreenActivity,
                             AdIds.appOpenAdIdSplash,
@@ -87,7 +87,6 @@ class PreSplashScreenActivity : AppCompatActivity() {
                                 }
 
                                 override fun onFailed() {
-                                    startNextActivity()
                                 }
                             }
                         )
@@ -116,9 +115,6 @@ class PreSplashScreenActivity : AppCompatActivity() {
                         }.start()
 
                         Log.d(Misc.logKey, "Initialized")
-                        Handler(Looper.getMainLooper()).postDelayed({
-
-                        }, 500)
 
 
                         object : CountDownTimer(7000, 50) {
@@ -145,19 +141,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
 
                             override fun onFinish() {
                                 Log.e(Misc.logKey, "finished")
-                                AppOpenAdManager.showIfAvailable(
-                                    this@PreSplashScreenActivity,
-                                    Ads.isSplashAppOpenAdEnabled,
-                                    object : InterstitialCallBack {
-                                        override fun onDismiss() {
-                                            startNextActivity()
-                                        }
-
-                                        override fun onAdDisplayed() {
-                                            isShowingAppOpen = true
-                                        }
-                                    }
-                                )
+                                startNextActivity()
                             }
                         }.start()
                     }
@@ -234,11 +218,28 @@ class PreSplashScreenActivity : AppCompatActivity() {
 
     fun startNextActivity() {
         if (!isNextActivityStarted) {
-            if (Misc.isFirstTime(this)) {
-                startActivity(Intent(this, AppLanguageSelectorActivity::class.java))
-            } else {
-                startActivity(Intent(this, FragmentsDashboardActivity::class.java))
-            }
+            AppOpenAdManager.showIfAvailable(
+                this,
+                Ads.isSplashAppOpenAdEnabled,
+                object : InterstitialCallBack {
+                    override fun onDismiss() {
+                        if (Misc.isFirstTime(this@PreSplashScreenActivity)) {
+                            startActivity(
+                                Intent(
+                                    this@PreSplashScreenActivity,
+                                    AppLanguageSelectorActivity::class.java
+                                )
+                            )
+                        } else {
+                            startActivity(
+                                Intent(
+                                    this@PreSplashScreenActivity,
+                                    FragmentsDashboardActivity::class.java
+                                )
+                            )
+                        }
+                    }
+                })
             isNextActivityStarted = true
         }
     }

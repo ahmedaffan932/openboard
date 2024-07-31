@@ -8,6 +8,7 @@ android {
     compileSdkVersion 34
 
     defaultConfig {
+//        applicationonId "org.dslul.openboard.inputmethod.latin"
         applicationId "com.guru.translate.translator.pro.translation.keyboard.translator"
         minSdkVersion 27
         targetSdkVersion 34
