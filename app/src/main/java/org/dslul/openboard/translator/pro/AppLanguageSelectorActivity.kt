@@ -28,7 +28,7 @@ class AppLanguageSelectorActivity : AppCompatActivity() {
             R.layout.shimmer_native_splash
         )
 
-        if (Misc.showNextButtonOnLanguageScreen) {
+        if (Misc.showNextButtonOnLanguageScreen || !Misc.isFirstTime(this)) {
             binding.btnSave.visibility = View.VISIBLE
             when (Misc.getAppLanguage(this)) {
                 "pt" -> {
@@ -68,6 +68,7 @@ class AppLanguageSelectorActivity : AppCompatActivity() {
                 }
             }
         }
+
 
         binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
             binding.btnSave.visibility = View.VISIBLE

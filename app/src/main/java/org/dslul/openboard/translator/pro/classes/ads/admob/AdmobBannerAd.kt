@@ -9,7 +9,10 @@ import android.widget.FrameLayout
 import android.util.DisplayMetrics
 import com.google.android.gms.ads.*
 import android.annotation.SuppressLint
+import android.content.Context
+import android.view.LayoutInflater
 import com.google.android.gms.ads.AdRequest.Builder
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 
@@ -28,11 +31,17 @@ object AdmobBannerAd {
             return
         }
 
-        if (remoteKey.contains("am") ){
+        if (remoteKey.contains("am")) {
             adView = AdView(context)
             adView?.adUnitId = AdIds.bannerAdIdAdSplash
-            layout.removeAllViews()
-            layout.addView(adView)
+
+            val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)
+                    as LayoutInflater
+
+            val shimmerView = inflater.inflate(R.layout.banner_shimmer, null)
+            layout.addView(shimmerView)
+            layout.visibility = View.VISIBLE
+
             adView?.setAdSize(getAdSize(context, layout))
             val adRequest = Builder().build()
             adView?.loadAd(adRequest)
@@ -41,10 +50,14 @@ object AdmobBannerAd {
                 override fun onAdLoaded() {
                     layout.visibility = View.VISIBLE
                     isLoaded = true
+
+                    layout.removeAllViews()
+                    layout.addView(adView)
+
                     showAdaptiveBanner(layout)
                 }
 
-                override fun onAdFailedToLoad(adError : LoadAdError) {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
                     Log.e(
                         "TAG",
                         "onAdFailedToLoad:Adaptive Banner  ${adError.code}: ${adError.message}"
@@ -52,14 +65,15 @@ object AdmobBannerAd {
                     layout.visibility = View.GONE
                     isLoaded = false
                 }
+
                 override fun onAdOpened() {}
                 override fun onAdClicked() {
-                    Misc.adsCtrCount++
                 }
+
                 override fun onAdClosed() {}
             }
 
-        }else{
+        } else {
             layout.visibility = View.GONE
         }
 

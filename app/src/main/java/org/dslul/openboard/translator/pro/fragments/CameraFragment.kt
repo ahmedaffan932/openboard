@@ -30,6 +30,8 @@ import org.dslul.openboard.objects.CameraMisc
 import org.dslul.openboard.objects.CameraMisc.getCameraFace
 import org.dslul.openboard.objects.CameraMisc.getFlash
 import org.dslul.openboard.objects.CameraMisc.setFlash
+import org.dslul.openboard.translator.pro.CameraPermissionActivity
+import org.dslul.openboard.translator.pro.GalleryPermissionActivity
 import org.dslul.openboard.translator.pro.LanguageSelectorActivity
 import org.dslul.openboard.translator.pro.OCRActivity
 import org.dslul.openboard.translator.pro.classes.Misc
@@ -42,28 +44,19 @@ import java.util.Locale
 class CameraFragment : Fragment() {
     private var cameraProvider: ProcessCameraProvider? = null
     private lateinit var imageCapture: ImageCapture
-    private val cameraPermissionRequest = 100
-    private val storageReadPermissionRequest = 101
     lateinit var binding: FragmentCameraBinding
+    private var isGalleryPermission = false
 
     private val getContent =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { data: ActivityResult ->
             try {
                 val fileUri = data!!.data!!
                 CameraMisc.fileUri = fileUri.data!!
-//                if (Misc.checkInternetConnection(requireContext())) {
                 val intent =
                     Intent(requireContext(), OCRActivity::class.java)
                 intent.putExtra(CameraMisc.uri, fileUri.data?.path.toString())
                 intent.putExtra(CameraMisc.typeGallery, true)
                 startActivity(intent)
-//                } else {
-//                    Toast.makeText(
-//                        requireContext(),
-//                        resources.getString(R.string.please_check_your_internet_connection_and_try_again),
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -100,11 +93,14 @@ class CameraFragment : Fragment() {
         }
 
         binding.btnGallery.setOnClickListener {
-            if (getStorageReadPermission()) {
+            if (checkGalleryPermission()) {
                 val galleryIntent =
                     Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
 
                 getContent.launch(galleryIntent)
+            } else {
+                isGalleryPermission = true
+                startActivity(Intent(requireContext(), GalleryPermissionActivity::class.java))
             }
         }
 
@@ -153,6 +149,8 @@ class CameraFragment : Fragment() {
         binding.llLanguageTo.setOnClickListener {
             startActivity(Intent(requireContext(), LanguageSelectorActivity::class.java))
         }
+
+        getCameraPermission()
         return binding.root
     }
 
@@ -210,29 +208,32 @@ class CameraFragment : Fragment() {
             cameraProvider?.unbindAll()
 
             binding.btnCapture.setOnClickListener {
-                binding.ocrFragmentPB.visibility = View.VISIBLE
-                val file = File(
-                    requireContext().externalMediaDirs.firstOrNull(),
-                    ".CameraApp - ${System.currentTimeMillis()}.jpg"
-                )
-                val outPut = ImageCapture.OutputFileOptions.Builder(file).build()
-                imageCapture.takePicture(
-                    outPut,
-                    ContextCompat.getMainExecutor(requireContext()),
-                    object : ImageCapture.OnImageCapturedCallback(),
-                        ImageCapture.OnImageSavedCallback {
-                        override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                            val imagePath = file.path
-                            CameraMisc.fileUri = file.toUri()
+                if (requireContext().checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    startActivity(Intent(requireContext(), CameraPermissionActivity::class.java))
+                } else {
+                    binding.ocrFragmentPB.visibility = View.VISIBLE
+                    val file = File(
+                        requireContext().externalMediaDirs.firstOrNull(),
+                        ".CameraApp - ${System.currentTimeMillis()}.jpg"
+                    )
+                    val outPut = ImageCapture.OutputFileOptions.Builder(file).build()
+                    imageCapture.takePicture(
+                        outPut,
+                        ContextCompat.getMainExecutor(requireContext()),
+                        object : ImageCapture.OnImageCapturedCallback(),
+                            ImageCapture.OnImageSavedCallback {
+                            override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                                val imagePath = file.path
+                                CameraMisc.fileUri = file.toUri()
 
-                            binding.ocrFragmentPB.visibility =
-                                View.GONE
+                                binding.ocrFragmentPB.visibility =
+                                    View.GONE
 //                            if (Misc.checkInternetConnection(requireContext())) {
-                            val intent =
-                                Intent(requireContext(), OCRActivity::class.java)
-                            intent.putExtra(CameraMisc.uri, imagePath)
-                            intent.putExtra(CameraMisc.typeGallery, false)
-                            startActivity(intent)
+                                val intent =
+                                    Intent(requireContext(), OCRActivity::class.java)
+                                intent.putExtra(CameraMisc.uri, imagePath)
+                                intent.putExtra(CameraMisc.typeGallery, false)
+                                startActivity(intent)
 //                            } else {
 //                                Toast.makeText(
 //                                    requireContext(),
@@ -240,9 +241,10 @@ class CameraFragment : Fragment() {
 //                                    Toast.LENGTH_SHORT
 //                                ).show()
 //                            }
+                            }
                         }
-                    }
-                )
+                    )
+                }
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -274,74 +276,36 @@ class CameraFragment : Fragment() {
         )
     }
 
-    private fun getStorageReadPermission(): Boolean {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                if (requireContext().checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(
-                        arrayOf(Manifest.permission.READ_MEDIA_IMAGES),
-                        storageReadPermissionRequest
-                    )
-                    return false
-                }
-            } else {
-                if (requireContext().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(
-                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                        storageReadPermissionRequest
-                    )
-                    return false
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return false
-        }
-        return true
-
-    }
-
-    private fun getCameraPermission() {
-        if (requireContext().checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(Manifest.permission.CAMERA), cameraPermissionRequest)
-        } else {
-            startCamera()
-            getStorageReadPermission()
-        }
-    }
 
     override fun onResume() {
         super.onResume()
         setSelectedLng()
-    }
+        if (isGalleryPermission) {
+            isGalleryPermission = false
+            val galleryIntent =
+                Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == cameraPermissionRequest) {
-            try {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startCamera()
-                    getStorageReadPermission()
-                } else {
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.you_can_not_start_this_module),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            } catch (e: Exception) {
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.you_can_not_start_this_module),
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+            getContent.launch(galleryIntent)
+
+        } else {
+            startCamera()
         }
     }
 
+    private fun checkGalleryPermission(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requireContext().checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED
+        } else {
+            requireContext().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        }
+    }
+
+    private fun getCameraPermission() {
+        if (requireContext().checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            startActivity(Intent(requireContext(), CameraPermissionActivity::class.java))
+        } else {
+            startCamera()
+        }
+    }
 
 }

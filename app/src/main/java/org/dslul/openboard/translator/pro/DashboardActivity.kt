@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import com.blongho.country_data.World
+import com.google.android.gms.ads.AdView
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import org.dslul.openboard.inputmethod.latin.R
@@ -20,6 +21,7 @@ import org.dslul.openboard.translator.pro.classes.ads.Ads
 
 class DashboardActivity : AppCompatActivity() {
     lateinit var binding: ActivityDashboardBinding
+
     @SuppressLint("SetTextI18n", "RemoteViewLayout")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

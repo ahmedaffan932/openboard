@@ -189,7 +189,7 @@
                 android:layout_height="wrap_content"
                 android:elevation="@dimen/fab_padding"
                 android:padding="@dimen/padding"
-                android:text="@string/skip"
+                android:text="@string/may_be_later"
                 android:layout_marginTop="@dimen/fab_padding"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/clSelectKeyboard"

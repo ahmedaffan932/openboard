@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.speech.RecognizerIntent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,13 +64,13 @@ class HomeFragment : Fragment() {
             )
         }
 
-        KeyboardUtils.addKeyboardToggleListener(requireActivity()) { isVisible ->
-            if (isVisible) {
-                binding.mrecFrameLayout.visibility = View.GONE
-            } else {
-                binding.mrecFrameLayout.visibility = View.VISIBLE
-            }
-        }
+//        KeyboardUtils.addKeyboardToggleListener(requireActivity()) { isVisible ->
+//            if (isVisible) {
+//                binding.mrecFrameLayout.visibility = View.GONE
+//            } else {
+//                binding.mrecFrameLayout.visibility = View.VISIBLE
+//            }
+//        }
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (requireContext().isInputMethodSelected()) {
@@ -271,9 +272,7 @@ class HomeFragment : Fragment() {
         }
         handler.post(runnable)
 
-        if (Ads.dashboardNative.contains("mrec")) {
-//            AdmobMRECAds.showMREC(requireActivity(), binding.mrecFrameLayout, Ads.dashboardNative)
-        } else {
+        if(!Ads.isDashboardNativeDisplayed) {
             Ads.loadAndShowNativeAd(
                 requireActivity(),
                 AdIds.nativeAdIdAdMobTranslate,
@@ -281,6 +280,9 @@ class HomeFragment : Fragment() {
                 binding.mrecFrameLayout,
                 R.layout.large_native_shimmer
             )
+            Ads.isDashboardNativeDisplayed = true
+        }else{
+            binding.mrecFrameLayout.visibility = View.GONE
         }
     }
 
@@ -304,4 +306,5 @@ class HomeFragment : Fragment() {
             e.printStackTrace()
         }
     }
+
 }

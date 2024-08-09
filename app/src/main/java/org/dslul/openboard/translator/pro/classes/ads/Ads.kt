@@ -11,6 +11,8 @@ import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 object Ads {
 
+    var dashboardFragmentChangeInt: String = "am"
+    var dashboardBanner: String = "am"
     var dashboardInt: String = "am"
     var isIntPreLoad: Boolean = true
     var isNativeAdPreload: Boolean = true
@@ -30,6 +32,8 @@ object Ads {
     var translateInt: String = "am"
 
     var isShowingInt = false
+
+    var isDashboardNativeDisplayed = false
 
     fun showBannerAd(frameLayout: FrameLayout, remoteKey: String) {
         if (remoteKey.contains("am")) {

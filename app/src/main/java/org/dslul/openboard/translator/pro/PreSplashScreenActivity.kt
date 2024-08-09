@@ -171,6 +171,8 @@ class PreSplashScreenActivity : AppCompatActivity() {
                     Ads.exitNative = mFRC.getString("exitNative")
                     Ads.chatBanner = mFRC.getString("chatBanner")
                     Ads.dashboardInt = mFRC.getString("dashboardInt")
+                    Ads.dashboardFragmentChangeInt = mFRC.getString("dashboardFragmentChangeInt")
+                    Ads.dashboardBanner = mFRC.getString("dashboardBanner")
                     Ads.splashNative = mFRC.getString("splashNative")
                     Ads.translateInt = mFRC.getString("translateInt")
                     Ads.translateNative = mFRC.getString("translateNative")
@@ -223,21 +225,12 @@ class PreSplashScreenActivity : AppCompatActivity() {
                 Ads.isSplashAppOpenAdEnabled,
                 object : InterstitialCallBack {
                     override fun onDismiss() {
-                        if (Misc.isFirstTime(this@PreSplashScreenActivity)) {
-                            startActivity(
-                                Intent(
-                                    this@PreSplashScreenActivity,
-                                    AppLanguageSelectorActivity::class.java
-                                )
+                        startActivity(
+                            Intent(
+                                this@PreSplashScreenActivity,
+                                AppLanguageSelectorActivity::class.java
                             )
-                        } else {
-                            startActivity(
-                                Intent(
-                                    this@PreSplashScreenActivity,
-                                    FragmentsDashboardActivity::class.java
-                                )
-                            )
-                        }
+                        )
                     }
                 })
             isNextActivityStarted = true

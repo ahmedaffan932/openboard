@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.dslul.openboard.translator.pro.CameraPermissionActivity">
+    tools:context="org.dslul.openboard.translator.pro.GalleryPermissionActivity">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/llTopBar"
@@ -36,7 +37,7 @@
             android:layout_marginBottom="@dimen/fab_padding"
             android:fontFamily="@font/poppins_regular"
             android:paddingStart="@dimen/padding"
-            android:text="Camera Permission"
+            android:text="Gallery Permission"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -52,19 +53,19 @@
         android:layout_margin="@dimen/fab_padding"
         android:fontFamily="@font/poppins_regular"
         android:paddingStart="@dimen/padding"
-        android:text="Camera"
+        android:text="Gallery"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/llTopBar"
         android:textSize="@dimen/_20sdp"
         app:layout_constraintStart_toStartOf="parent" />
 
-    
+
     <ImageView
         android:id="@+id/ivMain"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_175sdp"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        android:src="@drawable/img_camera_permission"/>
+        android:src="@drawable/img_gallery_permission"/>
 
     <TextView
         android:id="@+id/btnAllow"
@@ -90,13 +91,13 @@
         app:layout_constraintTop_toBottomOf="@id/btnAllow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Keyboard Translator Pro will be able to access the camera when app is running."
+        android:text="Keyboard Translator Pro will be able to access and
+make changes to your gallery."
         android:gravity="center"
         android:layout_marginHorizontal="@dimen/extra_padding"
         android:layout_marginTop="@dimen/fab_padding"
         android:fontFamily="@font/poppins_light"
         android:textColor="@color/gray_7070"/>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

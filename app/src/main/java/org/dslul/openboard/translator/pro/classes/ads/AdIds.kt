@@ -4,6 +4,13 @@ import org.dslul.openboard.inputmethod.latin.BuildConfig
 
 object AdIds {
 
+    var collapsibleBannerAdIdAd: String = if (BuildConfig.DEBUG) {
+        "ca-app-pub-3940256099942544/2014213617"
+    } else {
+        ""
+    }
+
+
     var mrecAdIdAd: String = if (BuildConfig.DEBUG) {
         "ca-app-pub-3940256099942544/6300978111"
     } else {

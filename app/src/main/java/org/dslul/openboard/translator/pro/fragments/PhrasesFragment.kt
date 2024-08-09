@@ -203,7 +203,16 @@ class PhrasesFragment : Fragment() {
                     val obj = JSONObject(getLanguageJson(srcLng))
 
                     for (t in obj.keys()) {
-                        arrFrom.add(t.toString())
+                        var isAlreadyAdded = false
+
+                        for (ojdItem in arrFrom){
+                            if (ojdItem == t.toString()){
+                                isAlreadyAdded = true
+                            }
+                        }
+
+                        if (!isAlreadyAdded)
+                            arrFrom.add(t.toString())
                     }
 
                     binding.recyclerViewPhraseBookMain.layoutManager =

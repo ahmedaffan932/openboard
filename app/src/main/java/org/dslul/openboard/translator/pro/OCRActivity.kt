@@ -167,6 +167,8 @@ class OCRActivity : AppCompatActivity() {
             val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, CameraMisc.fileUri!!)
 
             CropImage.activity(CameraMisc.fileUri)
+                .setCropMenuCropButtonTitle(getString(R.string.done))
+                .setAllowFlipping(false)
                 .start(this)
 
             binding.imageViewOcr.setImageBitmap(bitmap)

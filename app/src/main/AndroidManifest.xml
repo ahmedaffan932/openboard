@@ -37,39 +37,54 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
         <activity
+            android:name="org.dslul.openboard.translator.pro.GalleryPermissionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru"/>
+        <activity
             android:name="org.dslul.openboard.translator.pro.CameraPermissionActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru"/>
         <activity
             android:name="org.dslul.openboard.translator.pro.OnBoardingActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru" />
         <activity
             android:name="org.dslul.openboard.translator.pro.FragmentsDashboardActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru" />
         <activity
             android:name="org.dslul.openboard.translator.pro.NewDashboardActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru" />
         <activity
             android:name="org.dslul.openboard.translator.pro.OnResumeActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru" />
         <activity
             android:name="org.dslul.openboard.translator.pro.PremiumScreenActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/Theme.TranslatorGuru" />
         <activity
             android:name="org.dslul.openboard.translator.pro.ViewTranslatedTextActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/Theme.TranslatorGuru" />
         <activity
             android:name="org.dslul.openboard.translator.pro.ConversationActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru" />
         <activity
             android:name="org.dslul.openboard.translator.pro.PreSplashScreenActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/ForSplash">
             <intent-filter>
                 <action
@@ -81,6 +96,7 @@
         </activity>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity
             android:name="org.dslul.openboard.translator.pro.CameraTranslationActivity"
@@ -232,6 +248,7 @@
         <activity
             android:name="org.dslul.openboard.translator.pro.EnableKeyboardActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent">
             <meta-data
                 android:name="android.app.lib_name"
@@ -254,16 +271,19 @@
             android:label="@string/english_ime_name"
             android:launchMode="singleTask"
             android:noHistory="true"
+            android:screenOrientation="portrait"
             android:theme="@style/platformActivityTheme" />
         <activity
             android:name=".permissions.PermissionsActivity"
             android:exported="false"
             android:taskAffinity=""
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".setup.SetupWizardActivity"
             android:clearTaskOnLaunch="true"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:label="@string/english_ime_name"
             android:theme="@style/platformActivityTheme">
             <intent-filter>
@@ -274,6 +294,7 @@
             android:name=".settings.SettingsActivity"
             android:excludeFromRecents="true"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:label="@string/ime_settings"
             android:theme="@style/platformActivityTheme">
             <intent-filter>
@@ -284,6 +305,7 @@
             android:name=".spellcheck.SpellCheckerSettingsActivity"
             android:exported="true"
             android:label="@string/android_spell_checker_settings"
+            android:screenOrientation="portrait"
             android:theme="@style/platformActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -291,6 +313,7 @@
         </activity>
         <activity
             android:name=".settings.TestFragmentActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
 
         <receiver
