@@ -34,6 +34,7 @@ import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
+import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import org.dslul.openboard.translator.pro.interfaces.TranslationInterface
 import org.jsoup.Jsoup
 import java.net.URLEncoder
@@ -47,6 +48,7 @@ class TranslateActivity : AppCompatActivity() {
     private val lngSelectorRequestCode = 1230
     private val speechRequestCode = 0
     private var textToSpeechLngTo: TextToSpeech? = null
+    private var translationCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -348,6 +350,8 @@ class TranslateActivity : AppCompatActivity() {
     }
 
     private fun saveInHistory(text: String, translation: String) {
+        translationCount++
+        Log.d(Misc.logKey, "$translationCount Translation Count")
         if (text.length > 1000) {
             return
         }
@@ -434,6 +438,14 @@ class TranslateActivity : AppCompatActivity() {
                 ).show()
             }
         })
+
+        if (translationCount > 3){
+            Ads.loadAndShowRewardedInterstitial(this, Ads.translationRewardedAd, object :InterstitialCallBack{
+                override fun onDismiss() {
+                    translationCount = 0
+                }
+            })
+        }
     }
 
     private fun onlineTranslation(fromCode: String, toCode: String, text: String) {

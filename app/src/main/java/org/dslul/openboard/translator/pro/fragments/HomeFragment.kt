@@ -42,6 +42,7 @@ class HomeFragment : Fragment() {
     private var isBtnTranslateVisible = false
     private val speechRequestCode = 0
     lateinit var adapter: HistoryAdapter
+    var isShowingNative = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,13 +65,15 @@ class HomeFragment : Fragment() {
             )
         }
 
-//        KeyboardUtils.addKeyboardToggleListener(requireActivity()) { isVisible ->
-//            if (isVisible) {
-//                binding.mrecFrameLayout.visibility = View.GONE
-//            } else {
-//                binding.mrecFrameLayout.visibility = View.VISIBLE
-//            }
-//        }
+        if (isShowingNative) {
+            KeyboardUtils.addKeyboardToggleListener(requireActivity()) { isVisible ->
+                if (isVisible) {
+                    binding.mrecFrameLayout.visibility = View.GONE
+                } else {
+                    binding.mrecFrameLayout.visibility = View.VISIBLE
+                }
+            }
+        }
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (requireContext().isInputMethodSelected()) {
@@ -272,7 +275,7 @@ class HomeFragment : Fragment() {
         }
         handler.post(runnable)
 
-        if(!Ads.isDashboardNativeDisplayed) {
+        if (!Ads.isDashboardNativeDisplayed) {
             Ads.loadAndShowNativeAd(
                 requireActivity(),
                 AdIds.nativeAdIdAdMobTranslate,
@@ -280,8 +283,10 @@ class HomeFragment : Fragment() {
                 binding.mrecFrameLayout,
                 R.layout.large_native_shimmer
             )
+            isShowingNative = true
+
             Ads.isDashboardNativeDisplayed = true
-        }else{
+        } else {
             binding.mrecFrameLayout.visibility = View.GONE
         }
     }

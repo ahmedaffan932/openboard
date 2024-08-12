@@ -35,6 +35,8 @@ import org.dslul.openboard.translator.pro.adaptor.OCRResultAdapter
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.MiscTranslate
+import org.dslul.openboard.translator.pro.classes.ads.Ads
+import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import org.dslul.openboard.translator.pro.interfaces.TranslationInterface
 import java.util.*
 import kotlin.collections.ArrayList
@@ -44,6 +46,8 @@ class OCRActivity : AppCompatActivity() {
     private var arrTranslation: ArrayList<String> = java.util.ArrayList<String>()
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
     private lateinit var binding: ActivityOcrBinding
+    private var isRewardedAdShown = false
+    private var isLanguageSelection = false
 
     @SuppressLint("WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,12 +118,14 @@ class OCRActivity : AppCompatActivity() {
         }
 
         binding.llLanguageFrom.setOnClickListener {
+            isLanguageSelection = true
             val intent = Intent(this, LanguageSelectorActivity::class.java)
             intent.putExtra(Misc.lngTo, false)
             startActivity(intent)
         }
 
         binding.llLanguageTo.setOnClickListener {
+            isLanguageSelection = true
             startActivity(Intent(this, LanguageSelectorActivity::class.java))
         }
     }
@@ -251,11 +257,19 @@ class OCRActivity : AppCompatActivity() {
 
     private fun translateNow(arrText: ArrayList<String>, position: Int) {
         setSelectedLng()
+        if (!isRewardedAdShown) {
+            isRewardedAdShown = true
+            Ads.loadAndShowRewardedInterstitial(this, Ads.cameraTranslationRewardedAd, object :
+                InterstitialCallBack {
+                override fun onDismiss() {
+                }
+            })
+        }
         binding.progressBar.visibility = View.VISIBLE
         try {
 
             if (position < arrText.size) {
-                MiscTranslate.translate(this, arrText[position], object : TranslationInterface{
+                MiscTranslate.translate(this, arrText[position], object : TranslationInterface {
                     override fun onTranslate(translation: String) {
                         arrTranslation.add(translation)
                         Log.d(Misc.logKey, "Text: ${arrText[position]} OCR: $translation")
@@ -298,6 +312,11 @@ class OCRActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         setSelectedLng()
+        if (isLanguageSelection) {
+            arrTranslation.clear()
+            translateNow(arrText, 0)
+            isLanguageSelection = false
+        }
     }
 
     private fun setSelectedLng() {

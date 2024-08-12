@@ -44,6 +44,12 @@ object AdIds {
     } else {
         "ca-app-pub-6814505709397727/6566087979"
     }
+
+    var rewardedInterstitialAdIdAdMob: String = if (BuildConfig.DEBUG) {
+        "ca-app-pub-3940256099942544/5224354917"
+    } else {
+        "ca-app-pub-6814505709397727/1291517161"
+    }
     var interstitialAdIdAdMobPhrases: String = if (BuildConfig.DEBUG) {
         "ca-app-pub-3940256099942544/1033173712"
     } else {

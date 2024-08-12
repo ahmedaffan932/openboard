@@ -10,10 +10,13 @@ import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
+import org.dslul.openboard.translator.pro.classes.ads.admob.AppOpenAdManager
+import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 class AppLanguageSelectorActivity : AppCompatActivity() {
     lateinit var binding: ActivityAppLanguageSelectorBinding
     private var isLanguageSelected = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setAppLanguage()
@@ -76,16 +79,39 @@ class AppLanguageSelectorActivity : AppCompatActivity() {
         }
 
         binding.btnSave.setOnClickListener {
-            if (Misc.isFirstTime(this)) {
-                startActivity(Intent(this, OnBoardingActivity::class.java))
-            } else {
-                if(Misc.isProScreenEnabled){
-                    startActivity(Intent(this, PremiumScreenActivity::class.java).putExtra(Misc.data, Misc.data))
-                }else {
-                    startActivity(Intent(this, FragmentsDashboardActivity::class.java))
+            AppOpenAdManager.showIfAvailable(this, Ads.isSplashAppOpenAdEnabled, object :
+                InterstitialCallBack {
+                override fun onDismiss() {
+                    if (Misc.isFirstTime(this@AppLanguageSelectorActivity)) {
+                        startActivity(
+                            Intent(
+                                this@AppLanguageSelectorActivity,
+                                OnBoardingActivity::class.java
+                            )
+                        )
+                    } else {
+                        if (Misc.isProScreenEnabled) {
+                            startActivity(
+                                Intent(
+                                    this@AppLanguageSelectorActivity,
+                                    PremiumScreenActivity::class.java
+                                ).putExtra(
+                                    Misc.data,
+                                    Misc.data
+                                )
+                            )
+                        } else {
+                            startActivity(
+                                Intent(
+                                    this@AppLanguageSelectorActivity,
+                                    FragmentsDashboardActivity::class.java
+                                )
+                            )
+                        }
+                    }
+                    finish()
                 }
-            }
-            finish()
+            })
         }
 
     }

@@ -7,10 +7,13 @@ import com.example.translatorguru.ads.admob.LoadAdCallBack
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobInterstitialAd
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobNativeAds
+import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobRewardedInterstitial
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 object Ads {
 
+    var translationRewardedAd: String = "am"
+    var cameraTranslationRewardedAd: String = "am"
     var dashboardFragmentChangeInt: String = "am"
     var dashboardBanner: String = "am"
     var dashboardInt: String = "am"
@@ -130,6 +133,30 @@ object Ads {
 
                 })
             }
+        } else {
+            callBack?.onDismiss()
+        }
+    }
+
+    fun loadAndShowRewardedInterstitial(
+        activity: Activity,
+        remoteKey: String,
+        callBack: InterstitialCallBack? = null
+    ) {
+
+        if (remoteKey.contains("am")) {
+            AdmobRewardedInterstitial.loadRewardedInterAdmob(
+                activity,
+                AdIds.rewardedInterstitialAdIdAdMob,
+                object : LoadAdCallBack {
+                    override fun onLoaded() {
+                        AdmobRewardedInterstitial.showInterstitial(activity, callBack)
+                    }
+
+                    override fun onFailed() {
+                        callBack?.onDismiss()
+                    }
+                })
         } else {
             callBack?.onDismiss()
         }

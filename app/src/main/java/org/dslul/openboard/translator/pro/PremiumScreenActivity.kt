@@ -23,7 +23,10 @@ import org.dslul.openboard.translator.pro.classes.Misc
 
 class PremiumScreenActivity : AppCompatActivity() {
     lateinit var binding: ActivityPremiumScreenBinding
-    var inAppPosition = 0
+
+    // In-App position is not according to that in which you enter items it's arrangement
+    // is according to product id in ascending order.
+    var inAppPosition = 1
     private lateinit var billingClient: BillingClient
     private var productDetailsList = ArrayList<ProductDetails>()
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
@@ -42,7 +45,7 @@ class PremiumScreenActivity : AppCompatActivity() {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
 
-        binding.tvShowDetails.setOnClickListener{
+        binding.tvShowDetails.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
@@ -64,7 +67,7 @@ class PremiumScreenActivity : AppCompatActivity() {
 
 
         binding.clWeekly.setOnClickListener {
-            inAppPosition = 0
+            inAppPosition = 1
             binding.clWeekly.setBackgroundResource(R.drawable.bg_in_app_item_selected)
             binding.clYearly.setBackgroundResource(R.drawable.bg_in_app_item)
             binding.clMonthly.setBackgroundResource(R.drawable.bg_in_app_item)
@@ -74,7 +77,8 @@ class PremiumScreenActivity : AppCompatActivity() {
         }
 
         binding.clMonthly.setOnClickListener {
-            inAppPosition = 1
+            Log.d(Misc.logKey, Misc.monthlyKey)
+            inAppPosition = 0
             binding.clYearly.setBackgroundResource(R.drawable.bg_in_app_item)
             binding.clWeekly.setBackgroundResource(R.drawable.bg_in_app_item)
             binding.clMonthly.setBackgroundResource(R.drawable.bg_in_app_item_selected)
@@ -94,6 +98,9 @@ class PremiumScreenActivity : AppCompatActivity() {
         }
 
         binding.btnGetPro.setOnClickListener {
+            for (i in productDetailsList) {
+                Log.d(Misc.logKey, i.productId)
+            }
             launchPurchaseFlow(productDetailsList, inAppPosition)
         }
 
