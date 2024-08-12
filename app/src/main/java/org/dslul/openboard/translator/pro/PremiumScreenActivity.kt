@@ -11,14 +11,13 @@ import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import com.android.billingclient.api.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.common.collect.ImmutableList
-import kotlinx.coroutines.*
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityPremiumScreenBinding
+import org.dslul.openboard.translator.pro.classes.InAppUtils
 import org.dslul.openboard.translator.pro.classes.Misc
 
 class PremiumScreenActivity : AppCompatActivity() {
@@ -27,16 +26,13 @@ class PremiumScreenActivity : AppCompatActivity() {
     // In-App position is not according to that in which you enter items it's arrangement
     // is according to product id in ascending order.
     var inAppPosition = 1
-    private lateinit var billingClient: BillingClient
-    private var productDetailsList = ArrayList<ProductDetails>()
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPremiumScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        billing()
+        InAppUtils.showProducts()
 
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheetInAppDetails))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
@@ -73,7 +69,7 @@ class PremiumScreenActivity : AppCompatActivity() {
             binding.clMonthly.setBackgroundResource(R.drawable.bg_in_app_item)
 
 
-            launchPurchaseFlow(productDetailsList, inAppPosition)
+            launchPurchaseFlow(InAppUtils.mProductDetailsList, inAppPosition)
         }
 
         binding.clMonthly.setOnClickListener {
@@ -84,7 +80,7 @@ class PremiumScreenActivity : AppCompatActivity() {
             binding.clMonthly.setBackgroundResource(R.drawable.bg_in_app_item_selected)
 
 
-            launchPurchaseFlow(productDetailsList, inAppPosition)
+            launchPurchaseFlow(InAppUtils.mProductDetailsList, inAppPosition)
         }
 
         binding.clYearly.setOnClickListener {
@@ -94,14 +90,14 @@ class PremiumScreenActivity : AppCompatActivity() {
             binding.clMonthly.setBackgroundResource(R.drawable.bg_in_app_item)
 
 
-            launchPurchaseFlow(productDetailsList, inAppPosition)
+            launchPurchaseFlow(InAppUtils.mProductDetailsList, inAppPosition)
         }
 
         binding.btnGetPro.setOnClickListener {
-            for (i in productDetailsList) {
+            for (i in InAppUtils.mProductDetailsList) {
                 Log.d(Misc.logKey, i.productId)
             }
-            launchPurchaseFlow(productDetailsList, inAppPosition)
+            launchPurchaseFlow(InAppUtils.mProductDetailsList, inAppPosition)
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
@@ -144,84 +140,7 @@ class PremiumScreenActivity : AppCompatActivity() {
         }
     }
 
-    private fun billing() {
-        billingClient = BillingClient.newBuilder(this)
-            .enablePendingPurchases()
-            .setListener { billingResult, list ->
-                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && list != null) {
-                    for (purchase in list) {
-                        verifySubPurchase(purchase)
-                    }
-                }
-            }.build()
-
-        establishConnection()
-    }
-
-    var connectionFailedCount = 0
-    fun establishConnection() {
-        billingClient.startConnection(object : BillingClientStateListener {
-            override fun onBillingSetupFinished(@NonNull billingResult: BillingResult) {
-                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                    showProducts()
-                }
-            }
-
-            override fun onBillingServiceDisconnected() {
-                if (Misc.checkInternetConnection(this@PremiumScreenActivity)) {
-                    if (connectionFailedCount < 4)
-                        establishConnection()
-
-                    connectionFailedCount++
-                } else {
-                    Toast.makeText(
-                        this@PremiumScreenActivity,
-                        resources.getString(R.string.please_check_your_internet_connection_and_try_again),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    finish()
-                }
-            }
-        })
-    }
-
-    @SuppressLint("SetTextI18n")
-    fun showProducts() {
-        val productList: ImmutableList<QueryProductDetailsParams.Product> =
-            ImmutableList.of(
-                //Product 1
-                QueryProductDetailsParams.Product.newBuilder()
-                    .setProductId(Misc.weeklyKey)
-                    .setProductType(BillingClient.ProductType.SUBS)
-                    .build(),  //Product 3
-                QueryProductDetailsParams.Product.newBuilder()
-                    .setProductId(Misc.monthlyKey)
-                    .setProductType(BillingClient.ProductType.SUBS)
-                    .build(),
-                QueryProductDetailsParams.Product.newBuilder()
-                    .setProductId(Misc.yearlyKey)
-                    .setProductType(BillingClient.ProductType.SUBS)
-                    .build(),  //Product 2
-            )
-        val params = QueryProductDetailsParams.newBuilder()
-            .setProductList(productList)
-            .build()
-        billingClient.queryProductDetailsAsync(
-            params
-        ) { billingResult: BillingResult?, prodDetailsList: List<ProductDetails?>? ->
-            productDetailsList.clear()
-            Handler(Looper.getMainLooper()).postDelayed({
-                Log.d(Misc.logKey, "posted delayed")
-                if (prodDetailsList != null) {
-                    for ((i, item) in prodDetailsList.withIndex()) {
-                        Log.d(Misc.logKey, "item name ${item?.name} $i")
-                        item?.let { productDetailsList.add(it) }
-                    }
-                }
-            }, 2000)
-        }
-    }
-
+    
     private fun launchPurchaseFlow(arrProductDetails: ArrayList<ProductDetails>, position: Int) {
         try {
             val productDetails = arrProductDetails[position]
@@ -235,7 +154,7 @@ class PremiumScreenActivity : AppCompatActivity() {
             val billingFlowParams = BillingFlowParams.newBuilder()
                 .setProductDetailsParamsList(productDetailsParamsList)
                 .build()
-            val billingResult = billingClient.launchBillingFlow(this, billingFlowParams)
+            val billingResult = InAppUtils.billingClient.launchBillingFlow(this, billingFlowParams)
         } catch (e: Exception) {
             Toast.makeText(this, "Please check your internet and try again.", Toast.LENGTH_SHORT)
                 .show()
@@ -249,7 +168,7 @@ class PremiumScreenActivity : AppCompatActivity() {
             .newBuilder()
             .setPurchaseToken(purchases.purchaseToken)
             .build()
-        billingClient.acknowledgePurchase(
+        InAppUtils.billingClient.acknowledgePurchase(
             acknowledgePurchaseParams
         ) { billingResult: BillingResult ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
@@ -267,7 +186,7 @@ class PremiumScreenActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        billingClient.queryPurchasesAsync(
+        InAppUtils.billingClient.queryPurchasesAsync(
             QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.SUBS).build()
         ) { billingResult: BillingResult, list: List<Purchase> ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {

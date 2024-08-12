@@ -11,6 +11,7 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.translator.pro.OnResumeActivity
+import org.dslul.openboard.translator.pro.classes.InAppUtils.billing
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 
@@ -26,6 +27,8 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
         Misc.selectThemeMode(this)
 
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+
+        billing()
     }
 
 

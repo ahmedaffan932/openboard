@@ -6,6 +6,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityAppLanguageSelectorBinding
+import org.dslul.openboard.translator.pro.classes.InAppUtils
+import org.dslul.openboard.translator.pro.classes.InAppUtils.billing
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
@@ -22,6 +24,7 @@ class AppLanguageSelectorActivity : AppCompatActivity() {
         setAppLanguage()
         binding = ActivityAppLanguageSelectorBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         Ads.loadAndShowNativeAd(
             this,

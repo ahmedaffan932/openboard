@@ -109,6 +109,7 @@ object Ads {
                     return
                 }
                 val objDialog = Misc.LoadingAdDialog(activity)
+                objDialog.setCancelable(false)
                 objDialog.show()
                 isShowingInt = true
 
@@ -145,15 +146,20 @@ object Ads {
     ) {
 
         if (remoteKey.contains("am")) {
+            val objDialog = Misc.LoadingAdDialog(activity)
+            objDialog.setCancelable(false)
+            objDialog.show()
             AdmobRewardedInterstitial.loadRewardedInterAdmob(
                 activity,
                 AdIds.rewardedInterstitialAdIdAdMob,
                 object : LoadAdCallBack {
                     override fun onLoaded() {
+                        objDialog.dismiss()
                         AdmobRewardedInterstitial.showInterstitial(activity, callBack)
                     }
 
                     override fun onFailed() {
+                        objDialog.dismiss()
                         callBack?.onDismiss()
                     }
                 })

@@ -42,7 +42,7 @@ object Misc {
     var yearlyPrice: String = "$3"
     var weeklyPrice: String = "$1"
     var monthlyPrice: String = "$2"
-    var weeklyKey: String = "weeklyKey"
+    var weeklyKey: String = "mweeklyKey"
     var monthlyKey: String = "monthlyKey"
     var yearlyKey: String = "yearlyKey"
     var adsCtrCount: Int = 0
