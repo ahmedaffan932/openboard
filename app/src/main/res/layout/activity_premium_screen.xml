@@ -240,7 +240,7 @@
                 android:text="No Commitment, Cancel Anytime"
                 android:textColor="@color/gray_7070"
                 android:textSize="@dimen/_10sdp"
-                app:layout_constraintBottom_toTopOf="@id/tvRemindMeLater"
+                app:layout_constraintBottom_toTopOf="@id/tvSubscriptionTerms"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -256,16 +256,16 @@
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/tvRemindMeLater" />
+                app:layout_constraintEnd_toStartOf="@id/tvSubscriptionTerms" />
 
             <TextView
-                android:id="@+id/tvRemindMeLater"
+                android:id="@+id/tvSubscriptionTerms"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:padding="@dimen/padding"
-                android:text="@string/remind_me_later"
+                android:text="@string/subscription_terms"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -318,5 +318,9 @@
     <include
         android:id="@+id/bottomSheetInAppDetails"
         layout="@layout/bottom_sheet_in_app_details" />
+
+    <include
+        android:id="@+id/bottomSheetSubscriptionDetails"
+        layout="@layout/bottom_sheet_subscription_terms" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

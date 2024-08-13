@@ -275,20 +275,20 @@ class HomeFragment : Fragment() {
         }
         handler.post(runnable)
 
-        if (!Ads.isDashboardNativeDisplayed) {
-            Ads.loadAndShowNativeAd(
-                requireActivity(),
-                AdIds.nativeAdIdAdMobTranslate,
-                Ads.dashboardNative,
-                binding.mrecFrameLayout,
-                R.layout.large_native_shimmer
-            )
-            isShowingNative = true
-
-            Ads.isDashboardNativeDisplayed = true
-        } else {
-            binding.mrecFrameLayout.visibility = View.GONE
-        }
+//        if (!Ads.isDashboardNativeDisplayed) {
+//            Ads.loadAndShowNativeAd(
+//                requireActivity(),
+//                AdIds.nativeAdIdAdMobTranslate,
+//                Ads.dashboardNative,
+//                binding.mrecFrameLayout,
+//                R.layout.large_native_shimmer
+//            )
+//            isShowingNative = true
+//
+//            Ads.isDashboardNativeDisplayed = true
+//        } else {
+//            binding.mrecFrameLayout.visibility = View.GONE
+//        }
     }
 
     override fun onResume() {

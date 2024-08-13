@@ -19,7 +19,7 @@
         android:layout_marginTop="@dimen/fab_padding"
         android:layout_marginHorizontal="@dimen/fab_padding"
         android:fontFamily="@font/poppins_semi_bold"
-        android:text="Features"
+        android:text="Subscription Terms:"
         android:textColor="@color/black"
         android:textSize="@dimen/_14sdp" />
 
@@ -27,130 +27,99 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/padding"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/ivBanishAds"
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
             android:layout_marginHorizontal="@dimen/fab_padding"
             android:src="@drawable/ic_arrow_in_app"
-            android:paddingHorizontal="@dimen/padding_10"
+            android:paddingHorizontal="@dimen/less_padding"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvBanishAds"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:text="Banish Ads"
-            android:layout_marginStart="@dimen/padding"
-            app:layout_constraintTop_toTopOf="@id/ivBanishAds"
-            app:layout_constraintBottom_toBottomOf="@id/ivBanishAds"
-            app:layout_constraintStart_toEndOf="@id/ivBanishAds"
-            android:textColor="@color/accent"
-            android:textSize="@dimen/_12sdp" />
-
-        <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:text="Use the app ad free."
-            android:layout_marginStart="@dimen/padding"
-            android:textColor="@color/gray_7070"
+            android:text="Your subscription will automatically renew unless you cancel it before the end of  current valid period."
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/fab_padding"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="@dimen/fab_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/ivBanishAds"
-            app:layout_constraintTop_toBottomOf="@id/tvBanishAds"
-            android:textSize="@dimen/_10sdp" />
-
-
+            android:textColor="@color/gray_7070"
+            android:textSize="@dimen/_11sdp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/padding"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/ivUnlockChat"
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
             android:layout_marginHorizontal="@dimen/fab_padding"
             android:src="@drawable/ic_arrow_in_app"
-            android:paddingHorizontal="@dimen/padding_10"
+            android:paddingHorizontal="@dimen/less_padding"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvUnlockChat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:text="Unlock Chat Translation"
-            android:layout_marginStart="@dimen/padding"
-            app:layout_constraintTop_toTopOf="@id/ivUnlockChat"
-            app:layout_constraintBottom_toBottomOf="@id/ivUnlockChat"
-            app:layout_constraintStart_toEndOf="@id/ivUnlockChat"
-            android:textColor="@color/accent"
-            android:textSize="@dimen/_12sdp" />
-
-        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:text="Unlock the ability to chat effortlessly with anyone."
-            android:layout_marginStart="@dimen/padding"
-            android:textColor="@color/gray_7070"
+            android:text="Subscription will be automatically charged from your credit card through your Google account at confirmation of you purchase."
+            android:layout_marginStart="@dimen/fab_padding"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="@dimen/fab_padding"
             app:layout_constraintStart_toEndOf="@id/ivUnlockChat"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvUnlockChat"
-            android:textSize="@dimen/_10sdp" />
-
-
+            android:textColor="@color/gray_7070"
+            android:textSize="@dimen/_11sdp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/padding"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/ivCameraTranslation"
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
             android:layout_marginHorizontal="@dimen/fab_padding"
             android:src="@drawable/ic_arrow_in_app"
-            android:paddingHorizontal="@dimen/padding_10"
+            android:paddingHorizontal="@dimen/less_padding"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvCameraTranslation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:text="Camera Translation"
-            android:layout_marginStart="@dimen/padding"
-            app:layout_constraintTop_toTopOf="@id/ivCameraTranslation"
-            app:layout_constraintBottom_toBottomOf="@id/ivCameraTranslation"
-            app:layout_constraintStart_toEndOf="@id/ivCameraTranslation"
-            android:textColor="@color/accent"
-            android:textSize="@dimen/_12sdp" />
-
-        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:text="Translate any sign or text by just taking a picture."
-            android:layout_marginStart="@dimen/padding"
-            android:textColor="@color/gray_7070"
+            android:text="To end a subscription from play store, disable auto renewal and allow the current period to end. It will not be possible to immediately cancel a subscription."
+            android:layout_marginStart="@dimen/fab_padding"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="@dimen/fab_padding"
             app:layout_constraintStart_toEndOf="@id/ivCameraTranslation"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvCameraTranslation"
-            android:textSize="@dimen/_10sdp" />
-
+            android:textColor="@color/gray_7070"
+            android:textSize="@dimen/_11sdp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -158,44 +127,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:layout_marginBottom="@dimen/padding"
+        android:layout_marginVertical="@dimen/padding"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/ivUnlimitedTranslation"
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
             android:layout_marginHorizontal="@dimen/fab_padding"
             android:src="@drawable/ic_arrow_in_app"
-            android:paddingHorizontal="@dimen/padding_10"
+            android:paddingHorizontal="@dimen/less_padding"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvUnlimitedTranslation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:text="Unlimited Translation"
-            android:layout_marginStart="@dimen/padding"
-            app:layout_constraintTop_toTopOf="@id/ivUnlimitedTranslation"
-            app:layout_constraintBottom_toBottomOf="@id/ivUnlimitedTranslation"
-            app:layout_constraintStart_toEndOf="@id/ivUnlimitedTranslation"
-            android:textColor="@color/accent"
-            android:textSize="@dimen/_12sdp" />
-
-        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:text="Translate as much as you Want, anytime."
-            android:layout_marginStart="@dimen/padding"
-            android:textColor="@color/gray_7070"
-            app:layout_constraintStart_toEndOf="@id/ivUnlimitedTranslation"
+            android:text="Refunds are not available for unused."
+            android:layout_marginStart="@dimen/fab_padding"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvUnlimitedTranslation"
-            android:textSize="@dimen/_10sdp" />
-
+            app:layout_constraintStart_toEndOf="@id/ivUnlimitedTranslation"
+            android:textColor="@color/gray_7070"
+            android:textSize="@dimen/_11sdp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

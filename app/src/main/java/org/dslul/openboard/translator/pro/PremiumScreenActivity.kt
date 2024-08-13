@@ -26,7 +26,8 @@ class PremiumScreenActivity : AppCompatActivity() {
     // In-App position is not according to that in which you enter items it's arrangement
     // is according to product id in ascending order.
     var inAppPosition = 1
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
+    private lateinit var inAppDetailsBottomSheetBehavior: BottomSheetBehavior<LinearLayout>
+    private lateinit var subscriptionBottomSheetBehavior: BottomSheetBehavior<LinearLayout>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,18 +35,29 @@ class PremiumScreenActivity : AppCompatActivity() {
         setContentView(binding.root)
         InAppUtils.showProducts()
 
-        bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheetInAppDetails))
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        inAppDetailsBottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheetInAppDetails))
+        inAppDetailsBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+        subscriptionBottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheetSubscriptionDetails))
+        subscriptionBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
         binding.clMain.setOnClickListener {
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            inAppDetailsBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            subscriptionBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
 
         binding.tvShowDetails.setOnClickListener {
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            inAppDetailsBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+        binding.tvSubscriptionTerms.setOnClickListener {
+            subscriptionBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
         binding.bottomSheetInAppDetails.bottomSheetMain.setOnClickListener {
+
+        }
+        binding.bottomSheetSubscriptionDetails.bottomSheetMain.setOnClickListener {
 
         }
 
@@ -118,19 +130,6 @@ class PremiumScreenActivity : AppCompatActivity() {
             }
         }
 
-        binding.tvRemindMeLater.setOnClickListener {
-            if (intent.getStringExtra(Misc.data) == null) {
-                finish()
-            } else {
-                startActivity(
-                    Intent(
-                        this,
-                        FragmentsDashboardActivity::class.java
-                    )
-                )
-                finish()
-            }
-        }
     }
 
     @SuppressLint("MissingSuperCall")

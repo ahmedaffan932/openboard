@@ -42,6 +42,11 @@ class FragmentsDashboardActivity : AppCompatActivity() {
         setCurrentFragment(HomeFragment())
 
         binding.bottomNavigation.selectedItemId = R.id.home
+        collapsibleBannerView = AdmobCollapsibleBannerAds.loadCollapsibleBanner(
+            this,
+            remoteKey = Ads.dashboardBanner,
+            view = binding.llCollapsibleBanner
+        )
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
             if (it.itemId != lastSelectedItem) {
@@ -53,17 +58,6 @@ class FragmentsDashboardActivity : AppCompatActivity() {
                 }
                 lastSelectedItem = it.itemId
 
-                if (lastSelectedItem != R.id.home) {
-                    if (collapsibleBannerView == null) {
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            collapsibleBannerView = AdmobCollapsibleBannerAds.loadCollapsibleBanner(
-                                this,
-                                remoteKey = Ads.dashboardBanner,
-                                view = binding.llCollapsibleBanner
-                            )
-                        }, 100)
-                    }
-                }
             }
             true
         }

@@ -677,5 +677,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="select_app_language">Select App Language</string>
     <string name="done">Done</string>
     <string name="may_be_later">May be later</string>
+    <string name="subscription_terms"><u>Subscription Terms</u></string>
 
 </resources>
