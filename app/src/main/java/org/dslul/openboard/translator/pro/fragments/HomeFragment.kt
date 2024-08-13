@@ -275,6 +275,13 @@ class HomeFragment : Fragment() {
         }
         handler.post(runnable)
 
+        if (Misc.isProScreenEnabled) {
+            binding.btnPro.visibility = View.VISIBLE
+        } else {
+            binding.btnPro.visibility = View.GONE
+        }
+
+
 //        if (!Ads.isDashboardNativeDisplayed) {
 //            Ads.loadAndShowNativeAd(
 //                requireActivity(),

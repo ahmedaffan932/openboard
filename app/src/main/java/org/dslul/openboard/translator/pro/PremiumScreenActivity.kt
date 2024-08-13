@@ -61,18 +61,6 @@ class PremiumScreenActivity : AppCompatActivity() {
 
         }
 
-        binding.clPB.setOnClickListener {
-
-        }
-
-//        binding.tvYearlyPrice.text = Misc.yearlyPrice
-//        binding.tvWeeklyPrice.text = Misc.weeklyPrice
-//        binding.tvMonthlyPrice.text = Misc.monthlyPrice
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            binding.clPB.visibility = View.GONE
-        }, 1000)
-
 
         binding.clWeekly.setOnClickListener {
             inAppPosition = 1

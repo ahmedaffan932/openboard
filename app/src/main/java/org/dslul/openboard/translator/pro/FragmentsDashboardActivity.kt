@@ -42,11 +42,11 @@ class FragmentsDashboardActivity : AppCompatActivity() {
         setCurrentFragment(HomeFragment())
 
         binding.bottomNavigation.selectedItemId = R.id.home
-        collapsibleBannerView = AdmobCollapsibleBannerAds.loadCollapsibleBanner(
-            this,
-            remoteKey = Ads.dashboardBanner,
-            view = binding.llCollapsibleBanner
-        )
+//        collapsibleBannerView = AdmobCollapsibleBannerAds.loadCollapsibleBanner(
+//            this,
+//            remoteKey = Ads.dashboardBanner,
+//            view = binding.llCollapsibleBanner
+//        )
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
             if (it.itemId != lastSelectedItem) {
@@ -66,23 +66,23 @@ class FragmentsDashboardActivity : AppCompatActivity() {
 
     private fun setCurrentFragment(fragment: Fragment) {
         fragmentChangeCount++
-        if (fragmentChangeCount > 4) {
-            Ads.loadAndShowInterstitial(
-                this,
-                remoteKey = Ads.dashboardFragmentChangeInt,
-                callBack = object : InterstitialCallBack {
-                    override fun onDismiss() {
-                        val fragmentManager = supportFragmentManager
-
-                        fragmentManager.beginTransaction().apply {
-                            replace(R.id.fragmentContainer, fragment)
-                            addToBackStack("")
-                            commit()
-                        }
-                    }
-                })
-            fragmentChangeCount = 0
-        } else {
+//        if (fragmentChangeCount > 4) {
+//            Ads.loadAndShowInterstitial(
+//                this,
+//                remoteKey = Ads.dashboardFragmentChangeInt,
+//                callBack = object : InterstitialCallBack {
+//                    override fun onDismiss() {
+//                        val fragmentManager = supportFragmentManager
+//
+//                        fragmentManager.beginTransaction().apply {
+//                            replace(R.id.fragmentContainer, fragment)
+//                            addToBackStack("")
+//                            commit()
+//                        }
+//                    }
+//                })
+//            fragmentChangeCount = 0
+//        } else {
             val fragmentManager = supportFragmentManager
 
             fragmentManager.beginTransaction().apply {
@@ -90,7 +90,7 @@ class FragmentsDashboardActivity : AppCompatActivity() {
                 addToBackStack("")
                 commit()
             }
-        }
+//        }
     }
 
     @SuppressLint("MissingSuperCall")
