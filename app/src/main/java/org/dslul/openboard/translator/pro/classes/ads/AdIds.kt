@@ -7,7 +7,7 @@ object AdIds {
     var collapsibleBannerAdIdAd: String = if (BuildConfig.DEBUG) {
         "ca-app-pub-3940256099942544/2014213617"
     } else {
-        ""
+        "ca-app-pub-6814505709397727/6358779115"
     }
 
 
@@ -71,16 +71,6 @@ object AdIds {
         "ca-app-pub-6814505709397727/3868347146"
     }
 
-    var collapsibleBannerAdIdAdChat: String = if (BuildConfig.DEBUG) {
-        "ca-app-pub-3940256099942544/2014213617"
-    } else {
-        "ca-app-pub-6814505709397727/6358779115"
-    }
-    var collapsibleBannerAdIdAdLanguages: String = if (BuildConfig.DEBUG) {
-        "ca-app-pub-3940256099942544/2014213617"
-    } else {
-        "ca-app-pub-6814505709397727/6358779115"
-    }
     var collapsibleBannerAdIdAdOnboarding: String = if (BuildConfig.DEBUG) {
         "ca-app-pub-3940256099942544/2014213617"
     } else {

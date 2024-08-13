@@ -12,8 +12,8 @@ android {
         applicationId "com.guru.translate.translator.pro.translation.keyboard.translator"
         minSdkVersion 27
         targetSdk 34
-        versionCode 52
-        versionName '4.9'
+        versionCode 53
+        versionName '4.10'
     }
 
     buildTypes {

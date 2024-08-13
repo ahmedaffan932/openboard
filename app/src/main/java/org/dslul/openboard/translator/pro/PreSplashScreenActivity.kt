@@ -206,12 +206,10 @@ class PreSplashScreenActivity : AppCompatActivity() {
                         mFRC.getString("interstitialAdIdAdMobTranslate")
                     AdIds.interstitialAdIdAdMobCameraTranslate =
                         mFRC.getString("interstitialAdIdAdMobCameraTranslate")
-                    AdIds.collapsibleBannerAdIdAdChat =
-                        mFRC.getString("collapsibleBannerAdIdAdChat")
-                    AdIds.collapsibleBannerAdIdAdLanguages =
-                        mFRC.getString("collapsibleBannerAdIdAdLanguages")
                     AdIds.collapsibleBannerAdIdAdOnboarding =
                         mFRC.getString("collapsibleBannerAdIdAdOnboarding")
+                    AdIds.collapsibleBannerAdIdAd =
+                        mFRC.getString("collapsibleBannerAdIdAd")
 
 
                     Misc.showNextButtonOnLanguageScreen =
