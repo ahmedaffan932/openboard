@@ -37,14 +37,14 @@ class OnBoardingActivity : AppCompatActivity() {
 //            )
 //        }
 
-        if (Ads.onBoardingNative.contains("native")) {
-            Ads.loadAndShowNativeAd(
-                this,
-                remoteKey = Ads.onBoardingNative,
-                frameLayout = binding.nativeAdFrameLayout,
-                shimmerLayout = R.layout.small_native_shimmer
-            )
-        }
+//        if (Ads.onBoardingNative.contains("native")) {
+//            Ads.loadAndShowNativeAd(
+//                this,
+//                remoteKey = Ads.onBoardingNative,
+//                frameLayout = binding.nativeAdFrameLayout,
+//                shimmerLayout = R.layout.small_native_shimmer
+//            )
+//        }
 
         binding.splashViewPager.adapter = FragmentAdapter(this)
 

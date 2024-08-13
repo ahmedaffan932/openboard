@@ -12,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+<!--        <ScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -61,7 +61,7 @@
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/animLoading"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_250sdp"
+                    android:layout_height="@dimen/_240sdp"
                     app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
                     app:layout_constraintTop_toBottomOf="@id/tvUpgradeToPremium"
                     app:lottie_autoPlay="true"
@@ -247,6 +247,7 @@
                         android:textColor="@color/gray_7070"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintTop_toBottomOf="@id/btnGetPro"
+                        app:layout_constraintBottom_toTopOf="@id/tvSubscriptionTerms"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
 
@@ -255,6 +256,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:gravity="center_vertical"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tvCancelSubscription">
 
@@ -413,7 +415,6 @@
                         android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
                         android:padding="@dimen/padding"
-                        android:visibility="gone"
                         android:text="@string/show_details"
                         android:textColor="@color/blue"
                         android:textSize="@dimen/_10sdp"
@@ -426,7 +427,6 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
-                        android:visibility="gone"
                         android:padding="@dimen/padding"
                         android:text="@string/subscription_terms"
                         android:textColor="@color/blue"
@@ -438,18 +438,16 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+<!--        </ScrollView>-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
         android:id="@+id/bottomSheetInAppDetails"
-        android:visibility="gone"
         layout="@layout/bottom_sheet_in_app_details" />
     <include
         android:id="@+id/bottomSheetSubscriptionDetails"
-        android:visibility="gone"
         layout="@layout/bottom_sheet_subscription_terms" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
