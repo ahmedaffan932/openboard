@@ -122,7 +122,7 @@
                                     android:fontFamily="@font/poppins_regular"
                                     android:gravity="center"
                                     android:text="Standard"
-                                    android:textColor="@color/gray_7070"
+                                    android:textColor="@color/blue"
                                     android:textSize="@dimen/_11sdp"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
@@ -164,7 +164,7 @@
                                     android:layout_marginBottom="@dimen/fab_padding"
                                     android:fontFamily="@font/poppins_medium"
                                     android:text="10% Off"
-                                    android:textColor="@color/tt_skip_red"
+                                    android:textColor="@color/blue"
                                     android:textSize="@dimen/_11sdp"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
@@ -206,7 +206,7 @@
                                     android:layout_marginBottom="@dimen/fab_padding"
                                     android:fontFamily="@font/poppins_medium"
                                     android:text="25% Off"
-                                    android:textColor="@color/tt_skip_red"
+                                    android:textColor="@color/blue"
                                     android:textSize="@dimen/_10sdp"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
@@ -438,16 +438,16 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-<!--        </ScrollView>-->
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
         android:id="@+id/bottomSheetInAppDetails"
+        android:visibility="gone"
         layout="@layout/bottom_sheet_in_app_details" />
     <include
         android:id="@+id/bottomSheetSubscriptionDetails"
+        android:visibility="gone"
         layout="@layout/bottom_sheet_subscription_terms" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

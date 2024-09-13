@@ -307,43 +307,6 @@ class ChatFragment : Fragment() {
 //        translateAsync(fromCode, toCode, encoded, isLanguageTo)
     }
 
-    private fun translateAsync(
-        fromCode: String,
-        toCode: String,
-        encoded: String,
-        isLanguageTo: Boolean
-    ) {
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-                val result = withContext(Dispatchers.IO) {
-                    Jsoup.connect("https://translate.google.com/m?hl=en&sl=$fromCode&tl=$toCode&q=$encoded")
-                        .get()
-                }
-
-                val element = result.getElementsByClass("result-container")
-
-                val translatedText = element.text()
-                if (translatedText.isNotBlank()) {
-                    Log.d(Misc.logKey, "Element: $translatedText")
-                    setText(
-                        if (isLanguageTo) {
-                            speakLngFrom(translatedText)
-                            binding.tvTextFrom
-                        } else {
-                            speakLngTo(translatedText)
-                            binding.tvTextTo
-                        }, translatedText
-                    )
-                    binding.llPBTranslateFrag.visibility = View.GONE
-                } else {
-                    handleTranslationError()
-                }
-            } catch (e: Exception) {
-                handleTranslationError()
-            }
-        }
-    }
-
     private fun handleTranslationError() {
         binding.llPBTranslateFrag.visibility = View.GONE
         Toast.makeText(

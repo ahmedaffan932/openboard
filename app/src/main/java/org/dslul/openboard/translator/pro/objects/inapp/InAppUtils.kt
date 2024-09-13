@@ -1,4 +1,4 @@
-package org.dslul.openboard.translator.pro.classes
+package org.dslul.openboard.translator.pro.objects.inapp
 
 import android.content.Context
 import android.util.Log
@@ -11,7 +11,9 @@ import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
 import com.google.common.collect.ImmutableList
+import com.google.gson.Gson
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.translator.pro.classes.Misc
 
 object InAppUtils {
     var connectionFailedCount = 0
@@ -34,6 +36,7 @@ object InAppUtils {
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(@NonNull billingResult: BillingResult) {
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+
                 }
                 Log.d(Misc.logKey, "Connection is ready");
 //                showProducts()
@@ -64,24 +67,7 @@ object InAppUtils {
         establishConnection()
     }
 
-    fun showProducts() {
-//        val productList: ImmutableList<QueryProductDetailsParams.Product> =
-//            ImmutableList.of(
-//                //Product 1
-//                QueryProductDetailsParams.Product.newBuilder()
-//                    .setProductId(Misc.weeklyKey)
-//                    .setProductType(BillingClient.ProductType.SUBS)
-//                    .build(),  //Product 3
-//                QueryProductDetailsParams.Product.newBuilder()
-//                    .setProductId(Misc.monthlyKey)
-//                    .setProductType(BillingClient.ProductType.SUBS)
-//                    .build(),
-//                QueryProductDetailsParams.Product.newBuilder()
-//                    .setProductId(Misc.yearlyKey)
-//                    .setProductType(BillingClient.ProductType.SUBS)
-//                    .build(),  //Product 2
-//            )
-
+    fun showProducts(callBack: InAppProductsDetailsCallback? = null) {
         val queryProductDetailsParams =
             QueryProductDetailsParams.newBuilder()
                 .setProductList(
@@ -106,11 +92,50 @@ object InAppUtils {
         billingClient.queryProductDetailsAsync(queryProductDetailsParams) { billingResult,
                                                                             productDetailsList ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+
                 Log.d(Misc.logKey, "productDetailsList size ${productDetailsList.size}")
                 for (item in productDetailsList) {
-                    Log.d(Misc.logKey, "item name ${item.name}")
+
                     item?.let { mProductDetailsList.add(it) }
                 }
+                val objItemMonthly =
+                    Gson().fromJson(
+                        Gson().toJson(mProductDetailsList[0]),
+                        SubscriptionDataClass::class.java
+                    )
+                val objItemWeekly =
+                    Gson().fromJson(
+                        Gson().toJson(mProductDetailsList[1]),
+                        SubscriptionDataClass::class.java
+                    )
+                val objItemYearly =
+                    Gson().fromJson(
+                        Gson().toJson(mProductDetailsList[2]),
+                        SubscriptionDataClass::class.java
+                    )
+
+                val objZzaWeekly = Gson().fromJson(objItemWeekly.zza, Zza::class.java)
+                val objZzaMonthly = Gson().fromJson(objItemMonthly.zza, Zza::class.java)
+                val objZzaYearly = Gson().fromJson(objItemYearly.zza, Zza::class.java)
+
+                Log.d(
+                    Misc.logKey,
+                    "objZzaWeekly ${objZzaWeekly.subscriptionOfferDetails[0].pricingPhases[0].formattedPrice.toString()}"
+                )
+                Log.d(
+                    Misc.logKey,
+                    "objZzaMonthly ${objZzaMonthly.subscriptionOfferDetails[0].pricingPhases[0].formattedPrice.toString()}"
+                )
+                Log.d(
+                    Misc.logKey,
+                    "objZzaYearly ${objZzaYearly.subscriptionOfferDetails[0].pricingPhases[0].formattedPrice.toString()}"
+                )
+
+                callBack?.onFetched(
+                    objZzaWeekly.subscriptionOfferDetails[0].pricingPhases[0].formattedPrice.toString(),
+                    objZzaMonthly.subscriptionOfferDetails[0].pricingPhases[0].formattedPrice.toString(),
+                    objZzaYearly.subscriptionOfferDetails[0].pricingPhases[0].formattedPrice.toString()
+                )
             }
         }
     }

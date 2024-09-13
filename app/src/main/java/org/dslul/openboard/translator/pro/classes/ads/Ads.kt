@@ -97,7 +97,6 @@ object Ads {
         adId: String = AdIds.interstitialAdIdAdMobPhrases,
         callBack: InterstitialCallBack? = null
     ) {
-
         if (remoteKey.contains("am")) {
 
             if (AdmobInterstitialAd.interAdmob != null) {
@@ -144,7 +143,6 @@ object Ads {
         remoteKey: String,
         callBack: InterstitialCallBack? = null
     ) {
-
         if (remoteKey.contains("am")) {
             val objDialog = Misc.LoadingAdDialog(activity)
             objDialog.setCancelable(false)

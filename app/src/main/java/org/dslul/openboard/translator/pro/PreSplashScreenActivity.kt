@@ -79,7 +79,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
 
                     if (consentInformation.canRequestAds()) {
                         MobileAds.initialize(this) {}
-                        AdmobBannerAd.loadAdmobAdaptiveBanner(this, binding.bannerFrameLayout, "am")
+
                         AppOpenAdManager.loadAd(
                             this@PreSplashScreenActivity,
                             AdIds.appOpenAdIdSplash,
@@ -92,7 +92,6 @@ class PreSplashScreenActivity : AppCompatActivity() {
                                 }
                             }
                         )
-
 
                         Thread { // Initialize the Google Mobile Ads SDK on a background thread.
                             MobileAds.initialize(
@@ -130,7 +129,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
                                                 AdIds.interstitialAdIdAdMobSplash
                                             )
                                         }
-
+//
                                         if (Ads.isNativeAdPreload) {
                                             AdmobNativeAds.loadAdmobNative(
                                                 this@PreSplashScreenActivity,

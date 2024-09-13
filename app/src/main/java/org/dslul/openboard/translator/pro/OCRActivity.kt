@@ -257,14 +257,14 @@ class OCRActivity : AppCompatActivity() {
 
     private fun translateNow(arrText: ArrayList<String>, position: Int) {
         setSelectedLng()
-        if (!isRewardedAdShown) {
-            isRewardedAdShown = true
-            Ads.loadAndShowRewardedInterstitial(this, Ads.cameraTranslationRewardedAd, object :
-                InterstitialCallBack {
-                override fun onDismiss() {
-                }
-            })
-        }
+//        if (!isRewardedAdShown) {
+//            isRewardedAdShown = true
+//            Ads.loadAndShowRewardedInterstitial(this, Ads.cameraTranslationRewardedAd, object :
+//                InterstitialCallBack {
+//                override fun onDismiss() {
+//                }
+//            })
+//        }
         binding.progressBar.visibility = View.VISIBLE
         try {
 

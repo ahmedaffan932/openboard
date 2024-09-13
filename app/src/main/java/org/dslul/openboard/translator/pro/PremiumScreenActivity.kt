@@ -15,16 +15,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.billingclient.api.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.common.collect.ImmutableList
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityPremiumScreenBinding
-import org.dslul.openboard.translator.pro.classes.InAppUtils
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.objects.inapp.InAppProductsDetailsCallback
+import org.dslul.openboard.translator.pro.objects.inapp.InAppUtils
 
 class PremiumScreenActivity : AppCompatActivity() {
     lateinit var binding: ActivityPremiumScreenBinding
 
-    // In-App position is not according to that in which you enter items it's arrangement
-    // is according to product id in ascending order.
     var inAppPosition = 1
     private lateinit var inAppDetailsBottomSheetBehavior: BottomSheetBehavior<LinearLayout>
     private lateinit var subscriptionBottomSheetBehavior: BottomSheetBehavior<LinearLayout>
@@ -33,13 +34,23 @@ class PremiumScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPremiumScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        InAppUtils.showProducts()
 
         inAppDetailsBottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheetInAppDetails))
         inAppDetailsBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
         subscriptionBottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheetSubscriptionDetails))
         subscriptionBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+        InAppUtils.showProducts(object : InAppProductsDetailsCallback {
+            override fun onFetched(weeklyPrice: String, monthlyPrice: String, yearlyPrice: String) {
+                runOnUiThread {
+                    binding.tvWeeklyPer.text = weeklyPrice
+                    binding.tvMonthlyPer.text = monthlyPrice
+                    binding.tvYearlyPer.text = yearlyPrice
+                }
+            }
+        })
+
 
         binding.clMain.setOnClickListener {
             inAppDetailsBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
@@ -127,9 +138,13 @@ class PremiumScreenActivity : AppCompatActivity() {
         }
     }
 
-    
+
     private fun launchPurchaseFlow(arrProductDetails: ArrayList<ProductDetails>, position: Int) {
         try {
+            if (intent.getStringExtra(Misc.data) != null) {
+                Firebase.analytics.logEvent("mBtnProContinue", null)
+            }
+
             val productDetails = arrProductDetails[position]
             assert(productDetails.subscriptionOfferDetails != null)
             val productDetailsParamsList = ImmutableList.of(
@@ -158,6 +173,7 @@ class PremiumScreenActivity : AppCompatActivity() {
         InAppUtils.billingClient.acknowledgePurchase(
             acknowledgePurchaseParams
         ) { billingResult: BillingResult ->
+            Log.d(Misc.logKey, "verifySubPurchase: " + billingResult.responseCode)
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                 Toast.makeText(
                     this,
@@ -185,17 +201,4 @@ class PremiumScreenActivity : AppCompatActivity() {
             }
         }
     }
-
-    fun scaleView(v: View, startScale: Float, endScale: Float) {
-        val anim: Animation = ScaleAnimation(
-            1f, 1f,  // Start and end values for the X axis scaling
-            startScale, endScale,  // Start and end values for the Y axis scaling
-            Animation.RELATIVE_TO_SELF, 0f,  // Pivot point of X scaling
-            Animation.RELATIVE_TO_SELF, 1f
-        ) // Pivot point of Y scaling
-        anim.fillAfter = true // Needed to keep the result of the animation
-        anim.duration = 1000
-        v.startAnimation(anim)
-    }
-
 }

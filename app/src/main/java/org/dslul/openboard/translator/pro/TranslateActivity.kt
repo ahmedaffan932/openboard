@@ -439,13 +439,13 @@ class TranslateActivity : AppCompatActivity() {
             }
         })
 
-        if (translationCount > 3){
-            Ads.loadAndShowRewardedInterstitial(this, Ads.translationRewardedAd, object :InterstitialCallBack{
-                override fun onDismiss() {
-                    translationCount = 0
-                }
-            })
-        }
+//        if (translationCount > 3){
+//            Ads.loadAndShowRewardedInterstitial(this, Ads.translationRewardedAd, object :InterstitialCallBack{
+//                override fun onDismiss() {
+//                    translationCount = 0
+//                }
+//            })
+//        }
     }
 
     private fun onlineTranslation(fromCode: String, toCode: String, text: String) {

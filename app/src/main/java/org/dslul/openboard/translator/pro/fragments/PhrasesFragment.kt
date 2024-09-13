@@ -166,7 +166,16 @@ class PhrasesFragment : Fragment() {
                     val obj = JSONObject(getLanguageJson(srcLng))
 
                     for (t in obj.keys()) {
-                        arrTo.add(t.toString())
+                        var isAlreadyAdded = false
+
+                        for (ojdItem in arrFrom) {
+                            if (ojdItem == t.toString()) {
+                                isAlreadyAdded = true
+                            }
+                        }
+
+                        if (!isAlreadyAdded)
+                            arrTo.add(t.toString())
                     }
 
                 } catch (e: java.lang.Exception) {
@@ -205,8 +214,8 @@ class PhrasesFragment : Fragment() {
                     for (t in obj.keys()) {
                         var isAlreadyAdded = false
 
-                        for (ojdItem in arrFrom){
-                            if (ojdItem == t.toString()){
+                        for (ojdItem in arrFrom) {
+                            if (ojdItem == t.toString()) {
                                 isAlreadyAdded = true
                             }
                         }
