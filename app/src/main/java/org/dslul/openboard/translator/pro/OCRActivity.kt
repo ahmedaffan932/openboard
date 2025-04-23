@@ -19,6 +19,9 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageContractOptions
+import com.canhub.cropper.CropImageOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.mlkit.nl.translate.TranslateLanguage
 import com.google.mlkit.vision.common.InputImage
@@ -28,7 +31,6 @@ import com.google.mlkit.vision.text.chinese.ChineseTextRecognizerOptions
 import com.google.mlkit.vision.text.japanese.JapaneseTextRecognizerOptions
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
-import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.activity_ocractivity.*
 import kotlinx.android.synthetic.main.bottom_sheet_ocr_translation_result.rvOCRResult
 import kotlinx.android.synthetic.main.bottom_sheet_ocr_translation_result.tvViewAll
@@ -49,6 +51,39 @@ class OCRActivity : AppCompatActivity() {
     private var arrText: ArrayList<String> = java.util.ArrayList<String>()
     private var arrTranslation: ArrayList<String> = java.util.ArrayList<String>()
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
+    private var bitmap: Bitmap? = null
+    private val cropImageLauncher = registerForActivityResult(CropImageContract()) { result ->
+        if (result.isSuccessful) {
+            bitmap = MediaStore.Images.Media.getBitmap(contentResolver, result.uriContent)
+            imageViewOcr.setImageBitmap(resizeBitmap(bitmap!!, 1024))
+            ocr(bitmap!!)
+
+        } else {
+            Toast.makeText(this, "Unable to crop", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+
+    }
+
+    private fun resizeBitmap(bitmap: Bitmap, maxSize: Int): Bitmap {
+        val width = bitmap.width
+        val height = bitmap.height
+
+        if (width < maxSize) {
+            return bitmap
+            Log.d("resizedBipmapCheck", "resizeBitmap: ")
+        }
+        // Determine the scaling factor
+        val scaleFactor = maxOf(width.toFloat() / maxSize, height.toFloat() / maxSize)
+
+        return if (scaleFactor > 1) {
+            val newWidth = (width / scaleFactor).toInt()
+            val newHeight = (height / scaleFactor).toInt()
+            Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true)
+        } else {
+            bitmap
+        }
+    }
 
     @SuppressLint("WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -127,50 +162,18 @@ class OCRActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
-                val result = CropImage.getActivityResult(data)
-
-                when (resultCode) {
-                    RESULT_OK -> {
-                        val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, result.uri)
-                        imageViewOcr.setImageBitmap(bitmap)
-
-                        ocr(bitmap)
-                    }
-
-                    CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE -> {
-                        Toast.makeText(
-                            this,
-                            "getString(R.string.unable_to_crop)",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                        finish()
-                    }
-
-                    else -> {
-                        finish()
-                    }
-                }
-            }
-
-            else -> {
-                super.onActivityResult(requestCode, resultCode, data)
-            }
-        }
-
-        super.onActivityResult(requestCode, resultCode, data)
-    }
 
     private fun init() {
         try {
             val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, CameraMisc.fileUri!!)
 
-            CropImage.activity(CameraMisc.fileUri)
-                .start(this)
+            cropImageLauncher.launch(
+                CropImageContractOptions(
+                    uri = CameraMisc.fileUri,
+                    cropImageOptions = CropImageOptions(
+                    )
+                )
+            )
 
             imageViewOcr.setImageBitmap(bitmap)
         } catch (e: Exception) {
