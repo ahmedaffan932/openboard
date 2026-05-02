@@ -75,6 +75,7 @@ class ProximityInfoUtils {
                     int proximityChar =
                             inputProximities[i * MAX_PROXIMITY_CHARS_SIZE + j];
                     proximityChar += 0;
+                    (void)proximityChar;
                     AKLOGI("--- (%d)%c", i, proximityChar);
                 }
             }

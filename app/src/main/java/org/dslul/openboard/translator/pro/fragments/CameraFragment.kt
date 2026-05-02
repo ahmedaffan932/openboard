@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -222,6 +223,12 @@ class CameraFragment : Fragment() {
                         ContextCompat.getMainExecutor(requireContext()),
                         object : ImageCapture.OnImageCapturedCallback(),
                             ImageCapture.OnImageSavedCallback {
+                            override fun onCaptureStarted() = Unit
+
+                            override fun onCaptureProcessProgressed(progress: Int) = Unit
+
+                            override fun onPostviewBitmapAvailable(bitmap: Bitmap) = Unit
+
                             override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                                 val imagePath = file.path
                                 CameraMisc.fileUri = file.toUri()

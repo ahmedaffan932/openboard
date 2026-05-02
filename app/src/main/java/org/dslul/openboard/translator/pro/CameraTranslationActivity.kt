@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.os.Handler
+import android.graphics.Bitmap
 import android.widget.Toast
 import android.content.Intent
 import androidx.core.net.toUri
@@ -207,6 +208,12 @@ class CameraTranslationActivity : AppCompatActivity() {
                     ContextCompat.getMainExecutor(this),
                     object : ImageCapture.OnImageCapturedCallback(),
                         ImageCapture.OnImageSavedCallback {
+                        override fun onCaptureStarted() = Unit
+
+                        override fun onCaptureProcessProgressed(progress: Int) = Unit
+
+                        override fun onPostviewBitmapAvailable(bitmap: Bitmap) = Unit
+
                         override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                             val imagePath = file.path
                             CameraMisc.fileUri = file.toUri()
