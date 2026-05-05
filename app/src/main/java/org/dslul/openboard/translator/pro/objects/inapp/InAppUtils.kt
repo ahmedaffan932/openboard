@@ -11,7 +11,6 @@ import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
 import com.google.common.collect.ImmutableList
-import com.google.gson.Gson
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 
@@ -94,50 +93,44 @@ object InAppUtils {
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
 
                 Log.d(Misc.logKey, "productDetailsList size ${productDetailsList.size}")
+                mProductDetailsList.clear()
                 for (item in productDetailsList) {
 
                     item?.let { mProductDetailsList.add(it) }
                 }
-                val objItemMonthly =
-                    Gson().fromJson(
-                        Gson().toJson(mProductDetailsList[0]),
-                        SubscriptionDataClass::class.java
-                    )
-                val objItemWeekly =
-                    Gson().fromJson(
-                        Gson().toJson(mProductDetailsList[1]),
-                        SubscriptionDataClass::class.java
-                    )
-                val objItemYearly =
-                    Gson().fromJson(
-                        Gson().toJson(mProductDetailsList[2]),
-                        SubscriptionDataClass::class.java
-                    )
 
-                val objZzaWeekly = Gson().fromJson(objItemWeekly.zza, Zza::class.java)
-                val objZzaMonthly = Gson().fromJson(objItemMonthly.zza, Zza::class.java)
-                val objZzaYearly = Gson().fromJson(objItemYearly.zza, Zza::class.java)
+                val weeklyPrice = formattedPriceFor(Misc.weeklyKey)
+                val monthlyPrice = formattedPriceFor(Misc.monthlyKey)
+                val yearlyPrice = formattedPriceFor(Misc.yearlyKey)
 
                 Log.d(
                     Misc.logKey,
-                    "objZzaWeekly ${objZzaWeekly.subscriptionOfferDetails[0].pricingPhases[0].formattedPrice.toString()}"
+                    "objZzaWeekly $weeklyPrice"
                 )
                 Log.d(
                     Misc.logKey,
-                    "objZzaMonthly ${objZzaMonthly.subscriptionOfferDetails[0].pricingPhases[0].formattedPrice.toString()}"
+                    "objZzaMonthly $monthlyPrice"
                 )
                 Log.d(
                     Misc.logKey,
-                    "objZzaYearly ${objZzaYearly.subscriptionOfferDetails[0].pricingPhases[0].formattedPrice.toString()}"
+                    "objZzaYearly $yearlyPrice"
                 )
 
-                callBack?.onFetched(
-                    objZzaWeekly.subscriptionOfferDetails[0].pricingPhases[0].formattedPrice.toString(),
-                    objZzaMonthly.subscriptionOfferDetails[0].pricingPhases[0].formattedPrice.toString(),
-                    objZzaYearly.subscriptionOfferDetails[0].pricingPhases[0].formattedPrice.toString()
-                )
+                callBack?.onFetched(weeklyPrice, monthlyPrice, yearlyPrice)
             }
         }
+    }
+
+    private fun formattedPriceFor(productId: String): String {
+        return mProductDetailsList
+            .firstOrNull { it.productId == productId }
+            ?.subscriptionOfferDetails
+            ?.firstOrNull()
+            ?.pricingPhases
+            ?.pricingPhaseList
+            ?.lastOrNull()
+            ?.formattedPrice
+            .orEmpty()
     }
 
 }

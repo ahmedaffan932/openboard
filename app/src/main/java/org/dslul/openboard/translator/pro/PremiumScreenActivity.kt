@@ -26,7 +26,10 @@ import org.dslul.openboard.translator.pro.objects.inapp.InAppUtils
 class PremiumScreenActivity : AppCompatActivity() {
     lateinit var binding: ActivityPremiumScreenBinding
 
-    var inAppPosition = 1
+    private var selectedProductId = Misc.weeklyKey
+    private var weeklyTerms = ""
+    private var monthlyTerms = ""
+    private var yearlyTerms = ""
     private lateinit var inAppDetailsBottomSheetBehavior: BottomSheetBehavior<LinearLayout>
     private lateinit var subscriptionBottomSheetBehavior: BottomSheetBehavior<LinearLayout>
 
@@ -41,12 +44,39 @@ class PremiumScreenActivity : AppCompatActivity() {
         subscriptionBottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheetSubscriptionDetails))
         subscriptionBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
+        weeklyTerms = getLoadingOfferTerms(getString(R.string.weekly), getString(R.string.subscription_billing_weekly))
+        monthlyTerms = getLoadingOfferTerms(getString(R.string.monthly), getString(R.string.subscription_billing_monthly))
+        yearlyTerms = getLoadingOfferTerms(getString(R.string.yearly), getString(R.string.subscription_billing_yearly))
+        selectPlan(Misc.weeklyKey)
+
         InAppUtils.showProducts(object : InAppProductsDetailsCallback {
             override fun onFetched(weeklyPrice: String, monthlyPrice: String, yearlyPrice: String) {
                 runOnUiThread {
-                    binding.tvWeeklyPer.text = weeklyPrice
-                    binding.tvMonthlyPer.text = monthlyPrice
-                    binding.tvYearlyPer.text = yearlyPrice
+                    if (weeklyPrice.isNotBlank()) {
+                        binding.tvWeeklyPer.text = getString(R.string.subscription_price_per_week, weeklyPrice)
+                        weeklyTerms = getOfferTerms(
+                            getString(R.string.weekly),
+                            weeklyPrice,
+                            getString(R.string.subscription_billing_weekly)
+                        )
+                    }
+                    if (monthlyPrice.isNotBlank()) {
+                        binding.tvMonthlyPer.text = getString(R.string.subscription_price_per_month, monthlyPrice)
+                        monthlyTerms = getOfferTerms(
+                            getString(R.string.monthly),
+                            monthlyPrice,
+                            getString(R.string.subscription_billing_monthly)
+                        )
+                    }
+                    if (yearlyPrice.isNotBlank()) {
+                        binding.tvYearlyPer.text = getString(R.string.subscription_price_per_year, yearlyPrice)
+                        yearlyTerms = getOfferTerms(
+                            getString(R.string.yearly),
+                            yearlyPrice,
+                            getString(R.string.subscription_billing_yearly)
+                        )
+                    }
+                    updateSelectedPlanTerms()
                 }
             }
         })
@@ -74,41 +104,23 @@ class PremiumScreenActivity : AppCompatActivity() {
 
 
         binding.clWeekly.setOnClickListener {
-            inAppPosition = 1
-            binding.clWeekly.setBackgroundResource(R.drawable.bg_in_app_item_selected)
-            binding.clYearly.setBackgroundResource(R.drawable.bg_in_app_item)
-            binding.clMonthly.setBackgroundResource(R.drawable.bg_in_app_item)
-
-
-            launchPurchaseFlow(InAppUtils.mProductDetailsList, inAppPosition)
+            selectPlan(Misc.weeklyKey)
         }
 
         binding.clMonthly.setOnClickListener {
             Log.d(Misc.logKey, Misc.monthlyKey)
-            inAppPosition = 0
-            binding.clYearly.setBackgroundResource(R.drawable.bg_in_app_item)
-            binding.clWeekly.setBackgroundResource(R.drawable.bg_in_app_item)
-            binding.clMonthly.setBackgroundResource(R.drawable.bg_in_app_item_selected)
-
-
-            launchPurchaseFlow(InAppUtils.mProductDetailsList, inAppPosition)
+            selectPlan(Misc.monthlyKey)
         }
 
         binding.clYearly.setOnClickListener {
-            inAppPosition = 2
-            binding.clYearly.setBackgroundResource(R.drawable.bg_in_app_item_selected)
-            binding.clWeekly.setBackgroundResource(R.drawable.bg_in_app_item)
-            binding.clMonthly.setBackgroundResource(R.drawable.bg_in_app_item)
-
-
-            launchPurchaseFlow(InAppUtils.mProductDetailsList, inAppPosition)
+            selectPlan(Misc.yearlyKey)
         }
 
         binding.btnGetPro.setOnClickListener {
             for (i in InAppUtils.mProductDetailsList) {
                 Log.d(Misc.logKey, i.productId)
             }
-            launchPurchaseFlow(InAppUtils.mProductDetailsList, inAppPosition)
+            launchPurchaseFlow(selectedProductId)
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
@@ -139,18 +151,54 @@ class PremiumScreenActivity : AppCompatActivity() {
     }
 
 
-    private fun launchPurchaseFlow(arrProductDetails: ArrayList<ProductDetails>, position: Int) {
+    private fun selectPlan(productId: String) {
+        selectedProductId = productId
+        binding.clWeekly.setBackgroundResource(
+            if (productId == Misc.weeklyKey) R.drawable.bg_in_app_item_selected else R.drawable.bg_in_app_item
+        )
+        binding.clMonthly.setBackgroundResource(
+            if (productId == Misc.monthlyKey) R.drawable.bg_in_app_item_selected else R.drawable.bg_in_app_item
+        )
+        binding.clYearly.setBackgroundResource(
+            if (productId == Misc.yearlyKey) R.drawable.bg_in_app_item_selected else R.drawable.bg_in_app_item
+        )
+        updateSelectedPlanTerms()
+    }
+
+    private fun updateSelectedPlanTerms() {
+        binding.tvCancelSubscription.text = when (selectedProductId) {
+            Misc.monthlyKey -> monthlyTerms
+            Misc.yearlyKey -> yearlyTerms
+            else -> weeklyTerms
+        }
+    }
+
+    private fun getOfferTerms(planName: String, price: String, billingFrequency: String): String {
+        return getString(R.string.subscription_offer_terms, planName, price, billingFrequency)
+    }
+
+    private fun getLoadingOfferTerms(planName: String, billingFrequency: String): String {
+        return getString(R.string.subscription_offer_terms_loading, planName, billingFrequency)
+    }
+
+    private fun launchPurchaseFlow(productId: String) {
         try {
             if (intent.getStringExtra(Misc.data) != null) {
                 Firebase.analytics.logEvent("mBtnProContinue", null)
             }
 
-            val productDetails = arrProductDetails[position]
-            assert(productDetails.subscriptionOfferDetails != null)
+            val productDetails = InAppUtils.mProductDetailsList.firstOrNull { it.productId == productId }
+            val offerToken = productDetails?.subscriptionOfferDetails?.firstOrNull()?.offerToken
+            if (productDetails == null || offerToken == null) {
+                Toast.makeText(this, getString(R.string.please_check_your_internet_connection_and_try_again), Toast.LENGTH_SHORT)
+                    .show()
+                return
+            }
+
             val productDetailsParamsList = ImmutableList.of(
                 BillingFlowParams.ProductDetailsParams.newBuilder()
                     .setProductDetails(productDetails)
-                    .setOfferToken(productDetails.subscriptionOfferDetails!![0].offerToken)
+                    .setOfferToken(offerToken)
                     .build()
             )
             val billingFlowParams = BillingFlowParams.newBuilder()

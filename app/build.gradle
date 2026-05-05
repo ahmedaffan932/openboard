@@ -5,14 +5,14 @@ apply plugin: 'com.google.gms.google-services'
 
 android {
     namespace 'org.dslul.openboard.inputmethod.latin'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.guru.translate.translator.pro.translation.keyboard.translator"
         minSdk 27
-        targetSdk 34
-        versionCode 61
-        versionName "4.18"
+        targetSdk 35
+        versionCode 63
+        versionName "5.0"
     }
 
     buildTypes {
