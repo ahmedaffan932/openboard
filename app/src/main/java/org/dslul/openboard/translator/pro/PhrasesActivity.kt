@@ -1,7 +1,6 @@
 package org.dslul.openboard.translator.pro
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -18,11 +17,11 @@ import org.dslul.openboard.translator.pro.classes.Misc
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityPhrasesBinding
 import org.dslul.openboard.translator.pro.adaptor.PhraseBookMainAdapter
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
+import org.dslul.openboard.translator.pro.classes.PhrasesAssetReader
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.json.JSONObject
 import java.util.*
@@ -97,33 +96,8 @@ class PhrasesActivity : AppCompatActivity() {
     }
 
 
-    private suspend fun getLanguageJson(lan: String): String? {
-        return try {
-            val sharedPref = this.getSharedPreferences("SavedLanguages", Context.MODE_PRIVATE)
-
-            var valueString = sharedPref?.getString(lan, null)
-
-            if (valueString != null) {
-                Log.d("Getting Language", "Getting value from SP")
-                Log.e("Getting Language", valueString)
-                binding.llPBPhrasebookFrag.visibility = View.GONE
-                return valueString
-            }
-
-            val islandRef = Misc.storage.reference.child("/$lan.json")
-            val fiftyKBs: Long = 1024 * 50
-            Log.d("Getting Language", "Getting value from FB")
-            valueString = String(islandRef.getBytes(fiftyKBs).await())
-            Log.e("Getting Language", valueString)
-            sharedPref?.edit()?.putString(lan, valueString)?.apply()
-            binding.llPBPhrasebookFrag.visibility = View.GONE
-
-            valueString
-        } catch (e: Exception) {
-            binding.llPBPhrasebookFrag.visibility = View.GONE
-            e.printStackTrace()
-            "Unable to fetch value, please check your internet."
-        }
+    private suspend fun getLanguageJson(lan: String): String {
+        return PhrasesAssetReader.getLanguageJson(this, lan)
     }
 
     //@DelicateCoroutinesApi
@@ -142,8 +116,10 @@ class PhrasesActivity : AppCompatActivity() {
                     for (t in obj.keys()) {
                         arrTo.add(t.toString())
                     }
+                    binding.llPBPhrasebookFrag.visibility = View.GONE
 
                 } catch (e: java.lang.Exception) {
+                    binding.llPBPhrasebookFrag.visibility = View.GONE
                     Misc.canWeProceed = false
                     Toast.makeText(
                         this@PhrasesActivity,
@@ -153,6 +129,7 @@ class PhrasesActivity : AppCompatActivity() {
                 }
             }
         } catch (e: Exception) {
+            binding.llPBPhrasebookFrag.visibility = View.GONE
             e.printStackTrace()
         }
 
@@ -187,6 +164,7 @@ class PhrasesActivity : AppCompatActivity() {
                     getLngTo()
 
                 } catch (e: java.lang.Exception) {
+                    binding.llPBPhrasebookFrag.visibility = View.GONE
                     if (binding.recyclerViewPhraseBookMain.adapter != null)
                         binding.recyclerViewPhraseBookMain.adapter!!.notifyDataSetChanged()
                     Misc.canWeProceed = false
@@ -199,6 +177,7 @@ class PhrasesActivity : AppCompatActivity() {
 
             }
         } catch (e: Exception) {
+            binding.llPBPhrasebookFrag.visibility = View.GONE
             e.printStackTrace()
         }
     }

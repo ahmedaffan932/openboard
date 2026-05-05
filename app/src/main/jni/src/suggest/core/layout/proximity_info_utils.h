@@ -110,6 +110,7 @@ class ProximityInfoUtils {
 
         float projectionX;
         float projectionY;
+
         if (!extend && projectionLengthSqr < 0.0f) {
             projectionX = x1;
             projectionY = y1;

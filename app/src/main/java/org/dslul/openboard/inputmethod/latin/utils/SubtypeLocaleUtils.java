@@ -21,6 +21,7 @@ import android.content.res.Resources;
 import android.util.Log;
 import android.view.inputmethod.InputMethodSubtype;
 
+import org.dslul.openboard.inputmethod.latin.BuildConfig;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.common.LocaleUtils;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
@@ -42,8 +43,7 @@ import static org.dslul.openboard.inputmethod.latin.common.Constants.Subtype.Ext
 public final class SubtypeLocaleUtils {
     static final String TAG = SubtypeLocaleUtils.class.getSimpleName();
 
-    // This reference class {@link R} must be located in the same package as LatinIME.java.
-    private static final String RESOURCE_PACKAGE_NAME = R.class.getPackage().getName();
+    private static final String RESOURCE_PACKAGE_NAME = BuildConfig.APPLICATION_ID;
 
     // Special language code to represent "no language".
     public static final String NO_LANGUAGE = "zz";

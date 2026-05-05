@@ -12,13 +12,6 @@
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="29" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
 
     <permission
         android:name="org.dslul.openboard.inputmethod.latin.HIDE_SOFT_INPUT"
@@ -44,12 +37,12 @@
             android:name="org.dslul.openboard.translator.pro.GalleryPermissionActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.TranslatorGuru"/>
+            android:theme="@style/Theme.TranslatorGuru" />
         <activity
             android:name="org.dslul.openboard.translator.pro.CameraPermissionActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.TranslatorGuru"/>
+            android:theme="@style/Theme.TranslatorGuru" />
         <activity
             android:name="org.dslul.openboard.translator.pro.OnBoardingActivity"
             android:exported="false"
@@ -72,13 +65,13 @@
             android:theme="@style/Theme.TranslatorGuru" />
         <activity
             android:name="org.dslul.openboard.translator.pro.PremiumScreenActivity"
-            android:screenOrientation="portrait"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru" />
         <activity
             android:name="org.dslul.openboard.translator.pro.ViewTranslatedTextActivity"
-            android:screenOrientation="portrait"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru" />
         <activity
             android:name="org.dslul.openboard.translator.pro.ConversationActivity"
@@ -99,9 +92,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:name="com.canhub.cropper.CropImageActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Base.Theme.AppCompat" />
+            android:theme="@style/Theme.TranslatorGuru.Cropper" />
         <activity
             android:name="org.dslul.openboard.translator.pro.CameraTranslationActivity"
             android:exported="false"
@@ -280,15 +273,15 @@
         <activity
             android:name=".permissions.PermissionsActivity"
             android:exported="false"
-            android:taskAffinity=""
             android:screenOrientation="portrait"
+            android:taskAffinity=""
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".setup.SetupWizardActivity"
             android:clearTaskOnLaunch="true"
             android:exported="true"
-            android:screenOrientation="portrait"
             android:label="@string/english_ime_name"
+            android:screenOrientation="portrait"
             android:theme="@style/platformActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -298,8 +291,8 @@
             android:name=".settings.SettingsActivity"
             android:excludeFromRecents="true"
             android:exported="true"
-            android:screenOrientation="portrait"
             android:label="@string/ime_settings"
+            android:screenOrientation="portrait"
             android:theme="@style/platformActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -317,8 +310,8 @@
         </activity>
         <activity
             android:name=".settings.TestFragmentActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
 
         <receiver
             android:name=".SystemBroadcastReceiver"

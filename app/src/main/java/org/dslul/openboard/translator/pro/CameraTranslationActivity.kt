@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import java.util.*
 import java.io.File
 import android.Manifest
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.os.Handler
@@ -12,7 +11,6 @@ import android.graphics.Bitmap
 import android.widget.Toast
 import android.content.Intent
 import androidx.core.net.toUri
-import android.provider.MediaStore
 import androidx.camera.core.Preview
 import android.view.animation.Animation
 import android.content.pm.PackageManager
@@ -21,16 +19,16 @@ import androidx.camera.core.CameraSelector
 import androidx.core.content.ContextCompat
 import android.view.animation.RotateAnimation
 import org.dslul.openboard.objects.CameraMisc
-import androidx.activity.result.ActivityResult
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.appcompat.app.AppCompatActivity
 import org.dslul.openboard.inputmethod.latin.R
 import android.view.animation.LinearInterpolator
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.lifecycle.ProcessCameraProvider
 import org.dslul.openboard.objects.CameraMisc.getFlash
 import org.dslul.openboard.objects.CameraMisc.setFlash
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.objects.CameraMisc.getCameraFace
-import androidx.activity.result.contract.ActivityResultContracts
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityCameraTranslationBinding
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 
@@ -39,19 +37,17 @@ class CameraTranslationActivity : AppCompatActivity() {
     private var cameraProvider: ProcessCameraProvider? = null
     private lateinit var imageCapture: ImageCapture
     private val cameraPermissionRequest = 100
-    private val storageReadPermissionRequest = 101
 
-    private val getContent =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { data: ActivityResult ->
-            try {
-                val fileUri = data.data!!
-                CameraMisc.fileUri = fileUri.data!!
+    private val pickImageLauncher =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            if (uri != null) {
+                CameraMisc.fileUri = uri
 //                if (Misc.checkInternetConnection(this)) {
-                    val intent =
-                        Intent(this, OCRActivity::class.java)
-                    intent.putExtra(CameraMisc.uri, fileUri.data?.path.toString())
-                    intent.putExtra(CameraMisc.typeGallery, true)
-                    startActivity(intent)
+                val intent =
+                    Intent(this, OCRActivity::class.java)
+                intent.putExtra(CameraMisc.uri, uri.toString())
+                intent.putExtra(CameraMisc.typeGallery, true)
+                startActivity(intent)
 //                } else {
 //                    Toast.makeText(
 //                        this,
@@ -59,8 +55,6 @@ class CameraTranslationActivity : AppCompatActivity() {
 //                        Toast.LENGTH_SHORT
 //                    ).show()
 //                }
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
 
@@ -88,12 +82,7 @@ class CameraTranslationActivity : AppCompatActivity() {
         }
 
         binding.btnGallery.setOnClickListener {
-            if (getStorageReadPermission()) {
-                val galleryIntent =
-                    Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-
-                getContent.launch(galleryIntent)
-            }
+            openImagePickerForOCR()
         }
 
         setSelectedLng()
@@ -256,31 +245,10 @@ class CameraTranslationActivity : AppCompatActivity() {
         binding.flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
     }
 
-    private fun getStorageReadPermission(): Boolean {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                if (checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(
-                        arrayOf(Manifest.permission.READ_MEDIA_IMAGES),
-                        storageReadPermissionRequest
-                    )
-                    return false
-                }
-            } else {
-                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(
-                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                        storageReadPermissionRequest
-                    )
-                    return false
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return false
-        }
-        return true
-
+    private fun openImagePickerForOCR() {
+        pickImageLauncher.launch(
+            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+        )
     }
 
     private fun getCameraPermission() {
@@ -288,7 +256,6 @@ class CameraTranslationActivity : AppCompatActivity() {
             requestPermissions(arrayOf(Manifest.permission.CAMERA), cameraPermissionRequest)
         } else {
             startCamera()
-            getStorageReadPermission()
         }
     }
 
@@ -307,7 +274,6 @@ class CameraTranslationActivity : AppCompatActivity() {
             try {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startCamera()
-                    getStorageReadPermission()
                 } else {
                     Toast.makeText(
                         this,

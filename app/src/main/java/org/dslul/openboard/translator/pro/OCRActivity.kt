@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -53,9 +55,12 @@ class OCRActivity : AppCompatActivity() {
     private var bitmap: Bitmap? = null
     private val cropImageLauncher = registerForActivityResult(CropImageContract()) { result ->
         if (result.isSuccessful) {
-            bitmap = MediaStore.Images.Media.getBitmap(contentResolver, result.uriContent)
-            binding.imageViewOcr.setImageBitmap(resizeBitmap(bitmap!!, 1024))
-            ocr(bitmap!!)
+            result.uriContent?.let { uri ->
+                handleSelectedImageForOCR(uri)
+            } ?: run {
+                Toast.makeText(this, "Unable to crop", Toast.LENGTH_SHORT).show()
+                finish()
+            }
 
         } else {
             Toast.makeText(this, "Unable to crop", Toast.LENGTH_SHORT).show()
@@ -168,16 +173,24 @@ class OCRActivity : AppCompatActivity() {
 
     private fun init() {
         try {
-            bitmap = MediaStore.Images.Media.getBitmap(contentResolver, CameraMisc.fileUri!!)
+            val selectedUri = CameraMisc.fileUri!!
 
             cropImageLauncher.launch(
                 CropImageContractOptions(
-                    uri = CameraMisc.fileUri,
+                    uri = selectedUri,
                     cropImageOptions = CropImageOptions(
-                    )
+                    ).apply {
+                        activityMenuIconColor = Color.BLACK
+                        activityMenuTextColor = Color.BLACK
+                        toolbarTintColor = Color.BLACK
+                        toolbarBackButtonColor = Color.BLACK
+                        toolbarTitleColor = Color.BLACK
+                        cropMenuCropButtonTitle = getString(R.string.ocr_crop_done)
+                    }
                 )
             )
 
+            bitmap = loadBitmapFromUri(selectedUri)
             binding.imageViewOcr.setImageBitmap(bitmap)
         } catch (e: Exception) {
             Toast.makeText(
@@ -186,6 +199,23 @@ class OCRActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
             finish()
+        }
+    }
+
+    private fun handleSelectedImageForOCR(uri: Uri) {
+        bitmap = loadBitmapFromUri(uri)
+        binding.imageViewOcr.setImageBitmap(resizeBitmap(bitmap!!, 1024))
+        ocr(bitmap!!)
+    }
+
+    private fun loadBitmapFromUri(uri: Uri): Bitmap {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            val source = ImageDecoder.createSource(contentResolver, uri)
+            ImageDecoder.decodeBitmap(source) { decoder, _, _ ->
+                decoder.setAllocator(ImageDecoder.ALLOCATOR_SOFTWARE)
+            }
+        } else {
+            MediaStore.Images.Media.getBitmap(contentResolver, uri)
         }
     }
 

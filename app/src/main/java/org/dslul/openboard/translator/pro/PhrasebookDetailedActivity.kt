@@ -1,7 +1,6 @@
 package org.dslul.openboard.translator.pro
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -17,11 +16,11 @@ import org.dslul.openboard.translator.pro.classes.Misc
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityPhrasebookDetailedBinding
 import org.dslul.openboard.translator.pro.adaptor.CustomExpandableListAdapter
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
+import org.dslul.openboard.translator.pro.classes.PhrasesAssetReader
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.json.JSONObject
 import java.util.*
@@ -199,28 +198,8 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
         getAllText()
     }
 
-    private suspend fun getLanguageJson(lan: String): String? {
-        return try {
-            val sharedPref = getSharedPreferences("SavedLanguages", Context.MODE_PRIVATE)
-
-            var valueString = sharedPref?.getString(lan, null)
-
-            if (valueString != null) {
-                Log.d("Getting Language", "Getting value from SP")
-                return valueString
-            }
-
-            val islandRef = Misc.storage.reference.child("/$lan.json")
-            val fiftyKBs: Long = 1024 * 50
-            Log.d("Getting Language", "Getting value from FB")
-            valueString = String(islandRef.getBytes(fiftyKBs).await())
-            sharedPref?.edit()?.putString(lan, valueString)?.apply()
-
-            return valueString
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return "Unable to fetch value, please check your internet."
-        }
+    private suspend fun getLanguageJson(lan: String): String {
+        return PhrasesAssetReader.getLanguageJson(this, lan)
     }
 
     private fun setSelectedLng() {

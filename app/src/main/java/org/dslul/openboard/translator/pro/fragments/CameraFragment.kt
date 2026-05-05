@@ -5,10 +5,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +15,7 @@ import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -32,7 +30,6 @@ import org.dslul.openboard.objects.CameraMisc.getCameraFace
 import org.dslul.openboard.objects.CameraMisc.getFlash
 import org.dslul.openboard.objects.CameraMisc.setFlash
 import org.dslul.openboard.translator.pro.CameraPermissionActivity
-import org.dslul.openboard.translator.pro.GalleryPermissionActivity
 import org.dslul.openboard.translator.pro.LanguageSelectorActivity
 import org.dslul.openboard.translator.pro.OCRActivity
 import org.dslul.openboard.translator.pro.classes.Misc
@@ -46,20 +43,16 @@ class CameraFragment : Fragment() {
     private var cameraProvider: ProcessCameraProvider? = null
     private lateinit var imageCapture: ImageCapture
     lateinit var binding: FragmentCameraBinding
-    private var isGalleryPermission = false
 
-    private val getContent =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { data: ActivityResult ->
-            try {
-                val fileUri = data!!.data!!
-                CameraMisc.fileUri = fileUri.data!!
+    private val pickImageLauncher =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            if (uri != null) {
+                CameraMisc.fileUri = uri
                 val intent =
                     Intent(requireContext(), OCRActivity::class.java)
-                intent.putExtra(CameraMisc.uri, fileUri.data?.path.toString())
+                intent.putExtra(CameraMisc.uri, uri.toString())
                 intent.putExtra(CameraMisc.typeGallery, true)
                 startActivity(intent)
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
 
@@ -94,15 +87,7 @@ class CameraFragment : Fragment() {
         }
 
         binding.btnGallery.setOnClickListener {
-            if (checkGalleryPermission()) {
-                val galleryIntent =
-                    Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-
-                getContent.launch(galleryIntent)
-            } else {
-                isGalleryPermission = true
-                startActivity(Intent(requireContext(), GalleryPermissionActivity::class.java))
-            }
+            openImagePickerForOCR()
         }
 
         setSelectedLng()
@@ -287,24 +272,13 @@ class CameraFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         setSelectedLng()
-        if (isGalleryPermission) {
-            isGalleryPermission = false
-            val galleryIntent =
-                Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-
-            getContent.launch(galleryIntent)
-
-        } else {
-            startCamera()
-        }
+        startCamera()
     }
 
-    private fun checkGalleryPermission(): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requireContext().checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED
-        } else {
-            requireContext().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-        }
+    private fun openImagePickerForOCR() {
+        pickImageLauncher.launch(
+            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+        )
     }
 
     private fun getCameraPermission() {

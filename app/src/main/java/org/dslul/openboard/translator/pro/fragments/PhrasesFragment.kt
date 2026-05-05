@@ -1,7 +1,6 @@
 package org.dslul.openboard.translator.pro.fragments
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -18,13 +17,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.FragmentPhrasesBinding
 import org.dslul.openboard.translator.pro.LanguageSelectorActivity
 import org.dslul.openboard.translator.pro.SettingsActivity
 import org.dslul.openboard.translator.pro.adaptor.PhraseBookMainAdapter
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.PhrasesAssetReader
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
@@ -37,6 +36,8 @@ class PhrasesFragment : Fragment() {
     private val arrFrom = ArrayList<String>()
     private val lngSelectorLngTo = 1230
     private val lngSelectorLngFrom = 1090
+    private var lastLoadedLanguageFrom: String? = null
+    private var lastLoadedLanguageTo: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -122,34 +123,8 @@ class PhrasesFragment : Fragment() {
         getTextFrom()
     }
 
-    private suspend fun getLanguageJson(lan: String): String? {
-        return try {
-            val sharedPref =
-                requireContext().getSharedPreferences("SavedLanguages", Context.MODE_PRIVATE)
-
-            var valueString = sharedPref?.getString(lan, null)
-
-            if (valueString != null) {
-                Log.d("Getting Language", "Getting value from SP")
-                Log.e("Getting Language", valueString)
-                binding.llPBPhrasebookFrag.visibility = View.GONE
-                return valueString
-            }
-
-            val islandRef = Misc.storage.reference.child("/$lan.json")
-            val fiftyKBs: Long = 1024 * 50
-            Log.d("Getting Language", "Getting value from FB")
-            valueString = String(islandRef.getBytes(fiftyKBs).await())
-            Log.e("Getting Language", valueString)
-            sharedPref?.edit()?.putString(lan, valueString)?.apply()
-            binding.llPBPhrasebookFrag.visibility = View.GONE
-
-            valueString
-        } catch (e: Exception) {
-            binding.llPBPhrasebookFrag.visibility = View.GONE
-            e.printStackTrace()
-            "Unable to fetch value, please check your internet."
-        }
+    private suspend fun getLanguageJson(lan: String): String {
+        return PhrasesAssetReader.getLanguageJson(requireContext(), lan)
     }
 
     //@DelicateCoroutinesApi
@@ -177,8 +152,11 @@ class PhrasesFragment : Fragment() {
                         if (!isAlreadyAdded)
                             arrTo.add(t.toString())
                     }
+                    lastLoadedLanguageTo = srcLng
+                    binding.llPBPhrasebookFrag.visibility = View.GONE
 
                 } catch (e: java.lang.Exception) {
+                    binding.llPBPhrasebookFrag.visibility = View.GONE
                     Misc.canWeProceed = false
                     Toast.makeText(
                         requireContext(),
@@ -188,6 +166,7 @@ class PhrasesFragment : Fragment() {
                 }
             }
         } catch (e: Exception) {
+            binding.llPBPhrasebookFrag.visibility = View.GONE
             e.printStackTrace()
         }
 
@@ -223,6 +202,7 @@ class PhrasesFragment : Fragment() {
                         if (!isAlreadyAdded)
                             arrFrom.add(t.toString())
                     }
+                    lastLoadedLanguageFrom = srcLng
 
                     binding.recyclerViewPhraseBookMain.layoutManager =
                         LinearLayoutManager(requireContext())
@@ -231,6 +211,7 @@ class PhrasesFragment : Fragment() {
                     getLngTo()
 
                 } catch (e: java.lang.Exception) {
+                    binding.llPBPhrasebookFrag.visibility = View.GONE
                     if (binding.recyclerViewPhraseBookMain.adapter != null)
                         binding.recyclerViewPhraseBookMain.adapter!!.notifyDataSetChanged()
                     Misc.canWeProceed = false
@@ -247,6 +228,7 @@ class PhrasesFragment : Fragment() {
 
             }
         } catch (e: Exception) {
+            binding.llPBPhrasebookFrag.visibility = View.GONE
             e.printStackTrace()
         }
     }
@@ -282,12 +264,16 @@ class PhrasesFragment : Fragment() {
 
         binding.llLanguageFrom.setOnClickListener {
             val intent = Intent(requireContext(), LanguageSelectorActivity::class.java)
+            intent.putExtra("isPhrasebook", true)
             intent.putExtra(Misc.lngTo, false)
-            startActivity(intent)
+            startActivityForResult(intent, lngSelectorLngFrom)
         }
 
         binding.llLanguageTo.setOnClickListener {
-            startActivity(Intent(requireContext(), LanguageSelectorActivity::class.java))
+            startActivityForResult(
+                Intent(requireContext(), LanguageSelectorActivity::class.java),
+                lngSelectorLngTo
+            )
         }
 
         binding.ivSwitchLanguages.setOnClickListener {
@@ -309,6 +295,7 @@ class PhrasesFragment : Fragment() {
                     Misc.setLanguageTo(requireActivity(), temp)
 
                     setSelectedLng()
+                    getTextFrom()
 
                     Misc.zoomInView(binding.llLanguageTo, requireActivity(), 150)
                     Misc.zoomInView(binding.llLanguageFrom, requireActivity(), 150)
@@ -345,5 +332,19 @@ class PhrasesFragment : Fragment() {
         super.onResume()
         Misc.canWeProceed = true
         setSelectedLng()
+        if (lastLoadedLanguageFrom != null && hasSelectedLanguageChanged()) {
+            getTextFrom()
+        }
+    }
+
+    private fun hasSelectedLanguageChanged(): Boolean {
+        val languageFrom =
+            if (Misc.getLanguageFrom(requireContext()) == Misc.defaultLanguage) {
+                "en"
+            } else {
+                Misc.getLanguageFrom(requireContext())
+            }
+        val languageTo = Misc.getLanguageTo(requireContext())
+        return lastLoadedLanguageFrom != languageFrom || lastLoadedLanguageTo != languageTo
     }
 }
