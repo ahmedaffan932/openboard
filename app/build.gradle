@@ -8,11 +8,11 @@ android {
     compileSdk 35
 
     defaultConfig {
-        applicationId "com.guru.translate.translator.pro.translation.keyboard.translator"
+        applicationId "com.translator.keyboard.translate.all.langugaes"
         minSdk 27
         targetSdk 35
-        versionCode 63
-        versionName "5.0"
+        versionCode 1
+        versionName "1.0"
     }
 
     buildTypes {

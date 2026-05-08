@@ -128,7 +128,7 @@ object InAppUtils {
             ?.firstOrNull()
             ?.pricingPhases
             ?.pricingPhaseList
-            ?.lastOrNull()
+            ?.lastOrNull { it.priceAmountMicros > 0 }
             ?.formattedPrice
             .orEmpty()
     }

@@ -145,6 +145,8 @@
     <color name="colorSecondary">#991e272b</color>
     <color name="line_color">#E0E0E0</color>
     <color name="gray_300">#E0E0E0</color>
+    <color name="text_color_premium">#0D368C</color>
+    <color name="accent_light">#FFA600</color>
 
 
 

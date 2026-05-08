@@ -165,10 +165,13 @@ class PreSplashScreenActivity : AppCompatActivity() {
         mFRC.ensureInitialized()
         mFRC.fetchAndActivate().addOnCompleteListener { p0 ->
             if (p0.isSuccessful) {
-                if (!BuildConfig.DEBUG) {
-                    Misc.weeklyKey = mFRC.getString("weeklyKey")
-                    Misc.yearlyKey = mFRC.getString("yearlyKey")
-                    Misc.monthlyKey = mFRC.getString("monthlyKey")
+                Misc.weeklyKey = mFRC.getString("weeklyKey")
+                Misc.yearlyKey = mFRC.getString("yearlyKey")
+                Misc.monthlyKey = mFRC.getString("monthlyKey")
+                if (false) {
+
+
+
                     Ads.exitInt = mFRC.getString("exitInt")
                     Ads.phraseInt = mFRC.getString("phraseInt")
                     Ads.splashInt = mFRC.getString("splashInt")

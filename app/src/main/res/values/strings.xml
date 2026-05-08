@@ -17,7 +17,7 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_name" translatable="false">Translator Pro</string>
+    <string name="english_ime_name" translatable="false">AI Translator</string>
     <string name="ocr_crop_done">Done</string>
     <!-- Name of Android spell checker service. AOSP(Android Open Source Project) should not be translated.
          This resource should be copied from msgid="511950477199948048" -->
@@ -671,6 +671,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="subscription_price_per_week">%1$s\nper week</string>
     <string name="subscription_price_per_month">%1$s\nper month</string>
     <string name="subscription_price_per_year">%1$s\nper year</string>
+    <string name="subscription_price_loading">Loading price</string>
     <string name="subscription_price_loading_week">Loading price\nper week</string>
     <string name="subscription_price_loading_month">Loading price\nper month</string>
     <string name="subscription_price_loading_year">Loading price\nper year</string>
@@ -688,6 +689,10 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="you_can_cancel_subscription_any_time">You can cancel subscription any time.</string>
     <string name="fetching_information">Fetching Information</string>
     <string name="discover_premium_benefits">Discover Premium Benefits!</string>
+    <string name="start_like_a_pro">START LIKE A PRO</string>
+    <string name="unlock_all_features">Unlock All Features</string>
+    <string name="premium_caps">PREMIUM</string>
+    <string name="phrases_amp_dictionary"><![CDATA[Phrases & Dictionary]]></string>
     <string name="per_week">Per Week</string>
     <string name="subscription_activated">Subscription Activitrd</string>
     <string name="remind_me_later"><u>Remind me later</u></string>
