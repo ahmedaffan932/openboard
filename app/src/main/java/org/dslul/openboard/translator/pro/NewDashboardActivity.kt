@@ -56,7 +56,9 @@ class NewDashboardActivity : AppCompatActivity() {
         Misc.selectThemeMode(this)
 
         binding.btnCamera.setOnClickListener {
-            startActivity(Intent(this, CameraTranslationActivity::class.java))
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(Intent(this, CameraTranslationActivity::class.java))
+            }
         }
 
         showAds()
@@ -69,7 +71,9 @@ class NewDashboardActivity : AppCompatActivity() {
             if (isInputMethodSelected()) {
                 Toast.makeText(this, "Keyboard is already enabled.", Toast.LENGTH_SHORT).show()
             } else {
-                startActivity(Intent(this, EnableKeyboardActivity::class.java))
+                Ads.runWithEverySixthClickInterstitial(this) {
+                    startActivity(Intent(this, EnableKeyboardActivity::class.java))
+                }
             }
         }
 
@@ -188,7 +192,9 @@ class NewDashboardActivity : AppCompatActivity() {
 
         setSelectedLng()
         binding.btnTranslate.setOnClickListener {
-            startTranslateActivity(binding.etText.text.toString())
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startTranslateActivity(binding.etText.text.toString())
+            }
         }
 
         binding.btnSpeakInput.setOnClickListener {
@@ -224,27 +230,35 @@ class NewDashboardActivity : AppCompatActivity() {
     private fun setUpClickListeners() {
         binding.btnSettings.setOnClickListener {
             Firebase.analytics.logEvent("Settings", null)
-            startActivity(Intent(this@NewDashboardActivity, SettingsActivity::class.java))
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(Intent(this@NewDashboardActivity, SettingsActivity::class.java))
+            }
         }
 
         binding.btnHistory.setOnClickListener {
             Firebase.analytics.logEvent("History", null)
-            startActivity(
-                Intent(
-                    this@NewDashboardActivity,
-                    DisplayHistoryActivity::class.java
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(
+                    Intent(
+                        this@NewDashboardActivity,
+                        DisplayHistoryActivity::class.java
+                    )
                 )
-            )
+            }
         }
 
         binding.btnChat.setOnClickListener {
             Firebase.analytics.logEvent("Chat", null)
-            startActivity(Intent(this@NewDashboardActivity, ConversationActivity::class.java))
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(Intent(this@NewDashboardActivity, ConversationActivity::class.java))
+            }
         }
 
         binding.btnPhrasebook.setOnClickListener {
             Firebase.analytics.logEvent("Phrasebook", null)
-            startActivity(Intent(this@NewDashboardActivity, PhrasesActivity::class.java))
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(Intent(this@NewDashboardActivity, PhrasesActivity::class.java))
+            }
         }
 
     }
@@ -270,11 +284,15 @@ class NewDashboardActivity : AppCompatActivity() {
         binding.llLanguageFrom.setOnClickListener {
             val intent = Intent(this, LanguageSelectorActivity::class.java)
             intent.putExtra(Misc.lngTo, false)
-            startActivity(intent)
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(intent)
+            }
         }
 
         binding.llLanguageTo.setOnClickListener {
-            startActivity(Intent(this, LanguageSelectorActivity::class.java))
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(Intent(this, LanguageSelectorActivity::class.java))
+            }
         }
 
         binding.btnSwitchLngs.setOnClickListener {

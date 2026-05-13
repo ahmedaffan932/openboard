@@ -7,6 +7,7 @@ object AdIds {
     private const val TEST_BANNER_ID = "ca-app-pub-3940256099942544/2014213617"
     private const val TEST_APP_OPEN_ID = "ca-app-pub-3940256099942544/9257395921"
     private const val TEST_NATIVE_ID = "ca-app-pub-3940256099942544/2247696110"
+    private const val TEST_REWARDED_ID = "ca-app-pub-3940256099942544/5224354917"
     private const val TEST_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712"
     private const val TEST_REWARDED_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/5224354917"
 
@@ -135,12 +136,51 @@ object AdIds {
         }
     )
 
+    // Interstitial Ads - Every 6th Click
+    var interstitialAdIdEverySixthClick: Array<String> = arrayOf(
+        if (BuildConfig.DEBUG) {
+            TEST_INTERSTITIAL_ID
+        } else {
+            "ca-app-pub-6806702755182088/7646441361"
+        },
+        if (BuildConfig.DEBUG) {
+            TEST_INTERSTITIAL_ID
+        } else {
+            "ca-app-pub-6806702755182088/3487704500"
+        },
+        if (BuildConfig.DEBUG) {
+            TEST_INTERSTITIAL_ID
+        } else {
+            "ca-app-pub-6806702755182088/1081033010"
+        }
+    )
+
     // Rewarded Interstitial
     var rewardedInterstitialAdIdAdMob: String = if (BuildConfig.DEBUG) {
         TEST_REWARDED_INTERSTITIAL_ID
     } else {
         ""
     }
+
+    // Rewarded Ads - Unlock Premium Features
+    var rewardedAdIdUnlockPremium: Array<String> = arrayOf(
+        if (BuildConfig.DEBUG) {
+            TEST_REWARDED_ID
+        } else {
+            "ca-app-pub-6806702755182088/8821518124"
+        },
+        if (BuildConfig.DEBUG) {
+            TEST_REWARDED_ID
+        } else {
+            "ca-app-pub-6806702755182088/4690701426"
+        },
+        if (BuildConfig.DEBUG) {
+            TEST_REWARDED_ID
+        } else {
+            "ca-app-pub-6806702755182088/1725293075"
+        }
+    )
+
     // Native Ads - Language Refresh
     var nativeAdIdLangRefresh: Array<String> = arrayOf(
         if (BuildConfig.DEBUG) {

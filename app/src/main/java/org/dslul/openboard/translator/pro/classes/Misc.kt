@@ -46,6 +46,7 @@ object Misc {
     var monthlyKey: String = "monthlyKey"
     var yearlyKey: String = "yearlyKey"
     var adsCtrCount: Int = 0
+    var interstitialClickCtrCount: Int = 0
     var showNextButtonOnLanguageScreen: Boolean = false
     var isItemClicked: Boolean = false
     const val text: String = "text"

@@ -15,9 +15,12 @@ object Ads {
 
     var translationRewardedAd: String = "am"
     var cameraTranslationRewardedAd: String = "am"
+    var unlockPremiumRewardedAd: String = "am"
     var dashboardFragmentChangeInt: String = "am"
     var dashboardBanner: String = "am"
     var dashboardInt: String = "am"
+    var everySixthClickInterstitial: String = "am"
+    var interstitialClickFrequency: Int = 6
 
     var isIntPreLoad: Boolean = true
     var isNativeAdPreload: Boolean = true
@@ -136,6 +139,56 @@ object Ads {
         AdmobInterstitialAd.showInterstitial(activity, callback)
     }
 
+    fun runWithEverySixthClickInterstitial(
+        activity: Activity,
+        action: () -> Unit
+    ) {
+        if (!everySixthClickInterstitial.contains("am")) {
+            Log.d(Misc.logKey, "Every sixth click interstitial skipped: remote off.")
+            action()
+            return
+        }
+
+        if (interstitialClickFrequency <= 0) {
+            Log.d(Misc.logKey, "Every sixth click interstitial skipped: invalid frequency.")
+            action()
+            return
+        }
+
+        if (Misc.getPurchasedStatus(activity)) {
+            Log.d(Misc.logKey, "Every sixth click interstitial skipped: user purchased.")
+            action()
+            return
+        }
+
+        if (isShowingInt) {
+            Log.d(Misc.logKey, "Every sixth click interstitial skipped: already showing.")
+            action()
+            return
+        }
+
+        Misc.interstitialClickCtrCount++
+        Log.d(Misc.logKey, "Every sixth click count: ${Misc.interstitialClickCtrCount}.")
+
+        if (Misc.interstitialClickCtrCount % interstitialClickFrequency != 0) {
+            action()
+            return
+        }
+
+        Log.d(Misc.logKey, "Every sixth click interstitial requested.")
+
+        loadAndShowInterstitial(
+            activity = activity,
+            remoteKey = everySixthClickInterstitial,
+            adIds = AdIds.interstitialAdIdEverySixthClick,
+            callBack = object : InterstitialCallBack {
+                override fun onDismiss() {
+                    action()
+                }
+            }
+        )
+    }
+
     fun loadAndShowInterstitial(
         activity: Activity,
         remoteKey: String,
@@ -159,12 +212,13 @@ object Ads {
             return
         }
 
-        if (AdmobInterstitialAd.interAdmob != null) {
+        if (AdmobInterstitialAd.isInterAdAvailableFor(adIds)) {
             Log.d(Misc.logKey, "Interstitial already loaded. Showing now.")
 
             AdmobInterstitialAd.showInterstitial(
                 activity = activity,
-                callback = callBack
+                callback = callBack,
+                nextPreloadAdIds = adIds
             )
             return
         }
@@ -207,7 +261,8 @@ object Ads {
                             override fun onDismiss() {
                                 callBack?.onDismiss()
                             }
-                        }
+                        },
+                        nextPreloadAdIds = adIds
                     )
                 }
 

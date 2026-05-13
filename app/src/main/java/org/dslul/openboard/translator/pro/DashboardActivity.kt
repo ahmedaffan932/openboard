@@ -44,16 +44,22 @@ class DashboardActivity : AppCompatActivity() {
             if (isInputMethodSelected()) {
                 Toast.makeText(this, "Keyboard is already enabled.", Toast.LENGTH_SHORT).show()
             } else {
-                startActivity(Intent(this, EnableKeyboardActivity::class.java))
+                Ads.runWithEverySixthClickInterstitial(this) {
+                    startActivity(Intent(this, EnableKeyboardActivity::class.java))
+                }
             }
         }
 
         binding.btnHistory.setOnClickListener {
-            startActivity(Intent(this, DisplayHistoryActivity::class.java))
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(Intent(this, DisplayHistoryActivity::class.java))
+            }
         }
 
         binding.btnSettings.setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(Intent(this, SettingsActivity::class.java))
+            }
         }
 
         binding.llVoice.setOnClickListener {
@@ -65,7 +71,9 @@ class DashboardActivity : AppCompatActivity() {
             )
             intent.putExtra("isVoiceTranslation", true)
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs)
-            startActivity(intent, options.toBundle())
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(intent, options.toBundle())
+            }
         }
 
         findViewById<View>(R.id.llTextTranslate).setOnClickListener {
@@ -76,7 +84,9 @@ class DashboardActivity : AppCompatActivity() {
 //                Pair(binding.etText, "anim_et_main")
             )
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs)
-            startActivity(intent, options.toBundle())
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(intent, options.toBundle())
+            }
         }
 
         findViewById<View>(R.id.llPhrases).setOnClickListener {
@@ -87,7 +97,9 @@ class DashboardActivity : AppCompatActivity() {
 //                Pair(binding.etText, "anim_et_main")
             )
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs)
-            startActivity(intent, options.toBundle())
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(intent, options.toBundle())
+            }
         }
 
 
@@ -98,7 +110,9 @@ class DashboardActivity : AppCompatActivity() {
 //                Pair(binding.clTopBar, "anim_cl_languages")
             )
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs)
-            startActivity(intent, options.toBundle())
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(intent, options.toBundle())
+            }
         }
 
         findViewById<View>(R.id.llConversation).setOnClickListener {
@@ -108,7 +122,9 @@ class DashboardActivity : AppCompatActivity() {
 //                Pair(binding.clTopBar, "anim_cl_languages")
             )
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *pairs)
-            startActivity(intent, options.toBundle())
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(intent, options.toBundle())
+            }
         }
 
     }

@@ -89,7 +89,10 @@ class HomeFragment : Fragment() {
                 Toast.makeText(requireContext(), "Keyboard is already enabled.", Toast.LENGTH_SHORT)
                     .show()
             } else {
-                startActivity(Intent(requireContext(), EnableKeyboardActivity::class.java))
+                Ads.runWithEverySixthClickInterstitial(requireActivity()) {
+                    if (!isAdded) return@runWithEverySixthClickInterstitial
+                    startActivity(Intent(requireContext(), EnableKeyboardActivity::class.java))
+                }
             }
         }
 
@@ -125,11 +128,17 @@ class HomeFragment : Fragment() {
     private fun setUpClickListeners() {
         binding.btnSettings.setOnClickListener {
             Firebase.analytics.logEvent("Settings", null)
-            startActivity(Intent(requireActivity(), SettingsActivity::class.java))
+            Ads.runWithEverySixthClickInterstitial(requireActivity()) {
+                if (!isAdded) return@runWithEverySixthClickInterstitial
+                startActivity(Intent(requireActivity(), SettingsActivity::class.java))
+            }
         }
 
         binding.btnTranslate.setOnClickListener {
-            startTranslateActivity(binding.etText.text.toString())
+            Ads.runWithEverySixthClickInterstitial(requireActivity()) {
+                if (!isAdded) return@runWithEverySixthClickInterstitial
+                startTranslateActivity(binding.etText.text.toString())
+            }
         }
 
         binding.btnSpeakInput.setOnClickListener {
@@ -138,7 +147,10 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnHistory.setOnClickListener {
-            startActivity(Intent(requireContext(), DisplayHistoryActivity::class.java))
+            Ads.runWithEverySixthClickInterstitial(requireActivity()) {
+                if (!isAdded) return@runWithEverySixthClickInterstitial
+                startActivity(Intent(requireContext(), DisplayHistoryActivity::class.java))
+            }
         }
     }
 
@@ -173,11 +185,17 @@ class HomeFragment : Fragment() {
         binding.llLanguageFrom.setOnClickListener {
             val intent = Intent(requireActivity(), LanguageSelectorActivity::class.java)
             intent.putExtra(Misc.lngTo, false)
-            startActivity(intent)
+            Ads.runWithEverySixthClickInterstitial(requireActivity()) {
+                if (!isAdded) return@runWithEverySixthClickInterstitial
+                startActivity(intent)
+            }
         }
 
         binding.llLanguageTo.setOnClickListener {
-            startActivity(Intent(requireActivity(), LanguageSelectorActivity::class.java))
+            Ads.runWithEverySixthClickInterstitial(requireActivity()) {
+                if (!isAdded) return@runWithEverySixthClickInterstitial
+                startActivity(Intent(requireActivity(), LanguageSelectorActivity::class.java))
+            }
         }
 
         binding.btnSwitchLngs.setOnClickListener {

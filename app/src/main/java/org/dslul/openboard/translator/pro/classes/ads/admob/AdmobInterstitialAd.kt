@@ -19,21 +19,38 @@ object AdmobInterstitialAd {
 
     var interAdmob: InterstitialAd? = null
     private var isLoadingInterAd = false
+    private var loadingInterAdIdsKey: String? = null
+    private var loadedInterAdIdsKey: String? = null
+    private val pendingLoadCallbacks = mutableListOf<LoadAdCallBack?>()
 
     fun loadInterAdmob(
         context: Context,
         adIds: Array<String> = AdIds.interstitialAdIdAdMobSplash,
         callBack: LoadAdCallBack? = null
     ) {
+        val adIdsKey = adIds.interstitialIdsKey()
+
         if (isLoadingInterAd) {
-            Log.d(Misc.logKey, "Interstitial load skipped: already loading.")
+            if (loadingInterAdIdsKey == adIdsKey) {
+                pendingLoadCallbacks.add(callBack)
+                Log.d(Misc.logKey, "Interstitial load queued: same ad ids already loading.")
+            } else {
+                Log.d(Misc.logKey, "Interstitial load skipped: different ad ids already loading.")
+                callBack?.onFailed()
+            }
             return
         }
 
         if (interAdmob != null) {
-            Log.d(Misc.logKey, "Interstitial load skipped: ad already available.")
-            callBack?.onLoaded()
-            return
+            if (loadedInterAdIdsKey == adIdsKey) {
+                Log.d(Misc.logKey, "Interstitial load skipped: requested ad already available.")
+                callBack?.onLoaded()
+                return
+            }
+
+            Log.d(Misc.logKey, "Interstitial cached ad replaced for requested placement.")
+            interAdmob = null
+            loadedInterAdIdsKey = null
         }
 
         if (Misc.getPurchasedStatus(context)) {
@@ -49,12 +66,14 @@ object AdmobInterstitialAd {
         }
 
         isLoadingInterAd = true
+        loadingInterAdIdsKey = adIdsKey
+        pendingLoadCallbacks.add(callBack)
 
         loadInterByIndex(
             context = context.applicationContext,
             adIds = adIds,
             index = 0,
-            callBack = callBack
+            adIdsKey = adIdsKey
         )
     }
 
@@ -62,15 +81,17 @@ object AdmobInterstitialAd {
         context: Context,
         adIds: Array<String>,
         index: Int,
-        callBack: LoadAdCallBack?
+        adIdsKey: String
     ) {
         if (index >= adIds.size) {
             isLoadingInterAd = false
+            loadingInterAdIdsKey = null
+            loadedInterAdIdsKey = null
             interAdmob = null
 
             Log.d(Misc.logKey, "Interstitial all ad ids failed.")
 
-            callBack?.onFailed()
+            notifyPendingLoadFailed()
             return
         }
 
@@ -83,7 +104,7 @@ object AdmobInterstitialAd {
                 context = context,
                 adIds = adIds,
                 index = index + 1,
-                callBack = callBack
+                adIdsKey = adIdsKey
             )
             return
         }
@@ -110,17 +131,19 @@ object AdmobInterstitialAd {
                         context = context,
                         adIds = adIds,
                         index = index + 1,
-                        callBack = callBack
+                        adIdsKey = adIdsKey
                     )
                 }
 
                 override fun onAdLoaded(interstitialAd: InterstitialAd) {
                     isLoadingInterAd = false
+                    loadingInterAdIdsKey = null
+                    loadedInterAdIdsKey = adIdsKey
                     interAdmob = interstitialAd
 
                     Log.d(Misc.logKey, "Interstitial loaded successfully with index: $index")
 
-                    callBack?.onLoaded()
+                    notifyPendingLoadSuccess()
                 }
             }
         )
@@ -128,7 +151,8 @@ object AdmobInterstitialAd {
 
     fun showInterstitial(
         activity: Activity,
-        callback: InterstitialCallBack? = null
+        callback: InterstitialCallBack? = null,
+        nextPreloadAdIds: Array<String> = AdIds.interstitialAdIdAdMobSplash
     ) {
         val ad = interAdmob
 
@@ -138,7 +162,7 @@ object AdmobInterstitialAd {
             callback?.onDismiss()
 
             if (Ads.isIntPreLoad) {
-                loadInterAdmob(activity)
+                loadInterAdmob(activity, nextPreloadAdIds)
             }
 
             return
@@ -148,6 +172,7 @@ object AdmobInterstitialAd {
             Log.d(Misc.logKey, "Interstitial show skipped: user purchased.")
 
             interAdmob = null
+            loadedInterAdIdsKey = null
             callback?.onDismiss()
             return
         }
@@ -158,12 +183,13 @@ object AdmobInterstitialAd {
                 Log.d(Misc.logKey, "Interstitial dismissed.")
 
                 interAdmob = null
+                loadedInterAdIdsKey = null
                 Ads.isShowingInt = false
 
                 callback?.onDismiss()
 
                 if (Ads.isIntPreLoad) {
-                    loadInterAdmob(activity)
+                    loadInterAdmob(activity, nextPreloadAdIds)
                 }
             }
 
@@ -174,12 +200,13 @@ object AdmobInterstitialAd {
                 )
 
                 interAdmob = null
+                loadedInterAdIdsKey = null
                 Ads.isShowingInt = false
 
                 callback?.onDismiss()
 
                 if (Ads.isIntPreLoad) {
-                    loadInterAdmob(activity)
+                    loadInterAdmob(activity, nextPreloadAdIds)
                 }
             }
 
@@ -203,9 +230,32 @@ object AdmobInterstitialAd {
         ad.show(activity)
     }
 
+    fun isInterAdAvailableFor(adIds: Array<String>): Boolean {
+        return interAdmob != null && loadedInterAdIdsKey == adIds.interstitialIdsKey()
+    }
+
     fun clearInterAd() {
         interAdmob = null
         isLoadingInterAd = false
+        loadingInterAdIdsKey = null
+        loadedInterAdIdsKey = null
+        pendingLoadCallbacks.clear()
         Ads.isShowingInt = false
+    }
+
+    private fun notifyPendingLoadSuccess() {
+        val callbacks = pendingLoadCallbacks.toList()
+        pendingLoadCallbacks.clear()
+        callbacks.forEach { it?.onLoaded() }
+    }
+
+    private fun notifyPendingLoadFailed() {
+        val callbacks = pendingLoadCallbacks.toList()
+        pendingLoadCallbacks.clear()
+        callbacks.forEach { it?.onFailed() }
+    }
+
+    private fun Array<String>.interstitialIdsKey(): String {
+        return joinToString(separator = "|")
     }
 }
