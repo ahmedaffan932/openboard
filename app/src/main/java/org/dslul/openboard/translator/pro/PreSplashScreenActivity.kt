@@ -139,7 +139,8 @@ class PreSplashScreenActivity : AppCompatActivity() {
                                                         AdmobNativeAds.showNativeAd(
                                                             context = this@PreSplashScreenActivity,
                                                             remoteKey = Ads.splashNative,
-                                                            amLayout = binding.bannerFrameLayout
+                                                            amLayout = binding.bannerFrameLayout,
+                                                            nextPreloadAdIds = AdIds.nativeAdIdLanguages
                                                         )
                                                     }
 

@@ -26,6 +26,14 @@ object AdmobNativeAds {
 
     var amNative: NativeAd? = null
     private var isLoadingNativeAd = false
+    private var loadingNativeAdIdsKey: String? = null
+    private var loadedNativeAdIdsKey: String? = null
+    private val pendingNativeLoadCallbacks = mutableListOf<PendingNativeLoadCallback>()
+
+    private data class PendingNativeLoadCallback(
+        val adIdsKey: String,
+        val callBack: LoadAdCallBack
+    )
 
     @SuppressLint("MissingPermission")
     fun loadAdmobNative(
@@ -35,8 +43,17 @@ object AdmobNativeAds {
         frameLayout: FrameLayout? = null,
         callBack: LoadAdCallBack? = null,
     ) {
+        val adIdsKey = adIds.nativeAdIdsKey()
+
         if (isLoadingNativeAd) {
             Log.d(Misc.logKey, "Native Ad load skipped: already loading.")
+            if (loadingNativeAdIdsKey == adIdsKey) {
+                callBack?.let {
+                    pendingNativeLoadCallbacks.add(PendingNativeLoadCallback(adIdsKey, it))
+                }
+            } else {
+                callBack?.onFailed()
+            }
             return
         }
 
@@ -53,8 +70,13 @@ object AdmobNativeAds {
         }
 
         if (amNative != null) {
-            Log.d(Misc.logKey, "Native Ad already available.")
-            callBack?.onLoaded()
+            if (loadedNativeAdIdsKey == adIdsKey) {
+                Log.d(Misc.logKey, "Native Ad already available.")
+                callBack?.onLoaded()
+            } else {
+                Log.d(Misc.logKey, "Native Ad load skipped: different native ad already available.")
+                callBack?.onFailed()
+            }
             return
         }
 
@@ -65,10 +87,12 @@ object AdmobNativeAds {
         )
 
         isLoadingNativeAd = true
+        loadingNativeAdIdsKey = adIdsKey
 
         loadNativeByIndex(
             context = context.applicationContext,
             adIds = adIds,
+            adIdsKey = adIdsKey,
             index = 0,
             callBack = callBack,
             frameLayout = frameLayout
@@ -78,18 +102,22 @@ object AdmobNativeAds {
     private fun loadNativeByIndex(
         context: Context,
         adIds: Array<String>,
+        adIdsKey: String,
         index: Int,
         callBack: LoadAdCallBack?,
         frameLayout: FrameLayout?
     ) {
         if (index >= adIds.size) {
             isLoadingNativeAd = false
+            loadingNativeAdIdsKey = null
+            loadedNativeAdIdsKey = null
             amNative = null
 
             Log.d(Misc.logKey, "Native Ad all ad ids failed.")
 
             frameLayout?.removeAllViews()
             callBack?.onFailed()
+            notifyPendingNativeLoadFailed(adIdsKey)
             return
         }
 
@@ -101,6 +129,7 @@ object AdmobNativeAds {
             loadNativeByIndex(
                 context = context,
                 adIds = adIds,
+                adIdsKey = adIdsKey,
                 index = index + 1,
                 callBack = callBack,
                 frameLayout = frameLayout
@@ -113,11 +142,13 @@ object AdmobNativeAds {
         val adLoader = AdLoader.Builder(context, currentAdId)
             .forNativeAd { ad: NativeAd ->
                 amNative = ad
+                loadedNativeAdIdsKey = adIdsKey
             }
             .withAdListener(object : AdListener() {
 
                 override fun onAdFailedToLoad(adError: LoadAdError) {
                     amNative = null
+                    loadedNativeAdIdsKey = null
 
                     Log.e(
                         Misc.logKey,
@@ -127,6 +158,7 @@ object AdmobNativeAds {
                     loadNativeByIndex(
                         context = context,
                         adIds = adIds,
+                        adIdsKey = adIdsKey,
                         index = index + 1,
                         callBack = callBack,
                         frameLayout = frameLayout
@@ -137,10 +169,12 @@ object AdmobNativeAds {
                     super.onAdLoaded()
 
                     isLoadingNativeAd = false
+                    loadingNativeAdIdsKey = null
 
                     Log.d(Misc.logKey, "Native Ad loaded successfully with index: $index")
 
                     callBack?.onLoaded()
+                    notifyPendingNativeLoadLoaded(adIdsKey)
                 }
 
                 override fun onAdImpression() {
@@ -149,6 +183,7 @@ object AdmobNativeAds {
                     Log.d(Misc.logKey, "Native Ad impression recorded.")
 
                     amNative = null
+                    loadedNativeAdIdsKey = null
                 }
             })
             .withNativeAdOptions(
@@ -189,15 +224,12 @@ object AdmobNativeAds {
     fun showNativeAd(
         context: Context,
         remoteKey: String,
-        amLayout: FrameLayout
+        amLayout: FrameLayout,
+        nextPreloadAdIds: Array<String>? = null
     ) {
         val nativeAdToShow = amNative
 
         if (nativeAdToShow == null) {
-            if (Ads.isNativeAdPreload) {
-                loadAdmobNative(context, AdIds.nativeAdIdAdMobSplash)
-            }
-
             amLayout.visibility = View.GONE
             return
         }
@@ -257,9 +289,14 @@ object AdmobNativeAds {
         adView.setNativeAd(nativeAdToShow)
 
         amNative = null
+        loadedNativeAdIdsKey = null
 
-        if (Ads.isNativeAdPreload) {
-            loadAdmobNative(context, AdIds.nativeAdIdAdMobSplash)
+        if (Ads.isNativeAdPreload && nextPreloadAdIds != null) {
+            Log.d(Misc.logKey, "Native Ad next preload started.")
+            loadAdmobNative(
+                context = context,
+                adIds = nextPreloadAdIds
+            )
         }
     }
 
@@ -305,5 +342,28 @@ object AdmobNativeAds {
         amNative?.destroy()
         amNative = null
         isLoadingNativeAd = false
+        loadingNativeAdIdsKey = null
+        loadedNativeAdIdsKey = null
+        pendingNativeLoadCallbacks.clear()
+    }
+
+    fun isNativeAdAvailableFor(adIds: Array<String>): Boolean {
+        return amNative != null && loadedNativeAdIdsKey == adIds.nativeAdIdsKey()
+    }
+
+    private fun notifyPendingNativeLoadLoaded(adIdsKey: String) {
+        val callbacks = pendingNativeLoadCallbacks.filter { it.adIdsKey == adIdsKey }
+        pendingNativeLoadCallbacks.removeAll(callbacks)
+        callbacks.forEach { it.callBack.onLoaded() }
+    }
+
+    private fun notifyPendingNativeLoadFailed(adIdsKey: String) {
+        val callbacks = pendingNativeLoadCallbacks.filter { it.adIdsKey == adIdsKey }
+        pendingNativeLoadCallbacks.removeAll(callbacks)
+        callbacks.forEach { it.callBack.onFailed() }
+    }
+
+    private fun Array<String>.nativeAdIdsKey(): String {
+        return joinToString(separator = "|")
     }
 }

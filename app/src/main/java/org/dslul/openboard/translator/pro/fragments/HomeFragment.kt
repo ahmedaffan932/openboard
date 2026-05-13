@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.translatorguru.ads.admob.LoadAdCallBack
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.rw.keyboardlistener.KeyboardUtils
@@ -67,10 +68,12 @@ class HomeFragment : Fragment() {
 
         if (isShowingNative) {
             KeyboardUtils.addKeyboardToggleListener(requireActivity()) { isVisible ->
-                if (isVisible) {
-                    binding.mrecFrameLayout.visibility = View.GONE
-                } else {
-                    binding.mrecFrameLayout.visibility = View.VISIBLE
+                if (isShowingNative) {
+                    if (isVisible) {
+                        binding.mrecFrameLayout.visibility = View.GONE
+                    } else {
+                        binding.mrecFrameLayout.visibility = View.VISIBLE
+                    }
                 }
             }
         }
@@ -282,20 +285,34 @@ class HomeFragment : Fragment() {
         }
 
 
-//        if (!Ads.isDashboardNativeDisplayed) {
-//            Ads.loadAndShowNativeAd(
-//                requireActivity(),
-//                AdIds.nativeAdIdAdMobTranslate,
-//                Ads.dashboardNative,
-//                binding.mrecFrameLayout,
-//                R.layout.large_native_shimmer
-//            )
-//            isShowingNative = true
-//
-//            Ads.isDashboardNativeDisplayed = true
-//        } else {
-//            binding.mrecFrameLayout.visibility = View.GONE
-//        }
+        if (!Ads.isDashboardNativeDisplayed) {
+            isShowingNative = true
+
+            Ads.loadAndShowNativeAd(
+                activity = requireActivity(),
+                adIds = AdIds.nativeAdIdAdMobTranslate,
+                remoteKey = Ads.dashboardNative,
+                frameLayout = binding.mrecFrameLayout,
+                shimmerLayout = R.layout.large_native_shimmer,
+                callBack = object : LoadAdCallBack {
+                    override fun onLoaded() {
+                        Log.d(Misc.logKey, "Dashboard native ad loaded.")
+                    }
+
+                    override fun onFailed() {
+                        isShowingNative = false
+                        binding.mrecFrameLayout.removeAllViews()
+                        binding.mrecFrameLayout.visibility = View.GONE
+                        Log.d(Misc.logKey, "Dashboard native ad failed.")
+                    }
+                }
+            )
+
+            Ads.isDashboardNativeDisplayed = true
+        } else {
+            isShowingNative = false
+            binding.mrecFrameLayout.visibility = View.GONE
+        }
     }
 
     override fun onResume() {

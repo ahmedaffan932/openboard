@@ -79,19 +79,20 @@ object AdIds {
         }
     )
 
-    var nativeAdIdLanguages = arrayOf(
+    // Native Ads - Languages
+    var nativeAdIdLanguages: Array<String> = arrayOf(
         if (BuildConfig.DEBUG) {
-            "ca-app-pub-3940256099942544/2247696110"
+            TEST_NATIVE_ID
         } else {
             "ca-app-pub-6806702755182088/1773451556"
         },
         if (BuildConfig.DEBUG) {
-            "ca-app-pub-3940256099942544/2247696110"
+            TEST_NATIVE_ID
         } else {
             "ca-app-pub-6806702755182088/1142896162"
         },
         if (BuildConfig.DEBUG) {
-            "ca-app-pub-3940256099942544/2247696110"
+            TEST_NATIVE_ID
         } else {
             "ca-app-pub-6806702755182088/3080770150"
         }
@@ -140,4 +141,98 @@ object AdIds {
     } else {
         ""
     }
+    // Native Ads - Language Refresh
+    var nativeAdIdLangRefresh: Array<String> = arrayOf(
+        if (BuildConfig.DEBUG) {
+            TEST_NATIVE_ID
+        } else {
+            "ca-app-pub-6806702755182088/6940124117"
+        },
+        if (BuildConfig.DEBUG) {
+            TEST_NATIVE_ID
+        } else {
+            "ca-app-pub-6806702755182088/2889198463"
+        },
+        if (BuildConfig.DEBUG) {
+            TEST_NATIVE_ID
+        } else {
+            "ca-app-pub-6806702755182088/6203651155"
+        }
+    )
+
+    // Native Ads - Onboarding 1
+    var nativeAdIdOB1 = arrayOf(
+        if (BuildConfig.DEBUG) {
+            TEST_NATIVE_ID
+        } else {
+            "ca-app-pub-6806702755182088/2530105812"
+        },
+        if (BuildConfig.DEBUG) {
+            TEST_NATIVE_ID
+        } else {
+            "ca-app-pub-6806702755182088/5329553189"
+        },
+        if (BuildConfig.DEBUG) {
+            TEST_NATIVE_ID
+        } else {
+            "ca-app-pub-6806702755182088/2264406149"
+        }
+    )
+
+    // Native Ads - Onboarding 2
+    var nativeAdIdOB2 = arrayOf(
+        if (BuildConfig.DEBUG) {
+            TEST_NATIVE_ID
+        } else {
+            "ca-app-pub-6806702755182088/8061634099"
+        },
+        if (BuildConfig.DEBUG) {
+            TEST_NATIVE_ID
+        } else {
+            "ca-app-pub-6806702755182088/8535224461"
+        },
+        if (BuildConfig.DEBUG) {
+            TEST_NATIVE_ID
+        } else {
+            "ca-app-pub-6806702755182088/7590860803"
+        }
+    )
+
+    // Native Ads - Onboarding 3
+    var nativeAdIdOB3 = arrayOf(
+        if (BuildConfig.DEBUG) {
+            TEST_NATIVE_ID
+        } else {
+            "ca-app-pub-6806702755182088/7949953456"
+        },
+        if (BuildConfig.DEBUG) {
+            TEST_NATIVE_ID
+        } else {
+            "ca-app-pub-6806702755182088/9342666412"
+        },
+        if (BuildConfig.DEBUG) {
+            TEST_NATIVE_ID
+        } else {
+            "ca-app-pub-6806702755182088/9368313039"
+        }
+    )
+
+    // Interstitial Ads - Onboarding 3
+    var interstitialAdIdOB3 = arrayOf(
+        if (BuildConfig.DEBUG) {
+            TEST_INTERSTITIAL_ID
+        } else {
+            "ca-app-pub-6806702755182088/4115986356"
+        },
+        if (BuildConfig.DEBUG) {
+            TEST_INTERSTITIAL_ID
+        } else {
+            "ca-app-pub-6806702755182088/5101764962"
+        },
+        if (BuildConfig.DEBUG) {
+            TEST_INTERSTITIAL_ID
+        } else {
+            "ca-app-pub-6806702755182088/9151094727"
+        }
+    )
 }
