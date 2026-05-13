@@ -17,16 +17,14 @@ import com.google.android.ump.ConsentRequestParameters
 import com.google.android.ump.UserMessagingPlatform
 import com.google.firebase.FirebaseApp
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import org.dslul.openboard.inputmethod.latin.BuildConfig
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityPreSplashScreenBinding
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
-import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobBannerAd
-import org.dslul.openboard.translator.pro.classes.ads.admob.AppOpenAdManager
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobInterstitialAd
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobNativeAds
+import org.dslul.openboard.translator.pro.classes.ads.admob.AppOpenAdManager
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 
@@ -129,11 +127,26 @@ class PreSplashScreenActivity : AppCompatActivity() {
                                                 AdIds.interstitialAdIdAdMobSplash
                                             )
                                         }
-//
+
                                         if (Ads.isNativeAdPreload) {
                                             AdmobNativeAds.loadAdmobNative(
-                                                this@PreSplashScreenActivity,
-                                                AdIds.nativeAdIdAdMobSplash
+                                                context = this@PreSplashScreenActivity,
+                                                adIds = AdIds.nativeAdIdAdMobSplash,
+                                                remoteKey = Ads.splashNative,
+                                                frameLayout = binding.bannerFrameLayout,
+                                                callBack = object : LoadAdCallBack {
+                                                    override fun onLoaded() {
+                                                        AdmobNativeAds.showNativeAd(
+                                                            context = this@PreSplashScreenActivity,
+                                                            remoteKey = Ads.splashNative,
+                                                            amLayout = binding.bannerFrameLayout
+                                                        )
+                                                    }
+
+                                                    override fun onFailed() {
+                                                        binding.bannerFrameLayout.removeAllViews()
+                                                    }
+                                                }
                                             )
                                         }
                                     }
@@ -165,57 +178,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
         mFRC.ensureInitialized()
         mFRC.fetchAndActivate().addOnCompleteListener { p0 ->
             if (p0.isSuccessful) {
-                Misc.weeklyKey = mFRC.getString("weeklyKey")
-                Misc.yearlyKey = mFRC.getString("yearlyKey")
-                Misc.monthlyKey = mFRC.getString("monthlyKey")
                 if (false) {
-
-
-
-                    Ads.exitInt = mFRC.getString("exitInt")
-                    Ads.phraseInt = mFRC.getString("phraseInt")
-                    Ads.splashInt = mFRC.getString("splashInt")
-                    Ads.exitNative = mFRC.getString("exitNative")
-                    Ads.chatBanner = mFRC.getString("chatBanner")
-                    Ads.dashboardInt = mFRC.getString("dashboardInt")
-                    Ads.splashNative = mFRC.getString("splashNative")
-                    Ads.translateInt = mFRC.getString("translateInt")
-                    Ads.dashboardBanner = mFRC.getString("dashboardBanner")
-                    Ads.translateNative = mFRC.getString("translateNative")
-                    Ads.dashboardNative = mFRC.getString("dashboardNative")
-                    Ads.onBoardingNative = mFRC.getString("onBoardingNative")
-                    Misc.isProScreenEnabled = mFRC.getBoolean("isProScreenEnabled")
-                    Ads.cameraTranslationInt = mFRC.getString("cameraTranslationInt")
-                    Ads.languageSelectorBanner = mFRC.getString("languageSelectorBanner")
-                    Ads.dashboardFragmentChangeInt = mFRC.getString("dashboardFragmentChangeInt")
-
-                    Ads.isIntPreLoad = mFRC.getBoolean("isIntPreLoad")
-                    Ads.isNativeAdPreload = mFRC.getBoolean("isNativeAdPreload")
-                    Ads.isSplashAppOpenAdEnabled = mFRC.getBoolean("isSplashAppOpenAdEnabled")
-
-                    AdIds.mrecAdIdAd = mFRC.getString("mrecAdIdAd")
-                    AdIds.appOpenAdIdSplash = mFRC.getString("appOpenAdIdSplash")
-                    AdIds.nativeAdIdAdMobExit = mFRC.getString("nativeAdIdAdMobExit")
-                    AdIds.nativeAdIdAdMobTranslate = mFRC.getString("nativeAdIdAdMobTranslate")
-                    AdIds.nativeAdIdAdMobSplash = mFRC.getString("nativeAdIdAdMobSplash")
-
-                    AdIds.interstitialAdIdAdMobSplash =
-                        mFRC.getString("interstitialAdIdAdMobSplash")
-                    AdIds.interstitialAdIdAdMobPhrases =
-                        mFRC.getString("interstitialAdIdAdMobPhrases")
-                    AdIds.interstitialAdIdAdMobExit = mFRC.getString("interstitialAdIdAdMobExit")
-                    AdIds.interstitialAdIdAdMobTranslate =
-                        mFRC.getString("interstitialAdIdAdMobTranslate")
-                    AdIds.interstitialAdIdAdMobCameraTranslate =
-                        mFRC.getString("interstitialAdIdAdMobCameraTranslate")
-                    AdIds.collapsibleBannerAdIdAdOnboarding =
-                        mFRC.getString("collapsibleBannerAdIdAdOnboarding")
-                    AdIds.collapsibleBannerAdIdAd =
-                        mFRC.getString("collapsibleBannerAdIdAd")
-
-
-                    Misc.showNextButtonOnLanguageScreen =
-                        mFRC.getBoolean("showNextButtonOnLanguageScreen")
                 }
 
                 isRemoteConfigFetched = true
@@ -275,22 +238,5 @@ class PreSplashScreenActivity : AppCompatActivity() {
                     )
             }
         }.start()
-        
-//        if (!isNextActivityStarted) {
-//            AppOpenAdManager.showIfAvailable(
-//                this,
-//                Ads.isSplashAppOpenAdEnabled,
-//                object : InterstitialCallBack {
-//                    override fun onDismiss() {
-//                        startActivity(
-//                            Intent(
-//                                this@PreSplashScreenActivity,
-//                                AppLanguageSelectorActivity::class.java
-//                            )
-//                        )
-//                    }
-//                })
-//            isNextActivityStarted = true
-//        }
     }
 }

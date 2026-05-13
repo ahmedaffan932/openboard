@@ -24,19 +24,16 @@
         app:layout_constraintBottom_toTopOf="@+id/spline"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.airbnb.lottie.LottieAnimationView
+        <ImageView
             android:id="@+id/logo"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_100sdp"
-            android:layout_margin="@dimen/fab_padding"
-            android:background="@drawable/bg_main_less_rounded"
-            android:elevation="2dp"
-            android:transitionName="logo_splash"
+            app:srcCompat="@drawable/logo"
             app:layout_constraintEnd_toEndOf="parent"
+            android:transitionName="anim_splash"
+            android:elevation="@dimen/less_padding"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="anim_change_logo_color.json"
             app:shapeAppearanceOverlay="@style/lessRoundedCorners" />
 
 

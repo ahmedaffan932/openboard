@@ -2,6 +2,7 @@ package org.dslul.openboard.translator.pro.classes.ads
 
 import android.app.Activity
 import android.util.Log
+import android.view.View
 import android.widget.FrameLayout
 import com.example.translatorguru.ads.admob.LoadAdCallBack
 import org.dslul.openboard.translator.pro.classes.Misc
@@ -17,9 +18,11 @@ object Ads {
     var dashboardFragmentChangeInt: String = "am"
     var dashboardBanner: String = "am"
     var dashboardInt: String = "am"
+
     var isIntPreLoad: Boolean = true
     var isNativeAdPreload: Boolean = true
     var isSplashAppOpenAdEnabled: Boolean = true
+
     var chatBanner: String = "am"
     var languageSelectorBanner: String = "am"
     var splashNative: String = "am_native_splash"
@@ -36,45 +39,74 @@ object Ads {
     var translateInt: String = "am"
 
     var isShowingInt = false
-
     var isDashboardNativeDisplayed = false
 
-    fun showBannerAd(frameLayout: FrameLayout, remoteKey: String) {
+    fun showBannerAd(
+        frameLayout: FrameLayout,
+        remoteKey: String
+    ) {
         if (remoteKey.contains("am")) {
-//            AdmobBannerAds.show(frameLayout)
+            // AdmobBannerAds.show(frameLayout)
+        } else {
+            frameLayout.removeAllViews()
+            frameLayout.visibility = View.GONE
         }
     }
 
     fun loadAndShowNativeAd(
         activity: Activity,
-        adId: String = AdIds.nativeAdIdAdMobExit,
+        adIds: Array<String> = AdIds.nativeAdIdAdMobExit,
         remoteKey: String,
         frameLayout: FrameLayout,
         shimmerLayout: Int? = null,
         callBack: LoadAdCallBack? = null
     ) {
-        if (!Misc.checkInternetConnection(activity)) {
+        if (!remoteKey.contains("am")) {
             frameLayout.removeAllViews()
+            frameLayout.visibility = View.GONE
+            callBack?.onFailed()
             return
         }
-        if (remoteKey.contains("am"))
-            AdmobNativeAds.loadAdmobNative(
-                activity,
-                adId,
-                remoteKey,
-                frameLayout,
-                callBack = object : LoadAdCallBack {
-                    override fun onLoaded() {
-                        AdmobNativeAds.showNativeAd(activity, remoteKey, frameLayout)
-                        callBack?.onLoaded()
-                    }
 
-                    override fun onFailed() {
-                        callBack?.onFailed()
-                        frameLayout.removeAllViews()
-                    }
+        if (!Misc.checkInternetConnection(activity)) {
+            frameLayout.removeAllViews()
+            frameLayout.visibility = View.GONE
+            callBack?.onFailed()
+            return
+        }
+
+        if (Misc.getPurchasedStatus(activity)) {
+            frameLayout.removeAllViews()
+            frameLayout.visibility = View.GONE
+            callBack?.onFailed()
+            return
+        }
+
+        AdmobNativeAds.loadAdmobNative(
+            context = activity,
+            adIds = adIds,
+            remoteKey = remoteKey,
+            frameLayout = frameLayout,
+            callBack = object : LoadAdCallBack {
+
+                override fun onLoaded() {
+                    AdmobNativeAds.showNativeAd(
+                        context = activity,
+                        remoteKey = remoteKey,
+                        amLayout = frameLayout
+                    )
+
+                    callBack?.onLoaded()
                 }
-            )
+
+                override fun onFailed() {
+                    frameLayout.removeAllViews()
+                    frameLayout.visibility = View.GONE
+
+                    callBack?.onFailed()
+                }
+            }
+        )
     }
 
     fun showInterstitial(
@@ -82,61 +114,113 @@ object Ads {
         remote: String,
         callback: InterstitialCallBack? = null
     ) {
-        if (remote.contains("am")) {
-            Log.d(Misc.logKey, "Int am")
-            AdmobInterstitialAd.showInterstitial(activity, callback)
-        } else {
-            Log.d(Misc.logKey, "Int off")
-            callback?.onDismiss()
+        if (isShowingInt) {
+            Log.d(Misc.logKey, "Interstitial skipped: already showing.")
+            return
         }
-    }
 
+        if (!remote.contains("am")) {
+            Log.d(Misc.logKey, "Interstitial off.")
+            callback?.onDismiss()
+            return
+        }
+
+        if (Misc.getPurchasedStatus(activity)) {
+            Log.d(Misc.logKey, "Interstitial skipped: user purchased.")
+            callback?.onDismiss()
+            return
+        }
+
+        Log.d(Misc.logKey, "Interstitial show requested.")
+
+        AdmobInterstitialAd.showInterstitial(activity, callback)
+    }
 
     fun loadAndShowInterstitial(
         activity: Activity,
         remoteKey: String,
-        adId: String = AdIds.interstitialAdIdAdMobPhrases,
+        adIds: Array<String> = AdIds.interstitialAdIdAdMobPhrases,
         callBack: InterstitialCallBack? = null
     ) {
-        if (remoteKey.contains("am")) {
-
-            if (AdmobInterstitialAd.interAdmob != null) {
-                AdmobInterstitialAd.showInterstitial(activity, callBack)
-                isShowingInt = false
-            } else {
-                if (!Misc.checkInternetConnection(activity)) {
-                    callBack?.onDismiss()
-                    return
-                }
-                val objDialog = Misc.LoadingAdDialog(activity)
-                objDialog.setCancelable(false)
-                objDialog.show()
-                isShowingInt = true
-
-                AdmobInterstitialAd.loadInterAdmob(activity, adId, object : LoadAdCallBack {
-                    override fun onLoaded() {
-                        AdmobInterstitialAd.showInterstitial(
-                            activity,
-                            object : InterstitialCallBack {
-                                override fun onDismiss() {
-                                    callBack?.onDismiss()
-                                    objDialog.dismiss()
-                                }
-                            })
-                        isShowingInt = false
-                    }
-
-                    override fun onFailed() {
-                        objDialog.dismiss()
-                        isShowingInt = false
-                        callBack?.onDismiss()
-                    }
-
-                })
-            }
-        } else {
-            callBack?.onDismiss()
+        if (isShowingInt) {
+            Log.d(Misc.logKey, "Interstitial load/show skipped: already showing.")
+            return
         }
+
+        if (!remoteKey.contains("am")) {
+            Log.d(Misc.logKey, "Interstitial load/show skipped: remote off.")
+            callBack?.onDismiss()
+            return
+        }
+
+        if (Misc.getPurchasedStatus(activity)) {
+            Log.d(Misc.logKey, "Interstitial load/show skipped: user purchased.")
+            callBack?.onDismiss()
+            return
+        }
+
+        if (AdmobInterstitialAd.interAdmob != null) {
+            Log.d(Misc.logKey, "Interstitial already loaded. Showing now.")
+
+            AdmobInterstitialAd.showInterstitial(
+                activity = activity,
+                callback = callBack
+            )
+            return
+        }
+
+        if (!Misc.checkInternetConnection(activity)) {
+            Log.d(Misc.logKey, "Interstitial failed: no internet.")
+            callBack?.onDismiss()
+            return
+        }
+
+        val objDialog = Misc.LoadingAdDialog(activity)
+        objDialog.setCancelable(false)
+
+        if (!activity.isFinishing && !activity.isDestroyed) {
+            objDialog.show()
+        }
+
+        isShowingInt = true
+
+        AdmobInterstitialAd.loadInterAdmob(
+            context = activity,
+            adIds = adIds,
+            callBack = object : LoadAdCallBack {
+
+                override fun onLoaded() {
+                    if (!activity.isFinishing && !activity.isDestroyed && objDialog.isShowing) {
+                        objDialog.dismiss()
+                    }
+
+                    isShowingInt = false
+
+                    AdmobInterstitialAd.showInterstitial(
+                        activity = activity,
+                        callback = object : InterstitialCallBack {
+
+                            override fun onAdDisplayed() {
+                                callBack?.onAdDisplayed()
+                            }
+
+                            override fun onDismiss() {
+                                callBack?.onDismiss()
+                            }
+                        }
+                    )
+                }
+
+                override fun onFailed() {
+                    if (!activity.isFinishing && !activity.isDestroyed && objDialog.isShowing) {
+                        objDialog.dismiss()
+                    }
+
+                    isShowingInt = false
+                    callBack?.onDismiss()
+                }
+            }
+        )
     }
 
     fun loadAndShowRewardedInterstitial(
@@ -144,26 +228,49 @@ object Ads {
         remoteKey: String,
         callBack: InterstitialCallBack? = null
     ) {
-        if (remoteKey.contains("am")) {
-            val objDialog = Misc.LoadingAdDialog(activity)
-            objDialog.setCancelable(false)
+        if (!remoteKey.contains("am")) {
+            callBack?.onDismiss()
+            return
+        }
+
+        if (!Misc.checkInternetConnection(activity)) {
+            callBack?.onDismiss()
+            return
+        }
+
+        if (Misc.getPurchasedStatus(activity)) {
+            callBack?.onDismiss()
+            return
+        }
+
+        val objDialog = Misc.LoadingAdDialog(activity)
+        objDialog.setCancelable(false)
+
+        if (!activity.isFinishing && !activity.isDestroyed) {
             objDialog.show()
-            AdmobRewardedInterstitial.loadRewardedInterAdmob(
-                activity,
-                AdIds.rewardedInterstitialAdIdAdMob,
-                object : LoadAdCallBack {
-                    override fun onLoaded() {
+        }
+
+        AdmobRewardedInterstitial.loadRewardedInterAdmob(
+            activity,
+            AdIds.rewardedInterstitialAdIdAdMob,
+            object : LoadAdCallBack {
+
+                override fun onLoaded() {
+                    if (!activity.isFinishing && !activity.isDestroyed && objDialog.isShowing) {
                         objDialog.dismiss()
-                        AdmobRewardedInterstitial.showInterstitial(activity, callBack)
                     }
 
-                    override fun onFailed() {
+                    AdmobRewardedInterstitial.showInterstitial(activity, callBack)
+                }
+
+                override fun onFailed() {
+                    if (!activity.isFinishing && !activity.isDestroyed && objDialog.isShowing) {
                         objDialog.dismiss()
-                        callBack?.onDismiss()
                     }
-                })
-        } else {
-            callBack?.onDismiss()
-        }
+
+                    callBack?.onDismiss()
+                }
+            }
+        )
     }
 }

@@ -78,39 +78,34 @@ class AppLanguageSelectorActivity : AppCompatActivity() {
         }
 
         binding.btnSave.setOnClickListener {
-//            AppOpenAdManager.showIfAvailable(this, Ads.isSplashAppOpenAdEnabled, object :
-//                InterstitialCallBack {
-//                override fun onDismiss() {
-                    if (Misc.isFirstTime(this@AppLanguageSelectorActivity)) {
-                        startActivity(
-                            Intent(
-                                this@AppLanguageSelectorActivity,
-                                OnBoardingActivity::class.java
-                            )
+            if (Misc.isFirstTime(this@AppLanguageSelectorActivity)) {
+                startActivity(
+                    Intent(
+                        this@AppLanguageSelectorActivity,
+                        OnBoardingActivity::class.java
+                    )
+                )
+            } else {
+                if (Misc.isProScreenEnabled) {
+                    startActivity(
+                        Intent(
+                            this@AppLanguageSelectorActivity,
+                            PremiumScreenActivity::class.java
+                        ).putExtra(
+                            Misc.data,
+                            Misc.data
                         )
-                    } else {
-                        if (Misc.isProScreenEnabled) {
-                            startActivity(
-                                Intent(
-                                    this@AppLanguageSelectorActivity,
-                                    PremiumScreenActivity::class.java
-                                ).putExtra(
-                                    Misc.data,
-                                    Misc.data
-                                )
-                            )
-                        } else {
-                            startActivity(
-                                Intent(
-                                    this@AppLanguageSelectorActivity,
-                                    FragmentsDashboardActivity::class.java
-                                )
-                            )
-                        }
-                    }
-                    finish()
-//                }
-//            })
+                    )
+                } else {
+                    startActivity(
+                        Intent(
+                            this@AppLanguageSelectorActivity,
+                            FragmentsDashboardActivity::class.java
+                        )
+                    )
+                }
+            }
+            finish()
         }
 
     }
