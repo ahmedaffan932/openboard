@@ -19,7 +19,7 @@
         android:layout_gravity="end"
         app:srcCompat="@drawable/ic_close_btn"
         app:tint="@color/gray_700"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/close" />
 
     <TextView
         android:id="@+id/textView6"

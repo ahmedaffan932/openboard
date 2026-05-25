@@ -55,12 +55,13 @@ class SplashScreenActivity : AppCompatActivity() {
 //        Ads.showInterstitial(this, Ads.splashInt, object : InterstitialCallBack {
 //            override fun onDismiss() {
         if (Misc.isFirstTime(this@SplashScreenActivity)) {
-            startActivity(
-                Intent(
-                    this@SplashScreenActivity,
-                    AppLanguageSelectorActivity::class.java
-                )
-            )
+            val nextIntent = if (Misc.isProScreenEnabled) {
+                Intent(this, PremiumScreenActivity::class.java)
+                    .putExtra(Misc.premiumShownBeforeLanguage, true)
+            } else {
+                Intent(this@SplashScreenActivity, AppLanguageSelectorActivity::class.java)
+            }
+            startActivity(nextIntent)
             finish()
         } else {
             if (Misc.isProScreenEnabled) {

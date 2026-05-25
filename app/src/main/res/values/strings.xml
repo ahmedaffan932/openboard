@@ -663,7 +663,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="some_error_occurred_in_translation_please_try_again_later">Some error occurred in translation please try again later.</string>
     <string name="loading_monetization">Loading Monetization.</string>
     <string name="languages">Languages</string>
-    <string name="next"><u>Next</u></string>
+    <string name="next">Next</string>
     <string name="monthly">Monthly</string>
     <string name="pre_month">Per Month</string>
     <string name="per_year">Per Year</string>
@@ -694,7 +694,92 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="start_like_a_pro">START LIKE A PRO</string>
     <string name="unlock_all_features">Unlock All Features</string>
     <string name="premium_caps">PREMIUM</string>
+    <string name="home_pro_button" translatable="false">PRO</string>
     <string name="phrases_amp_dictionary"><![CDATA[Phrases & Dictionary]]></string>
+    <string name="premium_feature_unlimited_translations">Unlimited Translations</string>
+    <string name="premium_feature_ai_chat_assistant">AI Chat Assistant</string>
+    <string name="premium_feature_camera_text_translate">Camera Text Translate</string>
+    <string name="premium_feature_all_language_keyboard">All Language Keyboard</string>
+    <string name="premium_feature_voice_translation">Voice Translation</string>
+    <string name="premium_feature_offline_language_packs">Offline Language Packs</string>
+    <string name="premium_feature_premium_phrasebook">Premium Phrasebook</string>
+    <string name="premium_feature_ad_free_experience">Ad-Free Experience</string>
+    <string name="app_language_english" translatable="false">English</string>
+    <string name="app_language_french" translatable="false">Français</string>
+    <string name="app_language_german" translatable="false">Deutsch</string>
+    <string name="app_language_spanish" translatable="false">Española</string>
+    <string name="app_language_hindi" translatable="false">हिंदी</string>
+    <string name="app_language_portuguese" translatable="false">Português</string>
+    <string name="app_language_korean" translatable="false">한국어</string>
+    <string name="app_language_italian" translatable="false">Italiana</string>
+    <string name="app_language_russian" translatable="false">Русский</string>
+    <string name="allow_access">Allow Access</string>
+    <string name="camera_permission">Camera Permission</string>
+    <string name="camera_permission_description">Keyboard Translator Pro will be able to access the camera when app is running.</string>
+    <string name="gallery">Gallery</string>
+    <string name="gallery_permission">Gallery Permission</string>
+    <string name="gallery_permission_description">Keyboard Translator Pro will be able to access and make changes to your gallery.</string>
+    <string name="gallery_button">Gallery</string>
+    <string name="close">Close</string>
+    <string name="lens">Lens</string>
+    <string name="keyboard">Keyboard</string>
+    <string name="home">Home</string>
+    <string name="phrases">Phrases</string>
+    <string name="favourite">Favourite</string>
+    <string name="keyboard_translation">Keyboard Translation</string>
+    <string name="text_translate">Text Translate</string>
+    <string name="translate_photo">Translate Photo</string>
+    <string name="voice_translation">Voice Translation</string>
+    <string name="chat_translate">Chat Translate</string>
+    <string name="translator_pro_keyboard">Translator Pro Keyboard</string>
+    <string name="enable_translator_keyboard">Enable Translator Keyboard</string>
+    <string name="switch_keyboard">Switch keyboard</string>
+    <string name="multi_translate">Multi Translate</string>
+    <string name="select_languages">Select Languages</string>
+    <string name="selected_languages">Selected Languages</string>
+    <string name="recent">Recent</string>
+    <string name="premium_basic">BASIC</string>
+    <string name="subscription_price_placeholder" translatable="false">$99</string>
+    <string name="premium_trial_price_suffix">/week after FREE 3-day trial</string>
+    <string name="premium_start_free_trial">START FREE TRIAL</string>
+    <string name="premium_trial_terms">Subscription is billed after the trial ends and will auto-renew. Cancel subscription anytime before the trial ends to avoid charges.</string>
+    <string name="loading_ad">Loading Ad...</string>
+    <string name="speak_translate_50_languages">Speak &amp; Translate in 50+ Languages.</string>
+    <string name="features">Features</string>
+    <string name="banish_ads">Banish Ads</string>
+    <string name="use_app_ad_free">Use the app ad free.</string>
+    <string name="unlock_chat_translation">Unlock Chat Translation</string>
+    <string name="unlock_chat_translation_description">Unlock the ability to chat effortlessly with anyone.</string>
+    <string name="camera_translation_description">Translate any sign or text by just taking a picture.</string>
+    <string name="unlimited_translation">Unlimited Translation</string>
+    <string name="unlimited_translation_description">Translate as much as you want, anytime.</string>
+    <string name="copied">Copied</string>
+    <string name="thanks">Thanks.</string>
+    <string name="thanks_for_your_review">Thanks for your review.</string>
+    <string name="step_1_completed">Step 1 is completed.</string>
+    <string name="history_long_press_remove">Long press to remove item from history.</string>
+    <string name="unable_to_crop">Unable to crop</string>
+    <string name="keyboard_already_enabled">Keyboard is already enabled.</string>
+    <string name="delete_question">Delete?</string>
+    <string name="remove_from_favorites_question">Remove from favorites?</string>
+    <string name="debug_settings" translatable="false">Debug settings</string>
+    <string name="step_number_1" translatable="false">1</string>
+    <string name="step_number_2" translatable="false">2</string>
+    <string name="language_selection_limit" translatable="false">9</string>
+    <string name="copied_text">Copied text</string>
+    <string name="sample_language_code_ar" translatable="false">Ar</string>
+    <string name="ad_label">Ad</string>
+    <string name="install">Install</string>
+    <string name="install_now">Install Now</string>
+    <string name="ad_body_placeholder">This is ad body area</string>
+    <string name="ad_advertiser_placeholder">Ad Advertiser</string>
+    <string name="ad_store_placeholder">Store</string>
+    <string name="ad_price_placeholder">Price</string>
+    <string name="facebook_advertiser_placeholder">Facebook advertiser</string>
+    <string name="facebook_demo_ad_placeholder">This is a Facebook demo ad</string>
+    <string name="ad_integration_placeholder">Your ad integration works.</string>
+    <string name="clipboard_empty_placeholder" translatable="false">¯\\_(ツ)_/¯</string>
+    <string name="preference_summary_value_placeholder" translatable="false">%s</string>
     <string name="per_week">Per Week</string>
     <string name="subscription_activated">Subscription Activitrd</string>
     <string name="remind_me_later"><u>Remind me later</u></string>

@@ -59,7 +59,7 @@ class HistoryAdapter(private var arr: ArrayList<TranslateHistoryClass>, val acti
 
             if (arr[position].translatedFrom == Misc.defaultLanguage) {
                 holder.tvLngFrom.text =
-                    "Detect"
+                    activity.getString(R.string.detect)
             } else {
                 holder.tvLngFrom.text = Locale(
                     arr[position].translatedFrom
@@ -91,7 +91,7 @@ class HistoryAdapter(private var arr: ArrayList<TranslateHistoryClass>, val acti
                 arr[position].translation
             )
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(activity, "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, R.string.copied, Toast.LENGTH_SHORT).show()
         }
 
         holder.btnShare.setOnClickListener {
@@ -130,7 +130,8 @@ class HistoryAdapter(private var arr: ArrayList<TranslateHistoryClass>, val acti
             )
             window.setBackgroundDrawableResource(R.color.color_nothing)
 
-            objCustomDialog.findViewById<TextView>(R.id.tvTitle).text = "Delete?"
+            objCustomDialog.findViewById<TextView>(R.id.tvTitle).text =
+                activity.getString(R.string.delete_question)
             objCustomDialog.setCancelable(true)
 
             objCustomDialog.findViewById<TextView>(R.id.btnYes).setOnClickListener {

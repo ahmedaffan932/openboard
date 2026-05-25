@@ -79,7 +79,7 @@ class LanguagesAdapter(
 
         holder.lngLayout.tag = languages.elementAt(position)
         if (languages.elementAt(position) == Misc.defaultLanguage) {
-            holder.languageName.text = "Detect"
+            holder.languageName.text = activity.getString(R.string.detect)
             holder.temp.setImageResource(Misc.getFlag(activity, "100"))
             holder.lngLayout.setOnClickListener {
                 if (lngTo) {

@@ -124,7 +124,7 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
                 "Camera Translator", binding.textViewTextTranslatedFrag.text
             )
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(this, "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.copied, Toast.LENGTH_SHORT).show()
         }
 
         binding.btnCopyInput.setOnClickListener {
@@ -134,7 +134,7 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
                 "Camera Translator", binding.etText.text
             )
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(this, "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.copied, Toast.LENGTH_SHORT).show()
         }
 
         binding.etText.doOnTextChanged { text, start, before, count ->
@@ -318,8 +318,8 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
 
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            binding.tvLanguageFrom.text = "Detect"
-            binding.textLngFrom.text = "Detect"
+            binding.tvLanguageFrom.text = getString(R.string.detect)
+            binding.textLngFrom.text = getString(R.string.detect)
             binding.flagFrom.setImageResource(Misc.getFlag(this, "100"))
         } else {
             binding.tvLanguageFrom.text = Locale(

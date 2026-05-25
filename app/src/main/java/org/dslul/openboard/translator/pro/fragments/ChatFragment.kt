@@ -82,7 +82,7 @@ class ChatFragment : Fragment() {
                 "Photo Translator", binding.tvTextTo.text
             )
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(requireActivity(), "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), R.string.copied, Toast.LENGTH_SHORT).show()
         }
 
         binding.btnCopyTextFrom.setOnClickListener {
@@ -92,7 +92,7 @@ class ChatFragment : Fragment() {
                 "Photo Translator", binding.tvTextFrom.text
             )
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(requireActivity(), "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), R.string.copied, Toast.LENGTH_SHORT).show()
         }
 
         binding.tvTextTo.setOnClickListener {

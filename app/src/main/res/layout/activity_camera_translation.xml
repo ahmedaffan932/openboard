@@ -197,7 +197,7 @@
                 android:layout_height="@dimen/_36sdp"
                 android:layout_margin="12dp"
                 android:background="@drawable/bg_rounded"
-                android:contentDescription="TODO"
+                android:contentDescription="@string/gallery_button"
                 android:padding="@dimen/fab_padding"
                 android:src="@drawable/gallery"
                 app:layout_constraintBottom_toBottomOf="parent"

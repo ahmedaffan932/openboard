@@ -112,7 +112,7 @@ class CustomExpandableListAdapter(
                     expandedListTVTranslation.text
                 )
                 clipboard.setPrimaryClip(clip)
-                Toast.makeText(activity, "Copied", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, R.string.copied, Toast.LENGTH_SHORT).show()
             }
 
             btnShareItem.setOnClickListener {

@@ -74,7 +74,7 @@ class ConversationActivity : AppCompatActivity() {
                 "Photo Translator", binding.tvTextTo.text
             )
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(this, "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.copied, Toast.LENGTH_SHORT).show()
         }
 
         binding.btnCopyTextFrom.setOnClickListener {
@@ -84,7 +84,7 @@ class ConversationActivity : AppCompatActivity() {
                 "Photo Translator", binding.tvTextFrom.text
             )
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(this, "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.copied, Toast.LENGTH_SHORT).show()
         }
 
         binding.tvTextTo.setOnClickListener {

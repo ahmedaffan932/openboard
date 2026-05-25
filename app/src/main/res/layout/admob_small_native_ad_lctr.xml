@@ -26,7 +26,7 @@
             android:paddingBottom="@dimen/_2sdp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="@id/guide_vertical"
-            android:text="AD"
+            android:text="@string/ad_label"
             android:textColor="@color/gray_700"
             android:textStyle="bold" />
 
@@ -93,7 +93,7 @@
                         android:lines="1"
                         android:singleLine="true"
                         android:visibility="gone"
-                        android:text="This is ad body area"
+                        android:text="@string/ad_body_placeholder"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_10sdp" />
 
@@ -108,7 +108,7 @@
                             android:layout_height="match_parent"
                             android:gravity="bottom"
                             android:singleLine="true"
-                            android:text="Ad Advertiser"
+                            android:text="@string/ad_advertiser_placeholder"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp" />
 
@@ -135,7 +135,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
-                            android:text="Store"
+                            android:text="@string/ad_store_placeholder"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp" />
 
@@ -144,7 +144,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_4sdp"
-                            android:text="Price"
+                            android:text="@string/ad_price_placeholder"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp" />
                     </LinearLayout>
@@ -162,7 +162,7 @@
             android:background="@drawable/bg_main_rounded"
             android:paddingVertical="@dimen/padding_10"
             android:gravity="center"
-            android:text="Install Now"
+            android:text="@string/install_now"
             android:textColor="@color/btnTextColor"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"

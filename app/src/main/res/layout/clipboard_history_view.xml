@@ -16,7 +16,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="¯\\_(ツ)_/¯"/>
+                android:text="@string/clipboard_empty_placeholder"/>
 
         <org.dslul.openboard.inputmethod.keyboard.clipboard.ClipboardHistoryRecyclerView
                 android:id="@+id/clipboard_list"

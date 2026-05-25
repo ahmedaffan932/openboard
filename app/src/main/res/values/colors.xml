@@ -117,9 +117,9 @@
 
 
     <color name="black">#121212</color>
-    <color name="accent">#5BC467</color>
+    <color name="accent">#4285F4</color>
     <color name="gray_suggestion_strip_button_color">#7F7F7F</color>
-    <color name="orange">#9CCC65</color>
+    <color name="orange">#4285F4</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray_900">#212121</color>
     <color name="gray_700">#616161</color>

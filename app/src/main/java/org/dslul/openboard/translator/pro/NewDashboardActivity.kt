@@ -69,7 +69,7 @@ class NewDashboardActivity : AppCompatActivity() {
 
         binding.btnKeyboardTranslate.setOnClickListener {
             if (isInputMethodSelected()) {
-                Toast.makeText(this, "Keyboard is already enabled.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.keyboard_already_enabled, Toast.LENGTH_SHORT).show()
             } else {
                 Ads.runWithEverySixthClickInterstitial(this) {
                     startActivity(Intent(this, EnableKeyboardActivity::class.java))

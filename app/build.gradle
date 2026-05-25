@@ -11,8 +11,8 @@ android {
         applicationId "com.translator.keyboard.translate.all.langugaes"
         minSdk 27
         targetSdk 35
-        versionCode 3
-        versionName "1.1"
+        versionCode 4
+        versionName "1.2"
     }
 
     buildTypes {
@@ -21,6 +21,9 @@ android {
             debuggable false
             jniDebuggable false
             buildConfigField "boolean", "ADS_ENABLED", "false"
+            manifestPlaceholders = [
+                    adMobApplicationId: "ca-app-pub-6806702755182088~5602915737"
+            ]
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
                     'proguard-rules.pro'
         }
@@ -29,6 +32,9 @@ android {
             minifyEnabled false
             debuggable true
             buildConfigField "boolean", "ADS_ENABLED", "true"
+            manifestPlaceholders = [
+                    adMobApplicationId: "ca-app-pub-3940256099942544~3347511713"
+            ]
         }
     }
 

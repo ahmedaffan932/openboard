@@ -108,18 +108,34 @@ class PremiumScreenActivity : AppCompatActivity() {
 
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
-        if (intent.getStringExtra(Misc.data) != null) {
+        if (intent.getStringExtra(Misc.data) != null || shouldOpenLanguageAfterPremium()) {
             closePremiumScreen()
         }
     }
 
     private fun closePremiumScreen() {
-        if (intent.getStringExtra(Misc.data) == null) {
-            finish()
-        } else {
-            startActivity(Intent(this, FragmentsDashboardActivity::class.java))
-            finish()
+        when {
+            shouldOpenLanguageAfterPremium() -> {
+                startActivity(
+                    Intent(this, AppLanguageSelectorActivity::class.java)
+                        .putExtra(Misc.premiumShownBeforeLanguage, true)
+                )
+                finish()
+            }
+
+            intent.getStringExtra(Misc.data) == null -> {
+                finish()
+            }
+
+            else -> {
+                startActivity(Intent(this, FragmentsDashboardActivity::class.java))
+                finish()
+            }
         }
+    }
+
+    private fun shouldOpenLanguageAfterPremium(): Boolean {
+        return intent.getBooleanExtra(Misc.premiumShownBeforeLanguage, false)
     }
 
     override fun onResume() {
@@ -173,7 +189,7 @@ class PremiumScreenActivity : AppCompatActivity() {
                 .build()
             InAppUtils.billingClient.launchBillingFlow(this, billingFlowParams)
         } catch (e: Exception) {
-            Toast.makeText(this, "Please check your internet and try again.", Toast.LENGTH_SHORT)
+            Toast.makeText(this, R.string.please_cehck_your_internet, Toast.LENGTH_SHORT)
                 .show()
             e.printStackTrace()
         }
@@ -194,7 +210,14 @@ class PremiumScreenActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
                 Misc.setPurchasedStatus(this, true)
-                startActivity(Intent(this, FragmentsDashboardActivity::class.java))
+                if (shouldOpenLanguageAfterPremium()) {
+                    startActivity(
+                        Intent(this, AppLanguageSelectorActivity::class.java)
+                            .putExtra(Misc.premiumShownBeforeLanguage, true)
+                    )
+                } else {
+                    startActivity(Intent(this, FragmentsDashboardActivity::class.java))
+                }
                 finish()
             }
         }

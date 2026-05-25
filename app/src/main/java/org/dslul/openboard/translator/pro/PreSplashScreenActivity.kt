@@ -202,13 +202,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
                                 }
 
                                 override fun onDismiss() {
-                                    startActivity(
-                                        Intent(
-                                            this@PreSplashScreenActivity,
-                                            AppLanguageSelectorActivity::class.java
-                                        )
-                                    )
-                                    finish()
+                                    openNextScreen()
                                 }
                             }
                         )
@@ -223,13 +217,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
                         Ads.isSplashAppOpenAdEnabled,
                         object : InterstitialCallBack {
                             override fun onDismiss() {
-                                startActivity(
-                                    Intent(
-                                        this@PreSplashScreenActivity,
-                                        AppLanguageSelectorActivity::class.java
-                                    )
-                                )
-                                finish()
+                                openNextScreen()
                             }
 
                             override fun onAdDisplayed() {
@@ -239,5 +227,19 @@ class PreSplashScreenActivity : AppCompatActivity() {
                     )
             }
         }.start()
+    }
+
+    private fun openNextScreen() {
+        if (isNextActivityStarted) return
+
+        isNextActivityStarted = true
+        val nextIntent = if (Misc.isProScreenEnabled) {
+            Intent(this, PremiumScreenActivity::class.java)
+                .putExtra(Misc.premiumShownBeforeLanguage, true)
+        } else {
+            Intent(this, AppLanguageSelectorActivity::class.java)
+        }
+        startActivity(nextIntent)
+        finish()
     }
 }

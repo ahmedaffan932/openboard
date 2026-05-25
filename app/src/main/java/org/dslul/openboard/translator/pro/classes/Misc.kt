@@ -76,6 +76,7 @@ object Misc {
     const val lngTo = "isLngTo"
     const val key: String = "key"
     const val data: String = "data"
+    const val premiumShownBeforeLanguage: String = "premiumShownBeforeLanguage"
     private const val theme = "theme"
     const val target: String = "target"
     const val source: String = "source"

@@ -33,6 +33,6 @@
         android:textStyle="bold"
         android:textSize="@dimen/_12sdp"
         android:textColor="@color/accent"
-        android:text="Ar"/>
+        android:text="@string/sample_language_code_ar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

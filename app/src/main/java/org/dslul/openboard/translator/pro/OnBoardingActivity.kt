@@ -102,21 +102,7 @@ class OnBoardingActivity : AppCompatActivity() {
                 AdIds.interstitialAdIdAdMobSplash,
                 object : InterstitialCallBack {
                     override fun onDismiss() {
-                        if (Misc.isProScreenEnabled) {
-                            startActivity(
-                                Intent(
-                                    this@OnBoardingActivity,
-                                    PremiumScreenActivity::class.java
-                                ).putExtra(Misc.data, Misc.data)
-                            )
-                        } else {
-                            startActivity(
-                                Intent(
-                                    this@OnBoardingActivity,
-                                    FragmentsDashboardActivity::class.java
-                                )
-                            )
-                        }
+                        openNextScreenAfterOnboarding()
                     }
                 })
         }
@@ -134,21 +120,7 @@ class OnBoardingActivity : AppCompatActivity() {
                     AdIds.interstitialAdIdAdMobSplash,
                     object : InterstitialCallBack {
                         override fun onDismiss() {
-                            if (Misc.isProScreenEnabled) {
-                                startActivity(
-                                    Intent(
-                                        this@OnBoardingActivity,
-                                        PremiumScreenActivity::class.java
-                                    ).putExtra(Misc.data, Misc.data)
-                                )
-                            } else {
-                                startActivity(
-                                    Intent(
-                                        this@OnBoardingActivity,
-                                        FragmentsDashboardActivity::class.java
-                                    )
-                                )
-                            }
+                            openNextScreenAfterOnboarding()
                         }
                     })
             }
@@ -179,6 +151,27 @@ class OnBoardingActivity : AppCompatActivity() {
 
                 binding.btnNext.animate().alpha(1f).setDuration(100).start()
             }.start()
+    }
+
+    private fun openNextScreenAfterOnboarding() {
+        val premiumShownBeforeLanguage =
+            intent.getBooleanExtra(Misc.premiumShownBeforeLanguage, false)
+
+        if (Misc.isProScreenEnabled && !premiumShownBeforeLanguage) {
+            startActivity(
+                Intent(
+                    this@OnBoardingActivity,
+                    PremiumScreenActivity::class.java
+                ).putExtra(Misc.data, Misc.data)
+            )
+        } else {
+            startActivity(
+                Intent(
+                    this@OnBoardingActivity,
+                    FragmentsDashboardActivity::class.java
+                )
+            )
+        }
     }
 
     private fun showOnboardingNativeForPage(position: Int) {

@@ -186,7 +186,7 @@ class PhrasesActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            binding.tvLanguageFrom.text = "English"
+            binding.tvLanguageFrom.text = getString(R.string.english)
         } else {
             binding.tvLanguageFrom.text = Locale(
                 Misc.getLanguageFrom(this)

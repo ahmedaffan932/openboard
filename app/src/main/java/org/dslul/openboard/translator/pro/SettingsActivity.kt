@@ -139,15 +139,15 @@ class SettingsActivity : AppCompatActivity() {
             }
             objRateUsDialog.findViewById<ImageView>(R.id.btnRateA).setOnClickListener {
                 objRateUsDialog.dismiss()
-                Toast.makeText(this, "Thanks.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.thanks, Toast.LENGTH_SHORT).show()
             }
             objRateUsDialog.findViewById<ImageView>(R.id.btnRateB).setOnClickListener {
                 objRateUsDialog.dismiss()
-                Toast.makeText(this, "Thanks.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.thanks, Toast.LENGTH_SHORT).show()
             }
             objRateUsDialog.findViewById<ImageView>(R.id.btnRateC).setOnClickListener {
                 objRateUsDialog.dismiss()
-                Toast.makeText(this, "Thanks.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.thanks, Toast.LENGTH_SHORT).show()
             }
             objRateUsDialog.findViewById<ImageView>(R.id.btnRateD).setOnClickListener {
                 objRateUsDialog.dismiss()

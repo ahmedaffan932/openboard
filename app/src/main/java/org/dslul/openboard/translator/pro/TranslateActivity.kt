@@ -18,6 +18,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
+import com.example.translatorguru.ads.admob.LoadAdCallBack
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
@@ -45,6 +46,7 @@ class TranslateActivity : AppCompatActivity() {
     lateinit var binding: ActivityTranslateBinding
     private var isBtnTranslateVisible = false
     private var isLLTranslateVisible = false
+    private var isTranslateNativeRequested = false
     private val lngSelectorRequestCode = 1230
     private val speechRequestCode = 0
     private var textToSpeechLngTo: TextToSpeech? = null
@@ -71,6 +73,7 @@ class TranslateActivity : AppCompatActivity() {
         if (intent.getStringExtra(Misc.key) != null) {
             if (intent.getStringExtra(Misc.key) != "") {
                 binding.etText.setText(intent.getStringExtra(Misc.key))
+                showTranslateNativeAd()
                 binding.llPBTranslateFrag.visibility = View.VISIBLE
                 Handler(Looper.getMainLooper()).postDelayed({
                     translateNow(binding.etText.text.toString())
@@ -85,18 +88,6 @@ class TranslateActivity : AppCompatActivity() {
             binding.btnTranslate.visibility = View.VISIBLE
             binding.btnClearText.visibility = View.VISIBLE
         }
-
-        Ads.loadAndShowNativeAd(
-            this,
-            AdIds.nativeAdIdAdMobTranslate,
-            Ads.translateNative,
-            binding.nativeAdFrameLayoutInBetween,
-            if (Ads.translateNative.contains("splash"))
-                R.layout.shimmer_native_splash else
-                R.layout.small_native_shimmer,
-        )
-
-
 
         if (!Misc.isNightModeOn(this)) {
             binding.etText.setTextColor(Color.BLACK)
@@ -152,7 +143,7 @@ class TranslateActivity : AppCompatActivity() {
                 "TranslatorPro", binding.textViewTextTranslatedFrag.text
             )
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(this, "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.copied, Toast.LENGTH_SHORT).show()
         }
 
         binding.btnCopyInput.setOnClickListener {
@@ -162,7 +153,7 @@ class TranslateActivity : AppCompatActivity() {
                 "TranslatorPro", binding.etText.text
             )
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(this, "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.copied, Toast.LENGTH_SHORT).show()
         }
 
         binding.etText.doOnTextChanged { text, start, before, count ->
@@ -232,6 +223,7 @@ class TranslateActivity : AppCompatActivity() {
 
         binding.btnTranslate.setOnClickListener {
             if (binding.etText.text.toString() != "") {
+                showTranslateNativeAd()
                 binding.llPBTranslateFrag.visibility = View.VISIBLE
                 Handler().postDelayed({
                     translateNow(binding.etText.text.toString())
@@ -319,6 +311,28 @@ class TranslateActivity : AppCompatActivity() {
             Firebase.analytics.logEvent("BtnSpeakInput", null)
             displaySpeechRecognizer()
         }
+    }
+
+    private fun showTranslateNativeAd() {
+        if (isTranslateNativeRequested) return
+
+        isTranslateNativeRequested = true
+        Ads.loadAndShowNativeAd(
+            activity = this,
+            adIds = AdIds.nativeAdIdAdMobTranslate,
+            remoteKey = Ads.translateNative,
+            frameLayout = binding.nativeAdFrameLayoutInBetween,
+            shimmerLayout = if (Ads.translateNative.contains("splash"))
+                R.layout.shimmer_native_splash else
+                R.layout.small_native_shimmer,
+            callBack = object : LoadAdCallBack {
+                override fun onFailed() {
+                    isTranslateNativeRequested = false
+                    binding.nativeAdFrameLayoutInBetween.removeAllViews()
+                    binding.nativeAdFrameLayoutInBetween.visibility = View.GONE
+                }
+            }
+        )
     }
 
     private fun initializeAnimation() {

@@ -120,7 +120,7 @@ class EnableKeyboardActivity : AppCompatActivity() {
 
         if (mActKeyboard) {
             binding.clEnableKeyboard.setOnClickListener {
-                Toast.makeText(this, "Step 1 is completed.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.step_1_completed, Toast.LENGTH_SHORT).show()
             }
 
             binding.clEnableKeyboard.background =

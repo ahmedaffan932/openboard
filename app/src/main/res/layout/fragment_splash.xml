@@ -23,7 +23,7 @@
         android:id="@+id/tvHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Speak &amp; Translate in 50+ Languages."
+        android:text="@string/speak_translate_50_languages"
         android:gravity="center"
         android:textSize="@dimen/_18sdp"
         android:fontFamily="@font/poppins_regular"

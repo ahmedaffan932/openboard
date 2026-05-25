@@ -86,7 +86,7 @@ class HomeFragment : Fragment() {
 
         binding.btnKeyboard.setOnClickListener {
             if (requireContext().isInputMethodSelected()) {
-                Toast.makeText(requireContext(), "Keyboard is already enabled.", Toast.LENGTH_SHORT)
+                Toast.makeText(requireContext(), R.string.keyboard_already_enabled, Toast.LENGTH_SHORT)
                     .show()
             } else {
                 Ads.runWithEverySixthClickInterstitial(requireActivity()) {

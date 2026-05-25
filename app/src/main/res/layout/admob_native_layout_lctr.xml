@@ -106,7 +106,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_main_rounded"
-                    android:text="Install"
+                    android:text="@string/install"
                     android:paddingVertical="@dimen/padding_10"
                     android:backgroundTint="@color/accent"
                     android:gravity="center"

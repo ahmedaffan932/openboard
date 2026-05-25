@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.adaptor.HistoryAdapter
 import org.dslul.openboard.translator.pro.classes.Misc
 
@@ -27,7 +28,7 @@ class DisplayHistoryActivity : AppCompatActivity() {
             binding.tvNoHistory.visibility = View.VISIBLE
             binding.animLoading.visibility = View.VISIBLE
         } else {
-            Toast.makeText(this, "Long press to Remove item from history.", Toast.LENGTH_SHORT)
+            Toast.makeText(this, R.string.history_long_press_remove, Toast.LENGTH_SHORT)
                 .show()
         }
 

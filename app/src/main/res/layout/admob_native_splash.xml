@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="AD"
+            android:text="@string/ad_label"
             android:fontFamily="@font/poppins_regular"
             android:paddingVertical="@dimen/_2sdp"
             android:paddingHorizontal="@dimen/padding"
@@ -112,7 +112,7 @@
                 android:backgroundTint="@color/accent"
                 android:gravity="center"
                 android:paddingVertical="@dimen/padding_10"
-                android:text="Install"
+                android:text="@string/install"
                 android:textColor="@color/btnTextColor"
                 android:textSize="16sp"
                 android:textStyle="bold" />

@@ -49,7 +49,7 @@ class FavoritesAdapter(private var arr: ArrayList<TranslateHistoryClass>, val ac
 
         if (arr[position].translatedFrom == Misc.defaultLanguage) {
             holder.tvLngFrom.text =
-                "Detected"
+                activity.getString(R.string.detect)
         } else {
             holder.tvLngFrom.text = Locale(
                 arr[position].translatedFrom
@@ -66,7 +66,7 @@ class FavoritesAdapter(private var arr: ArrayList<TranslateHistoryClass>, val ac
                 arr[position].translation
             )
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(activity, "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, R.string.copied, Toast.LENGTH_SHORT).show()
         }
 
         holder.btnShare.setOnClickListener {
@@ -105,7 +105,8 @@ class FavoritesAdapter(private var arr: ArrayList<TranslateHistoryClass>, val ac
             )
             window.setBackgroundDrawableResource(R.color.color_nothing)
 
-            objCustomDialog.findViewById<TextView>(R.id.tvTitle).text = "Remove from favorites?"
+            objCustomDialog.findViewById<TextView>(R.id.tvTitle).text =
+                activity.getString(R.string.remove_from_favorites_question)
             objCustomDialog.setCancelable(true)
 
             objCustomDialog.findViewById<TextView>(R.id.btnYes).setOnClickListener {

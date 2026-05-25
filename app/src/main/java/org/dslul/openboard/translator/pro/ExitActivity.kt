@@ -46,7 +46,7 @@ class ExitActivity : AppCompatActivity() {
                 if (p1 > 3f) {
                     showRateApp()
                 } else {
-                    Toast.makeText(this, "Thanks for your review.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, R.string.thanks_for_your_review, Toast.LENGTH_SHORT).show()
                 }
             }
 

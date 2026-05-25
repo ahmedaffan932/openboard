@@ -58,12 +58,12 @@ class OCRActivity : AppCompatActivity() {
             result.uriContent?.let { uri ->
                 handleSelectedImageForOCR(uri)
             } ?: run {
-                Toast.makeText(this, "Unable to crop", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.unable_to_crop, Toast.LENGTH_SHORT).show()
                 finish()
             }
 
         } else {
-            Toast.makeText(this, "Unable to crop", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.unable_to_crop, Toast.LENGTH_SHORT).show()
             finish()
         }
 

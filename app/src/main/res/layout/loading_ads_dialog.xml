@@ -23,7 +23,7 @@
         android:id="@+id/warning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Loading Ad..."
+        android:text="@string/loading_ad"
         android:textColor="@color/accent"
         android:textSize="10pt"
         android:fontFamily="@font/poppins_regular"

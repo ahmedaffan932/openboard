@@ -27,7 +27,7 @@
         android:id="@+id/img"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_margin="@dimen/fab_padding"
+        android:layout_margin="@dimen/padding"
         android:background="@drawable/bg_nothing_rounded_ripple"
         android:elevation="@dimen/less_padding"
         android:src="@drawable/ic_premium"
@@ -132,6 +132,27 @@
                     android:src="@drawable/ic_tick"
                     app:tint="#5E82B8" />
 
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="@dimen/fab_padding"
+                    android:src="@drawable/ic_tick"
+                    app:tint="#5E82B8" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="@dimen/fab_padding"
+                    android:src="@drawable/ic_tick"
+                    app:tint="#5E82B8" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="@dimen/fab_padding"
+                    android:src="@drawable/ic_tick"
+                    app:tint="#5E82B8" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -176,6 +197,27 @@
                     android:layout_marginTop="@dimen/fab_padding"
                     android:src="@drawable/ic_ask"
                     app:tint="#5E82B8" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="@dimen/fab_padding"
+                    android:src="@drawable/ic_ask"
+                    app:tint="#5E82B8" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="@dimen/fab_padding"
+                    android:src="@drawable/ic_ask"
+                    app:tint="#5E82B8" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="@dimen/fab_padding"
+                    android:src="@drawable/ic_ask"
+                    app:tint="#5E82B8" />
             </LinearLayout>
 
             <TextView
@@ -184,7 +226,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/padding"
                 android:fontFamily="@font/poppins_medium"
-                android:text="BASIC"
+                android:text="@string/premium_basic"
                 android:textColor="#808080"
                 android:textSize="@dimen/_11sdp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -217,7 +259,7 @@
                 <ImageView
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:src="@drawable/ic_speak"
+                    android:src="@drawable/ic_baseline_translate_24"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -228,7 +270,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/m_padding"
                     android:fontFamily="@font/sf_pro_bold"
-                    android:text="Speak, Translate &amp; Learn"
+                    android:text="@string/premium_feature_unlimited_translations"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -249,7 +291,7 @@
                 <ImageView
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:src="@drawable/ic_text_scan"
+                    android:src="@drawable/ic_baseline_chat_24"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -260,7 +302,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/m_padding"
                     android:fontFamily="@font/sf_pro_bold"
-                    android:text="Text &amp; Voice Modes"
+                    android:text="@string/premium_feature_ai_chat_assistant"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -270,6 +312,134 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/less_padding"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/less_padding"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ic_baseline_camera_alt_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#5E82B8" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/m_padding"
+                    android:fontFamily="@font/sf_pro_bold"
+                    android:text="@string/premium_feature_camera_text_translate"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/less_padding"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/less_padding"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ic_keyboard"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#5E82B8" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/m_padding"
+                    android:fontFamily="@font/sf_pro_bold"
+                    android:text="@string/premium_feature_all_language_keyboard"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/less_padding"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/less_padding"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ic_voice"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#5E82B8" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/m_padding"
+                    android:fontFamily="@font/sf_pro_bold"
+                    android:text="@string/premium_feature_voice_translation"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/less_padding"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/less_padding"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/outline_download_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#5E82B8" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/m_padding"
+                    android:fontFamily="@font/sf_pro_bold"
+                    android:text="@string/premium_feature_offline_language_packs"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/less_padding"
@@ -292,7 +462,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/m_padding"
                     android:fontFamily="@font/sf_pro_bold"
-                    android:text="@string/phrases_amp_dictionary"
+                    android:text="@string/premium_feature_premium_phrasebook"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -301,7 +471,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout9"
+                android:id="@+id/linearLayout13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/less_padding"
@@ -313,42 +483,10 @@
                 <ImageView
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:src="@drawable/ic_costumer_support"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="#5E82B8" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/m_padding"
-                    android:fontFamily="@font/sf_pro_bold"
-                    android:text="VIP Customer Support"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_11sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/less_padding"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingVertical="@dimen/less_padding"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
+                    android:padding="@dimen/less_padding"
                     android:src="@drawable/ic_no_ads"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:padding="@dimen/less_padding"
                     app:layout_constraintTop_toTopOf="parent"
                     app:tint="#5E82B8" />
 
@@ -357,7 +495,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/m_padding"
                     android:fontFamily="@font/sf_pro_bold"
-                    android:text="Remove Ads"
+                    android:text="@string/premium_feature_ad_free_experience"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -427,7 +565,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/less_padding"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="$99"
+                            android:text="@string/subscription_price_placeholder"
                             android:textColor="@color/text_color_premium"
                             android:textSize="@dimen/_12sdp"
                             app:layout_constraintBottom_toBottomOf="@id/img"
@@ -438,7 +576,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/padding"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="Per Month"
+                            android:text="@string/pre_month"
                             android:textColor="@color/text_color_premium"
                             android:textSize="@dimen/_12sdp"
                             app:layout_constraintBottom_toBottomOf="@id/img"
@@ -475,7 +613,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_medium"
-                android:text="/week after FREE 3-day trial"
+                android:text="@string/premium_trial_price_suffix"
                 android:textColor="#808080"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="@id/img"
@@ -494,7 +632,7 @@
             android:gravity="center"
             android:paddingHorizontal="@dimen/fab_padding"
             android:paddingVertical="@dimen/fab_padding"
-            android:text="START FREE TRIAL"
+            android:text="@string/premium_start_free_trial"
             android:textColor="@color/btnTextColor"
             android:textSize="@dimen/_14sdp"
             android:textStyle="bold"
@@ -511,7 +649,7 @@
             android:fontFamily="@font/sf_pro_medium"
             android:gravity="center"
             android:paddingHorizontal="@dimen/padding"
-            android:text="Subscription is billed after the trial ends and will auto-renew. Cancel subscription anytime before the trial ends to avoid charges."
+            android:text="@string/premium_trial_terms"
             android:textColor="#808080"
             android:textSize="@dimen/_9sdp"
             app:layout_constraintBottom_toBottomOf="parent"

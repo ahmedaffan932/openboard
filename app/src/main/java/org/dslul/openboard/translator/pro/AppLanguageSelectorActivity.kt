@@ -17,6 +17,8 @@ class AppLanguageSelectorActivity : AppCompatActivity() {
     lateinit var binding: ActivityAppLanguageSelectorBinding
     private var isLanguageSelected = false
     private var isLanguageRefreshNativeShown = false
+    private val premiumShownBeforeLanguage: Boolean
+        get() = intent.getBooleanExtra(Misc.premiumShownBeforeLanguage, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,10 +84,17 @@ class AppLanguageSelectorActivity : AppCompatActivity() {
                     Intent(
                         this@AppLanguageSelectorActivity,
                         OnBoardingActivity::class.java
-                    )
+                    ).putExtra(Misc.premiumShownBeforeLanguage, premiumShownBeforeLanguage)
                 )
             } else {
-                if (Misc.isProScreenEnabled) {
+                if (premiumShownBeforeLanguage) {
+                    startActivity(
+                        Intent(
+                            this@AppLanguageSelectorActivity,
+                            FragmentsDashboardActivity::class.java
+                        )
+                    )
+                } else if (Misc.isProScreenEnabled) {
                     startActivity(
                         Intent(
                             this@AppLanguageSelectorActivity,
