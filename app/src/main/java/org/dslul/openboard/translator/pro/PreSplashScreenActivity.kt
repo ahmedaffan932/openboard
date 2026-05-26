@@ -27,6 +27,7 @@ import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
+import org.dslul.openboard.translator.pro.classes.ads.AdsJsonConfig
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobInterstitialAd
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobNativeAds
 import org.dslul.openboard.translator.pro.classes.ads.admob.AppOpenAdManager
@@ -121,7 +122,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
                         Log.d(Misc.logKey, "Initialized")
 
 
-                        object : CountDownTimer(8000, 50) {
+                        object : CountDownTimer(Ads.splashAdTimeoutMs, 50) {
                             override fun onTick(millisUntilFinished: Long) {
                                 if (isRemoteConfigFetched) {
                                     if (!isAdRequestSent) {
@@ -190,12 +191,41 @@ class PreSplashScreenActivity : AppCompatActivity() {
         mFRC.setDefaultsAsync(R.xml.remote_config_defaults)
         mFRC.ensureInitialized()
         mFRC.fetchAndActivate().addOnCompleteListener { task ->
-            Ads.applyRemoteConfig(mFRC)
-            AdIds.applyRemoteConfig(mFRC)
+            applyAdsConfig(task.isSuccessful, mFRC)
 
             isRemoteConfigFetched = true
             logRemoteConfigEvent(task.isSuccessful)
         }
+    }
+
+    private fun applyAdsConfig(isFetchSuccessful: Boolean, remoteConfig: FirebaseRemoteConfig) {
+        val remoteJson = if (isFetchSuccessful) {
+            AdsJsonConfig.remoteJson(remoteConfig)
+        } else {
+            ""
+        }
+
+        val isRemoteJsonApplied = AdsJsonConfig.apply(remoteJson)
+        if (isRemoteJsonApplied) {
+            Log.d(Misc.logKey, "Ads JSON config applied from Remote Config.")
+            return
+        }
+
+        val isDefaultJsonApplied = AdsJsonConfig.apply(readDefaultAdsConfigJson())
+        if (isDefaultJsonApplied) {
+            Log.d(Misc.logKey, "Ads JSON config applied from bundled default file.")
+            return
+        }
+
+        Ads.applyRemoteConfig(remoteConfig)
+        AdIds.applyRemoteConfig(remoteConfig)
+        Log.d(Misc.logKey, "Ads config applied from legacy Remote Config keys.")
+    }
+
+    private fun readDefaultAdsConfigJson(): String {
+        return resources.openRawResource(R.raw.translator_pro_ads_config)
+            .bufferedReader()
+            .use { it.readText() }
     }
 
     private fun logRemoteConfigEvent(isSuccessful: Boolean) {
@@ -206,7 +236,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
     }
 
     fun startNextActivity() {
-        object : CountDownTimer(3000, 100) {
+        object : CountDownTimer(Ads.splashAppOpenWaitMs, 100) {
             override fun onTick(p0: Long) {
                 if (isAppOpenLoaded) {
                     if (!isShowingAppOpen) {

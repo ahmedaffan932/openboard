@@ -98,7 +98,7 @@ class OnBoardingActivity : AppCompatActivity() {
             Ads.loadAndShowInterstitial(
                 this,
                 Ads.dashboardInt,
-                AdIds.interstitialAdIdAdMobSplash,
+                AdIds.interstitialAdIdOB3,
                 object : InterstitialCallBack {
                     override fun onDismiss() {
                         openNextScreenAfterOnboarding()
@@ -116,7 +116,7 @@ class OnBoardingActivity : AppCompatActivity() {
                 Ads.loadAndShowInterstitial(
                     this,
                     Ads.dashboardInt,
-                    AdIds.interstitialAdIdAdMobSplash,
+                    AdIds.interstitialAdIdOB3,
                     object : InterstitialCallBack {
                         override fun onDismiss() {
                             openNextScreenAfterOnboarding()

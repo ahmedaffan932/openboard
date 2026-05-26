@@ -26,6 +26,8 @@ object Ads {
     var dashboardInt: String = "am"
     var everySixthClickInterstitial: String = "am"
     var interstitialClickFrequency: Int = 6
+    var splashAdTimeoutMs: Long = 8000
+    var splashAppOpenWaitMs: Long = 3000
 
     var isIntPreLoad: Boolean = true
     var isNativeAdPreload: Boolean = true
@@ -61,6 +63,10 @@ object Ads {
     )
 
     fun floorFor(placementKey: String): Double = remoteFloors[placementKey] ?: 0.0
+
+    fun setFloorFor(placementKey: String, floor: Double) {
+        remoteFloors[placementKey] = floor
+    }
 
     fun applyRemoteConfig(remoteConfig: FirebaseRemoteConfig) {
         isIntPreLoad = remoteConfig.booleanOrDefault("ad_interstitial_preload_enabled", isIntPreLoad)
