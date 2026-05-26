@@ -43,6 +43,8 @@ class PhrasesActivity : AppCompatActivity() {
         binding = ActivityPhrasesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        Ads.loadAndShowSharedBottomNativeAd(this, binding.nativeAdFrameLayout)
+
         setSelectedLng()
 
         binding.llLanguageFrom.setOnClickListener {

@@ -99,6 +99,7 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
         binding = ActivityPhrasebookDetailedBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        Ads.loadAndShowSharedBottomNativeAd(this, binding.nativeAdFrameLayout)
         Ads.loadAndShowInterstitial(this, Ads.phraseInt)
 
         Misc.isActivityCreatingFirstTime = true

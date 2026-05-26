@@ -16,7 +16,6 @@ import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobNativeAds
 class AppLanguageSelectorActivity : AppCompatActivity() {
     lateinit var binding: ActivityAppLanguageSelectorBinding
     private var isLanguageSelected = false
-    private var isLanguageRefreshNativeShown = false
     private val premiumShownBeforeLanguage: Boolean
         get() = intent.getBooleanExtra(Misc.premiumShownBeforeLanguage, false)
 
@@ -140,6 +139,7 @@ class AppLanguageSelectorActivity : AppCompatActivity() {
                 context = this,
                 remoteKey = Ads.appLanguagesSelectorNative,
                 amLayout = binding.nativeAdFrameLayout,
+                adIds = AdIds.nativeAdIdLanguages,
                 nextPreloadAdIds = AdIds.nativeAdIdLangRefresh
             )
             return
@@ -158,6 +158,7 @@ class AppLanguageSelectorActivity : AppCompatActivity() {
                         context = this@AppLanguageSelectorActivity,
                         remoteKey = Ads.appLanguagesSelectorNative,
                         amLayout = binding.nativeAdFrameLayout,
+                        adIds = AdIds.nativeAdIdLanguages,
                         nextPreloadAdIds = AdIds.nativeAdIdLangRefresh
                     )
                 }
@@ -170,28 +171,53 @@ class AppLanguageSelectorActivity : AppCompatActivity() {
     }
 
     private fun showLanguageRefreshNativeIfNeeded() {
-        if (!isLanguageRefreshNativeShown) {
-            isLanguageRefreshNativeShown = true
-            Log.d(Misc.logKey, "Language refresh native requested on first language tap.")
-
-            if (AdmobNativeAds.isNativeAdAvailableFor(AdIds.nativeAdIdLangRefresh)) {
-                AdmobNativeAds.showNativeAd(
-                    context = this,
-                    remoteKey = Ads.appLanguagesSelectorNative,
-                    amLayout = binding.nativeAdFrameLayout,
-                    nextPreloadAdIds = if (Misc.isFirstTime(this)) {
-                        AdIds.nativeAdIdOB1
-                    } else {
-                        null
-                    }
-                )
-            } else {
-                Log.d(Misc.logKey, "Language refresh native not available on first language tap.")
-                preloadFirstOnboardingNativeIfNeeded()
-            }
-        } else {
-            Log.d(Misc.logKey, "Language refresh native already shown, skipping.")
+        if (!Ads.appLanguagesRefreshNative.contains("am")) {
+            Log.d(Misc.logKey, "Language refresh native skipped: remote off.")
+            preloadFirstOnboardingNativeIfNeeded()
+            return
         }
+
+        Log.d(Misc.logKey, "Language refresh native requested on language tap.")
+
+        val nextPreloadAdIds = if (Misc.isFirstTime(this)) {
+            AdIds.nativeAdIdOB1
+        } else {
+            null
+        }
+
+        if (AdmobNativeAds.isNativeAdAvailableFor(AdIds.nativeAdIdLangRefresh)) {
+            AdmobNativeAds.showNativeAd(
+                context = this,
+                remoteKey = Ads.appLanguagesRefreshNative,
+                amLayout = binding.nativeAdFrameLayout,
+                adIds = AdIds.nativeAdIdLangRefresh,
+                nextPreloadAdIds = nextPreloadAdIds
+            )
+            return
+        }
+
+        AdmobNativeAds.loadAdmobNative(
+            context = this,
+            adIds = AdIds.nativeAdIdLangRefresh,
+            remoteKey = Ads.appLanguagesRefreshNative,
+            frameLayout = binding.nativeAdFrameLayout,
+            callBack = object : LoadAdCallBack {
+                override fun onLoaded() {
+                    AdmobNativeAds.showNativeAd(
+                        context = this@AppLanguageSelectorActivity,
+                        remoteKey = Ads.appLanguagesRefreshNative,
+                        amLayout = binding.nativeAdFrameLayout,
+                        adIds = AdIds.nativeAdIdLangRefresh,
+                        nextPreloadAdIds = nextPreloadAdIds
+                    )
+                }
+
+                override fun onFailed() {
+                    Log.d(Misc.logKey, "Language refresh native failed on language tap.")
+                    preloadFirstOnboardingNativeIfNeeded()
+                }
+            }
+        )
     }
 
     private fun preloadFirstOnboardingNativeIfNeeded() {

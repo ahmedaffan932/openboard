@@ -1,18 +1,23 @@
 package org.dslul.openboard.translator.pro.classes
 
 import android.app.*
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
+import org.dslul.openboard.translator.pro.OnResumeActivity
+import org.dslul.openboard.translator.pro.PreSplashScreenActivity
+import org.dslul.openboard.translator.pro.classes.ads.AdIds
+import org.dslul.openboard.translator.pro.classes.ads.Ads
+import org.dslul.openboard.translator.pro.classes.ads.admob.AppOpenAdManager
 import org.dslul.openboard.translator.pro.objects.inapp.InAppUtils.billing
 
 
 class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObserver {
     private var currentActivity: Activity? = null
+    private var hasCompletedInitialForeground = false
 
     override fun onCreate() {
         super.onCreate()
@@ -31,17 +36,22 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
     fun onMoveToForeground() {
         Misc.isAppInForeground.value = true
         Log.e(Misc.logKey, "Foreground.")
-        // Show the ad (if available) when the app moves to foreground.
-//        if (!Ads.isShowingInt) {
-//            currentActivity?.let {
-//                Log.d(Misc.logKey, "App OnResume")
-//                if (Ads.isSplashAppOpenAdEnabled && AppOpenAdManager.isAdAvailable()) {
-//                    val intent = Intent(this, OnResumeActivity::class.java)
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                    startActivity(intent)
-//                }
-//            }
-//        }
+
+        if (!hasCompletedInitialForeground) {
+            hasCompletedInitialForeground = true
+            return
+        }
+
+        val activity = currentActivity ?: return
+        if (activity is PreSplashScreenActivity || activity is OnResumeActivity) return
+        if (Ads.isShowingInt || AppOpenAdManager.isShowingAd) return
+
+        AppOpenAdManager.showIfAvailable(
+            activity = activity,
+            remoteKey = Ads.isResumeAppOpenAdEnabled,
+            adIds = AdIds.appOpenAdIdResume,
+            nextLoadAdIds = AdIds.appOpenAdIdResume
+        )
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
@@ -53,13 +63,16 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
 
     override fun onActivityStarted(activity: Activity) {
-        // Updating the currentActivity only when an ad is not showing.
-//        if (!AppOpenAdManager.isShowingAd) {
-//            currentActivity = activity
-//        }
+        if (!AppOpenAdManager.isShowingAd) {
+            currentActivity = activity
+        }
     }
 
-    override fun onActivityResumed(activity: Activity) {}
+    override fun onActivityResumed(activity: Activity) {
+        if (!AppOpenAdManager.isShowingAd) {
+            currentActivity = activity
+        }
+    }
 
     override fun onActivityPaused(activity: Activity) {}
 

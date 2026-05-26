@@ -188,6 +188,17 @@
         android:paddingHorizontal="@dimen/fab_padding"
         android:layout_marginTop="@dimen/m_padding"
         app:layout_constraintTop_toBottomOf="@+id/llLanguageSelector"
+        app:layout_constraintBottom_toTopOf="@id/nativeAdFrameLayout" />
+
+    <FrameLayout
+        android:id="@+id/nativeAdFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_220sdp"
+        android:layout_marginHorizontal="@dimen/fab_padding"
+        android:layout_marginBottom="@dimen/padding"
+        android:background="@drawable/bg_native_ad"
+        android:elevation="@dimen/padding_10"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <LinearLayout

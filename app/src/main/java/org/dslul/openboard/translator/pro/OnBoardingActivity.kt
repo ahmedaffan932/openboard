@@ -25,7 +25,6 @@ import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 class OnBoardingActivity : AppCompatActivity() {
     lateinit var binding: ActivityOnBoardingBinding
-    private val shownOnboardingNativePages = mutableSetOf<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -175,8 +174,6 @@ class OnBoardingActivity : AppCompatActivity() {
     }
 
     private fun showOnboardingNativeForPage(position: Int) {
-        if (shownOnboardingNativePages.contains(position)) return
-
         if (!Ads.onBoardingNative.contains("native")) {
             binding.nativeAdFrameLayout.removeAllViews()
             binding.nativeAdFrameLayout.visibility = View.GONE
@@ -195,13 +192,13 @@ class OnBoardingActivity : AppCompatActivity() {
         val nextAdIds = getNextOnboardingNativeAdIds(position)
 
         if (AdmobNativeAds.isNativeAdAvailableFor(adIds)) {
-            shownOnboardingNativePages.add(position)
             Log.d(Misc.logKey, "Onboarding native shown for page: $position")
 
             AdmobNativeAds.showNativeAd(
                 context = this,
                 remoteKey = Ads.onBoardingNative,
                 amLayout = binding.nativeAdFrameLayout,
+                adIds = adIds,
                 nextPreloadAdIds = nextAdIds
             )
             return
@@ -216,20 +213,17 @@ class OnBoardingActivity : AppCompatActivity() {
             frameLayout = binding.nativeAdFrameLayout,
             callBack = object : LoadAdCallBack {
                 override fun onLoaded() {
-                    if (
-                        binding.splashViewPager.currentItem != position ||
-                        shownOnboardingNativePages.contains(position)
-                    ) {
+                    if (binding.splashViewPager.currentItem != position) {
                         return
                     }
 
-                    shownOnboardingNativePages.add(position)
                     Log.d(Misc.logKey, "Onboarding native loaded and shown for page: $position")
 
                     AdmobNativeAds.showNativeAd(
                         context = this@OnBoardingActivity,
                         remoteKey = Ads.onBoardingNative,
                         amLayout = binding.nativeAdFrameLayout,
+                        adIds = adIds,
                         nextPreloadAdIds = nextAdIds
                     )
                 }

@@ -57,10 +57,6 @@ class FragmentsDashboardActivity : AppCompatActivity() {
 //        )
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
-            if (it.itemId == lastSelectedItem) {
-                return@setOnNavigationItemSelectedListener true
-            }
-
             if (isLockedPremiumItem(it.itemId) && !canOpenLockedPremiumItem(it.itemId)) {
                 showUnlockPremiumDialog(it.itemId)
                 return@setOnNavigationItemSelectedListener false
@@ -70,6 +66,17 @@ class FragmentsDashboardActivity : AppCompatActivity() {
                 openDashboardItem(it.itemId)
             }
             true
+        }
+
+        binding.bottomNavigation.setOnItemReselectedListener {
+            if (isLockedPremiumItem(it.itemId) && !canOpenLockedPremiumItem(it.itemId)) {
+                showUnlockPremiumDialog(it.itemId)
+                return@setOnItemReselectedListener
+            }
+
+            Ads.runWithEverySixthClickInterstitial(this) {
+                openDashboardItem(it.itemId)
+            }
         }
 
     }

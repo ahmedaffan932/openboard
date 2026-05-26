@@ -12,7 +12,6 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityExitBinding
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
-import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 
 class ExitActivity : AppCompatActivity() {
@@ -36,10 +35,7 @@ class ExitActivity : AppCompatActivity() {
 
 //        if(!Misc.isItemClicked) {
 //        }
-        Ads.loadAndShowNativeAd(
-            this, AdIds.nativeAdIdAdMobExit, Ads.exitNative, binding.nativeAdFrameLayout,
-            R.layout.large_native_shimmer
-        )
+        Ads.loadAndShowSharedBottomNativeAd(this, binding.nativeAdFrameLayout)
 
         binding.exitRating.onRatingBarChangeListener =
             RatingBar.OnRatingBarChangeListener { _, p1, _ ->

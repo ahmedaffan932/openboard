@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityCameraPermissionBinding
+import org.dslul.openboard.translator.pro.classes.ads.Ads
 
 class CameraPermissionActivity : AppCompatActivity() {
     lateinit var binding: ActivityCameraPermissionBinding
@@ -16,6 +17,8 @@ class CameraPermissionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCameraPermissionBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        Ads.loadAndShowSharedBottomNativeAd(this, binding.nativeAdFrameLayout)
 
         binding.btnBack.setOnClickListener {
             Toast.makeText(

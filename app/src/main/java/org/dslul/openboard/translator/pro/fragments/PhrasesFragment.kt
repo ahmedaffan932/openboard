@@ -60,6 +60,7 @@ class PhrasesFragment : Fragment() {
         binding = FragmentPhrasesBinding.inflate(layoutInflater, container, false)
         Misc.isItemClicked = true
 
+        Ads.loadAndShowSharedBottomNativeAd(requireActivity(), binding.nativeAdFrameLayout)
         init()
 
         return binding.root

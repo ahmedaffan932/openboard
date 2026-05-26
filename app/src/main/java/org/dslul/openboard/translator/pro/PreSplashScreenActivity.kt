@@ -16,7 +16,12 @@ import com.google.android.ump.ConsentInformation
 import com.google.android.ump.ConsentRequestParameters
 import com.google.android.ump.UserMessagingPlatform
 import com.google.firebase.FirebaseApp
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import org.dslul.openboard.inputmethod.latin.BuildConfig
+import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityPreSplashScreenBinding
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
@@ -140,6 +145,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
                                                             context = this@PreSplashScreenActivity,
                                                             remoteKey = Ads.splashNative,
                                                             amLayout = binding.bannerFrameLayout,
+                                                            adIds = AdIds.nativeAdIdAdMobSplash,
                                                             nextPreloadAdIds = AdIds.nativeAdIdLanguages
                                                         )
                                                     }
@@ -176,16 +182,27 @@ class PreSplashScreenActivity : AppCompatActivity() {
 
     private fun getRemoteConfigValues() {
         val mFRC = FirebaseRemoteConfig.getInstance()
-        mFRC.ensureInitialized()
-        mFRC.fetchAndActivate().addOnCompleteListener { p0 ->
-            if (p0.isSuccessful) {
-                if (false) {
-                }
+        val configSettings = FirebaseRemoteConfigSettings.Builder()
+            .setMinimumFetchIntervalInSeconds(if (BuildConfig.DEBUG) 0 else 3600)
+            .build()
 
-                isRemoteConfigFetched = true
-                mFRC.reset()
-            }
+        mFRC.setConfigSettingsAsync(configSettings)
+        mFRC.setDefaultsAsync(R.xml.remote_config_defaults)
+        mFRC.ensureInitialized()
+        mFRC.fetchAndActivate().addOnCompleteListener { task ->
+            Ads.applyRemoteConfig(mFRC)
+            AdIds.applyRemoteConfig(mFRC)
+
+            isRemoteConfigFetched = true
+            logRemoteConfigEvent(task.isSuccessful)
         }
+    }
+
+    private fun logRemoteConfigEvent(isSuccessful: Boolean) {
+        val params = Bundle().apply {
+            putString("status", if (isSuccessful) "success" else "failed")
+        }
+        Firebase.analytics.logEvent("remote_config_fetch", params)
     }
 
     fun startNextActivity() {
@@ -196,6 +213,8 @@ class PreSplashScreenActivity : AppCompatActivity() {
                         AppOpenAdManager.showIfAvailable(
                             this@PreSplashScreenActivity,
                             Ads.isSplashAppOpenAdEnabled,
+                            AdIds.appOpenAdIdSplash,
+                            AdIds.appOpenAdIdResume,
                             object : InterstitialCallBack {
                                 override fun onAdDisplayed() {
                                     isShowingAppOpen = true
@@ -215,6 +234,8 @@ class PreSplashScreenActivity : AppCompatActivity() {
                     AppOpenAdManager.showIfAvailable(
                         this@PreSplashScreenActivity,
                         Ads.isSplashAppOpenAdEnabled,
+                        AdIds.appOpenAdIdSplash,
+                        AdIds.appOpenAdIdResume,
                         object : InterstitialCallBack {
                             override fun onDismiss() {
                                 openNextScreen()
@@ -240,6 +261,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
             Intent(this, AppLanguageSelectorActivity::class.java)
         }
         startActivity(nextIntent)
+        AppOpenAdManager.loadAd(this, AdIds.appOpenAdIdResume)
         finish()
     }
 }

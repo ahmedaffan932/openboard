@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = "1.9.22"
+    ext.kotlin_version = "2.1.10"
 
     repositories {
         google()
@@ -21,6 +21,9 @@ allprojects {
 
         maven {
             url "https://artifact.bytedance.com/repository/pangle/"
+        }
+        maven {
+            url "https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea"
         }
         maven {
             url "https://jitpack.io"

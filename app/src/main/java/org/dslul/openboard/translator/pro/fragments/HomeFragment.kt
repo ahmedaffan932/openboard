@@ -303,34 +303,27 @@ class HomeFragment : Fragment() {
         }
 
 
-        if (!Ads.isDashboardNativeDisplayed) {
-            isShowingNative = true
+        isShowingNative = true
 
-            Ads.loadAndShowNativeAd(
-                activity = requireActivity(),
-                adIds = AdIds.nativeAdIdAdMobTranslate,
-                remoteKey = Ads.dashboardNative,
-                frameLayout = binding.mrecFrameLayout,
-                shimmerLayout = R.layout.large_native_shimmer,
-                callBack = object : LoadAdCallBack {
-                    override fun onLoaded() {
-                        Log.d(Misc.logKey, "Dashboard native ad loaded.")
-                    }
-
-                    override fun onFailed() {
-                        isShowingNative = false
-                        binding.mrecFrameLayout.removeAllViews()
-                        binding.mrecFrameLayout.visibility = View.GONE
-                        Log.d(Misc.logKey, "Dashboard native ad failed.")
-                    }
+        Ads.loadAndShowNativeAd(
+            activity = requireActivity(),
+            adIds = AdIds.nativeAdIdDashboard,
+            remoteKey = Ads.dashboardNative,
+            frameLayout = binding.mrecFrameLayout,
+            shimmerLayout = R.layout.large_native_shimmer,
+            callBack = object : LoadAdCallBack {
+                override fun onLoaded() {
+                    Log.d(Misc.logKey, "Dashboard native ad loaded.")
                 }
-            )
 
-            Ads.isDashboardNativeDisplayed = true
-        } else {
-            isShowingNative = false
-            binding.mrecFrameLayout.visibility = View.GONE
-        }
+                override fun onFailed() {
+                    isShowingNative = false
+                    binding.mrecFrameLayout.removeAllViews()
+                    binding.mrecFrameLayout.visibility = View.GONE
+                    Log.d(Misc.logKey, "Dashboard native ad failed.")
+                }
+            }
+        )
     }
 
     override fun onResume() {

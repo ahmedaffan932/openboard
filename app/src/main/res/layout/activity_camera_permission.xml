@@ -85,6 +85,7 @@
         android:layout_margin="@dimen/extra_padding"/>
 
     <TextView
+        android:id="@+id/tvDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/btnAllow"
@@ -96,6 +97,16 @@
         android:layout_marginTop="@dimen/fab_padding"
         android:fontFamily="@font/poppins_light"
         android:textColor="@color/gray_7070"/>
+
+    <FrameLayout
+        android:id="@+id/nativeAdFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_220sdp"
+        android:layout_margin="@dimen/padding"
+        android:background="@drawable/bg_native_ad"
+        android:elevation="@dimen/padding_10"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 

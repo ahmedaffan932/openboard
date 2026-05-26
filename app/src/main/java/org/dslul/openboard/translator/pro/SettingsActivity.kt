@@ -23,6 +23,7 @@ import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.rateUs
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.RateUsDialog
+import org.dslul.openboard.translator.pro.classes.ads.Ads
 
 class SettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingsBinding
@@ -36,6 +37,7 @@ class SettingsActivity : AppCompatActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        Ads.loadAndShowSharedBottomNativeAd(this, binding.nativeAdFrameLayout)
 
         Misc.isActivityCreatingFirstTime = true
 
