@@ -295,8 +295,9 @@
     <string name="view_all">Ver tudo</string>
     <string name="result">Resultado</string>
     <string name="your_are_using_limited_version_please_upgrade_or_watch_ad_to_use_camera_translate">Você está usando uma versão limitada, atualize ou assista ao anúncio para usar a tradução da câmera.</string>
-    <string name="upgrade_or_watch_ad">Atualize ou assista ao anúncio</string>
+    <string name="upgrade_or_watch_ad">Desbloquear acesso Premium</string>
     <string name="watch_ad">Assistir ao anúncio</string>
+    <string name="unlock_premium_feature_description">Atualize agora ou assista a um anúncio para desbloquear este recurso premium.</string>
     <string name="upgrade">Atualizar</string>
     <string name="text">Texto</string>
     <string name="translation">Tradução</string>

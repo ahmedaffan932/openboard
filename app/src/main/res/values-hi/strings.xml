@@ -263,8 +263,9 @@
     <string name="view_all">सभी देखें</string>
     <string name="result">परिणाम</string>
     <string name="your_are_using_limited_version_please_upgrade_or_watch_ad_to_use_camera_translate">आप सीमित संस्करण का उपयोग कर रहे हैं कृपया कैमरा अनुवाद का उपयोग करने के लिए अपग्रेड करें या विज्ञापन देखें।</string>
-    <string name="upgrade_or_watch_ad">अपग्रेड करें या विज्ञापन देखें</string>
+    <string name="upgrade_or_watch_ad">प्रीमियम एक्सेस अनलॉक करें</string>
     <string name="watch_ad">विज्ञापन देखें</string>
+    <string name="unlock_premium_feature_description">इस प्रीमियम सुविधा को अनलॉक करने के लिए अभी अपग्रेड करें या विज्ञापन देखें।</string>
     <string name="upgrade">अपग्रेड करें</string>
     <string name="text">टेक्स्ट</string>
     <string name="translation">अनुवाद</string>

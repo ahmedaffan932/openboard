@@ -262,8 +262,9 @@
     <string name="view_all">Alle anzeigen</string>
     <string name="result">Ergebnis</string>
     <string name="your_are_using_limited_version_please_upgrade_or_watch_ad_to_use_camera_translate">Sie verwenden eine eingeschränkte Version. Bitte führen Sie ein Upgrade durch oder sehen Sie sich die Anzeige an, um die Kameraübersetzung zu verwenden.</string>
-    <string name="upgrade_or_watch_ad">Upgrade oder Anzeige ansehen</string>
+    <string name="upgrade_or_watch_ad">Premium-Zugang freischalten</string>
     <string name="watch_ad">Anzeige ansehen</string>
+    <string name="unlock_premium_feature_description">Führen Sie jetzt ein Upgrade durch oder sehen Sie sich eine Anzeige an, um diese Premium-Funktion freizuschalten.</string>
     <string name="upgrade">Upgrade</string>
     <string name="text">Text</string>
     <string name="translation">Übersetzung</string>

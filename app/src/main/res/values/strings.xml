@@ -641,10 +641,10 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="detecting_text">Detecting Text</string>
     <string name="view_all">View all</string>
     <string name="result">Result</string>
-    <string name="your_are_using_limited_version_please_upgrade_or_watch_ad_to_use_camera_translate">Your are using limited version please upgrade or watch ad to use camera translate.</string>
-    <string name="upgrade_or_watch_ad">Upgrade or watch Ad</string>
+    <string name="your_are_using_limited_version_please_upgrade_or_watch_ad_to_use_camera_translate">Upgrade or watch an ad to use camera translation.</string>
+    <string name="upgrade_or_watch_ad">Unlock Premium Access</string>
     <string name="watch_ad">Watch Ad</string>
-    <string name="unlock_premium_feature_description">You are using the limited version. Upgrade or watch an ad to unlock this premium feature.</string>
+    <string name="unlock_premium_feature_description">Upgrade now or watch one ad to unlock this premium feature.</string>
     <string name="rewarded_ad_not_available">Rewarded ad is not available. Please try again.</string>
     <string name="upgrade">Upgrade</string>
     <string name="text">Text</string>

@@ -262,8 +262,9 @@
     <string name="view_all">모두보기</string>
     <string name="result">결과</string>
     <string name="your_are_using_limited_version_please_upgrade_or_watch_ad_to_use_camera_translate">제한된 버전을 사용하고 계시다면 카메라 번역을 사용하려면 업그레이드하거나 광고를 시청하세요.</string>
-    <string name="upgrade_or_watch_ad">업그레이드 또는 광고 시청</string>
+    <string name="upgrade_or_watch_ad">프리미엄 이용하기</string>
     <string name="watch_ad">광고 시청</string>
+    <string name="unlock_premium_feature_description">지금 업그레이드하거나 광고를 시청하여 이 프리미엄 기능을 잠금 해제하세요.</string>
     <string name="upgrade">업그레이드</string>
     <string name="text">텍스트</string>
     <string name="translation">번역</string>

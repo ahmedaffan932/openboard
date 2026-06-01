@@ -303,8 +303,9 @@
     <string name="view_all">Посмотреть все</string>
     <string name="result">Результат</string>
     <string name="your_are_using_limited_version_please_upgrade_or_watch_ad_to_use_camera_translate">Вы используете ограниченную версию, обновите ее или посмотрите рекламу, чтобы использовать функцию перевода камеры.</string>
-    <string name="upgrade_or_watch_ad">Обновите или посмотрите рекламу</string>
+    <string name="upgrade_or_watch_ad">Открыть премиум-доступ</string>
     <string name="watch_ad">Посмотреть рекламу</string>
+    <string name="unlock_premium_feature_description">Обновите сейчас или посмотрите рекламу, чтобы открыть эту премиум-функцию.</string>
     <string name="upgrade">Обновление</string>
     <string name="text">Текст</string>
     <string name="translation">Перевод</string>

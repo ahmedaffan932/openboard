@@ -1,0 +1,287 @@
+{
+  "splash_screen": {
+    "native": {
+      "is_enabled": true,
+      "reload_limit": 2,
+      "floor": 0,
+      "native_layout": "native_splash",
+      "ad_unit_ids": [
+        "ca-app-pub-6806702755182088/9757859146",
+        "ca-app-pub-6806702755182088/8444777472",
+        "ca-app-pub-6806702755182088/1959260170"
+      ]
+    },
+    "app_open": {
+      "is_enabled": true,
+      "floor": 0,
+      "ad_unit_ids": [
+        "ca-app-pub-6806702755182088/6507826922",
+        "ca-app-pub-6806702755182088/4867442196",
+        "ca-app-pub-6806702755182088/1334467852"
+      ]
+    },
+    "interstitial": {
+      "floor": 0,
+      "start_count": 1,
+      "after_start_count": 1,
+      "always_show": false,
+      "is_enabled": false,
+      "ad_unit_ids": [
+        ""
+      ]
+    },
+    "timeout": 8000,
+    "time": 3000,
+    "splash_pro_home": true
+  },
+  "app_interstitial": {
+    "floor": 0,
+    "start_count": 1,
+    "after_start_count": 6,
+    "always_show": false,
+    "is_enabled": true,
+    "ad_unit_ids": [
+      "ca-app-pub-6806702755182088/7646441361",
+      "ca-app-pub-6806702755182088/3487704500",
+      "ca-app-pub-6806702755182088/1081033010"
+    ]
+  },
+  "rewarded": {
+    "is_enabled": true,
+    "floor": 0,
+    "ad_unit_ids": [
+      "ca-app-pub-6806702755182088/8821518124",
+      "ca-app-pub-6806702755182088/4690701426",
+      "ca-app-pub-6806702755182088/7125293075"
+    ]
+  },
+  "app_open_resume": {
+    "is_enabled": true,
+    "floor": 0,
+    "ad_unit_ids": [
+      "ca-app-pub-6806702755182088/2568581914",
+      "ca-app-pub-6806702755182088/5712696562",
+      "ca-app-pub-6806702755182088/1879369129"
+    ]
+  },
+  "language_screen": {
+    "native_before_selection": {
+      "is_enabled": true,
+      "reload_limit": 2,
+      "floor": 0,
+      "native_layout": "large_hctr",
+      "ad_unit_ids": [
+        "ca-app-pub-6806702755182088/1773451556",
+        "ca-app-pub-6806702755182088/1142896162",
+        "ca-app-pub-6806702755182088/3080770150"
+      ]
+    },
+    "native_after_selection": {
+      "is_enabled": true,
+      "reload_limit": 2,
+      "floor": 0,
+      "native_layout": "large_hctr",
+      "ad_unit_ids": [
+        "ca-app-pub-6806702755182088/6940124117",
+        "ca-app-pub-6806702755182088/2889198463",
+        "ca-app-pub-6806702755182088/6203651155"
+      ]
+    },
+    "interstitial": {
+      "floor": 0,
+      "start_count": 1,
+      "after_start_count": 1,
+      "always_show": false,
+      "is_enabled": false,
+      "ad_unit_ids": [
+        ""
+      ]
+    }
+  },
+  "onboarding_1_native": {
+    "is_enabled": true,
+    "reload_limit": 2,
+    "floor": 0,
+    "native_layout": "small_hctr_native_btn_up",
+    "ad_unit_ids": [
+      "ca-app-pub-6806702755182088/2530105812",
+      "ca-app-pub-6806702755182088/5329553189",
+      "ca-app-pub-6806702755182088/2264406149"
+    ]
+  },
+  "onboarding_2_native": {
+    "is_enabled": true,
+    "reload_limit": 2,
+    "floor": 0,
+    "native_layout": "small_hctr_native_btn_up",
+    "ad_unit_ids": [
+      "ca-app-pub-6806702755182088/8061634099",
+      "ca-app-pub-6806702755182088/8535224461",
+      "ca-app-pub-6806702755182088/7590860803"
+    ]
+  },
+  "onboarding_3_native": {
+    "is_enabled": true,
+    "reload_limit": 2,
+    "floor": 0,
+    "native_layout": "small_hctr_native_btn_up",
+    "ad_unit_ids": [
+      "ca-app-pub-6806702755182088/7949953456",
+      "ca-app-pub-6806702755182088/9342666412",
+      "ca-app-pub-6806702755182088/9368313039"
+    ]
+  },
+  "started_interstitial": {
+    "floor": 0,
+    "start_count": 1,
+    "after_start_count": 1,
+    "always_show": true,
+    "is_enabled": true,
+    "ad_unit_ids": [
+      "ca-app-pub-6806702755182088/4115986356",
+      "ca-app-pub-6806702755182088/5101764962",
+      "ca-app-pub-6806702755182088/9151094727"
+    ]
+  },
+  "home_screen": {
+    "is_enabled": true,
+    "native_reload_limit": 2,
+    "floor": 0,
+    "native_layout": "large_hctr",
+    "ad_unit_ids": [
+      "ca-app-pub-6806702755182088/3383762726",
+      "ca-app-pub-6806702755182088/4718621587",
+      "ca-app-pub-6806702755182088/8466294905"
+    ]
+  },
+  "shared_bottom_native": {
+    "is_enabled": true,
+    "reload_limit": 2,
+    "floor": 0,
+    "native_layout": "large_hctr",
+    "used_on": [
+      "settings",
+      "camera_permission",
+      "phrases",
+      "phrasebook_detail",
+      "exit",
+      "translate"
+    ],
+    "ad_unit_ids": [
+      "ca-app-pub-6806702755182088/3213968225",
+      "ca-app-pub-6806702755182088/8136406273",
+      "ca-app-pub-6806702755182088/5211849712"
+    ]
+  },
+  "translate_screen": {
+    "native": {
+      "is_enabled": true,
+      "reload_limit": 2,
+      "floor": 0,
+      "native_layout": "large_hctr_bottom",
+      "ad_unit_ids": [
+        "ca-app-pub-6806702755182088/3213968225",
+        "ca-app-pub-6806702755182088/8136406273",
+        "ca-app-pub-6806702755182088/5211849712"
+      ]
+    },
+    "interstitial": {
+      "floor": 0,
+      "start_count": 1,
+      "after_start_count": 1,
+      "always_show": false,
+      "is_enabled": false,
+      "ad_unit_ids": [
+        ""
+      ]
+    }
+  },
+  "phrasebook": {
+    "native": {
+      "is_enabled": true,
+      "reload_limit": 2,
+      "floor": 0,
+      "native_layout": "large_hctr",
+      "ad_unit_ids": [
+        "ca-app-pub-6806702755182088/3213968225",
+        "ca-app-pub-6806702755182088/8136406273",
+        "ca-app-pub-6806702755182088/5211849712"
+      ]
+    },
+    "interstitial": {
+      "floor": 0,
+      "start_count": 1,
+      "after_start_count": 1,
+      "always_show": false,
+      "is_enabled": false,
+      "ad_unit_ids": [
+        ""
+      ]
+    }
+  },
+  "exit_save_native": {
+    "is_enabled": true,
+    "reload_limit": 2,
+    "floor": 0,
+    "native_layout": "large_hctr",
+    "ad_unit_ids": [
+      "ca-app-pub-6806702755182088/3213968225",
+      "ca-app-pub-6806702755182088/8136406273",
+      "ca-app-pub-6806702755182088/5211849712"
+    ]
+  },
+  "processing_native": {
+    "is_enabled": true,
+    "reload_limit": 2,
+    "floor": 0,
+    "native_layout": "large_hctr",
+    "ad_unit_ids": [
+      "ca-app-pub-6806702755182088/3213968225",
+      "ca-app-pub-6806702755182088/8136406273",
+      "ca-app-pub-6806702755182088/5211849712"
+    ]
+  },
+  "camera_translation": {
+    "interstitial": {
+      "floor": 0,
+      "start_count": 1,
+      "after_start_count": 1,
+      "always_show": false,
+      "is_enabled": false,
+      "ad_unit_ids": [
+        ""
+      ]
+    },
+    "rewarded": {
+      "is_enabled": false,
+      "floor": 0,
+      "ad_unit_ids": [
+        ""
+      ]
+    }
+  },
+  "premium_screen": {
+    "native": {
+      "is_enabled": false,
+      "reload_limit": 2,
+      "floor": 0,
+      "native_layout": "large_hctr",
+      "ad_unit_ids": [
+        ""
+      ]
+    }
+  },
+  "app_banner": {
+    "is_enabled": false,
+    "reload_limit": 2,
+    "floor": 0,
+    "ad_unit_ids": [
+      ""
+    ]
+  },
+  "global": {
+    "native_preload_enabled": true,
+    "interstitial_preload_enabled": true,
+    "interstitial_click_frequency": 6
+  }
+}
