@@ -156,6 +156,38 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvUpgradeToPremium" />
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/llMoreApps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/fab_padding"
+                android:layout_marginTop="@dimen/padding"
+                android:background="@drawable/bg_accent_bordered_less_rounded"
+                android:elevation="2dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_margin="@dimen/m_padding"
+                    app:srcCompat="@drawable/store" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/fab_padding"
+                    android:drawableTint="@color/accent"
+                    android:gravity="center_vertical"
+                    android:text="@string/more_apps"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvUpgradeToPremium" />
+            </LinearLayout>
+
             <FrameLayout
                 android:id="@+id/nativeAdFrameLayout"
                 android:layout_width="match_parent"

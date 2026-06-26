@@ -621,6 +621,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="settings">Settings</string>
     <string name="upgrade_to_pro">Upgrade to pro</string>
     <string name="share_app">Share App</string>
+    <string name="more_apps">More Apps</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="terms_of_use"><![CDATA[Terms & Conditions]]></string>
     <string name="dark_theme">Dark Theme</string>

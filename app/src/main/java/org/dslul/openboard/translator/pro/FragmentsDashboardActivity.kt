@@ -7,9 +7,13 @@ import android.graphics.drawable.ColorDrawable
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import com.example.translatorguru.ads.admob.LoadAdCallBack
 import com.google.android.gms.ads.AdView
@@ -39,6 +43,7 @@ class FragmentsDashboardActivity : AppCompatActivity() {
         setAppLanguage()
         binding = ActivityFragmentsDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        applySystemBarInsets()
 
         if(!Misc.isFirstTime(this)){
             fragmentChangeCount = 8
@@ -79,6 +84,33 @@ class FragmentsDashboardActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun applySystemBarInsets() {
+        val view = findViewById<View>(android.R.id.content)
+        val initialPaddingLeft = view.paddingLeft
+        val initialPaddingTop = view.paddingTop
+        val initialPaddingRight = view.paddingRight
+        val initialPaddingBottom = view.paddingBottom
+
+        ViewCompat.setOnApplyWindowInsetsListener(view) { v, windowInsets ->
+            val bars = windowInsets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or
+                    WindowInsetsCompat.Type.displayCutout() or
+                    WindowInsetsCompat.Type.ime()
+            )
+
+            v.updatePadding(
+                left = initialPaddingLeft + bars.left,
+                top = initialPaddingTop + bars.top,
+                right = initialPaddingRight + bars.right,
+                bottom = initialPaddingBottom + bars.bottom,
+            )
+
+            windowInsets
+        }
+
+        ViewCompat.requestApplyInsets(view)
     }
 
     private fun openDashboardItem(itemId: Int) {

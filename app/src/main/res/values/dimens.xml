@@ -9,4 +9,7 @@
     <dimen name="icon_size">37sp</dimen>
     <dimen name="border_width">2dp</dimen>
     <dimen name="m_padding">12dp</dimen>
+    <dimen name="dashboard_bottom_navigation_min_height">72dp</dimen>
+    <dimen name="dashboard_bottom_navigation_icon_size">28dp</dimen>
+    <dimen name="dashboard_bottom_navigation_item_padding">8dp</dimen>
 </resources>

@@ -64,6 +64,23 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.llMoreApps.setOnClickListener {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://play.google.com/store/apps/dev?id=6609088483229624636")
+            )
+
+            try {
+                startActivity(intent)
+            } catch (ex: ActivityNotFoundException) {
+                Toast.makeText(
+                    this,
+                    getString(R.string.sorry_some_erroe_occurred_please_try_againg),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
         binding.llTermsAndConditions.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_VIEW,
