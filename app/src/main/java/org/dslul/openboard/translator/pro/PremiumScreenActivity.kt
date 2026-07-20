@@ -67,7 +67,7 @@ class PremiumScreenActivity : AppCompatActivity() {
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("https://sites.google.com/view/elite-translator/translatorpro-term-conditions")
+                    Uri.parse("https://zyroapps.com/terms-and-conditions.php")
                 )
             )
         }
@@ -76,7 +76,7 @@ class PremiumScreenActivity : AppCompatActivity() {
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("https://sites.google.com/view/elite-translator/translatorpro")
+                    Uri.parse("https://zyroapps.com/privacy-policy.php")
                 )
             )
         }
@@ -168,7 +168,7 @@ class PremiumScreenActivity : AppCompatActivity() {
     private fun launchPurchaseFlow(productId: String) {
         try {
             val productDetails = InAppUtils.mProductDetailsList.firstOrNull { it.productId == productId }
-            val offerToken = productDetails?.subscriptionOfferDetails?.firstOrNull()?.offerToken
+            val offerToken = productDetails?.let { InAppUtils.bestOfferToken(it) }
             if (productDetails == null || offerToken == null) {
                 Toast.makeText(
                     this,

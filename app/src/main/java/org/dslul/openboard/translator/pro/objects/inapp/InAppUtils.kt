@@ -133,4 +133,17 @@ object InAppUtils {
             .orEmpty()
     }
 
+    /**
+     * Returns the offer token to use at checkout for [productDetails], preferring an offer that
+     * includes a free trial (a pricing phase priced at 0) so the advertised free trial is actually
+     * applied. Falls back to the first available offer.
+     */
+    fun bestOfferToken(productDetails: ProductDetails): String? {
+        val offers = productDetails.subscriptionOfferDetails ?: return null
+        val freeTrialOffer = offers.firstOrNull { offer ->
+            offer.pricingPhases.pricingPhaseList.any { it.priceAmountMicros == 0L }
+        }
+        return (freeTrialOffer ?: offers.firstOrNull())?.offerToken
+    }
+
 }

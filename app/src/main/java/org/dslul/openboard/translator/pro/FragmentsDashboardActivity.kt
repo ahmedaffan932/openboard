@@ -8,11 +8,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import com.example.translatorguru.ads.admob.LoadAdCallBack
@@ -87,30 +89,35 @@ class FragmentsDashboardActivity : AppCompatActivity() {
     }
 
     private fun applySystemBarInsets() {
-        val view = findViewById<View>(android.R.id.content)
-        val initialPaddingLeft = view.paddingLeft
-        val initialPaddingTop = view.paddingTop
-        val initialPaddingRight = view.paddingRight
-        val initialPaddingBottom = view.paddingBottom
+//        val view = binding.main
+//        val initialPaddingLeft = view.paddingLeft
+//        val initialPaddingTop = view.paddingTop
+//        val initialPaddingRight = view.paddingRight
+//        val initialPaddingBottom = view.paddingBottom
+//        val initialBottomNavigationMargin =
+//            (binding.bottomNavigation.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin
 
-        ViewCompat.setOnApplyWindowInsetsListener(view) { v, windowInsets ->
-            val bars = windowInsets.getInsets(
-                WindowInsetsCompat.Type.systemBars() or
-                    WindowInsetsCompat.Type.displayCutout() or
-                    WindowInsetsCompat.Type.ime()
-            )
+//        ViewCompat.setOnApplyWindowInsetsListener(view) { v, windowInsets ->
+//            val bars = windowInsets.getInsets(
+//                WindowInsetsCompat.Type.systemBars() or
+//                    WindowInsetsCompat.Type.displayCutout()
+//            )
+//
+////            v.updatePadding(
+////                left = initialPaddingLeft + bars.left,
+////                top = initialPaddingTop + bars.top,
+////                right = initialPaddingRight + bars.right,
+////                bottom = initialPaddingBottom,
+////            )
+//
+////            binding.bottomNavigation.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+////                bottomMargin = initialBottomNavigationMargin + bars.bottom
+////            }
+//
+//            windowInsets
+//        }
 
-            v.updatePadding(
-                left = initialPaddingLeft + bars.left,
-                top = initialPaddingTop + bars.top,
-                right = initialPaddingRight + bars.right,
-                bottom = initialPaddingBottom + bars.bottom,
-            )
-
-            windowInsets
-        }
-
-        ViewCompat.requestApplyInsets(view)
+//        ViewCompat.requestApplyInsets(view)
     }
 
     private fun openDashboardItem(itemId: Int) {

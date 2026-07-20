@@ -51,6 +51,7 @@
         app:itemTextColor="@drawable/bottom_navigation_text_color"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:paddingBottomSystemWindowInsets="false"
         app:menu="@menu/dashboard_bottom_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

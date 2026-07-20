@@ -59,7 +59,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.llPrivacyPolicy.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("https://sites.google.com/view/elite-translator/translatorpro")
+                Uri.parse("https://zyroapps.com/privacy-policy.php")
             )
             startActivity(intent)
         }
@@ -84,7 +84,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.llTermsAndConditions.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("https://sites.google.com/view/elite-translator/translatorpro-term-conditions")
+                Uri.parse("https://zyroapps.com/terms-and-conditions.php")
             )
             startActivity(intent)
         }
@@ -118,7 +118,7 @@ class SettingsActivity : AppCompatActivity() {
                     val sub = objEmailUsDialog.findViewById<TextView>(R.id.etTopic).text.toString()
                     val i = Intent(Intent.ACTION_SEND)
                     i.type = "message/rfc822"
-                    i.putExtra(Intent.EXTRA_EMAIL, arrayOf("elitetranslatorapps@gmail.com"))
+                    i.putExtra(Intent.EXTRA_EMAIL, arrayOf("admin.zyroapps@gmail.com"))
                     i.putExtra(
                         Intent.EXTRA_TEXT,
                         objEmailUsDialog.findViewById<EditText>(R.id.etFeedbackBody).text
