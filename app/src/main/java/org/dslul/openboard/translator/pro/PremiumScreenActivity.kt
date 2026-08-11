@@ -145,7 +145,10 @@ class PremiumScreenActivity : AppCompatActivity() {
         ) { billingResult: BillingResult, list: List<Purchase> ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                 for (purchase in list) {
-                    if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED && !purchase.isAcknowledged) {
+                    if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED
+                        && !purchase.isSuspended
+                        && !purchase.isAcknowledged
+                    ) {
                         verifySubPurchase(purchase)
                     }
                 }

@@ -7,6 +7,7 @@ import androidx.annotation.NonNull
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingResult
+import com.android.billingclient.api.PendingPurchasesParams
 import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
@@ -42,6 +43,8 @@ object InAppUtils {
             }
 
             override fun onBillingServiceDisconnected() {
+                // With enableAutoServiceReconnection(), Play Billing reconnects automatically.
+                // Keep a limited manual retry as a fallback when the network is available.
                 if (Misc.checkInternetConnection(this@establishConnection)) {
                     if (connectionFailedCount < 4)
                         establishConnection()
@@ -60,8 +63,14 @@ object InAppUtils {
 
     fun Context.billing() {
         billingClient = BillingClient.newBuilder(this)
-            .enablePendingPurchases()
-            .setListener(purchasesUpdatedListener).build()
+            .setListener(purchasesUpdatedListener)
+            .enablePendingPurchases(
+                PendingPurchasesParams.newBuilder()
+                    .enableOneTimeProducts()
+                    .build()
+            )
+            .enableAutoServiceReconnection()
+            .build()
 
         establishConnection()
     }
@@ -89,14 +98,14 @@ object InAppUtils {
 
 
         billingClient.queryProductDetailsAsync(queryProductDetailsParams) { billingResult,
-                                                                            productDetailsList ->
+                                                                            productDetailsResult ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                val productDetailsList = productDetailsResult.productDetailsList
 
                 Log.d(Misc.logKey, "productDetailsList size ${productDetailsList.size}")
                 mProductDetailsList.clear()
                 for (item in productDetailsList) {
-
-                    item?.let { mProductDetailsList.add(it) }
+                    mProductDetailsList.add(item)
                 }
 
                 val weeklyPrice = formattedPriceFor(Misc.weeklyKey)

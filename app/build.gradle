@@ -5,14 +5,14 @@ apply plugin: 'com.google.gms.google-services'
 
 android {
     namespace 'org.dslul.openboard.inputmethod.latin'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.translator.keyboard.translate.all.langugaes"
         minSdk 27
-        targetSdk 35
-        versionCode 11
-        versionName "2.0"
+        targetSdk 36
+        versionCode 12
+        versionName "2.1"
     }
 
     buildTypes {
@@ -39,16 +39,14 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        // Match Android Studio JBR (21). AGP resolves javaCompiler via toolchain
+        // from this version — VERSION_17 fails when only JDK 21 is installed.
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
     }
 
     kotlinOptions {
-        jvmTarget = "17"
-    }
-
-    kotlin {
-        jvmToolchain(17)
+        jvmTarget = "21"
     }
 
     externalNativeBuild {
@@ -125,7 +123,7 @@ dependencies {
     implementation "com.google.ads.mediation:mintegral:17.1.51.0"
     implementation "com.google.ads.mediation:vungle:7.7.4.0"
     implementation "com.google.ads.mediation:facebook:6.20.0.2"
-    implementation "com.android.billingclient:billing-ktx:7.1.1"
+    implementation "com.android.billingclient:billing-ktx:8.3.0"
     implementation "com.google.android.play:review-ktx:2.0.2"
 
     // CameraX
