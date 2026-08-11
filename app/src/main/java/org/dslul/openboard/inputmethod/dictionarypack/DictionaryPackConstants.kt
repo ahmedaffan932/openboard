@@ -12,7 +12,10 @@ object DictionaryPackConstants {
      * The root domain for the dictionary pack, upon which authorities and actions will append
      * their own distinctive strings.
      */
-    private const val DICTIONARY_DOMAIN = "org.dslul.openboard.inputmethod.dictionarypack.aosp"
+    // Scoped to the applicationId: provider authorities are unique device-wide, so a fixed
+    // domain blocks installing alongside any other build of this app. Keep in sync with
+    // the "authority" string resource and the UNKNOWN_CLIENT action in AndroidManifest.xml.
+    private const val DICTIONARY_DOMAIN = "com.translator.alllanguages.keyboardtranslator.dictionarypack"
     /**
      * Authority for the ContentProvider protocol.
      */

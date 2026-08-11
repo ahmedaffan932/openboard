@@ -8,11 +8,11 @@ android {
     compileSdk 36
 
     defaultConfig {
-        applicationId "com.translator.keyboard.translate.all.langugaes"
+        applicationId "com.translator.alllanguages.keyboardtranslator"
         minSdk 27
         targetSdk 36
-        versionCode 12
-        versionName "2.1"
+        versionCode 1
+        versionName "1.0"
     }
 
     buildTypes {

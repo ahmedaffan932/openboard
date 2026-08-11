@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- EZY Translator app logo. Vector replacement for the former logo.png (512x512). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="512dp"
+    android:height="512dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+
+    <!-- Blue backdrop -->
+    <path
+        android:pathData="M0,0h512v512h-512z"
+        android:fillColor="#0B69F5" />
+
+    <!-- Light tile (drawn first so the white tile overlaps it) -->
+    <path
+        android:pathData="M275,196h122a45,45 0 0 1 45,45v138a45,45 0 0 1 -45,45h-122a45,45 0 0 1 -45,-45v-138a45,45 0 0 1 45,-45z"
+        android:fillColor="#D2E3FA" />
+
+    <!-- 文 -->
+    <group>
+        <path
+            android:pathData="M357,238L350,262"
+            android:strokeColor="#143A80"
+            android:strokeWidth="22"
+            android:strokeLineCap="round" />
+        <path
+            android:pathData="M300,274L414,274"
+            android:strokeColor="#143A80"
+            android:strokeWidth="22"
+            android:strokeLineCap="round" />
+        <path
+            android:pathData="M386,296C370,330 340,356 300,372"
+            android:strokeColor="#143A80"
+            android:strokeWidth="22"
+            android:strokeLineCap="round" />
+        <path
+            android:pathData="M326,296C342,330 372,356 412,372"
+            android:strokeColor="#143A80"
+            android:strokeWidth="22"
+            android:strokeLineCap="round" />
+    </group>
+
+    <!-- White tile -->
+    <path
+        android:pathData="M127,114h122a45,45 0 0 1 45,45v138a45,45 0 0 1 -45,45h-122a45,45 0 0 1 -45,-45v-138a45,45 0 0 1 45,-45z"
+        android:fillColor="#FFFFFF" />
+
+    <!-- A -->
+    <group>
+        <path
+            android:pathData="M131,294L188,170L245,294"
+            android:strokeColor="#0B69F5"
+            android:strokeWidth="26"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:pathData="M153,252L223,252"
+            android:strokeColor="#0B69F5"
+            android:strokeWidth="26"
+            android:strokeLineCap="round" />
+    </group>
+
+    <!-- Top arrow: sweeps right-to-left -->
+    <group>
+        <path
+            android:pathData="M392,172C392,142 368,130 316,130"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="21"
+            android:strokeLineCap="round" />
+        <path
+            android:pathData="M338,109L314,130L338,151"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="21"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+    </group>
+
+    <!-- Bottom arrow: sweeps left-to-right -->
+    <group>
+        <path
+            android:pathData="M129,358C129,388 153,400 205,400"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="21"
+            android:strokeLineCap="round" />
+        <path
+            android:pathData="M183,379L207,400L183,421"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="21"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+    </group>
+
+</vector>

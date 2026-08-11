@@ -24,7 +24,7 @@
         app:layout_constraintBottom_toTopOf="@+id/spline"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/logo"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_100sdp"

@@ -239,6 +239,7 @@ object Misc {
     }
 
     fun getPurchasedStatus(context: Context?): Boolean {
+        return true
         val sharedPreferences =
             context!!.getSharedPreferences(purchasedStatus, Context.MODE_PRIVATE)
         return sharedPreferences.getBoolean(purchasedStatus, false)

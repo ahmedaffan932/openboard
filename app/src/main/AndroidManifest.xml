@@ -321,7 +321,7 @@
             android:name=".DictionaryPackInstallBroadcastReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="org.dslul.openboard.inputmethod.dictionarypack.aosp.UNKNOWN_CLIENT" />
+                <action android:name="com.translator.alllanguages.keyboardtranslator.dictionarypack.UNKNOWN_CLIENT" />
             </intent-filter>
         </receiver>
 

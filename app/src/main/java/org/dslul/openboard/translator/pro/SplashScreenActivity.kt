@@ -54,6 +54,13 @@ class SplashScreenActivity : AppCompatActivity() {
     private fun startNextActivity() {
 //        Ads.showInterstitial(this, Ads.splashInt, object : InterstitialCallBack {
 //            override fun onDismiss() {
+        // Purchased users skip the first-run funnel (app language + onboarding).
+        if (Misc.getPurchasedStatus(this@SplashScreenActivity)) {
+            startActivity(Intent(this@SplashScreenActivity, FragmentsDashboardActivity::class.java))
+            finish()
+            return
+        }
+
         if (Misc.isFirstTime(this@SplashScreenActivity)) {
             val nextIntent = if (Misc.isProScreenEnabled) {
                 Intent(this, PremiumScreenActivity::class.java)

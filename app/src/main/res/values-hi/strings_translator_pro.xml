@@ -14,10 +14,10 @@
     <string name="premium_feature_ad_free_experience">विज्ञापन-मुक्त अनुभव</string>
     <string name="allow_access">एक्सेस दें</string>
     <string name="camera_permission">कैमरा अनुमति</string>
-    <string name="camera_permission_description">ऐप चलते समय Keyboard Translator Pro कैमरे तक पहुंच सकेगा।</string>
+    <string name="camera_permission_description">ऐप चलते समय EZY Translator कैमरे तक पहुंच सकेगा।</string>
     <string name="gallery">गैलरी</string>
     <string name="gallery_permission">गैलरी अनुमति</string>
-    <string name="gallery_permission_description">Keyboard Translator Pro आपकी गैलरी तक पहुंच सकेगा और उसमें बदलाव कर सकेगा।</string>
+    <string name="gallery_permission_description">EZY Translator आपकी गैलरी तक पहुंच सकेगा और उसमें बदलाव कर सकेगा।</string>
     <string name="gallery_button">गैलरी</string>
     <string name="close">बंद करें</string>
     <string name="lens">लेंस</string>
@@ -30,7 +30,7 @@
     <string name="translate_photo">फोटो अनुवाद</string>
     <string name="voice_translation">वॉइस अनुवाद</string>
     <string name="chat_translate">चैट अनुवाद</string>
-    <string name="translator_pro_keyboard">Translator Pro कीबोर्ड</string>
+    <string name="translator_pro_keyboard">EZY Translator कीबोर्ड</string>
     <string name="enable_translator_keyboard">Translator कीबोर्ड चालू करें</string>
     <string name="switch_keyboard">कीबोर्ड बदलें</string>
     <string name="multi_translate">मल्टी अनुवाद</string>

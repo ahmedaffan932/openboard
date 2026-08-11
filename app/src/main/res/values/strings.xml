@@ -17,7 +17,7 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_name" translatable="false">AI Translator</string>
+    <string name="english_ime_name" translatable="false">EZY Translator</string>
     <string name="ocr_crop_done">Done</string>
     <!-- Name of Android spell checker service. AOSP(Android Open Source Project) should not be translated.
          This resource should be copied from msgid="511950477199948048" -->
@@ -444,7 +444,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Description for the option to show setup wizard application icon of this IME in the laucher. [CHAR_LIMIT=65] -->
     <string name="show_setup_wizard_icon_summary">Display application icon in the launcher</string>
     <!-- The dictionary provider application name. Visible in Settings/Applications/Manage applications. -->
-    <string name="app_name" translatable="false">Translator Pro</string>
+    <string name="app_name" translatable="false">EZY Translator</string>
     <!-- The dictionary provider ContentProvider name. Visible in Settings/Applications/Running services. -->
     <string name="dictionary_provider_name">Dictionary Provider</string>
     <!-- The dictionary provider Service name. Visible in Settings/Applications/Running services. -->
@@ -716,10 +716,10 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="app_language_russian" translatable="false">Русский</string>
     <string name="allow_access">Allow Access</string>
     <string name="camera_permission">Camera Permission</string>
-    <string name="camera_permission_description">Keyboard Translator Pro will be able to access the camera when app is running.</string>
+    <string name="camera_permission_description">EZY Translator will be able to access the camera when app is running.</string>
     <string name="gallery">Gallery</string>
     <string name="gallery_permission">Gallery Permission</string>
-    <string name="gallery_permission_description">Keyboard Translator Pro will be able to access and make changes to your gallery.</string>
+    <string name="gallery_permission_description">EZY Translator will be able to access and make changes to your gallery.</string>
     <string name="gallery_button">Gallery</string>
     <string name="close">Close</string>
     <string name="lens">Lens</string>
@@ -732,7 +732,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="translate_photo">Translate Photo</string>
     <string name="voice_translation">Voice Translation</string>
     <string name="chat_translate">Chat Translate</string>
-    <string name="translator_pro_keyboard">Translator Pro Keyboard</string>
+    <string name="translator_pro_keyboard">EZY Translator Keyboard</string>
     <string name="enable_translator_keyboard">Enable Translator Keyboard</string>
     <string name="switch_keyboard">Switch keyboard</string>
     <string name="multi_translate">Multi Translate</string>

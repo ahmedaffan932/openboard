@@ -14,10 +14,10 @@
     <string name="premium_feature_ad_free_experience">광고 없는 경험</string>
     <string name="allow_access">접근 허용</string>
     <string name="camera_permission">카메라 권한</string>
-    <string name="camera_permission_description">앱 실행 중 Keyboard Translator Pro가 카메라에 접근할 수 있습니다.</string>
+    <string name="camera_permission_description">앱 실행 중 EZY Translator가 카메라에 접근할 수 있습니다.</string>
     <string name="gallery">갤러리</string>
     <string name="gallery_permission">갤러리 권한</string>
-    <string name="gallery_permission_description">Keyboard Translator Pro가 갤러리에 접근하고 변경할 수 있습니다.</string>
+    <string name="gallery_permission_description">EZY Translator가 갤러리에 접근하고 변경할 수 있습니다.</string>
     <string name="gallery_button">갤러리</string>
     <string name="close">닫기</string>
     <string name="lens">렌즈</string>
@@ -30,7 +30,7 @@
     <string name="translate_photo">사진 번역</string>
     <string name="voice_translation">음성 번역</string>
     <string name="chat_translate">채팅 번역</string>
-    <string name="translator_pro_keyboard">Translator Pro 키보드</string>
+    <string name="translator_pro_keyboard">EZY Translator 키보드</string>
     <string name="enable_translator_keyboard">Translator 키보드 활성화</string>
     <string name="switch_keyboard">키보드 전환</string>
     <string name="multi_translate">다중 번역</string>

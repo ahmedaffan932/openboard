@@ -284,14 +284,19 @@ class PreSplashScreenActivity : AppCompatActivity() {
         if (isNextActivityStarted) return
 
         isNextActivityStarted = true
-        val nextIntent = if (Misc.isProScreenEnabled) {
-            Intent(this, PremiumScreenActivity::class.java)
-                .putExtra(Misc.premiumShownBeforeLanguage, true)
-        } else {
-            Intent(this, AppLanguageSelectorActivity::class.java)
+        val nextIntent = when {
+            // Purchased users skip the first-run funnel (app language + onboarding).
+//            Misc.getPurchasedStatus(this) ->
+//                Intent(this, FragmentsDashboardActivity::class.java)
+
+            Misc.isProScreenEnabled ->
+                Intent(this, PremiumScreenActivity::class.java)
+                    .putExtra(Misc.premiumShownBeforeLanguage, true)
+
+            else -> Intent(this, AppLanguageSelectorActivity::class.java)
         }
         startActivity(nextIntent)
-        AppOpenAdManager.loadAd(this, AdIds.appOpenAdIdResume)
+//        AppOpenAdManager.loadAd(this, AdIds.appOpenAdIdResume)
         finish()
     }
 }

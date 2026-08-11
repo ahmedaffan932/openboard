@@ -114,24 +114,28 @@ class PremiumScreenActivity : AppCompatActivity() {
     }
 
     private fun closePremiumScreen() {
-        when {
-            shouldOpenLanguageAfterPremium() -> {
-                startActivity(
+//        when {
+//            shouldOpenLanguageAfterPremium() -> {
+                // A user who already purchased skips the first-run funnel entirely.
+                val next = if (Misc.getPurchasedStatus(this)) {
+                    Intent(this, FragmentsDashboardActivity::class.java)
+                } else {
                     Intent(this, AppLanguageSelectorActivity::class.java)
                         .putExtra(Misc.premiumShownBeforeLanguage, true)
-                )
+                }
+                startActivity(next)
                 finish()
-            }
+//            }
 
-            intent.getStringExtra(Misc.data) == null -> {
-                finish()
-            }
+//            intent.getStringExtra(Misc.data) == null -> {
+//                finish()
+//            }
 
-            else -> {
-                startActivity(Intent(this, FragmentsDashboardActivity::class.java))
-                finish()
-            }
-        }
+//            else -> {
+//                startActivity(Intent(this, FragmentsDashboardActivity::class.java))
+//                finish()
+//            }
+//        }
     }
 
     private fun shouldOpenLanguageAfterPremium(): Boolean {
@@ -213,14 +217,8 @@ class PremiumScreenActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
                 Misc.setPurchasedStatus(this, true)
-                if (shouldOpenLanguageAfterPremium()) {
-                    startActivity(
-                        Intent(this, AppLanguageSelectorActivity::class.java)
-                            .putExtra(Misc.premiumShownBeforeLanguage, true)
-                    )
-                } else {
-                    startActivity(Intent(this, FragmentsDashboardActivity::class.java))
-                }
+                // Now purchased, so the first-run funnel (app language + onboarding) is skipped.
+                startActivity(Intent(this, FragmentsDashboardActivity::class.java))
                 finish()
             }
         }

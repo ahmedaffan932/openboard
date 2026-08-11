@@ -14,10 +14,10 @@
     <string name="premium_feature_ad_free_experience">Esperienza senza annunci</string>
     <string name="allow_access">Consenti accesso</string>
     <string name="camera_permission">Autorizzazione fotocamera</string>
-    <string name="camera_permission_description">Keyboard Translator Pro potrà accedere alla fotocamera mentre l’app è in esecuzione.</string>
+    <string name="camera_permission_description">EZY Translator potrà accedere alla fotocamera mentre l’app è in esecuzione.</string>
     <string name="gallery">Galleria</string>
     <string name="gallery_permission">Autorizzazione galleria</string>
-    <string name="gallery_permission_description">Keyboard Translator Pro potrà accedere alla tua galleria e apportare modifiche.</string>
+    <string name="gallery_permission_description">EZY Translator potrà accedere alla tua galleria e apportare modifiche.</string>
     <string name="gallery_button">Galleria</string>
     <string name="close">Chiudi</string>
     <string name="lens">Obiettivo</string>
@@ -30,7 +30,7 @@
     <string name="translate_photo">Traduci foto</string>
     <string name="voice_translation">Traduzione vocale</string>
     <string name="chat_translate">Traduzione chat</string>
-    <string name="translator_pro_keyboard">Tastiera Translator Pro</string>
+    <string name="translator_pro_keyboard">Tastiera EZY Translator</string>
     <string name="enable_translator_keyboard">Abilita tastiera Translator</string>
     <string name="switch_keyboard">Cambia tastiera</string>
     <string name="multi_translate">Traduzione multipla</string>

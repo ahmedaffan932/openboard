@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "138441272062",
-    "project_id": "translator-pro-5fc1f",
-    "storage_bucket": "translator-pro-5fc1f.firebasestorage.app"
+    "project_number": "837161862172",
+    "project_id": "ezy-translator",
+    "storage_bucket": "ezy-translator.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:138441272062:android:226499eb953f1dde8593af",
+        "mobilesdk_app_id": "1:837161862172:android:7f0367f583275a157ccbd9",
         "android_client_info": {
-          "package_name": "com.translator.keyboard.translate.all.langugaes"
+          "package_name": "com.translator.alllanguages.keyboardtranslator"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCAHEcwptNIgH1T55nvqJlBg2BBUUHYkDU"
+          "current_key": "AIzaSyD_RHdmpQhQOqs9l6zd0j8CNTF8Mf6JNlg"
         }
       ],
       "services": {

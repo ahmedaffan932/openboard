@@ -26,7 +26,7 @@ object Ads {
     var dashboardInt: String = "am"
     var everySixthClickInterstitial: String = "am"
     var interstitialClickFrequency: Int = 6
-    var splashAdTimeoutMs: Long = 8000
+    var splashAdTimeoutMs: Long = 3000
     var splashAppOpenWaitMs: Long = 3000
 
     var isIntPreLoad: Boolean = true

@@ -78,7 +78,15 @@ class AppLanguageSelectorActivity : AppCompatActivity() {
         }
 
         binding.btnSave.setOnClickListener {
-            if (Misc.isFirstTime(this@AppLanguageSelectorActivity)) {
+            if (Misc.getPurchasedStatus(this@AppLanguageSelectorActivity)) {
+                // Purchased users see neither onboarding nor the premium screen.
+                startActivity(
+                    Intent(
+                        this@AppLanguageSelectorActivity,
+                        FragmentsDashboardActivity::class.java
+                    )
+                )
+            } else if (Misc.isFirstTime(this@AppLanguageSelectorActivity)) {
                 startActivity(
                     Intent(
                         this@AppLanguageSelectorActivity,
