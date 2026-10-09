@@ -259,6 +259,8 @@ public final class InputLogic {
 
                 @Override
                 public void onFailed() {
+                    // Reset the strip so the Translate button stops spinning on failure.
+                    Misc.isTranslated.postValue(true);
                     Toast.makeText(context, "Sorry, check your internet or try downloading language for offline translation.", Toast.LENGTH_SHORT).show();
                 }
             });
