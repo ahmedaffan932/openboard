@@ -7,6 +7,13 @@ dashboards are configured, AdMob fetches Meta ads automatically through the adap
 - **App package:** `com.translator.keyboard.translate.all.langugaes`
 - **Adapter:** `com.google.ads.mediation:facebook:6.20.0.2` (`app/build.gradle`)
 - **Meta SDK:** `com.facebook.android:audience-network-sdk:6.20.0` (`app/build.gradle`)
+- **Meta app name:** `Translator pro`
+- **Meta App ID:** `1648900333357605`
+- **Client Token:** held separately (kept out of the repo — it is a credential, and the
+  AdMob-mediated path does not need it in the committed code).
+
+> These identifiers are entered in the **AdMob dashboard** when adding Meta as a mediation ad
+> source (see §4); they are **not** placed in the app manifest/code for the mediation path.
 
 ---
 
@@ -29,9 +36,9 @@ AdMob and Meta dashboards. The only optional code touch is pasting a test-device
 
 These are blockers — the integration cannot go live without them:
 
-1. **Meta App ID** — numeric ID from their Meta for Developers app (developers.facebook.com).
-2. **Audience Network Placement IDs** — one per ad format we mediate (banner / interstitial /
-   native / rewarded).
+1. ~~**Meta App ID**~~ — ✅ received: `1648900333357605` (+ Client Token, held separately).
+2. **Audience Network Placement IDs** — ⏳ still needed. One per ad format we mediate (banner /
+   interstitial / native / rewarded); format `1648900333357605_xxxxxxxxxx`.
 3. **Access to the Meta Business account** — add our developer account as **Admin/Developer**.
 4. **Access to the AdMob account** — to add Meta as a mediation ad source per ad unit.
 5. **Payout account on Audience Network** — the client's business/bank details (Meta pays the
@@ -124,7 +131,8 @@ Handled by `MetaAdsConsent.kt`:
 
 ## 8. Go-live checklist
 
-- [ ] Meta App ID received and added to AdMob mediation
+- [x] Meta App ID received (`1648900333357605`)
+- [ ] Meta App ID added to AdMob mediation
 - [ ] Placement IDs created and mapped to each ad unit in AdMob
 - [ ] Payout account set up on Audience Network
 - [ ] App passes Audience Network review
