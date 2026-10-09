@@ -285,6 +285,7 @@
     <string name="share_app">Partager l\'application</string>
     <string name="privacy_policy">politique de confidentialité</string>
     <string name="terms_of_use"><![CDATA[Conditions générales]]></string>
+    <string name="premium_terms_of_use"><![CDATA[Conditions d\'utilisation]]></string>
     <string name="dark_theme">Thème sombre</string>
     <string name="good">Bien</string>
     <string name="enable_keyboard">Activer le clavier</string>

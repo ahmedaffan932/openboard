@@ -1,17 +1,24 @@
 package org.dslul.openboard.translator.pro
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
@@ -31,8 +38,31 @@ import org.dslul.openboard.translator.pro.fragments.ChatFragment
 import org.dslul.openboard.translator.pro.fragments.HomeFragment
 import org.dslul.openboard.translator.pro.fragments.PhrasesFragment
 import org.dslul.openboard.translator.pro.interfaces.RewardedAdCallBack
+import org.dslul.openboard.translator.pro.notifications.PinnedNoti
+import org.dslul.openboard.translator.pro.widget.WidgetPrompt
 
 class FragmentsDashboardActivity : AppCompatActivity() {
+
+    companion object {
+        /** Opens a tab on arrival (notifications, the pinned card, launcher shortcuts). */
+        const val EXTRA_OPEN_TAB = "openTab"
+        const val TAB_CAMERA = "camera"
+        const val TAB_CHAT = "chat"
+        const val TAB_PHRASEBOOK = "phrasebook"
+
+        private const val PREFS_NOTI_PERMISSION = "notiPermission"
+        private const val KEY_ASKED = "asked"
+    }
+
+    /**
+     * Android 13+ shows no notification at all until this is granted. Asked once, on the first
+     * dashboard visit (the end of first open); the pinned Quick Access card follows the answer.
+     */
+    private val notificationPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+            if (granted) PinnedNoti.post(this)
+        }
+
     lateinit var binding: ActivityFragmentsDashboardBinding
     var lastSelectedItem = R.id.home
     var collapsibleBannerView: AdView? = null
@@ -86,6 +116,53 @@ class FragmentsDashboardActivity : AppCompatActivity() {
             }
         }
 
+        if (savedInstanceState == null) openTabFromIntent(intent)
+        requestNotificationsOrPostPinned()
+        // The "Add widget" card. Arms on the first visit, shows on a later one, so it never stacks
+        // on the notification-permission dialog this visit may raise.
+        if (savedInstanceState == null) WidgetPrompt.showIfDue(this)
+    }
+
+    /** A notification or the pinned card reached a dashboard that is already open (SINGLE_TOP). */
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        openTabFromIntent(intent)
+    }
+
+    /**
+     * The tab named by [EXTRA_OPEN_TAB], under the same premium rule as a tap on it: a locked
+     * camera or chat tab gets the upgrade / rewarded-ad offer, never the feature for free. No
+     * every-sixth-click interstitial - the entry itself was the user's tap on a notification.
+     */
+    private fun openTabFromIntent(intent: Intent) {
+        val itemId = when (intent.getStringExtra(EXTRA_OPEN_TAB)) {
+            TAB_CAMERA -> R.id.camera
+            TAB_CHAT -> R.id.chat
+            TAB_PHRASEBOOK -> R.id.phrasebook
+            else -> return
+        }
+        intent.removeExtra(EXTRA_OPEN_TAB)
+        if (isLockedPremiumItem(itemId) && !canOpenLockedPremiumItem(itemId)) {
+            showUnlockPremiumDialog(itemId)
+            return
+        }
+        binding.bottomNavigation.menu.findItem(itemId).isChecked = true
+        openDashboardItem(itemId)
+    }
+
+    private fun requestNotificationsOrPostPinned() {
+        val granted = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+            ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+            PackageManager.PERMISSION_GRANTED
+        if (granted) {
+            PinnedNoti.post(this)
+            return
+        }
+        val prefs = getSharedPreferences(PREFS_NOTI_PERMISSION, MODE_PRIVATE)
+        if (prefs.getBoolean(KEY_ASKED, false)) return
+        prefs.edit().putBoolean(KEY_ASKED, true).apply()
+        notificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
     }
 
     private fun applySystemBarInsets() {
@@ -217,11 +294,38 @@ class FragmentsDashboardActivity : AppCompatActivity() {
             loadingDialog.show()
         }
 
+        // Guard so only the first of {loaded, failed, timeout} takes effect.
+        var settled = false
+        val timeoutHandler = Handler(Looper.getMainLooper())
+        val timeoutRunnable = Runnable {
+            if (settled) return@Runnable
+            settled = true
+
+            if (!isFinishing && !isDestroyed && loadingDialog.isShowing) {
+                loadingDialog.dismiss()
+            }
+
+            // Ad did not load in time: let the user continue with the action
+            // by unlocking the feature anyway instead of leaving them stuck.
+            Log.d(Misc.logKey, "Unlock rewarded ad timed out. Unlocking feature.")
+            unlockPremiumFeatureByReward(targetItemId)
+
+            if (!isFinishing && !isDestroyed) {
+                binding.bottomNavigation.menu.findItem(targetItemId).isChecked = true
+                openDashboardItem(targetItemId)
+            }
+        }
+        timeoutHandler.postDelayed(timeoutRunnable, Ads.adLoadTimeoutMs)
+
         AdmobRewardedAds.loadRewardedAd(
             context = this,
             adIds = AdIds.rewardedAdIdUnlockPremium,
             callBack = object : LoadAdCallBack {
                 override fun onLoaded() {
+                    if (settled) return
+                    settled = true
+                    timeoutHandler.removeCallbacks(timeoutRunnable)
+
                     if (!isFinishing && !isDestroyed && loadingDialog.isShowing) {
                         loadingDialog.dismiss()
                     }
@@ -251,6 +355,10 @@ class FragmentsDashboardActivity : AppCompatActivity() {
                 }
 
                 override fun onFailed() {
+                    if (settled) return
+                    settled = true
+                    timeoutHandler.removeCallbacks(timeoutRunnable)
+
                     if (!isFinishing && !isDestroyed && loadingDialog.isShowing) {
                         loadingDialog.dismiss()
                     }

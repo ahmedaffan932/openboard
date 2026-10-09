@@ -244,6 +244,7 @@
     <string name="share_app">앱 공유</string>
     <string name="privacy_policy">개인 정보 정책</string>
     <string name="terms_of_use"><![CDATA[이용약관]]></string>
+    <string name="premium_terms_of_use"><![CDATA[이용약관]]></string>
     <string name="dark_theme">어두운 테마</string>
     <string name="good">좋은</string>
     <string name="enable_keyboard">키보드 활성화</string>

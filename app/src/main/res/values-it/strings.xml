@@ -286,6 +286,7 @@
     <string name="privacy_policy">politica sulla riservatezza</string>
 
     <string name="terms_of_use"><![CDATA[Termini e Condizioni]]></string>
+    <string name="premium_terms_of_use"><![CDATA[Termini di utilizzo]]></string>
     <string name="dark_theme">Tema scuro</string>
     <string name="good">Bene</string>
     <string name="enable_keyboard">Abilita tastiera</string>

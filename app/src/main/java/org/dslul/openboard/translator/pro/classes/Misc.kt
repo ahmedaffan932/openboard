@@ -146,9 +146,10 @@ object Misc {
         return sharedPreferences.getBoolean(theme, false)
     }
 
-    fun isFirstTime(activity: Activity): Boolean {
+    /** A Context, not an Activity: notification code (receivers, services) reads it too. */
+    fun isFirstTime(context: Context): Boolean {
         val sharedPreferences =
-            activity.getSharedPreferences("isFirstTime", Context.MODE_PRIVATE)
+            context.getSharedPreferences("isFirstTime", Context.MODE_PRIVATE)
         return sharedPreferences.getBoolean("isFirstTime", true)
     }
 

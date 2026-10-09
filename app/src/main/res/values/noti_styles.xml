@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Pinned notification tiles (noti_pinned_*.xml). SystemUI inflates those layouts, so these
+         styles hold framework attributes only - no ?attr, no app font. -->
+    <style name="PinnedTile">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/pin_tile_bg</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingStart">2dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingEnd">2dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="PinnedTileIcon">
+        <item name="android:layout_width">28dp</item>
+        <item name="android:layout_height">28dp</item>
+        <item name="android:contentDescription">@null</item>
+        <item name="android:importantForAccessibility">no</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <!-- 13sp as drawn, in a fixed 18dp slot: from API 26 a label too long for its tile (the ~59dp
+         tiles of an API 31+ phone, a long translation) shrinks to fit instead of being cut. -->
+    <style name="PinnedTileLabel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">18dp</item>
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:autoSizeMaxTextSize" tools:ignore="NewApi">13sp</item>
+        <item name="android:autoSizeMinTextSize" tools:ignore="NewApi">9sp</item>
+        <item name="android:autoSizeStepGranularity" tools:ignore="NewApi">0.5sp</item>
+        <item name="android:autoSizeTextType" tools:ignore="NewApi">uniform</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/pin_tile_content</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <!-- The collapsed row's tiles: the same tiles packed into the ~38dp an API 24-30 collapsed
+         custom view gets (layout-v31 uses the roomier PinnedTileCompact.V31 sizes for its 48dp). -->
+    <style name="PinnedTileCompact" parent="PinnedTile">
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">2dp</item>
+    </style>
+
+    <style name="PinnedTileCompactIcon" parent="PinnedTileIcon">
+        <item name="android:layout_width">18dp</item>
+        <item name="android:layout_height">18dp</item>
+    </style>
+
+    <style name="PinnedTileCompactLabel" parent="PinnedTileLabel">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:autoSizeTextType" tools:ignore="NewApi">none</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="PinnedTileCompact.V31">
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">3dp</item>
+    </style>
+
+    <style name="PinnedTileCompactIcon.V31">
+        <item name="android:layout_width">22dp</item>
+        <item name="android:layout_height">22dp</item>
+    </style>
+
+    <style name="PinnedTileCompactLabel.V31">
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <!-- Uninstall survey radio reasons (activity_uninstall_survey.xml). -->
+    <style name="UninstallReason" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!-- The "Add widget" card window (widget/WidgetPromptDialog): floating, translucent, its own
+         rounded (solid-fallback) background; the dialog swaps in the glass background at runtime. -->
+    <style name="WidgetPromptDialog" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/bg_widget_prompt_solid</item>
+        <item name="android:windowElevation">0dp</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+</resources>

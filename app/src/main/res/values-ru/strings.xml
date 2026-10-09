@@ -285,6 +285,7 @@
     <string name="share_app">Поделиться приложением</string>
     <string name="privacy_policy">политика конфиденциальности</string>
     <string name="terms_of_use"><![CDATA[Правила и условия]]></string>
+    <string name="premium_terms_of_use"><![CDATA[Условия использования]]></string>
     <string name="dark_theme">Темная тема</string>
     <string name="good">Хороший</string>
     <string name="enable_keyboard">Включить клавиатуру</string>

@@ -15,6 +15,7 @@ import com.google.android.gms.ads.AdRequest.Builder
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
+import org.dslul.openboard.translator.pro.notifications.AdClickTracker
 
 
 @SuppressLint("StaticFieldLeak")
@@ -68,6 +69,7 @@ object AdmobBannerAd {
 
                 override fun onAdOpened() {}
                 override fun onAdClicked() {
+                    AdClickTracker.notifyClick()
                 }
 
                 override fun onAdClosed() {}

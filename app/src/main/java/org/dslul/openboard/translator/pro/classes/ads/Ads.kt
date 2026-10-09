@@ -2,6 +2,8 @@ package org.dslul.openboard.translator.pro.classes.ads
 
 import android.app.Activity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
@@ -29,6 +31,10 @@ object Ads {
     var splashAdTimeoutMs: Long = 8000
     var splashAppOpenWaitMs: Long = 3000
 
+    // Max time to wait for a rewarded/interstitial ad to load before letting the
+    // user continue with their action. Treated as a load failure when it elapses.
+    var adLoadTimeoutMs: Long = 10000
+
     var isIntPreLoad: Boolean = true
     var isNativeAdPreload: Boolean = true
     var isSplashAppOpenAdEnabled: Boolean = true
@@ -42,6 +48,8 @@ object Ads {
     var cameraTranslationInt: String = "am"
     var exitInt: String = "am"
     var onBoardingNative: String = "am_small_hctr_native_btn_up"
+    var onBoardingNative2: String = "am_small_hctr_native_btn_up"
+    var onBoardingNative3: String = "am_small_hctr_native_btn_up"
     var exitNative: String = "am_large_hctr"
     var sharedBottomNative: String = "am_large_hctr"
     var phraseInt: String = "am"
@@ -83,6 +91,7 @@ object Ads {
             "interstitial_click_frequency",
             interstitialClickFrequency.toLong()
         ).toInt()
+        adLoadTimeoutMs = remoteConfig.longOrDefault("ad_load_timeout_ms", adLoadTimeoutMs)
 
         remoteFloors["splash_app_open"] = remoteConfig.doubleOrDefault(
             "splash_app_open_floor",
@@ -138,6 +147,8 @@ object Ads {
             },
             RemotePlacement("onboarding_native", isNative = true, currentValue = { onBoardingNative }) {
                 onBoardingNative = it
+                onBoardingNative2 = it
+                onBoardingNative3 = it
             },
             RemotePlacement("exit_native", isNative = true, currentValue = { exitNative }) {
                 exitNative = it
@@ -437,12 +448,34 @@ object Ads {
         isShowingInt = true
         logAdEvent("ad_interstitial_request", remoteKey, "interstitial")
 
+        // Guard so only the first of {loaded, failed, timeout} takes effect.
+        var settled = false
+        val timeoutHandler = Handler(Looper.getMainLooper())
+        val timeoutRunnable = Runnable {
+            if (settled) return@Runnable
+            settled = true
+
+            if (!activity.isFinishing && !activity.isDestroyed && objDialog.isShowing) {
+                objDialog.dismiss()
+            }
+
+            isShowingInt = false
+            Log.d(Misc.logKey, "Interstitial load timed out. Continuing with action.")
+            logAdEvent("ad_interstitial_failed", remoteKey, "interstitial", "timeout")
+            callBack?.onDismiss()
+        }
+        timeoutHandler.postDelayed(timeoutRunnable, adLoadTimeoutMs)
+
         AdmobInterstitialAd.loadInterAdmob(
             context = activity,
             adIds = adIds,
             callBack = object : LoadAdCallBack {
 
                 override fun onLoaded() {
+                    if (settled) return
+                    settled = true
+                    timeoutHandler.removeCallbacks(timeoutRunnable)
+
                     if (!activity.isFinishing && !activity.isDestroyed && objDialog.isShowing) {
                         objDialog.dismiss()
                     }
@@ -467,6 +500,10 @@ object Ads {
                 }
 
                 override fun onFailed() {
+                    if (settled) return
+                    settled = true
+                    timeoutHandler.removeCallbacks(timeoutRunnable)
+
                     if (!activity.isFinishing && !activity.isDestroyed && objDialog.isShowing) {
                         objDialog.dismiss()
                     }
@@ -509,12 +546,33 @@ object Ads {
             objDialog.show()
         }
 
+        // Guard so only the first of {loaded, failed, timeout} takes effect.
+        var settled = false
+        val timeoutHandler = Handler(Looper.getMainLooper())
+        val timeoutRunnable = Runnable {
+            if (settled) return@Runnable
+            settled = true
+
+            if (!activity.isFinishing && !activity.isDestroyed && objDialog.isShowing) {
+                objDialog.dismiss()
+            }
+
+            Log.d(Misc.logKey, "Rewarded interstitial load timed out. Continuing with action.")
+            logAdEvent("ad_rewarded_failed", remoteKey, "rewarded_interstitial", "timeout")
+            callBack?.onDismiss()
+        }
+        timeoutHandler.postDelayed(timeoutRunnable, adLoadTimeoutMs)
+
         AdmobRewardedInterstitial.loadRewardedInterAdmob(
             activity,
             AdIds.rewardedInterstitialAdIdAdMob,
             object : LoadAdCallBack {
 
                 override fun onLoaded() {
+                    if (settled) return
+                    settled = true
+                    timeoutHandler.removeCallbacks(timeoutRunnable)
+
                     logAdEvent("ad_rewarded_loaded", remoteKey, "rewarded_interstitial")
 
                     if (!activity.isFinishing && !activity.isDestroyed && objDialog.isShowing) {
@@ -525,6 +583,10 @@ object Ads {
                 }
 
                 override fun onFailed() {
+                    if (settled) return
+                    settled = true
+                    timeoutHandler.removeCallbacks(timeoutRunnable)
+
                     logAdEvent("ad_rewarded_failed", remoteKey, "rewarded_interstitial")
 
                     if (!activity.isFinishing && !activity.isDestroyed && objDialog.isShowing) {

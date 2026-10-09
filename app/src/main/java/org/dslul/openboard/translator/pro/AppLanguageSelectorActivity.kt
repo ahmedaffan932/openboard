@@ -179,7 +179,7 @@ class AppLanguageSelectorActivity : AppCompatActivity() {
 
         Log.d(Misc.logKey, "Language refresh native requested on language tap.")
 
-        val nextPreloadAdIds = if (Misc.isFirstTime(this)) {
+        val nextPreloadAdIds = if (Misc.isFirstTime(this) && Ads.onBoardingNative.contains("am")) {
             AdIds.nativeAdIdOB1
         } else {
             null
@@ -223,7 +223,7 @@ class AppLanguageSelectorActivity : AppCompatActivity() {
     private fun preloadFirstOnboardingNativeIfNeeded() {
         if (!Misc.isFirstTime(this)) return
 
-        if (!Ads.onBoardingNative.contains("native")) {
+        if (!Ads.onBoardingNative.contains("am")) {
             Log.d(Misc.logKey, "Onboarding native preload skipped from language screen.")
             return
         }

@@ -28,10 +28,18 @@ import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.classes.ads.AdsJsonConfig
+import org.dslul.openboard.translator.pro.classes.ads.MetaAdsConsent
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobInterstitialAd
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobNativeAds
 import org.dslul.openboard.translator.pro.classes.ads.admob.AppOpenAdManager
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
+import org.dslul.openboard.translator.pro.notifications.AppShortcuts
+import org.dslul.openboard.translator.pro.notifications.NotiConfig
+import org.dslul.openboard.translator.pro.notifications.NotiRouterActivity
+import org.dslul.openboard.translator.pro.notifications.NotiScheduler
+import org.dslul.openboard.translator.pro.notifications.NotiTargets
+import org.dslul.openboard.translator.pro.notifications.OnOpenReminderNoti
+import org.dslul.openboard.translator.pro.notifications.PinnedNoti
 
 
 @SuppressLint("CustomSplashScreen")
@@ -45,6 +53,8 @@ class PreSplashScreenActivity : AppCompatActivity() {
     private var isAppOpenLoaded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Read by App (no on-open reminder while the splash runs) and NotiRouterActivity.
+        Misc.isSplashScreen = true
         super.onCreate(savedInstanceState)
         setAppLanguage()
         binding = ActivityPreSplashScreenBinding.inflate(layoutInflater)
@@ -82,6 +92,11 @@ class PreSplashScreenActivity : AppCompatActivity() {
                     }
 
                     if (consentInformation.canRequestAds()) {
+                        // Set Meta Audience Network (AdMob-mediated) flags before the first ad
+                        // request. GDPR/EEA is handled automatically by the SDK via UMP's TCF
+                        // string; this covers US-state privacy, COPPA audience and Meta test mode.
+                        MetaAdsConsent.configure(this)
+
                         MobileAds.initialize(this) {}
 
                         AppOpenAdManager.loadAd(
@@ -192,6 +207,11 @@ class PreSplashScreenActivity : AppCompatActivity() {
         mFRC.ensureInitialized()
         mFRC.fetchAndActivate().addOnCompleteListener { task ->
             applyAdsConfig(task.isSuccessful, mFRC)
+            // Only keys that came from the remote are applied, so a failed fetch keeps the last
+            // values; persisted for the alarm- and keyboard-started processes that never fetch.
+            NotiConfig.applyFrom(this, mFRC)
+            NotiScheduler.scheduleAll(this)
+            AppShortcuts.setup(this)
 
             isRemoteConfigFetched = true
             logRemoteConfigEvent(task.isSuccessful)
@@ -284,7 +304,26 @@ class PreSplashScreenActivity : AppCompatActivity() {
         if (isNextActivityStarted) return
 
         isNextActivityStarted = true
-        val nextIntent = if (Misc.isProScreenEnabled) {
+        Misc.isSplashScreen = false
+
+        // A notification or a launcher shortcut named a feature: after the
+        // splash ad it opens that feature directly, skipping the premium and language screens.
+        // Never during first open - onboarding runs as usual and the target is dropped.
+        val target = intent.getStringExtra(NotiRouterActivity.EXTRA_TARGET)
+        val firstOpenDone = !Misc.isFirstTime(this)
+        if (firstOpenDone) {
+            PinnedNoti.post(this)
+            // The "quick way back" reminder; an entry that named a feature has just come from
+            // a notification or shortcut, so it gets no second notification on the way in.
+            if (target.isNullOrBlank()) OnOpenReminderNoti.show(this)
+        }
+
+        val nextIntent = if (!target.isNullOrBlank() && firstOpenDone) {
+            NotiTargets.intentFor(
+                this, target, fromEntry = true,
+                text = intent.getStringExtra(NotiRouterActivity.EXTRA_TEXT)
+            )
+        } else if (Misc.isProScreenEnabled) {
             Intent(this, PremiumScreenActivity::class.java)
                 .putExtra(Misc.premiumShownBeforeLanguage, true)
         } else {
@@ -293,5 +332,11 @@ class PreSplashScreenActivity : AppCompatActivity() {
         startActivity(nextIntent)
         AppOpenAdManager.loadAd(this, AdIds.appOpenAdIdResume)
         finish()
+    }
+
+    override fun onDestroy() {
+        // Left without handing over (Back, or the system finishing it): no splash is running.
+        if (!isNextActivityStarted) Misc.isSplashScreen = false
+        super.onDestroy()
     }
 }

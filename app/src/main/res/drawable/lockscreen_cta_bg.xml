@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Gradient CTA of the lock-screen and promo notifications' expanded views. Inflated by
+    SystemUI, so everything here stays a plain framework drawable - no AndroidX, no
+    VectorDrawableCompat, no ripple.
+
+    The gradient is layer 1 on purpose rather than the layer-list's own fill: if the glare vector
+    ever fails to render on some OEM SystemUI, the button degrades to the plain gradient, never to
+    a blank slab.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="rectangle">
+            <!-- Horizontal, left to right: the frames show no vertical change at all. -->
+            <gradient
+                android:angle="0"
+                android:endColor="@color/lockscreen_cta_end"
+                android:startColor="@color/lockscreen_cta_start"
+                android:type="linear" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+
+    <item android:drawable="@drawable/lockscreen_cta_shine" />
+
+</layer-list>

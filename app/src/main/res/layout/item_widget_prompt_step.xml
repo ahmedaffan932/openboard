@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?><!-- One numbered step of the "Add widget" card. Texts are set by WidgetPromptDialog. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_widget_prompt_step"
+    android:gravity="center_vertical"
+    android:minHeight="56dp"
+    android:orientation="horizontal"
+    android:paddingStart="8dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="12dp"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:id="@+id/widgetStepNumber"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/bg_widget_prompt_number"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:textColor="@color/widget_prompt_text"
+        android:textSize="14sp"
+        tools:text="1" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/widgetStepTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:textColor="@color/widget_prompt_text"
+            android:textSize="12sp"
+            tools:text="Long-press home screen" />
+
+        <TextView
+            android:id="@+id/widgetStepDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/poppins_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/widget_prompt_step_desc"
+            android:textSize="11sp"
+            tools:text="Tap and hold on an empty area" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/widgetStepIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:importantForAccessibility="no"
+        app:tint="@color/widget_prompt_text"
+        tools:src="@drawable/ic_widget_step_touch" />
+</LinearLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Outline for the hero in layout-v31/noti_promo_expanded.xml (Figma NotiKillApp / NotiClickAds
+    round the photo by ~8dp): android:clipToOutline clips to it from API 31. Below 31 the layout
+    uses noti_hero_*_rounded.webp, whose corners are cut out already. The fill only shows if a
+    photo fails to load.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/noti_hero_placeholder" />
+    <corners android:radius="8dp" />
+</shape>

@@ -14,6 +14,7 @@ import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
+import org.dslul.openboard.translator.pro.notifications.AdClickTracker
 
 object AdmobInterstitialAd {
 
@@ -220,6 +221,7 @@ object AdmobInterstitialAd {
 
             override fun onAdClicked() {
                 Log.d(Misc.logKey, "Interstitial clicked.")
+                AdClickTracker.notifyClick()
             }
 
             override fun onAdImpression() {

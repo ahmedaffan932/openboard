@@ -13,6 +13,7 @@ import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import java.util.Date
+import org.dslul.openboard.translator.pro.notifications.AdClickTracker
 
 object AppOpenAdManager {
 
@@ -229,6 +230,7 @@ object AppOpenAdManager {
 
             override fun onAdClicked() {
                 Log.d(Misc.logKey, "AppOpen clicked.")
+                AdClickTracker.notifyClick()
             }
 
             override fun onAdImpression() {

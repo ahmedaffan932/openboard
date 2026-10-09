@@ -244,6 +244,7 @@
     <string name="share_app">ऐप साझा करें</string>
     <string name="privacy_policy">गोपनीयता नीति</string>
     <string name="terms_of_use"><![CDATA[नियम और शर्तें]]></string>
+    <string name="premium_terms_of_use"><![CDATA[उपयोग की शर्तें]]></string>
     <string name="dark_theme">डार्क थीम</string>
     <string name="good">अच्छा</string>
     <string name="enable_keyboard">कीबोर्ड सक्षम करें</string>

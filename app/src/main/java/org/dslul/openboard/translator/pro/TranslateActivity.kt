@@ -42,6 +42,27 @@ import java.net.URLEncoder
 import java.util.*
 
 class TranslateActivity : AppCompatActivity() {
+
+    companion object {
+        /** With a launch text (Misc.key): read the translation aloud as soon as it arrives. */
+        const val EXTRA_SPEAK_RESULT = "speakResult"
+
+        /** Start speech input as soon as the screen opens (the pinned notification's Voice tile). */
+        const val EXTRA_START_VOICE = "startVoice"
+
+        /** Back opens the dashboard when this screen is the task root (a cold notification entry). */
+        const val EXTRA_DASHBOARD_ON_BACK = "createDashboardOnBack"
+
+        /**
+         * Skip the entry interstitial: a notification entry already went through the splash ad,
+         * and the pinned notification's tiles open their tool with no ad on the way.
+         */
+        const val EXTRA_SKIP_ENTRY_AD = "skipEntryAd"
+    }
+
+    /** Set from [EXTRA_SPEAK_RESULT] for the launch text only; cleared once it has spoken. */
+    private var speakLaunchTranslation = false
+
     private var isNativeAdLoaded: Boolean = false
     lateinit var binding: ActivityTranslateBinding
     private var isBtnTranslateVisible = false
@@ -64,11 +85,25 @@ class TranslateActivity : AppCompatActivity() {
 
         Misc.isItemClicked = true
 
-        Ads.loadAndShowInterstitial(
-            this,
-            Ads.translateInt,
-            AdIds.interstitialAdIdAdMobTranslate
-        )
+        if (!intent.getBooleanExtra(EXTRA_SKIP_ENTRY_AD, false)) {
+            Ads.loadAndShowInterstitial(
+                this,
+                Ads.translateInt,
+                AdIds.interstitialAdIdAdMobTranslate
+            )
+        }
+
+        // removeExtra only reaches this process's copy: after process death the system restores the
+        // screen with its original launch intent, and it must not start talking or listening on its
+        // own then.
+        speakLaunchTranslation = savedInstanceState == null &&
+            intent.getBooleanExtra(EXTRA_SPEAK_RESULT, false) &&
+            !intent.getStringExtra(Misc.key).isNullOrBlank()
+        intent.removeExtra(EXTRA_SPEAK_RESULT)
+        if (savedInstanceState == null && intent.getBooleanExtra(EXTRA_START_VOICE, false)) {
+            intent.removeExtra(EXTRA_START_VOICE)
+            displaySpeechRecognizer()
+        }
 
         if (intent.getStringExtra(Misc.key) != null) {
             if (intent.getStringExtra(Misc.key) != "") {
@@ -441,9 +476,15 @@ class TranslateActivity : AppCompatActivity() {
             override fun onTranslate(translation: String) {
                 binding.textViewTextTranslatedFrag.text = translation
                 saveInHistory(text, translation)
+                // The Daily notification's "hear it now": the launch translation is read once.
+                if (speakLaunchTranslation) {
+                    speakLaunchTranslation = false
+                    speakLngTo()
+                }
             }
 
             override fun onFailed() {
+                speakLaunchTranslation = false
                 binding.llPBTranslateFrag.visibility = View.GONE
                 Toast.makeText(
                     this@TranslateActivity,
@@ -558,6 +599,10 @@ class TranslateActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (intent.getStringExtra(Misc.data) != null) {
             startActivity(Intent(this, DashboardActivity::class.java))
+            finish()
+        } else if (isTaskRoot && intent.getBooleanExtra(EXTRA_DASHBOARD_ON_BACK, false)) {
+            // Opened straight from a notification, with nothing of the app under it.
+            startActivity(Intent(this, FragmentsDashboardActivity::class.java))
             finish()
         } else {
             super.onBackPressed()

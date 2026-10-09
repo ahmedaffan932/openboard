@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Expanded Kill-App, Clicked-Ads and Win-Back notifications, API 31+. Same card as
+    layout/noti_promo_expanded.xml (read its notes) except the photo: android:clipToOutline is an
+    XML attribute from API 31, so here the unrounded art is clipped to noti_promo_hero_frame and
+    may centerCrop - full width, a sliver lost top and bottom when the height cap bites.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvNotiTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/noti_title"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvNotiDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:textColor="@color/noti_desc"
+        android:textSize="13sp" />
+
+    <ImageView
+        android:id="@+id/ivNotiHero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:background="@drawable/noti_promo_hero_frame"
+        android:clipToOutline="true"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
+        android:maxHeight="@dimen/noti_promo_hero_max_height"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/btnNotiCta"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/lockscreen_cta_bg"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textColor="@color/lockscreen_cta_text"
+        android:textSize="14sp" />
+
+</LinearLayout>

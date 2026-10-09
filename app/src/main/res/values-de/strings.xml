@@ -244,6 +244,7 @@
     <string name="share_app">App teilen</string>
     <string name="privacy_policy">Datenschutzrichtlinie</string>
     <string name="terms_of_use"><![CDATA[Allgemeine Geschäftsbedingungen]]></string>
+    <string name="premium_terms_of_use"><![CDATA[Nutzungsbedingungen]]></string>
     <string name="dark_theme">Dunkles Design</string>
     <string name="good">Gut</string>
     <string name="enable_keyboard">Tastatur aktivieren</string>

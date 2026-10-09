@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Cap on the lock-screen notification's hero (noti_lockscreen_expanded.xml, both API
+         variants), sized so header + hero + CTA stay inside the expanded custom-view budget. -->
+    <dimen name="noti_ls_hero_max_height">128dp</dimen>
+    <!-- Hero cap of the Win-Back / Kill-App / Clicked-Ads notifications (noti_promo_expanded.xml):
+         the frames' 268x115 art keeps its aspect up to ~320dp of content width. -->
+    <dimen name="noti_promo_hero_max_height">136dp</dimen>
+
+    <!-- "Add widget" prompt card (widget/WidgetPromptDialog): the card's rounded outline + blur
+         bounds, its side gutter on the frame, its cap width, and the window blur radius. -->
+    <dimen name="widget_prompt_corner_radius">20dp</dimen>
+    <dimen name="widget_prompt_side_margin">32dp</dimen>
+    <dimen name="widget_prompt_max_width">360dp</dimen>
+    <dimen name="widget_prompt_blur_radius">24dp</dimen>
+</resources>

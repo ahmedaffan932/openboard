@@ -12,6 +12,7 @@ import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.interfaces.RewardedAdCallBack
+import org.dslul.openboard.translator.pro.notifications.AdClickTracker
 
 object AdmobRewardedAds {
     private var rewardedAd: RewardedAd? = null
@@ -132,6 +133,10 @@ object AdmobRewardedAds {
         var rewardEarned = false
 
         adToShow.fullScreenContentCallback = object : FullScreenContentCallback() {
+            override fun onAdClicked() {
+                AdClickTracker.notifyClick()
+            }
+
             override fun onAdShowedFullScreenContent() {
                 Log.d(Misc.logKey, "Rewarded Ad showed fullscreen content.")
                 callBack.onAdDisplayed()

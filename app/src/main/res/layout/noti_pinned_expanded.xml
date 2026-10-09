@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Expanded pinned notification (Figma NotiPinNoti): "Translate in one tap!", one line of copy,
+    then four tiles - Translate, Voice, Camera, File - each opening its tool through
+    QuickAccessActivity. Android draws the header ("<app> • Quick Access") and the card.
+
+    Measured off the frame at 1:1 (296dp content column): title Roboto Bold 15 straight over body
+    Roboto 13, in the frame's own greys (pin_noti_*), 10dp to the tiles; tiles 68x61dp with 8dp
+    gaps and 8dp corners, a 28dp glyph 6dp from the top and a 13sp medium label under it, 8dp from
+    the bottom. The tiles share the width, so they narrow to ~59dp in the ~260dp column of API 31+,
+    where a long label shrinks to fit (PinnedTileLabel).
+
+    Inflated by SystemUI: framework views and attributes only, system fonts only, no ?attr. Texts are
+    set from code in the app's own language (a @string here would follow the system's). The glyphs
+    carry their day/night colours themselves (pin_ic_*), so nothing here tints them.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvNotiTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/pin_noti_title"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        tools:text="Translate in one tap!" />
+
+    <TextView
+        android:id="@+id/tvNotiDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/pin_noti_desc"
+        android:textSize="13sp"
+        tools:text="Pick a tool and go." />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/pinTileTranslate"
+            style="@style/PinnedTile">
+
+            <ImageView
+                style="@style/PinnedTileIcon"
+                android:src="@drawable/pin_ic_translate" />
+
+            <TextView
+                android:id="@+id/pinLabelTranslate"
+                style="@style/PinnedTileLabel"
+                tools:text="Translate" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pinTileVoice"
+            style="@style/PinnedTile"
+            android:layout_marginStart="8dp">
+
+            <ImageView
+                style="@style/PinnedTileIcon"
+                android:src="@drawable/pin_ic_voice" />
+
+            <TextView
+                android:id="@+id/pinLabelVoice"
+                style="@style/PinnedTileLabel"
+                tools:text="Voice" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pinTileCamera"
+            style="@style/PinnedTile"
+            android:layout_marginStart="8dp">
+
+            <ImageView
+                style="@style/PinnedTileIcon"
+                android:src="@drawable/pin_ic_camera" />
+
+            <TextView
+                android:id="@+id/pinLabelCamera"
+                style="@style/PinnedTileLabel"
+                tools:text="Camera" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pinTileFile"
+            style="@style/PinnedTile"
+            android:layout_marginStart="8dp">
+
+            <ImageView
+                style="@style/PinnedTileIcon"
+                android:src="@drawable/pin_ic_file" />
+
+            <TextView
+                android:id="@+id/pinLabelFile"
+                style="@style/PinnedTileLabel"
+                tools:text="File" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

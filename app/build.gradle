@@ -123,6 +123,10 @@ dependencies {
     implementation "com.google.ads.mediation:mintegral:17.1.51.0"
     implementation "com.google.ads.mediation:vungle:7.7.4.0"
     implementation "com.google.ads.mediation:facebook:6.20.0.2"
+    // Meta Audience Network SDK (served via AdMob mediation above). Pulled in transitively by the
+    // adapter; declared explicitly, version-matched, so com.facebook.ads.AdSettings is reliably on
+    // the compile classpath for MetaAdsConsent.
+    implementation "com.facebook.android:audience-network-sdk:6.20.0"
     implementation "com.android.billingclient:billing-ktx:8.3.0"
     implementation "com.google.android.play:review-ktx:2.0.2"
 
@@ -152,4 +156,7 @@ dependencies {
     // Local modules
     implementation project(":country_data")
     implementation project(":keyboard-listener")
+
+    // Unit tests (plain JVM: notification slot parsing, rotation, pinned-card identity)
+    testImplementation "junit:junit:4.13.2"
 }

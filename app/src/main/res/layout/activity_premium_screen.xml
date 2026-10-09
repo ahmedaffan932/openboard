@@ -645,45 +645,63 @@
             android:id="@+id/tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/fab_padding"
+            android:layout_marginBottom="@dimen/less_padding"
             android:fontFamily="@font/sf_pro_medium"
             android:gravity="center"
             android:paddingHorizontal="@dimen/padding"
             android:text="@string/premium_trial_terms"
             android:textColor="#808080"
             android:textSize="@dimen/_9sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/llLegalLinks"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-
-        <TextView
-            android:id="@+id/tvPrivacyPolicy"
+        <LinearLayout
+            android:id="@+id/llLegalLinks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/padding"
             android:layout_marginBottom="@dimen/fab_padding"
             android:gravity="center"
-            android:text="@string/privacy_policy"
-            android:textColor="@color/text_color_premium"
-            android:textSize="@dimen/_10sdp"
-            android:visibility="gone"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:id="@+id/tvTerms"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/padding"
-            android:layout_marginBottom="@dimen/fab_padding"
-            android:gravity="center"
-            android:text="@string/terms_of_use"
-            android:textColor="@color/text_color_premium"
-            android:textSize="@dimen/_10sdp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            <TextView
+                android:id="@+id/tvTerms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_nothing_rounded_ripple"
+                android:fontFamily="@font/sf_pro_medium"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/less_padding"
+                android:paddingVertical="@dimen/less_padding"
+                android:text="@string/premium_terms_of_use"
+                android:textColor="@color/text_color_premium"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/less_padding"
+                android:text="|"
+                android:textColor="#808080"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:id="@+id/tvPrivacyPolicy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_nothing_rounded_ripple"
+                android:fontFamily="@font/sf_pro_medium"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/less_padding"
+                android:paddingVertical="@dimen/less_padding"
+                android:text="@string/privacy_policy"
+                android:textColor="@color/text_color_premium"
+                android:textSize="@dimen/_10sdp" />
+
+        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

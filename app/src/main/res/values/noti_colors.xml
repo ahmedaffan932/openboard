@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Notification cards (layout/noti_*.xml). SystemUI inflates those layouts, so day/night
+         comes from values-night/noti_colors.xml, not from the app theme. -->
+    <color name="noti_title">#1A1A1A</color>
+    <color name="noti_desc">#666666</color>
+    <color name="noti_hero_placeholder">#EDF2F8</color>
+    <!-- Hairlines around the Shortcut's LATER | TRY NOW row and its button text, which the frames
+         draw in the same blue on light and dark. -->
+    <color name="noti_divider">#1F000000</color>
+    <color name="noti_action">#4285F4</color>
+    <!-- Pinned notification tiles (Figma NotiPinNoti): tile fill, glyph + label, the lighter fold
+         of the File glyph, and the tap ripple. -->
+    <color name="pin_tile_bg">#E9EFFE</color>
+    <color name="pin_tile_content">#4286F5</color>
+    <color name="pin_tile_fold">#AAC8FA</color>
+    <color name="pin_tile_ripple">#294286F5</color>
+    <!-- The frame's own text greys, a shade off the other cards' noti_title / noti_desc. -->
+    <color name="pin_noti_title">#141414</color>
+    <color name="pin_noti_desc">#6E6E73</color>
+
+    <!--
+        The grey "X" disc of the lock-screen notification and the gradient CTA it shares with the
+        promo cards (Figma "Lockscreen 1-3"). No values-night twins on purpose: the frames draw them
+        the same on light and dark.
+    -->
+    <color name="lockscreen_card_close">#5F6368</color>
+    <color name="lockscreen_card_close_icon">#FFFFFF</color>
+    <color name="lockscreen_cta_start">#2C5AF2</color>
+    <color name="lockscreen_cta_end">#69BCF3</color>
+    <color name="lockscreen_cta_text">#FFFFFF</color>
+
+    <!-- Native-ad CTA button (uninstall survey, shared bottom native). -->
+    <color name="native_ad_cta">#007AFF</color>
+    <color name="native_ad_cta_text">#FFFFFF</color>
+
+    <!-- Home-screen Quick-Translate widget (widget_translate.xml). day/night from
+         values-night/noti_colors.xml, since the launcher inflates the RemoteViews. -->
+    <color name="widget_card">#FFFFFF</color>
+    <color name="widget_pill">#F3F6FB</color>
+    <color name="widget_pill_stroke">#D7E2F2</color>
+    <color name="widget_hint">#5F6B7A</color>
+
+    <!-- "Add widget" prompt card (widget/WidgetPromptDialog). The glass, its no-blur fallback, the
+         step rows, the numbered discs and the "Got it" gradient. The text colours are white on the
+         blue glass in both themes, so they have no values-night twins. -->
+    <color name="widget_prompt_glass">#3DFFFFFF</color>
+    <color name="widget_prompt_glass_solid">#F0868A8F</color>
+    <color name="widget_prompt_step">#4DFFFFFF</color>
+    <color name="widget_prompt_text">#FFFFFF</color>
+    <color name="widget_prompt_step_desc">#D9FFFFFF</color>
+    <color name="widget_prompt_number_start">#1D71F2</color>
+    <color name="widget_prompt_number_end">#4AA3F4</color>
+    <color name="widget_prompt_cta_start">#1B6CF0</color>
+    <color name="widget_prompt_cta_end">#4DA7F6</color>
+    <!-- Ripple over the "Got it" gradient (the lock-screen CTA glare drawable is reused). -->
+    <color name="lockscreen_cta_ripple">#33FFFFFF</color>
+</resources>

@@ -36,16 +36,21 @@ object AdsJsonConfig {
         applyNativePlacement(
             config = root.optJSONObject("onboarding_1_native"),
             placementKey = "onboarding_native",
-            defaultLayout = "small_hctr_native_btn_up"
+            defaultLayout = "small_hctr_native_btn_up",
+            applyRemote = { Ads.onBoardingNative = it }
         ) { AdIds.nativeAdIdOB1 = it }
-        root.optJSONObject("onboarding_2_native")?.let { config ->
-            Ads.setFloorFor("onboarding_native", config.floor())
-            applyAdIds(config) { AdIds.nativeAdIdOB2 = it }
-        }
-        root.optJSONObject("onboarding_3_native")?.let { config ->
-            Ads.setFloorFor("onboarding_native", config.floor())
-            applyAdIds(config) { AdIds.nativeAdIdOB3 = it }
-        }
+        applyNativePlacement(
+            config = root.optJSONObject("onboarding_2_native"),
+            placementKey = "onboarding_native",
+            defaultLayout = "small_hctr_native_btn_up",
+            applyRemote = { Ads.onBoardingNative2 = it }
+        ) { AdIds.nativeAdIdOB2 = it }
+        applyNativePlacement(
+            config = root.optJSONObject("onboarding_3_native"),
+            placementKey = "onboarding_native",
+            defaultLayout = "small_hctr_native_btn_up",
+            applyRemote = { Ads.onBoardingNative3 = it }
+        ) { AdIds.nativeAdIdOB3 = it }
         applyInterstitialPlacement(
             config = root.optJSONObject("started_interstitial"),
             placementKey = "onboarding_interstitial",
@@ -84,6 +89,7 @@ object AdsJsonConfig {
         )
         applyAppInterstitial(root.optJSONObject("app_interstitial"))
         applyRewarded(root.optJSONObject("rewarded"))
+        applyAppOpenResume(root.optJSONObject("app_open_resume"))
         applyAppBanner(root.optJSONObject("app_banner"))
     }
 
@@ -201,6 +207,16 @@ object AdsJsonConfig {
         Ads.unlockPremiumRewardedAd = config.remoteKey()
         Ads.setFloorFor("unlock_premium_rewarded", config.floor())
         applyAdIds(config) { AdIds.rewardedAdIdUnlockPremium = it }
+    }
+
+    private fun applyAppOpenResume(config: JSONObject?) {
+        config ?: return
+        Ads.isResumeAppOpenAdEnabled = config.optBoolean(
+            "is_enabled",
+            Ads.isResumeAppOpenAdEnabled
+        )
+        Ads.setFloorFor("resume_app_open", config.floor())
+        applyAdIds(config) { AdIds.appOpenAdIdResume = it }
     }
 
     private fun applyAppBanner(config: JSONObject?) {

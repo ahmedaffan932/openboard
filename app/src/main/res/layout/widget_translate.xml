@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Home-screen quick-translate widget (RemoteViews-safe views only).
+    Pill search bar + mic + camera; taps route through NotiRouterActivity so
+    cold starts get the standard splash flow and warm taps open instantly.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="UseAppTint"
+    android:id="@+id/widgetRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_widget_card"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_widget_pill"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="14dp"
+        android:paddingEnd="6dp">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_baseline_translate_24_selected"
+            android:tint="@color/native_ad_cta" />
+
+        <TextView
+            android:id="@+id/widgetHint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/word_phrase_or_sentence"
+            android:textColor="@color/widget_hint"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/widgetMic"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/shortcut_conversation"
+            android:padding="9dp"
+            android:src="@drawable/ic_baseline_mic_selected_24"
+            android:tint="@color/native_ad_cta" />
+
+        <ImageView
+            android:id="@+id/widgetCamera"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/shortcut_camera"
+            android:padding="9dp"
+            android:src="@drawable/ic_baseline_camera_alt_24"
+            android:tint="@color/native_ad_cta" />
+    </LinearLayout>
+
+</LinearLayout>

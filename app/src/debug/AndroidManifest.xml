@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+
+        <!-- Debug-only QA hook (DebugNotiReceiver). Exported but guarded by DUMP, a development
+             permission the adb shell holds and normal apps cannot obtain: shell broadcasts to
+             non-exported receivers are denied, so exported=false does not work for adb. -->
+        <receiver
+            android:name="org.dslul.openboard.translator.pro.notifications.DebugNotiReceiver"
+            android:exported="true"
+            android:permission="android.permission.DUMP">
+            <intent-filter>
+                <action android:name="com.translatorpro.debug.FIRE_NOTI" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

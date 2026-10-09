@@ -21,6 +21,7 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
+import org.dslul.openboard.translator.pro.notifications.AdClickTracker
 
 object AdmobNativeAds {
 
@@ -136,6 +137,10 @@ object AdmobNativeAds {
                 loadedNativeAds[adIdsKey] = ad
             }
             .withAdListener(object : AdListener() {
+
+                override fun onAdClicked() {
+                    AdClickTracker.notifyClick()
+                }
 
                 override fun onAdFailedToLoad(adError: LoadAdError) {
                     val removedAd = loadedNativeAds.remove(adIdsKey)

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    "Got it": the mock's horizontal blue gradient with the diagonal glare the lock-screen CTA
+    already draws (lockscreen_cta_shine, transparent at every corner so it cannot bleed past them).
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="0"
+                android:endColor="@color/widget_prompt_cta_end"
+                android:startColor="@color/widget_prompt_cta_start"
+                android:type="linear" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/lockscreen_cta_shine" />
+</layer-list>

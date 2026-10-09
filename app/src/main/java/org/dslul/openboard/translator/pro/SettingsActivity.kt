@@ -24,6 +24,7 @@ import org.dslul.openboard.translator.pro.classes.Misc.rateUs
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.RateUsDialog
 import org.dslul.openboard.translator.pro.classes.ads.Ads
+import org.dslul.openboard.translator.pro.notifications.PinnedNoti
 
 class SettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingsBinding
@@ -44,6 +45,15 @@ class SettingsActivity : AppCompatActivity() {
 
         if (Misc.selectThemeMode(this)) {
             binding.btnSwitchDarkTheme.isChecked = true
+        }
+
+        // The pinned Quick Access card. Off is remembered (Misc.turnOffNotification), so the
+        // splash and the dashboard stop re-posting it.
+        binding.btnSwitchQuickAccessNoti.isChecked =
+            !Misc.isNotificationTurnedOff(this) && PinnedNoti.isShowing(this)
+        binding.btnSwitchQuickAccessNoti.setOnCheckedChangeListener { _, isChecked ->
+            Misc.turnOffNotification(this, !isChecked)
+            if (isChecked) PinnedNoti.post(this) else PinnedNoti.cancel(this)
         }
 
         binding.llShareApp.setOnClickListener {

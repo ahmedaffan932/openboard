@@ -21,6 +21,7 @@ import com.google.android.gms.ads.LoadAdError
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
+import org.dslul.openboard.translator.pro.notifications.AdClickTracker
 
 
 object AdmobCollapsibleBannerAds {
@@ -110,7 +111,9 @@ object AdmobCollapsibleBannerAds {
                 }
 
                 override fun onAdOpened() {}
-                override fun onAdClicked() {}
+                override fun onAdClicked() {
+                    AdClickTracker.notifyClick()
+                }
                 override fun onAdClosed() {}
             }
             collapsibleAdView

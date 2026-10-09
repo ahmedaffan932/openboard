@@ -173,7 +173,9 @@ class OCRActivity : AppCompatActivity() {
 
     private fun init() {
         try {
-            val selectedUri = CameraMisc.fileUri!!
+            // The pinned notification's File tile also sends the image as the intent's data, which
+            // still holds after the process was killed and this screen restored.
+            val selectedUri = (CameraMisc.fileUri ?: intent.data)!!
 
             cropImageLauncher.launch(
                 CropImageContractOptions(

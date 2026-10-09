@@ -174,7 +174,9 @@ class OnBoardingActivity : AppCompatActivity() {
     }
 
     private fun showOnboardingNativeForPage(position: Int) {
-        if (!Ads.onBoardingNative.contains("native")) {
+        val remoteKey = getOnboardingRemoteKey(position)
+
+        if (!remoteKey.contains("am")) {
             binding.nativeAdFrameLayout.removeAllViews()
             binding.nativeAdFrameLayout.visibility = View.GONE
             Log.d(Misc.logKey, "Onboarding native skipped for page: $position")
@@ -196,7 +198,7 @@ class OnBoardingActivity : AppCompatActivity() {
 
             AdmobNativeAds.showNativeAd(
                 context = this,
-                remoteKey = Ads.onBoardingNative,
+                remoteKey = remoteKey,
                 amLayout = binding.nativeAdFrameLayout,
                 adIds = adIds,
                 nextPreloadAdIds = nextAdIds
@@ -209,7 +211,7 @@ class OnBoardingActivity : AppCompatActivity() {
         AdmobNativeAds.loadAdmobNative(
             context = this,
             adIds = adIds,
-            remoteKey = Ads.onBoardingNative,
+            remoteKey = remoteKey,
             frameLayout = binding.nativeAdFrameLayout,
             callBack = object : LoadAdCallBack {
                 override fun onLoaded() {
@@ -221,7 +223,7 @@ class OnBoardingActivity : AppCompatActivity() {
 
                     AdmobNativeAds.showNativeAd(
                         context = this@OnBoardingActivity,
-                        remoteKey = Ads.onBoardingNative,
+                        remoteKey = remoteKey,
                         amLayout = binding.nativeAdFrameLayout,
                         adIds = adIds,
                         nextPreloadAdIds = nextAdIds
@@ -248,12 +250,20 @@ class OnBoardingActivity : AppCompatActivity() {
         }
     }
 
-    private fun getNextOnboardingNativeAdIds(position: Int): Array<String>? {
+    private fun getOnboardingRemoteKey(position: Int): String {
         return when (position) {
-            0 -> AdIds.nativeAdIdOB2
-            1 -> AdIds.nativeAdIdOB3
-            else -> null
+            1 -> Ads.onBoardingNative2
+            2 -> Ads.onBoardingNative3
+            else -> Ads.onBoardingNative
         }
+    }
+
+    private fun getNextOnboardingNativeAdIds(position: Int): Array<String>? {
+        val nextPosition = position + 1
+        if (nextPosition > 2 || !getOnboardingRemoteKey(nextPosition).contains("am")) {
+            return null
+        }
+        return getOnboardingNativeAdIds(nextPosition)
     }
 
 }

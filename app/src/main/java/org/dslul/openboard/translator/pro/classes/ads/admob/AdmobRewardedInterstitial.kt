@@ -14,6 +14,7 @@ import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
+import org.dslul.openboard.translator.pro.notifications.AdClickTracker
 
 object AdmobRewardedInterstitial {
     var interAdmob: RewardedInterstitialAd? = null
@@ -62,6 +63,10 @@ object AdmobRewardedInterstitial {
         interAdmob?.show(activity) { }
 
         interAdmob?.fullScreenContentCallback = object : FullScreenContentCallback() {
+            override fun onAdClicked() {
+                AdClickTracker.notifyClick()
+            }
+
             override fun onAdDismissedFullScreenContent() {
                 callback?.onDismiss()
                 Log.d("interAdmobShow", "Ad was dismissed.")

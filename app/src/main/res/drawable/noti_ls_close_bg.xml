@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    The lock-screen notification's grey "X" disc: 24dp inside the 32dp
+    btnNotiClose. Plain framework drawable - it is inflated by SystemUI.
+-->
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:inset="4dp">
+    <shape android:shape="oval">
+        <solid android:color="@color/lockscreen_card_close" />
+    </shape>
+</inset>
