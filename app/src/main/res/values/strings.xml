@@ -628,6 +628,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="dark_theme">Dark Theme</string>
     <string name="good">Good</string>
     <string name="enable_keyboard">Enable Keyboard</string>
+    <string name="enable_keyboard_banner_title">Turn on the keyboard</string>
     <string name="select">Select</string>
     <string name="input_method">input_method</string>
     <string name="skip"><u>Skip</u></string>
@@ -791,4 +792,6 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="may_be_later">May be later</string>
     <string name="subscription_terms"><u>Subscription Terms</u></string>
 
+    <string name="sorry_error_in_fetching_words">Sorry! Some error occurred in fetching words.</string>
+    <string name="please_solve_current_puzzle_to_proceed">Solve the current puzzle to proceed.</string>
 </resources>

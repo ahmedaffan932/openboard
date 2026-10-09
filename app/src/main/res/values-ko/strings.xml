@@ -248,6 +248,7 @@
     <string name="dark_theme">어두운 테마</string>
     <string name="good">좋은</string>
     <string name="enable_keyboard">키보드 활성화</string>
+    <string name="enable_keyboard_banner_title">키보드 켜기</string>
     <string name="select">선택하다</string>
     <string name="skip"><u>건너뛰기</u></string>
     <string name="step_2">2 단계:</string>
@@ -282,4 +283,6 @@
     <string name="loading_monetization">수익 창출을 로드 중입니다.</string>
     <string name="languages">언어</string>
     <string name="next">다음</string>
+    <string name="sorry_error_in_fetching_words">죄송합니다! 단어를 가져오는 중 오류가 발생했습니다.</string>
+    <string name="please_solve_current_puzzle_to_proceed">계속하려면 현재 퍼즐을 푸세요.</string>
 </resources>

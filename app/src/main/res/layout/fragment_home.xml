@@ -94,10 +94,9 @@
                 android:layout_marginHorizontal="@dimen/fab_padding"
                 android:layout_marginTop="@dimen/fab_padding"
                 android:layout_marginBottom="@dimen/fab_padding"
-                android:background="@drawable/bg_translate_dashboard"
+                android:background="@drawable/bg_accent_border_rounded"
                 android:elevation="@dimen/less_padding"
                 android:transitionName="cl_translation"
-                app:layout_constraintBottom_toTopOf="@id/clHistory"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
@@ -334,10 +333,102 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
+                android:id="@+id/llActionTiles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/fab_padding"
+                android:layout_marginTop="@dimen/padding"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/clTranslation">
+
+                <LinearLayout
+                    android:id="@+id/clEnableKeyboardBanner"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_85sdp"
+                    android:layout_marginEnd="@dimen/m_padding"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_tile_keyboard"
+                    android:clickable="true"
+                    android:elevation="6dp"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/m_padding"
+                    android:paddingVertical="@dimen/padding"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:background="@drawable/bg_tile_icon_light"
+                        android:contentDescription="@string/enable_keyboard"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_keyboard"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/less_padding"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="@string/enable_keyboard_banner_title"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/clFunWords"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_85sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_tile_fun_words"
+                    android:clickable="true"
+                    android:elevation="6dp"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/m_padding"
+                    android:paddingVertical="@dimen/padding">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:background="@drawable/bg_tile_icon_white"
+                        android:padding="7dp"
+                        android:scaleType="centerInside"
+                        app:lottie_autoPlay="true"
+                        app:lottie_fileName="lamp.json"
+                        app:lottie_loop="true" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/less_padding"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="@string/fun_words"
+                        android:textColor="#4B3B8F"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/clHistory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/fab_padding"
+                android:layout_marginTop="@dimen/fab_padding"
                 android:layout_marginBottom="@dimen/fab_padding"
                 android:background="@drawable/bg_translate_dashboard"
                 android:elevation="@dimen/less_padding"
@@ -346,34 +437,45 @@
                 android:paddingHorizontal="@dimen/m_padding"
                 android:paddingTop="6dp"
                 android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/clTranslation">
+                app:layout_constraintTop_toBottomOf="@id/llActionTiles">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="@string/recent"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="@string/recent"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvViewAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_nothing_rounded_ripple"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:fontFamily="@font/poppins_medium"
+                        android:paddingHorizontal="@dimen/padding"
+                        android:paddingVertical="6dp"
+                        android:text="@string/view_all"
+                        android:textColor="@color/accent"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvHistory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp" />
-
-                <ImageView
-                    android:id="@+id/btnHistory"
-                    android:layout_width="match_parent"
-                    android:layout_height="34dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_nothing_rounded_ripple"
-                    android:contentDescription="@string/todo"
-                    android:paddingVertical="@dimen/padding"
-                    android:src="@drawable/ic_arrow_down" />
+                    android:layout_marginTop="6dp"
+                    android:paddingBottom="6dp" />
 
             </LinearLayout>
 
@@ -385,21 +487,10 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/_200sdp"
         android:layout_marginStart="@dimen/fab_padding"
+        android:layout_marginEnd="@dimen/fab_padding"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnKeyboard"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/btnKeyboard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_padding"
-        android:background="@drawable/bg_rounded"
-        android:backgroundTint="@color/accent"
-        android:padding="@dimen/m_padding"
-        android:src="@drawable/ic_keyboard"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

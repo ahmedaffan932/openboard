@@ -248,6 +248,7 @@
     <string name="dark_theme">Dunkles Design</string>
     <string name="good">Gut</string>
     <string name="enable_keyboard">Tastatur aktivieren</string>
+    <string name="enable_keyboard_banner_title">Tastatur aktivieren</string>
     <string name="select">Auswählen</string>
     <string name="skip"><u>Überspringen</u></string>
     <string name="step_2">Schritt 2:</string>
@@ -282,4 +283,6 @@
     <string name="loading_monetization">Monetarisierung wird geladen.</string>
     <string name="languages">Sprachen</string>
     <string name="next">Weiter</string>
+    <string name="sorry_error_in_fetching_words">Entschuldigung! Beim Abrufen der Wörter ist ein Fehler aufgetreten.</string>
+    <string name="please_solve_current_puzzle_to_proceed">Löse das aktuelle Rätsel, um fortzufahren.</string>
 </resources>

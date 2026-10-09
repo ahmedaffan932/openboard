@@ -29,6 +29,7 @@ import org.dslul.openboard.translator.pro.LanguageSelectorActivity
 import org.dslul.openboard.translator.pro.PremiumScreenActivity
 import org.dslul.openboard.translator.pro.SettingsActivity
 import org.dslul.openboard.translator.pro.TranslateActivity
+import org.dslul.openboard.translator.pro.WordGameActivity
 import org.dslul.openboard.translator.pro.adaptor.HistoryAdapter
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
@@ -78,21 +79,12 @@ class HomeFragment : Fragment() {
             }
         }
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            if (requireContext().isInputMethodSelected()) {
-                binding.btnKeyboard.visibility = View.GONE
-            }
-        }, 100)
+        updateKeyboardBanner()
 
-        binding.btnKeyboard.setOnClickListener {
-            if (requireContext().isInputMethodSelected()) {
-                Toast.makeText(requireContext(), R.string.keyboard_already_enabled, Toast.LENGTH_SHORT)
-                    .show()
-            } else {
-                Ads.runWithEverySixthClickInterstitial(requireActivity()) {
-                    if (!isAdded) return@runWithEverySixthClickInterstitial
-                    startActivity(Intent(requireContext(), EnableKeyboardActivity::class.java))
-                }
+        binding.clEnableKeyboardBanner.setOnClickListener {
+            Ads.runWithEverySixthClickInterstitial(requireActivity()) {
+                if (!isAdded) return@runWithEverySixthClickInterstitial
+                startActivity(Intent(requireContext(), EnableKeyboardActivity::class.java))
             }
         }
 
@@ -146,10 +138,18 @@ class HomeFragment : Fragment() {
             displaySpeechRecognizer()
         }
 
-        binding.btnHistory.setOnClickListener {
+        binding.tvViewAll.setOnClickListener {
             Ads.runWithEverySixthClickInterstitial(requireActivity()) {
                 if (!isAdded) return@runWithEverySixthClickInterstitial
                 startActivity(Intent(requireContext(), DisplayHistoryActivity::class.java))
+            }
+        }
+
+        binding.clFunWords.setOnClickListener {
+            Firebase.analytics.logEvent("WordGameOpen", null)
+            Ads.runWithEverySixthClickInterstitial(requireActivity()) {
+                if (!isAdded) return@runWithEverySixthClickInterstitial
+                startActivity(Intent(requireContext(), WordGameActivity::class.java))
             }
         }
     }
@@ -329,22 +329,34 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         setSelectedLng()
+        updateKeyboardBanner()
         try {
-            val arr = ArrayList<TranslateHistoryClass>()
-            arr.add(
-                Misc.getHistory(requireActivity())[Misc.getHistory(requireActivity()).lastIndex]
-            )
-            adapter = HistoryAdapter(arr, requireActivity(), object : InterfaceHistory {
-                override fun onHistoryCrash() {
-                    binding.clHistory.visibility = View.GONE
+            val history = Misc.getHistory(requireActivity())
+            if (history.isEmpty()) {
+                binding.clHistory.visibility = View.GONE
+            } else {
+                val arr = ArrayList<TranslateHistoryClass>()
+                val count = minOf(3, history.size)
+                for (i in 0 until count) {
+                    arr.add(history[history.lastIndex - i])
                 }
-            })
-            binding.rvHistory.layoutManager = LinearLayoutManager(requireActivity())
-            binding.rvHistory.adapter = adapter
-            binding.clHistory.visibility = View.VISIBLE
+                adapter = HistoryAdapter(arr, requireActivity(), object : InterfaceHistory {
+                    override fun onHistoryCrash() {
+                        binding.clHistory.visibility = View.GONE
+                    }
+                })
+                binding.rvHistory.layoutManager = LinearLayoutManager(requireActivity())
+                binding.rvHistory.adapter = adapter
+                binding.clHistory.visibility = View.VISIBLE
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private fun updateKeyboardBanner() {
+        binding.clEnableKeyboardBanner.visibility =
+            if (requireContext().isInputMethodSelected()) View.GONE else View.VISIBLE
     }
 
 }

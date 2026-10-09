@@ -289,6 +289,7 @@
     <string name="dark_theme">Темная тема</string>
     <string name="good">Хороший</string>
     <string name="enable_keyboard">Включить клавиатуру</string>
+    <string name="enable_keyboard_banner_title">Включите клавиатуру</string>
     <string name="select">Выбирать</string>
     <string name="skip"><u>Пропустить</u></string>
     <string name="step_2">Шаг 2:</string>
@@ -323,4 +324,6 @@
     <string name="loading_monetization">Загрузка монетизации.</string>
     <string name="languages">Языки</string>
     <string name="next">Следующий</string>
+    <string name="sorry_error_in_fetching_words">Извините! Произошла ошибка при загрузке слов.</string>
+    <string name="please_solve_current_puzzle_to_proceed">Решите текущую головоломку, чтобы продолжить.</string>
 </resources>

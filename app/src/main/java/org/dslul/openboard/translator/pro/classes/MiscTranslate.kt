@@ -155,4 +155,23 @@ object MiscTranslate {
         }
     }
 
+    /**
+     * Translate [text] from an explicit [from] language into [to], rather than the
+     * saved from/to pair used by the no-arg overload. Used by the word game, whose
+     * puzzle words are always English ("en") and need translating into the player's
+     * current target language. Routes through [offlineTranslation], which falls back
+     * to the online endpoint when there is no on-device model — the same robust path
+     * as the no-arg overload, and deliberately NOT the old translate.google.com/m
+     * scraper (which now returns HTTP 429).
+     */
+    fun translate(
+        context: Context,
+        text: String,
+        from: String,
+        to: String,
+        callBack: TranslationInterface
+    ) {
+        offlineTranslation(context, from, to, text, callBack)
+    }
+
 }

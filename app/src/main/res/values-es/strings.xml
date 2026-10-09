@@ -289,6 +289,7 @@
     <string name="dark_theme">Tema oscuro</string>
     <string name="good">Bien</string>
     <string name="enable_keyboard">Habilitar teclado</string>
+    <string name="enable_keyboard_banner_title">Activa el teclado</string>
     <string name="select">Seleccionar</string>
     <string name="skip"><u>Saltar</u></string>
     <string name="step_2">Paso 2:</string>
@@ -323,4 +324,6 @@
     <string name="loading_monetization">Cargando Monetización.</string>
     <string name="languages">Idiomas</string>
     <string name="next">Próximo</string>
+    <string name="sorry_error_in_fetching_words">¡Lo sentimos! Se produjo un error al obtener las palabras.</string>
+    <string name="please_solve_current_puzzle_to_proceed">Resuelve el rompecabezas actual para continuar.</string>
 </resources>

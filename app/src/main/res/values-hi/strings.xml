@@ -248,6 +248,7 @@
     <string name="dark_theme">डार्क थीम</string>
     <string name="good">अच्छा</string>
     <string name="enable_keyboard">कीबोर्ड सक्षम करें</string>
+    <string name="enable_keyboard_banner_title">कीबोर्ड चालू करें</string>
     <string name="select">इनपुट_विधि चुनें</string>
 
     <string name="skip"><u>छोड़ें</u></string>
@@ -283,4 +284,6 @@
     <string name="loading_monetization">मुद्रीकरण लोड हो रहा है।</string>
     <string name="languages">भाषाएँ</string>
     <string name="next">अगला</string>
+    <string name="sorry_error_in_fetching_words">क्षमा करें! शब्द लाने में कोई त्रुटि हुई।</string>
+    <string name="please_solve_current_puzzle_to_proceed">आगे बढ़ने के लिए वर्तमान पहेली हल करें।</string>
 </resources>
