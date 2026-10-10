@@ -16,37 +16,47 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
-import kotlinx.android.synthetic.main.activity_settings.btnBackSettings
-import kotlinx.android.synthetic.main.activity_settings.btnSwitchDarkTheme
-import kotlinx.android.synthetic.main.activity_settings.llFeedback
-import kotlinx.android.synthetic.main.activity_settings.llPrivacyPolicy
-import kotlinx.android.synthetic.main.activity_settings.llRateUs
-import kotlinx.android.synthetic.main.activity_settings.llShareApp
-import kotlinx.android.synthetic.main.activity_settings.llTermsAndConditions
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.databinding.ActivitySettingsBinding
 import org.dslul.openboard.translator.pro.classes.EmailUsDialogBox
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.rateUs
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.RateUsDialog
+import org.dslul.openboard.translator.pro.classes.ads.Ads
+import org.dslul.openboard.translator.pro.notifications.PinnedNoti
 
 class SettingsActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySettingsBinding
 
     @SuppressLint("QueryPermissionsNeeded")
     //@DelicateCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setAppLanguage()
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        setContentView(R.layout.activity_settings)
+        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        Ads.loadAndShowSharedBottomNativeAd(this, binding.nativeAdFrameLayout)
 
         Misc.isActivityCreatingFirstTime = true
 
 
         if (Misc.selectThemeMode(this)) {
-            btnSwitchDarkTheme.isChecked = true
+            binding.btnSwitchDarkTheme.isChecked = true
         }
 
-        llShareApp.setOnClickListener {
+        // The pinned Quick Access card. Off is remembered (Misc.turnOffNotification), so the
+        // splash and the dashboard stop re-posting it.
+        binding.btnSwitchQuickAccessNoti.isChecked =
+            !Misc.isNotificationTurnedOff(this) && PinnedNoti.isShowing(this)
+        binding.btnSwitchQuickAccessNoti.setOnCheckedChangeListener { _, isChecked ->
+            Misc.turnOffNotification(this, !isChecked)
+            if (isChecked) PinnedNoti.post(this) else PinnedNoti.cancel(this)
+        }
+
+        binding.llShareApp.setOnClickListener {
             val sharingIntent = Intent(Intent.ACTION_SEND)
             sharingIntent.type = "text/plain"
             sharingIntent.putExtra(
@@ -56,23 +66,40 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(Intent.createChooser(sharingIntent, "Share via"))
         }
 
-        llPrivacyPolicy.setOnClickListener {
+        binding.llPrivacyPolicy.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("https://sites.google.com/view/elite-translator/translatorpro")
+                Uri.parse("https://zyroapps.com/privacy-policy.php")
             )
             startActivity(intent)
         }
 
-        llTermsAndConditions.setOnClickListener {
+        binding.llMoreApps.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("https://sites.google.com/view/elite-translator/translatorpro-term-conditions")
+                Uri.parse("https://play.google.com/store/apps/dev?id=6609088483229624636")
+            )
+
+            try {
+                startActivity(intent)
+            } catch (ex: ActivityNotFoundException) {
+                Toast.makeText(
+                    this,
+                    getString(R.string.sorry_some_erroe_occurred_please_try_againg),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+        binding.llTermsAndConditions.setOnClickListener {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://zyroapps.com/terms-and-conditions.php")
             )
             startActivity(intent)
         }
 
-        btnSwitchDarkTheme.setOnCheckedChangeListener { _, _ ->
+        binding.btnSwitchDarkTheme.setOnCheckedChangeListener { _, _ ->
             if (Misc.isNightModeOn(this)) {
                 Misc.setNightMode(this, false)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -82,11 +109,11 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
-        btnBackSettings.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             onBackPressed()
         }
 
-        llFeedback.setOnClickListener {
+        binding.llFeedback.setOnClickListener {
             val objEmailUsDialog = EmailUsDialogBox(this)
             objEmailUsDialog.show()
             val window: Window = objEmailUsDialog.window!!
@@ -101,7 +128,7 @@ class SettingsActivity : AppCompatActivity() {
                     val sub = objEmailUsDialog.findViewById<TextView>(R.id.etTopic).text.toString()
                     val i = Intent(Intent.ACTION_SEND)
                     i.type = "message/rfc822"
-                    i.putExtra(Intent.EXTRA_EMAIL, arrayOf("elitetranslatorapps@gmail.com"))
+                    i.putExtra(Intent.EXTRA_EMAIL, arrayOf("admin.zyroapps@gmail.com"))
                     i.putExtra(
                         Intent.EXTRA_TEXT,
                         objEmailUsDialog.findViewById<EditText>(R.id.etFeedbackBody).text
@@ -126,7 +153,7 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
-        llRateUs.setOnClickListener {
+        binding.llRateUs.setOnClickListener {
             val objRateUsDialog = RateUsDialog(this)
             objRateUsDialog.show()
             val window: Window = objRateUsDialog.window!!
@@ -141,15 +168,15 @@ class SettingsActivity : AppCompatActivity() {
             }
             objRateUsDialog.findViewById<ImageView>(R.id.btnRateA).setOnClickListener {
                 objRateUsDialog.dismiss()
-                Toast.makeText(this, "Thanks.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.thanks, Toast.LENGTH_SHORT).show()
             }
             objRateUsDialog.findViewById<ImageView>(R.id.btnRateB).setOnClickListener {
                 objRateUsDialog.dismiss()
-                Toast.makeText(this, "Thanks.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.thanks, Toast.LENGTH_SHORT).show()
             }
             objRateUsDialog.findViewById<ImageView>(R.id.btnRateC).setOnClickListener {
                 objRateUsDialog.dismiss()
-                Toast.makeText(this, "Thanks.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.thanks, Toast.LENGTH_SHORT).show()
             }
             objRateUsDialog.findViewById<ImageView>(R.id.btnRateD).setOnClickListener {
                 objRateUsDialog.dismiss()

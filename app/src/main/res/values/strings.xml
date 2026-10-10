@@ -17,7 +17,8 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="english_ime_name" translatable="false">Translator Pro</string>
+    <string name="english_ime_name" translatable="false">AI Translator</string>
+    <string name="ocr_crop_done">Done</string>
     <!-- Name of Android spell checker service. AOSP(Android Open Source Project) should not be translated.
          This resource should be copied from msgid="511950477199948048" -->
     <string name="spell_checker_service_name" translatable="false">OpenBoard Spell Checker</string>
@@ -568,97 +569,229 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="amoled_mode" translatable="false">Deep black backgrounds</string>
     <!-- Description indicating amoled mode can lower power usage depending on the screen of the device. -->
     <string name="amoled_mode_summary" translatable="false">Can reduce power usage depending on the device’s screen technology</string>
-    <string name="word_phrase_or_sentence" translatable="false">Word phrase or sentence</string>
-    <string name="todo" translatable="false">ToDo</string>
-    <string name="translator" translatable="false">Translator</string>
-    <string name="Pro" translatable="false">Pro</string>
-    <string name="enjoy_ou_best_translation_features_and_translate_on_the_goo" translatable="false">Enjoy ou best translation features and translate on the goo</string>
-    <string name="fun_words" translatable="false">Fun Words</string>
-    <string name="relax_your_brain_with_this_fun_word_puzzle_game_and_improve_your_vocabulary" translatable="false">Relax your brain with this fun word puzzle game and improve your vocabulary.</string>
-    <string name="textview" translatable="false">TextView</string>
-    <string name="premium" translatable="false">Premium</string>
-    <string name="yes" translatable="false">Yes</string>
-    <string name="no" translatable="false">No</string>
-    <string name="fun" translatable="false">Fun Word</string>
-    <string name="phrasebook" translatable="false">Phrasebook</string>
-    <string name="quit" translatable="false">Quit</string>
-    <string name="do_you_really_want_to_quit" translatable="false">Do you really want quit ?</string>
-    <string name="english" translatable="false">English</string>
-    <string name="translating" translatable="false">Translating</string>
-    <string name="ad" translatable="false">Ad</string>
-    <string name="favorites" translatable="false">Favorites</string>
-    <string name="no_favorites_found" translatable="false">No favorites Found</string>
-    <string name="language" translatable="false">Languages</string>
-    <string name="recently_used" translatable="false">Recently used</string>
-    <string name="all_languages" translatable="false">All Languages</string>
-    <string name="downloading" translatable="false">Downloading</string>
-    <string name="history" translatable="false">History</string>
-    <string name="translate_something_to_see_history" translatable="false">Translate something to see history</string>
-    <string name="feedback" translatable="false">Feedback</string>
-    <string name="enter_your_topic_and_let_us_know_about_your_feedback" translatable="false">Enter your topic and let us know about your feedback.</string>
-    <string name="enter_topic_here" translatable="false">Enter topic here</string>
-    <string name="write_your_suggestion" translatable="false">Write your suggestion</string>
-    <string name="publish_feedback" translatable="false">Publish feedback</string>
-    <string name="do_you_suggestion_or_found_some_bug_n_do_let_us_know_your_feedback" translatable="false">Do you suggest or found some bug and do let us know your feedback.</string>
-    <string name="rate_us" translatable="false">Rate us</string>
-    <string name="did_you_enjoy_the_app" translatable="false">Did you enjoy our app ?</string>
 
-    <string name="let_s_record_your_message_to_communicate" translatable="false">Let\'s record your message to communicate</string>
-    <string name="selector" translatable="false">Selector</string>
-    <string name="loading_words" translatable="false">Loading Words .</string>
-    <string name="hint" translatable="false">Hint</string>
-    <string name="level" translatable="false">Level</string>
-    <string name="hint_meaning" translatable="false">Hint meaning</string>
-    <string name="translate" translatable="false">Translate</string>
-    <string name="remove_annoying_ads_save_your_time" translatable="false">Remove annoying ads.</string>
-    <string name="unlimited_chat_translator" translatable="false">Unlimited Chat translator</string>
-    <string name="one_time" translatable="false">Life time plan</string>
-    <string name="save_50" translatable="false">Save 50%</string>
-    <string name="get_pro" translatable="false">Continue</string>
-    <string name="_50_languages_learn_with_unlimited_language_options" translatable="false">Learn with the support of 50+ languages.</string>
-    <string name="access_full_translation_history" translatable="false">Access full translation history</string>
-    <string name="settings" translatable="false">Settings</string>
-    <string name="upgrade_to_pro" translatable="false">Upgrade to pro</string>
-    <string name="share_app" translatable="false">Share App</string>
-    <string name="privacy_policy" translatable="false">Privacy Policy</string>
-    <string name="terms_of_use" translatable="false"><![CDATA[Terms & Conditions]]></string>
-    <string name="dark_theme" translatable="false">Dark Theme</string>
-    <string name="good" translatable="false">Good</string>
-    <string name="enable_keyboard" translatable="false">Enable Keyboard</string>
-    <string name="select" translatable="false">Select</string>
-    <string name="input_method" translatable="false">input_method</string>
-    <string name="skip" translatable="false"><u>Skip</u></string>
-    <string name="step_2" translatable="false">Step 2:</string>
-    <string name="by_continuing_you_accept_our" translatable="false">By continuing you accept our</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="camera_translation" translatable="false">Camera Translation</string>
-    <string name="textView" translatable="false">Text View</string>
-    <string name="detect" translatable="false">Detect</string>
-    <string name="please_check_your_internet_connection_and_try_again" translatable="false">Please Check your Internet connection and try again.</string>
-    <string name="please_select_language_you_want_to_translate" translatable="false">Please select language you want to translate from.</string>
-    <string name="you_can_not_start_this_module" translatable="false">You can not start this module without permissions</string>
-    <string name="detecting_text" translatable="false">Detecting Text</string>
-    <string name="view_all" translatable="false">View all</string>
-    <string name="result" translatable="false">Result</string>
-    <string name="your_are_using_limited_version_please_upgrade_or_watch_ad_to_use_camera_translate" translatable="false">Your are using limited version please upgrade or watch ad to use camera translate.</string>
-
-    <string name="upgrade_or_watch_ad" translatable="false">Upgrade or watch Ad</string>
-    <string name="watch_ad" translatable="false">Watch Ad</string>
-    <string name="upgrade" translatable="false">Upgrade</string>
-    <string name="text" translatable="false">Text</string>
-    <string name="translation" translatable="false">Translation</string>
-    <string name="sorry_no_text_found" translatable="false">Sorry no text found.</string>
-    <string name="sorry_some_erroe_occurred_please_try_againg" translatable="false">Sorry some error occurred please try again.</string>
-    <string name="a_translator_is_a_reader_an_interpreter_and_a_creator_all_in_one" translatable="false">A translator is a reader, an interpreter and a creator all in one.</string>
+    <string name="word_phrase_or_sentence">Word phrase or sentence</string>
+    <string name="todo">ToDo</string>
+    <string name="translator">Translator</string>
+    <string name="Pro">Pro</string>
+    <string name="enjoy_ou_best_translation_features_and_translate_on_the_goo">Enjoy ou best translation features and translate on the goo</string>
+    <string name="fun_words">Fun Words</string>
+    <string name="relax_your_brain_with_this_fun_word_puzzle_game_and_improve_your_vocabulary">Relax your brain with this fun word puzzle game and improve your vocabulary.</string>
+    <string name="textview">TextView</string>
+    <string name="premium">Premium</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="fun">Fun Word</string>
+    <string name="phrasebook">Phrasebook</string>
+    <string name="quit">Quit</string>
+    <string name="do_you_really_want_to_quit">Do you really want quit ?</string>
+    <string name="english">English</string>
+    <string name="translating">Translating</string>
+    <string name="ad">Ad</string>
+    <string name="favorites">Favorites</string>
+    <string name="no_favorites_found">No favorites Found</string>
+    <string name="language">Languages</string>
+    <string name="recently_used">Recently used</string>
+    <string name="all_languages">All Languages</string>
+    <string name="downloading">Downloading</string>
+    <string name="history">History</string>
+    <string name="translate_something_to_see_history">Translate something to see history</string>
+    <string name="feedback">Feedback</string>
+    <string name="enter_your_topic_and_let_us_know_about_your_feedback">Enter your topic and let us know about your feedback.</string>
+    <string name="enter_topic_here">Enter topic here</string>
+    <string name="write_your_suggestion">Write your suggestion</string>
+    <string name="publish_feedback">Publish feedback</string>
+    <string name="do_you_suggestion_or_found_some_bug_n_do_let_us_know_your_feedback">Do you suggest or found some bug and do let us know your feedback.</string>
+    <string name="rate_us">Rate us</string>
+    <string name="did_you_enjoy_the_app">Did you enjoy our app ?</string>
+    <string name="let_s_record_your_message_to_communicate">Let\'s record your message to communicate</string>
+    <string name="selector">Selector</string>
+    <string name="loading_words">Loading Words .</string>
+    <string name="hint">Hint</string>
+    <string name="level">Level</string>
+    <string name="hint_meaning">Hint meaning</string>
+    <string name="translate">Translate</string>
+    <string name="remove_annoying_ads_save_your_time">Remove annoying ads.</string>
+    <string name="unlimited_chat_translator">Unlimited Chat translator</string>
+    <string name="one_time">Life time plan</string>
+    <string name="save_50">Save 50%</string>
+    <string name="get_pro">Continue</string>
+    <string name="_50_languages_learn_with_unlimited_language_options">Learn with the support of 50+ languages.</string>
+    <string name="access_full_translation_history">Access full translation history</string>
+    <string name="settings">Settings</string>
+    <string name="upgrade_to_pro">Upgrade to pro</string>
+    <string name="share_app">Share App</string>
+    <string name="more_apps">More Apps</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_of_use"><![CDATA[Terms & Conditions]]></string>
+    <string name="premium_terms_of_use">Terms of Use</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="good">Good</string>
+    <string name="enable_keyboard">Enable Keyboard</string>
+    <string name="enable_keyboard_banner_title">Turn on the keyboard</string>
+    <string name="select">Select</string>
+    <string name="input_method">input_method</string>
+    <string name="skip"><u>Skip</u></string>
+    <string name="step_2">Step 2:</string>
+    <string name="by_continuing_you_accept_our">By continuing you accept our</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="camera_translation">Camera Translation</string>
+    <string name="textView">Text View</string>
+    <string name="detect">Detect</string>
+    <string name="please_check_your_internet_connection_and_try_again">Please Check your Internet connection and try again.</string>
+    <string name="please_select_language_you_want_to_translate">Please select language you want to translate from.</string>
+    <string name="you_can_not_start_this_module">You can not start this module without permissions</string>
+    <string name="detecting_text">Detecting Text</string>
+    <string name="view_all">View all</string>
+    <string name="result">Result</string>
+    <string name="your_are_using_limited_version_please_upgrade_or_watch_ad_to_use_camera_translate">Upgrade or watch an ad to use camera translation.</string>
+    <string name="upgrade_or_watch_ad">Unlock Premium Access</string>
+    <string name="watch_ad">Watch Ad</string>
+    <string name="unlock_premium_feature_description">Upgrade now or watch one ad to unlock this premium feature.</string>
+    <string name="rewarded_ad_not_available">Rewarded ad is not available. Please try again.</string>
+    <string name="upgrade">Upgrade</string>
+    <string name="text">Text</string>
+    <string name="translation">Translation</string>
+    <string name="sorry_no_text_found">Sorry no text found.</string>
+    <string name="sorry_some_erroe_occurred_please_try_againg">Sorry some error occurred please try again.</string>
+    <string name="a_translator_is_a_reader_an_interpreter_and_a_creator_all_in_one">A translator is a reader, an interpreter and a creator all in one.</string>
     <string name="let_s_translate">Let\'s Translate</string>
-
-    <string name="language_to">LanguageTo</string>
-    <string name="language_from">LanguageFrom</string>
+    <string name="language_to" translatable="false">LanguageTo</string>
+    <string name="language_from" translatable="false">LanguageFrom</string>
     <string name="title_camera">Camera</string>
     <string name="chat">Chat</string>
     <string name="enter_some_text_to_translate">Enter some text to translate.</string>
     <string name="please_cehck_your_internet">Please check your internet and try again.</string>
     <string name="some_error_occurred_in_translation">Sorry, some error occured in translation.</string>
+    <string name="some_error_occurred_in_translation_please_try_again_later">Some error occurred in translation please try again later.</string>
+    <string name="loading_monetization">Loading Monetization.</string>
+    <string name="languages">Languages</string>
+    <string name="next">Next</string>
+    <string name="monthly">Monthly</string>
+    <string name="pre_month">Per Month</string>
+    <string name="per_year">Per Year</string>
+    <string name="yearly">Yearly</string>
+    <string name="pre_week">Per Week</string>
+    <string name="weekly">Weekly</string>
+    <string name="subscription_price_per_week">%1$s\nper week</string>
+    <string name="subscription_price_per_month">%1$s\nper month</string>
+    <string name="subscription_price_per_year">%1$s\nper year</string>
+    <string name="subscription_price_loading">Loading price</string>
+    <string name="subscription_price_loading_week">Loading price\nper week</string>
+    <string name="subscription_price_loading_month">Loading price\nper month</string>
+    <string name="subscription_price_loading_year">Loading price\nper year</string>
+    <string name="subscription_billing_weekly">weekly</string>
+    <string name="subscription_billing_monthly">monthly</string>
+    <string name="subscription_billing_yearly">yearly</string>
+    <string name="subscription_offer_terms">%1$s plan: %2$s. Auto-renews %3$s until canceled. Cancel anytime in Google Play. Optional; free features remain available.</string>
+    <string name="subscription_offer_terms_loading">%1$s plan price is loading from Google Play. Auto-renews %2$s until canceled. Cancel anytime in Google Play. Optional; free features remain available.</string>
+    <string name="subscription_offer_terms_loading_weekly">Weekly plan price is loading from Google Play. Auto-renews weekly until canceled. Cancel anytime in Google Play. Optional; free features remain available.</string>
+    <string name="subscription_terms_title">Subscription Terms:</string>
+    <string name="subscription_terms_auto_renew">Your subscription automatically renews unless canceled before the end of the current billing period.</string>
+    <string name="subscription_terms_charge">Payment is charged through your Google Play account after purchase confirmation.</string>
+    <string name="subscription_terms_cancel">Cancel anytime in Google Play subscriptions. Access continues until the end of the paid billing period.</string>
+    <string name="subscription_terms_refund">Refunds are handled according to Google Play refund policies.</string>
+    <string name="you_can_cancel_subscription_any_time">You can cancel subscription any time.</string>
+    <string name="fetching_information">Fetching Information</string>
+    <string name="discover_premium_benefits">Discover Premium Benefits!</string>
+    <string name="start_like_a_pro">START LIKE A PRO</string>
+    <string name="unlock_all_features">Unlock All Features</string>
+    <string name="premium_caps">PREMIUM</string>
+    <string name="home_pro_button" translatable="false">PRO</string>
+    <string name="phrases_amp_dictionary"><![CDATA[Phrases & Dictionary]]></string>
+    <string name="premium_feature_unlimited_translations">Unlimited Translations</string>
+    <string name="premium_feature_ai_chat_assistant">AI Chat Assistant</string>
+    <string name="premium_feature_camera_text_translate">Camera Text Translate</string>
+    <string name="premium_feature_all_language_keyboard">All Language Keyboard</string>
+    <string name="premium_feature_voice_translation">Voice Translation</string>
+    <string name="premium_feature_offline_language_packs">Offline Language Packs</string>
+    <string name="premium_feature_premium_phrasebook">Premium Phrasebook</string>
+    <string name="premium_feature_ad_free_experience">Ad-Free Experience</string>
+    <string name="app_language_english" translatable="false">English</string>
+    <string name="app_language_french" translatable="false">Français</string>
+    <string name="app_language_german" translatable="false">Deutsch</string>
+    <string name="app_language_spanish" translatable="false">Española</string>
+    <string name="app_language_hindi" translatable="false">हिंदी</string>
+    <string name="app_language_portuguese" translatable="false">Português</string>
+    <string name="app_language_korean" translatable="false">한국어</string>
+    <string name="app_language_italian" translatable="false">Italiana</string>
+    <string name="app_language_russian" translatable="false">Русский</string>
+    <string name="allow_access">Allow Access</string>
+    <string name="camera_permission">Camera Permission</string>
+    <string name="camera_permission_description">Keyboard Translator Pro will be able to access the camera when app is running.</string>
+    <string name="gallery">Gallery</string>
+    <string name="gallery_permission">Gallery Permission</string>
+    <string name="gallery_permission_description">Keyboard Translator Pro will be able to access and make changes to your gallery.</string>
+    <string name="gallery_button">Gallery</string>
+    <string name="close">Close</string>
+    <string name="lens">Lens</string>
+    <string name="keyboard">Keyboard</string>
+    <string name="home">Home</string>
+    <string name="phrases">Phrases</string>
+    <string name="favourite">Favourite</string>
+    <string name="keyboard_translation">Keyboard Translation</string>
+    <string name="text_translate">Text Translate</string>
+    <string name="translate_photo">Translate Photo</string>
+    <string name="voice_translation">Voice Translation</string>
+    <string name="chat_translate">Chat Translate</string>
+    <string name="translator_pro_keyboard">Translator Pro Keyboard</string>
+    <string name="enable_translator_keyboard">Enable Translator Keyboard</string>
+    <string name="switch_keyboard">Switch keyboard</string>
+    <string name="multi_translate">Multi Translate</string>
+    <string name="select_languages">Select Languages</string>
+    <string name="selected_languages">Selected Languages</string>
+    <string name="recent">Recent</string>
+    <string name="premium_basic">BASIC</string>
+    <string name="subscription_price_placeholder" translatable="false">$99</string>
+    <string name="premium_trial_price_suffix">/week after FREE 3-day trial</string>
+    <string name="premium_start_free_trial">START FREE TRIAL</string>
+    <string name="premium_trial_terms">Subscription is billed after the trial ends and will auto-renew. Cancel subscription anytime before the trial ends to avoid charges.</string>
+    <string name="loading_ad">Loading Ad...</string>
+    <string name="speak_translate_50_languages">Speak &amp; Translate in 50+ Languages.</string>
+    <string name="features">Features</string>
+    <string name="banish_ads">Banish Ads</string>
+    <string name="use_app_ad_free">Use the app ad free.</string>
+    <string name="unlock_chat_translation">Unlock Chat Translation</string>
+    <string name="unlock_chat_translation_description">Unlock the ability to chat effortlessly with anyone.</string>
+    <string name="camera_translation_description">Translate any sign or text by just taking a picture.</string>
+    <string name="unlimited_translation">Unlimited Translation</string>
+    <string name="unlimited_translation_description">Translate as much as you want, anytime.</string>
+    <string name="copied">Copied</string>
+    <string name="thanks">Thanks.</string>
+    <string name="thanks_for_your_review">Thanks for your review.</string>
+    <string name="step_1_completed">Step 1 is completed.</string>
+    <string name="history_long_press_remove">Long press to remove item from history.</string>
+    <string name="unable_to_crop">Unable to crop</string>
+    <string name="keyboard_already_enabled">Keyboard is already enabled.</string>
+    <string name="delete_question">Delete?</string>
+    <string name="remove_from_favorites_question">Remove from favorites?</string>
+    <string name="debug_settings" translatable="false">Debug settings</string>
+    <string name="step_number_1" translatable="false">1</string>
+    <string name="step_number_2" translatable="false">2</string>
+    <string name="language_selection_limit" translatable="false">9</string>
+    <string name="copied_text">Copied text</string>
+    <string name="sample_language_code_ar" translatable="false">Ar</string>
+    <string name="ad_label">Ad</string>
+    <string name="install">Install</string>
+    <string name="install_now">Install Now</string>
+    <string name="ad_body_placeholder">This is ad body area</string>
+    <string name="ad_advertiser_placeholder">Ad Advertiser</string>
+    <string name="ad_store_placeholder">Store</string>
+    <string name="ad_price_placeholder">Price</string>
+    <string name="facebook_advertiser_placeholder">Facebook advertiser</string>
+    <string name="facebook_demo_ad_placeholder">This is a Facebook demo ad</string>
+    <string name="ad_integration_placeholder">Your ad integration works.</string>
+    <string name="clipboard_empty_placeholder" translatable="false">¯\\_(ツ)_/¯</string>
+    <string name="preference_summary_value_placeholder" translatable="false">%s</string>
+    <string name="per_week">Per Week</string>
+    <string name="subscription_activated">Subscription Activitrd</string>
+    <string name="remind_me_later"><u>Remind me later</u></string>
+    <string name="show_details"><u>Show Details</u></string>
+    <string name="select_app_language">Select App Language</string>
+    <string name="done">Done</string>
+    <string name="may_be_later">May be later</string>
+    <string name="subscription_terms"><u>Subscription Terms</u></string>
 
+    <string name="sorry_error_in_fetching_words">Sorry! Some error occurred in fetching words.</string>
+    <string name="please_solve_current_puzzle_to_proceed">Solve the current puzzle to proceed.</string>
 </resources>

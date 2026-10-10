@@ -9,3 +9,9 @@ app/build
 app/release
 app/.cxx
 fastlane/Appfile
+
+# Kotlin plugin build cache
+.kotlin/
+# JVM crash / JIT replay logs
+replay_pid*.log
+hs_err_pid*.log

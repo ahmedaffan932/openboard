@@ -1,123 +1,107 @@
-<h1 align="center"><b>OpenBoard</b></h1>
-<h4 align="center">100% FOSS keyboard, based on AOSP.</h4>
-<p align="center"><img src='fastlane/metadata/android/en-US/images/icon.png' height='128'></p>
-<p align="center">
-<a href="https://github.com/openboard-team/openboard/actions/workflows/android-build.yml"><img src="https://img.shields.io/github/workflow/status/openboard-team/openboard/Build" alt="GitHub Workflow Status"></a>
-<a href="https://hosted.weblate.org/engage/openboard/"><img src="https://hosted.weblate.org/widgets/openboard/-/openboard/svg-badge.svg" alt="Translation status"></a>
-<a href="https://matrix.to/#/#openboard:matrix.org?via=matrix.org"><img src="https://img.shields.io/matrix/openboard:matrix.org" alt="Matrix"></a></p>
-<p align="center">
-<a href="https://github.com/openboard-team/openboard/releases"><img src="https://img.shields.io/github/v/release/openboard-team/openboard" alt="GitHub release (latest by date)"></a>
-<a href="https://f-droid.org/packages/org.dslul.openboard.inputmethod.latin"><img alt="F-Droid Version" src="https://img.shields.io/f-droid/v/org.dslul.openboard.inputmethod.latin?color=green&amp;logo=f-droid"></a>
-<a href="https://play.google.com/store/apps/details?id=org.dslul.openboard.inputmethod.latin"><img alt="Google Play Version" src="https://img.shields.io/endpoint?logo=google-play&amp;url=https%3A%2F%2Fplayshields.herokuapp.com%2Fplay%3Fi%3Dorg.dslul.openboard.inputmethod.latin%26l%3Dgoogle-play%26m%3D%24version"></a>
-<a href="https://github.com/openboard-team/openboard/releases"><img src="https://img.shields.io/github/release-date/openboard-team/openboard" alt="GitHub Release Date"></a>
-<a href="https://github.com/openboard-team/openboard/commits/master"><img src="https://img.shields.io/github/commits-since/openboard-team/openboard/latest" alt="GitHub commits since latest release (by date)"></a></p>
-<p align="center">
-<a href='https://f-droid.org/packages/org.dslul.openboard.inputmethod.latin'><img src='https://fdroid.gitlab.io/artwork/badge/get-it-on.png' alt='Get it on F-Droid' height='60'></a>
-<a href='https://play.google.com/store/apps/details?id=org.dslul.openboard.inputmethod.latin&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height='60'/></a></p>  
+# Translator Pro
 
-# Table of content
+**AI Translator** keyboard and translation app for Android — built on the [OpenBoard](https://github.com/openboard-team/openboard) / AOSP LatinIME keyboard, with text, camera (OCR), voice, and conversation translation.
 
-- [Community](#community)
-- [Contribution ❤](#contribution-)
-   * [Issue reporting](#issue-reporting)
-   * [Translation](#translation)
-   * [Dictionary creation](#dictionary-creation)
-   * [Code contribution](#code-contribution)
-      + [Getting started](#getting-started)
-      + [Guidelines](#guidelines)
-      + [Current TODO list](#current-todo-list)
-      + [Project's side tools](#tooling)
-- [License](#license)
-- [Credits](#credits)
+| | |
+|---|---|
+| **App name** | Translator Pro |
+| **IME name** | AI Translator |
+| **Application ID** | `com.translator.keyboard.translate.all.langugaes` |
+| **Version** | 2.0 (versionCode 11) |
+| **Min / Target SDK** | 27 / 36 |
 
-# Community
-Join our [matrix] channel [here](https://matrix.to/#/#openboard:matrix.org?via=matrix.org).
+## Features
 
-<img src="images/matrix_qr.png" alt="Matrix QR Code" height="128">
+- **Translator keyboard** — Soft keyboard with live translation support, suggestions, dictionaries, emoji, and clipboard history (including translate-from-clipboard)
+- **Text translation** — Translate between languages with history and favorites
+- **Camera / OCR** — Capture or pick an image, crop, and recognize text (Latin, Chinese, Japanese, Korean) via ML Kit, then translate
+- **Voice & conversation** — Speech-to-text, text-to-speech, and two-way conversation mode
+- **Phrasebook** — Ready-made phrases for common situations
+- **Offline-capable translate** — Google ML Kit on-device translation models, with online fallback
+- **Premium** — Play Billing subscriptions (weekly / monthly / yearly) for an ad-free experience
+- **Ads** — AdMob (banner, interstitial, rewarded, native, app open) with mediation; placement config via Firebase Remote Config
 
-# Contribution ❤
+## Modules
 
-## Issue reporting
+| Module | Description |
+|--------|-------------|
+| `:app` | Main app — IME + Translator Pro UI |
+| `:country_data` | Country flags / metadata for language UI |
+| `:keyboard-listener` | Soft-keyboard visibility helper |
+| `:tools:make-keyboard-text` | Generates keyboard “more keys” / locale text tables |
+| `:tools:make-emoji-keys` | Emoji key generation tooling |
 
-Whether you encountered a bug, or want to see a new feature in OpenBoard, you can contribute to the project by opening a new issue [here](https://github.com/openboard-team/openboard/issues). Your help is always welcomed !
+## Tech stack
 
-Before opening a new issue, be sure to check the following :
- - **Does the issue already exist ?** Make sure a similar issue has not been reported by browsing [existing issues](https://github.com/openboard-team/openboard/issues).
- - **Is the issue still relevant ?** Make sure your issue is not already fixed in the latest version of OpenBoard.
- - **Did you use the issue template ?** It is important to make life of our kind contributors easier by avoiding  issues that miss key informations to their resolution.
+- **Language:** Kotlin + Java (translator UI mostly Kotlin; IME core mostly Java)
+- **Build:** Android Gradle Plugin 8.13, Kotlin 2.1, Java 17, NDK 26.3 (16 KB page size), compile/target SDK 36
+- **Translation / OCR:** ML Kit Translate, Language ID, Text Recognition (+ CJK)
+- **Camera:** CameraX
+- **Backend services:** Firebase Analytics, Crashlytics, Messaging, Remote Config, Storage
+- **Monetization:** AdMob + mediation, Play Billing Library 8.3, UMP consent
 
-*Please avoid opening issues to ask for a release date, for PR reviews/merges, for more activity on the project, or worth for more contributors. If you have any interrogations on these topics, read [this comment](https://github.com/openboard-team/openboard/issues/619#issuecomment-1179534276) from issue [#619](https://github.com/openboard-team/openboard/issues/619).*
+## Getting started
 
-## Translation
-You can help in translating OpenBoard in your language through our [Weblate project](https://hosted.weblate.org/engage/openboard/).
+### Requirements
 
-[![Translation status](https://hosted.weblate.org/widgets/openboard/-/openboard/287x66-grey.png)](https://hosted.weblate.org/engage/openboard/)
+- [Android Studio](https://developer.android.com/studio) (recent stable)
+- JDK 17
+- Android SDK 36
+- NDK `26.3.11579264` (configured in the app module for JNI dictionaries)
 
-## Dictionary creation
-To create or update a dictionary for your language, you can use [this tool](https://github.com/remi0s/aosp-dictionary-tools). You will need a wordlist, as described [here](dictionaries/sample.combined). The output .dict file must be put in [res/raw](app/src/main/res/raw), and its wordlist in [dictionaries](/dictionaries).
+### Clone & open
 
-For your dictionary to be merged into OpenBoard, **you must provide the wordlist you used**, as well as its license if any.
+```sh
+git clone https://github.com/ahmedaffan932/openboard.git
+cd openboard
+```
 
-## Code contribution
+Open the project in Android Studio and sync Gradle.
 
-### Getting started
+### Build
 
-OpenBoard project is based on Gradle and Android Gradle Plugin. To get started, you'll just need to install [Android Studio](https://developer.android.com/studio), and import project 'from Version Control / Git / Github' by providing this git repository [URL](https://github.com/openboard-team/openboard) (or git SSH [URL](git@github.com:openboard-team/openboard.git)).
+```sh
+# Debug APK
+./gradlew :app:assembleDebug
 
-Once everything got setted up correctly, you're ready to go !
+# Release APK
+./gradlew :app:assembleRelease
+```
 
-### Guidelines
+On Windows (PowerShell / CMD):
 
-OpenBoard is a complex application, when contributing, you must take a step back and make sure your contribution :
-- **Uses already in-place mechanism and take advantage of them**. In other terms, does not reinvent the wheel or uses shortcuts that could alter the consistency of the existing code.
-- **Has the lowest footprint possible**. OpenBoard code has been written by android experts (AOSP/Google engineers). It has been tested and runned on millions of devices. Thus, **existing code will always be safer than new code**. The less we alter existing code, the more OpenBoard will stay stable. Especially in the input logic scope.
-- **Does not bring any non-free code or proprietary binary blobs**. This also applies to code/binaries with unknown licenses. Make sure you do not introduce any closed-source library from Google.
-- **Complies with the user privacy principle OpenBoard follows**. 
+```bat
+gradlew.bat :app:assembleDebug
+```
 
-In addition to previous elements, OpenBoard must stick to [F-Droid inclusion guidelines](https://f-droid.org/docs/Inclusion_Policy/).
+### Keyboard text tooling
 
-### Current TODO list
-In no particular order, here is the non-exhaustive list of known wanted features :
-- [x] ~~Updated emoji support~~
-- [ ] MaterialYou ([M3](https://m3.material.io/)) support
-- [x] ~~One-handed mode feature~~
-- [ ] Android [autofill](https://developer.android.com/guide/topics/text/ime-autofill) support
-- [x] ~~Clipboard history feature~~
-- [ ] Text navigation/selection panel
-- [ ] Multi-locale typing
-- [ ] Emoji search
-- [ ] Emoji variant saving
-- [ ] Glide typing
+After editing locale “more keys” under `tools/make-keyboard-text/src/main/resources`:
 
-### Tooling
+```sh
+./gradlew tools:make-keyboard-text:makeText
+```
 
-#### Edit keyboards content
-Keyboards content is often a complex concatenation of data from global to specific locales. For example, additional keys of a given key, also known as 'more keys' in code, are determined by concatenating infos from : common additional keys for a layout (eg. numbers), global locale (eg. common symbols) and specific locale (eg. accents or specific letters).
+Emoji tooling: see [tools/make-emoji-keys/README.md](tools/make-emoji-keys/README.md).
 
-To edit these infos, you'll need to generate the [KeyboardTextsTable.java](app/src/main/java/org/dslul/openboard/inputmethod/keyboard/internal/KeyboardTextsTable.java) file. 
-To do so :
-1. Make your modifications in [tools/make-keyboard-text/src/main/resources](tools/make-keyboard-text/src/main/resources)/values-YOUR LOCALE.
-2. Generate the new version of [KeyboardTextsTable.java](app/src/main/java/org/dslul/openboard/inputmethod/keyboard/internal/KeyboardTextsTable.java) by running Gradle task 'makeText' :
-    ```sh
-    ./gradlew tools:make-keyboard-text:makeText
-    ```
-   
-#### Update emojis
+## Project layout (high level)
 
-See make-emoji-keys tool [README](tools/make-emoji-keys/README.md).
+```
+app/src/main/java/
+├── org/dslul/openboard/translator/pro/     # Translator Pro UI, ads, billing, FCM
+└── org/dslul/openboard/inputmethod/       # Keyboard IME (LatinIME and related)
+```
 
-# License
+## License
 
-OpenBoard project is licensed under GNU General Public License v3.0.
+This project is licensed under the **GNU General Public License v3.0**. See [LICENSE](LICENSE).
 
- > Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
+It is derived from OpenBoard / AOSP LatinIME. Upstream keyboard code and this fork’s modifications remain under GPL-3.0.
 
-See repo's [LICENSE](/LICENSE) file.
+## Credits
 
-# Credits
-- Icon by [Marco TLS](https://www.marcotls.eu)
-- [AOSP Keyboard](https://android.googlesource.com/platform/packages/inputmethods/LatinIME/)
-- [LineageOS](https://review.lineageos.org/admin/repos/LineageOS/android_packages_inputmethods_LatinIME)
+- [OpenBoard](https://github.com/openboard-team/openboard) — FOSS keyboard base
+- [AOSP LatinIME](https://android.googlesource.com/platform/packages/inputmethods/LatinIME/)
+- [LineageOS LatinIME](https://review.lineageos.org/admin/repos/LineageOS/android_packages_inputmethods_LatinIME)
 - [Simple Keyboard](https://github.com/rkkr/simple-keyboard)
 - [Indic Keyboard](https://gitlab.com/indicproject/indic-keyboard)
-- Our [contributors](https://github.com/openboard-team/openboard/graphs/contributors)

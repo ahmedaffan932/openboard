@@ -16,6 +16,7 @@ import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
 import com.google.gson.Gson
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.translator.pro.TranslateActivity
 import org.dslul.openboard.translator.pro.interfaces.InterfaceHistory
 import org.dslul.openboard.translator.pro.interfaces.OnBackPressedHistoryInterface
 import java.util.*
@@ -58,7 +59,7 @@ class HistoryAdapter(private var arr: ArrayList<TranslateHistoryClass>, val acti
 
             if (arr[position].translatedFrom == Misc.defaultLanguage) {
                 holder.tvLngFrom.text =
-                    "Detect"
+                    activity.getString(R.string.detect)
             } else {
                 holder.tvLngFrom.text = Locale(
                     arr[position].translatedFrom
@@ -90,7 +91,7 @@ class HistoryAdapter(private var arr: ArrayList<TranslateHistoryClass>, val acti
                 arr[position].translation
             )
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(activity, "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, R.string.copied, Toast.LENGTH_SHORT).show()
         }
 
         holder.btnShare.setOnClickListener {
@@ -112,6 +113,12 @@ class HistoryAdapter(private var arr: ArrayList<TranslateHistoryClass>, val acti
             speak(arr[position].translation, arr[position].translatedTo)
         }
 
+        holder.llMain.setOnClickListener{
+            val intent = Intent(activity, TranslateActivity::class.java)
+            intent.putExtra(Misc.key, arr[position].text)
+            activity.startActivity(intent)
+        }
+
         holder.llMain.setOnLongClickListener {
             val objCustomDialog = CustomDialog(activity)
             objCustomDialog.show()
@@ -123,7 +130,8 @@ class HistoryAdapter(private var arr: ArrayList<TranslateHistoryClass>, val acti
             )
             window.setBackgroundDrawableResource(R.color.color_nothing)
 
-            objCustomDialog.findViewById<TextView>(R.id.tvTitle).text = "Delete?"
+            objCustomDialog.findViewById<TextView>(R.id.tvTitle).text =
+                activity.getString(R.string.delete_question)
             objCustomDialog.setCancelable(true)
 
             objCustomDialog.findViewById<TextView>(R.id.btnYes).setOnClickListener {

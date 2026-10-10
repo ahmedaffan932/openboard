@@ -1,6 +1,7 @@
 package org.dslul.openboard.translator.pro.classes.ads.admob
 
 import android.app.Activity
+import android.content.Context
 import android.util.Log
 import com.example.translatorguru.ads.admob.LoadAdCallBack
 import com.google.android.gms.ads.AdError
@@ -12,58 +13,145 @@ import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import java.util.Date
+import org.dslul.openboard.translator.pro.notifications.AdClickTracker
 
 object AppOpenAdManager {
+
     private var appOpenAd: AppOpenAd? = null
     private var isLoadingAd = false
+    private var loadingAppOpenAdIdsKey: String? = null
+    private var loadedAppOpenAdIdsKey: String? = null
     var isShowingAd = false
 
-    private var loadTime: Long = 0
+    private var loadTime: Long = 0L
 
     fun loadAd(
-        context: Activity,
-        adId: String = AdIds.appOpenAdIdOne,
+        context: Context,
+        adIds: Array<String> = AdIds.appOpenAdIdSplash,
         callBack: LoadAdCallBack? = null
     ) {
-        if (isLoadingAd || isAdAvailable()) {
+        val appOpenAdIdsKey = adIds.appOpenAdIdsKey()
+
+        if (isLoadingAd) {
+            Log.d(Misc.logKey, "AppOpen load skipped: already loading.")
+            if (loadingAppOpenAdIdsKey != appOpenAdIdsKey) {
+                callBack?.onFailed()
+            }
             return
+        }
+
+        if (isAdAvailableFor(adIds)) {
+            Log.d(Misc.logKey, "AppOpen load skipped: ad already available.")
+            callBack?.onLoaded()
+            return
+        }
+
+        if (appOpenAd != null && loadedAppOpenAdIdsKey != appOpenAdIdsKey) {
+            appOpenAd = null
+            loadedAppOpenAdIdsKey = null
+            loadTime = 0L
         }
 
         if (Misc.getPurchasedStatus(context)) {
+            Log.d(Misc.logKey, "AppOpen load skipped: user purchased.")
+            callBack?.onFailed()
             return
         }
 
-        Log.d(Misc.logKey, "AppOpen Loading.....")
+        if (adIds.isEmpty()) {
+            Log.d(Misc.logKey, "AppOpen load failed: adIds array is empty.")
+            callBack?.onFailed()
+            return
+        }
+
+        Log.d(Misc.logKey, "AppOpen Loading started...")
 
         isLoadingAd = true
+        loadingAppOpenAdIdsKey = appOpenAdIdsKey
+
+        loadAdByIndex(
+            context = context.applicationContext,
+            adIds = adIds,
+            adIdsKey = appOpenAdIdsKey,
+            index = 0,
+            callBack = callBack
+        )
+    }
+
+    private fun loadAdByIndex(
+        context: Context,
+        adIds: Array<String>,
+        adIdsKey: String,
+        index: Int,
+        callBack: LoadAdCallBack?
+    ) {
+        if (index >= adIds.size) {
+            isLoadingAd = false
+            loadingAppOpenAdIdsKey = null
+            loadedAppOpenAdIdsKey = null
+            Log.d(Misc.logKey, "AppOpen all ad ids failed.")
+            callBack?.onFailed()
+            return
+        }
+
+        val currentAdId = adIds[index]
+
+        if (currentAdId.isBlank()) {
+            Log.d(Misc.logKey, "AppOpen skipped blank ad id at index: $index")
+
+            loadAdByIndex(
+                context = context,
+                adIds = adIds,
+                adIdsKey = adIdsKey,
+                index = index + 1,
+                callBack = callBack
+            )
+            return
+        }
+
+        Log.d(Misc.logKey, "AppOpen trying ad id index $index: $currentAdId")
+
         val request = AdRequest.Builder().build()
+
         AppOpenAd.load(
             context,
-            adId,
+            currentAdId,
             request,
-            AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
             object : AppOpenAd.AppOpenAdLoadCallback() {
+
                 override fun onAdLoaded(ad: AppOpenAd) {
                     appOpenAd = ad
                     isLoadingAd = false
+                    loadingAppOpenAdIdsKey = null
+                    loadedAppOpenAdIdsKey = adIdsKey
                     loadTime = Date().time
-                    Log.d(Misc.logKey, "AppOpen onAdLoaded.")
+
+                    Log.d(Misc.logKey, "AppOpen loaded successfully with index: $index")
 
                     callBack?.onLoaded()
                 }
 
                 override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                    callBack?.onFailed()
-                    isLoadingAd = false
-                    Log.d(Misc.logKey, "AppOpen onAdFailedToLoad: " + loadAdError.message)
+                    Log.d(
+                        Misc.logKey,
+                        "AppOpen failed at index $index: ${loadAdError.message}"
+                    )
+
+                    loadAdByIndex(
+                        context = context,
+                        adIds = adIds,
+                        adIdsKey = adIdsKey,
+                        index = index + 1,
+                        callBack = callBack
+                    )
                 }
             }
         )
     }
 
     private fun wasLoadTimeLessThanNHoursAgo(numHours: Long): Boolean {
-        val dateDifference: Long = Date().time - loadTime
-        val numMilliSecondsPerHour: Long = 3600000
+        val dateDifference = Date().time - loadTime
+        val numMilliSecondsPerHour = 3600000L
         return dateDifference < numMilliSecondsPerHour * numHours
     }
 
@@ -71,49 +159,99 @@ object AppOpenAdManager {
         return appOpenAd != null && wasLoadTimeLessThanNHoursAgo(4)
     }
 
+    fun isAdAvailableFor(adIds: Array<String>): Boolean {
+        return isAdAvailable() && loadedAppOpenAdIdsKey == adIds.appOpenAdIdsKey()
+    }
+
     fun showIfAvailable(
         activity: Activity,
         remoteKey: Boolean = true,
+        adIds: Array<String> = AdIds.appOpenAdIdSplash,
+        nextLoadAdIds: Array<String> = adIds,
         callBack: InterstitialCallBack? = null
     ) {
-        if (!isAdAvailable()) {
-            Log.d(Misc.logKey, "Ad not available.")
-            callBack?.onDismiss()
-//            loadAd(activity)
+        if (isShowingAd) {
+            Log.d(Misc.logKey, "AppOpen show skipped: already showing.")
             return
         }
-
 
         if (!remoteKey) {
-            Log.d(Misc.logKey, "App open ad is off.")
+            Log.d(Misc.logKey, "AppOpen show skipped: remote key is off.")
             callBack?.onDismiss()
             return
         }
-        appOpenAd!!.fullScreenContentCallback = object : FullScreenContentCallback() {
+
+        if (Misc.getPurchasedStatus(activity)) {
+            Log.d(Misc.logKey, "AppOpen show skipped: user purchased.")
+            callBack?.onDismiss()
+            return
+        }
+
+        val ad = appOpenAd
+
+        if (ad == null || !isAdAvailableFor(adIds)) {
+            Log.d(Misc.logKey, "AppOpen ad not available.")
+            callBack?.onDismiss()
+
+            loadAd(activity, nextLoadAdIds)
+            return
+        }
+
+        ad.fullScreenContentCallback = object : FullScreenContentCallback() {
+
             override fun onAdDismissedFullScreenContent() {
                 appOpenAd = null
+                loadedAppOpenAdIdsKey = null
                 isShowingAd = false
-                Log.d(Misc.logKey, "App Open Ad dismissed")
+
+                Log.d(Misc.logKey, "AppOpen dismissed.")
 
                 callBack?.onDismiss()
-                loadAd(activity)
+
+                loadAd(activity, nextLoadAdIds)
             }
 
             override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                 appOpenAd = null
+                loadedAppOpenAdIdsKey = null
                 isShowingAd = false
-                Log.d(Misc.logKey, "App Open Ad Failed to Show: " + adError.message)
+
+                Log.d(Misc.logKey, "AppOpen failed to show: ${adError.message}")
 
                 callBack?.onDismiss()
-                loadAd(activity)
+
+                loadAd(activity, nextLoadAdIds)
             }
 
             override fun onAdShowedFullScreenContent() {
-                Log.d(Misc.logKey, "App Open Ad showed.")
+                Log.d(Misc.logKey, "AppOpen showed.")
                 callBack?.onAdDisplayed()
             }
+
+            override fun onAdClicked() {
+                Log.d(Misc.logKey, "AppOpen clicked.")
+                AdClickTracker.notifyClick()
+            }
+
+            override fun onAdImpression() {
+                Log.d(Misc.logKey, "AppOpen impression recorded.")
+            }
         }
+
         isShowingAd = true
-        appOpenAd!!.show(activity)
+        ad.show(activity)
+    }
+
+    fun clearAd() {
+        appOpenAd = null
+        isLoadingAd = false
+        loadingAppOpenAdIdsKey = null
+        loadedAppOpenAdIdsKey = null
+        isShowingAd = false
+        loadTime = 0L
+    }
+
+    private fun Array<String>.appOpenAdIdsKey(): String {
+        return joinToString(separator = "|")
     }
 }

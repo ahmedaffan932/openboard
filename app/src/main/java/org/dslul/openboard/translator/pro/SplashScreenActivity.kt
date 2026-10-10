@@ -8,72 +8,135 @@ import android.os.CountDownTimer
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.google.android.material.tabs.TabLayoutMediator
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_splash_screen.btnContinue
-import kotlinx.android.synthetic.main.activity_splash_screen.nativeAdFrameLayout
-import kotlinx.android.synthetic.main.activity_splash_screen.splashTabLayout
-import kotlinx.android.synthetic.main.activity_splash_screen.splashViewPager
-import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.databinding.ActivitySplashScreenBinding
 import org.dslul.openboard.translator.pro.classes.Misc
-import org.dslul.openboard.translator.pro.classes.ads.Ads
-import org.dslul.openboard.translator.pro.fragments.SplashFragment
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
+    lateinit var binding: ActivitySplashScreenBinding
+    private var isIntAdLoaded = false
+    private var isNativeAdLoaded = false
+    private var isStartButtonVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setAppLanguage()
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        setContentView(R.layout.activity_splash_screen)
+        binding = ActivitySplashScreenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        Firebase.analytics.logEvent("SplashScreenStarted", null)
+//        loadAds()
 
-        splashViewPager.adapter = FragmentAdapter(this)
-
-        TabLayoutMediator(splashTabLayout, splashViewPager) { tab, position -> }.attach()
-
-        object : CountDownTimer(3000, 1500){
-            override fun onTick(millisUntilFinished: Long) {
-
+        object : CountDownTimer(8000, 1000) {
+            @SuppressLint("SetTextI18n")
+            override fun onTick(p0: Long) {
+                if (isIntAdLoaded && isNativeAdLoaded) {
+                    showStartButton()
+                }
             }
 
             override fun onFinish() {
-                btnContinue.visibility = View.VISIBLE
+                showStartButton()
             }
-
         }.start()
 
-        btnContinue.setOnClickListener {
-            if (splashViewPager.currentItem < 2) {
-                splashViewPager.setCurrentItem(splashViewPager.currentItem + 1, true)
+
+        binding.btnStart.setOnClickListener {
+            startNextActivity()
+        }
+
+    }
+
+
+    private fun startNextActivity() {
+//        Ads.showInterstitial(this, Ads.splashInt, object : InterstitialCallBack {
+//            override fun onDismiss() {
+        if (Misc.isFirstTime(this@SplashScreenActivity)) {
+            val nextIntent = if (Misc.isProScreenEnabled) {
+                Intent(this, PremiumScreenActivity::class.java)
+                    .putExtra(Misc.premiumShownBeforeLanguage, true)
             } else {
-                startActivity(Intent(this, NewDashboardActivity::class.java))
+                Intent(this@SplashScreenActivity, AppLanguageSelectorActivity::class.java)
             }
+            startActivity(nextIntent)
+            finish()
+        } else {
+            if (Misc.isProScreenEnabled) {
+                startActivity(
+                    Intent(this, PremiumScreenActivity::class.java).putExtra(
+                        Misc.data,
+                        Misc.data
+                    )
+                )
+            } else {
+                startActivity(
+                    Intent(
+                        this@SplashScreenActivity,
+                        FragmentsDashboardActivity::class.java
+                    )
+                )
+            }
+            finish()
         }
+//            }
+//        })
     }
 
-    override fun onBackPressed() {
-        if (!Misc.splashScreenOnBackPressDoNothing)
-            super.onBackPressed()
+    override fun onResume() {
+        super.onResume()
+        Misc.isSplashScreen = true
     }
 
-
-    private inner class FragmentAdapter(fa: FragmentActivity) :
-        FragmentStateAdapter(fa) {
-        override fun getItemCount(): Int {
-            return 3
-        }
-
-        override fun createFragment(position: Int): Fragment {
-            return SplashFragment.newInstance(position.toString())
-        }
+    override fun onPause() {
+        super.onPause()
+        Misc.isSplashScreen = false
     }
 
+    private fun showStartButton() {
+        if (!isStartButtonVisible) {
+            Misc.zoomInView(binding.btnStart, this, 250)
+            binding.spline.visibility = View.INVISIBLE
+        }
+        isStartButtonVisible = true
+    }
+
+//    private fun loadAds() {
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            AdmobInterstitialAd.loadInterAdmob(
+//                this,
+//                AdIds.interstitialAdIdAdMobSplash,
+//                object : LoadAdCallBack {
+//                    override fun onLoaded() {
+//                        isIntAdLoaded = true
+//                    }
+//
+//                    override fun onFailed() {
+//                        isIntAdLoaded = true
+//                    }
+//                }
+//            )
+//        }, 1000)
+//
+//        Ads.loadAndShowNativeAd(
+//            this,
+//            AdIds.nativeAdIdAdMobSplash,
+//            Ads.splashNative,
+//            binding.nativeAdFrameLayout,
+//            R.layout.admob_native_splash,
+//            R.layout.shimmer_native_splash,
+//            object : LoadAdCallBack {
+//                override fun onFailed() {
+//                    isNativeAdLoaded = true
+//                }
+//
+//                override fun onLoaded() {
+//                    isNativeAdLoaded = true
+//                }
+//            }
+//        )
+//        AdmobMRECAds.loadMREC(this)
+//    }
 }

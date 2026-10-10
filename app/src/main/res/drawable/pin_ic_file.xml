@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Pinned notification, File tile (Figma NotiPinNoti): a 20x24dp page whose 8dp dog-ear is drawn
+     in the lighter @color/pin_tile_fold - its own colour per theme, which is why these glyphs carry
+     their colours instead of being tinted by the layout. Measured off the frame. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="28dp"
+    android:height="28dp"
+    android:viewportWidth="28"
+    android:viewportHeight="28">
+    <path
+        android:fillColor="@color/pin_tile_content"
+        android:pathData="M6,3H16L24,11V25a2,2 0,0 1,-2,2H6a2,2 0,0 1,-2,-2V5a2,2 0,0 1,2,-2z" />
+    <path
+        android:fillColor="@color/pin_tile_fold"
+        android:pathData="M16,3L24,11H16z" />
+</vector>

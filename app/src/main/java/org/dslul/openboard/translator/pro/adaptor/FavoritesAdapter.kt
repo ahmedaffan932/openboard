@@ -17,6 +17,7 @@ import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
 import com.google.gson.Gson
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.translator.pro.TranslateActivity
 import org.dslul.openboard.translator.pro.interfaces.OnBackPressedHistoryInterface
 import java.util.*
 import kotlin.collections.ArrayList
@@ -48,7 +49,7 @@ class FavoritesAdapter(private var arr: ArrayList<TranslateHistoryClass>, val ac
 
         if (arr[position].translatedFrom == Misc.defaultLanguage) {
             holder.tvLngFrom.text =
-                "Detected"
+                activity.getString(R.string.detect)
         } else {
             holder.tvLngFrom.text = Locale(
                 arr[position].translatedFrom
@@ -65,7 +66,7 @@ class FavoritesAdapter(private var arr: ArrayList<TranslateHistoryClass>, val ac
                 arr[position].translation
             )
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(activity, "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, R.string.copied, Toast.LENGTH_SHORT).show()
         }
 
         holder.btnShare.setOnClickListener {
@@ -87,6 +88,12 @@ class FavoritesAdapter(private var arr: ArrayList<TranslateHistoryClass>, val ac
             speak(arr[position].translation, arr[position].translatedTo)
         }
 
+        holder.llMain.setOnClickListener{
+            val intent = Intent(activity, TranslateActivity::class.java)
+            intent.putExtra(Misc.key, arr[position].text)
+            activity.startActivity(intent)
+        }
+
         holder.btnFavoriteHistory.setOnClickListener {
             val objCustomDialog = CustomDialog(activity)
             objCustomDialog.show()
@@ -98,7 +105,8 @@ class FavoritesAdapter(private var arr: ArrayList<TranslateHistoryClass>, val ac
             )
             window.setBackgroundDrawableResource(R.color.color_nothing)
 
-            objCustomDialog.findViewById<TextView>(R.id.tvTitle).text = "Remove from favorites?"
+            objCustomDialog.findViewById<TextView>(R.id.tvTitle).text =
+                activity.getString(R.string.remove_from_favorites_question)
             objCustomDialog.setCancelable(true)
 
             objCustomDialog.findViewById<TextView>(R.id.btnYes).setOnClickListener {
@@ -135,7 +143,6 @@ class FavoritesAdapter(private var arr: ArrayList<TranslateHistoryClass>, val ac
         val btnShare: ImageButton = itemView.findViewById(R.id.btnShareHistory)
         val tvTranslation: TextView = itemView.findViewById(R.id.tvTranslationHistory)
         val btnFavoriteHistory: ImageButton = itemView.findViewById(R.id.btnFavoriteHistory)
-        val nativeAdFrameLayout: FrameLayout = itemView.findViewById(R.id.nativeAdFrameLayout)
     }
     private fun speak(text: String, lng: String) {
         textToSpeech = TextToSpeech(

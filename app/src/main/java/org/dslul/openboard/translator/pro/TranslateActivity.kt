@@ -18,37 +18,64 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
+import com.example.translatorguru.ads.admob.LoadAdCallBack
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
-import com.google.mlkit.nl.languageid.LanguageIdentification
 import com.rw.keyboardlistener.KeyboardUtils
-import kotlinx.android.synthetic.main.activity_translate.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityTranslateBinding
+import org.dslul.openboard.translator.pro.classes.MiscTranslate
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
+import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
+import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
+import org.dslul.openboard.translator.pro.interfaces.TranslationInterface
 import org.jsoup.Jsoup
 import java.net.URLEncoder
 import java.util.*
 
 class TranslateActivity : AppCompatActivity() {
+
+    companion object {
+        /** With a launch text (Misc.key): read the translation aloud as soon as it arrives. */
+        const val EXTRA_SPEAK_RESULT = "speakResult"
+
+        /** Start speech input as soon as the screen opens (the pinned notification's Voice tile). */
+        const val EXTRA_START_VOICE = "startVoice"
+
+        /** Back opens the dashboard when this screen is the task root (a cold notification entry). */
+        const val EXTRA_DASHBOARD_ON_BACK = "createDashboardOnBack"
+
+        /**
+         * Skip the entry interstitial: a notification entry already went through the splash ad,
+         * and the pinned notification's tiles open their tool with no ad on the way.
+         */
+        const val EXTRA_SKIP_ENTRY_AD = "skipEntryAd"
+    }
+
+    /** Set from [EXTRA_SPEAK_RESULT] for the launch text only; cleared once it has spoken. */
+    private var speakLaunchTranslation = false
+
     private var isNativeAdLoaded: Boolean = false
     lateinit var binding: ActivityTranslateBinding
     private var isBtnTranslateVisible = false
     private var isLLTranslateVisible = false
+    private var isTranslateNativeRequested = false
     private val lngSelectorRequestCode = 1230
     private val speechRequestCode = 0
     private var textToSpeechLngTo: TextToSpeech? = null
+    private var translationCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setAppLanguage()
+        setAppLanguage()
         binding = ActivityTranslateBinding.inflate(layoutInflater)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -56,12 +83,35 @@ class TranslateActivity : AppCompatActivity() {
         )
         setContentView(binding.root)
 
+        Misc.isItemClicked = true
+
+        if (!intent.getBooleanExtra(EXTRA_SKIP_ENTRY_AD, false)) {
+            Ads.loadAndShowInterstitial(
+                this,
+                Ads.translateInt,
+                AdIds.interstitialAdIdAdMobTranslate
+            )
+        }
+
+        // removeExtra only reaches this process's copy: after process death the system restores the
+        // screen with its original launch intent, and it must not start talking or listening on its
+        // own then.
+        speakLaunchTranslation = savedInstanceState == null &&
+            intent.getBooleanExtra(EXTRA_SPEAK_RESULT, false) &&
+            !intent.getStringExtra(Misc.key).isNullOrBlank()
+        intent.removeExtra(EXTRA_SPEAK_RESULT)
+        if (savedInstanceState == null && intent.getBooleanExtra(EXTRA_START_VOICE, false)) {
+            intent.removeExtra(EXTRA_START_VOICE)
+            displaySpeechRecognizer()
+        }
+
         if (intent.getStringExtra(Misc.key) != null) {
             if (intent.getStringExtra(Misc.key) != "") {
                 binding.etText.setText(intent.getStringExtra(Misc.key))
+                showTranslateNativeAd()
                 binding.llPBTranslateFrag.visibility = View.VISIBLE
                 Handler(Looper.getMainLooper()).postDelayed({
-                    jugarTranslation(binding.etText.text.toString())
+                    translateNow(binding.etText.text.toString())
                 }, 500)
             }
         }
@@ -74,38 +124,15 @@ class TranslateActivity : AppCompatActivity() {
             binding.btnClearText.visibility = View.VISIBLE
         }
 
-        if (Ads.isCameraAdEnabled) {
-            binding.tvAdCamera.visibility = View.VISIBLE
-        } else {
-            binding.tvAdCamera.visibility = View.INVISIBLE
-        }
-
-        binding.btnCamera.setOnClickListener {
-            startActivity(Intent(this, CameraTranslationActivity::class.java))
-        }
-
-        val handler = Handler()
-        var count = 0
-        val hint = getString(R.string.enter_some_text_to_translate)
-        val runnable: Runnable by lazy {
-            return@lazy object : Runnable {
-                override fun run() {
-                    if (count < hint.length) {
-                        binding.etText.hint = hint.substring(0, count)
-                        count++
-                        handler.postDelayed(this, 75);
-                    }
-                }
-            }
-        }
-        handler.post(runnable)
-
-
         if (!Misc.isNightModeOn(this)) {
             binding.etText.setTextColor(Color.BLACK)
         }
 
         binding.etText.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            binding.clTranslation.setBackgroundResource(
+                if (hasFocus)
+                    R.drawable.bg_accent_bordered_less_rounded else R.drawable.bg_translate_dashboard
+            )
         }
 
 
@@ -113,8 +140,10 @@ class TranslateActivity : AppCompatActivity() {
         KeyboardUtils.addKeyboardToggleListener(this) { isVisible ->
             if (isVisible) {
                 Misc.zoomOutView(binding.btnSpeakInput, this, 150)
+                Misc.zoomOutView(binding.btnCopyInput, this, 150)
                 Handler().postDelayed({
                     binding.btnSpeakInput.visibility = View.GONE
+                    binding.btnCopyInput.visibility = View.GONE
                 }, 150)
 
                 if (!isBtnTranslateVisible) {
@@ -134,6 +163,7 @@ class TranslateActivity : AppCompatActivity() {
                     isBtnTranslateVisible = false
                 }
                 Misc.zoomInView(binding.btnSpeakInput, this, 150)
+                Misc.zoomInView(binding.btnCopyInput, this, 150)
             }
         }
 
@@ -148,21 +178,17 @@ class TranslateActivity : AppCompatActivity() {
                 "TranslatorPro", binding.textViewTextTranslatedFrag.text
             )
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(this, "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.copied, Toast.LENGTH_SHORT).show()
         }
 
-        binding.btnClearTranslation.setOnClickListener {
-//            binding.llText.setBackgroundResource(R.drawable.bg_main_less_rounded)
-
-            Misc.zoomOutView(binding.clTranslatedText, this, 150)
-            Handler().postDelayed({
-                binding.clTranslatedText.visibility = View.GONE
-            }, 150)
-
-            Misc.zoomInView(binding.btnTranslate, this, 150)
-            binding.btnTranslate.visibility = View.VISIBLE
-            isBtnTranslateVisible = true
-            isLLTranslateVisible = false
+        binding.btnCopyInput.setOnClickListener {
+            val clipboard: ClipboardManager =
+                getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText(
+                "TranslatorPro", binding.etText.text
+            )
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(this, R.string.copied, Toast.LENGTH_SHORT).show()
         }
 
         binding.etText.doOnTextChanged { text, start, before, count ->
@@ -182,10 +208,10 @@ class TranslateActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        binding.btnHistory.setOnClickListener {
+        binding.btnSettings.setOnClickListener {
             startActivity(
                 Intent(
-                    this@TranslateActivity, DisplayHistoryActivity::class.java
+                    this@TranslateActivity, SettingsActivity::class.java
                 )
             )
         }
@@ -232,9 +258,10 @@ class TranslateActivity : AppCompatActivity() {
 
         binding.btnTranslate.setOnClickListener {
             if (binding.etText.text.toString() != "") {
+                showTranslateNativeAd()
                 binding.llPBTranslateFrag.visibility = View.VISIBLE
                 Handler().postDelayed({
-                    jugarTranslation(binding.etText.text.toString())
+                    translateNow(binding.etText.text.toString())
                 }, 100)
             }
         }
@@ -249,8 +276,8 @@ class TranslateActivity : AppCompatActivity() {
                 val image = binding.btnSwitchLngs
                 image.startAnimation(rotate)
 
-                Misc.zoomOutView(binding.llLngToFrag, this, 150)
-                Misc.zoomOutView(binding.llLngFromFrag, this, 150)
+                Misc.zoomOutView(binding.llLanguageTo, this, 150)
+                Misc.zoomOutView(binding.llLanguageFrom, this, 150)
 
                 Handler().postDelayed({
                     val temp = Misc.getLanguageFrom(this)
@@ -262,11 +289,11 @@ class TranslateActivity : AppCompatActivity() {
                     if (binding.etText.text.toString() != "") {
                         binding.llPBTranslateFrag.visibility = View.VISIBLE
                         Handler().postDelayed({
-                            jugarTranslation(binding.etText.text.toString())
+                            translateNow(binding.etText.text.toString())
                         }, 150)
                     }
-                    Misc.zoomInView(binding.llLngToFrag, this, 150)
-                    Misc.zoomInView(binding.llLngFromFrag, this, 150)
+                    Misc.zoomInView(binding.llLanguageTo, this, 150)
+                    Misc.zoomInView(binding.llLanguageFrom, this, 150)
 
                 }, 150)
             } else {
@@ -278,13 +305,13 @@ class TranslateActivity : AppCompatActivity() {
             }
         }
 
-        binding.llLngFromFrag.setOnClickListener {
+        binding.llLanguageFrom.setOnClickListener {
             val intent = Intent(this@TranslateActivity, LanguageSelectorActivity::class.java)
             intent.putExtra(Misc.lngTo, false)
             startActivityForResult(intent, lngSelectorRequestCode)
         }
 
-        binding.llLngToFrag.setOnClickListener {
+        binding.llLanguageTo.setOnClickListener {
             startActivityForResult(
                 Intent(
                     this@TranslateActivity, LanguageSelectorActivity::class.java
@@ -308,7 +335,7 @@ class TranslateActivity : AppCompatActivity() {
 //                    translate(binding.etText.text.toString())
 //                } else {
                 Handler().postDelayed({
-                    jugarTranslation(binding.etText.text.toString())
+                    translateNow(binding.etText.text.toString())
                 }, 1)
 //                }
                 true
@@ -319,6 +346,28 @@ class TranslateActivity : AppCompatActivity() {
             Firebase.analytics.logEvent("BtnSpeakInput", null)
             displaySpeechRecognizer()
         }
+    }
+
+    private fun showTranslateNativeAd() {
+        if (isTranslateNativeRequested) return
+
+        isTranslateNativeRequested = true
+        Ads.loadAndShowNativeAd(
+            activity = this,
+            adIds = AdIds.nativeAdIdAdMobTranslate,
+            remoteKey = Ads.translateNative,
+            frameLayout = binding.nativeAdFrameLayoutInBetween,
+            shimmerLayout = if (Ads.translateNative.contains("splash"))
+                R.layout.shimmer_native_splash else
+                R.layout.small_native_shimmer,
+            callBack = object : LoadAdCallBack {
+                override fun onFailed() {
+                    isTranslateNativeRequested = false
+                    binding.nativeAdFrameLayoutInBetween.removeAllViews()
+                    binding.nativeAdFrameLayoutInBetween.visibility = View.GONE
+                }
+            }
+        )
     }
 
     private fun initializeAnimation() {
@@ -350,6 +399,8 @@ class TranslateActivity : AppCompatActivity() {
     }
 
     private fun saveInHistory(text: String, translation: String) {
+        translationCount++
+        Log.d(Misc.logKey, "$translationCount Translation Count")
         if (text.length > 1000) {
             return
         }
@@ -393,78 +444,67 @@ class TranslateActivity : AppCompatActivity() {
 
         binding.etText.clearFocus()
         KeyboardUtils.forceCloseKeyboard(binding.etText)
-//        manageTranslationInterstitial()
     }
 
     @SuppressLint("SetTextI18n")
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            binding.textViewLngFromFrag.text = resources.getString(R.string.detect)
             binding.textLngFrom.text = resources.getString(R.string.detect)
-            binding.flagFromFrag.setImageResource(Misc.getFlag(this, "100"))
+            binding.tvLanguageFrom.text = resources.getString(R.string.detect)
+            binding.flagFrom.setImageResource(Misc.getFlag(this, "100"))
         } else {
-            binding.textViewLngFromFrag.text = Locale(
-                Misc.getLanguageFrom(this)
-            ).displayName
+            binding.tvLanguageFrom.text = Locale(Misc.getLanguageFrom(this)).displayName
             binding.textLngFrom.text = Misc.getLanguageFrom(this)
 
-            binding.flagFromFrag.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
+            binding.flagFrom.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
         }
 
-        binding.flagToFrag.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
-        binding.textViewLngToFrag.text = Locale(
+        binding.flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
+        binding.tvLanguageTo.text = Locale(
             Misc.getLanguageTo(this)
         ).displayName
         binding.textLngTo.text = Misc.getLanguageTo(this)
     }
 
     @SuppressLint("SetTextI18n")
-    private fun jugarTranslation(text: String) {
+    private fun translateNow(text: String) {
         setSelectedLng()
-        if (!Misc.checkInternetConnection(this)) {
-            Toast.makeText(
-                this,
-                resources.getString(R.string.please_cehck_your_internet),
-                Toast.LENGTH_SHORT
-            ).show()
-            binding.llPBTranslateFrag.visibility = View.GONE
-            return
-        }
-        if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            val languageIdentifier = LanguageIdentification.getClient()
-            languageIdentifier.identifyLanguage(text).addOnSuccessListener { languageCode ->
-                if (languageCode == "und") {
-                    Toast.makeText(
-                        this, "Unable to detect Language. ", Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    binding.textLngFrom.text =
-                        "${resources.getString(R.string.detect)} -> $languageCode"
-                }
-            }.addOnFailureListener {
-                Toast.makeText(
-                    this, "Unable to detect Language. ", Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
+
         binding.llPBTranslateFrag.visibility = View.VISIBLE
 
-        val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
+        MiscTranslate.translate(this, text, object : TranslationInterface {
+            override fun onTranslate(translation: String) {
+                binding.textViewTextTranslatedFrag.text = translation
+                saveInHistory(text, translation)
+                // The Daily notification's "hear it now": the launch translation is read once.
+                if (speakLaunchTranslation) {
+                    speakLaunchTranslation = false
+                    speakLngTo()
+                }
+            }
 
+            override fun onFailed() {
+                speakLaunchTranslation = false
+                binding.llPBTranslateFrag.visibility = View.GONE
+                Toast.makeText(
+                    this@TranslateActivity,
+                    resources.getString(R.string.some_error_occurred_in_translation),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+
+//        if (translationCount > 3){
+//            Ads.loadAndShowRewardedInterstitial(this, Ads.translationRewardedAd, object :InterstitialCallBack{
+//                override fun onDismiss() {
+//                    translationCount = 0
+//                }
+//            })
+//        }
+    }
+
+    private fun onlineTranslation(fromCode: String, toCode: String, text: String) {
         val encoded = URLEncoder.encode(text, "utf-8")
-
-        val fromCode = if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) ""
-        else if (Misc.getLanguageFrom(this) == "zh") "zh-CN"
-        else if (Misc.getLanguageFrom(this) == "he") "iw"
-        else Misc.getLanguageFrom(this)
-
-        val toCode = when (Misc.getLanguageTo(this)) {
-            "zh" -> "zh-CN"
-            "he" -> "iw"
-            else -> Misc.getLanguageTo(this)
-        }
-
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 val translation = withContext(Dispatchers.IO) {
@@ -477,7 +517,6 @@ class TranslateActivity : AppCompatActivity() {
                 }
 
                 if (translation.isNotEmpty()) {
-                    binding.textViewTextTranslatedFrag.text = ""
                     binding.textViewTextTranslatedFrag.text = translation
 
                     saveInHistory(text, translation)
@@ -499,8 +538,8 @@ class TranslateActivity : AppCompatActivity() {
                 ).show()
             }
         }
-    }
 
+    }
 
     private fun displaySpeechRecognizer() {
         try {
@@ -535,7 +574,7 @@ class TranslateActivity : AppCompatActivity() {
                     binding.etText.setText(spokenText)
                     binding.llPBTranslateFrag.visibility = View.VISIBLE
                     Handler().postDelayed({
-                        jugarTranslation(binding.etText.text.toString())
+                        translateNow(binding.etText.text.toString())
                     }, 1)
                 }
             } catch (e: Exception) {
@@ -546,7 +585,7 @@ class TranslateActivity : AppCompatActivity() {
             if (binding.etText.text.toString() != "") {
                 binding.llPBTranslateFrag.visibility = View.VISIBLE
                 Handler().postDelayed({
-                    jugarTranslation(binding.etText.text.toString())
+                    translateNow(binding.etText.text.toString())
                 }, 1)
             }
         }
@@ -560,6 +599,10 @@ class TranslateActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (intent.getStringExtra(Misc.data) != null) {
             startActivity(Intent(this, DashboardActivity::class.java))
+            finish()
+        } else if (isTaskRoot && intent.getBooleanExtra(EXTRA_DASHBOARD_ON_BACK, false)) {
+            // Opened straight from a notification, with nothing of the app under it.
+            startActivity(Intent(this, FragmentsDashboardActivity::class.java))
             finish()
         } else {
             super.onBackPressed()

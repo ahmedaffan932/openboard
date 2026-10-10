@@ -14,13 +14,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import kotlinx.android.synthetic.main.activity_conversation.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.databinding.ActivityConversationBinding
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import org.jsoup.Jsoup
@@ -28,6 +29,7 @@ import java.net.URLEncoder
 import java.util.*
 
 class ConversationActivity : AppCompatActivity() {
+    lateinit var binding: ActivityConversationBinding
     private val speechRequestCode = 0
     private var isLanguageTo = true
     private var textToSpeechLngTo: TextToSpeech? = null
@@ -35,97 +37,99 @@ class ConversationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_conversation)
+        setAppLanguage()
+        binding = ActivityConversationBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        btnBack.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             onBackPressed()
         }
 
-        clLanguageFrom.setOnClickListener {
+        binding.clLanguageFrom.setOnClickListener {
             val intent = Intent(this, LanguageSelectorActivity::class.java)
             intent.putExtra(Misc.lngTo, false)
 
             startActivity(intent)
         }
 
-        clLanguageTo.setOnClickListener {
+        binding.clLanguageTo.setOnClickListener {
             val intent = Intent(this, LanguageSelectorActivity::class.java)
             startActivity(intent)
         }
 
-        ivInputFrom.setOnClickListener {
+        binding.ivInputFrom.setOnClickListener {
             isLanguageTo = false
             displaySpeechRecognizer(false)
         }
 
-        ivInputTo.setOnClickListener {
+        binding.ivInputTo.setOnClickListener {
             isLanguageTo = true
             displaySpeechRecognizer(true)
         }
 
-        btnCopyTextTo.setOnClickListener {
+        binding.btnCopyTextTo.setOnClickListener {
             val clipboard: ClipboardManager =
                 getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText(
-                "Photo Translator", tvTextTo.text
+                "Photo Translator", binding.tvTextTo.text
             )
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(this, "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.copied, Toast.LENGTH_SHORT).show()
         }
 
-        btnCopyTextFrom.setOnClickListener {
+        binding.btnCopyTextFrom.setOnClickListener {
             val clipboard: ClipboardManager =
                 getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText(
-                "Photo Translator", tvTextFrom.text
+                "Photo Translator", binding.tvTextFrom.text
             )
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(this, "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.copied, Toast.LENGTH_SHORT).show()
         }
 
-        tvTextTo.setOnClickListener {
+        binding.tvTextTo.setOnClickListener {
             speakLngTo()
         }
 
-        tvTextFrom.setOnClickListener {
+        binding.tvTextFrom.setOnClickListener {
             speakLngFrom()
         }
 
-        btnShareTextTo.setOnClickListener {
-            if (tvTextTo.text != "") {
+        binding.btnShareTextTo.setOnClickListener {
+            if (binding.tvTextTo.text != "") {
                 val sharingIntent = Intent(Intent.ACTION_SEND)
                 sharingIntent.type = "text/plain"
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, tvTextTo.text.toString())
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, binding.tvTextTo.text.toString())
                 startActivity(Intent.createChooser(sharingIntent, "Share via"))
             }
         }
 
-        btnShareTextFrom.setOnClickListener {
-            if (tvTextFrom.text != "") {
+        binding.btnShareTextFrom.setOnClickListener {
+            if (binding.tvTextFrom.text != "") {
                 val sharingIntent = Intent(Intent.ACTION_SEND)
                 sharingIntent.type = "text/plain"
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, tvTextFrom.text.toString())
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, binding.tvTextFrom.text.toString())
                 startActivity(Intent.createChooser(sharingIntent, "Share."))
             }
         }
 
-        tvTextTo.addTextChangedListener { text ->
+        binding.tvTextTo.addTextChangedListener { text ->
             if (text.toString() != "") {
-                if (btnCopyTextTo.visibility == View.GONE) {
-                    Misc.zoomInView(btnCopyTextTo, this, 250)
+                if (binding.btnCopyTextTo.visibility == View.GONE) {
+                    Misc.zoomInView(binding.btnCopyTextTo, this, 250)
                     Handler(Looper.getMainLooper()).postDelayed({
-                        Misc.zoomInView(btnShareTextTo, this, 250)
+                        Misc.zoomInView(binding.btnShareTextTo, this, 250)
                     }, 100)
                 }
             }
         }
 
-        tvTextFrom.addTextChangedListener { text ->
+        binding.tvTextFrom.addTextChangedListener { text ->
             if (text.toString() != "") {
-                if (btnCopyTextFrom.visibility == View.GONE) {
-                    Misc.zoomInView(btnCopyTextFrom, this, 250)
+                if (binding.btnCopyTextFrom.visibility == View.GONE) {
+                    Misc.zoomInView(binding.btnCopyTextFrom, this, 250)
                     Handler(Looper.getMainLooper()).postDelayed({
-                        Misc.zoomInView(btnShareTextFrom, this, 250)
+                        Misc.zoomInView(binding.btnShareTextFrom, this, 250)
                     }, 100)
                 }
             }
@@ -141,14 +145,14 @@ class ConversationActivity : AppCompatActivity() {
 
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            tvLanguageFrom.text = resources.getString(R.string.detect)
+            binding.tvLanguageFrom.text = resources.getString(R.string.detect)
         } else {
-            tvLanguageFrom.text = Locale(
+            binding.tvLanguageFrom.text = Locale(
                 Misc.getLanguageFrom(this)
             ).displayName
         }
 
-        tvLanguageTo.text = Locale(
+        binding.tvLanguageTo.text = Locale(
             Misc.getLanguageTo(this)
         ).displayName
     }
@@ -189,13 +193,13 @@ class ConversationActivity : AppCompatActivity() {
                 }
             try {
                 if (spokenText != null) {
-                    llPBTranslateFrag.visibility = View.VISIBLE
+                    binding.llPBTranslateFrag.visibility = View.VISIBLE
                     if (isLanguageTo) {
-                        tvTextFrom.text = ""
-                        setText(tvTextTo, spokenText)
+                        binding.tvTextFrom.text = ""
+                        setText(binding.tvTextTo, spokenText)
                     } else {
-                        tvTextTo.text = ""
-                        setText(tvTextFrom, spokenText)
+                        binding.tvTextTo.text = ""
+                        setText(binding.tvTextFrom, spokenText)
                     }
                     Handler(Looper.getMainLooper()).postDelayed({
                         jugarTranslation(spokenText)
@@ -216,11 +220,11 @@ class ConversationActivity : AppCompatActivity() {
                 resources.getString(R.string.please_check_your_internet_connection_and_try_again),
                 Toast.LENGTH_SHORT
             ).show()
-            llPBTranslateFrag.visibility = View.GONE
+            binding.llPBTranslateFrag.visibility = View.GONE
             return
         }
 
-        llPBTranslateFrag.visibility = View.VISIBLE
+        binding.llPBTranslateFrag.visibility = View.VISIBLE
         val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
@@ -247,45 +251,9 @@ class ConversationActivity : AppCompatActivity() {
         }
 
 
-//        try {
-//            val doc =
-//                Jsoup.connect("https://translate.google.com/m?hl=en&sl=$fromCode&tl=$toCode&q=$encoded")
-//                    .get()
-//
-//            val element = doc.getElementsByClass("result-container")
-//
-//            if (element.text() != "" && !TextUtils.isEmpty(element.text())) {
-//                this.runOnUiThread {
-//                    Log.d(Misc.logKey, "Element: ${element.text()}")
-//                    setText(
-//                        if (isLanguageTo) {
-//                            tvTextFrom
-//                        } else {
-//                            tvTextTo
-//                        }, element.text()
-//                    )
-//                    llPBTranslateFrag.visibility = View.GONE
-////                    saveInHistory(text, element.text())
-//                }
-//            } else {
-//                llPBTranslateFrag.visibility = View.GONE
-//                Toast.makeText(
-//                    this,
-//                    resources.getString(R.string.sorry_some_erroe_occurred_please_try_againg),
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//                Log.e(Misc.logKey, "its empty")
-//            }
-//        } catch (e: Exception) {
-//            llPBTranslateFrag.visibility = View.GONE
-//            Toast.makeText(
-//                this,
-//                resources.getString(R.string.sorry_some_erroe_occurred_please_try_againg),
-//                Toast.LENGTH_SHORT
-//            ).show()
-//        }
 
         translateAsync(fromCode, toCode, encoded, isLanguageTo)
+
     }
 
     private fun translateAsync(
@@ -310,13 +278,13 @@ class ConversationActivity : AppCompatActivity() {
                     setText(
                         if (isLanguageTo) {
                             speakLngFrom(translatedText)
-                            tvTextFrom
+                            binding.tvTextFrom
                         } else {
                             speakLngTo(translatedText)
-                            tvTextTo
+                            binding.tvTextTo
                         }, translatedText
                     )
-                    llPBTranslateFrag.visibility = View.GONE
+                    binding.llPBTranslateFrag.visibility = View.GONE
                 } else {
                     handleTranslationError()
                 }
@@ -328,7 +296,7 @@ class ConversationActivity : AppCompatActivity() {
 
     // Function to handle translation errors
     private fun handleTranslationError() {
-        llPBTranslateFrag.visibility = View.GONE
+        binding.llPBTranslateFrag.visibility = View.GONE
         Toast.makeText(
             this,
             resources.getString(R.string.sorry_some_erroe_occurred_please_try_againg),
@@ -354,14 +322,6 @@ class ConversationActivity : AppCompatActivity() {
         handler.post(runnable)
     }
 
-    override fun onBackPressed() {
-        Ads.showInterstitial(this, Ads.phraseInt, object : InterstitialCallBack {
-            override fun onDismiss() {
-                finish()
-            }
-        })
-    }
-
     private fun speakLngTo(text: String = "") {
         textToSpeechLngTo = TextToSpeech(applicationContext) { i ->
             if (i == TextToSpeech.ERROR) {
@@ -373,7 +333,7 @@ class ConversationActivity : AppCompatActivity() {
 
                 textToSpeechLngTo?.speak(
                     if (text == "")
-                        tvTextTo.text.toString()
+                        binding.tvTextTo.text.toString()
                     else text, TextToSpeech.QUEUE_FLUSH, null
                 )
             }
@@ -393,7 +353,7 @@ class ConversationActivity : AppCompatActivity() {
 
                 textToSpeechLngFrom?.speak(
                     if (text == "")
-                        tvTextFrom.text.toString()
+                        binding.tvTextFrom.text.toString()
                     else text, TextToSpeech.QUEUE_FLUSH, null
                 )
             }

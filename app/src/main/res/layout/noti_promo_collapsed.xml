@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Collapsed row of the Kill-App and Clicked-Ads notifications (Figma NotiKillApp /
+    NotiClickAds only draw the expanded card): title and one line of copy with the creative as a
+    thumbnail on the right, where Android puts a large icon - so the row that most users see
+    still carries the image, without a bitmap in the parcel. Also the heads-up view, both being
+    HIGH-importance.
+
+    Inflated by SystemUI: framework views and attributes only, system font families only. Kept
+    under the ~38dp that API 24-27 allows a collapsed custom view (48dp from 31).
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvNotiTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/noti_title"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvNotiDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/noti_desc"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivNotiThumb"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="12dp"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
+        android:scaleType="fitCenter" />
+
+</LinearLayout>

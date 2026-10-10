@@ -117,12 +117,13 @@
 
 
     <color name="black">#121212</color>
-    <color name="accent">#5BC467</color>
+    <color name="accent">#4285F4</color>
     <color name="gray_suggestion_strip_button_color">#7F7F7F</color>
-    <color name="orange">#9CCC65</color>
+    <color name="orange">#4285F4</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray_900">#212121</color>
     <color name="gray_700">#616161</color>
+    <color name="gray_7070">#707070</color>
     <color name="gray_800">#424242</color>
     <color name="gray_600">#757575</color>
     <color name="gray_400">#BDBDBD</color>
@@ -134,7 +135,7 @@
 
     <color name="primary">#f5f6fb</color>
 
-    <color name="bg_color">#FFFFFF</color>
+    <color name="bg_color">#FFFCF8</color>
     <color name="yellow">#4285F4</color>
     <color name="disable_color">#EEEEEE</color>
     <color name="secondary_color">#f5f6fb</color>
@@ -142,8 +143,11 @@
     <color name="btnColor">#BDBDBD</color>
     <color name="colorPrimary">#f8fdf9</color>
     <color name="colorSecondary">#991e272b</color>
-    <color name="line_color">#373e41</color>
+    <color name="line_color">#E0E0E0</color>
     <color name="gray_300">#E0E0E0</color>
+    <color name="text_color_premium">#0D368C</color>
+    <color name="accent_light">#FFA600</color>
+
 
 
 </resources>

@@ -4,14 +4,13 @@ import android.annotation.SuppressLint
 import java.util.*
 import java.io.File
 import android.Manifest
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.os.Handler
+import android.graphics.Bitmap
 import android.widget.Toast
 import android.content.Intent
 import androidx.core.net.toUri
-import android.provider.MediaStore
 import androidx.camera.core.Preview
 import android.view.animation.Animation
 import android.content.pm.PackageManager
@@ -20,128 +19,75 @@ import androidx.camera.core.CameraSelector
 import androidx.core.content.ContextCompat
 import android.view.animation.RotateAnimation
 import org.dslul.openboard.objects.CameraMisc
-import androidx.activity.result.ActivityResult
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.appcompat.app.AppCompatActivity
 import org.dslul.openboard.inputmethod.latin.R
 import android.view.animation.LinearInterpolator
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.lifecycle.ProcessCameraProvider
 import org.dslul.openboard.objects.CameraMisc.getFlash
 import org.dslul.openboard.objects.CameraMisc.setFlash
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.objects.CameraMisc.getCameraFace
-import androidx.activity.result.contract.ActivityResultContracts
-import kotlinx.android.synthetic.main.activity_camera_translation.*
-import org.dslul.openboard.translator.pro.classes.ads.Ads
-import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
+import org.dslul.openboard.inputmethod.latin.databinding.ActivityCameraTranslationBinding
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 
 class CameraTranslationActivity : AppCompatActivity() {
+    lateinit var binding: ActivityCameraTranslationBinding
     private var cameraProvider: ProcessCameraProvider? = null
     private lateinit var imageCapture: ImageCapture
     private val cameraPermissionRequest = 100
-    private val storageReadPermissionRequest = 101
 
-    private val getContent =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { data: ActivityResult ->
-            try {
-                val fileUri = data!!.data!!
-                CameraMisc.fileUri = fileUri.data!!
-                if (Misc.checkInternetConnection(this)) {
-                    val intent =
-                        Intent(this, OCRActivity::class.java)
-                    intent.putExtra(CameraMisc.uri, fileUri.data?.path.toString())
-                    intent.putExtra(CameraMisc.typeGallery, true)
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(
-                        this,
-                        resources.getString(R.string.please_check_your_internet_connection_and_try_again),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
+    private val pickImageLauncher =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            if (uri != null) {
+                CameraMisc.fileUri = uri
+//                if (Misc.checkInternetConnection(this)) {
+                val intent =
+                    Intent(this, OCRActivity::class.java)
+                intent.putExtra(CameraMisc.uri, uri.toString())
+                intent.putExtra(CameraMisc.typeGallery, true)
+                startActivity(intent)
+//                } else {
+//                    Toast.makeText(
+//                        this,
+//                        resources.getString(R.string.please_check_your_internet_connection_and_try_again),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
             }
         }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_camera_translation)
+        setAppLanguage()
+        binding = ActivityCameraTranslationBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        Ads.showInterstitial(this, Ads.cameraTranslationInt, object : InterstitialCallBack{
-            override fun onDismiss() {
-                getCameraPermission()
-            }
-        })
-
-        Ads.showBannerAd(frameLayoutBanner, Ads.cameraTranslationBanner)
-
-        btnBack.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             onBackPressed()
         }
 
-        btnSwitchLngs.setOnClickListener {
-            if (Misc.getLanguageFrom(this) != Misc.defaultLanguage) {
-                val rotate = RotateAnimation(
-                    0F, 180F, Animation.RELATIVE_TO_SELF,
-                    0.5f, Animation.RELATIVE_TO_SELF, 0.5f
-                )
-                rotate.duration = 100
-                rotate.interpolator = LinearInterpolator()
-
-                val image = btnSwitchLngs
-                image.startAnimation(rotate)
-
-                val temp = Misc.getLanguageFrom(this)
-                Misc.setLanguageFrom(
-                    this,
-                    Misc.getLanguageTo(this)
-                )
-                Misc.setLanguageTo(this, temp)
-
-                if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-                    textViewLngFrom.text = resources.getString(R.string.detect)
-                    flagFrom.setImageResource(Misc.getFlag(this, "100"))
-                } else {
-                    textViewLngFrom.text =
-                        Locale(
-                            Misc.getLanguageFrom(this)
-                        ).displayName
-                    flagFrom.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
-                }
-                textViewLngTo.text =
-                    Locale(
-                        Misc.getLanguageTo(this)
-                    ).displayName
-                flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
-
-            }
-        }
-
-        btnFlashOCR.setOnClickListener {
+        binding.btnFlashOCR.setOnClickListener {
             setFlash(!getFlash())
             if (getFlash()) {
-                btnFlashOCR
+                binding.btnFlashOCR
                     .setImageDrawable(resources.getDrawable(R.drawable.flash_on))
             } else {
-                btnFlashOCR
+                binding.btnFlashOCR
                     .setImageDrawable(resources.getDrawable(R.drawable.flash_off))
             }
             startCamera()
         }
 
-        btnGallery.setOnClickListener {
-            if (getStorageReadPermission()) {
-                val galleryIntent =
-                    Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-
-                getContent.launch(galleryIntent)
-            }
+        binding.btnGallery.setOnClickListener {
+            openImagePickerForOCR()
         }
 
         setSelectedLng()
 
-        btnSwitchLngs.setOnClickListener {
+        binding.btnSwitchLngs.setOnClickListener {
             if (Misc.getLanguageFrom(this) != Misc.defaultLanguage) {
                 val rotate = RotateAnimation(
                     0F, 180F, Animation.RELATIVE_TO_SELF,
@@ -149,11 +95,11 @@ class CameraTranslationActivity : AppCompatActivity() {
                 )
                 rotate.duration = 150
                 rotate.interpolator = LinearInterpolator()
-                val image = btnSwitchLngs
+                val image = binding.btnSwitchLngs
                 image.startAnimation(rotate)
 
-                Misc.zoomOutView(llLngTo, this, 150)
-                Misc.zoomOutView(llLngFrom, this, 150)
+                Misc.zoomOutView(binding.llLngTo, this, 150)
+                Misc.zoomOutView(binding.llLngFrom, this, 150)
 
                 Handler().postDelayed({
                     val temp = Misc.getLanguageFrom(this)
@@ -162,8 +108,8 @@ class CameraTranslationActivity : AppCompatActivity() {
 
                     setSelectedLng()
 
-                    Misc.zoomInView(llLngTo, this, 150)
-                    Misc.zoomInView(llLngFrom, this, 150)
+                    Misc.zoomInView(binding.llLngTo, this, 150)
+                    Misc.zoomInView(binding.llLngFrom, this, 150)
 
                 }, 150)
             } else {
@@ -175,13 +121,13 @@ class CameraTranslationActivity : AppCompatActivity() {
             }
         }
 
-        llLngFrom.setOnClickListener {
+        binding.llLngFrom.setOnClickListener {
             val intent = Intent(this, LanguageSelectorActivity::class.java)
             intent.putExtra(Misc.lngTo, false)
             startActivity(intent)
         }
 
-        llLngTo.setOnClickListener {
+        binding.llLngTo.setOnClickListener {
             startActivity(Intent(this, LanguageSelectorActivity::class.java))
         }
 
@@ -199,10 +145,10 @@ class CameraTranslationActivity : AppCompatActivity() {
         }
 
         if (getFlash()) {
-            btnFlashOCR
+            binding.btnFlashOCR
                 .setImageDrawable(resources.getDrawable(R.drawable.flash_on))
         } else {
-            btnFlashOCR
+            binding.btnFlashOCR
                 .setImageDrawable(resources.getDrawable(R.drawable.flash_off))
         }
 
@@ -216,7 +162,7 @@ class CameraTranslationActivity : AppCompatActivity() {
                 val preview = Preview.Builder()
                     .build()
                     .also {
-                        it.setSurfaceProvider(cameraView.surfaceProvider)
+                        it.setSurfaceProvider(binding.cameraView.surfaceProvider)
                     }
 
                 imageCapture.flashMode = if (getFlash()) {
@@ -239,8 +185,8 @@ class CameraTranslationActivity : AppCompatActivity() {
             )
             cameraProvider?.unbindAll()
 
-            btnCapture.setOnClickListener {
-                ocrFragmentPB.visibility = View.VISIBLE
+            binding.btnCapture.setOnClickListener {
+                binding.ocrFragmentPB.visibility = View.VISIBLE
                 val file = File(
                     this.externalMediaDirs.firstOrNull(),
                     ".CameraApp - ${System.currentTimeMillis()}.jpg"
@@ -251,25 +197,31 @@ class CameraTranslationActivity : AppCompatActivity() {
                     ContextCompat.getMainExecutor(this),
                     object : ImageCapture.OnImageCapturedCallback(),
                         ImageCapture.OnImageSavedCallback {
+                        override fun onCaptureStarted() = Unit
+
+                        override fun onCaptureProcessProgressed(progress: Int) = Unit
+
+                        override fun onPostviewBitmapAvailable(bitmap: Bitmap) = Unit
+
                         override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                             val imagePath = file.path
                             CameraMisc.fileUri = file.toUri()
 
-                            ocrFragmentPB.visibility =
+                            binding.ocrFragmentPB.visibility =
                                 View.GONE
-                            if (Misc.checkInternetConnection(this@CameraTranslationActivity)) {
+//                            if (Misc.checkInternetConnection(this@CameraTranslationActivity)) {
                                 val intent =
                                     Intent(this@CameraTranslationActivity, OCRActivity::class.java)
                                 intent.putExtra(CameraMisc.uri, imagePath)
                                 intent.putExtra(CameraMisc.typeGallery, false)
                                 startActivity(intent)
-                            } else {
-                                Toast.makeText(
-                                    this@CameraTranslationActivity,
-                                    resources.getString(R.string.please_check_your_internet_connection_and_try_again),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+//                            } else {
+//                                Toast.makeText(
+//                                    this@CameraTranslationActivity,
+//                                    resources.getString(R.string.please_check_your_internet_connection_and_try_again),
+//                                    Toast.LENGTH_SHORT
+//                                ).show()
+//                            }
                         }
                     }
                 )
@@ -281,43 +233,22 @@ class CameraTranslationActivity : AppCompatActivity() {
 
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            textViewLngFrom.text = resources.getString(R.string.detect)
-            flagFrom.setImageResource(Misc.getFlag(this, "100"))
+            binding.textViewLngFrom.text = resources.getString(R.string.detect)
+            binding.flagFrom.setImageResource(Misc.getFlag(this, "100"))
 
         } else {
-            textViewLngFrom.text = Locale(Misc.getLanguageFrom(this)).displayName
-            flagFrom.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
+            binding.textViewLngFrom.text = Locale(Misc.getLanguageFrom(this)).displayName
+            binding.flagFrom.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
         }
 
-        textViewLngTo.text = Locale(Misc.getLanguageTo(this)).displayName
-        flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
+        binding.textViewLngTo.text = Locale(Misc.getLanguageTo(this)).displayName
+        binding.flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
     }
 
-    private fun getStorageReadPermission(): Boolean {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                if (checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(
-                        arrayOf(Manifest.permission.READ_MEDIA_IMAGES),
-                        storageReadPermissionRequest
-                    )
-                    return false
-                }
-            } else {
-                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(
-                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                        storageReadPermissionRequest
-                    )
-                    return false
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return false
-        }
-        return true
-
+    private fun openImagePickerForOCR() {
+        pickImageLauncher.launch(
+            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+        )
     }
 
     private fun getCameraPermission() {
@@ -325,7 +256,6 @@ class CameraTranslationActivity : AppCompatActivity() {
             requestPermissions(arrayOf(Manifest.permission.CAMERA), cameraPermissionRequest)
         } else {
             startCamera()
-            getStorageReadPermission()
         }
     }
 
@@ -344,7 +274,6 @@ class CameraTranslationActivity : AppCompatActivity() {
             try {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startCamera()
-                    getStorageReadPermission()
                 } else {
                     Toast.makeText(
                         this,

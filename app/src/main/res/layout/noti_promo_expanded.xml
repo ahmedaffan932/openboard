@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Expanded Kill-App, Clicked-Ads and Win-Back notifications, API 24-30 (Figma NotiKillApp /
+    NotiClickAds / NotiWinback): bold title, the copy, the photo, the gradient "Try now" - the same
+    CTA as the lock-screen card. Android draws the header row (icon, app name, time, chevron) and the
+    card around it. layout-v31/ has the API 31+ twin.
+
+    Measured off the frames (268dp content column): title Roboto Bold 15 on a 20dp line, body
+    Roboto 13 in two lines, 6dp to a 268x115 photo with ~8dp corners, 4dp to a 31dp CTA. The copy
+    may take a third line: on API 31+ the column is ~260dp on a 360dp phone, and translations and
+    large font scales run longer than the drawn English. The weighted photo pays for it.
+
+    Inflated by SystemUI: framework views and attributes only, system fonts only, no ?attr. The
+    photo is set with setImageViewResource (no bitmap in the parcel) and, below API 31, comes with
+    its corners already cut (noti_hero_*_rounded.webp), so it only ever scales with fitCenter. It
+    carries layout_weight so that it, not the CTA, gives up the room when the ~228dp budget of a
+    pre-31 expanded custom view runs short.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvNotiTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/noti_title"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvNotiDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:textColor="@color/noti_desc"
+        android:textSize="13sp" />
+
+    <ImageView
+        android:id="@+id/ivNotiHero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
+        android:maxHeight="@dimen/noti_promo_hero_max_height"
+        android:scaleType="fitCenter" />
+
+    <TextView
+        android:id="@+id/btnNotiCta"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/lockscreen_cta_bg"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textColor="@color/lockscreen_cta_text"
+        android:textSize="14sp" />
+
+</LinearLayout>

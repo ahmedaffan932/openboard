@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearanceAppBottomNavigationActive">
+        <item name="android:fontFamily">@font/poppins_semi_bold</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineHeight">12sp</item>
+    </style>
+
+    <style name="TextAppearanceAppBottomNavigationInactive">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineHeight">12sp</item>
+    </style>
+
+    <style name="Widget.App.BottomNavigation.ActiveIndicator" parent="">
+        <item name="android:width">58dp</item>
+        <item name="android:height">34dp</item>
+        <item name="android:color">@color/accent</item>
+        <item name="marginHorizontal">4dp</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.BottomNavigation.ActiveIndicator</item>
+    </style>
+
+    <style name="ShapeAppearance.App.BottomNavigation.ActiveIndicator" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">17dp</item>
+    </style>
+</resources>

@@ -75,6 +75,7 @@ class ProximityInfoUtils {
                     int proximityChar =
                             inputProximities[i * MAX_PROXIMITY_CHARS_SIZE + j];
                     proximityChar += 0;
+                    (void)proximityChar;
                     AKLOGI("--- (%d)%c", i, proximityChar);
                 }
             }
@@ -109,6 +110,7 @@ class ProximityInfoUtils {
 
         float projectionX;
         float projectionY;
+
         if (!extend && projectionLengthSqr < 0.0f) {
             projectionX = x1;
             projectionY = y1;

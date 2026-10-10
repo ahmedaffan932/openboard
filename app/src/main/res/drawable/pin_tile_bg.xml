@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Pinned notification tile: the frame's 8dp-rounded fill, with a ripple for the tap. Framework
+     drawables only - SystemUI inflates it. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/pin_tile_ripple">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/pin_tile_bg" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+</ripple>

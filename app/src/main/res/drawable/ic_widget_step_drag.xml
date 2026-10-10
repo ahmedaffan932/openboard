@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Step 3 of the "Add widget" card: the widget, a dashed spot on the home screen, and the pointer
+    dragging it there. Vector drawables have no dash pattern, so the dashes are separate segments.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:pathData="M5,3h6a2,2 0,0 1,2 2v6a2,2 0,0 1,-2 2h-6a2,2 0,0 1,-2 -2v-6a2,2 0,0 1,2 -2z"
+        android:strokeWidth="1.5"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M14.8,9h1.5 M17.8,9h3.2v2 M21,12.5v2.5 M21,16.5v4.5h-2 M17.5,21h-2.5 M13.5,21h-2.5 M9.5,21h-0.5v-2.5 M9,17v-2.5"
+        android:strokeWidth="1.5"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M13.8,13.8L19.4,15.9L16.9,16.9L15.9,19.4Z" />
+</vector>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    The "Add widget" card (widget/WidgetPromptDialog). The card's glass is the dialog WINDOW's
+    background, so this root has none; the dialog clips it to the card's rounded outline in code,
+    which is what rounds the ad's corners. "Got it" opens the launcher's pin dialog directly.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvWidgetPromptTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="48dp"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/widget_prompt_title"
+            android:textColor="@color/widget_prompt_text"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvWidgetPromptSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="@string/widget_promo_desc"
+            android:textColor="@color/widget_prompt_text"
+            android:textSize="14sp" />
+
+        <include
+            android:id="@+id/step1"
+            layout="@layout/item_widget_prompt_step"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp" />
+
+        <include
+            android:id="@+id/step2"
+            layout="@layout/item_widget_prompt_step"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp" />
+
+        <include
+            android:id="@+id/step3"
+            layout="@layout/item_widget_prompt_step"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp" />
+
+        <TextView
+            android:id="@+id/btnWidgetPromptGotIt"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/widget_prompt_cta"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/widget_prompt_got_it"
+            android:textColor="@color/widget_prompt_text"
+            android:textSize="13sp" />
+
+        <!-- Always there: the gap above the ad, or the card's bottom padding when no ad fills. -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <FrameLayout
+            android:id="@+id/widgetPromptAd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/btnWidgetPromptClose"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="top|end"
+        android:layout_margin="4dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/noti_close"
+        android:padding="12dp"
+        android:src="@drawable/ic_round_close_24"
+        app:tint="@color/widget_prompt_text" />
+</FrameLayout>

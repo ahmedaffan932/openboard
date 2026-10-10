@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_half_up_rounded"
+    android:backgroundTint="@color/secondary_color"
+    android:elevation="@dimen/padding"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:id="@+id/bottomSheetMain"
+    app:behavior_hideable="true"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fab_padding"
+        android:layout_marginHorizontal="@dimen/fab_padding"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/subscription_terms_title"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14sdp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/padding"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivBanishAds"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:layout_marginHorizontal="@dimen/fab_padding"
+            android:src="@drawable/ic_arrow_in_app"
+            android:paddingHorizontal="@dimen/less_padding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvBanishAds"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/subscription_terms_auto_renew"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/fab_padding"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="@dimen/fab_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivBanishAds"
+            android:textColor="@color/gray_7070"
+            android:textSize="@dimen/_11sdp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/padding"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivUnlockChat"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:layout_marginHorizontal="@dimen/fab_padding"
+            android:src="@drawable/ic_arrow_in_app"
+            android:paddingHorizontal="@dimen/less_padding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvUnlockChat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/subscription_terms_charge"
+            android:layout_marginStart="@dimen/fab_padding"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="@dimen/fab_padding"
+            app:layout_constraintStart_toEndOf="@id/ivUnlockChat"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/gray_7070"
+            android:textSize="@dimen/_11sdp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/padding"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivCameraTranslation"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:layout_marginHorizontal="@dimen/fab_padding"
+            android:src="@drawable/ic_arrow_in_app"
+            android:paddingHorizontal="@dimen/less_padding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvCameraTranslation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/subscription_terms_cancel"
+            android:layout_marginStart="@dimen/fab_padding"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="@dimen/fab_padding"
+            app:layout_constraintStart_toEndOf="@id/ivCameraTranslation"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/gray_7070"
+            android:textSize="@dimen/_11sdp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginVertical="@dimen/padding"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivUnlimitedTranslation"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:layout_marginHorizontal="@dimen/fab_padding"
+            android:src="@drawable/ic_arrow_in_app"
+            android:paddingHorizontal="@dimen/less_padding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvUnlimitedTranslation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/subscription_terms_refund"
+            android:layout_marginStart="@dimen/fab_padding"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivUnlimitedTranslation"
+            android:textColor="@color/gray_7070"
+            android:textSize="@dimen/_11sdp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

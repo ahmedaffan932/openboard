@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Collapsed pinned notification, API 31+: layout/noti_pinned_collapsed.xml (read its notes) with
+    the roomier tiles the 48dp collapsed budget of API 31+ allows - 22dp glyph over an 11sp label.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/pinTileTranslate"
+            style="@style/PinnedTileCompact.V31">
+
+            <ImageView
+                style="@style/PinnedTileCompactIcon.V31"
+                android:src="@drawable/pin_ic_translate" />
+
+            <TextView
+                android:id="@+id/pinLabelTranslate"
+                style="@style/PinnedTileCompactLabel.V31"
+                tools:text="Translate" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pinTileVoice"
+            style="@style/PinnedTileCompact.V31"
+            android:layout_marginStart="6dp">
+
+            <ImageView
+                style="@style/PinnedTileCompactIcon.V31"
+                android:src="@drawable/pin_ic_voice" />
+
+            <TextView
+                android:id="@+id/pinLabelVoice"
+                style="@style/PinnedTileCompactLabel.V31"
+                tools:text="Voice" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pinTileCamera"
+            style="@style/PinnedTileCompact.V31"
+            android:layout_marginStart="6dp">
+
+            <ImageView
+                style="@style/PinnedTileCompactIcon.V31"
+                android:src="@drawable/pin_ic_camera" />
+
+            <TextView
+                android:id="@+id/pinLabelCamera"
+                style="@style/PinnedTileCompactLabel.V31"
+                tools:text="Camera" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pinTileFile"
+            style="@style/PinnedTileCompact.V31"
+            android:layout_marginStart="6dp">
+
+            <ImageView
+                style="@style/PinnedTileCompactIcon.V31"
+                android:src="@drawable/pin_ic_file" />
+
+            <TextView
+                android:id="@+id/pinLabelFile"
+                style="@style/PinnedTileCompactLabel.V31"
+                tools:text="File" />
+        </LinearLayout>
+</LinearLayout>

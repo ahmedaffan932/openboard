@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    tools:context="org.dslul.openboard.translator.pro.FragmentsDashboardActivity">
+
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/llCollapsibleBanner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:id="@+id/llCollapsibleBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/m_padding"
+        android:layout_marginBottom="@dimen/padding_10"
+        android:minHeight="@dimen/dashboard_bottom_navigation_min_height"
+        android:background="@drawable/bg_bottom_navigation_surface"
+        android:elevation="12dp"
+        android:paddingHorizontal="@dimen/padding"
+        android:paddingTop="@dimen/less_padding"
+        android:paddingBottom="@dimen/less_padding"
+        app:itemActiveIndicatorStyle="@style/Widget.App.BottomNavigation.ActiveIndicator"
+        app:itemBackground="@android:color/transparent"
+        app:itemIconTint="@drawable/bottom_navigation_color"
+        app:itemIconSize="@dimen/dashboard_bottom_navigation_icon_size"
+        app:itemHorizontalTranslationEnabled="false"
+        app:itemPaddingBottom="@dimen/dashboard_bottom_navigation_item_padding"
+        app:itemPaddingTop="@dimen/dashboard_bottom_navigation_item_padding"
+        app:itemRippleColor="#224285F4"
+        app:itemTextAppearanceActive="@style/TextAppearanceAppBottomNavigationActive"
+        app:itemTextAppearanceInactive="@style/TextAppearanceAppBottomNavigationInactive"
+        app:itemTextColor="@drawable/bottom_navigation_text_color"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:paddingBottomSystemWindowInsets="false"
+        app:menu="@menu/dashboard_bottom_navigation" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

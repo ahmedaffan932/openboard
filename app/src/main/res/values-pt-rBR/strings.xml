@@ -180,7 +180,7 @@
     <string name="setup_step1_instruction">Por favor, verifique <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g> em \'Idiomas e Entrada\' nas configurações. Assim, poderá executá-lo no dispositivo.</string>
     <string name="setup_finish_action">Concluído</string>
     <string name="show_setup_wizard_icon_summary">Mostrar ícone do aplicativo no \'Lançador\' de Apps</string>
-    <string name="app_name">Fornecedor de dicionário</string>
+    <string name="app_name_temp">Fornecedor de dicionário</string>
     <string name="dictionary_settings_summary">Configurações para dicionários</string>
     <string name="dictionary_available">Dicionário disponível</string>
     <string name="setup_step2_title">Alternar para <xliff:g id="APPLICATION_NAME" example="Android Keyboard">%s</xliff:g></string>

@@ -21,136 +21,356 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
+import org.dslul.openboard.translator.pro.notifications.AdClickTracker
 
 object AdmobNativeAds {
+
     var amNative: NativeAd? = null
+    private val loadedNativeAds = mutableMapOf<String, NativeAd>()
+    private val loadingNativeAdIdsKeys = mutableSetOf<String>()
+    private val pendingNativeLoadCallbacks = mutableListOf<PendingNativeLoadCallback>()
+
+    private data class PendingNativeLoadCallback(
+        val adIdsKey: String,
+        val callBack: LoadAdCallBack
+    )
 
     @SuppressLint("MissingPermission")
     fun loadAdmobNative(
         context: Context,
-        adId: String = AdIds.nativeAdIdAdMob,
-        callBack: LoadAdCallBack? = null,
+        adIds: Array<String> = AdIds.nativeAdIdAdMobSplash,
+        remoteKey: String? = null,
         frameLayout: FrameLayout? = null,
-        isSmall: Boolean = true
+        callBack: LoadAdCallBack? = null,
     ) {
-        if (adId == "") {
-            callBack?.onFailed()
+        val adIdsKey = adIds.nativeAdIdsKey()
+
+        if (loadingNativeAdIdsKeys.contains(adIdsKey)) {
+            Log.d(Misc.logKey, "Native Ad load queued: same ad ids already loading.")
+            callBack?.let {
+                pendingNativeLoadCallbacks.add(PendingNativeLoadCallback(adIdsKey, it))
+            }
             return
         }
 
         if (Misc.getPurchasedStatus(context)) {
+            Log.d(Misc.logKey, "Native Ad load skipped: user purchased.")
+            callBack?.onFailed()
             return
         }
 
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)
-                as LayoutInflater
-
-        val shimmerView = if (isSmall) {
-            inflater.inflate(R.layout.small_native_shimmer, null)
-        } else {
-            inflater.inflate(R.layout.large_native_shimmer, null)
+        if (adIds.isEmpty()) {
+            Log.d(Misc.logKey, "Native Ad load failed: adIds array is empty.")
+            callBack?.onFailed()
+            return
         }
-        frameLayout?.addView(shimmerView)
-        frameLayout?.visibility = View.VISIBLE
 
-
-        if (amNative != null) {
+        if (loadedNativeAds[adIdsKey] != null) {
+            Log.d(Misc.logKey, "Native Ad already available.")
             callBack?.onLoaded()
-        } else {
-            val adLoader = AdLoader.Builder(
-                context,
-                adId
-            ).forNativeAd { ad: NativeAd ->
-                amNative = ad
-            }.withAdListener(object : AdListener() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    amNative = null
-                    Log.e("logKey", "Native Ad Failed: " + adError.code + " | " + adError.message)
-                    frameLayout?.removeAllViews()
-                    callBack?.onFailed()
+            return
+        }
 
+        showNativeShimmer(
+            context = context,
+            remoteKey = remoteKey,
+            frameLayout = frameLayout
+        )
+
+        loadingNativeAdIdsKeys.add(adIdsKey)
+
+        loadNativeByIndex(
+            context = context.applicationContext,
+            adIds = adIds,
+            adIdsKey = adIdsKey,
+            index = 0,
+            callBack = callBack,
+            frameLayout = frameLayout
+        )
+    }
+
+    private fun loadNativeByIndex(
+        context: Context,
+        adIds: Array<String>,
+        adIdsKey: String,
+        index: Int,
+        callBack: LoadAdCallBack?,
+        frameLayout: FrameLayout?
+    ) {
+        if (index >= adIds.size) {
+            loadingNativeAdIdsKeys.remove(adIdsKey)
+            val removedAd = loadedNativeAds.remove(adIdsKey)
+            if (amNative === removedAd) {
+                amNative = null
+            }
+            removedAd?.destroy()
+
+            Log.d(Misc.logKey, "Native Ad all ad ids failed.")
+
+            frameLayout?.removeAllViews()
+            callBack?.onFailed()
+            notifyPendingNativeLoadFailed(adIdsKey)
+            return
+        }
+
+        val currentAdId = adIds[index]
+
+        if (currentAdId.isBlank()) {
+            Log.d(Misc.logKey, "Native Ad skipped blank ad id at index: $index")
+
+            loadNativeByIndex(
+                context = context,
+                adIds = adIds,
+                adIdsKey = adIdsKey,
+                index = index + 1,
+                callBack = callBack,
+                frameLayout = frameLayout
+            )
+            return
+        }
+
+        Log.d(Misc.logKey, "Native Ad trying index $index: $currentAdId")
+
+        val adLoader = AdLoader.Builder(context, currentAdId)
+            .forNativeAd { ad: NativeAd ->
+                amNative = ad
+                loadedNativeAds[adIdsKey] = ad
+            }
+            .withAdListener(object : AdListener() {
+
+                override fun onAdClicked() {
+                    AdClickTracker.notifyClick()
+                }
+
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    val removedAd = loadedNativeAds.remove(adIdsKey)
+                    if (amNative === removedAd) {
+                        amNative = null
+                    }
+                    removedAd?.destroy()
+
+                    Log.e(
+                        Misc.logKey,
+                        "Native Ad failed at index $index: ${adError.code} | ${adError.message}"
+                    )
+
+                    loadNativeByIndex(
+                        context = context,
+                        adIds = adIds,
+                        adIdsKey = adIdsKey,
+                        index = index + 1,
+                        callBack = callBack,
+                        frameLayout = frameLayout
+                    )
                 }
 
                 override fun onAdLoaded() {
                     super.onAdLoaded()
+
+                    loadingNativeAdIdsKeys.remove(adIdsKey)
+
+                    Log.d(Misc.logKey, "Native Ad loaded successfully with index: $index")
+
                     callBack?.onLoaded()
-                    Log.e("logKey", "Native Ad Loaded")
+                    notifyPendingNativeLoadLoaded(adIdsKey)
                 }
 
                 override fun onAdImpression() {
                     super.onAdImpression()
-                    amNative = null
+
+                    Log.d(Misc.logKey, "Native Ad impression recorded.")
                 }
-            }).withNativeAdOptions(NativeAdOptions.Builder().build()).build()
-            adLoader.loadAd(AdRequest.Builder().build())
+            })
+            .withNativeAdOptions(
+                NativeAdOptions.Builder()
+                    .setAdChoicesPlacement(NativeAdOptions.ADCHOICES_TOP_LEFT)
+                    .build()
+            )
+            .build()
+
+        adLoader.loadAd(AdRequest.Builder().build())
+    }
+
+    private fun showNativeShimmer(
+        context: Context,
+        remoteKey: String?,
+        frameLayout: FrameLayout?
+    ) {
+        if (remoteKey == null || frameLayout == null) return
+
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+        frameLayout.removeAllViews()
+
+        val shimmerView = if (remoteKey.contains("small")) {
+            inflater.inflate(R.layout.small_native_shimmer, null)
+        } else {
+            inflater.inflate(R.layout.large_native_shimmer, null)
         }
+
+        if (remoteKey.contains("large")) {
+            changeViewHeight(frameLayout, dpToPx(context))
+        }
+
+        frameLayout.addView(shimmerView)
+        frameLayout.visibility = View.VISIBLE
     }
 
     fun showNativeAd(
         context: Context,
         remoteKey: String,
         amLayout: FrameLayout,
-        adLayout: Int = R.layout.admob_native_hctr
+        adIds: Array<String>? = null,
+        nextPreloadAdIds: Array<String>? = null
     ) {
-        if (amNative != null) {
-            val nativeAdToShow = amNative
-            if (remoteKey.contains("am")) {
-                amLayout.visibility = View.VISIBLE
-
-                val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)
-                        as LayoutInflater
-
-                val adView = inflater.inflate(adLayout, null) as NativeAdView
-
-                amLayout.removeAllViews()
-                amLayout.addView(adView)
-
-
-                if (adLayout == R.layout.admob_small_native_ad_hctr) {
-                    adView.mediaView = null
-                } else {
-                    adView.mediaView = adView.findViewById(R.id.ad_media)
-                }
-                adView.headlineView = adView.findViewById(R.id.ad_headline)
-                adView.bodyView = adView.findViewById(R.id.ad_body)
-                adView.callToActionView = adView.findViewById(R.id.ad_call_to_action)
-                adView.iconView = adView.findViewById(R.id.ad_app_icon)
-
-                (adView.headlineView as TextView).text = nativeAdToShow?.headline
-                if (adView.mediaView != null)
-                    adView.mediaView?.mediaContent = nativeAdToShow?.mediaContent
-
-                if (nativeAdToShow?.body == null) {
-                    adView.bodyView?.visibility = View.INVISIBLE
-                } else {
-                    (adView.bodyView as TextView).text = nativeAdToShow.body
-                }
-
-                if (nativeAdToShow?.callToAction == null) {
-                    adView.callToActionView?.visibility = View.INVISIBLE
-                } else {
-                    (adView.callToActionView as Button).text = nativeAdToShow.callToAction
-                }
-
-                if (nativeAdToShow?.icon == null) {
-                    adView.iconView?.visibility = View.GONE
-                } else {
-                    (adView.iconView as ImageView).setImageDrawable(
-                        nativeAdToShow.icon!!.drawable
-                    )
-                }
-
-                adView.setNativeAd(nativeAdToShow!!)
-                amNative = null
-
-                if (Ads.isNativeAdPreload)
-                    loadAdmobNative(context, AdIds.nativeAdIdAdMob)
-            }
+        val adIdsKey = adIds?.nativeAdIdsKey()
+        val nativeAdToShow = if (adIdsKey != null) {
+            loadedNativeAds.remove(adIdsKey)
         } else {
-            if (Ads.isNativeAdPreload)
-                loadAdmobNative(context, AdIds.nativeAdIdAdMob)
-
-            amLayout.visibility = View.GONE
+            val firstLoadedAd = loadedNativeAds.entries.firstOrNull()
+            firstLoadedAd?.let { loadedNativeAds.remove(it.key) } ?: amNative
         }
+
+        if (nativeAdToShow == null) {
+            amLayout.visibility = View.GONE
+            return
+        }
+
+        if (!remoteKey.contains("am")) {
+            nativeAdToShow.destroy()
+            amLayout.visibility = View.GONE
+            return
+        }
+
+        amLayout.visibility = View.VISIBLE
+
+        val adView = chooseLayout(context, remoteKey)
+
+        if (remoteKey.contains("large")) {
+            changeViewHeight(amLayout, dpToPx(context))
+        }
+
+        amLayout.removeAllViews()
+        amLayout.addView(adView)
+
+        if (remoteKey.contains("splash") || remoteKey.contains("small_hctr")) {
+            adView.mediaView = null
+        } else {
+            adView.mediaView = adView.findViewById(R.id.ad_media)
+        }
+
+        adView.headlineView = adView.findViewById(R.id.ad_headline)
+        adView.bodyView = adView.findViewById(R.id.ad_body)
+        adView.callToActionView = adView.findViewById(R.id.ad_call_to_action)
+        adView.iconView = adView.findViewById(R.id.ad_app_icon)
+
+        (adView.headlineView as TextView).text = nativeAdToShow.headline
+
+        adView.mediaView?.mediaContent = nativeAdToShow.mediaContent
+
+        if (nativeAdToShow.body == null) {
+            adView.bodyView?.visibility = View.INVISIBLE
+        } else {
+            adView.bodyView?.visibility = View.VISIBLE
+            (adView.bodyView as TextView).text = nativeAdToShow.body
+        }
+
+        if (nativeAdToShow.callToAction == null) {
+            adView.callToActionView?.visibility = View.INVISIBLE
+        } else {
+            adView.callToActionView?.visibility = View.VISIBLE
+            (adView.callToActionView as Button).text = nativeAdToShow.callToAction
+        }
+
+        if (nativeAdToShow.icon == null) {
+            adView.iconView?.visibility = View.GONE
+        } else {
+            adView.iconView?.visibility = View.VISIBLE
+            (adView.iconView as ImageView).setImageDrawable(nativeAdToShow.icon?.drawable)
+        }
+
+        adView.setNativeAd(nativeAdToShow)
+
+        if (amNative === nativeAdToShow) {
+            amNative = null
+        }
+
+        if (Ads.isNativeAdPreload && nextPreloadAdIds != null) {
+            Log.d(Misc.logKey, "Native Ad next preload started.")
+            loadAdmobNative(
+                context = context,
+                adIds = nextPreloadAdIds
+            )
+        }
+    }
+
+    private fun chooseLayout(context: Context, remoteKey: String): NativeAdView {
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+        return if (remoteKey.contains("small")) {
+            if (remoteKey.contains("lctr")) {
+                inflater.inflate(
+                    R.layout.admob_small_native_ad_lctr,
+                    null
+                ) as NativeAdView
+            } else if (remoteKey.contains("btn_up")) {
+                inflater.inflate(
+                    R.layout.admob_small_native_ad_hctr,
+                    null
+                ) as NativeAdView
+            } else {
+                inflater.inflate(
+                    R.layout.admob_small_native_ad_hctr_btn_bottom,
+                    null
+                ) as NativeAdView
+            }
+        } else if (remoteKey.contains("lctr")) {
+            inflater.inflate(R.layout.admob_native_layout_lctr, null) as NativeAdView
+        } else {
+            inflater.inflate(R.layout.admob_native_hctr, null) as NativeAdView
+        }
+    }
+
+    private fun changeViewHeight(view: View, newHeight: Int) {
+        val layoutParams = view.layoutParams
+        layoutParams.height = newHeight
+        view.layoutParams = layoutParams
+    }
+
+    private fun dpToPx(context: Context, dp: Float = 300F): Int {
+        val density = context.resources.displayMetrics.density
+        return (dp * density).toInt()
+    }
+
+    fun clearNativeAd() {
+        val cachedAds = loadedNativeAds.values.toSet()
+        cachedAds.forEach { it.destroy() }
+        loadedNativeAds.clear()
+        if (amNative != null && !cachedAds.contains(amNative)) {
+            amNative?.destroy()
+        }
+        amNative = null
+        loadingNativeAdIdsKeys.clear()
+        pendingNativeLoadCallbacks.clear()
+    }
+
+    fun isNativeAdAvailableFor(adIds: Array<String>): Boolean {
+        return loadedNativeAds[adIds.nativeAdIdsKey()] != null
+    }
+
+    private fun notifyPendingNativeLoadLoaded(adIdsKey: String) {
+        val callbacks = pendingNativeLoadCallbacks.filter { it.adIdsKey == adIdsKey }
+        pendingNativeLoadCallbacks.removeAll(callbacks)
+        callbacks.forEach { it.callBack.onLoaded() }
+    }
+
+    private fun notifyPendingNativeLoadFailed(adIdsKey: String) {
+        val callbacks = pendingNativeLoadCallbacks.filter { it.adIdsKey == adIdsKey }
+        pendingNativeLoadCallbacks.removeAll(callbacks)
+        callbacks.forEach { it.callBack.onFailed() }
+    }
+
+    private fun Array<String>.nativeAdIdsKey(): String {
+        return joinToString(separator = "|")
     }
 }

@@ -48,7 +48,7 @@ class OCRResultAdapter(
                 holder.tvText.text
             )
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(context, "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, R.string.copied, Toast.LENGTH_SHORT).show()
         }
 
         holder.btnCopyTranslation.setOnClickListener {
@@ -59,7 +59,7 @@ class OCRResultAdapter(
                 holder.tvTranslation.text
             )
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(context, "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, R.string.copied, Toast.LENGTH_SHORT).show()
         }
 
         holder.btnSpeakTranslation.setOnClickListener {

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Outline for the hero in layout-v31/noti_lockscreen_expanded.xml: android:clipToOutline (an
+    XML attribute only from API 31) clips the photo to this rounded rect. Below 31 the layout uses
+    photos with the corners already cut out instead (lockscreen_hero_*_rounded.webp).
+    The fill only shows if a photo fails to load.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/noti_hero_placeholder" />
+    <corners android:radius="12dp" />
+</shape>

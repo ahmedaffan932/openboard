@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Collapsed pinned notification. The frame only draws the expanded card, but a low-importance
+    notification usually sits collapsed, and a collapsed row that only repeated the title would
+    put every tool behind an expand. So the collapsed row is the four tiles themselves, packed into
+    the ~38dp an API 24-30 collapsed custom view gets: 18dp glyph over a 10sp label (pinned in dp
+    below API 28, where that budget does not grow with the font scale). layout-v31/ has the 48dp
+    version. Same ids as noti_pinned_expanded.xml, so the same code wires both.
+
+    Inflated by SystemUI: framework views and attributes only; texts are set from code.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/pinTileTranslate"
+            style="@style/PinnedTileCompact">
+
+            <ImageView
+                style="@style/PinnedTileCompactIcon"
+                android:src="@drawable/pin_ic_translate" />
+
+            <TextView
+                android:id="@+id/pinLabelTranslate"
+                style="@style/PinnedTileCompactLabel"
+                tools:text="Translate" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pinTileVoice"
+            style="@style/PinnedTileCompact"
+            android:layout_marginStart="6dp">
+
+            <ImageView
+                style="@style/PinnedTileCompactIcon"
+                android:src="@drawable/pin_ic_voice" />
+
+            <TextView
+                android:id="@+id/pinLabelVoice"
+                style="@style/PinnedTileCompactLabel"
+                tools:text="Voice" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pinTileCamera"
+            style="@style/PinnedTileCompact"
+            android:layout_marginStart="6dp">
+
+            <ImageView
+                style="@style/PinnedTileCompactIcon"
+                android:src="@drawable/pin_ic_camera" />
+
+            <TextView
+                android:id="@+id/pinLabelCamera"
+                style="@style/PinnedTileCompactLabel"
+                tools:text="Camera" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pinTileFile"
+            style="@style/PinnedTileCompact"
+            android:layout_marginStart="6dp">
+
+            <ImageView
+                style="@style/PinnedTileCompactIcon"
+                android:src="@drawable/pin_ic_file" />
+
+            <TextView
+                android:id="@+id/pinLabelFile"
+                style="@style/PinnedTileCompactLabel"
+                tools:text="File" />
+        </LinearLayout>
+</LinearLayout>

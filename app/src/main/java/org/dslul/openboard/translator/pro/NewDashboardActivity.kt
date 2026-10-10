@@ -26,6 +26,7 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityNewDashboardBinding
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import java.util.Locale
 
@@ -36,14 +37,9 @@ class NewDashboardActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
+        setAppLanguage()
         binding = ActivityNewDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
 
 
         Misc.setIsFirstTime(this, false)
@@ -60,7 +56,9 @@ class NewDashboardActivity : AppCompatActivity() {
         Misc.selectThemeMode(this)
 
         binding.btnCamera.setOnClickListener {
-            startActivity(Intent(this, CameraTranslationActivity::class.java))
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(Intent(this, CameraTranslationActivity::class.java))
+            }
         }
 
         showAds()
@@ -69,12 +67,13 @@ class NewDashboardActivity : AppCompatActivity() {
 
         translationViewImplementation()
 
-
         binding.btnKeyboardTranslate.setOnClickListener {
             if (isInputMethodSelected()) {
-                Toast.makeText(this, "Keyboard is already enabled.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.keyboard_already_enabled, Toast.LENGTH_SHORT).show()
             } else {
-                startActivity(Intent(this, EnableKeyboardActivity::class.java))
+                Ads.runWithEverySixthClickInterstitial(this) {
+                    startActivity(Intent(this, EnableKeyboardActivity::class.java))
+                }
             }
         }
 
@@ -193,7 +192,9 @@ class NewDashboardActivity : AppCompatActivity() {
 
         setSelectedLng()
         binding.btnTranslate.setOnClickListener {
-            startTranslateActivity(binding.etText.text.toString())
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startTranslateActivity(binding.etText.text.toString())
+            }
         }
 
         binding.btnSpeakInput.setOnClickListener {
@@ -229,57 +230,69 @@ class NewDashboardActivity : AppCompatActivity() {
     private fun setUpClickListeners() {
         binding.btnSettings.setOnClickListener {
             Firebase.analytics.logEvent("Settings", null)
-            startActivity(Intent(this@NewDashboardActivity, SettingsActivity::class.java))
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(Intent(this@NewDashboardActivity, SettingsActivity::class.java))
+            }
         }
 
         binding.btnHistory.setOnClickListener {
             Firebase.analytics.logEvent("History", null)
-            startActivity(
-                Intent(
-                    this@NewDashboardActivity,
-                    DisplayHistoryActivity::class.java
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(
+                    Intent(
+                        this@NewDashboardActivity,
+                        DisplayHistoryActivity::class.java
+                    )
                 )
-            )
+            }
         }
 
         binding.btnChat.setOnClickListener {
             Firebase.analytics.logEvent("Chat", null)
-            startActivity(Intent(this@NewDashboardActivity, ConversationActivity::class.java))
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(Intent(this@NewDashboardActivity, ConversationActivity::class.java))
+            }
         }
 
         binding.btnPhrasebook.setOnClickListener {
             Firebase.analytics.logEvent("Phrasebook", null)
-            startActivity(Intent(this@NewDashboardActivity, PhrasesActivity::class.java))
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(Intent(this@NewDashboardActivity, PhrasesActivity::class.java))
+            }
         }
 
     }
 
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            binding.textViewLngFromFrag.text = resources.getString(R.string.detect)
-            binding.flagFromFrag.setImageResource(Misc.getFlag(this, "100"))
+            binding.tvLanguageFrom.text = resources.getString(R.string.detect)
+            binding.flagFrom.setImageResource(Misc.getFlag(this, "100"))
         } else {
-            binding.textViewLngFromFrag.text = Locale(
+            binding.tvLanguageFrom.text = Locale(
                 Misc.getLanguageFrom(this)
             ).displayName
 
-            binding.flagFromFrag.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
+            binding.flagFrom.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
         }
 
-        binding.flagToFrag.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
-        binding.textViewLngToFrag.text = Locale(
+        binding.flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
+        binding.tvLanguageTo.text = Locale(
             Misc.getLanguageTo(this)
         ).displayName
 
 
-        binding.llLngFromFrag.setOnClickListener {
+        binding.llLanguageFrom.setOnClickListener {
             val intent = Intent(this, LanguageSelectorActivity::class.java)
             intent.putExtra(Misc.lngTo, false)
-            startActivity(intent)
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(intent)
+            }
         }
 
-        binding.llLngToFrag.setOnClickListener {
-            startActivity(Intent(this, LanguageSelectorActivity::class.java))
+        binding.llLanguageTo.setOnClickListener {
+            Ads.runWithEverySixthClickInterstitial(this) {
+                startActivity(Intent(this, LanguageSelectorActivity::class.java))
+            }
         }
 
         binding.btnSwitchLngs.setOnClickListener {
@@ -292,8 +305,8 @@ class NewDashboardActivity : AppCompatActivity() {
                 val image = binding.btnSwitchLngs
                 image.startAnimation(rotate)
 
-                Misc.zoomOutView(binding.llLngToFrag, this, 150)
-                Misc.zoomOutView(binding.llLngFromFrag, this, 150)
+                Misc.zoomOutView(binding.llLanguageTo, this, 150)
+                Misc.zoomOutView(binding.llLanguageFrom, this, 150)
 
                 Handler().postDelayed({
                     val temp = Misc.getLanguageFrom(this)
@@ -302,8 +315,8 @@ class NewDashboardActivity : AppCompatActivity() {
 
                     setSelectedLng()
 
-                    Misc.zoomInView(binding.llLngToFrag, this, 150)
-                    Misc.zoomInView(binding.llLngFromFrag, this, 150)
+                    Misc.zoomInView(binding.llLanguageTo, this, 150)
+                    Misc.zoomInView(binding.llLanguageFrom, this, 150)
 
                 }, 150)
             } else {
@@ -316,4 +329,6 @@ class NewDashboardActivity : AppCompatActivity() {
         }
 
     }
+
+
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -11,13 +12,19 @@
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <!-- Notifications (translator/pro/notifications). POST_NOTIFICATIONS also arrives merged from
+         firebase-messaging; declared here because the app now asks for it (dashboard). -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- No full-screen intents: USE_FULL_SCREEN_INTENT needs the Play Console "Full-screen
+         intent" declaration (calling/alarm apps only). Stripped from the merged manifest too, so
+         no library can bring it back. -->
     <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="29" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
+        android:name="android.permission.USE_FULL_SCREEN_INTENT"
+        tools:node="remove" />
+    <!-- Notification slots. Without the grant (default-denied on 14+) alarms degrade to a
+         10-minute window; USE_EXACT_ALARM is not used (Play policy). -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <permission
         android:name="org.dslul.openboard.inputmethod.latin.HIDE_SOFT_INPUT"
@@ -28,36 +35,66 @@
         android:allowBackup="false"
         android:defaultToDeviceProtectedStorage="true"
         android:directBootAware="true"
-        android:extractNativeLibs="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/english_ime_name"
         android:requestLegacyExternalStorage="true"
         android:resizeableActivity="false"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
-
+        <activity
+            android:name="org.dslul.openboard.translator.pro.GalleryPermissionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru" />
+        <activity
+            android:name="org.dslul.openboard.translator.pro.CameraPermissionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru" />
+        <activity
+            android:name="org.dslul.openboard.translator.pro.OnBoardingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru" />
+        <activity
+            android:name="org.dslul.openboard.translator.pro.FragmentsDashboardActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru" />
         <activity
             android:name="org.dslul.openboard.translator.pro.NewDashboardActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru" />
         <activity
             android:name="org.dslul.openboard.translator.pro.OnResumeActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru" />
-
+        <activity
+            android:name="org.dslul.openboard.translator.pro.PremiumScreenActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru" />
         <activity
             android:name="org.dslul.openboard.translator.pro.ViewTranslatedTextActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru" />
-
         <activity
             android:name="org.dslul.openboard.translator.pro.ConversationActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru" />
-
+        <activity
+            android:name="org.dslul.openboard.translator.pro.WordGameActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru" />
         <activity
             android:name="org.dslul.openboard.translator.pro.PreSplashScreenActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/ForSplash">
             <intent-filter>
                 <action
@@ -67,10 +104,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
+            android:name="com.canhub.cropper.CropImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru.Cropper" />
         <activity
             android:name="org.dslul.openboard.translator.pro.CameraTranslationActivity"
             android:exported="false"
@@ -80,7 +117,15 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
+        <activity
+            android:name="org.dslul.openboard.translator.pro.AppLanguageSelectorActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name="org.dslul.openboard.translator.pro.OCRActivity"
             android:exported="false"
@@ -99,7 +144,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
-        </provider> <!-- Services -->
+        </provider>
 
         <service
             android:name=".LatinIME"
@@ -115,7 +160,6 @@
                 android:name="android.view.im"
                 android:resource="@xml/method" />
         </service>
-
         <service
             android:name=".spellcheck.TranslatorProSpellCheckerService"
             android:exported="true"
@@ -129,7 +173,6 @@
                 android:name="android.view.textservice.scs"
                 android:resource="@xml/spellchecker" />
         </service> <!-- Activities -->
-
         <activity
             android:name="org.dslul.openboard.translator.pro.DisplayHistoryActivity"
             android:exported="false"
@@ -139,7 +182,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="org.dslul.openboard.translator.pro.DisplayFavoritesActivity"
             android:exported="false"
@@ -149,9 +191,9 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="org.dslul.openboard.translator.pro.LanguageSelectorActivity"
+            android:excludeFromRecents="true"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru">
@@ -159,7 +201,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="org.dslul.openboard.translator.pro.TranslateActivity"
             android:exported="false"
@@ -169,7 +210,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="org.dslul.openboard.translator.pro.DashboardActivity"
             android:exported="false"
@@ -179,7 +219,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="org.dslul.openboard.translator.pro.TranslateInterstitialActivity"
             android:exported="false"
@@ -189,7 +228,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="org.dslul.openboard.translator.pro.PhrasebookDetailedActivity"
             android:exported="false"
@@ -199,7 +237,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="org.dslul.openboard.translator.pro.PhrasesActivity"
             android:exported="false"
@@ -209,8 +246,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-
         <activity
             android:name="org.dslul.openboard.translator.pro.SettingsActivity"
             android:exported="false"
@@ -220,28 +255,87 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="org.dslul.openboard.translator.pro.EnableKeyboardActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="org.dslul.openboard.translator.pro.SplashScreenActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru" />
-
         <activity
             android:name="org.dslul.openboard.translator.pro.ExitActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru" />
-
+        <!--
+            Notification trampoline. No excludeFromRecents: on a cold tap this is the task root for
+            the instant before it re-roots onto PreSplashScreenActivity, and excluding it there can
+            take the whole session out of Recents. It finishes in onCreate, so it never lingers.
+        -->
+        <activity
+            android:name="org.dslul.openboard.translator.pro.notifications.NotiRouterActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Transparent" />
+        <!--
+            Tap target of the pinned notification's tiles (PinnedNoti). A task of its own (empty
+            affinity), out of Recents. No screenOrientation: it is translucent.
+        -->
+        <activity
+            android:name="org.dslul.openboard.translator.pro.notifications.QuickAccessActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:taskAffinity=""
+            android:theme="@style/Theme.Transparent" />
+        <!-- Landing screen for the "Uninstall" long-press shortcut (UninstallSurveyActivity): a
+             retention survey reached through the splash, not the system uninstaller. -->
+        <activity
+            android:name="org.dslul.openboard.translator.pro.UninstallSurveyActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru" />
+        <!-- Hears the app being swiped from Recents (onTaskRemoved) for the Kill-App notification;
+             stopWithTask="false" is what makes Android deliver that callback. -->
+        <service
+            android:name="org.dslul.openboard.translator.pro.notifications.KillAppWatcherService"
+            android:exported="false"
+            android:stopWithTask="false" />
+        <receiver
+            android:name="org.dslul.openboard.translator.pro.notifications.receivers.NotiAlarmReceiver"
+            android:exported="false" />
+        <receiver
+            android:name="org.dslul.openboard.translator.pro.notifications.receivers.NotiDismissReceiver"
+            android:exported="false" />
+        <!-- Separate from the keyboard's SystemBroadcastReceiver, which may kill the process on
+             BOOT_COMPLETED: re-arming the notification slots is quick and synchronous. -->
+        <receiver
+            android:name="org.dslul.openboard.translator.pro.notifications.receivers.BootReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+        <!-- Home-screen Quick-Translate widget (widget/TranslateWidgetProvider). Declaring it is
+             also what puts the "Widgets" entry in the app-icon long-press menu. -->
+        <receiver
+            android:name="org.dslul.openboard.translator.pro.widget.TranslateWidgetProvider"
+            android:exported="false"
+            android:label="@string/widget_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_translate_info" />
+        </receiver>
         <activity
             android:name=".setup.SetupActivity"
             android:exported="true"
@@ -249,49 +343,50 @@
             android:label="@string/english_ime_name"
             android:launchMode="singleTask"
             android:noHistory="true"
+            android:screenOrientation="portrait"
             android:theme="@style/platformActivityTheme" />
-
         <activity
             android:name=".permissions.PermissionsActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:taskAffinity=""
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
         <activity
             android:name=".setup.SetupWizardActivity"
             android:clearTaskOnLaunch="true"
             android:exported="true"
             android:label="@string/english_ime_name"
+            android:screenOrientation="portrait"
             android:theme="@style/platformActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".settings.SettingsActivity"
             android:excludeFromRecents="true"
             android:exported="true"
             android:label="@string/ime_settings"
+            android:screenOrientation="portrait"
             android:theme="@style/platformActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".spellcheck.SpellCheckerSettingsActivity"
             android:exported="true"
             android:label="@string/android_spell_checker_settings"
+            android:screenOrientation="portrait"
             android:theme="@style/platformActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".settings.TestFragmentActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
 
         <receiver
             android:name=".SystemBroadcastReceiver"
@@ -309,7 +404,8 @@
             <intent-filter>
                 <action android:name="org.dslul.openboard.inputmethod.dictionarypack.aosp.UNKNOWN_CLIENT" />
             </intent-filter>
-        </receiver> <!-- Content providers -->
+        </receiver>
+
         <provider
             android:name="org.dslul.openboard.inputmethod.dictionarypack.DictionaryProvider"
             android:authorities="@string/authority"
@@ -320,7 +416,13 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-6814505709397727~1751762147" />
+            android:value="${adMobApplicationId}" />
+        <meta-data
+            android:name="com.google.android.gms.ads.flag.OPTIMIZE_INITIALIZATION"
+            android:value="true" />
+        <meta-data
+            android:name="com.google.android.gms.ads.flag.OPTIMIZE_AD_LOADING"
+            android:value="true" />
     </application>
 
 </manifest>

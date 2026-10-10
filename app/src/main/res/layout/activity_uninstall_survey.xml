@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color">
+
+    <!-- Scrollable survey + features; the action buttons and native stay pinned below it. -->
+    <ScrollView
+        android:id="@+id/scrollContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:paddingHorizontal="24dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/llButtons">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="32dp"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="@string/uninstall_title"
+                android:textColor="@color/black"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/tvSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/uninstall_subtitle"
+                android:textColor="@color/gray_600"
+                android:textSize="15sp" />
+
+            <RadioGroup
+                android:id="@+id/rgReasons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/reasonAds"
+                    style="@style/UninstallReason"
+                    android:text="@string/uninstall_reason_ads" />
+
+                <RadioButton
+                    android:id="@+id/reasonBetter"
+                    style="@style/UninstallReason"
+                    android:text="@string/uninstall_reason_better" />
+
+                <RadioButton
+                    android:id="@+id/reasonConfusing"
+                    style="@style/UninstallReason"
+                    android:text="@string/uninstall_reason_confusing" />
+
+                <RadioButton
+                    android:id="@+id/reasonQuality"
+                    style="@style/UninstallReason"
+                    android:text="@string/uninstall_reason_quality" />
+
+                <RadioButton
+                    android:id="@+id/reasonOther"
+                    style="@style/UninstallReason"
+                    android:text="@string/uninstall_reason_other" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="@string/uninstall_features_title"
+                android:textColor="@color/black"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_rounded"
+                android:orientation="vertical"
+                android:padding="4dp">
+
+                <include
+                    layout="@layout/item_uninstall_feature"
+                    android:id="@+id/featureCamera" />
+
+                <include
+                    layout="@layout/item_uninstall_feature"
+                    android:id="@+id/featureVoice" />
+
+                <include
+                    layout="@layout/item_uninstall_feature"
+                    android:id="@+id/featureChatbot" />
+
+                <include
+                    layout="@layout/item_uninstall_feature"
+                    android:id="@+id/featureOffline" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/llButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="8dp"
+        app:layout_constraintBottom_toTopOf="@id/nativeAdFrameLayout">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnKeep"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="@drawable/nativead_btn_round"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="@string/uninstall_keep"
+            android:textAllCaps="false"
+            android:textColor="@color/native_ad_cta_text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/btnUninstall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="4dp"
+            android:background="?attr/selectableItemBackground"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="12dp"
+            android:text="@string/uninstall_confirm"
+            android:textColor="@color/gray_600"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/nativeAdFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

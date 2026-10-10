@@ -4,12 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.StrictMode
 import android.provider.MediaStore
-import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.animation.Animation
@@ -31,19 +32,16 @@ import com.google.mlkit.vision.text.chinese.ChineseTextRecognizerOptions
 import com.google.mlkit.vision.text.japanese.JapaneseTextRecognizerOptions
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
-import kotlinx.android.synthetic.main.activity_ocractivity.*
-import kotlinx.android.synthetic.main.bottom_sheet_ocr_translation_result.rvOCRResult
-import kotlinx.android.synthetic.main.bottom_sheet_ocr_translation_result.tvViewAll
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.databinding.ActivityOcrBinding
 import org.dslul.openboard.objects.CameraMisc
 import org.dslul.openboard.translator.pro.adaptor.OCRResultAdapter
 import org.dslul.openboard.translator.pro.classes.Misc
-import org.jsoup.Jsoup
-import java.net.URLEncoder
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
+import org.dslul.openboard.translator.pro.classes.MiscTranslate
+import org.dslul.openboard.translator.pro.classes.ads.Ads
+import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
+import org.dslul.openboard.translator.pro.interfaces.TranslationInterface
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -51,15 +49,21 @@ class OCRActivity : AppCompatActivity() {
     private var arrText: ArrayList<String> = java.util.ArrayList<String>()
     private var arrTranslation: ArrayList<String> = java.util.ArrayList<String>()
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
+    private lateinit var binding: ActivityOcrBinding
+    private var isRewardedAdShown = false
+    private var isLanguageSelection = false
     private var bitmap: Bitmap? = null
     private val cropImageLauncher = registerForActivityResult(CropImageContract()) { result ->
         if (result.isSuccessful) {
-            bitmap = MediaStore.Images.Media.getBitmap(contentResolver, result.uriContent)
-            imageViewOcr.setImageBitmap(resizeBitmap(bitmap!!, 1024))
-            ocr(bitmap!!)
+            result.uriContent?.let { uri ->
+                handleSelectedImageForOCR(uri)
+            } ?: run {
+                Toast.makeText(this, R.string.unable_to_crop, Toast.LENGTH_SHORT).show()
+                finish()
+            }
 
         } else {
-            Toast.makeText(this, "Unable to crop", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.unable_to_crop, Toast.LENGTH_SHORT).show()
             finish()
         }
 
@@ -88,7 +92,9 @@ class OCRActivity : AppCompatActivity() {
     @SuppressLint("WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ocractivity)
+        setAppLanguage()
+        binding = ActivityOcrBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val policy: StrictMode.ThreadPolicy =
             StrictMode.ThreadPolicy.Builder().permitAll().build()
@@ -97,19 +103,19 @@ class OCRActivity : AppCompatActivity() {
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheetResult))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
-        btnBack.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             onBackPressed()
         }
 
-        progressBar.setOnClickListener { }
+        binding.progressBar.setOnClickListener { }
 
-        imageViewOcr.setOnClickListener {
+        binding.imageViewOcr.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
         }
 
         init()
 
-        btnSwitchLngs.setOnClickListener {
+        binding.ivSwitchLanguages.setOnClickListener {
             if (Misc.getLanguageFrom(this) != Misc.defaultLanguage) {
                 val rotate = RotateAnimation(
                     0F, 180F, Animation.RELATIVE_TO_SELF,
@@ -118,7 +124,7 @@ class OCRActivity : AppCompatActivity() {
                 rotate.duration = 100
                 rotate.interpolator = LinearInterpolator()
 
-                val image = btnSwitchLngs
+                val image = binding.ivSwitchLanguages
                 image.startAnimation(rotate)
 
                 val temp = Misc.getLanguageFrom(this)
@@ -129,35 +135,37 @@ class OCRActivity : AppCompatActivity() {
                 Misc.setLanguageTo(this, temp)
 
                 if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-                    textViewLngFrom.text = resources.getString(R.string.detect)
-                    flagFrom.setImageResource(Misc.getFlag(this, "100"))
+                    binding.tvLanguageFrom.text = resources.getString(R.string.detect)
+                    binding.flagFrom.setImageResource(Misc.getFlag(this, "100"))
                 } else {
-                    textViewLngFrom.text =
+                    binding.tvLanguageFrom.text =
                         Locale(
                             Misc.getLanguageFrom(this)
                         ).displayName
-                    flagFrom.setImageResource(
+                    binding.flagFrom.setImageResource(
                         Misc.getFlag(
                             this,
                             Misc.getLanguageFrom(this)
                         )
                     )
                 }
-                textViewLngTo.text =
+                binding.tvLanguageTo.text =
                     Locale(
                         Misc.getLanguageTo(this)
                     ).displayName
-                flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
+                binding.flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
             }
         }
 
-        llLngFrom.setOnClickListener {
+        binding.llLanguageFrom.setOnClickListener {
+            isLanguageSelection = true
             val intent = Intent(this, LanguageSelectorActivity::class.java)
             intent.putExtra(Misc.lngTo, false)
             startActivity(intent)
         }
 
-        llLngTo.setOnClickListener {
+        binding.llLanguageTo.setOnClickListener {
+            isLanguageSelection = true
             startActivity(Intent(this, LanguageSelectorActivity::class.java))
         }
     }
@@ -165,17 +173,27 @@ class OCRActivity : AppCompatActivity() {
 
     private fun init() {
         try {
-            val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, CameraMisc.fileUri!!)
+            // The pinned notification's File tile also sends the image as the intent's data, which
+            // still holds after the process was killed and this screen restored.
+            val selectedUri = (CameraMisc.fileUri ?: intent.data)!!
 
             cropImageLauncher.launch(
                 CropImageContractOptions(
-                    uri = CameraMisc.fileUri,
+                    uri = selectedUri,
                     cropImageOptions = CropImageOptions(
-                    )
+                    ).apply {
+                        activityMenuIconColor = Color.BLACK
+                        activityMenuTextColor = Color.BLACK
+                        toolbarTintColor = Color.BLACK
+                        toolbarBackButtonColor = Color.BLACK
+                        toolbarTitleColor = Color.BLACK
+                        cropMenuCropButtonTitle = getString(R.string.ocr_crop_done)
+                    }
                 )
             )
 
-            imageViewOcr.setImageBitmap(bitmap)
+            bitmap = loadBitmapFromUri(selectedUri)
+            binding.imageViewOcr.setImageBitmap(bitmap)
         } catch (e: Exception) {
             Toast.makeText(
                 this,
@@ -183,6 +201,23 @@ class OCRActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
             finish()
+        }
+    }
+
+    private fun handleSelectedImageForOCR(uri: Uri) {
+        bitmap = loadBitmapFromUri(uri)
+        binding.imageViewOcr.setImageBitmap(resizeBitmap(bitmap!!, 1024))
+        ocr(bitmap!!)
+    }
+
+    private fun loadBitmapFromUri(uri: Uri): Bitmap {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            val source = ImageDecoder.createSource(contentResolver, uri)
+            ImageDecoder.decodeBitmap(source) { decoder, _, _ ->
+                decoder.setAllocator(ImageDecoder.ALLOCATOR_SOFTWARE)
+            }
+        } else {
+            MediaStore.Images.Media.getBitmap(contentResolver, uri)
         }
     }
 
@@ -210,7 +245,7 @@ class OCRActivity : AppCompatActivity() {
                 e.printStackTrace()
                 Toast.makeText(this, getString(R.string.sorry_no_text_found), Toast.LENGTH_SHORT)
                     .show()
-                progressBar.visibility = View.GONE
+                binding.progressBar.visibility = View.GONE
             }
         }
     }
@@ -233,96 +268,70 @@ class OCRActivity : AppCompatActivity() {
                     rectPaint.color = Color.BLUE
 
                     canvas.drawRect(rect, rectPaint)
-                    imageViewOcr.setImageDrawable(BitmapDrawable(resources, tempBitmap))
+                    binding.imageViewOcr.setImageDrawable(BitmapDrawable(resources, tempBitmap))
                     arrText.add(line.text)
                 }
             }
         }
 
-        tvViewAll.setOnClickListener {
+        binding.bottomSheetResult.tvViewAll.setOnClickListener {
             val intent = Intent(this, ViewTranslatedTextActivity::class.java)
             intent.putExtra(Misc.key, visionText.text)
             startActivity(intent)
         }
 
-        pbText.text = resources.getString(R.string.translating)
+        binding.pbText.text = resources.getString(R.string.translating)
 
         Handler(Looper.getMainLooper()).postDelayed({
             Log.d(Misc.logKey, "Size: ${arrText.size}")
-            jugarTranslation(arrText, 0)
+            translateNow(arrText, 0)
         }, 100)
     }
 
-    private fun jugarTranslation(arrText: ArrayList<String>, position: Int) {
+    private fun translateNow(arrText: ArrayList<String>, position: Int) {
         setSelectedLng()
-        if (!Misc.checkInternetConnection(this)) {
-            Toast.makeText(
-                this,
-                resources.getString(R.string.please_check_your_internet_connection_and_try_again),
-                Toast.LENGTH_SHORT
-            ).show()
-            progressBar.visibility = View.GONE
-            return
-        }
-        progressBar.visibility = View.VISIBLE
+//        if (!isRewardedAdShown) {
+//            isRewardedAdShown = true
+//            Ads.loadAndShowRewardedInterstitial(this, Ads.cameraTranslationRewardedAd, object :
+//                InterstitialCallBack {
+//                override fun onDismiss() {
+//                }
+//            })
+//        }
+        binding.progressBar.visibility = View.VISIBLE
         try {
-            val fromCode =
-                if (Misc.getLanguageFrom(this) == Misc.defaultLanguage)
-                    ""
-                else if (Misc.getLanguageFrom(this) == "zh")
-                    "zh-CN"
-                else if (Misc.getLanguageFrom(this) == "he")
-                    "iw"
-                else
-                    Misc.getLanguageFrom(this)
-
-            val toCode = when (Misc.getLanguageTo(this)) {
-                "zh" -> "zh-CN"
-                "he" -> "iw"
-                else -> Misc.getLanguageTo(this)
-            }
 
             if (position < arrText.size) {
-                val encoded = URLEncoder.encode(arrText[position], "utf-8")
-                GlobalScope.launch(Dispatchers.Main) {
-                    val result = withContext(Dispatchers.IO) {
-                        // Perform network request on IO thread
-                        val doc =
-                            Jsoup.connect("https://translate.google.com/m?hl=en&sl=$fromCode&tl=$toCode&q=$encoded")
-                                .get()
-                        val element = doc.getElementsByClass("result-container")
-                        element.text()
+                MiscTranslate.translate(this, arrText[position], object : TranslationInterface {
+                    override fun onTranslate(translation: String) {
+                        arrTranslation.add(translation)
+                        Log.d(Misc.logKey, "Text: ${arrText[position]} OCR: $translation")
+                        translateNow(arrText, position + 1)
                     }
 
-                    if (result.isNotBlank()) {
-                        arrTranslation.add(result)
-                        Log.d(Misc.logKey, "Text: ${arrText[position]} OCR: $result")
-                        jugarTranslation(arrText, position + 1)
-                    } else {
-                        progressBar.visibility =
+                    override fun onFailed() {
+                        binding.progressBar.visibility =
                             View.GONE
                         Toast.makeText(
                             this@OCRActivity,
                             resources.getString(R.string.sorry_some_erroe_occurred_please_try_againg),
                             Toast.LENGTH_SHORT
                         ).show()
-                        Log.e(Misc.logKey, "its empty")
                     }
-
-                }
+                })
             } else {
                 Log.d(Misc.logKey, "Here.")
-                progressBar.visibility = View.GONE
+                binding.progressBar.visibility = View.GONE
 
-                tvViewAll.visibility = View.VISIBLE
+                binding.bottomSheetResult.tvViewAll.visibility = View.VISIBLE
 
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                rvOCRResult.layoutManager = LinearLayoutManager(this)
-                rvOCRResult.adapter =
+                binding.bottomSheetResult.rvOCRResult.layoutManager = LinearLayoutManager(this)
+                binding.bottomSheetResult.rvOCRResult.adapter =
                     OCRResultAdapter(this, arrText, arrTranslation)
             }
         } catch (e: Exception) {
-            progressBar.visibility =
+            binding.progressBar.visibility =
                 View.GONE
             Toast.makeText(
                 this,
@@ -336,26 +345,31 @@ class OCRActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         setSelectedLng()
+        if (isLanguageSelection) {
+            arrTranslation.clear()
+            translateNow(arrText, 0)
+            isLanguageSelection = false
+        }
     }
 
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            textViewLngFrom.text =
+            binding.tvLanguageFrom.text =
                 resources.getString(R.string.detect)
-            flagFrom.setImageResource(Misc.getFlag(this, "100"))
+            binding.flagFrom.setImageResource(Misc.getFlag(this, "100"))
 
         } else {
-            textViewLngFrom.text = Locale(
+            binding.tvLanguageFrom.text = Locale(
                 Misc.getLanguageFrom(this)
             ).displayName
-            flagFrom.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
+            binding.flagFrom.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
 
         }
 
-        textViewLngTo.text = Locale(
+        binding.tvLanguageTo.text = Locale(
             Misc.getLanguageTo(this)
         ).displayName
-        flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
+        binding.flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
 
     }
 

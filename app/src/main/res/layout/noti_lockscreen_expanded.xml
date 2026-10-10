@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Expanded lock-screen notification, API 24-30: the Figma card ("Lockscreen 1-3") laid out
+    inside the notification - logo + copy + "X", the feature hero, the gradient CTA - shown once
+    the row is expanded. layout-v31/ has the API 31+ twin.
+
+    Inflated by SystemUI: framework views and attributes only, system font families only, every
+    drawable a plain framework one, no ?attr references.
+
+    Height: SystemUI measures this AT_MOST its budget - only ~228dp of custom content on API 24-30
+    (~188dp if Android adds an action row such as snooze) - and clips whatever does not fit. The
+    hero carries layout_weight so that it, not the CTA, gives up the space: a vertical
+    LinearLayout hands a negative remainder to its weighted children when its content overflows.
+
+    The hero is set with setImageViewResource, never setImageViewBitmap - a bitmap inside custom
+    RemoteViews counts in full against the notification's parcel budget, a resource id costs
+    nothing. RemoteViews cannot clip below API 31, so the photo comes with transparent rounded
+    corners (lockscreen_hero_*_rounded.webp) and is only ever scaled with fitCenter: past the
+    height cap it narrows instead of being cropped, which would cut the rounded corners off.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivNotiLogo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:importantForAccessibility="no"
+            android:scaleType="fitCenter"
+            android:src="@drawable/lockscreen_logo" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvNotiTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
+                android:maxLines="2"
+                android:textColor="@color/noti_title"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvNotiDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/noti_desc"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/btnNotiClose"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/noti_ls_close_bg"
+            android:contentDescription="@string/noti_close"
+            android:padding="9dp"
+            android:src="@drawable/ic_round_close_24"
+            android:tint="@color/lockscreen_card_close_icon"
+            tools:ignore="UseAppTint" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivNotiHero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
+        android:maxHeight="@dimen/noti_ls_hero_max_height"
+        android:scaleType="fitCenter" />
+
+    <TextView
+        android:id="@+id/btnNotiCta"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/lockscreen_cta_bg"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textColor="@color/lockscreen_cta_text"
+        android:textSize="14sp" />
+
+</LinearLayout>

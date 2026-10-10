@@ -16,6 +16,7 @@
 
 package org.dslul.openboard.inputmethod.latin;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -32,6 +33,7 @@ import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Debug;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Process;
@@ -47,6 +49,9 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
@@ -108,6 +113,8 @@ import javax.annotation.Nonnull;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.FORCE_ASCII;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE;
 import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE_COMPAT;
+
+import androidx.core.content.ContextCompat;
 
 import com.google.mlkit.nl.translate.TranslateLanguage;
 
@@ -624,6 +631,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         Log.i(TAG, "Hardware accelerated drawing: " + mIsHardwareAcceleratedDrawingEnabled);
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     public void onCreate() {
         Settings.init(this);
@@ -638,8 +646,12 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
         mClipboardHistoryManager.onCreate();
         mClipboardHistoryManager.setHistoryChanged(() -> {
-            Log.d(Misc.logKey, "Ooo Yes");
-            mSuggestionStripView.onTextCopy();
+            try {
+                Log.d(Misc.logKey, "Ooo Yes");
+                mSuggestionStripView.onTextCopy();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
 
         mHandler.onCreate();
@@ -652,31 +664,30 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         // Register to receive ringer mode change.
         final IntentFilter filter = new IntentFilter();
         filter.addAction(AudioManager.RINGER_MODE_CHANGED_ACTION);
-        registerReceiver(mRingerModeChangeReceiver, filter);
+        registerReceiver(mRingerModeChangeReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED);
 
         // Register to receive installation and removal of a dictionary pack.
         final IntentFilter packageFilter = new IntentFilter();
         packageFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
         packageFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
         packageFilter.addDataScheme(SCHEME_PACKAGE);
-        registerReceiver(mDictionaryPackInstallReceiver, packageFilter);
+        registerReceiver(mDictionaryPackInstallReceiver, packageFilter, ContextCompat.RECEIVER_EXPORTED);
 
         final IntentFilter newDictFilter = new IntentFilter();
         newDictFilter.addAction(DictionaryPackConstants.NEW_DICTIONARY_INTENT_ACTION);
-        registerReceiver(mDictionaryPackInstallReceiver, newDictFilter);
+        registerReceiver(mDictionaryPackInstallReceiver, newDictFilter, ContextCompat.RECEIVER_EXPORTED);
 
         final IntentFilter dictDumpFilter = new IntentFilter();
         dictDumpFilter.addAction(DictionaryDumpBroadcastReceiver.DICTIONARY_DUMP_INTENT_ACTION);
-        registerReceiver(mDictionaryDumpBroadcastReceiver, dictDumpFilter);
+        registerReceiver(mDictionaryDumpBroadcastReceiver, dictDumpFilter, ContextCompat.RECEIVER_EXPORTED);
 
         final IntentFilter hideSoftInputFilter = new IntentFilter();
         hideSoftInputFilter.addAction(ACTION_HIDE_SOFT_INPUT);
-        registerReceiver(mHideSoftInputReceiver, hideSoftInputFilter, PERMISSION_HIDE_SOFT_INPUT,
-                null /* scheduler */);
+        registerReceiver(mHideSoftInputReceiver, hideSoftInputFilter, PERMISSION_HIDE_SOFT_INPUT, null /* scheduler */, ContextCompat.RECEIVER_EXPORTED);
 
         final IntentFilter restartAfterUnlockFilter = new IntentFilter();
         restartAfterUnlockFilter.addAction(Intent.ACTION_USER_UNLOCKED);
-        registerReceiver(mRestartAfterDeviceUnlockReceiver, restartAfterUnlockFilter);
+        registerReceiver(mRestartAfterDeviceUnlockReceiver, restartAfterUnlockFilter, Context.RECEIVER_VISIBLE_TO_INSTANT_APPS);
 
         StatsUtils.onCreate(mSettings.getCurrent(), mRichImm);
     }
@@ -1583,6 +1594,32 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     }
 
     @Override
+    public void switchLanguages(Context context, View iv, View from, View to) {
+        RotateAnimation rotate = new RotateAnimation(
+                0F, 180F, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f
+        );
+        rotate.setDuration(150);
+        rotate.setInterpolator(new LinearInterpolator());
+        iv.startAnimation(rotate);
+
+        Misc.INSTANCE.zoomOutView(from, context, 150);
+        Misc.INSTANCE.zoomOutView(to, context, 150);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String temp = Misc.INSTANCE.getLanguageFrom(context);
+                Misc.INSTANCE.setLanguageFrom(context, Misc.INSTANCE.getLanguageTo(context));
+                Misc.INSTANCE.setLanguageTo(context, temp);
+
+
+                Misc.INSTANCE.zoomInView(from, context, 150, false);
+                Misc.INSTANCE.zoomInView(to, context, 150, false);
+            }
+        }, 150);
+
+    }
+
+    @Override
     public void startSettingsActivity() {
         Intent intent = new Intent(this, SettingsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1601,7 +1638,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     @Override
     public String onTranslateText() {
-        mInputLogic.OnTranslateText(getLanguageFrom(this), getLanguageTo(this));
+        mInputLogic.OnTranslateText(this, getLanguageFrom(this), getLanguageTo(this));
         String to = new Locale(getLanguageTo(this)).getDisplayName();
         if (Objects.equals(getLanguageFrom(this), Misc.defaultLanguage)) {
             return "Detect#" + to;

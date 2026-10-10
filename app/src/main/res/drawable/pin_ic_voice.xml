@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Pinned notification, Voice tile (Figma NotiPinNoti): seven round-capped bars, 2dp wide on a 4dp
+     pitch, 4/10/18/8/22/12/4dp tall - measured off the frame. Colour from @color/pin_tile_content, so
+     SystemUI resolves the day/night value; never tinted from the layout. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="28dp"
+    android:height="28dp"
+    android:viewportWidth="28"
+    android:viewportHeight="28">
+    <path
+        android:fillColor="@color/pin_tile_content"
+        android:pathData="M2,12a1,1 0,0 1,1,1v2a1,1 0,0 1,-2,0v-2a1,1 0,0 1,1,-1zM6,9a1,1 0,0 1,1,1v8a1,1 0,0 1,-2,0v-8a1,1 0,0 1,1,-1zM10,5a1,1 0,0 1,1,1v16a1,1 0,0 1,-2,0v-16a1,1 0,0 1,1,-1zM14,10a1,1 0,0 1,1,1v6a1,1 0,0 1,-2,0v-6a1,1 0,0 1,1,-1zM18,3a1,1 0,0 1,1,1v20a1,1 0,0 1,-2,0v-20a1,1 0,0 1,1,-1zM22,8a1,1 0,0 1,1,1v10a1,1 0,0 1,-2,0v-10a1,1 0,0 1,1,-1zM26,12a1,1 0,0 1,1,1v2a1,1 0,0 1,-2,0v-2a1,1 0,0 1,1,-1z" />
+</vector>

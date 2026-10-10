@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Expanded lock-screen notification, API 31+. Same card as layout/noti_lockscreen_expanded.xml
+    (read its notes on SystemUI constraints and on the weighted hero) except for the hero itself:
+    android:clipToOutline became an XML attribute in API 31, so here the photo is clipped to the
+    rounded noti_ls_hero_frame outline and may centerCrop - it fills the full width and loses a
+    sliver top and bottom when the height budget bites, instead of narrowing.
+    LockscreenArt.notificationHero() hands this variant the unrounded art. Budget here: ~288dp of
+    custom content, ~248dp with an action row.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivNotiLogo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:importantForAccessibility="no"
+            android:scaleType="fitCenter"
+            android:src="@drawable/lockscreen_logo" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvNotiTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
+                android:maxLines="2"
+                android:textColor="@color/noti_title"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvNotiDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/noti_desc"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/btnNotiClose"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/noti_ls_close_bg"
+            android:contentDescription="@string/noti_close"
+            android:padding="9dp"
+            android:src="@drawable/ic_round_close_24"
+            android:tint="@color/lockscreen_card_close_icon"
+            tools:ignore="UseAppTint" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivNotiHero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:background="@drawable/noti_ls_hero_frame"
+        android:clipToOutline="true"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
+        android:maxHeight="@dimen/noti_ls_hero_max_height"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/btnNotiCta"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/lockscreen_cta_bg"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textColor="@color/lockscreen_cta_text"
+        android:textSize="14sp" />
+
+</LinearLayout>

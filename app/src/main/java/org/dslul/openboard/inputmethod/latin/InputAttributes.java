@@ -82,7 +82,7 @@ public final class InputAttributes {
                 Log.w(TAG, String.format("Unexpected input class: inputType=0x%08x"
                         + " imeOptions=0x%08x", inputType, editorInfo.imeOptions));
             }
-            mShouldShowSuggestions = false;
+            mShouldShowSuggestions = true;
             mInputTypeNoAutoCorrect = false;
             mApplicationSpecifiedCompletionOn = false;
             mShouldInsertSpacesAutomatically = false;
@@ -296,10 +296,14 @@ public final class InputAttributes {
                 mTargetApplicationPackageName);
     }
 
-    public static boolean inPrivateImeOptions(final String packageName, final String key,
-            final EditorInfo editorInfo) {
+    public static boolean inPrivateImeOptions(
+            final String packageName,
+            final String key,
+            final EditorInfo editorInfo
+    ) {
         if (editorInfo == null) return false;
         final String findingKey = (packageName != null) ? packageName + "." + key : key;
+        Log.e("testingSuggestion", "inPrivateImeOptions: "+packageName+" , findingKey: "+findingKey );
         return StringUtils.containsInCommaSplittableText(findingKey, editorInfo.privateImeOptions);
     }
 }

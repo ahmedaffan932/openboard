@@ -8,13 +8,16 @@ import com.google.android.gms.tasks.Task
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
-import kotlinx.android.synthetic.main.activity_exit.*
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.inputmethod.latin.databinding.ActivityExitBinding
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 
 class ExitActivity : AppCompatActivity() {
     private var reviewManager: ReviewManager? = null
+    private lateinit var binding: ActivityExitBinding
+
     private fun init() {
         reviewManager = ReviewManagerFactory.create(this)
         if (Misc.isFirstTime(this)) {
@@ -24,24 +27,29 @@ class ExitActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_exit)
-
+        setAppLanguage()
+        binding = ActivityExitBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         init()
 
-        exit_rating.onRatingBarChangeListener =
+//        if(!Misc.isItemClicked) {
+//        }
+        Ads.loadAndShowSharedBottomNativeAd(this, binding.nativeAdFrameLayout)
+
+        binding.exitRating.onRatingBarChangeListener =
             RatingBar.OnRatingBarChangeListener { _, p1, _ ->
                 if (p1 > 3f) {
                     showRateApp()
                 } else {
-                    Toast.makeText(this, "Thanks for your review.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, R.string.thanks_for_your_review, Toast.LENGTH_SHORT).show()
                 }
             }
 
-        btnYes.setOnClickListener {
+        binding.btnYes.setOnClickListener {
             finishAffinity()
         }
-        btnNo.setOnClickListener {
+        binding.btnNo.setOnClickListener {
             finish()
         }
     }

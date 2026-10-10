@@ -116,7 +116,7 @@ class LanguagesAdapterConversation(
 
                 for (item in languages) {
                     if (constraint?.let {
-                            Locale(item).displayName.toLowerCase().contains(it)
+                            Locale(item).displayName.lowercase().contains(it)
                         } == true) {
                         founded.add(item)
                         Log.d(Misc.logKey, item)
