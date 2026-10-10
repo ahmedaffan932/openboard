@@ -195,7 +195,24 @@
     </entry>
     <entry>
         <key>dashboard_native_native_layout</key>
-        <value></value>
+        <value>small_hctr_native_btn_up</value>
+    </entry>
+
+    <entry>
+        <key>game_native_enabled</key>
+        <value>true</value>
+    </entry>
+    <entry>
+        <key>game_native_network</key>
+        <value>am</value>
+    </entry>
+    <entry>
+        <key>game_native_floor</key>
+        <value>0.00</value>
+    </entry>
+    <entry>
+        <key>game_native_native_layout</key>
+        <value>small_hctr_native_btn_up</value>
     </entry>
 
     <entry>

@@ -147,12 +147,18 @@
     "is_enabled": true,
     "native_reload_limit": 2,
     "floor": 0,
-    "native_layout": "large_hctr",
+    "native_layout": "small_hctr_native_btn_up",
     "ad_unit_ids": [
       "ca-app-pub-6806702755182088/3383762726",
       "ca-app-pub-6806702755182088/4718621587",
       "ca-app-pub-6806702755182088/8466294905"
     ]
+  },
+  "word_game": {
+    "is_enabled": true,
+    "reload_limit": 2,
+    "floor": 0,
+    "native_layout": "small_hctr_native_btn_up"
   },
   "shared_bottom_native": {
     "is_enabled": true,

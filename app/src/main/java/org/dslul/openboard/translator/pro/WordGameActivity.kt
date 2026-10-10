@@ -28,8 +28,8 @@ import org.dslul.openboard.translator.pro.classes.MiscTranslate
 import org.dslul.openboard.translator.pro.classes.WordGameContent
 import org.dslul.openboard.translator.pro.classes.WordGameLogic
 import org.dslul.openboard.translator.pro.classes.WordList
+import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
-import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobBannerAd
 import org.dslul.openboard.translator.pro.interfaces.TranslationInterface
 import java.util.Locale
 
@@ -42,8 +42,8 @@ import java.util.Locale
  *
  * Ported from TranslatorGuru's `GameActivity`, re-wired to this app: words come from the
  * bundled asset via [WordGameContent] (no network needed to start), translation goes
- * through [MiscTranslate] (ML Kit + the working gtx endpoint), ads through [AdmobBannerAd],
- * analytics through Firebase. Progress is kept in its own [PREFS] file.
+ * through [MiscTranslate] (ML Kit + the working gtx endpoint), ads through [Ads] (a no-media
+ * native ad at the bottom), analytics through Firebase. Progress is kept in its own [PREFS] file.
  */
 class WordGameActivity : AppCompatActivity() {
 
@@ -62,7 +62,13 @@ class WordGameActivity : AppCompatActivity() {
 
         Firebase.analytics.logEvent("Game", null)
 
-        AdmobBannerAd.loadAdmobAdaptiveBanner(this, binding.llBannerBottom, Ads.dashboardBanner)
+        Ads.loadAndShowNativeAd(
+            activity = this,
+            adIds = AdIds.nativeAdIdSharedBottom,
+            remoteKey = Ads.gameNative,
+            frameLayout = binding.llBannerBottom,
+            shimmerLayout = R.layout.small_native_shimmer
+        )
 
         puzzleViewBoxSize = (resources.displayMetrics.xdpi * 0.28).toInt()
 

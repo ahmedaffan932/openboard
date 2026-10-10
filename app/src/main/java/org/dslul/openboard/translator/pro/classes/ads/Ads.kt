@@ -55,7 +55,10 @@ object Ads {
     var phraseInt: String = "am"
     var translateNative: String = "am_large_hctr_bottom"
     var premiumNative: String = "am"
-    var dashboardNative: String = "am"
+    // No-media small native on the dashboard Home tab (icon + headline + body + CTA).
+    var dashboardNative: String = "am_small_hctr_native_btn_up"
+    // No-media small native on the word game screen (replaces the old bottom banner).
+    var gameNative: String = "am_small_hctr_native_btn_up"
     var splashInt: String = "am"
     var translateInt: String = "am"
 
@@ -167,6 +170,9 @@ object Ads {
             },
             RemotePlacement("dashboard_native", isNative = true, currentValue = { dashboardNative }) {
                 dashboardNative = it
+            },
+            RemotePlacement("game_native", isNative = true, currentValue = { gameNative }) {
+                gameNative = it
             },
             RemotePlacement("splash_interstitial", currentValue = { splashInt }) {
                 splashInt = it

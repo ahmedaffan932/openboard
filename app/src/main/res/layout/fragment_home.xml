@@ -485,7 +485,7 @@
     <FrameLayout
         android:id="@+id/mrecFrameLayout"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_200sdp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/fab_padding"
         android:layout_marginEnd="@dimen/fab_padding"
         android:visibility="gone"

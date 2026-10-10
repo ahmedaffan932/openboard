@@ -310,7 +310,7 @@ class HomeFragment : Fragment() {
             adIds = AdIds.nativeAdIdDashboard,
             remoteKey = Ads.dashboardNative,
             frameLayout = binding.mrecFrameLayout,
-            shimmerLayout = R.layout.large_native_shimmer,
+            shimmerLayout = R.layout.small_native_shimmer,
             callBack = object : LoadAdCallBack {
                 override fun onLoaded() {
                     Log.d(Misc.logKey, "Dashboard native ad loaded.")

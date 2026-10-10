@@ -23,12 +23,13 @@ import org.dslul.openboard.inputmethod.latin.databinding.ItemWidgetPromptStepBin
 import org.dslul.openboard.translator.pro.classes.App
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.Ads
+import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobBannerAd
 import java.util.function.Consumer
 import kotlin.math.min
 
 /**
  * The "Add widget" card: a frosted-glass dialog over the dashboard that explains the three manual
- * steps (long-press the home screen, tap Widgets, drag the widget), with a shared-bottom native ad
+ * steps (long-press the home screen, tap Widgets, drag the widget), with an adaptive banner ad
  * as its bottom section. Shown once, by [WidgetPrompt.showIfDue].
  *
  * "Got it" opens the launcher's system pin dialog ([AppWidgetManager.requestPinAppWidget]) directly
@@ -69,7 +70,7 @@ class WidgetPromptDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val b = binding ?: return
         val radius = resources.getDimension(R.dimen.widget_prompt_corner_radius)
-        // Clips the native ad's bottom corners to the card. android:clipToOutline in XML only
+        // Clips the banner ad's bottom corners to the card. android:clipToOutline in XML only
         // takes effect from API 31; set in code it works everywhere.
         b.root.outlineProvider = object : ViewOutlineProvider() {
             override fun getOutline(view: View, outline: Outline) =
@@ -87,7 +88,16 @@ class WidgetPromptDialog : DialogFragment() {
             dismissAllowingStateLoss()
         }
 
-        Ads.loadAndShowSharedBottomNativeAd(requireActivity(), b.widgetPromptAd)
+        // Adaptive banner in place of the shared-bottom native; reuses the shared_bottom_native
+        // remote key so the same remote on/off toggle gates this slot (the banner shows only when
+        // the key resolves to an "am..." value). onStart sets the dialog window width after this,
+        // so the frame is 0-wide here; posting defers the load until the first layout pass has run
+        // so the adaptive banner sizes to the card's width, not the full screen.
+        val adFrame = b.widgetPromptAd
+        adFrame.post {
+            val activity = activity ?: return@post
+            AdmobBannerAd.loadAdmobAdaptiveBanner(activity, adFrame, Ads.sharedBottomNative)
+        }
     }
 
     override fun onStart() {

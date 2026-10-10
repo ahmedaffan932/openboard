@@ -59,9 +59,16 @@ object AdsJsonConfig {
         applyNativePlacement(
             config = root.optJSONObject("home_screen"),
             placementKey = "dashboard_native",
-            defaultLayout = "large_hctr",
+            defaultLayout = "small_hctr_native_btn_up",
             applyRemote = { Ads.dashboardNative = it }
         ) { AdIds.nativeAdIdDashboard = it }
+        // Word game: no-media native, reuses the shared-bottom ad units (no dedicated unit).
+        applyNativePlacement(
+            config = root.optJSONObject("word_game"),
+            placementKey = "game_native",
+            defaultLayout = "small_hctr_native_btn_up",
+            applyRemote = { Ads.gameNative = it }
+        )
         applyNativePlacement(
             config = root.optJSONObject("shared_bottom_native"),
             placementKey = "shared_bottom_native",
