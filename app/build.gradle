@@ -22,7 +22,7 @@ android {
             jniDebuggable false
             buildConfigField "boolean", "ADS_ENABLED", "false"
             manifestPlaceholders = [
-                    adMobApplicationId: "ca-app-pub-6806702755182088~5602915737"
+                    adMobApplicationId: "ca-app-pub-6065249128764297~4869798198"
             ]
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
                     'proguard-rules.pro'
