@@ -423,6 +423,26 @@
         <meta-data
             android:name="com.google.android.gms.ads.flag.OPTIMIZE_AD_LOADING"
             android:value="true" />
+
+        <!-- Meta (Facebook) SDK: App ID + client token from the Meta developer dashboard -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
+        <!-- Meta app-event logging stays OFF until UMP consent is known. MetaAppEvents flips these
+             on and calls activateApp() inside PreSplashScreenActivity's canRequestAds() gate, so no
+             app events / advertiser ID are collected before the user clears the consent flow. -->
+        <meta-data
+            android:name="com.facebook.sdk.AutoInitEnabled"
+            android:value="false" />
+        <meta-data
+            android:name="com.facebook.sdk.AutoLogAppEventsEnabled"
+            android:value="false" />
+        <meta-data
+            android:name="com.facebook.sdk.AdvertiserIDCollectionEnabled"
+            android:value="false" />
     </application>
 
 </manifest>

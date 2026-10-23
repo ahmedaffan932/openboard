@@ -11,8 +11,8 @@ android {
         applicationId "com.translator.keyboard.translate.all.langugaes"
         minSdk 27
         targetSdk 36
-        versionCode 13
-        versionName "2.2"
+        versionCode 16
+        versionName "2.5"
     }
 
     buildTypes {
@@ -135,6 +135,13 @@ dependencies {
     // adapter; declared explicitly, version-matched, so com.facebook.ads.AdSettings is reliably on
     // the compile classpath for MetaAdsConsent.
     implementation "com.facebook.android:audience-network-sdk:6.20.0"
+    // Meta app-event logging + install attribution. SEPARATE from Audience Network above (which only
+    // SERVES ads): the Facebook core SDK logs the activation/app events Meta's Events Manager needs
+    // to attribute app installs to Meta ad campaigns. Install Referrer lets the core SDK read the
+    // Play Store referrer for that attribution. Collection stays off until UMP consent — see
+    // MetaAppEvents (manifest AutoInit/AutoLog/AdvertiserID are declared false).
+    implementation "com.facebook.android:facebook-core:19.0.0"
+    implementation "com.android.installreferrer:installreferrer:2.2"
     implementation "com.android.billingclient:billing-ktx:8.3.0"
     implementation "com.google.android.play:review-ktx:2.0.2"
 

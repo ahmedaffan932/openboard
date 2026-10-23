@@ -29,6 +29,7 @@ import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.classes.ads.AdsJsonConfig
 import org.dslul.openboard.translator.pro.classes.ads.MetaAdsConsent
+import org.dslul.openboard.translator.pro.classes.ads.MetaAppEvents
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobInterstitialAd
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobNativeAds
 import org.dslul.openboard.translator.pro.classes.ads.admob.AppOpenAdManager
@@ -96,6 +97,12 @@ class PreSplashScreenActivity : AppCompatActivity() {
                         // request. GDPR/EEA is handled automatically by the SDK via UMP's TCF
                         // string; this covers US-state privacy, COPPA audience and Meta test mode.
                         MetaAdsConsent.configure(this)
+
+                        // Meta app events + install attribution (the Facebook core SDK, separate
+                        // from Audience Network above). Consent is known here, so enable Meta's
+                        // auto app-event logging and fire the activation event that install-campaign
+                        // attribution in Events Manager depends on.
+                        MetaAppEvents.activate(application)
 
                         MobileAds.initialize(this) {}
 

@@ -9,11 +9,16 @@ dashboards are configured, AdMob fetches Meta ads automatically through the adap
 - **Meta SDK:** `com.facebook.android:audience-network-sdk:6.20.0` (`app/build.gradle`)
 - **Meta app name:** `Translator pro`
 - **Meta App ID:** `1648900333357605`
-- **Client Token:** held separately (kept out of the repo — it is a credential, and the
-  AdMob-mediated path does not need it in the committed code).
+- **Client Token:** `03ffe203b88b3468d33ff0b274a6c928` (embedded in the app via
+  `facebook_client_token` in `res/values/strings.xml`; Meta's client token is designed to be
+  shipped inside the app and is not a secret).
+- **Launcher activity ("Class Name" in the Meta dashboard's Android platform settings):**
+  `org.dslul.openboard.translator.pro.PreSplashScreenActivity`
 
-> These identifiers are entered in the **AdMob dashboard** when adding Meta as a mediation ad
-> source (see §4); they are **not** placed in the app manifest/code for the mediation path.
+> The App ID and Placement IDs are entered in the **AdMob dashboard** when adding Meta as a
+> mediation ad source (see §4). The App ID and Client Token are also declared in
+> `AndroidManifest.xml` (`com.facebook.sdk.ApplicationId` / `com.facebook.sdk.ClientToken`) as the
+> Meta dashboard's Android quick-start requires.
 
 ---
 
@@ -26,6 +31,7 @@ dashboards are configured, AdMob fetches Meta ads automatically through the adap
 | Meta Audience Network SDK dependency | `app/build.gradle` |
 | Meta consent / test-mode config | `app/src/main/java/.../classes/ads/MetaAdsConsent.kt` |
 | `MetaAdsConsent.configure()` wired before `MobileAds.initialize()` | `PreSplashScreenActivity.kt` |
+| Meta App ID + Client Token `<meta-data>` | `AndroidManifest.xml`, `res/values/strings.xml` |
 
 **No further app code is required** to serve Meta ads — mediation is configured server-side in the
 AdMob and Meta dashboards. The only optional code touch is pasting a test-device hash (see §6).
@@ -36,7 +42,7 @@ AdMob and Meta dashboards. The only optional code touch is pasting a test-device
 
 These are blockers — the integration cannot go live without them:
 
-1. ~~**Meta App ID**~~ — ✅ received: `1648900333357605` (+ Client Token, held separately).
+1. ~~**Meta App ID**~~ — ✅ received: `1648900333357605` (+ Client Token, now in the manifest).
 2. **Audience Network Placement IDs** — ⏳ still needed. One per ad format we mediate (banner /
    interstitial / native / rewarded); format `1648900333357605_xxxxxxxxxx`.
 3. **Access to the Meta Business account** — add our developer account as **Admin/Developer**.
@@ -132,6 +138,7 @@ Handled by `MetaAdsConsent.kt`:
 ## 8. Go-live checklist
 
 - [x] Meta App ID received (`1648900333357605`)
+- [x] Client Token added to `AndroidManifest.xml` / `strings.xml`
 - [ ] Meta App ID added to AdMob mediation
 - [ ] Placement IDs created and mapped to each ad unit in AdMob
 - [ ] Payout account set up on Audience Network

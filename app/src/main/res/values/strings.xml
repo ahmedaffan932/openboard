@@ -794,4 +794,8 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
 
     <string name="sorry_error_in_fetching_words">Sorry! Some error occurred in fetching words.</string>
     <string name="please_solve_current_puzzle_to_proceed">Solve the current puzzle to proceed.</string>
+
+    <!-- Meta (Facebook) SDK identifiers. The client token is designed to be embedded in the app; it is not a secret. -->
+    <string name="facebook_app_id" translatable="false">1648900333357605</string>
+    <string name="facebook_client_token" translatable="false">03ffe203b88b3468d33ff0b274a6c928</string>
 </resources>
