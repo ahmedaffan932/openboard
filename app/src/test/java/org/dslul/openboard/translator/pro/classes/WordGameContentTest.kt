@@ -43,4 +43,33 @@ class WordGameContentTest {
         assertTrue(WordGameContent.parse("""{"data":null}""").data.isEmpty())
         assertTrue(WordGameContent.parse("null").data.isEmpty())
     }
+
+    @Test
+    fun parseAlternates_readsMap() {
+        val map = WordGameContent.parseAlternates("""{"art":["rat","tar"],"low":["owl"]}""")
+        assertEquals(listOf("rat", "tar"), map["art"])
+        assertEquals(listOf("owl"), map["low"])
+    }
+
+    @Test
+    fun parseAlternates_wrongShapeYieldsEmptyMap() {
+        assertTrue(WordGameContent.parseAlternates("null").isEmpty())
+    }
+
+    @Test
+    fun shippedAlternatesAsset_acceptsTheReportedWords() {
+        // Unit tests run with the module directory as the working directory.
+        val json = java.io.File("src/main/assets/wordgame_alternates.json").readText()
+        val map = WordGameContent.parseAlternates(json)
+        assertTrue(map["art"]!!.containsAll(listOf("rat", "tar")))
+        assertTrue(map["low"]!!.contains("owl"))
+        // Every entry is lowercase a-z, the way the game compares guesses.
+        for ((word, others) in map) {
+            assertTrue(word, word.matches(Regex("[a-z]+")))
+            for (other in others) {
+                assertTrue(other, other.matches(Regex("[a-z]+")))
+                assertEquals(word.toList().sorted(), other.toList().sorted())
+            }
+        }
+    }
 }

@@ -20,10 +20,10 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.view.MenuItem;
 
 import org.dslul.openboard.inputmethod.latin.permissions.PermissionsManager;
 import org.dslul.openboard.inputmethod.latin.utils.FragmentUtils;
-import org.dslul.openboard.translator.pro.classes.Misc;
 
 import androidx.core.app.ActivityCompat;
 
@@ -43,12 +43,16 @@ public final class SettingsActivity extends PreferenceActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
         }
+    }
 
-        if (getIntent().getStringExtra(Misc.data) != null){
-            isValidFragment(PreferencesSettingsFragment.class.getName());
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        // The action bar's Up arrow is enabled above but was never handled.
+        if (item.getItemId() == android.R.id.home) {
             onBackPressed();
+            return true;
         }
-
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

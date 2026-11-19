@@ -798,4 +798,15 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Meta (Facebook) SDK identifiers. The client token is designed to be embedded in the app; it is not a secret. -->
     <string name="facebook_app_id" translatable="false">1648900333357605</string>
     <string name="facebook_client_token" translatable="false">03ffe203b88b3468d33ff0b274a6c928</string>
+
+    <!-- Fun Words: the player spelled another real word from the same letters. %1$s is their word, %2$s the puzzle word. -->
+    <string name="word_game_other_word_accepted">\u201c%1$s\u201d is a real word too! The puzzle word was \u201c%2$s\u201d.</string>
+
+    <!-- Share button pressed while there is no text to share yet. -->
+    <string name="nothing_to_share">Nothing to share yet</string>
+    <!-- Title of the system share sheet. -->
+    <string name="share_via">Share via</string>
+
+    <!-- Keyboard settings > Languages, when the phone's own languages screen is missing or refuses to open. -->
+    <string name="keyboard_languages_unavailable">This phone doesn\'t allow opening its keyboard languages screen from here. Open your phone\'s Settings, then Languages &amp; input, then On-screen keyboard, then this keyboard.</string>
 </resources>

@@ -12,9 +12,10 @@ import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import org.dslul.openboard.translator.pro.classes.Misc
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityPhrasebookDetailedBinding
@@ -35,7 +36,6 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
     private val expandableListDetailTranslation: HashMap<String, List<String>> = HashMap()
     private val lngSelectorLngFrom = 1090
     private val lngSelectorLngTo = 1230
-    private val arrExpandableListTitle: ArrayList<String> = ArrayList()
     private lateinit var imagesResId: IntArray
     private val imageResId0 = intArrayOf(
         R.drawable.debit_card,
@@ -87,6 +87,10 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
     )
 
     private var i: Int = 0
+
+    /** The From/To pair the list was last loaded for; null until the first load. */
+    private var loadedLanguages: Pair<String, String>? = null
+    private var loadJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -188,11 +192,13 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
                     Misc.zoomInView(binding.llLanguageTo, this, 150)
                 }, 150)
 
-
-                expandableListTitleTranslation.clear()
-                expandableListTitle.clear()
                 getAllText()
-
+            } else {
+                Toast.makeText(
+                    this,
+                    resources.getString(R.string.please_select_language_you_want_to_translate),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
@@ -203,6 +209,7 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
         return PhrasesAssetReader.getLanguageJson(this, lan)
     }
 
+    /** Updates the From/To header (labels and flags). Listeners are set once, in onCreate. */
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
             binding.tvLanguageFrom.text = resources.getString(R.string.detect)
@@ -229,159 +236,101 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
         binding.tvLanguageTo.text = Locale(
             Misc.getLanguageTo(this)
         ).displayName
-
-
-        binding.llLanguageFrom.setOnClickListener {
-            val intent = Intent(this, LanguageSelectorActivity::class.java)
-            intent.putExtra(Misc.lngTo, false)
-            startActivity(intent)
-        }
-
-        binding.llLanguageTo.setOnClickListener {
-            startActivity(Intent(this, LanguageSelectorActivity::class.java))
-        }
-
-        binding.ivSwitchLanguages.setOnClickListener {
-            if (Misc.getLanguageFrom(this) != Misc.defaultLanguage) {
-                val rotate = RotateAnimation(
-                    0F, 180F, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f
-                )
-                rotate.duration = 150
-                rotate.interpolator = LinearInterpolator()
-                val image = binding.ivSwitchLanguages
-                image.startAnimation(rotate)
-
-                Misc.zoomOutView(binding.llLanguageTo, this, 150)
-                Misc.zoomOutView(binding.llLanguageFrom, this, 150)
-
-                Handler().postDelayed({
-                    val temp = Misc.getLanguageFrom(this)
-                    Misc.setLanguageFrom(this, Misc.getLanguageTo(this))
-                    Misc.setLanguageTo(this, temp)
-
-                    setSelectedLng()
-
-                    Misc.zoomInView(binding.llLanguageTo, this, 150)
-                    Misc.zoomInView(binding.llLanguageFrom, this, 150)
-
-                }, 150)
-            } else {
-                Toast.makeText(
-                    this,
-                    resources.getString(R.string.please_select_language_you_want_to_translate),
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-
     }
 
     //@DelicateCoroutinesApi
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == lngSelectorLngFrom) {
-            expandableListTitleTranslation.clear()
-            expandableListTitle.clear()
-            getAllText()
-        }
-        if (requestCode == lngSelectorLngTo) {
-            expandableListTitleTranslation.clear()
-            expandableListTitle.clear()
-            getAllText()
+        if (requestCode == lngSelectorLngFrom || requestCode == lngSelectorLngTo) {
+            reloadIfLanguagesChanged()
         }
     }
 
     override fun onResume() {
         super.onResume()
         setSelectedLng()
+        // Covers every way the languages can change while this screen is in the background.
+        reloadIfLanguagesChanged()
+    }
+
+    private fun currentLanguages() = Misc.getLanguageFrom(this) to Misc.getLanguageTo(this)
+
+    private fun reloadIfLanguagesChanged() {
+        if (loadedLanguages != null && loadedLanguages != currentLanguages()) getAllText()
     }
 
 
-    //@DelicateCoroutinesApi
+    /**
+     * Loads this category's phrases in the From language and their translations in the To
+     * language. A new call cancels a load still in progress (two loads used to run at once and
+     * append to the same lists). The category comes from the launch intent, which survives process
+     * death; the static Misc.phrasebookPosition it used to read resets to 0 and showed category 0.
+     */
     private fun getAllText() {
-        expandableListDetail.clear()
-        expandableListDetailTranslation.clear()
-        GlobalScope.launch(Dispatchers.Main) {
-            val srcLng =
-                if (Misc.getLanguageFrom(this@PhrasebookDetailedActivity) == Misc.defaultLanguage) {
-                    "en"
-                } else {
-                    Misc.getLanguageFrom(this@PhrasebookDetailedActivity)
+        val (from, to) = currentLanguages()
+        loadedLanguages = from to to
+        val srcLng = if (from == Misc.defaultLanguage) "en" else from
+        loadJob?.cancel()
+        loadJob = lifecycleScope.launch {
+            val source = readCategory(srcLng) ?: return@launch
+            val target = readCategory(to) ?: return@launch
+
+            expandableListTitle.clear()
+            expandableListTitle.addAll(source.first)
+            expandableListDetail.clear()
+            expandableListDetail.putAll(source.second)
+            expandableListTitleTranslation.clear()
+            expandableListTitleTranslation.addAll(target.first)
+            expandableListDetailTranslation.clear()
+            expandableListDetailTranslation.putAll(target.second)
+
+            expandableListAdapter = CustomExpandableListAdapter(
+                this@PhrasebookDetailedActivity,
+                expandableListTitle,
+                expandableListTitleTranslation,
+                expandableListDetailTranslation,
+                expandableListDetail,
+                imagesResId
+            )
+            binding.expandableListView.setAdapter(expandableListAdapter)
+            binding.expandableListView.setGroupIndicator(null)
+        }
+    }
+
+    /**
+     * The subcategory titles and their phrases for this screen's category in [language], in file
+     * order (phrases are paired with their translations by position), or null with a toast when
+     * the language has no phrasebook.
+     */
+    private suspend fun readCategory(
+        language: String
+    ): Pair<List<String>, Map<String, List<String>>>? {
+        return try {
+            val obj = JSONObject(getLanguageJson(language))
+            val titles = ArrayList<String>()
+            val details = HashMap<String, List<String>>()
+            val categoryKey = obj.keys().asSequence().elementAtOrNull(i) ?: return Pair(titles, details)
+            val category = obj.getJSONObject(categoryKey)
+            for (subcategoryKey in category.keys()) {
+                val subcategory = category.getJSONObject(subcategoryKey)
+                val phrases = ArrayList<String>()
+                for (phraseKey in subcategory.keys()) {
+                    phrases.add(subcategory.getString(phraseKey))
                 }
-
-            try {
-                val obj = JSONObject(getLanguageJson(srcLng))
-
-                var i = 0
-                for (t in obj.keys()) {
-                    if (Misc.phrasebookPosition == i) {
-                        for (item in obj.getJSONObject(t).keys()) {
-                            arrExpandableListTitle.add(item.toString())
-                            val temp: MutableList<String> = ArrayList()
-                            temp.clear()
-                            for (key in obj.getJSONObject(t)
-                                .getJSONObject(item).keys()) {
-                                temp.add(obj.getJSONObject(t).getJSONObject(item).getString(key))
-                            }
-                            expandableListDetail[item] = temp
-                            expandableListTitle.add(item)
-                        }
-                    }
-                    i += 1
-                }
-
-                val lngTo = Misc.getLanguageTo(this@PhrasebookDetailedActivity)
-                GlobalScope.launch(Dispatchers.Main) {
-                    try {
-                        val objTo = JSONObject(getLanguageJson(lngTo))
-                        var i = 0
-
-                        for (t in objTo.keys()) {
-                            if (Misc.phrasebookPosition == i) {
-                                Log.d(Misc.logKey, t)
-                                for (item in objTo.getJSONObject(t).keys()) {
-                                    val temp2: MutableList<String> = ArrayList()
-                                    temp2.clear()
-                                    for (key in objTo.getJSONObject(t).getJSONObject(item).keys()) {
-                                        temp2.add(
-                                            objTo.getJSONObject(t).getJSONObject(item)
-                                                .getString(key)
-                                        )
-                                    }
-                                    expandableListDetailTranslation[item] = temp2
-                                    expandableListTitleTranslation.add(item)
-                                }
-                            }
-                            i += 1
-                        }
-
-                        expandableListAdapter = CustomExpandableListAdapter(
-                            this@PhrasebookDetailedActivity,
-                            expandableListTitle,
-                            expandableListTitleTranslation,
-                            expandableListDetailTranslation,
-                            expandableListDetail,
-                            imagesResId
-                        )
-                        binding.expandableListView!!.setAdapter(expandableListAdapter)
-                        binding.expandableListView!!.setGroupIndicator(null)
-                    } catch (e: java.lang.Exception) {
-                        e.printStackTrace()
-                        Toast.makeText(
-                            this@PhrasebookDetailedActivity,
-                            "Sorry! ${Locale(lngTo).displayName} is not available in phrasebook yet.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-
-            } catch (e: java.lang.Exception) {
-                Toast.makeText(
-                    this@PhrasebookDetailedActivity,
-                    "Sorry! ${Locale(srcLng).displayName} is not available in phrasebook yet.",
-                    Toast.LENGTH_SHORT
-                ).show()
+                titles.add(subcategoryKey)
+                details[subcategoryKey] = phrases
             }
+            Pair(titles, details)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(
+                this,
+                "Sorry! ${Locale(language).displayName} is not available in phrasebook yet.",
+                Toast.LENGTH_SHORT
+            ).show()
+            null
         }
     }
 }

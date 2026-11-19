@@ -8,7 +8,13 @@ public class ObservableBool {
     private static final List<BooleanChangeListener> listeners = new ArrayList<>();
 
     public static void addBooleanChangeListener(BooleanChangeListener listener) {
-        listeners.add(listener);
+        if (!listeners.contains(listener)) {
+            listeners.add(listener);
+        }
+    }
+
+    public static void removeBooleanChangeListener(BooleanChangeListener listener) {
+        listeners.remove(listener);
     }
 
     public static void setMyBoolean(boolean value) {

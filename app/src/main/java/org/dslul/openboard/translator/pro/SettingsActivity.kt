@@ -99,14 +99,13 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.btnSwitchDarkTheme.setOnCheckedChangeListener { _, _ ->
-            if (Misc.isNightModeOn(this)) {
-                Misc.setNightMode(this, false)
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            } else {
-                Misc.setNightMode(this, true)
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
+        // Follow the switch itself. Flipping the stored flag instead went the wrong way whenever the
+        // two disagreed, so a tap could look like it did nothing.
+        binding.btnSwitchDarkTheme.setOnCheckedChangeListener { _, isChecked ->
+            Misc.setNightMode(this, isChecked)
+            AppCompatDelegate.setDefaultNightMode(
+                if (isChecked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+            )
         }
 
         binding.btnBack.setOnClickListener {

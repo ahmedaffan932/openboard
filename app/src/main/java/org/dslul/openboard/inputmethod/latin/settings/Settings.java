@@ -175,6 +175,35 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
 
     public void onDestroy() {
         mPrefs.unregisterOnSharedPreferenceChangeListener(this);
+        mOnSettingsChangedListener = null;
+    }
+
+    /** Told when a user-facing setting changes, so the running keyboard can apply it. */
+    public interface OnSettingsChangedListener {
+        void onSettingsChanged(String key);
+    }
+
+    private OnSettingsChangedListener mOnSettingsChangedListener;
+
+    public void setOnSettingsChangedListener(final OnSettingsChangedListener listener) {
+        mOnSettingsChangedListener = listener;
+    }
+
+    /**
+     * Keys the keyboard writes by itself while it is being used (emoji recents, the last emoji
+     * page, personalization bookkeeping). They are not settings the user changed, so they must not
+     * trigger a keyboard reload.
+     */
+    private static boolean isInternalStateKey(final String key) {
+        return key == null
+                || PREF_EMOJI_RECENT_KEYS.equals(key)
+                // Written per category, as this prefix plus the category id.
+                || key.startsWith(PREF_EMOJI_CATEGORY_LAST_TYPED_ID)
+                || PREF_LAST_SHOWN_EMOJI_CATEGORY_ID.equals(key)
+                || PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID.equals(key)
+                || PREF_LAST_USED_PERSONALIZATION_TOKEN.equals(key)
+                || PREF_LAST_PERSONALIZATION_DICT_WIPED_TIME.equals(key)
+                || PREF_CORPUS_HANDLES_FOR_PERSONALIZATION.equals(key);
     }
 
     @Override
@@ -189,8 +218,16 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             }
             loadSettings(mContext, mSettingsValues.mLocale, mSettingsValues.mInputAttributes);
             StatsUtils.onLoadSettings(mSettingsValues);
+            // Vibration and sound are read from the feedback manager's own copy of the values;
+            // without this it kept the old ones until the keyboard re-opened in a new text field.
+            AudioAndHapticFeedbackManager.getInstance().onSettingsChanged(mSettingsValues);
         } finally {
             mSettingsValuesLock.unlock();
+        }
+        // Listeners run on the main thread (SharedPreferences posts them there).
+        final OnSettingsChangedListener listener = mOnSettingsChangedListener;
+        if (listener != null && !isInternalStateKey(key)) {
+            listener.onSettingsChanged(key);
         }
     }
 
@@ -377,8 +414,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return res.getInteger(R.integer.config_clipboard_history_retention_time);
     }
     
-    public static boolean readShowsNumberRow(final SharedPreferences prefs) {
-        return prefs.getBoolean(PREF_SHOW_NUMBER_ROW, false);
+    public static boolean readShowsNumberRow(final SharedPreferences prefs, final Resources res) {
+        return prefs.getBoolean(PREF_SHOW_NUMBER_ROW,
+                res.getBoolean(R.bool.config_default_show_number_row));
     }
 
     public static float readKeyboardHeight(final SharedPreferences prefs,

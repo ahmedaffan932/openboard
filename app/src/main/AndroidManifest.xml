@@ -191,10 +191,14 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <!-- taskAffinity="": opened from the keyboard toolbar with NEW_TASK, it gets a task of its
+             own, so finishing it returns to the app the user was typing in instead of surfacing the
+             translator's dashboard. In-app launches (no NEW_TASK) still stay in the app's task. -->
         <activity
             android:name="org.dslul.openboard.translator.pro.LanguageSelectorActivity"
             android:excludeFromRecents="true"
             android:exported="false"
+            android:taskAffinity=""
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru">
             <meta-data
@@ -362,10 +366,14 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+        <!-- taskAffinity="": the keyboard's gear opens this with NEW_TASK. With the app's default
+             affinity it landed in the translator's own task, on top of the dashboard, so Back showed
+             the dashboard instead of returning to WhatsApp (or wherever the user was typing). -->
         <activity
             android:name=".settings.SettingsActivity"
             android:excludeFromRecents="true"
             android:exported="true"
+            android:taskAffinity=""
             android:label="@string/ime_settings"
             android:screenOrientation="portrait"
             android:theme="@style/platformActivityTheme">

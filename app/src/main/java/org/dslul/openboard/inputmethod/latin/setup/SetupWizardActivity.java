@@ -17,6 +17,7 @@
 package org.dslul.openboard.inputmethod.latin.setup;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -31,6 +32,7 @@ import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import org.dslul.openboard.inputmethod.latin.R;
@@ -292,7 +294,13 @@ public final class SetupWizardActivity extends Activity implements View.OnClickL
         intent.setAction(Settings.ACTION_INPUT_METHOD_SUBTYPE_SETTINGS);
         intent.addCategory(Intent.CATEGORY_DEFAULT);
         intent.putExtra(Settings.EXTRA_INPUT_METHOD_ID, imi.getId());
-        startActivity(intent);
+        try {
+            startActivity(intent);
+        } catch (final ActivityNotFoundException | SecurityException e) {
+            // Some OEM builds lack this system screen or refuse to open it.
+            Log.w(TAG, "Cannot open the keyboard languages screen", e);
+            Toast.makeText(this, R.string.keyboard_languages_unavailable, Toast.LENGTH_LONG).show();
+        }
     }
 
     private int determineSetupStepNumberFromLauncher() {

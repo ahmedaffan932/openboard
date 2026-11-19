@@ -1,5 +1,7 @@
 package org.dslul.openboard.inputmethodcommon
 
+import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
@@ -7,12 +9,16 @@ import android.preference.Preference
 import android.preference.PreferenceScreen
 import android.provider.Settings
 import android.text.TextUtils
+import android.util.Log
 import android.view.inputmethod.InputMethodInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import org.dslul.openboard.inputmethod.latin.R
 
 /* package private */
 internal class InputMethodSettingsImpl : InputMethodSettingsInterface {
     private var mSubtypeEnablerPreference: Preference? = null
+    private var mSubtypeEnablerIntent: Intent? = null
     private var mInputMethodSettingsCategoryTitleRes = 0
     private var mInputMethodSettingsCategoryTitle: CharSequence? = null
     private var mSubtypeEnablerTitleRes = 0
@@ -35,11 +41,19 @@ internal class InputMethodSettingsImpl : InputMethodSettingsInterface {
         }
         val intent = Intent(Settings.ACTION_INPUT_METHOD_SUBTYPE_SETTINGS)
         intent.putExtra(Settings.EXTRA_INPUT_METHOD_ID, mImi!!.id)
-        intent.flags = (Intent.FLAG_ACTIVITY_NEW_TASK
-                or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
-                or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        // No RESET_TASK_IF_NEEDED / CLEAR_TOP: those brought back an existing system-Settings task
+        // in whatever state it was left (usually the keyboard list the user enabled us from), so
+        // tapping "Languages" kept showing that screen. From an Activity the system screen now
+        // opens on top of ours and Back returns here.
+        if (context !is Activity) intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        mSubtypeEnablerIntent = intent
         mSubtypeEnablerPreference = Preference(context)
-        mSubtypeEnablerPreference!!.intent = intent
+        // Launched by hand rather than through Preference.intent so a missing or crashing OEM
+        // screen can be caught instead of taking the settings down with it.
+        mSubtypeEnablerPreference!!.setOnPreferenceClickListener { pref ->
+            openSubtypeEnabler(pref.context)
+            true
+        }
         prefScreen.addPreference(mSubtypeEnablerPreference)
         updateSubtypeEnabler()
         return true
@@ -106,8 +120,7 @@ internal class InputMethodSettingsImpl : InputMethodSettingsInterface {
             mSubtypeEnablerTitle
         }
         pref.title = title
-        val intent = pref.intent
-        intent?.putExtra(Intent.EXTRA_TITLE, title)
+        mSubtypeEnablerIntent?.putExtra(Intent.EXTRA_TITLE, title)
         val summary = getEnabledSubtypesLabel(context, mImm, mImi)
         if (!TextUtils.isEmpty(summary)) {
             pref.summary = summary
@@ -119,7 +132,22 @@ internal class InputMethodSettingsImpl : InputMethodSettingsInterface {
         }
     }
 
+    private fun openSubtypeEnabler(context: Context) {
+        val intent = mSubtypeEnablerIntent ?: return
+        try {
+            context.startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            Log.w(TAG, "No system screen for keyboard languages", e)
+            Toast.makeText(context, R.string.keyboard_languages_unavailable, Toast.LENGTH_LONG).show()
+        } catch (e: SecurityException) {
+            Log.w(TAG, "System screen for keyboard languages refused to open", e)
+            Toast.makeText(context, R.string.keyboard_languages_unavailable, Toast.LENGTH_LONG).show()
+        }
+    }
+
     companion object {
+        private const val TAG = "InputMethodSettingsImpl"
+
         private fun getMyImi(context: Context, imm: InputMethodManager?): InputMethodInfo? {
             val imis = imm!!.inputMethodList
             for (i in imis.indices) {

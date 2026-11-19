@@ -19,6 +19,7 @@ package org.dslul.openboard.inputmethod.latin.suggestions;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -47,6 +48,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.dslul.openboard.BooleanChangeListener;
 import org.dslul.openboard.ObservableBool;
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.keyboard.Keyboard;
@@ -67,6 +69,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
+import androidx.lifecycle.Observer;
 import androidx.core.view.ViewCompat;
 
 import com.google.android.material.imageview.ShapeableImageView;
@@ -111,6 +115,13 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
     private final LinearLayout mLLLngTo;
     private final LinearLayout mLLTranslation;
+
+    // Registered while attached to a window only. They used to be registered forever in the
+    // constructor, so every input view the keyboard ever created (one per theme change) stayed
+    // alive and kept receiving updates.
+    private final Observer<Boolean> mTranslatedObserver;
+    private final Observer<Boolean> mAppInForegroundObserver;
+    private final BooleanChangeListener mSelectedLanguagesListener;
 //    private final TextView mTextLngFrom;
 //    private final TextView mTextLngTo;
 
@@ -156,9 +167,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
             vibrateView(mClipboardKey, getContext(), false);
             mClipboardKey.setColorFilter(ContextCompat.getColor(getContext(), R.color.accent), android.graphics.PorterDuff.Mode.SRC_IN);
 
-            new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                mClipboardKey.setColorFilter(ContextCompat.getColor(getContext(), R.color.gray_800), android.graphics.PorterDuff.Mode.SRC_IN);
-            }, 1000L);
+            // Back to the theme's own icon colour (it used to be forced to dark gray, which was
+            // nearly invisible on the dark keyboard).
+            new Handler(Looper.getMainLooper()).postDelayed(mClipboardKey::clearColorFilter, 1000L);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -206,8 +217,9 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mProgressBar = findViewById(R.id.progressBar);
 
         mIVSwitchLanguage.setImageResource(R.drawable.ic_switch_lang);
+        applyThemeColors(context, attrs, defStyle);
 
-        Misc.isTranslated.observeForever(t -> {
+        mTranslatedObserver = t -> {
             if (t) {
                 mProgressBar.setVisibility(GONE);
                 mTVTranslate.setVisibility(VISIBLE);
@@ -215,27 +227,25 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
                 mTVTranslate.setVisibility(GONE);
                 mProgressBar.setVisibility(VISIBLE);
             }
-        });
+        };
 
-        Misc.isAppInForeground.observeForever(t -> {
+        mAppInForegroundObserver = t -> {
             if (t) {
                 mLLTranslation.setVisibility(GONE);
             } else {
                 mLLTranslation.setVisibility(VISIBLE);
             }
-        });
-
+        };
 
         setSelectedLng(context);
 
-
-        ObservableBool.addBooleanChangeListener(newValue -> {
+        mSelectedLanguagesListener = newValue -> {
             try {
                 setSelectedLng(context);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        });
+        };
 
 
         mStripVisibilityGroup = new StripVisibilityGroup(this, mSuggestionsStrip);
@@ -255,12 +265,10 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
 
         mLLLngTo.setOnClickListener(view -> mListener.startSelectLanguageActivity(true));
 
-//        mIVSwitchLanguage.setOnClickListener(view -> {
-//            mListener.switchLanguages(context, mIVSwitchLanguage, mLLLanguageFrom, mLLLngTo);
-//            new Handler().postDelayed(() -> {
-//                setSelectedLng(context);
-//            }, 100);
-//        });
+        // The swap icon was visible but did nothing (its listener was commented out). LatinIME
+        // swaps the saved languages and signals ObservableBool, which refreshes the labels here.
+        mIVSwitchLanguage.setOnClickListener(view ->
+                mListener.switchLanguages(context, mIVSwitchLanguage, mLLLanguageFrom, mLLLngTo));
 
         for (int pos = 0; pos < SuggestedWords.MAX_SUGGESTIONS; pos++) {
             final TextView word = new TextView(context, null, R.attr.suggestionWordStyle);
@@ -572,9 +580,48 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        Misc.isTranslated.observeForever(mTranslatedObserver);
+        Misc.isAppInForeground.observeForever(mAppInForegroundObserver);
+        ObservableBool.addBooleanChangeListener(mSelectedLanguagesListener);
+        // The From/To languages may have changed while this view was detached.
+        setSelectedLng(getContext());
+    }
+
+    @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         dismissMoreSuggestionsPanel();
+        Misc.isTranslated.removeObserver(mTranslatedObserver);
+        Misc.isAppInForeground.removeObserver(mAppInForegroundObserver);
+        ObservableBool.removeBooleanChangeListener(mSelectedLanguagesListener);
+    }
+
+    /**
+     * Colours the translate toolbar for the keyboard theme. The layout has light language pills
+     * with black text, which looked like white blocks on the dark keyboard. On a dark theme (its
+     * suggestion text colour is light) the pills become translucent white with white text; light
+     * themes keep the layout's look.
+     */
+    private void applyThemeColors(final Context context, final AttributeSet attrs,
+            final int defStyle) {
+        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SuggestionStripView,
+                defStyle, R.style.SuggestionStripView);
+        final int suggestedColor = a.getColor(R.styleable.SuggestionStripView_colorSuggested,
+                Color.BLACK);
+        a.recycle();
+        final boolean darkTheme = ColorUtils.calculateLuminance(suggestedColor | 0xFF000000) > 0.5;
+        final int contentColor = darkTheme ? Color.WHITE : Color.BLACK;
+        mTVLngFrom.setTextColor(contentColor);
+        mTVLngTo.setTextColor(contentColor);
+        mIVSwitchLanguage.setImageTintList(ColorStateList.valueOf(contentColor));
+        if (darkTheme) {
+            final ColorStateList pill = ColorStateList.valueOf(0x33FFFFFF);
+            mLLLanguageFrom.setBackgroundTintList(pill);
+            mLLLngTo.setBackgroundTintList(pill);
+            mIVSwitchLanguage.setBackgroundTintList(pill);
+        }
     }
 
     @Override

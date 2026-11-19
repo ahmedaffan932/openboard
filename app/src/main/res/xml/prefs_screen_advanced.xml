@@ -51,7 +51,7 @@
         android:key="pref_show_setup_wizard_icon"
         android:title="@string/show_setup_wizard_icon"
         android:summary="@string/show_setup_wizard_icon_summary"
-        android:defaultValue="true"
+        android:defaultValue="@bool/config_default_show_setup_wizard_icon"
         android:persistent="true" />
 
     <PreferenceScreen

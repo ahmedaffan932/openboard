@@ -20,6 +20,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import org.dslul.openboard.translator.pro.classes.Misc
+import org.dslul.openboard.translator.pro.classes.ShareUtils
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
 import com.google.gson.Gson
 import org.dslul.openboard.inputmethod.latin.R
@@ -41,10 +42,12 @@ class CustomExpandableListAdapter(
         return expandableListDetail[expandableListTitle[listPosition]]?.get(expandedListPosition)!!
     }
 
+    /** The translation paired with a phrase, or "" if that language's file has none for it. */
     private fun getChildTranslation(listPosition: Int, expandedListPosition: Int): Any {
-        return expandableListDetailTranslation[expandableListTitleTranslation[listPosition]]?.get(
-            expandedListPosition
-        )!!
+        return expandableListTitleTranslation.getOrNull(listPosition)
+            ?.let { expandableListDetailTranslation[it] }
+            ?.getOrNull(expandedListPosition)
+            ?: ""
     }
 
     override fun getChildId(listPosition: Int, expandedListPosition: Int): Long {
@@ -57,17 +60,19 @@ class CustomExpandableListAdapter(
         isLastChild: Boolean, convertView: View?, parent: ViewGroup
     ): View {
         var convertView = convertView
+        // Inflated before anything that can throw: the catch below returns convertView, and a
+        // null one crashed the app (e.g. on the misaligned Bengali phrases).
+        if (convertView == null) {
+            val layoutInflater =
+                activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            convertView = layoutInflater.inflate(R.layout.list_item, null)
+        }
         try {
 
             val expandedListText = getChild(listPosition, expandedListPosition) as String
 
             val expandedListTextTranslation =
                 getChildTranslation(listPosition, expandedListPosition) as String
-            if (convertView == null) {
-                val layoutInflater =
-                    activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-                convertView = layoutInflater.inflate(R.layout.list_item, null)
-            }
 
             val expandedListTextView =
                 convertView?.findViewById<View>(R.id.expandedListTVText) as TextView
@@ -116,10 +121,7 @@ class CustomExpandableListAdapter(
             }
 
             btnShareItem.setOnClickListener {
-                val sharingIntent = Intent(Intent.ACTION_SEND)
-                sharingIntent.type = "text/plain"
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, expandedListTVTranslation.text)
-                activity.startActivity(Intent.createChooser(sharingIntent, "Share via"))
+                ShareUtils.shareText(activity, expandedListTVTranslation.text)
             }
 
             llMain.setOnClickListener {

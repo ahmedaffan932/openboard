@@ -92,12 +92,20 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         mIsHardwareAcceleratedDrawingEnabled = mLatinIME.enableHardwareAcceleration();
     }
 
-    public void updateKeyboardTheme() {
+    /**
+     * Re-reads the keyboard theme and, when it changed, replaces the input view.
+     *
+     * @return whether a new input view was created. It has no keyboard yet, so the caller must
+     *         load one (a plain shift-state reset would keep the old layout set).
+     */
+    public boolean updateKeyboardTheme() {
         final boolean themeUpdated = updateKeyboardThemeAndContextThemeWrapper(
                 mLatinIME, KeyboardTheme.getKeyboardTheme(mLatinIME /* context */));
         if (themeUpdated && mKeyboardView != null) {
             mLatinIME.setInputView(onCreateInputView(mIsHardwareAcceleratedDrawingEnabled));
+            return true;
         }
+        return false;
     }
 
     private boolean updateKeyboardThemeAndContextThemeWrapper(final Context context,

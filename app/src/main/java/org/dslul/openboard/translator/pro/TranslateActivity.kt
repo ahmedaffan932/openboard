@@ -30,6 +30,8 @@ import kotlinx.coroutines.withContext
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityTranslateBinding
 import org.dslul.openboard.translator.pro.classes.AppAnalytics
+import org.dslul.openboard.translator.pro.classes.LanguageSwap
+import org.dslul.openboard.translator.pro.classes.ShareUtils
 import org.dslul.openboard.translator.pro.classes.MiscTranslate
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
@@ -73,6 +75,12 @@ class TranslateActivity : AppCompatActivity() {
     private val speechRequestCode = 0
     private var textToSpeechLngTo: TextToSpeech? = null
     private var translationCount = 0
+
+    /** Bumped for every translation request and swap; a result for an older id is dropped. */
+    private var translationRequestId = 0
+
+    /** The language "Detect" resolved to for the current translation, for the swap button. */
+    private var detectedSourceLanguage: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -249,12 +257,7 @@ class TranslateActivity : AppCompatActivity() {
         }
 
         binding.btnShareTranslation.setOnClickListener {
-            if (binding.textViewTextTranslatedFrag.text != "") {
-                val sharingIntent = Intent(Intent.ACTION_SEND)
-                sharingIntent.type = "text/plain"
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, binding.textViewTextTranslatedFrag.text)
-                startActivity(Intent.createChooser(sharingIntent, "Share."))
-            }
+            ShareUtils.shareText(this, binding.textViewTextTranslatedFrag.text)
         }
 
         binding.btnTranslate.setOnClickListener {
@@ -268,42 +271,42 @@ class TranslateActivity : AppCompatActivity() {
         }
 
         binding.btnSwitchLngs.setOnClickListener {
-            if (Misc.getLanguageFrom(this) != Misc.defaultLanguage) {
-                val rotate = RotateAnimation(
-                    0F, 180F, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f
-                )
-                rotate.duration = 150
-                rotate.interpolator = LinearInterpolator()
-                val image = binding.btnSwitchLngs
-                image.startAnimation(rotate)
-
-                Misc.zoomOutView(binding.llLanguageTo, this, 150)
-                Misc.zoomOutView(binding.llLanguageFrom, this, 150)
-
-                Handler().postDelayed({
-                    val temp = Misc.getLanguageFrom(this)
-                    Misc.setLanguageFrom(this, Misc.getLanguageTo(this))
-                    Misc.setLanguageTo(this, temp)
-
-                    setSelectedLng()
-
-                    if (binding.etText.text.toString() != "") {
-                        binding.llPBTranslateFrag.visibility = View.VISIBLE
-                        Handler().postDelayed({
-                            translateNow(binding.etText.text.toString())
-                        }, 150)
-                    }
-                    Misc.zoomInView(binding.llLanguageTo, this, 150)
-                    Misc.zoomInView(binding.llLanguageFrom, this, 150)
-
-                }, 150)
-            } else {
+            val swapped = LanguageSwap.swap(
+                LanguageSwap.State(
+                    from = Misc.getLanguageFrom(this),
+                    to = Misc.getLanguageTo(this),
+                    input = binding.etText.text.toString(),
+                    output = if (isLLTranslateVisible) {
+                        binding.textViewTextTranslatedFrag.text.toString()
+                    } else ""
+                ),
+                Misc.defaultLanguage,
+                detectedSourceLanguage
+            )
+            if (swapped == null) {
                 Toast.makeText(
                     this,
                     resources.getString(R.string.please_select_language_you_want_to_translate),
                     Toast.LENGTH_SHORT
                 ).show()
+                return@setOnClickListener
             }
+
+            val rotate = RotateAnimation(
+                0F, 180F, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f
+            )
+            rotate.duration = 150
+            rotate.interpolator = LinearInterpolator()
+            binding.btnSwitchLngs.startAnimation(rotate)
+
+            Misc.zoomOutView(binding.llLanguageTo, this, 150)
+            Misc.zoomOutView(binding.llLanguageFrom, this, 150)
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                applySwap(swapped)
+                Misc.zoomInView(binding.llLanguageTo, this, 150)
+                Misc.zoomInView(binding.llLanguageFrom, this, 150)
+            }, 150)
         }
 
         binding.llLanguageFrom.setOnClickListener {
@@ -448,6 +451,24 @@ class TranslateActivity : AppCompatActivity() {
     }
 
     @SuppressLint("SetTextI18n")
+    /**
+     * Swaps the languages and, when there is a translation, the texts too (see [LanguageSwap]):
+     * the translation becomes the editable input and the original comes back as the translation,
+     * with no new request.
+     */
+    private fun applySwap(swapped: LanguageSwap.State) {
+        // A translation still on its way belongs to the old direction; drop it.
+        translationRequestId++
+        detectedSourceLanguage = null
+        binding.llPBTranslateFrag.visibility = View.GONE
+        Misc.setLanguageFrom(this, swapped.from)
+        Misc.setLanguageTo(this, swapped.to)
+        setSelectedLng()
+        binding.etText.setText(swapped.input)
+        binding.etText.setSelection(swapped.input.length)
+        binding.textViewTextTranslatedFrag.text = swapped.output
+    }
+
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
             binding.textLngFrom.text = resources.getString(R.string.detect)
@@ -473,8 +494,11 @@ class TranslateActivity : AppCompatActivity() {
 
         binding.llPBTranslateFrag.visibility = View.VISIBLE
 
+        val requestId = ++translationRequestId
+        detectedSourceLanguage = null
         MiscTranslate.translate(this, text, object : TranslationInterface {
             override fun onTranslate(translation: String) {
+                if (requestId != translationRequestId) return
                 AppAnalytics.translateDone(
                     AppAnalytics.FEATURE_TEXT,
                     Misc.getLanguageFrom(this@TranslateActivity),
@@ -490,6 +514,7 @@ class TranslateActivity : AppCompatActivity() {
             }
 
             override fun onFailed() {
+                if (requestId != translationRequestId) return
                 AppAnalytics.translateFailed(
                     AppAnalytics.FEATURE_TEXT,
                     Misc.getLanguageFrom(this@TranslateActivity),
@@ -503,7 +528,9 @@ class TranslateActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-        })
+        }) { detected ->
+            if (requestId == translationRequestId) detectedSourceLanguage = detected
+        }
 
 //        if (translationCount > 3){
 //            Ads.loadAndShowRewardedInterstitial(this, Ads.translationRewardedAd, object :InterstitialCallBack{

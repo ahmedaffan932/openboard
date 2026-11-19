@@ -8,6 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
+import org.dslul.openboard.translator.pro.LanguageSelectorActivity
 import org.dslul.openboard.translator.pro.OnResumeActivity
 import org.dslul.openboard.translator.pro.PreSplashScreenActivity
 import org.dslul.openboard.translator.pro.UninstallSurveyActivity
@@ -39,6 +40,8 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
             ProcessLifecycleOwner.get().lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)
 
         private const val RESUME_SUPPRESS_WINDOW_MS = 60_000L
+
+        private const val KEYBOARD_PACKAGE_PREFIX = "org.dslul.openboard.inputmethod."
 
         @Volatile
         private var suppressResumeAdUntilMs = 0L
@@ -90,6 +93,10 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
         Misc.isAppInForeground.value = true
         Log.e(Misc.logKey, "Foreground.")
 
+        // The keyboard's own screens open over the app the user is typing in. That is not the user
+        // opening the translator: no resume ad over the keyboard settings, no reminder notification.
+        if (isKeyboardSurface(currentActivity)) return
+
         onAppOpened(currentActivity)
 
         if (!hasCompletedInitialForeground) {
@@ -132,6 +139,18 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
     fun onAppBackgrounded() {
         Misc.isAppInForeground.value = false
         Log.i(Misc.logKey, "Background.")
+    }
+
+    /**
+     * A screen the keyboard opens (its settings screens, setup, the From/To language picker on its
+     * toolbar). The keyboard's own activities live under [KEYBOARD_PACKAGE_PREFIX]; the language
+     * picker is shared with the app, so the keyboard marks its launches with an extra.
+     */
+    private fun isKeyboardSurface(activity: Activity?): Boolean {
+        if (activity == null) return false
+        if (activity.javaClass.name.startsWith(KEYBOARD_PACKAGE_PREFIX)) return true
+        return activity is LanguageSelectorActivity &&
+            activity.intent?.getBooleanExtra(LanguageSelectorActivity.EXTRA_FROM_KEYBOARD, false) == true
     }
 
     private fun onAppOpened(activity: Activity?) {

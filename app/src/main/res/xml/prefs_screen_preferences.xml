@@ -41,7 +41,7 @@
         <CheckBoxPreference
             android:key="sound_on"
             android:title="@string/sound_on_keypress"
-            android:defaultValue="true"
+            android:defaultValue="@bool/config_default_sound_enabled"
             android:persistent="true" />
 
         <org.dslul.openboard.inputmethod.latin.settings.SeekBarDialogPreference
@@ -64,19 +64,20 @@
             android:key="pref_show_number_row"
             android:title="@string/number_row"
             android:summary="@string/number_row_summary"
-            android:defaultValue="false"
+            android:defaultValue="@bool/config_default_show_number_row"
             android:persistent="true" />
 
         <CheckBoxPreference
             android:key="pref_show_language_switch_key"
             android:title="@string/show_language_switch_key"
-            android:defaultValue="false"
+            android:summary="@string/show_language_switch_key_summary"
+            android:defaultValue="@bool/config_default_show_language_switch_key"
             android:persistent="true" />
 
         <CheckBoxPreference
             android:key="pref_show_emoji_key"
             android:title="@string/show_emoji_key"
-            android:defaultValue="false"
+            android:defaultValue="@bool/config_default_show_emoji_key"
             android:persistent="true" />
 
         <CheckBoxPreference

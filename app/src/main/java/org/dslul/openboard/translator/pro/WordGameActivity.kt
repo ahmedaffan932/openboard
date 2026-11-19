@@ -47,6 +47,10 @@ import java.util.Locale
  */
 class WordGameActivity : AppCompatActivity() {
 
+    /** Other words each puzzle's letters spell; see [WordGameLogic.isAcceptedGuess]. */
+    private var alternateAnswers: Map<String, List<String>> = emptyMap()
+
+
     private lateinit var binding: ActivityWordGameBinding
     private var wordList: WordList? = null
     private var puzzleViewBoxSize: Int = 80
@@ -107,6 +111,7 @@ class WordGameActivity : AppCompatActivity() {
             }
 
             wordList = list
+            alternateAnswers = WordGameContent.loadAlternates(this@WordGameActivity)
             binding.llPBFunWord.visibility = View.GONE
 
             // Clamp a persisted index that is now out of range (e.g. list shrank).
@@ -257,7 +262,20 @@ class WordGameActivity : AppCompatActivity() {
 
         binding.btnRevert.visibility = if (solWord.isNotEmpty()) View.VISIBLE else View.GONE
 
-        if (currentWord.equals(solWord, true)) {
+        val isFullLength = solWord.length == currentWord.length
+        if (isFullLength && WordGameLogic.isAcceptedGuess(currentWord, solWord, alternateAnswers)) {
+            if (!currentWord.equals(solWord, true)) {
+                // Another real word from the same letters: it counts, and the puzzle word is shown.
+                Toast.makeText(
+                    this,
+                    getString(
+                        R.string.word_game_other_word_accepted,
+                        solWord.lowercase(Locale.getDefault()),
+                        currentWord
+                    ),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
             binding.animationFinish.playAnimation()
             binding.btnClear.visibility = View.INVISIBLE
             binding.btnNext.visibility = View.VISIBLE
@@ -271,7 +289,7 @@ class WordGameActivity : AppCompatActivity() {
             saveLatestSolvedWordSharedPref(getIndexValueSharedPref() + 1)
 
             translateSolvedWord()
-        } else if (currentWord.length == solWord.length) {
+        } else if (isFullLength) {
             binding.btnClear.visibility = View.VISIBLE
             binding.btnClear.playAnimation()
             Log.v(Misc.logKey, "$currentWord level not clear: $solWord")

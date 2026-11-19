@@ -26,6 +26,12 @@ import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import java.util.*
 
 class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
+
+    companion object {
+        /** Opened from the keyboard toolbar: no app-open ad or "app opened" handling (see App). */
+        const val EXTRA_FROM_KEYBOARD = "fromKeyboard"
+    }
+
     private val arr = ArrayList<String>()
     lateinit var adapter: LanguagesAdapter
     private lateinit var binding: ActivityLanguageSelectorBinding

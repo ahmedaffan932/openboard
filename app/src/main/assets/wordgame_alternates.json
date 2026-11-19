@@ -1,0 +1,522 @@
+{
+ "aliment": [
+  "ailment"
+ ],
+ "allure": [
+  "laurel"
+ ],
+ "amber": [
+  "bream"
+ ],
+ "animal": [
+  "lamina"
+ ],
+ "art": [
+  "rat",
+  "tar"
+ ],
+ "ascertain": [
+  "sectarian"
+ ],
+ "astral": [
+  "altars"
+ ],
+ "blow": [
+  "bowl"
+ ],
+ "bread": [
+  "bared",
+  "beard"
+ ],
+ "care": [
+  "acre",
+  "race"
+ ],
+ "caress": [
+  "scares"
+ ],
+ "cartesian": [
+  "ascertain",
+  "sectarian"
+ ],
+ "cause": [
+  "sauce"
+ ],
+ "cessation": [
+  "canoeists"
+ ],
+ "citadel": [
+  "dialect"
+ ],
+ "copse": [
+  "copes",
+  "scope"
+ ],
+ "credit": [
+  "direct"
+ ],
+ "danger": [
+  "garden",
+  "grande",
+  "ranged"
+ ],
+ "dapple": [
+  "lapped"
+ ],
+ "dawn": [
+  "wand"
+ ],
+ "death": [
+  "hated"
+ ],
+ "detail": [
+  "dilate",
+  "tailed"
+ ],
+ "disease": [
+  "seaside"
+ ],
+ "dust": [
+  "stud"
+ ],
+ "earth": [
+  "hater",
+  "heart"
+ ],
+ "ebon": [
+  "bone"
+ ],
+ "education": [
+  "auctioned",
+  "cautioned"
+ ],
+ "elan": [
+  "lane",
+  "lean"
+ ],
+ "elapse": [
+  "asleep",
+  "please"
+ ],
+ "eloign": [
+  "legion"
+ ],
+ "end": [
+  "den"
+ ],
+ "esclavage": [
+  "cleavages"
+ ],
+ "esper": [
+  "peers",
+  "spree"
+ ],
+ "esprit": [
+  "priest",
+  "sprite",
+  "stripe"
+ ],
+ "esurient": [
+  "reunites"
+ ],
+ "fear": [
+  "fare"
+ ],
+ "feeling": [
+  "fleeing"
+ ],
+ "fire": [
+  "rife"
+ ],
+ "friend": [
+  "finder"
+ ],
+ "frost": [
+  "forts"
+ ],
+ "fumarole": [
+  "formulae"
+ ],
+ "gallery": [
+  "allergy",
+  "largely"
+ ],
+ "girandole": [
+  "reloading"
+ ],
+ "glisten": [
+  "singlet"
+ ],
+ "gracile": [
+  "glacier"
+ ],
+ "hate": [
+  "heat"
+ ],
+ "heat": [
+  "hate"
+ ],
+ "idea": [
+  "aide"
+ ],
+ "intaglio": [
+  "ligation"
+ ],
+ "iron": [
+  "noir"
+ ],
+ "jaunt": [
+  "junta"
+ ],
+ "kiss": [
+  "skis"
+ ],
+ "laconic": [
+  "conical"
+ ],
+ "lagniappe": [
+  "appealing"
+ ],
+ "languid": [
+  "lauding"
+ ],
+ "lattice": [
+  "tactile"
+ ],
+ "layer": [
+  "early",
+  "relay"
+ ],
+ "lead": [
+  "dale",
+  "deal"
+ ],
+ "lilt": [
+  "till"
+ ],
+ "litote": [
+  "toilet"
+ ],
+ "loss": [
+  "sols"
+ ],
+ "love": [
+  "vole"
+ ],
+ "low": [
+  "owl"
+ ],
+ "malinger": [
+  "germinal"
+ ],
+ "maraschino": [
+  "harmonicas"
+ ],
+ "meal": [
+  "lame",
+  "male"
+ ],
+ "meat": [
+  "mate",
+  "tame",
+  "team"
+ ],
+ "meeting": [
+  "teeming"
+ ],
+ "mien": [
+  "mein",
+  "mine"
+ ],
+ "mine": [
+  "mein"
+ ],
+ "minute": [
+  "minuet"
+ ],
+ "mother": [
+  "thermo"
+ ],
+ "name": [
+  "amen",
+  "mane",
+  "mean"
+ ],
+ "nation": [
+  "anoint"
+ ],
+ "news": [
+  "sewn"
+ ],
+ "night": [
+  "thing"
+ ],
+ "niveous": [
+  "envious"
+ ],
+ "nocive": [
+  "novice"
+ ],
+ "page": [
+  "gape"
+ ],
+ "part": [
+  "tarp",
+  "trap"
+ ],
+ "paste": [
+  "septa",
+  "spate",
+  "tapes"
+ ],
+ "patois": [
+  "patios"
+ ],
+ "process": [
+  "corpses"
+ ],
+ "puree": [
+  "rupee"
+ ],
+ "reaction": [
+  "creation"
+ ],
+ "reading": [
+  "grained"
+ ],
+ "relation": [
+  "oriental"
+ ],
+ "repartee": [
+  "repeater"
+ ],
+ "replica": [
+  "caliper"
+ ],
+ "respect": [
+  "scepter",
+  "specter"
+ ],
+ "revel": [
+  "lever"
+ ],
+ "reward": [
+  "drawer",
+  "redraw",
+  "warred"
+ ],
+ "room": [
+  "moor"
+ ],
+ "rule": [
+  "lure"
+ ],
+ "run": [
+  "urn"
+ ],
+ "sable": [
+  "bales"
+ ],
+ "salient": [
+  "entails"
+ ],
+ "saline": [
+  "aliens"
+ ],
+ "salt": [
+  "last",
+  "slat"
+ ],
+ "salve": [
+  "slave"
+ ],
+ "scarlet": [
+  "cartels"
+ ],
+ "scepter": [
+  "respect",
+  "specter"
+ ],
+ "scion": [
+  "coins",
+  "icons",
+  "sonic"
+ ],
+ "sclera": [
+  "clears"
+ ],
+ "seat": [
+  "east",
+  "eats",
+  "teas"
+ ],
+ "selection": [
+  "elections"
+ ],
+ "shade": [
+  "heads"
+ ],
+ "shock": [
+  "hocks"
+ ],
+ "side": [
+  "dies"
+ ],
+ "sidle": [
+  "slide"
+ ],
+ "sienna": [
+  "insane"
+ ],
+ "sierra": [
+  "raiser"
+ ],
+ "sign": [
+  "gins",
+  "sing"
+ ],
+ "silence": [
+  "license"
+ ],
+ "silver": [
+  "livers",
+  "livres",
+  "sliver"
+ ],
+ "sinecure": [
+  "insecure"
+ ],
+ "sister": [
+  "resist"
+ ],
+ "sleep": [
+  "peels"
+ ],
+ "slender": [
+  "lenders"
+ ],
+ "slip": [
+  "lips",
+  "lisp"
+ ],
+ "smile": [
+  "limes",
+  "miles",
+  "slime"
+ ],
+ "snow": [
+  "owns",
+  "sown"
+ ],
+ "solemn": [
+  "lemons",
+  "melons"
+ ],
+ "sort": [
+  "tors"
+ ],
+ "soup": [
+  "opus"
+ ],
+ "space": [
+  "capes",
+  "paces",
+  "scape"
+ ],
+ "spinal": [
+  "plains"
+ ],
+ "spool": [
+  "loops",
+  "pools",
+  "sloop"
+ ],
+ "start": [
+  "tarts"
+ ],
+ "stasis": [
+  "assist"
+ ],
+ "step": [
+  "pest",
+  "pets",
+  "sept"
+ ],
+ "stone": [
+  "notes",
+  "onset",
+  "tones"
+ ],
+ "stop": [
+  "opts",
+  "post",
+  "pots",
+  "spot",
+  "tops"
+ ],
+ "succor": [
+  "crocus",
+  "occurs"
+ ],
+ "swath": [
+  "thaws"
+ ],
+ "taste": [
+  "state"
+ ],
+ "teaching": [
+  "cheating"
+ ],
+ "thing": [
+  "night"
+ ],
+ "time": [
+  "emit",
+  "item",
+  "mite"
+ ],
+ "trade": [
+  "rated",
+  "tread"
+ ],
+ "traipse": [
+  "parties",
+  "pirates"
+ ],
+ "triste": [
+  "sitter"
+ ],
+ "use": [
+  "sue"
+ ],
+ "vacivity": [
+  "vivacity"
+ ],
+ "vale": [
+  "leva",
+  "veal"
+ ],
+ "vaticinate": [
+  "inactivate"
+ ],
+ "vile": [
+  "evil",
+  "live",
+  "veil"
+ ],
+ "visurient": [
+  "intrusive"
+ ],
+ "war": [
+  "raw"
+ ],
+ "waste": [
+  "sweat"
+ ],
+ "way": [
+  "yaw"
+ ],
+ "xysti": [
+  "sixty"
+ ]
+}

@@ -66,7 +66,10 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
     public static final int THEME_ID_LXX_DARK = 7;
     public static final int THEME_ID_LXX_AUTO = 9;
     public static final int THEME_ID_LXX_AUTO_BORDER = 8;
-    public static final int DEFAULT_THEME_ID = THEME_ID_LXX_DARK;
+    // The theme for users who never picked one. It used to come out as Dark-with-borders (the
+    // first Lollipop entry after sorting), but "Dark" was wired to the Light style, so what those
+    // users actually saw was light with key borders. Keep exactly that look now that Dark is dark.
+    public static final int DEFAULT_THEME_ID = THEME_ID_LXX_LIGHT_BORDER;
 
     private static KeyboardTheme[] AVAILABLE_KEYBOARD_THEMES;
 
@@ -81,19 +84,18 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
         new KeyboardTheme(THEME_ID_LXX_LIGHT, "LXXLight", R.style.KeyboardTheme_LXX_Light,
                 // Default theme for LXX.
                 VERSION_CODES.BASE),
-        new KeyboardTheme(THEME_ID_LXX_DARK, "LXXDark", R.style.KeyboardTheme_LXX_Light,
-//        new KeyboardTheme(THEME_ID_LXX_DARK, "LXXDark", R.style.KeyboardTheme_LXX_Dark,
+        // The three dark entries used to point at the Light styles, so picking "Dark" in the
+        // keyboard settings could never give a dark keyboard (only "Auto" did, at night).
+        new KeyboardTheme(THEME_ID_LXX_DARK, "LXXDark", R.style.KeyboardTheme_LXX_Dark,
                 // This has never been selected as default theme.
                 VERSION_CODES.BASE),
-        new KeyboardTheme(THEME_ID_LXX_DARK_AMOLED, "LXXDarkAmoled", R.style.KeyboardTheme_LXX_Light,
-//        new KeyboardTheme(THEME_ID_LXX_DARK_AMOLED, "LXXDarkAmoled", R.style.KeyboardTheme_LXX_Dark_Amoled,
+        new KeyboardTheme(THEME_ID_LXX_DARK_AMOLED, "LXXDarkAmoled", R.style.KeyboardTheme_LXX_Dark_Amoled,
                 // This has never been selected as default theme.
                 VERSION_CODES.BASE),
         new KeyboardTheme(THEME_ID_LXX_LIGHT_BORDER, "LXXLightBorder", R.style.KeyboardTheme_LXX_Light_Border,
                 // This has never been selected as default theme.
                 Build.VERSION_CODES.BASE),
-        new KeyboardTheme(THEME_ID_LXX_DARK_BORDER, "LXXDarkBorder", R.style.KeyboardTheme_LXX_Light_Border,
-//        new KeyboardTheme(THEME_ID_LXX_DARK_BORDER, "LXXDarkBorder", R.style.KeyboardTheme_LXX_Dark_Border,
+        new KeyboardTheme(THEME_ID_LXX_DARK_BORDER, "LXXDarkBorder", R.style.KeyboardTheme_LXX_Dark_Border,
                 // This has never been selected as default theme.
                 VERSION_CODES.LOLLIPOP),
         new KeyboardTheme(THEME_ID_LXX_AUTO_BORDER, "LXXAutoBorder", R.style.KeyboardTheme_LXX_Auto_Border,
@@ -179,13 +181,18 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
             Log.i(TAG, "Remove KLP keyboard theme preference: " + klpThemeIdString);
             prefs.edit().remove(KLP_KEYBOARD_THEME_KEY).apply();
         }
+        final KeyboardTheme defaultTheme =
+                searchKeyboardThemeById(DEFAULT_THEME_ID, availableThemeArray);
+        if (defaultTheme != null && sdkVersion >= defaultTheme.mMinApiVersion) {
+            return defaultTheme;
+        }
         // TODO: This search algorithm isn't optimal if there are many themes.
         for (final KeyboardTheme theme : availableThemeArray) {
             if (sdkVersion >= theme.mMinApiVersion) {
                 return theme;
             }
         }
-        return searchKeyboardThemeById(DEFAULT_THEME_ID, availableThemeArray);
+        return defaultTheme;
     }
 
     public static String getKeyboardThemeName(final int themeId) {

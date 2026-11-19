@@ -153,11 +153,13 @@ public class SettingsValues {
                 DebugSettings.PREF_SLIDING_KEY_INPUT_PREVIEW, true);
         mShowsVoiceInputKey = needsToShowVoiceInputKey(prefs, res) && mInputAttributes.mShouldShowVoiceInputKey;
         mIncludesOtherImesInLanguageSwitchList = !Settings.ENABLE_SHOW_LANGUAGE_SWITCH_KEY_SETTINGS || prefs.getBoolean(Settings.PREF_INCLUDE_OTHER_IMES_IN_LANGUAGE_SWITCH_LIST, false) /* forcibly */;
-        mShowsNumberRow = prefs.getBoolean(Settings.PREF_SHOW_NUMBER_ROW, false);
+        mShowsNumberRow = Settings.readShowsNumberRow(prefs, res);
         mShowsHints = prefs.getBoolean(Settings.PREF_SHOW_HINTS, true);
         mSpaceForLangChange = prefs.getBoolean(Settings.PREF_SPACE_TO_CHANGE_LANG, true);
-        mShowsLanguageSwitchKey = prefs.getBoolean(Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, true);
-        mShowsEmojiKey = prefs.getBoolean(Settings.PREF_SHOW_EMOJI_KEY, true);
+        mShowsLanguageSwitchKey = prefs.getBoolean(Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY,
+                res.getBoolean(R.bool.config_default_show_language_switch_key));
+        mShowsEmojiKey = prefs.getBoolean(Settings.PREF_SHOW_EMOJI_KEY,
+                res.getBoolean(R.bool.config_default_show_emoji_key));
         mShowsClipboardKey = prefs.getBoolean(Settings.PREF_SHOW_CLIPBOARD_KEY, true);
         mUsePersonalizedDicts = prefs.getBoolean(Settings.PREF_KEY_USE_PERSONALIZED_DICTS, true);
         mUseDoubleSpacePeriod = prefs.getBoolean(Settings.PREF_KEY_USE_DOUBLE_SPACE_PERIOD, true)
@@ -290,15 +292,20 @@ public class SettingsValues {
         return mInputAttributes.mShouldInsertSpacesAutomatically;
     }
 
+    /**
+     * The language key cycles this keyboard's own languages (LatinIME.switchToNextSubtype only
+     * switches within this IME), so it is shown only when there are two or more of them. It used to
+     * appear whenever any other keyboard app was enabled (mIncludesOtherImesInLanguageSwitchList
+     * is forced on for every Android version we support), and then did nothing when tapped because
+     * this keyboard had a single language. Other keyboard apps stay reachable by long-pressing it
+     * or the space bar.
+     */
     public boolean isLanguageSwitchKeyEnabled() {
         if (!mShowsLanguageSwitchKey) {
             return false;
         }
-        final RichInputMethodManager imm = RichInputMethodManager.getInstance();
-        if (mIncludesOtherImesInLanguageSwitchList) {
-            return imm.hasMultipleEnabledIMEsOrSubtypes(false /* include aux subtypes */);
-        }
-        return imm.hasMultipleEnabledSubtypesInThisIme(false /* include aux subtypes */);
+        return RichInputMethodManager.getInstance()
+                .hasMultipleEnabledSubtypesInThisIme(false /* include aux subtypes */);
     }
 
     public boolean isSameInputType(final EditorInfo editorInfo) {

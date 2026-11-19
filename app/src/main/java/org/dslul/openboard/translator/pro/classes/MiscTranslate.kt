@@ -3,6 +3,7 @@ package org.dslul.openboard.translator.pro.classes
 import android.content.Context
 import android.os.StrictMode
 import com.google.mlkit.nl.languageid.LanguageIdentification
+import com.google.mlkit.nl.translate.TranslateLanguage
 import com.google.mlkit.nl.translate.Translation
 import com.google.mlkit.nl.translate.TranslatorOptions
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -17,6 +18,10 @@ import java.net.URLEncoder
 
 object MiscTranslate {
 
+    // One language-ID client for the app. A new one was created (and never closed) per call,
+    // e.g. once per line of a camera translation.
+    private val languageIdentifier by lazy { LanguageIdentification.getClient() }
+
     // A real browser User-Agent. The old code used Jsoup's default UA against
     // translate.google.com/m, which Google answered with an HTTP 429 "/sorry/"
     // captcha page, so no translation ever came back.
@@ -25,12 +30,14 @@ object MiscTranslate {
             "(KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36"
 
     @OptIn(DelicateCoroutinesApi::class)
+    @JvmOverloads
     fun onlineTranslation(
         context: Context,
         fromCode: String,
         toCode: String,
         text: String,
-        callBack: TranslationInterface
+        callBack: TranslationInterface,
+        onSourceDetected: ((String) -> Unit)? = null
     ) {
 
         if (!Misc.checkInternetConnection(context)) {
@@ -47,6 +54,7 @@ object MiscTranslate {
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
+                var detectedSource: String? = null
                 val translation = withContext(Dispatchers.IO) {
                     // translate_a/single (gtx) returns JSON and is far more tolerant
                     // than scraping the translate.google.com/m HTML page.
@@ -60,10 +68,12 @@ object MiscTranslate {
                         .timeout(8000)
                         .execute()
                         .body()
+                    if (sl == "auto") detectedSource = parseGtxSourceLanguage(body)
                     parseGtx(body)
                 }
 
                 if (translation.isNotEmpty()) {
+                    detectedSource?.let { onSourceDetected?.invoke(it) }
                     callBack.onTranslate(translation)
                 } else {
                     callBack.onFailed()
@@ -90,6 +100,31 @@ object MiscTranslate {
             e.printStackTrace()
             ""
         }
+    }
+
+    // gtx puts the language it detected at index 2: [[segments...], null, "fr", ...].
+    private fun parseGtxSourceLanguage(body: String): String? {
+        return try {
+            toAppLanguageCode(JSONArray(body).optString(2))
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    /**
+     * Maps a detected language code (ML Kit language ID, or Google's web codes) to one of the
+     * app's language codes (ML Kit TranslateLanguage), or null when the app does not offer it
+     * (e.g. "und", or script variants such as "ja-Latn").
+     */
+    private fun toAppLanguageCode(code: String?): String? {
+        val mapped = when (code) {
+            null, "", "und", "auto" -> return null
+            "zh-CN", "zh-TW" -> "zh"
+            "iw" -> "he"
+            "jw" -> "jv"
+            else -> code
+        }
+        return mapped.takeIf { it in TranslateLanguage.getAllLanguages() }
     }
 
     // ML Kit / BCP-47 codes -> the codes Google's web endpoint expects.
@@ -131,24 +166,38 @@ object MiscTranslate {
     }
 
 
-    fun translate(context: Context, text: String, callBack: TranslationInterface) {
+    /**
+     * Translates [text] with the saved From/To languages.
+     *
+     * @param onSourceDetected when From is "detect", told the language that was detected (an app
+     *        language code), just before [callBack] gets the translation. The swap button uses it.
+     */
+    @JvmOverloads
+    fun translate(
+        context: Context,
+        text: String,
+        callBack: TranslationInterface,
+        onSourceDetected: ((String) -> Unit)? = null
+    ) {
         val savedFrom = Misc.getLanguageFrom(context)
         val toCode = Misc.getLanguageTo(context)
 
         if (savedFrom == Misc.defaultLanguage) {
             // "Default" source -> detect it with ML Kit language-id first, so both
             // the offline and online paths get a concrete source language.
-            LanguageIdentification.getClient().identifyLanguage(text)
+            languageIdentifier.identifyLanguage(text)
                 .addOnSuccessListener { langCode ->
+                    val appCode = toAppLanguageCode(langCode)
                     if (langCode == "und") {
                         // Undetermined -> let the online endpoint auto-detect.
-                        onlineTranslation(context, "auto", toCode, text, callBack)
+                        onlineTranslation(context, "auto", toCode, text, callBack, onSourceDetected)
                     } else {
+                        if (appCode != null) onSourceDetected?.invoke(appCode)
                         offlineTranslation(context, langCode, toCode, text, callBack)
                     }
                 }
                 .addOnFailureListener {
-                    onlineTranslation(context, "auto", toCode, text, callBack)
+                    onlineTranslation(context, "auto", toCode, text, callBack, onSourceDetected)
                 }
         } else {
             offlineTranslation(context, savedFrom, toCode, text, callBack)

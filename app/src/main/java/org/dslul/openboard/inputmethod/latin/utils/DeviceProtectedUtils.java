@@ -18,33 +18,60 @@ package org.dslul.openboard.inputmethod.latin.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import androidx.annotation.RequiresApi;
-
+/**
+ * The keyboard's settings live in the default SharedPreferences of device-protected storage, so
+ * the keyboard can read them before the user unlocks the phone.
+ *
+ * <p>Every caller gets the same process-wide instance. That matters: the keyboard ({@code
+ * Settings}) registers its change listener on the instance it holds, and the settings screens
+ * write through Android's own per-file cache. The old version called {@code
+ * moveSharedPreferencesFrom} whenever the settings were empty, with the source and the target
+ * being the same file (the app sets {@code defaultToDeviceProtectedStorage}). If that file existed
+ * but was empty, Android copied it onto itself, deleted it and evicted its cache, which left the
+ * keyboard holding a detached instance: changes made in the settings screen never reached it until
+ * the keyboard service was re-created (e.g. by the mic key switching to voice typing and back).
+ */
 public final class DeviceProtectedUtils {
 
     static final String TAG = DeviceProtectedUtils.class.getSimpleName();
 
+    private static volatile SharedPreferences sPrefs;
+
     public static SharedPreferences getSharedPreferences(final Context context) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            return PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences cached = sPrefs;
+        if (cached != null) {
+            return cached;
         }
-        Context deviceProtectedContext = getDeviceProtectedContext(context);
-        SharedPreferences deviceProtectedPreferences = PreferenceManager.getDefaultSharedPreferences(deviceProtectedContext);
-        if (deviceProtectedPreferences.getAll().isEmpty()) {
-            Log.i(TAG, "Device encrypted storage is empty, copying values from credential encrypted storage");
-            deviceProtectedContext.moveSharedPreferencesFrom(context, PreferenceManager.getDefaultSharedPreferencesName(context));
+        synchronized (DeviceProtectedUtils.class) {
+            if (sPrefs == null) {
+                sPrefs = openSharedPreferences(context);
+            }
+            return sPrefs;
         }
-        return deviceProtectedPreferences;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private static Context getDeviceProtectedContext(final Context context) {
-        return context.isDeviceProtectedStorage()
-                ? context : context.createDeviceProtectedStorageContext();
+    private static SharedPreferences openSharedPreferences(final Context context) {
+        if (context.isDeviceProtectedStorage()) {
+            // Always the case in this app: it sets defaultToDeviceProtectedStorage, so its contexts
+            // already point at device-protected storage and there is nothing to migrate. Calling
+            // moveSharedPreferencesFrom here would move the file onto itself (see above).
+            return PreferenceManager.getDefaultSharedPreferences(context);
+        }
+        final Context deviceProtectedContext = context.createDeviceProtectedStorageContext();
+        final SharedPreferences prefs =
+                PreferenceManager.getDefaultSharedPreferences(deviceProtectedContext);
+        if (prefs.getAll().isEmpty()) {
+            Log.i(TAG, "Device-protected settings are empty, moving them from credential storage");
+            if (deviceProtectedContext.moveSharedPreferencesFrom(context,
+                    PreferenceManager.getDefaultSharedPreferencesName(context))) {
+                // The move evicts Android's cached instance for this file; open it again.
+                return PreferenceManager.getDefaultSharedPreferences(deviceProtectedContext);
+            }
+        }
+        return prefs;
     }
 
     private DeviceProtectedUtils() {

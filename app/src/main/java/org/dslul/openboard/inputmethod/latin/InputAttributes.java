@@ -303,7 +303,6 @@ public final class InputAttributes {
     ) {
         if (editorInfo == null) return false;
         final String findingKey = (packageName != null) ? packageName + "." + key : key;
-        Log.e("testingSuggestion", "inPrivateImeOptions: "+packageName+" , findingKey: "+findingKey );
         return StringUtils.containsInCommaSplittableText(findingKey, editorInfo.privateImeOptions);
     }
 }

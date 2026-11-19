@@ -10,7 +10,7 @@ import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.net.ConnectivityManager
-import android.net.NetworkInfo
+import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
@@ -484,14 +484,21 @@ object Misc {
         }
     }
 
+    /**
+     * Whether the active network can reach the internet. The old check asked for the mobile network
+     * with `!!`; on Wi-Fi-only devices (most tablets) that is null, so it threw, returned false,
+     * and every online translation failed.
+     */
     @SuppressLint("MissingPermission")
     fun checkInternetConnection(context: Context): Boolean {
         return try {
-            val connectivityManager: ConnectivityManager? =
+            val connectivityManager =
                 context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
-
-            connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)!!.state === NetworkInfo.State.CONNECTED ||
-                    connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_WIFI)!!.state === NetworkInfo.State.CONNECTED
+                    ?: return false
+            val capabilities =
+                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+                    ?: return false
+            capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
         } catch (e: Exception) {
             e.printStackTrace()
             false

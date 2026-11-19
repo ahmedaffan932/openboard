@@ -45,4 +45,34 @@ class WordGameLogicTest {
         // Guard against division-by-zero style wraps when size is 0.
         assertEquals(3, WordGameLogic.resetIndexIfAtEnd(3, 0))
     }
+
+    // --- isAcceptedGuess: other real words from the same letters also solve the level ---
+
+    private val alternates = mapOf(
+        "art" to listOf("rat", "tar"),
+        "low" to listOf("owl"),
+    )
+
+    @Test
+    fun isAcceptedGuess_puzzleWordIsAccepted_ignoringCase() {
+        assertTrue(WordGameLogic.isAcceptedGuess("art", "art", alternates))
+        assertTrue(WordGameLogic.isAcceptedGuess("Mien", "mien", alternates))
+        assertTrue(WordGameLogic.isAcceptedGuess("art", "ART", emptyMap()))
+    }
+
+    @Test
+    fun isAcceptedGuess_otherRealWordsAreAccepted() {
+        // The tester's examples: "rat" for "art" and "owl" for "low".
+        assertTrue(WordGameLogic.isAcceptedGuess("art", "rat", alternates))
+        assertTrue(WordGameLogic.isAcceptedGuess("art", "tar", alternates))
+        assertTrue(WordGameLogic.isAcceptedGuess("low", "OWL", alternates))
+        assertTrue(WordGameLogic.isAcceptedGuess("Art", "rat", alternates))
+    }
+
+    @Test
+    fun isAcceptedGuess_nonWordsAreRejected() {
+        assertFalse(WordGameLogic.isAcceptedGuess("art", "tra", alternates))
+        assertFalse(WordGameLogic.isAcceptedGuess("low", "wlo", alternates))
+        assertFalse(WordGameLogic.isAcceptedGuess("air", "ria", alternates))
+    }
 }

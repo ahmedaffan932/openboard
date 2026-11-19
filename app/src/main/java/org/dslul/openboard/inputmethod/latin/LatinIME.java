@@ -55,7 +55,9 @@ import android.view.animation.RotateAnimation;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodSubtype;
+import android.widget.Toast;
 
+import org.dslul.openboard.ObservableBool;
 import org.dslul.openboard.inputmethod.accessibility.AccessibilityUtils;
 import org.dslul.openboard.inputmethod.annotations.UsedForTesting;
 import org.dslul.openboard.inputmethod.compat.EditorInfoCompatUtils;
@@ -176,6 +178,14 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     // Working variable for {@link #startShowingInputView()} and
     // {@link #onEvaluateInputViewShown()}.
     private boolean mIsExecutingStartShowingInputView;
+
+    /**
+     * A user setting changed since the keyboard last loaded its layout. The next
+     * onStartInputView reloads settings and the layout even when it returns to the same text field
+     * (where it normally only resets the shift state), so a change made in the settings screen
+     * shows up as soon as the user is back in their app.
+     */
+    private boolean mSettingsChangedSinceLastLoad;
 
     // Object for reacting to adding/removing a dictionary pack.
     private final BroadcastReceiver mDictionaryPackInstallReceiver =
@@ -635,6 +645,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     @Override
     public void onCreate() {
         Settings.init(this);
+        mSettings.setOnSettingsChangedListener(this::onUserSettingChanged);
         DebugFlags.init(DeviceProtectedUtils.getSharedPreferences(this));
         RichInputMethodManager.init(this);
         mRichImm = RichInputMethodManager.getInstance();
@@ -690,6 +701,16 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         registerReceiver(mRestartAfterDeviceUnlockReceiver, restartAfterUnlockFilter, Context.RECEIVER_VISIBLE_TO_INSTANT_APPS);
 
         StatsUtils.onCreate(mSettings.getCurrent(), mRichImm);
+    }
+
+    /**
+     * See {@link #mSettingsChangedSinceLastLoad}. Runs on the main thread. The keyboard is normally
+     * hidden here (the user is in the settings screen); the change is applied when it next opens,
+     * never while the user is typing. Vibration and sound already follow the new values (Settings
+     * updates AudioAndHapticFeedbackManager itself).
+     */
+    private void onUserSettingChanged(final String key) {
+        mSettingsChangedSinceLastLoad = true;
     }
 
     // Has to be package-visible for unit tests
@@ -791,6 +812,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     @Override
     public void onDestroy() {
+        mSettings.setOnSettingsChangedListener(null);
         mClipboardHistoryManager.onDestroy();
         mDictionaryFacilitator.closeDictionaries();
         mSettings.onDestroy();
@@ -955,7 +977,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         mGestureConsumer = GestureConsumer.NULL_GESTURE_CONSUMER;
         mRichImm.refreshSubtypeCaches();
         final KeyboardSwitcher switcher = mKeyboardSwitcher;
-        switcher.updateKeyboardTheme();
+        // A new theme means a new input view, which has no keyboard loaded yet.
+        final boolean themeChanged = switcher.updateKeyboardTheme();
         final MainKeyboardView mainKeyboardView = switcher.getMainKeyboardView();
         // If we are starting input in a different text field from before, we'll have to reload
         // settings, so currentSettingsValues can't be final.
@@ -1009,7 +1032,10 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         }
 
         final boolean inputTypeChanged = !currentSettingsValues.isSameInputType(editorInfo);
-        final boolean isDifferentTextField = !restarting || inputTypeChanged;
+        final boolean settingsChanged = mSettingsChangedSinceLastLoad || themeChanged;
+        mSettingsChangedSinceLastLoad = false;
+        // A settings or theme change is handled like a new text field: reload everything.
+        final boolean isDifferentTextField = !restarting || inputTypeChanged || settingsChanged;
 
         StatsUtils.onStartInputView(editorInfo.inputType,
                 Settings.getInstance().getCurrent().mDisplayOrientation,
@@ -1494,6 +1520,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     // TODO: Revise the language switch key behavior to make it much smarter and more reasonable.
     public void switchToNextSubtype() {
         final IBinder token = getWindow().getWindow().getAttributes().token;
+        // Both paths stay within this keyboard's languages; the key is only shown when there are
+        // two or more (SettingsValues.isLanguageSwitchKeyEnabled).
         if (shouldSwitchToOtherInputMethods()) {
             mRichImm.switchToNextInputMethod(token, true /* onlyCurrentIme */);
             return;
@@ -1589,12 +1617,20 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     public void startSelectLanguageActivity(Boolean isLanguageTo) {
         Intent intent = new Intent(this, LanguageSelectorActivity.class);
         intent.putExtra(Misc.lngTo, isLanguageTo);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(LanguageSelectorActivity.EXTRA_FROM_KEYBOARD, true);
+        // Own task (see the manifest), cleared so a half-finished earlier visit never resumes.
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
     @Override
     public void switchLanguages(Context context, View iv, View from, View to) {
+        if (Objects.equals(Misc.INSTANCE.getLanguageFrom(context), Misc.defaultLanguage)) {
+            // "Detect" cannot become the target language.
+            Toast.makeText(context, R.string.please_select_language_you_want_to_translate,
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
         RotateAnimation rotate = new RotateAnimation(
                 0F, 180F, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f
         );
@@ -1610,6 +1646,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                 String temp = Misc.INSTANCE.getLanguageFrom(context);
                 Misc.INSTANCE.setLanguageFrom(context, Misc.INSTANCE.getLanguageTo(context));
                 Misc.INSTANCE.setLanguageTo(context, temp);
+                // Tells the toolbar to re-read the labels and flags.
+                ObservableBool.setMyBoolean(!ObservableBool.getMyBoolean());
 
 
                 Misc.INSTANCE.zoomInView(from, context, 150, false);
@@ -1622,7 +1660,9 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     @Override
     public void startSettingsActivity() {
         Intent intent = new Intent(this, SettingsActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        // Own task (taskAffinity="" in the manifest), cleared so it always opens at the top screen.
+        // Back from there ends the task and returns to the app the user was typing in.
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
