@@ -1,0 +1,171 @@
+package org.dslul.openboard.translator.pro.classes
+
+import android.os.Bundle
+import android.util.Log
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
+
+/**
+ * Funnel events for Firebase Analytics, in one place so the keys the client builds funnels on are
+ * easy to find and stay consistent. Keys and parameter values are snake_case and fixed strings:
+ * Firebase drops event names that are not letters, digits and underscores, and counts every
+ * distinct name toward its 500-name limit, so nothing here builds a key from user data.
+ *
+ * The older screen events (`Dashboard`, `EnableKeyboard`, `v_onboarding_*`, ...) are left as they
+ * were so existing reports keep working; these sit beside them.
+ */
+object AppAnalytics {
+
+    /** Intent extra naming where the premium screen was opened from (see [premiumView]). */
+    const val EXTRA_PREMIUM_SOURCE = "analyticsPremiumSource"
+
+    const val PREMIUM_SOURCE_LAUNCH = "launch"
+    const val PREMIUM_SOURCE_ONBOARDING = "onboarding"
+    const val PREMIUM_SOURCE_PRO_BUTTON = "pro_button"
+    const val PREMIUM_SOURCE_FEATURE_LOCK = "feature_lock"
+    const val PREMIUM_SOURCE_IN_APP = "in_app"
+
+    const val FEATURE_TEXT = "text"
+    const val FEATURE_CAMERA = "camera"
+    const val FEATURE_CONVERSATION = "conversation"
+    const val FEATURE_KEYBOARD = "keyboard"
+
+    const val PURCHASE_SUCCESS = "success"
+    const val PURCHASE_PENDING = "pending"
+    const val PURCHASE_CANCELLED = "cancelled"
+    const val PURCHASE_FAILED = "failed"
+    const val PURCHASE_UNAVAILABLE = "unavailable"
+
+    // --- Onboarding ---------------------------------------------------------------------------
+
+    /** App-language screen opened. [firstOpen] separates onboarding from a later visit. */
+    fun appLanguageView(firstOpen: Boolean) =
+        log("app_language_view", Bundle().apply { putString("first_open", firstOpen.toString()) })
+
+    /** App-language screen's Save/Next tapped. [language] is the app language code, e.g. `es`. */
+    fun appLanguageSaved(language: String, firstOpen: Boolean) =
+        log("app_language_saved", Bundle().apply {
+            putString("language", language)
+            putString("first_open", firstOpen.toString())
+        })
+
+    /** An onboarding slide shown; [slide] counts from 1. */
+    fun onboardingSlideView(slide: Int) =
+        log("onboarding_slide_view", Bundle().apply { putLong("slide", slide.toLong()) })
+
+    /** The user finished the onboarding slides (Continue, or Next on the last slide). */
+    fun onboardingComplete() = log("onboarding_complete", null)
+
+    // --- Premium ------------------------------------------------------------------------------
+
+    fun premiumView(source: String) =
+        log("premium_view", Bundle().apply { putString("source", source) })
+
+    /** A plan card or the Get Pro button tapped, before Google Play's purchase sheet opens. */
+    fun premiumBuyTap(productId: String, source: String) =
+        log("premium_buy_tap", Bundle().apply {
+            putString("plan", planName(productId))
+            putString("source", source)
+        })
+
+    /**
+     * What came back from Google Play: [status] is one of the `PURCHASE_*` values. [errorCode] is
+     * Play's BillingResponseCode, sent only for a failure.
+     */
+    fun premiumPurchaseResult(productId: String?, status: String, errorCode: Int? = null) =
+        log("premium_purchase_result", Bundle().apply {
+            putString("plan", productId?.let { planName(it) } ?: "unknown")
+            putString("status", status)
+            errorCode?.let { putLong("error_code", it.toLong()) }
+        })
+
+    /** Premium screen closed without buying (close button or Back). */
+    fun premiumDismiss(source: String) =
+        log("premium_dismiss", Bundle().apply { putString("source", source) })
+
+    /** The "unlock this feature" dialog shown for a locked dashboard tab (`camera` or `chat`). */
+    fun featureLockView(feature: String) =
+        log("feature_lock_view", Bundle().apply { putString("feature", feature) })
+
+    /** A button on that dialog: [action] is `upgrade` or `watch_ad`. */
+    fun featureLockAction(feature: String, action: String) =
+        log("feature_lock_action", Bundle().apply {
+            putString("feature", feature)
+            putString("action", action)
+        })
+
+    /** Feature unlocked without buying: [method] is `rewarded` or `ad_timeout`. */
+    fun featureUnlock(feature: String, method: String) =
+        log("feature_unlock", Bundle().apply {
+            putString("feature", feature)
+            putString("method", method)
+        })
+
+    /** The rewarded unlock did not work: [reason] is `remote_off`, `no_internet`, `ad_failed` or `show_failed`. */
+    fun featureUnlockFailed(feature: String, reason: String) =
+        log("feature_unlock_failed", Bundle().apply {
+            putString("feature", feature)
+            putString("reason", reason)
+        })
+
+    // --- Keyboard setup -----------------------------------------------------------------------
+
+    /** The keyboard was switched on in the system's keyboard settings from the setup screen. */
+    fun keyboardEnabled() = log("keyboard_enabled", null)
+
+    /** The keyboard was picked as the current keyboard from the setup screen. */
+    fun keyboardSelected() = log("keyboard_selected", null)
+
+    // --- Using the app ------------------------------------------------------------------------
+
+    /** A dashboard tab opened: `home`, `camera`, `chat` or `phrasebook`. */
+    fun dashboardTabView(tab: String) =
+        log("dashboard_tab_view", Bundle().apply { putString("tab", tab) })
+
+    /** A translation language picked. [side] is `from` or `to`; [language] is its code, e.g. `fr`. */
+    fun translateLanguageSelect(language: String, side: String) =
+        log("translate_language_select", Bundle().apply {
+            putString("language", languageCode(language))
+            putString("side", side)
+        })
+
+    /** A translation came back. [feature] is one of the `FEATURE_*` values. */
+    @JvmStatic
+    fun translateDone(feature: String, from: String?, to: String?) =
+        log("translate_done", translateParams(feature, from, to))
+
+    /** A translation failed (no internet and no offline model, or the service errored). */
+    @JvmStatic
+    fun translateFailed(feature: String, from: String?, to: String?) =
+        log("translate_failed", translateParams(feature, from, to))
+
+    // --- Helpers ------------------------------------------------------------------------------
+
+    private fun translateParams(feature: String, from: String?, to: String?) = Bundle().apply {
+        putString("feature", feature)
+        putString("lang_from", languageCode(from))
+        putString("lang_to", languageCode(to))
+    }
+
+    /** The app stores "detect language" as [Misc.defaultLanguage]; report it as `auto`. */
+    private fun languageCode(code: String?): String = when {
+        code.isNullOrBlank() || code == Misc.defaultLanguage -> "auto"
+        else -> code.take(20)
+    }
+
+    private fun planName(productId: String): String = when (productId) {
+        Misc.weeklyKey -> "weekly"
+        Misc.monthlyKey -> "monthly"
+        Misc.yearlyKey -> "yearly"
+        else -> productId.take(40)
+    }
+
+    private fun log(event: String, params: Bundle?) {
+        try {
+            Firebase.analytics.logEvent(event, params)
+        } catch (e: Exception) {
+            // Analytics must never break a screen, a purchase or a keystroke.
+            Log.w(Misc.logKey, "Analytics event $event not logged: ${e.message}")
+        }
+    }
+}

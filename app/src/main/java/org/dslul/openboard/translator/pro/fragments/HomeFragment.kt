@@ -31,6 +31,7 @@ import org.dslul.openboard.translator.pro.SettingsActivity
 import org.dslul.openboard.translator.pro.TranslateActivity
 import org.dslul.openboard.translator.pro.WordGameActivity
 import org.dslul.openboard.translator.pro.adaptor.HistoryAdapter
+import org.dslul.openboard.translator.pro.classes.AppAnalytics
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
 import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
@@ -63,7 +64,7 @@ class HomeFragment : Fragment() {
                 Intent(
                     requireContext(),
                     PremiumScreenActivity::class.java
-                )
+                ).putExtra(AppAnalytics.EXTRA_PREMIUM_SOURCE, AppAnalytics.PREMIUM_SOURCE_PRO_BUTTON)
             )
         }
 

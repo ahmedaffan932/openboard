@@ -63,11 +63,11 @@ object WinbackNoti {
                 heroRounded = R.drawable.noti_hero_winback_rounded,
                 thumb = R.drawable.noti_thumb_winback,
             ),
-            contentIntent = NotiRouterActivity.pendingIntent(context, NotiTargets.HOME, NOTI_ID),
+            contentIntent = NotiRouterActivity.pendingIntent(context, NotiTargets.HOME, NOTI_ID, TYPE),
         )
 
         if (NotiPoster.postSafely(context, NOTI_ID, NotiChannels.UPDATES_NEWS, notification)) {
-            NotiAnalytics.notiShow(context, TYPE)
+            NotiAnalytics.notiShow(context, TYPE, followUp = followUp)
             if (!followUp) {
                 NotiPrefs.setWinbackOpensAtPost(context, opensAtSend)
                 NotiScheduler.scheduleWinbackFollowUp(context)

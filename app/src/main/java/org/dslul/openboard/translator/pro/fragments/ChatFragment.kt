@@ -26,6 +26,7 @@ import kotlinx.coroutines.withContext
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.FragmentChatBinding
 import org.dslul.openboard.translator.pro.LanguageSelectorActivity
+import org.dslul.openboard.translator.pro.classes.AppAnalytics
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.MiscTranslate
 import org.dslul.openboard.translator.pro.interfaces.TranslationInterface
@@ -223,6 +224,11 @@ class ChatFragment : Fragment() {
     private fun jugarTranslation(text: String) {
         setSelectedLng()
         if (!Misc.checkInternetConnection(requireActivity())) {
+            AppAnalytics.translateFailed(
+                AppAnalytics.FEATURE_CONVERSATION,
+                Misc.getLanguageFrom(requireActivity()),
+                Misc.getLanguageTo(requireActivity())
+            )
             Toast.makeText(
                 requireActivity(),
                 resources.getString(R.string.please_check_your_internet_connection_and_try_again),
@@ -265,6 +271,7 @@ class ChatFragment : Fragment() {
             text,
             object : TranslationInterface {
                 override fun onTranslate(translation: String) {
+                    AppAnalytics.translateDone(AppAnalytics.FEATURE_CONVERSATION, fromCode, toCode)
                     setText(
                         if (isLanguageTo) {
                             speakLngFrom(translation)
@@ -285,6 +292,9 @@ class ChatFragment : Fragment() {
                         text,
                         object : TranslationInterface {
                             override fun onTranslate(translation: String) {
+                                AppAnalytics.translateDone(
+                                    AppAnalytics.FEATURE_CONVERSATION, fromCode, toCode
+                                )
                                 setText(
                                     if (isLanguageTo) {
                                         speakLngFrom(translation)
@@ -298,6 +308,9 @@ class ChatFragment : Fragment() {
                             }
 
                             override fun onFailed() {
+                                AppAnalytics.translateFailed(
+                                    AppAnalytics.FEATURE_CONVERSATION, fromCode, toCode
+                                )
                                 handleTranslationError()
                             }
                         })

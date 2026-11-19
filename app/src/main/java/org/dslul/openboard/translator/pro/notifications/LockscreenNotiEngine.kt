@@ -72,7 +72,7 @@ object LockscreenNotiEngine {
 
     private fun post(context: Context, content: LockscreenContent): Boolean {
         val dismissPi = NotiDismissReceiver.pendingIntent(context, NOTI_ID)
-        val contentPi = NotiRouterActivity.pendingIntent(context, content.target, NOTI_ID)
+        val contentPi = NotiRouterActivity.pendingIntent(context, content.target, NOTI_ID, TYPE)
         val descVisibility = if (content.desc.isBlank()) View.GONE else View.VISIBLE
 
         // Everything here is a resource id or text: no bitmap enters the notification parcel.

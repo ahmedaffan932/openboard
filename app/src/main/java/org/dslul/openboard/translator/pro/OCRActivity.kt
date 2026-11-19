@@ -36,6 +36,7 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityOcrBinding
 import org.dslul.openboard.objects.CameraMisc
 import org.dslul.openboard.translator.pro.adaptor.OCRResultAdapter
+import org.dslul.openboard.translator.pro.classes.AppAnalytics
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.MiscTranslate
@@ -310,6 +311,11 @@ class OCRActivity : AppCompatActivity() {
                     }
 
                     override fun onFailed() {
+                        AppAnalytics.translateFailed(
+                            AppAnalytics.FEATURE_CAMERA,
+                            Misc.getLanguageFrom(this@OCRActivity),
+                            Misc.getLanguageTo(this@OCRActivity)
+                        )
                         binding.progressBar.visibility =
                             View.GONE
                         Toast.makeText(
@@ -321,6 +327,14 @@ class OCRActivity : AppCompatActivity() {
                 })
             } else {
                 Log.d(Misc.logKey, "Here.")
+                // Every recognised block is translated: one camera translation done.
+                if (arrText.isNotEmpty()) {
+                    AppAnalytics.translateDone(
+                        AppAnalytics.FEATURE_CAMERA,
+                        Misc.getLanguageFrom(this),
+                        Misc.getLanguageTo(this)
+                    )
+                }
                 binding.progressBar.visibility = View.GONE
 
                 binding.bottomSheetResult.tvViewAll.visibility = View.VISIBLE

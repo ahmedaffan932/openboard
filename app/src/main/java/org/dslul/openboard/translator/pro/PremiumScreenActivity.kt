@@ -22,6 +22,7 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityPremiumScreenBinding
+import org.dslul.openboard.translator.pro.classes.AppAnalytics
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.objects.inapp.InAppProductsDetailsCallback
 import org.dslul.openboard.translator.pro.objects.inapp.InAppUtils
@@ -29,6 +30,16 @@ import org.dslul.openboard.translator.pro.objects.inapp.InAppUtils
 class PremiumScreenActivity : AppCompatActivity() {
     lateinit var binding: ActivityPremiumScreenBinding
     private var selectedProductId = Misc.weeklyKey
+
+    /** Where this premium screen was opened from, sent with every premium event. */
+    private val premiumSource: String by lazy {
+        when {
+            shouldOpenLanguageAfterPremium() -> AppAnalytics.PREMIUM_SOURCE_LAUNCH
+            intent.getStringExtra(Misc.data) != null -> AppAnalytics.PREMIUM_SOURCE_ONBOARDING
+            else -> intent.getStringExtra(AppAnalytics.EXTRA_PREMIUM_SOURCE)
+                ?: AppAnalytics.PREMIUM_SOURCE_IN_APP
+        }
+    }
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +52,7 @@ class PremiumScreenActivity : AppCompatActivity() {
         } else {
             Firebase.analytics.logEvent("v_onboarding_PremiumScreenInflow", null)
         }
+        AppAnalytics.premiumView(premiumSource)
 
         Handler(Looper.getMainLooper()).postDelayed({
             Misc.zoomInView(binding.btnDismiss, this, 250)
@@ -114,6 +126,7 @@ class PremiumScreenActivity : AppCompatActivity() {
     }
 
     private fun closePremiumScreen() {
+        AppAnalytics.premiumDismiss(premiumSource)
         when {
             shouldOpenLanguageAfterPremium() -> {
                 startActivity(
@@ -169,10 +182,13 @@ class PremiumScreenActivity : AppCompatActivity() {
     }
 
     private fun launchPurchaseFlow(productId: String) {
+        AppAnalytics.premiumBuyTap(productId, premiumSource)
         try {
             val productDetails = InAppUtils.mProductDetailsList.firstOrNull { it.productId == productId }
             val offerToken = productDetails?.let { InAppUtils.bestOfferToken(it) }
             if (productDetails == null || offerToken == null) {
+                // Prices never loaded (offline, or Play unavailable): the purchase sheet can't open.
+                AppAnalytics.premiumPurchaseResult(productId, AppAnalytics.PURCHASE_UNAVAILABLE)
                 Toast.makeText(
                     this,
                     getString(R.string.please_check_your_internet_connection_and_try_again),
@@ -190,8 +206,16 @@ class PremiumScreenActivity : AppCompatActivity() {
             val billingFlowParams = BillingFlowParams.newBuilder()
                 .setProductDetailsParamsList(productDetailsParamsList)
                 .build()
-            InAppUtils.billingClient.launchBillingFlow(this, billingFlowParams)
+            // The outcome arrives in InAppUtils' purchases listener, which logs it against this plan.
+            InAppUtils.lastLaunchedProductId = productId
+            val launchResult = InAppUtils.billingClient.launchBillingFlow(this, billingFlowParams)
+            if (launchResult.responseCode != BillingClient.BillingResponseCode.OK) {
+                AppAnalytics.premiumPurchaseResult(
+                    productId, AppAnalytics.PURCHASE_FAILED, launchResult.responseCode
+                )
+            }
         } catch (e: Exception) {
+            AppAnalytics.premiumPurchaseResult(productId, AppAnalytics.PURCHASE_FAILED)
             Toast.makeText(this, R.string.please_cehck_your_internet, Toast.LENGTH_SHORT)
                 .show()
             e.printStackTrace()

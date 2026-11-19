@@ -15,6 +15,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityOnBoardingBinding
+import org.dslul.openboard.translator.pro.classes.AppAnalytics
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
@@ -25,6 +26,8 @@ import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 
 class OnBoardingActivity : AppCompatActivity() {
     lateinit var binding: ActivityOnBoardingBinding
+    private val loggedSlides = mutableSetOf<Int>()
+    private var isOnboardingCompleteLogged = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +47,7 @@ class OnBoardingActivity : AppCompatActivity() {
 
         binding.splashViewPager.adapter = FragmentAdapter(this)
         showOnboardingNativeForPage(0)
+        logSlideView(0)
 
         TabLayoutMediator(
             binding.splashTabLayout,
@@ -54,6 +58,7 @@ class OnBoardingActivity : AppCompatActivity() {
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     showOnboardingNativeForPage(position)
+                    logSlideView(position)
                 }
             }
         )
@@ -95,15 +100,7 @@ class OnBoardingActivity : AppCompatActivity() {
         }.start()
 
         binding.btnContinue.setOnClickListener {
-            Ads.loadAndShowInterstitial(
-                this,
-                Ads.dashboardInt,
-                AdIds.interstitialAdIdOB3,
-                object : InterstitialCallBack {
-                    override fun onDismiss() {
-                        openNextScreenAfterOnboarding()
-                    }
-                })
+            finishOnboarding()
         }
 
         binding.btnNext.setOnClickListener {
@@ -113,17 +110,31 @@ class OnBoardingActivity : AppCompatActivity() {
                     true
                 )
             } else {
-                Ads.loadAndShowInterstitial(
-                    this,
-                    Ads.dashboardInt,
-                    AdIds.interstitialAdIdOB3,
-                    object : InterstitialCallBack {
-                        override fun onDismiss() {
-                            openNextScreenAfterOnboarding()
-                        }
-                    })
+                finishOnboarding()
             }
         }
+    }
+
+    private fun finishOnboarding() {
+        // Logged once even if the button is tapped again while the interstitial loads.
+        if (!isOnboardingCompleteLogged) {
+            isOnboardingCompleteLogged = true
+            AppAnalytics.onboardingComplete()
+        }
+        Ads.loadAndShowInterstitial(
+            this,
+            Ads.dashboardInt,
+            AdIds.interstitialAdIdOB3,
+            object : InterstitialCallBack {
+                override fun onDismiss() {
+                    openNextScreenAfterOnboarding()
+                }
+            })
+    }
+
+    /** One `onboarding_slide_view` per slide per visit; swiping back does not count it twice. */
+    private fun logSlideView(position: Int) {
+        if (loggedSlides.add(position)) AppAnalytics.onboardingSlideView(position + 1)
     }
 
     override fun onBackPressed() {

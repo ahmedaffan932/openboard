@@ -9,10 +9,12 @@ import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.PendingPurchasesParams
 import com.android.billingclient.api.ProductDetails
+import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
 import com.google.common.collect.ImmutableList
 import org.dslul.openboard.inputmethod.latin.R
+import org.dslul.openboard.translator.pro.classes.AppAnalytics
 import org.dslul.openboard.translator.pro.classes.Misc
 
 object InAppUtils {
@@ -20,14 +22,40 @@ object InAppUtils {
     var mProductDetailsList = ArrayList<ProductDetails>()
     lateinit var billingClient: BillingClient
 
+    /**
+     * The product the purchase sheet was last opened for. A cancel or an error comes back with no
+     * purchase attached, so this is what names the plan in `premium_purchase_result`.
+     */
+    @Volatile
+    var lastLaunchedProductId: String? = null
+
 
     private val purchasesUpdatedListener =
         PurchasesUpdatedListener { billingResult, purchases ->
-            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
-                for (purchase in purchases) {
-                    Log.d(Misc.logKey, "Purchase made")
-
+            val code = billingResult.responseCode
+            when {
+                code == BillingClient.BillingResponseCode.OK && purchases != null -> {
+                    for (purchase in purchases) {
+                        Log.d(Misc.logKey, "Purchase made")
+                        val status = when (purchase.purchaseState) {
+                            Purchase.PurchaseState.PURCHASED -> AppAnalytics.PURCHASE_SUCCESS
+                            Purchase.PurchaseState.PENDING -> AppAnalytics.PURCHASE_PENDING
+                            else -> AppAnalytics.PURCHASE_FAILED
+                        }
+                        AppAnalytics.premiumPurchaseResult(
+                            purchase.products.firstOrNull() ?: lastLaunchedProductId, status
+                        )
+                    }
                 }
+
+                code == BillingClient.BillingResponseCode.USER_CANCELED ->
+                    AppAnalytics.premiumPurchaseResult(
+                        lastLaunchedProductId, AppAnalytics.PURCHASE_CANCELLED
+                    )
+
+                else -> AppAnalytics.premiumPurchaseResult(
+                    lastLaunchedProductId, AppAnalytics.PURCHASE_FAILED, code
+                )
             }
         }
 

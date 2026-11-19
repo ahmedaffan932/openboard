@@ -8,8 +8,7 @@ import android.view.*
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.ktx.Firebase
+import org.dslul.openboard.translator.pro.classes.AppAnalytics
 import com.google.mlkit.nl.translate.TranslateLanguage
 import com.google.mlkit.nl.translate.Translation
 import com.google.mlkit.nl.translate.TranslatorOptions
@@ -104,7 +103,7 @@ class LanguagesAdapter(
                 activity.onBackPressed()
                 callback?.onDismiss()
 
-                Firebase.analytics.logEvent(Locale(languages[position]).displayName, null)
+                AppAnalytics.translateLanguageSelect(languages[position], if (lngTo) "to" else "from")
 
                 if (callback == null)
                     activity.onBackPressed()

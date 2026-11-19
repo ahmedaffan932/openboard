@@ -7,6 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.translatorguru.ads.admob.LoadAdCallBack
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityAppLanguageSelectorBinding
+import org.dslul.openboard.translator.pro.classes.AppAnalytics
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
@@ -24,6 +25,8 @@ class AppLanguageSelectorActivity : AppCompatActivity() {
         setAppLanguage()
         binding = ActivityAppLanguageSelectorBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (savedInstanceState == null) AppAnalytics.appLanguageView(Misc.isFirstTime(this))
 
         showLanguageNativeOnOpen()
 
@@ -78,6 +81,10 @@ class AppLanguageSelectorActivity : AppCompatActivity() {
         }
 
         binding.btnSave.setOnClickListener {
+            AppAnalytics.appLanguageSaved(
+                Misc.getAppLanguage(this@AppLanguageSelectorActivity),
+                Misc.isFirstTime(this@AppLanguageSelectorActivity)
+            )
             if (Misc.isFirstTime(this@AppLanguageSelectorActivity)) {
                 startActivity(
                     Intent(

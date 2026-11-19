@@ -69,6 +69,7 @@ import org.dslul.openboard.inputmethod.latin.utils.RecapitalizeStatus;
 import org.dslul.openboard.inputmethod.latin.utils.StatsUtils;
 import org.dslul.openboard.inputmethod.latin.utils.TextRange;
 import org.dslul.openboard.translator.pro.classes.Misc;
+import org.dslul.openboard.translator.pro.classes.AppAnalytics;
 import org.dslul.openboard.translator.pro.classes.MiscTranslate;
 import org.dslul.openboard.translator.pro.interfaces.TranslationInterface;
 import org.jsoup.Jsoup;
@@ -250,6 +251,7 @@ public final class InputLogic {
             MiscTranslate.INSTANCE.translate(context, charSequence.toString(), new TranslationInterface() {
                 @Override
                 public void onTranslate(@NonNull String translation) {
+                    AppAnalytics.translateDone(AppAnalytics.FEATURE_KEYBOARD, from, to);
                     mConnection.setSelection(charSequence.length(), charSequence.length());
                     mConnection.deleteTextBeforeCursor(charSequence.length());
                     mConnection.commitText(translation, 1);
@@ -259,6 +261,7 @@ public final class InputLogic {
 
                 @Override
                 public void onFailed() {
+                    AppAnalytics.translateFailed(AppAnalytics.FEATURE_KEYBOARD, from, to);
                     // Reset the strip so the Translate button stops spinning on failure.
                     Misc.isTranslated.postValue(true);
                     Toast.makeText(context, "Sorry, check your internet or try downloading language for offline translation.", Toast.LENGTH_SHORT).show();

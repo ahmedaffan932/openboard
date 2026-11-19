@@ -32,7 +32,7 @@ object ClickedAdsNoti {
                 heroRounded = R.drawable.noti_hero_clickads_rounded,
                 thumb = R.drawable.noti_thumb_clickads,
             ),
-            contentIntent = NotiRouterActivity.pendingIntent(context, NotiTargets.HOME, NOTI_ID),
+            contentIntent = NotiRouterActivity.pendingIntent(context, NotiTargets.HOME, NOTI_ID, TYPE),
         )
         if (NotiPoster.postSafely(context, NOTI_ID, NotiChannels.UPDATES_NEWS, notification)) {
             NotiAnalytics.notiShow(context, TYPE)

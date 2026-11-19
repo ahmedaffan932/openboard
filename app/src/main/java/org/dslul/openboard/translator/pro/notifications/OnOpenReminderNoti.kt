@@ -19,6 +19,8 @@ object OnOpenReminderNoti {
 
     const val NOTI_ID = 2004
 
+    private const val TYPE = "onopen"
+
     private const val MIN_INTERVAL_MS = 15 * 60 * 1000L
 
     fun show(context: Context) {
@@ -29,7 +31,7 @@ object OnOpenReminderNoti {
         // reaches here — throttle so rapid re-opens don't spam.
         if (!NotiPrefs.shouldPostOnOpen(context, MIN_INTERVAL_MS)) return
 
-        val contentPi = NotiRouterActivity.pendingIntent(context, NotiTargets.HOME, NOTI_ID)
+        val contentPi = NotiRouterActivity.pendingIntent(context, NotiTargets.HOME, NOTI_ID, TYPE)
         val notification = NotiTextCard.build(
             context,
             NotiChannels.REMINDERS,
@@ -43,6 +45,8 @@ object OnOpenReminderNoti {
             ),
             contentIntent = contentPi,
         )
-        NotiPoster.postSafely(context, NOTI_ID, NotiChannels.REMINDERS, notification)
+        if (NotiPoster.postSafely(context, NOTI_ID, NotiChannels.REMINDERS, notification)) {
+            NotiAnalytics.notiShow(context, TYPE)
+        }
     }
 }

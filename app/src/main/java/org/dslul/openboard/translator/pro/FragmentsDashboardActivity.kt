@@ -28,6 +28,7 @@ import com.example.translatorguru.ads.admob.LoadAdCallBack
 import com.google.android.gms.ads.AdView
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityFragmentsDashboardBinding
+import org.dslul.openboard.translator.pro.classes.AppAnalytics
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
@@ -84,6 +85,7 @@ class FragmentsDashboardActivity : AppCompatActivity() {
         binding.bottomNavigation.menu
 
         setCurrentFragment(HomeFragment())
+        if (savedInstanceState == null) AppAnalytics.dashboardTabView(tabName(R.id.home))
         preloadUnlockPremiumRewardedAd()
 
         binding.bottomNavigation.selectedItemId = R.id.home
@@ -205,6 +207,16 @@ class FragmentsDashboardActivity : AppCompatActivity() {
             R.id.phrasebook -> setCurrentFragment(PhrasesFragment())
         }
         lastSelectedItem = itemId
+        AppAnalytics.dashboardTabView(tabName(itemId))
+    }
+
+    /** The tab's name in analytics: `home`, `camera`, `chat` or `phrasebook`. */
+    private fun tabName(itemId: Int): String = when (itemId) {
+        R.id.home -> "home"
+        R.id.camera -> TAB_CAMERA
+        R.id.chat -> TAB_CHAT
+        R.id.phrasebook -> TAB_PHRASEBOOK
+        else -> "other"
     }
 
     private fun isLockedPremiumItem(itemId: Int): Boolean {
@@ -261,28 +273,42 @@ class FragmentsDashboardActivity : AppCompatActivity() {
         dialog.findViewById<TextView>(R.id.tvDescription)?.text =
             getString(R.string.unlock_premium_feature_description)
 
+        val feature = tabName(targetItemId)
+
         dialog.findViewById<TextView>(R.id.btnUpgrade)?.setOnClickListener {
             dialog.dismiss()
-            startActivity(Intent(this, PremiumScreenActivity::class.java))
+            AppAnalytics.featureLockAction(feature, "upgrade")
+            startActivity(
+                Intent(this, PremiumScreenActivity::class.java).putExtra(
+                    AppAnalytics.EXTRA_PREMIUM_SOURCE,
+                    AppAnalytics.PREMIUM_SOURCE_FEATURE_LOCK
+                )
+            )
         }
 
         dialog.findViewById<TextView>(R.id.btnWatchAd)?.setOnClickListener {
             dialog.dismiss()
+            AppAnalytics.featureLockAction(feature, "watch_ad")
             loadAndShowUnlockRewardedAd(targetItemId)
         }
 
         if (!isFinishing && !isDestroyed) {
             dialog.show()
+            AppAnalytics.featureLockView(feature)
         }
     }
 
     private fun loadAndShowUnlockRewardedAd(targetItemId: Int) {
+        val feature = tabName(targetItemId)
+
         if (!Ads.unlockPremiumRewardedAd.contains("am")) {
+            AppAnalytics.featureUnlockFailed(feature, "remote_off")
             Toast.makeText(this, R.string.rewarded_ad_not_available, Toast.LENGTH_SHORT).show()
             return
         }
 
         if (!Misc.checkInternetConnection(this)) {
+            AppAnalytics.featureUnlockFailed(feature, "no_internet")
             Toast.makeText(this, R.string.rewarded_ad_not_available, Toast.LENGTH_SHORT).show()
             return
         }
@@ -308,6 +334,7 @@ class FragmentsDashboardActivity : AppCompatActivity() {
             // Ad did not load in time: let the user continue with the action
             // by unlocking the feature anyway instead of leaving them stuck.
             Log.d(Misc.logKey, "Unlock rewarded ad timed out. Unlocking feature.")
+            AppAnalytics.featureUnlock(feature, "ad_timeout")
             unlockPremiumFeatureByReward(targetItemId)
 
             if (!isFinishing && !isDestroyed) {
@@ -334,6 +361,7 @@ class FragmentsDashboardActivity : AppCompatActivity() {
                         activity = this@FragmentsDashboardActivity,
                         callBack = object : RewardedAdCallBack {
                             override fun onRewardEarned() {
+                                AppAnalytics.featureUnlock(feature, "rewarded")
                                 unlockPremiumFeatureByReward(targetItemId)
                                 Log.d(Misc.logKey, "Premium feature unlocked by rewarded ad.")
 
@@ -344,6 +372,7 @@ class FragmentsDashboardActivity : AppCompatActivity() {
                             }
 
                             override fun onFailed() {
+                                AppAnalytics.featureUnlockFailed(feature, "show_failed")
                                 Toast.makeText(
                                     this@FragmentsDashboardActivity,
                                     R.string.rewarded_ad_not_available,
@@ -363,6 +392,7 @@ class FragmentsDashboardActivity : AppCompatActivity() {
                         loadingDialog.dismiss()
                     }
 
+                    AppAnalytics.featureUnlockFailed(feature, "ad_failed")
                     Toast.makeText(
                         this@FragmentsDashboardActivity,
                         R.string.rewarded_ad_not_available,

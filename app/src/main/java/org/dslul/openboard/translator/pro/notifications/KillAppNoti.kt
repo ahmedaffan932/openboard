@@ -59,7 +59,7 @@ object KillAppNoti {
                 heroRounded = R.drawable.noti_hero_killapp_rounded,
                 thumb = R.drawable.noti_thumb_killapp,
             ),
-            contentIntent = NotiRouterActivity.pendingIntent(context, NotiTargets.CAMERA, NOTI_ID),
+            contentIntent = NotiRouterActivity.pendingIntent(context, NotiTargets.CAMERA, NOTI_ID, TYPE),
         )
         val posted = NotiPoster.postSafely(context, NOTI_ID, NotiChannels.UPDATES_NEWS, notification)
         if (posted && track) NotiAnalytics.notiShow(context, TYPE)

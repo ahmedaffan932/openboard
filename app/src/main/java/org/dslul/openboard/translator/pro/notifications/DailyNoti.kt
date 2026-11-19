@@ -40,7 +40,7 @@ object DailyNoti {
 
         val res = PhraseOfTheDay.appLanguageContext(context)
         val hearPi = NotiRouterActivity.pendingIntent(
-            context, NotiTargets.PHRASE, NOTI_ID, text = pick.phrase
+            context, NotiTargets.PHRASE, NOTI_ID, TYPE, text = pick.phrase
         )
         val notification = NotiTextCard.build(
             context,

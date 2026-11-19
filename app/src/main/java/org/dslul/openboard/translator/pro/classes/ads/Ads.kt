@@ -262,12 +262,12 @@ object Ads {
         shimmerLayout: Int? = null,
         callBack: LoadAdCallBack? = null
     ) {
-        logAdEvent("ad_native_request", remoteKey, "native")
+        logAdEvent(activity, "ad_native_request", remoteKey, "native")
 
         if (!remoteKey.contains("am")) {
             frameLayout.removeAllViews()
             frameLayout.visibility = View.GONE
-            logAdEvent("ad_native_skipped", remoteKey, "native", "remote_off")
+            logAdEvent(activity, "ad_native_skipped", remoteKey, "native", "remote_off")
             callBack?.onFailed()
             return
         }
@@ -275,7 +275,7 @@ object Ads {
         if (!Misc.checkInternetConnection(activity)) {
             frameLayout.removeAllViews()
             frameLayout.visibility = View.GONE
-            logAdEvent("ad_native_skipped", remoteKey, "native", "no_internet")
+            logAdEvent(activity, "ad_native_skipped", remoteKey, "native", "no_internet")
             callBack?.onFailed()
             return
         }
@@ -283,7 +283,7 @@ object Ads {
         if (Misc.getPurchasedStatus(activity)) {
             frameLayout.removeAllViews()
             frameLayout.visibility = View.GONE
-            logAdEvent("ad_native_skipped", remoteKey, "native", "purchased")
+            logAdEvent(activity, "ad_native_skipped", remoteKey, "native", "purchased")
             callBack?.onFailed()
             return
         }
@@ -296,7 +296,7 @@ object Ads {
             callBack = object : LoadAdCallBack {
 
                 override fun onLoaded() {
-                    logAdEvent("ad_native_loaded", remoteKey, "native")
+                    logAdEvent(activity, "ad_native_loaded", remoteKey, "native")
 
                     AdmobNativeAds.showNativeAd(
                         context = activity,
@@ -311,7 +311,7 @@ object Ads {
                 override fun onFailed() {
                     frameLayout.removeAllViews()
                     frameLayout.visibility = View.GONE
-                    logAdEvent("ad_native_failed", remoteKey, "native")
+                    logAdEvent(activity, "ad_native_failed", remoteKey, "native")
 
                     callBack?.onFailed()
                 }
@@ -331,20 +331,20 @@ object Ads {
 
         if (!remote.contains("am")) {
             Log.d(Misc.logKey, "Interstitial off.")
-            logAdEvent("ad_interstitial_skipped", remote, "interstitial", "remote_off")
+            logAdEvent(activity, "ad_interstitial_skipped", remote, "interstitial", "remote_off")
             callback?.onDismiss()
             return
         }
 
         if (Misc.getPurchasedStatus(activity)) {
             Log.d(Misc.logKey, "Interstitial skipped: user purchased.")
-            logAdEvent("ad_interstitial_skipped", remote, "interstitial", "purchased")
+            logAdEvent(activity, "ad_interstitial_skipped", remote, "interstitial", "purchased")
             callback?.onDismiss()
             return
         }
 
         Log.d(Misc.logKey, "Interstitial show requested.")
-        logAdEvent("ad_interstitial_show", remote, "interstitial")
+        logAdEvent(activity, "ad_interstitial_show", remote, "interstitial")
 
         AdmobInterstitialAd.showInterstitial(activity, callback)
     }
@@ -407,27 +407,27 @@ object Ads {
     ) {
         if (isShowingInt) {
             Log.d(Misc.logKey, "Interstitial load/show skipped: already showing.")
-            logAdEvent("ad_interstitial_skipped", remoteKey, "interstitial", "already_showing")
+            logAdEvent(activity, "ad_interstitial_skipped", remoteKey, "interstitial", "already_showing")
             return
         }
 
         if (!remoteKey.contains("am")) {
             Log.d(Misc.logKey, "Interstitial load/show skipped: remote off.")
-            logAdEvent("ad_interstitial_skipped", remoteKey, "interstitial", "remote_off")
+            logAdEvent(activity, "ad_interstitial_skipped", remoteKey, "interstitial", "remote_off")
             callBack?.onDismiss()
             return
         }
 
         if (Misc.getPurchasedStatus(activity)) {
             Log.d(Misc.logKey, "Interstitial load/show skipped: user purchased.")
-            logAdEvent("ad_interstitial_skipped", remoteKey, "interstitial", "purchased")
+            logAdEvent(activity, "ad_interstitial_skipped", remoteKey, "interstitial", "purchased")
             callBack?.onDismiss()
             return
         }
 
         if (AdmobInterstitialAd.isInterAdAvailableFor(adIds)) {
             Log.d(Misc.logKey, "Interstitial already loaded. Showing now.")
-            logAdEvent("ad_interstitial_show", remoteKey, "interstitial", "preloaded")
+            logAdEvent(activity, "ad_interstitial_show", remoteKey, "interstitial", "preloaded")
 
             AdmobInterstitialAd.showInterstitial(
                 activity = activity,
@@ -439,7 +439,7 @@ object Ads {
 
         if (!Misc.checkInternetConnection(activity)) {
             Log.d(Misc.logKey, "Interstitial failed: no internet.")
-            logAdEvent("ad_interstitial_skipped", remoteKey, "interstitial", "no_internet")
+            logAdEvent(activity, "ad_interstitial_skipped", remoteKey, "interstitial", "no_internet")
             callBack?.onDismiss()
             return
         }
@@ -452,7 +452,7 @@ object Ads {
         }
 
         isShowingInt = true
-        logAdEvent("ad_interstitial_request", remoteKey, "interstitial")
+        logAdEvent(activity, "ad_interstitial_request", remoteKey, "interstitial")
 
         // Guard so only the first of {loaded, failed, timeout} takes effect.
         var settled = false
@@ -467,7 +467,7 @@ object Ads {
 
             isShowingInt = false
             Log.d(Misc.logKey, "Interstitial load timed out. Continuing with action.")
-            logAdEvent("ad_interstitial_failed", remoteKey, "interstitial", "timeout")
+            logAdEvent(activity, "ad_interstitial_failed", remoteKey, "interstitial", "timeout")
             callBack?.onDismiss()
         }
         timeoutHandler.postDelayed(timeoutRunnable, adLoadTimeoutMs)
@@ -487,7 +487,7 @@ object Ads {
                     }
 
                     isShowingInt = false
-                    logAdEvent("ad_interstitial_loaded", remoteKey, "interstitial")
+                    logAdEvent(activity, "ad_interstitial_loaded", remoteKey, "interstitial")
 
                     AdmobInterstitialAd.showInterstitial(
                         activity = activity,
@@ -515,7 +515,7 @@ object Ads {
                     }
 
                     isShowingInt = false
-                    logAdEvent("ad_interstitial_failed", remoteKey, "interstitial")
+                    logAdEvent(activity, "ad_interstitial_failed", remoteKey, "interstitial")
                     callBack?.onDismiss()
                 }
             }
@@ -528,19 +528,19 @@ object Ads {
         callBack: InterstitialCallBack? = null
     ) {
         if (!remoteKey.contains("am")) {
-            logAdEvent("ad_rewarded_skipped", remoteKey, "rewarded_interstitial", "remote_off")
+            logAdEvent(activity, "ad_rewarded_skipped", remoteKey, "rewarded_interstitial", "remote_off")
             callBack?.onDismiss()
             return
         }
 
         if (!Misc.checkInternetConnection(activity)) {
-            logAdEvent("ad_rewarded_skipped", remoteKey, "rewarded_interstitial", "no_internet")
+            logAdEvent(activity, "ad_rewarded_skipped", remoteKey, "rewarded_interstitial", "no_internet")
             callBack?.onDismiss()
             return
         }
 
         if (Misc.getPurchasedStatus(activity)) {
-            logAdEvent("ad_rewarded_skipped", remoteKey, "rewarded_interstitial", "purchased")
+            logAdEvent(activity, "ad_rewarded_skipped", remoteKey, "rewarded_interstitial", "purchased")
             callBack?.onDismiss()
             return
         }
@@ -551,6 +551,8 @@ object Ads {
         if (!activity.isFinishing && !activity.isDestroyed) {
             objDialog.show()
         }
+
+        logAdEvent(activity, "ad_rewarded_request", remoteKey, "rewarded_interstitial")
 
         // Guard so only the first of {loaded, failed, timeout} takes effect.
         var settled = false
@@ -564,7 +566,7 @@ object Ads {
             }
 
             Log.d(Misc.logKey, "Rewarded interstitial load timed out. Continuing with action.")
-            logAdEvent("ad_rewarded_failed", remoteKey, "rewarded_interstitial", "timeout")
+            logAdEvent(activity, "ad_rewarded_failed", remoteKey, "rewarded_interstitial", "timeout")
             callBack?.onDismiss()
         }
         timeoutHandler.postDelayed(timeoutRunnable, adLoadTimeoutMs)
@@ -579,7 +581,7 @@ object Ads {
                     settled = true
                     timeoutHandler.removeCallbacks(timeoutRunnable)
 
-                    logAdEvent("ad_rewarded_loaded", remoteKey, "rewarded_interstitial")
+                    logAdEvent(activity, "ad_rewarded_loaded", remoteKey, "rewarded_interstitial")
 
                     if (!activity.isFinishing && !activity.isDestroyed && objDialog.isShowing) {
                         objDialog.dismiss()
@@ -593,7 +595,7 @@ object Ads {
                     settled = true
                     timeoutHandler.removeCallbacks(timeoutRunnable)
 
-                    logAdEvent("ad_rewarded_failed", remoteKey, "rewarded_interstitial")
+                    logAdEvent(activity, "ad_rewarded_failed", remoteKey, "rewarded_interstitial")
 
                     if (!activity.isFinishing && !activity.isDestroyed && objDialog.isShowing) {
                         objDialog.dismiss()
@@ -605,7 +607,13 @@ object Ads {
         )
     }
 
+    /**
+     * [placement] is the placement's Remote Config value (e.g. `am_large_hctr`), kept as
+     * `ad_placement` for existing reports. `ad_screen` is the screen the ad was requested on
+     * (e.g. `TranslateActivity`), so ad funnels can be split by where the ad appears.
+     */
     private fun logAdEvent(
+        activity: Activity,
         eventName: String,
         placement: String,
         format: String,
@@ -614,6 +622,7 @@ object Ads {
         val params = Bundle().apply {
             putString("ad_placement", placement.take(40))
             putString("ad_format", format)
+            putString("ad_screen", activity.javaClass.simpleName.take(40))
             reason?.let { putString("reason", it.take(40)) }
         }
         Firebase.analytics.logEvent(eventName, params)

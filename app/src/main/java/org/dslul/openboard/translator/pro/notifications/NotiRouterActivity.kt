@@ -31,6 +31,7 @@ class NotiRouterActivity : AppCompatActivity() {
         const val EXTRA_TARGET = "notiTarget"
         const val EXTRA_NOTI_ID = "notiRouterNotiId"
         const val EXTRA_SOURCE = "notiRouterSource"
+        const val EXTRA_NOTI_TYPE = "notiRouterNotiType"
 
         /** Optional text for the target screen (NotiTargets.PHRASE); rides the splash passthrough. */
         const val EXTRA_TEXT = "notiRouterText"
@@ -45,15 +46,18 @@ class NotiRouterActivity : AppCompatActivity() {
         private const val REQUEST_BASE = 4000
         private const val WIDGET_REQUEST_BASE = 4200
 
+        /** [notiType] is the notification's analytics `noti_type`, logged with the tap. */
         fun pendingIntent(
             context: Context,
             target: String,
             notiId: Int,
+            notiType: String,
             text: String? = null,
         ): PendingIntent {
             val intent = Intent(context, NotiRouterActivity::class.java)
                 .putExtra(EXTRA_TARGET, target)
                 .putExtra(EXTRA_NOTI_ID, notiId)
+                .putExtra(EXTRA_NOTI_TYPE, notiType)
                 .apply { if (text != null) putExtra(EXTRA_TEXT, text) }
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             return PendingIntent.getActivity(
@@ -105,7 +109,9 @@ class NotiRouterActivity : AppCompatActivity() {
             SOURCE_SHORTCUT -> NotiAnalytics.SOURCE_SHORTCUT
             else -> NotiAnalytics.SOURCE_NOTIFICATION
         }
-        NotiAnalytics.entryOpen(this, analyticsSource, target)
+        NotiAnalytics.entryOpen(
+            this, analyticsSource, target, intent.getStringExtra(EXTRA_NOTI_TYPE)
+        )
 
         if (appOnScreen && !Misc.isFirstTime(this) && !Misc.isSplashScreen) {
             startActivity(NotiTargets.intentFor(this, target, fromEntry = true, text = text).apply {

@@ -18,10 +18,17 @@ object NotiAnalytics {
 
     const val REASON_STILL_SHOWING = "still_showing"
 
-    fun notiShow(context: Context, notiType: String, replaced: Boolean = false) =
+    /** [followUp] is sent only for the winback notification: `true` for its second, follow-up post. */
+    fun notiShow(
+        context: Context,
+        notiType: String,
+        replaced: Boolean = false,
+        followUp: Boolean? = null,
+    ) =
         log(context, "app_noti_show", Bundle().apply {
             putString("noti_type", notiType)
             putString("replaced", replaced.toString())
+            followUp?.let { putString("follow_up", it.toString()) }
         })
 
     fun notiSkip(context: Context, notiType: String, reason: String) =
@@ -30,11 +37,16 @@ object NotiAnalytics {
             putString("reason", reason)
         })
 
-    /** A notification tap that reached NotiRouterActivity, or a pinned-notification tile tap. */
-    fun entryOpen(context: Context, source: String, target: String) =
+    /**
+     * A notification tap that reached NotiRouterActivity, a widget or pinned-notification tile tap,
+     * or a launcher shortcut. [notiType] (the tapped notification's `noti_type`) is sent only for a
+     * notification tap, so opens join back to `app_noti_show`.
+     */
+    fun entryOpen(context: Context, source: String, target: String, notiType: String? = null) =
         log(context, "app_entry_open", Bundle().apply {
             putString("source", source)
             putString("target", target)
+            notiType?.let { putString("noti_type", it) }
         })
 
     private fun log(context: Context, event: String, params: Bundle) {

@@ -17,6 +17,7 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityEnableKeyboardBinding
+import org.dslul.openboard.translator.pro.classes.AppAnalytics
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.isInputMethodSelected
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
@@ -28,6 +29,10 @@ class EnableKeyboardActivity : AppCompatActivity() {
     private val t = Timer()
     private val handler: Handler = Handler()
     private var isSettingUpKeyboardWillingly = false
+    private var wasEnabledOnOpen = false
+    private var wasSelectedOnOpen = false
+    private var isEnabledLogged = false
+    private var isSelectedLogged = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +40,10 @@ class EnableKeyboardActivity : AppCompatActivity() {
         binding = ActivityEnableKeyboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        checkKeyboardActivation()
+        // Only a change made on this screen counts as enabling / selecting: a keyboard that was
+        // already on when the screen opened logs nothing.
+        wasEnabledOnOpen = checkKeyboardActivation()
+        wasSelectedOnOpen = isInputMethodSelected()
 
         Firebase.analytics.logEvent("EnableKeyboard", null)
 
@@ -64,7 +72,10 @@ class EnableKeyboardActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 0) {
-            checkKeyboardActivation()
+            if (checkKeyboardActivation() && !wasEnabledOnOpen && !isEnabledLogged) {
+                isEnabledLogged = true
+                AppAnalytics.keyboardEnabled()
+            }
         }
     }
 
@@ -79,6 +90,10 @@ class EnableKeyboardActivity : AppCompatActivity() {
             @SuppressLint("UseCompatLoadingForDrawables")
             override fun run() {
                 if (isInputMethodSelected()) {
+                    if (!wasSelectedOnOpen && !isSelectedLogged) {
+                        isSelectedLogged = true
+                        AppAnalytics.keyboardSelected()
+                    }
                     finish()
                 }
                 handler.postDelayed(this, 500)
@@ -110,8 +125,9 @@ class EnableKeyboardActivity : AppCompatActivity() {
         }, 999)
     }
 
+    /** Updates the steps for the keyboard's current state; returns whether it is enabled. */
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun checkKeyboardActivation() {
+    private fun checkKeyboardActivation(): Boolean {
         val packageLocal = packageName
 
         val mInputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
@@ -149,6 +165,7 @@ class EnableKeyboardActivity : AppCompatActivity() {
             }
         }
         binding.clEnableKeyboard.setPadding(dpToPx(8).toInt())
+        return mActKeyboard
     }
 
 

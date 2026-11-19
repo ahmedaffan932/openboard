@@ -35,6 +35,7 @@ import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobNativeAds
 import org.dslul.openboard.translator.pro.classes.ads.admob.AppOpenAdManager
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import org.dslul.openboard.translator.pro.notifications.AppShortcuts
+import org.dslul.openboard.translator.pro.notifications.NotiAnalytics
 import org.dslul.openboard.translator.pro.notifications.NotiConfig
 import org.dslul.openboard.translator.pro.notifications.NotiRouterActivity
 import org.dslul.openboard.translator.pro.notifications.NotiScheduler
@@ -61,6 +62,18 @@ class PreSplashScreenActivity : AppCompatActivity() {
         binding = ActivityPreSplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
         FirebaseApp.initializeApp(this)
+
+        // A launcher shortcut opens this splash directly, never passing NotiRouterActivity, so
+        // its app_entry_open is logged here.
+        if (savedInstanceState == null &&
+            intent.getStringExtra(NotiRouterActivity.EXTRA_SOURCE) == NotiRouterActivity.SOURCE_SHORTCUT
+        ) {
+            NotiAnalytics.entryOpen(
+                this,
+                NotiAnalytics.SOURCE_SHORTCUT,
+                intent.getStringExtra(NotiRouterActivity.EXTRA_TARGET).orEmpty()
+            )
+        }
 
         Handler(Looper.getMainLooper()).postDelayed({
             binding.animBackground.playAnimation()

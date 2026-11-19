@@ -29,6 +29,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityTranslateBinding
+import org.dslul.openboard.translator.pro.classes.AppAnalytics
 import org.dslul.openboard.translator.pro.classes.MiscTranslate
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
@@ -474,6 +475,11 @@ class TranslateActivity : AppCompatActivity() {
 
         MiscTranslate.translate(this, text, object : TranslationInterface {
             override fun onTranslate(translation: String) {
+                AppAnalytics.translateDone(
+                    AppAnalytics.FEATURE_TEXT,
+                    Misc.getLanguageFrom(this@TranslateActivity),
+                    Misc.getLanguageTo(this@TranslateActivity)
+                )
                 binding.textViewTextTranslatedFrag.text = translation
                 saveInHistory(text, translation)
                 // The Daily notification's "hear it now": the launch translation is read once.
@@ -484,6 +490,11 @@ class TranslateActivity : AppCompatActivity() {
             }
 
             override fun onFailed() {
+                AppAnalytics.translateFailed(
+                    AppAnalytics.FEATURE_TEXT,
+                    Misc.getLanguageFrom(this@TranslateActivity),
+                    Misc.getLanguageTo(this@TranslateActivity)
+                )
                 speakLaunchTranslation = false
                 binding.llPBTranslateFrag.visibility = View.GONE
                 Toast.makeText(

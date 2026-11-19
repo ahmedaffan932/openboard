@@ -23,6 +23,7 @@ import com.google.gson.Gson
 import com.rw.keyboardlistener.KeyboardUtils
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityViewTranslatedTextBinding
+import org.dslul.openboard.translator.pro.classes.AppAnalytics
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.MiscTranslate
@@ -295,11 +296,21 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
 
         MiscTranslate.translate(this, text, object : TranslationInterface{
             override fun onTranslate(translation: String) {
+                AppAnalytics.translateDone(
+                    AppAnalytics.FEATURE_TEXT,
+                    Misc.getLanguageFrom(this@ViewTranslatedTextActivity),
+                    Misc.getLanguageTo(this@ViewTranslatedTextActivity)
+                )
                 binding.textViewTextTranslatedFrag.text = translation
                 saveInHistory(text, translation)
             }
 
             override fun onFailed() {
+                AppAnalytics.translateFailed(
+                    AppAnalytics.FEATURE_TEXT,
+                    Misc.getLanguageFrom(this@ViewTranslatedTextActivity),
+                    Misc.getLanguageTo(this@ViewTranslatedTextActivity)
+                )
                 binding.llPBTranslateFrag.visibility = View.GONE
                 Toast.makeText(
                     this@ViewTranslatedTextActivity,
