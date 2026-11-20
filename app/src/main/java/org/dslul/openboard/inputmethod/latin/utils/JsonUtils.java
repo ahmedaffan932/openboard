@@ -40,6 +40,8 @@ public final class JsonUtils {
     private static final String STRING_CLASS_NAME = String.class.getSimpleName();
     private static final String CLIPBOARD_HISTORY_ENTRY_ID_KEY = "id";
     private static final String CLIPBOARD_HISTORY_ENTRY_CONTENT_KEY = "content";
+    // Older files only held pinned clips and have no such key: entries without it are pinned.
+    private static final String CLIPBOARD_HISTORY_ENTRY_PINNED_KEY = "pinned";
 
     private static final String EMPTY_STRING = "";
 
@@ -107,19 +109,22 @@ public final class JsonUtils {
                 reader.beginObject();
                 long id = 0;
                 String content = EMPTY_STRING;
+                boolean pinned = true;
                 while (reader.hasNext()) {
                     final String name = reader.nextName();
                     if (name.equals(CLIPBOARD_HISTORY_ENTRY_ID_KEY)) {
                         id = reader.nextLong();
                     } else if (name.equals(CLIPBOARD_HISTORY_ENTRY_CONTENT_KEY)) {
                         content = reader.nextString();
+                    } else if (name.equals(CLIPBOARD_HISTORY_ENTRY_PINNED_KEY)) {
+                        pinned = reader.nextBoolean();
                     } else {
                         Log.w(TAG, "Invalid name: " + name);
                         reader.skipValue();
                     }
                 }
                 if (id > 0 && !TextUtils.isEmpty(content)) {
-                    list.add(new ClipboardHistoryEntry(id, content, true));
+                    list.add(new ClipboardHistoryEntry(id, content, pinned));
                 }
                 reader.endObject();
             }
@@ -144,6 +149,7 @@ public final class JsonUtils {
                 writer.beginObject();
                 writer.name(CLIPBOARD_HISTORY_ENTRY_ID_KEY).value(e.getTimeStamp());
                 writer.name(CLIPBOARD_HISTORY_ENTRY_CONTENT_KEY).value(e.getContent().toString());
+                writer.name(CLIPBOARD_HISTORY_ENTRY_PINNED_KEY).value(e.isPinned());
                 writer.endObject();
             }
             writer.endArray();

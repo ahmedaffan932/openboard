@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.OrientationEventListener
+import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
@@ -273,6 +275,32 @@ class CameraFragment : Fragment() {
         super.onResume()
         setSelectedLng()
         startCamera()
+        orientationListener.enable()
+    }
+
+    override fun onPause() {
+        orientationListener.disable()
+        super.onPause()
+    }
+
+    /**
+     * The screen is locked to portrait, so CameraX assumed every photo was taken upright. This
+     * keeps the capture's rotation in step with how the phone is actually held, so a landscape
+     * photo is saved (and shown in the cropper) the right way up. OCRActivity also turns text
+     * upright itself, which covers gallery images.
+     */
+    private val orientationListener by lazy {
+        object : OrientationEventListener(requireContext()) {
+            override fun onOrientationChanged(orientation: Int) {
+                if (orientation == ORIENTATION_UNKNOWN || !::imageCapture.isInitialized) return
+                imageCapture.targetRotation = when (orientation) {
+                    in 45 until 135 -> Surface.ROTATION_270
+                    in 135 until 225 -> Surface.ROTATION_180
+                    in 225 until 315 -> Surface.ROTATION_90
+                    else -> Surface.ROTATION_0
+                }
+            }
+        }
     }
 
     private fun openImagePickerForOCR() {

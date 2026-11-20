@@ -19,6 +19,9 @@ package org.dslul.openboard.inputmethod.latin;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
+import android.content.ClipDescription;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -186,6 +189,9 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
      * shows up as soon as the user is back in their app.
      */
     private boolean mSettingsChangedSinceLastLoad;
+
+    /** The copy time of the clip last typed from the "recently copied" chip; not offered again. */
+    private long mRecentClipUsedAt = -1;
 
     // Object for reacting to adding/removing a dictionary pack.
     private final BroadcastReceiver mDictionaryPackInstallReceiver =
@@ -667,6 +673,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
         mHandler.onCreate();
 
+        clearHistoryLearnedWithoutDictionaryOnce();
+
         // TODO: Resolve mutual dependencies of {@link #loadSettings()} and
         // {@link #resetDictionaryFacilitatorIfNecessary()}.
         loadSettings();
@@ -701,6 +709,55 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         registerReceiver(mRestartAfterDeviceUnlockReceiver, restartAfterUnlockFilter, Context.RECEIVER_VISIBLE_TO_INSTANT_APPS);
 
         StatsUtils.onCreate(mSettings.getCurrent(), mRichImm);
+    }
+
+    /**
+     * Before 2.6 the main dictionaries never loaded (the resource lookup used the wrong package
+     * name), so the keyboard learned every word typed, typos included, and suggested them back.
+     * That learned history is cleared once, before any dictionary is opened. Words the user added
+     * to their personal dictionary are kept.
+     */
+    private void clearHistoryLearnedWithoutDictionaryOnce() {
+        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(this);
+        if (prefs.getBoolean(Settings.PREF_USER_HISTORY_RESET_V26, false)) return;
+        PersonalizationHelper.removeAllUserHistoryDictionaries(this);
+        prefs.edit().putBoolean(Settings.PREF_USER_HISTORY_RESET_V26, true).apply();
+    }
+
+    /**
+     * Like Gboard: when the keyboard opens shortly after something was copied, the suggestion row
+     * offers it (a link or text) for one tap. Not for password fields or clips that apps mark
+     * sensitive. The clip is read only here, on this device, while this is the active keyboard.
+     */
+    private void maybeOfferRecentClip(final SettingsValues settingsValues) {
+        if (mSuggestionStripView == null) return;
+        mSuggestionStripView.hideClipChip();
+        if (settingsValues.mInputAttributes.mIsPasswordField) return;
+        try {
+            final ClipboardManager clipboard =
+                    (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            if (clipboard == null) return;
+            final ClipDescription description = clipboard.getPrimaryClipDescription();
+            if (description == null || ClipboardHistoryManager.Companion.isSensitive(description)) {
+                return;
+            }
+            final long copiedAt = description.getTimestamp();
+            if (copiedAt == mRecentClipUsedAt
+                    || !RecentClip.INSTANCE.isFresh(copiedAt, System.currentTimeMillis(),
+                            RecentClip.OFFER_WINDOW_MS)) {
+                return;
+            }
+            final ClipData clip = clipboard.getPrimaryClip();
+            if (clip == null || clip.getItemCount() == 0) return;
+            final CharSequence text = clip.getItemAt(0).coerceToText(this);
+            if (!RecentClip.INSTANCE.isOfferable(text)) return;
+            final String content = text.toString().trim();
+            mSuggestionStripView.showClipChip(content, RecentClip.INSTANCE.label(content),
+                    RecentClip.INSTANCE.isLink(content), () -> mRecentClipUsedAt = copiedAt);
+        } catch (final RuntimeException e) {
+            // A clipboard we may not read (e.g. not the default keyboard yet): no chip.
+            Log.w(TAG, "Recent clip not offered", e);
+        }
     }
 
     /**
@@ -1138,6 +1195,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                 currentSettingsValues.mGestureTrailEnabled,
                 currentSettingsValues.mGestureFloatingPreviewTextEnabled);
 
+        maybeOfferRecentClip(currentSettingsValues);
+
         if (TRACE) Debug.startMethodTracing("/data/trace/latinime");
     }
 
@@ -1169,6 +1228,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     void onFinishInputViewInternal(final boolean finishingInput) {
         super.onFinishInputView(finishingInput);
+        if (mSuggestionStripView != null) mSuggestionStripView.hideClipChip();
         cleanupInternalStateForFinishInput();
     }
 
@@ -1563,6 +1623,8 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     // This method is public for testability of LatinIME, but also in the future it should
     // completely replace #onCodeInput.
     public void onEvent(@Nonnull final Event event) {
+        // Typing dismisses the "recently copied" chip.
+        if (mSuggestionStripView != null) mSuggestionStripView.hideClipChip();
         if (Constants.CODE_SHORTCUT == event.getMKeyCode()) {
             mRichImm.switchToShortcutIme(this);
         }
@@ -1595,6 +1657,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     // Called from PointerTracker through the KeyboardActionListener interface
     @Override
     public void onTextInput(final String rawText) {
+        if (mSuggestionStripView != null) mSuggestionStripView.hideClipChip();
         // TODO: have the keyboard pass the correct key code when we need it.
         final Event event = Event.createSoftwareTextEvent(rawText, Constants.CODE_OUTPUT_TEXT);
         final InputTransaction completeInputTransaction =
@@ -1606,6 +1669,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     @Override
     public void onStartBatchInput() {
+        if (mSuggestionStripView != null) mSuggestionStripView.hideClipChip();
         mInputLogic.onStartBatchInput(mSettings.getCurrent(), mKeyboardSwitcher, mHandler);
         mGestureConsumer.onGestureStarted(
                 mRichImm.getCurrentSubtypeLocale(),

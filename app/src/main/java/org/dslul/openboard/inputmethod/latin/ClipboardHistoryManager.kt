@@ -1,5 +1,6 @@
 package org.dslul.openboard.inputmethod.latin
 
+import android.content.ClipDescription
 import android.content.ClipboardManager
 import android.content.Context
 import android.text.TextUtils
@@ -24,6 +25,12 @@ class ClipboardHistoryManager(
     private var onHistoryChangeListener: OnHistoryChangeListener? = null
     private var onHistoryChanged: OnHistoryChanged? = null
 
+    /**
+     * Whether the saved history has been read back yet. Until then nothing is saved: the clip
+     * recorded at start-up would otherwise be written first and replace the whole saved history.
+     */
+    private var savedHistoryLoaded = false
+
     fun onCreate() {
         pinnedHistoryClipsFile = File(latinIME.filesDir, PINNED_CLIPS_DATA_FILE_NAME)
         clipboardManager = latinIME.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -32,14 +39,13 @@ class ClipboardHistoryManager(
         startLoadPinnedClipsFromDisk()
     }
 
+    /** The saved history (pinned and recent clips) has been read from disk. */
     fun onPinnedClipsAvailable(pinnedClips: List<ClipboardHistoryEntry>) {
-        historyEntries.addAll(pinnedClips)
-        sortHistoryEntries()
-        if (onHistoryChangeListener != null) {
-            pinnedClips.forEach {
-                onHistoryChangeListener?.onClipboardHistoryEntryAdded(historyEntries.indexOf(it))
-            }
-        }
+        ClipboardHistoryRules.merge(historyEntries, pinnedClips)
+        savedHistoryLoaded = true
+        onHistoryChangeListener?.onClipboardHistoryChanged()
+        // Saves the merged list, including anything copied while it was loading.
+        startSavePinnedClipsToDisk()
     }
 
     fun onDestroy() {
@@ -58,23 +64,21 @@ class ClipboardHistoryManager(
     private fun fetchPrimaryClip() {
         val clipData = clipboardManager.primaryClip ?: return
         if (clipData.itemCount == 0) return
+        // Passwords and other secrets copied from apps that mark them sensitive (Android 13+)
+        // are never kept in the history.
+        if (isSensitive(clipData.description)) return
         clipData.getItemAt(0)?.let { clipItem ->
             // Starting from API 30, onPrimaryClipChanged() can be called multiple times
-            // for the same clip. We can identify clips with their timestamps since API 26.
-            // We use that to prevent unwanted duplicates.
-            val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData)?.also { stamp ->
-                if (historyEntries.any { it.timeStamp == stamp }) return
-            } ?: System.currentTimeMillis()
-
+            // for the same clip. Clips are identified by their timestamps (ClipboardHistoryRules).
+            val timeStamp = ClipboardManagerCompat.getClipTimestamp(clipData)
+                ?: System.currentTimeMillis()
             val content = clipItem.coerceToText(latinIME)
             if (TextUtils.isEmpty(content)) return
 
-            val entry = ClipboardHistoryEntry(timeStamp, content)
-            historyEntries.add(entry)
-            sortHistoryEntries()
-            val at = historyEntries.indexOf(entry)
-            onHistoryChangeListener?.onClipboardHistoryEntryAdded(at)
+            if (!ClipboardHistoryRules.add(historyEntries, content, timeStamp)) return
+            onHistoryChangeListener?.onClipboardHistoryChanged()
             onHistoryChanged?.onChanged()
+            startSavePinnedClipsToDisk()
         }
     }
 
@@ -85,8 +89,9 @@ class ClipboardHistoryManager(
             isPinned = !isPinned
         }
         sortHistoryEntries()
-        val to = historyEntries.indexOf(historyEntry)
-        onHistoryChangeListener?.onClipboardHistoryEntryMoved(from, to)
+        // Unpinning can push the list over the limit of recent clips.
+        ClipboardHistoryRules.trim(historyEntries)
+        onHistoryChangeListener?.onClipboardHistoryChanged()
         startSavePinnedClipsToDisk()
     }
 
@@ -98,6 +103,7 @@ class ClipboardHistoryManager(
         if (onHistoryChangeListener != null) {
             onHistoryChangeListener?.onClipboardHistoryEntriesRemoved(pos, count)
         }
+        startSavePinnedClipsToDisk()
     }
 
     private fun sortHistoryEntries() {
@@ -109,7 +115,9 @@ class ClipboardHistoryManager(
         if (mins <= 0) return // No retention limit
         val maxClipRetentionTime = mins * 60 * 1000L
         val now = System.currentTimeMillis()
-        historyEntries.removeAll { !it.isPinned && (now - it.timeStamp) > maxClipRetentionTime }
+        if (historyEntries.removeAll { !it.isPinned && (now - it.timeStamp) > maxClipRetentionTime }) {
+            startSavePinnedClipsToDisk()
+        }
     }
 
     // We do not want to update history while user is visualizing it, so we check retention only
@@ -160,8 +168,16 @@ class ClipboardHistoryManager(
         latinIME.mHandler.postUpdateClipboardPinnedClips(list)
     }
 
+    /**
+     * Saves the history, pinned and recent clips alike. Only pinned clips used to be saved, so the
+     * recent ones were lost whenever Android stopped the keyboard. Very long texts stay in memory
+     * only. (The file is in the app's private storage.)
+     */
     private fun startSavePinnedClipsToDisk() {
-        val localCopy = historyEntries.filter { it.isPinned }.map { it.copy() }
+        if (!savedHistoryLoaded) return
+        val localCopy = historyEntries
+            .filter { it.isPinned || it.content.length <= MAX_SAVED_CLIP_LENGTH }
+            .map { it.copy() }
         object : Thread("$TAG-save") {
             override fun run() {
                 saveToDisk(localCopy)
@@ -192,6 +208,8 @@ class ClipboardHistoryManager(
         fun onClipboardHistoryEntryAdded(at: Int){}
         fun onClipboardHistoryEntriesRemoved(pos: Int, count: Int)
         fun onClipboardHistoryEntryMoved(from: Int, to: Int)
+        /** Several entries may have been added, moved or dropped at once. */
+        fun onClipboardHistoryChanged() {}
     }
 
 
@@ -199,7 +217,14 @@ class ClipboardHistoryManager(
         fun onChanged()
     }
     companion object {
+        // The name is historical: the file now holds the recent clips too.
         const val PINNED_CLIPS_DATA_FILE_NAME = "pinned_clips.data"
         const val TAG = "ClipboardHistoryManager"
+        private const val MAX_SAVED_CLIP_LENGTH = 5000
+        // ClipDescription.EXTRA_IS_SENSITIVE (Android 13), spelled out to compile against older APIs.
+        private const val EXTRA_IS_SENSITIVE = "android.content.extra.IS_SENSITIVE"
+
+        fun isSensitive(description: ClipDescription?): Boolean =
+            description?.extras?.getBoolean(EXTRA_IS_SENSITIVE, false) == true
     }
 }

@@ -59,8 +59,12 @@ class ClipboardAdapter(
 //                    }
 //            })
 
+            // The current position, not the one captured at bind time: after a clip was added the
+            // old position pointed at a different row and a tap pasted the wrong text.
             binding.llClipboardContent.setOnClickListener {
-                keyEventListener.onKeyUp(/*binding.root.tag as Long*/getItem(position)?.content.toString())
+                val current = bindingAdapterPosition
+                if (current == RecyclerView.NO_POSITION) return@setOnClickListener
+                getItem(current)?.content?.let { keyEventListener.onKeyUp(it.toString()) }
             }
             binding.llTranslatedContent.setOnClickListener {
                 keyEventListener.onKeyUp(/*binding.root.tag as Long*/binding.clipboardTranslatedContent.text.toString())
@@ -146,6 +150,8 @@ class ClipboardAdapter(
                 text,
                 object : TranslationInterface {
                     override fun onTranslate(translation: String) {
+                        // The row may have been recycled for another clip meanwhile.
+                        if (binding.clipboardEntryContent.text.toString() != text) return
                         binding.clipboardTranslatedContent.text = translation
                         binding.llTranslatedContent.visibility = View.VISIBLE
                         binding.shimmerView.visibility = View.GONE

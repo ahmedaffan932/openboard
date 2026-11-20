@@ -35,8 +35,10 @@
     <bool name="config_default_show_language_switch_key">true</bool>
     <bool name="config_default_show_setup_wizard_icon">false</bool>
 
-    <!-- Maximum time for a clipboard history entry to be kept, in minutes. -->
-    <integer name="config_clipboard_history_retention_time">10</integer>
+    <!-- Maximum time for a clipboard history entry to be kept, in minutes; 0 = no time limit.
+         Was 10, so copied texts vanished after ten minutes. The history now keeps the last 10
+         copied texts (ClipboardHistoryRules.MAX_UNPINNED) for as long as they are the last 10. -->
+    <integer name="config_clipboard_history_retention_time">0</integer>
 
     <integer name="config_delay_in_milliseconds_to_update_shift_state">100</integer>
     <integer name="config_double_space_period_timeout">1100</integer>

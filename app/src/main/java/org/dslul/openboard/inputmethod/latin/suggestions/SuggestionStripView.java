@@ -122,6 +122,11 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     private final Observer<Boolean> mTranslatedObserver;
     private final Observer<Boolean> mAppInForegroundObserver;
     private final BooleanChangeListener mSelectedLanguagesListener;
+
+    // The "recently copied" chip (see LatinIME.maybeOfferRecentClip).
+    private final TextView mClipChip;
+    private String mClipChipText;
+    private Runnable mOnClipChipUsed;
 //    private final TextView mTextLngFrom;
 //    private final TextView mTextLngTo;
 
@@ -215,6 +220,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mLLLngTo = findViewById(R.id.llLngTo);
         mIVSwitchLanguage = findViewById(R.id.btnSwitchLngs);
         mProgressBar = findViewById(R.id.progressBar);
+        mClipChip = findViewById(R.id.suggestions_strip_clip_chip);
 
         mIVSwitchLanguage.setImageResource(R.drawable.ic_switch_lang);
         applyThemeColors(context, attrs, defStyle);
@@ -260,6 +266,22 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         });
 
         mOtherKey.setOnClickListener(view -> mListener.startSettingsActivity());
+
+        mClipChip.setOnClickListener(view -> {
+            final String text = mClipChipText;
+            final Runnable onUsed = mOnClipChipUsed;
+            hideClipChip();
+            if (text == null) return;
+            if (onUsed != null) onUsed.run();
+            // Typed like a clipboard-history entry: inserted as is, not learned as a word.
+            mListener.onTextInput(text);
+        });
+        mClipChip.setOnLongClickListener(view -> {
+            hideClipChip();
+            mListener.onCodeInput(Constants.CODE_CLIPBOARD, Constants.SUGGESTION_STRIP_COORDINATE,
+                    Constants.SUGGESTION_STRIP_COORDINATE, false /* isKeyRepeat */);
+            return true;
+        });
 
         mLLLanguageFrom.setOnClickListener(view -> mListener.startSelectLanguageActivity(false));
 
@@ -337,6 +359,7 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mSuggestedWords = suggestedWords;
         mStartIndexOfMoreSuggestions = mLayoutHelper.layoutAndReturnStartIndexOfMoreSuggestions(getContext(), mSuggestedWords, mSuggestionsStrip, this);
         mStripVisibilityGroup.showSuggestionsStrip();
+        keepClipChipInFront();
     }
 
     public void setMoreSuggestionsHeight(final int remainingHeight) {
@@ -347,7 +370,37 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mSuggestionsStrip.removeAllViews();
         removeAllDebugInfoViews();
         mStripVisibilityGroup.showSuggestionsStrip();
+        keepClipChipInFront();
         dismissMoreSuggestionsPanel();
+    }
+
+    /**
+     * Shows a recently copied text or link in place of the word suggestions. A tap types it (and
+     * runs {@code onUsed}); a long-press opens the clipboard history.
+     */
+    public void showClipChip(final CharSequence text, final String label, final boolean isLink,
+            final Runnable onUsed) {
+        mClipChipText = text.toString();
+        mOnClipChipUsed = onUsed;
+        mClipChip.setText(label);
+        mClipChip.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                isLink ? R.drawable.ic_clip_link : R.drawable.ic_clip_text, 0, 0, 0);
+        mClipChip.setContentDescription(label);
+        mClipChip.setVisibility(VISIBLE);
+        mSuggestionsStrip.setVisibility(GONE);
+    }
+
+    public void hideClipChip() {
+        if (mClipChip.getVisibility() != VISIBLE) return;
+        mClipChip.setVisibility(GONE);
+        mClipChipText = null;
+        mOnClipChipUsed = null;
+        mSuggestionsStrip.setVisibility(VISIBLE);
+    }
+
+    /** New suggestions must not cover the chip while it is offered. */
+    private void keepClipChipInFront() {
+        if (mClipChip.getVisibility() == VISIBLE) mSuggestionsStrip.setVisibility(GONE);
     }
 
     private void removeAllDebugInfoViews() {
@@ -616,11 +669,14 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mTVLngFrom.setTextColor(contentColor);
         mTVLngTo.setTextColor(contentColor);
         mIVSwitchLanguage.setImageTintList(ColorStateList.valueOf(contentColor));
+        mClipChip.setTextColor(contentColor);
+        mClipChip.setCompoundDrawableTintList(ColorStateList.valueOf(contentColor));
         if (darkTheme) {
             final ColorStateList pill = ColorStateList.valueOf(0x33FFFFFF);
             mLLLanguageFrom.setBackgroundTintList(pill);
             mLLLngTo.setBackgroundTintList(pill);
             mIVSwitchLanguage.setBackgroundTintList(pill);
+            mClipChip.setBackgroundTintList(pill);
         }
     }
 

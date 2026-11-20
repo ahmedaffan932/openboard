@@ -1,5 +1,6 @@
 package org.dslul.openboard.inputmethod.keyboard.clipboard
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
@@ -211,6 +212,11 @@ class ClipboardHistoryView @JvmOverloads constructor(
         keyboardActionListener?.onTextInput(text)
         keyboardActionListener?.onReleaseKey(Constants.CODE_UNSPECIFIED,
                 false /* withSliding */)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onClipboardHistoryChanged() {
+        clipboardAdapter.notifyDataSetChanged()
     }
 
     override fun onClipboardHistoryEntryAdded(at: Int) {

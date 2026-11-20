@@ -40,6 +40,7 @@ import org.dslul.openboard.translator.pro.classes.AppAnalytics
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.MiscTranslate
+import org.dslul.openboard.translator.pro.classes.OcrParagraphs
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.interfaces.InterstitialCallBack
 import org.dslul.openboard.translator.pro.interfaces.TranslationInterface
@@ -47,8 +48,12 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class OCRActivity : AppCompatActivity() {
+    /** One entry per recognised paragraph (OCR text block), in reading order. */
     private var arrText: ArrayList<String> = java.util.ArrayList<String>()
     private var arrTranslation: ArrayList<String> = java.util.ArrayList<String>()
+
+    /** Bumped by every new translation run; callbacks of an older run are ignored. */
+    private var translationRun = 0
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
     private lateinit var binding: ActivityOcrBinding
     private var isRewardedAdShown = false
@@ -222,33 +227,68 @@ class OCRActivity : AppCompatActivity() {
         }
     }
 
-    private fun ocr(bitmap: Bitmap) {
-        val image = InputImage.fromBitmap(bitmap, 0)
-        val recognizer = if (Misc.getLanguageFrom(this) == TranslateLanguage.CHINESE) {
+    /** The recogniser for the From language (Latin also covers "Detect"). */
+    private fun recognizer() = when (Misc.getLanguageFrom(this)) {
+        TranslateLanguage.CHINESE ->
             TextRecognition.getClient(ChineseTextRecognizerOptions.Builder().build())
-        } else if (Misc.getLanguageFrom(this) == TranslateLanguage.KOREAN) {
+        TranslateLanguage.KOREAN ->
             TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build())
-        } else if (Misc.getLanguageFrom(this) == TranslateLanguage.JAPANESE) {
+        TranslateLanguage.JAPANESE ->
             TextRecognition.getClient(JapaneseTextRecognizerOptions.Builder().build())
-        } else {
-            TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+        else -> TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+    }
+
+    private fun recognize(bitmap: Bitmap, onResult: (Text) -> Unit) {
+        val image = InputImage.fromBitmap(bitmap, 0)
+        recognizer().process(image).addOnSuccessListener(onResult).addOnFailureListener {
+            TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS).process(image)
+                .addOnSuccessListener(onResult)
+                .addOnFailureListener { e ->
+                    e.printStackTrace()
+                    Toast.makeText(this, getString(R.string.sorry_no_text_found), Toast.LENGTH_SHORT)
+                        .show()
+                    binding.progressBar.visibility = View.GONE
+                }
         }
+    }
 
-        recognizer.process(image).addOnSuccessListener { visionText ->
-            drawBoundaries(bitmap, visionText)
-        }.addOnFailureListener { _ ->
-            val textRecognizer =
-                TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
-
-            textRecognizer.process(image).addOnSuccessListener { visionText ->
+    /**
+     * Recognises the text. A photo taken sideways (landscape) or upside down is turned upright
+     * first: the recogniser still reads sideways lines, but orders them by position in the
+     * sideways image, which made a landscape page come out from its last line to its first.
+     */
+    private fun ocr(bitmap: Bitmap) {
+        recognize(bitmap) { visionText ->
+            val rotation = textRotation(visionText)
+            if (rotation == 0) {
                 drawBoundaries(bitmap, visionText)
-            }.addOnFailureListener { e ->
-                e.printStackTrace()
-                Toast.makeText(this, getString(R.string.sorry_no_text_found), Toast.LENGTH_SHORT)
-                    .show()
-                binding.progressBar.visibility = View.GONE
+                return@recognize
+            }
+            Log.d(Misc.logKey, "OCR: text is rotated $rotation degrees, turning it upright")
+            val upright = rotated(bitmap, -rotation)
+            recognize(upright) { uprightText ->
+                if (textRotation(uprightText) == 0) {
+                    this.bitmap = upright
+                    drawBoundaries(upright, uprightText)
+                } else {
+                    // Still sideways: the angle was measured the other way round.
+                    val other = rotated(bitmap, rotation)
+                    this.bitmap = other
+                    recognize(other) { otherText -> drawBoundaries(other, otherText) }
+                }
             }
         }
+    }
+
+    /** The rotation of most of the recognised text: 0, 90, 180 or 270 degrees. */
+    private fun textRotation(visionText: Text): Int {
+        val lines = visionText.textBlocks.flatMap { it.lines }
+        return OcrParagraphs.dominantRotation(lines.map { it.angle }, lines.map { it.text.length })
+    }
+
+    private fun rotated(bitmap: Bitmap, degrees: Int): Bitmap {
+        val matrix = Matrix().apply { postRotate(degrees.toFloat()) }
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
     }
 
     @SuppressLint("SetTextI18n")
@@ -262,107 +302,116 @@ class OCRActivity : AppCompatActivity() {
         val canvas = Canvas(tempBitmap)
         canvas.drawBitmap(bitmap, 0f, 0f, rectPaint)
 
-        for (block in visionText.textBlocks) {
-            for (line in block.lines) {
-                if (line.text.isNotEmpty()) {
-                    val rect = RectF(line.boundingBox)
-                    rectPaint.color = Color.BLUE
+        // One box and one row per paragraph. Each line used to be its own row and its own
+        // translation request, so sentences that wrap were translated in pieces.
+        val blocks = visionText.textBlocks.filter { block -> block.lines.any { it.text.isNotBlank() } }
+        for (block in blocks) {
+            block.boundingBox?.let { canvas.drawRect(RectF(it), rectPaint) }
+        }
+        binding.imageViewOcr.setImageDrawable(BitmapDrawable(resources, tempBitmap))
 
-                    canvas.drawRect(rect, rectPaint)
-                    binding.imageViewOcr.setImageDrawable(BitmapDrawable(resources, tempBitmap))
-                    arrText.add(line.text)
-                }
-            }
+        // Chinese and Japanese do not put spaces between words.
+        val separator = when (Misc.getLanguageFrom(this)) {
+            TranslateLanguage.CHINESE, TranslateLanguage.JAPANESE -> ""
+            else -> " "
+        }
+        arrText.clear()
+        arrText.addAll(OcrParagraphs.build(blocks.map { block -> block.lines.map { it.text } }, separator))
+
+        if (arrText.isEmpty()) {
+            binding.progressBar.visibility = View.GONE
+            Toast.makeText(this, getString(R.string.sorry_no_text_found), Toast.LENGTH_SHORT).show()
+            return
         }
 
         binding.bottomSheetResult.tvViewAll.setOnClickListener {
             val intent = Intent(this, ViewTranslatedTextActivity::class.java)
-            intent.putExtra(Misc.key, visionText.text)
+            intent.putExtra(Misc.key, arrText.joinToString("\n\n"))
             startActivity(intent)
         }
 
         binding.pbText.text = resources.getString(R.string.translating)
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            Log.d(Misc.logKey, "Size: ${arrText.size}")
-            translateNow(arrText, 0)
-        }, 100)
+        translateAll()
     }
 
-    private fun translateNow(arrText: ArrayList<String>, position: Int) {
+    /**
+     * Translates every paragraph from one source language. With "Detect" the language is detected
+     * once, on the whole page: per-line detection got short lines wrong and mixed languages and
+     * engines within one page. A paragraph that fails no longer throws away all the others.
+     */
+    private fun translateAll() {
         setSelectedLng()
-//        if (!isRewardedAdShown) {
-//            isRewardedAdShown = true
-//            Ads.loadAndShowRewardedInterstitial(this, Ads.cameraTranslationRewardedAd, object :
-//                InterstitialCallBack {
-//                override fun onDismiss() {
-//                }
-//            })
-//        }
+        val run = ++translationRun
         binding.progressBar.visibility = View.VISIBLE
-        try {
-
-            if (position < arrText.size) {
-                MiscTranslate.translate(this, arrText[position], object : TranslationInterface {
-                    override fun onTranslate(translation: String) {
-                        arrTranslation.add(translation)
-                        Log.d(Misc.logKey, "Text: ${arrText[position]} OCR: $translation")
-                        translateNow(arrText, position + 1)
-                    }
-
-                    override fun onFailed() {
-                        AppAnalytics.translateFailed(
-                            AppAnalytics.FEATURE_CAMERA,
-                            Misc.getLanguageFrom(this@OCRActivity),
-                            Misc.getLanguageTo(this@OCRActivity)
-                        )
-                        binding.progressBar.visibility =
-                            View.GONE
-                        Toast.makeText(
-                            this@OCRActivity,
-                            resources.getString(R.string.sorry_some_erroe_occurred_please_try_againg),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                })
-            } else {
-                Log.d(Misc.logKey, "Here.")
-                // Every recognised block is translated: one camera translation done.
-                if (arrText.isNotEmpty()) {
-                    AppAnalytics.translateDone(
-                        AppAnalytics.FEATURE_CAMERA,
-                        Misc.getLanguageFrom(this),
-                        Misc.getLanguageTo(this)
-                    )
-                }
-                binding.progressBar.visibility = View.GONE
-
-                binding.bottomSheetResult.tvViewAll.visibility = View.VISIBLE
-
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                binding.bottomSheetResult.rvOCRResult.layoutManager = LinearLayoutManager(this)
-                binding.bottomSheetResult.rvOCRResult.adapter =
-                    OCRResultAdapter(this, arrText, arrTranslation)
+        arrTranslation.clear()
+        val to = Misc.getLanguageTo(this)
+        val from = Misc.getLanguageFrom(this)
+        if (from == Misc.defaultLanguage) {
+            MiscTranslate.detectLanguage(arrText.joinToString("\n")) { detected ->
+                if (run == translationRun) translateParagraph(run, 0, detected ?: "auto", to, 0)
             }
-        } catch (e: Exception) {
-            binding.progressBar.visibility =
-                View.GONE
+        } else {
+            translateParagraph(run, 0, from, to, 0)
+        }
+    }
+
+    private fun translateParagraph(run: Int, position: Int, from: String, to: String, failures: Int) {
+        if (run != translationRun) return
+        if (position >= arrText.size) {
+            onAllTranslated(failures)
+            return
+        }
+        MiscTranslate.translate(this, arrText[position], from, to, object : TranslationInterface {
+            override fun onTranslate(translation: String) {
+                if (run != translationRun) return
+                arrTranslation.add(translation)
+                translateParagraph(run, position + 1, from, to, failures)
+            }
+
+            override fun onFailed() {
+                if (run != translationRun) return
+                arrTranslation.add(getString(R.string.ocr_paragraph_translation_failed))
+                translateParagraph(run, position + 1, from, to, failures + 1)
+            }
+        })
+    }
+
+    private fun onAllTranslated(failures: Int) {
+        binding.progressBar.visibility = View.GONE
+        if (failures == arrText.size) {
+            AppAnalytics.translateFailed(
+                AppAnalytics.FEATURE_CAMERA,
+                Misc.getLanguageFrom(this),
+                Misc.getLanguageTo(this)
+            )
             Toast.makeText(
                 this,
                 resources.getString(R.string.sorry_some_erroe_occurred_please_try_againg),
                 Toast.LENGTH_SHORT
             ).show()
-            e.printStackTrace()
+            return
         }
+        AppAnalytics.translateDone(
+            AppAnalytics.FEATURE_CAMERA,
+            Misc.getLanguageFrom(this),
+            Misc.getLanguageTo(this)
+        )
+        if (failures > 0) {
+            Toast.makeText(this, R.string.ocr_some_paragraphs_failed, Toast.LENGTH_SHORT).show()
+        }
+        binding.bottomSheetResult.tvViewAll.visibility = View.VISIBLE
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        binding.bottomSheetResult.rvOCRResult.layoutManager = LinearLayoutManager(this)
+        binding.bottomSheetResult.rvOCRResult.adapter =
+            OCRResultAdapter(this, arrText, arrTranslation)
     }
 
     override fun onResume() {
         super.onResume()
         setSelectedLng()
         if (isLanguageSelection) {
-            arrTranslation.clear()
-            translateNow(arrText, 0)
             isLanguageSelection = false
+            if (arrText.isNotEmpty()) translateAll()
         }
     }
 

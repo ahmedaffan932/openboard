@@ -102,6 +102,17 @@ object MiscTranslate {
         }
     }
 
+    /**
+     * Detects the language of [text] (an app language code), or null when it cannot tell. The
+     * camera screen detects once on the whole page instead of per line: short lines were often
+     * detected wrongly, so one page was translated from several different languages.
+     */
+    fun detectLanguage(text: String, callback: (String?) -> Unit) {
+        languageIdentifier.identifyLanguage(text)
+            .addOnSuccessListener { callback(toAppLanguageCode(it)) }
+            .addOnFailureListener { callback(null) }
+    }
+
     // gtx puts the language it detected at index 2: [[segments...], null, "fr", ...].
     private fun parseGtxSourceLanguage(body: String): String? {
         return try {

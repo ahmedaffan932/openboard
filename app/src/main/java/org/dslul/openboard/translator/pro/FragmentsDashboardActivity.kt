@@ -337,16 +337,8 @@ class FragmentsDashboardActivity : AppCompatActivity() {
                 loadingDialog.dismiss()
             }
 
-            // Ad did not load in time: let the user continue with the action
-            // by unlocking the feature anyway instead of leaving them stuck.
             Log.d(Misc.logKey, "Unlock rewarded ad timed out. Unlocking feature.")
-            AppAnalytics.featureUnlock(feature, "ad_timeout")
-            unlockPremiumFeatureByReward(targetItemId)
-
-            if (!isFinishing && !isDestroyed) {
-                binding.bottomNavigation.menu.findItem(targetItemId).isChecked = true
-                openDashboardItem(targetItemId)
-            }
+            unlockWithoutAd(targetItemId, feature, "ad_timeout")
         }
         timeoutHandler.postDelayed(timeoutRunnable, Ads.adLoadTimeoutMs)
 
@@ -378,12 +370,8 @@ class FragmentsDashboardActivity : AppCompatActivity() {
                             }
 
                             override fun onFailed() {
-                                AppAnalytics.featureUnlockFailed(feature, "show_failed")
-                                Toast.makeText(
-                                    this@FragmentsDashboardActivity,
-                                    R.string.rewarded_ad_not_available,
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                Log.d(Misc.logKey, "Unlock rewarded ad failed to show. Unlocking feature.")
+                                runOnUiThread { unlockWithoutAd(targetItemId, feature, "show_failed") }
                             }
                         }
                     )
@@ -398,15 +386,26 @@ class FragmentsDashboardActivity : AppCompatActivity() {
                         loadingDialog.dismiss()
                     }
 
-                    AppAnalytics.featureUnlockFailed(feature, "ad_failed")
-                    Toast.makeText(
-                        this@FragmentsDashboardActivity,
-                        R.string.rewarded_ad_not_available,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    // No ad to show (e.g. "no fill", common on a new ad account): let the
+                    // user in, as on a timeout, instead of leaving the feature locked.
+                    Log.d(Misc.logKey, "Unlock rewarded ad failed to load. Unlocking feature.")
+                    unlockWithoutAd(targetItemId, feature, "ad_failed")
                 }
             }
         )
+    }
+
+    /**
+     * Opens a locked feature although no reward was earned: the user tapped "Watch Ad" but no ad
+     * could be loaded or shown, so they are not left stuck behind the lock.
+     */
+    private fun unlockWithoutAd(targetItemId: Int, feature: String, reason: String) {
+        AppAnalytics.featureUnlock(feature, reason)
+        unlockPremiumFeatureByReward(targetItemId)
+        if (!isFinishing && !isDestroyed) {
+            binding.bottomNavigation.menu.findItem(targetItemId).isChecked = true
+            openDashboardItem(targetItemId)
+        }
     }
 
     private fun unlockPremiumFeatureByReward(itemId: Int) {

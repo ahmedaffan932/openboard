@@ -802,6 +802,11 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <!-- Fun Words: the player spelled another real word from the same letters. %1$s is their word, %2$s the puzzle word. -->
     <string name="word_game_other_word_accepted">\u201c%1$s\u201d is a real word too! The puzzle word was \u201c%2$s\u201d.</string>
 
+    <!-- Camera translation: shown in place of a paragraph's translation when that paragraph failed. -->
+    <string name="ocr_paragraph_translation_failed">(Could not translate this part. Check your internet and try again.)</string>
+    <!-- Camera translation: some paragraphs were translated, some failed. -->
+    <string name="ocr_some_paragraphs_failed">Some parts could not be translated</string>
+
     <!-- Share button pressed while there is no text to share yet. -->
     <string name="nothing_to_share">Nothing to share yet</string>
     <!-- Title of the system share sheet. -->

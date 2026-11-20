@@ -123,6 +123,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SPACE_TO_CHANGE_LANG = "prefs_long_press_keyboard_to_change_lang";
 
     public static final String PREF_ENABLE_CLIPBOARD_HISTORY = "pref_enable_clipboard_history";
+    // Set once the typing history learned while the dictionaries were broken (before 2.6) is gone.
+    public static final String PREF_USER_HISTORY_RESET_V26 = "pref_user_history_reset_v26";
     public static final String PREF_CLIPBOARD_HISTORY_RETENTION_TIME = "pref_clipboard_history_retention_time";
 
     // This preference key is deprecated. Use {@link #PREF_SHOW_LANGUAGE_SWITCH_KEY} instead.
@@ -203,7 +205,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 || PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID.equals(key)
                 || PREF_LAST_USED_PERSONALIZATION_TOKEN.equals(key)
                 || PREF_LAST_PERSONALIZATION_DICT_WIPED_TIME.equals(key)
-                || PREF_CORPUS_HANDLES_FOR_PERSONALIZATION.equals(key);
+                || PREF_CORPUS_HANDLES_FOR_PERSONALIZATION.equals(key)
+                || PREF_USER_HISTORY_RESET_V26.equals(key);
     }
 
     @Override
