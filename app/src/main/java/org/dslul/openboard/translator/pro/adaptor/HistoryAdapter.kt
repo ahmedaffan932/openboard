@@ -147,12 +147,13 @@ class HistoryAdapter(
             objCustomDialog.setCancelable(true)
 
             objCustomDialog.findViewById<TextView>(R.id.btnYes).setOnClickListener {
-                val tempHistory = Misc.getHistory(activity)
-                tempHistory.removeAt(position)
-                saveHistory(tempHistory, activity)
-                arr.removeAt(position)
-                notifyDataSetChanged()
                 objCustomDialog.dismiss()
+                val pos = holder.bindingAdapterPosition
+                if (pos == RecyclerView.NO_POSITION || pos >= arr.size) return@setOnClickListener
+                removeFromSavedHistory(arr[pos])
+                arr.removeAt(pos)
+                notifyDataSetChanged()
+                if (arr.isEmpty()) callback.onHistoryEmptied()
             }
 
             objCustomDialog.findViewById<TextView>(R.id.btnNo).setOnClickListener {
@@ -218,6 +219,22 @@ class HistoryAdapter(
                 ).show()
             }
         }
+    }
+
+    /**
+     * Deletes [obj] from the saved history by content, not by list position: the dashboard's Recent
+     * list is the newest few entries in reverse, so its positions don't match the saved order.
+     * Identical entries are interchangeable, so the newest match is the one removed.
+     */
+    private fun removeFromSavedHistory(obj: TranslateHistoryClass) {
+        val savedHistory = Misc.getHistory(activity)
+        val index = savedHistory.indexOfLast { saved ->
+            saved.text == obj.text && saved.translation == obj.translation &&
+                saved.translatedFrom == obj.translatedFrom && saved.translatedTo == obj.translatedTo
+        }
+        if (index < 0) return
+        savedHistory.removeAt(index)
+        saveHistory(savedHistory, activity)
     }
 
     private fun saveHistory(historyList: ArrayList<TranslateHistoryClass>, activity: Activity?) {

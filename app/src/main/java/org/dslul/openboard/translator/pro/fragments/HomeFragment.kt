@@ -416,6 +416,10 @@ class HomeFragment : Fragment() {
                         override fun onHistoryCrash() {
                             binding.clHistory.visibility = View.GONE
                         }
+
+                        override fun onHistoryEmptied() {
+                            binding.clHistory.visibility = View.GONE
+                        }
                     },
                     itemLayout = R.layout.history_item_home,
                     favoriteIcon = R.drawable.ic_home_heart_filled,

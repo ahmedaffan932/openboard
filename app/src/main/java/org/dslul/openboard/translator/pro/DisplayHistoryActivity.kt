@@ -41,14 +41,18 @@ class DisplayHistoryActivity : AppCompatActivity() {
         }
 
         adapter = HistoryAdapter(Misc.getHistory(this), this, object : InterfaceHistory {
-            override fun onHistoryCrash() {
-                binding.tvNoHistory.visibility = View.VISIBLE
-                binding.animLoading.visibility = View.VISIBLE
-                binding.recyclerViewHistory.visibility = View.GONE
-            }
+            override fun onHistoryCrash() = showNoHistory()
+
+            override fun onHistoryEmptied() = showNoHistory()
         })
         binding.recyclerViewHistory.layoutManager = LinearLayoutManager(this)
         binding.recyclerViewHistory.adapter = adapter
+    }
+
+    private fun showNoHistory() {
+        binding.tvNoHistory.visibility = View.VISIBLE
+        binding.animLoading.visibility = View.VISIBLE
+        binding.recyclerViewHistory.visibility = View.GONE
     }
 
     @Deprecated("Deprecated in Java")
