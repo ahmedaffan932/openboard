@@ -325,4 +325,14 @@
     <string name="next">Próximo</string>
     <string name="sorry_error_in_fetching_words">¡Lo sentimos! Se produjo un error al obtener las palabras.</string>
     <string name="please_solve_current_puzzle_to_proceed">Resuelve el rompecabezas actual para continuar.</string>
+
+    <!-- Dashboard (Home) redesign. -->
+    <string name="conversation">Conversación</string>
+    <string name="home_translate_keyboard">Teclado traductor</string>
+    <string name="home_translate_keyboard_desc">Escribe en cualquier app</string>
+    <string name="home_fun_words_desc">Palabra del día y quiz</string>
+    <string name="paste">Pegar</string>
+    <string name="paste_nothing">No hay nada para pegar</string>
+    <string name="swap_languages">Intercambiar idiomas</string>
+    <string name="speak">Hablar</string>
 </resources>

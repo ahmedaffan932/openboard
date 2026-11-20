@@ -22,7 +22,19 @@ import org.dslul.openboard.translator.pro.interfaces.OnBackPressedHistoryInterfa
 import java.util.*
 import kotlin.collections.ArrayList
 
-class HistoryAdapter(private var arr: ArrayList<TranslateHistoryClass>, val activity: Activity, val callback: InterfaceHistory) :
+/**
+ * The history list (History screen) and the dashboard's Recent cards. [itemLayout] must use the
+ * history_item.xml view ids; it may show the language pair as one chip (tvLngPairHistory, "EN → ES")
+ * instead of two names (tvLngFromHistory / tvLngToHistory).
+ */
+class HistoryAdapter(
+    private var arr: ArrayList<TranslateHistoryClass>,
+    val activity: Activity,
+    val callback: InterfaceHistory,
+    private val itemLayout: Int = R.layout.history_item,
+    private val favoriteIcon: Int = R.drawable.ic_baseline_favorite_24,
+    private val notFavoriteIcon: Int = R.drawable.ic_baseline_favorite_border_24
+) :
     RecyclerView.Adapter<HistoryAdapter.HistoryHolder>(), OnBackPressedHistoryInterface {
 
     override fun myCallBack() {
@@ -37,7 +49,7 @@ class HistoryAdapter(private var arr: ArrayList<TranslateHistoryClass>, val acti
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.history_item, parent, false)
+        val view = inflater.inflate(itemLayout, parent, false)
         return HistoryHolder(view)
     }
 
@@ -49,25 +61,25 @@ class HistoryAdapter(private var arr: ArrayList<TranslateHistoryClass>, val acti
 
             val arrayList = Misc.getFavorites(activity)
             val obj = arr[position]
-            for (savedObj in arrayList) {
-                if (obj.text == savedObj.text && obj.translatedFrom == savedObj.translatedFrom &&
+            val isFavorite = arrayList.any { savedObj ->
+                obj.text == savedObj.text && obj.translatedFrom == savedObj.translatedFrom &&
                     obj.translatedTo == savedObj.translatedTo && obj.translation == savedObj.translation
-                ) {
-                    holder.btnFavoriteHistory.setImageResource(R.drawable.ic_baseline_favorite_24)
-                }
             }
+            holder.btnFavoriteHistory.setImageResource(if (isFavorite) favoriteIcon else notFavoriteIcon)
 
             if (arr[position].translatedFrom == Misc.defaultLanguage) {
-                holder.tvLngFrom.text =
+                holder.tvLngFrom?.text =
                     activity.getString(R.string.detect)
             } else {
-                holder.tvLngFrom.text = Locale(
+                holder.tvLngFrom?.text = Locale(
                     arr[position].translatedFrom
                 ).displayName
             }
-            holder.tvLngTo.text = Locale(
+            holder.tvLngTo?.text = Locale(
                 arr[position].translatedTo
             ).displayName
+
+            holder.tvLngPair?.text = languagePair(obj)
         }catch (e: Exception){
             e.printStackTrace()
             val sharedPreferences = activity.getSharedPreferences(
@@ -154,9 +166,9 @@ class HistoryAdapter(private var arr: ArrayList<TranslateHistoryClass>, val acti
 
         holder.btnFavoriteHistory.setOnClickListener {
             if (saveInFavorites(arr[position])) {
-                holder.btnFavoriteHistory.setImageResource(R.drawable.ic_baseline_favorite_24)
+                holder.btnFavoriteHistory.setImageResource(favoriteIcon)
             } else {
-                holder.btnFavoriteHistory.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                holder.btnFavoriteHistory.setImageResource(notFavoriteIcon)
             }
         }
 
@@ -169,13 +181,24 @@ class HistoryAdapter(private var arr: ArrayList<TranslateHistoryClass>, val acti
     open class HistoryHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val llMain: LinearLayout = itemView.findViewById(R.id.llMain)
         val tvText: TextView = itemView.findViewById(R.id.tvTextHistory)
-        val tvLngTo: TextView = itemView.findViewById(R.id.tvLngToHistory)
+        val tvLngTo: TextView? = itemView.findViewById(R.id.tvLngToHistory)
         val btnCopy: ImageButton = itemView.findViewById(R.id.btnCopyHistory)
-        val tvLngFrom: TextView = itemView.findViewById(R.id.tvLngFromHistory)
+        val tvLngFrom: TextView? = itemView.findViewById(R.id.tvLngFromHistory)
+        val tvLngPair: TextView? = itemView.findViewById(R.id.tvLngPairHistory)
         val btnSpeak: ImageButton = itemView.findViewById(R.id.btnSpeakHistory)
         val btnShare: ImageButton = itemView.findViewById(R.id.btnShareHistory)
         val tvTranslation: TextView = itemView.findViewById(R.id.tvTranslationHistory)
         val btnFavoriteHistory: ImageButton = itemView.findViewById(R.id.btnFavoriteHistory)
+    }
+
+    /** "EN  →  ES"; a detected source language shows as the localised "Detect". */
+    private fun languagePair(obj: TranslateHistoryClass): String {
+        val from = if (obj.translatedFrom == Misc.defaultLanguage) {
+            activity.getString(R.string.detect)
+        } else {
+            obj.translatedFrom
+        }
+        return "${from.uppercase(Locale.ROOT)}  →  ${obj.translatedTo.uppercase(Locale.ROOT)}"
     }
 
     private fun speak(text: String, lng: String) {

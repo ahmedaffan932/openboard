@@ -285,4 +285,14 @@
     <string name="next">अगला</string>
     <string name="sorry_error_in_fetching_words">क्षमा करें! शब्द लाने में कोई त्रुटि हुई।</string>
     <string name="please_solve_current_puzzle_to_proceed">आगे बढ़ने के लिए वर्तमान पहेली हल करें।</string>
+
+    <!-- Dashboard (Home) redesign. -->
+    <string name="conversation">बातचीत</string>
+    <string name="home_translate_keyboard">अनुवाद कीबोर्ड</string>
+    <string name="home_translate_keyboard_desc">किसी भी ऐप में टाइप करें</string>
+    <string name="home_fun_words_desc">आज का शब्द और क्विज़</string>
+    <string name="paste">पेस्ट करें</string>
+    <string name="paste_nothing">पेस्ट करने के लिए कुछ नहीं है</string>
+    <string name="swap_languages">भाषाएँ बदलें</string>
+    <string name="speak">बोलें</string>
 </resources>

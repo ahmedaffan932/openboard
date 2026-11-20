@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dashboard (Home tab + bottom navigation) redesign, Figma "Home — Redesign · Light".
+     The dark values live in values-night/colors_home.xml ("Home — Redesign · Dark"). -->
+<resources>
+    <color name="home_bg">#F3F6FC</color>
+    <color name="home_surface">#FFFFFF</color>
+    <color name="home_surface_muted">#F6F8FE</color>
+    <color name="home_border">#E8EDF7</color>
+
+    <color name="home_text_primary">#101C2F</color>
+    <color name="home_text_secondary">#55657F</color>
+    <color name="home_text_muted">#94A2B8</color>
+    <color name="home_hint">#AAB6C8</color>
+    <color name="home_translation_text">#1D50D6</color>
+
+    <color name="home_accent">#2F6BFF</color>
+    <color name="home_accent_soft">#E9F0FF</color>
+    <color name="home_purple">#7A5CFF</color>
+    <color name="home_purple_soft">#EFEAFF</color>
+    <color name="home_heart">#FF4F78</color>
+    <color name="home_star">#F6A723</color>
+
+    <color name="home_pro_start">#FFA23A</color>
+    <color name="home_pro_end">#FF5E62</color>
+    <color name="home_blue_start">#4F86FF</color>
+    <color name="home_logo_end">#2452E6</color>
+    <color name="home_mic_end">#1F54E0</color>
+    <color name="home_ad_badge">#FFBB00</color>
+    <color name="home_ad_badge_text">#111111</color>
+
+    <!-- Shadow tints (API 28+ honours coloured elevation shadows). -->
+    <color name="home_shadow">#2E101C30</color>
+    <color name="home_shadow_blue">#662F6BFF</color>
+    <color name="home_shadow_pro">#61FF5E4A</color>
+    <color name="home_ripple">#1A2F6BFF</color>
+    <color name="home_dock_shadow">#14101C30</color>
+</resources>

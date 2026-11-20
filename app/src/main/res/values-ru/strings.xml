@@ -325,4 +325,14 @@
     <string name="next">Следующий</string>
     <string name="sorry_error_in_fetching_words">Извините! Произошла ошибка при загрузке слов.</string>
     <string name="please_solve_current_puzzle_to_proceed">Решите текущую головоломку, чтобы продолжить.</string>
+
+    <!-- Dashboard (Home) redesign. -->
+    <string name="conversation">Разговор</string>
+    <string name="home_translate_keyboard">Клавиатура-переводчик</string>
+    <string name="home_translate_keyboard_desc">Пишите в любом приложении</string>
+    <string name="home_fun_words_desc">Слово дня и викторина</string>
+    <string name="paste">Вставить</string>
+    <string name="paste_nothing">Нечего вставить</string>
+    <string name="swap_languages">Поменять языки</string>
+    <string name="speak">Говорить</string>
 </resources>

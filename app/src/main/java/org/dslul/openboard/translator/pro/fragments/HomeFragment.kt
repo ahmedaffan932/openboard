@@ -1,6 +1,8 @@
 package org.dslul.openboard.translator.pro.fragments
 
 import android.app.Activity
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -13,7 +15,9 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
+import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +29,7 @@ import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.FragmentHomeBinding
 import org.dslul.openboard.translator.pro.DisplayHistoryActivity
 import org.dslul.openboard.translator.pro.EnableKeyboardActivity
+import org.dslul.openboard.translator.pro.FragmentsDashboardActivity
 import org.dslul.openboard.translator.pro.LanguageSelectorActivity
 import org.dslul.openboard.translator.pro.PremiumScreenActivity
 import org.dslul.openboard.translator.pro.SettingsActivity
@@ -39,13 +44,31 @@ import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.interfaces.InterfaceHistory
 import java.util.Locale
+import org.dslul.openboard.inputmethod.latin.settings.SettingsActivity as KeyboardSettingsActivity
 
+/**
+ * The dashboard's Home tab (Figma "Home — Redesign"): translate card, feature tiles, Recent list.
+ * Its native ad goes in the dashboard's bottom dock ([FragmentsDashboardActivity.binding]
+ * dockNativeAdSlot), which this fragment fills while it is showing and empties when it goes.
+ */
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private var isBtnTranslateVisible = false
     private val speechRequestCode = 0
     lateinit var adapter: HistoryAdapter
     var isShowingNative = false
+
+    private val hintHandler = Handler(Looper.getMainLooper())
+    private val keyboardToggleListener = KeyboardUtils.SoftKeyboardToggleListener { isVisible ->
+        // The dock's ad would sit on top of the soft keyboard's edge; hide it while typing.
+        if (isShowingNative && view != null) {
+            dockAdSlot?.visibility = if (isVisible) View.GONE else View.VISIBLE
+        }
+    }
+
+    /** The bottom dock's ad slot, owned by the dashboard activity. */
+    private val dockAdSlot: FrameLayout?
+        get() = (activity as? FragmentsDashboardActivity)?.binding?.dockNativeAdSlot
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,53 +92,44 @@ class HomeFragment : Fragment() {
         }
 
         if (isShowingNative) {
-            KeyboardUtils.addKeyboardToggleListener(requireActivity()) { isVisible ->
-                if (isShowingNative) {
-                    if (isVisible) {
-                        binding.mrecFrameLayout.visibility = View.GONE
-                    } else {
-                        binding.mrecFrameLayout.visibility = View.VISIBLE
-                    }
-                }
-            }
+            KeyboardUtils.addKeyboardToggleListener(requireActivity(), keyboardToggleListener)
         }
 
-        updateKeyboardBanner()
-
-        binding.clEnableKeyboardBanner.setOnClickListener {
-            Ads.runWithEverySixthClickInterstitial(requireActivity()) {
-                if (!isAdded) return@runWithEverySixthClickInterstitial
-                startActivity(Intent(requireContext(), EnableKeyboardActivity::class.java))
-            }
+        binding.tvCharCount.text = charCountText(0)
+        binding.etText.doOnTextChanged { text, _, _, _ ->
+            binding.tvCharCount.text = charCountText(text?.length ?: 0)
+            showTranslateButton(!text.isNullOrEmpty())
         }
-
-        binding.etText.doOnTextChanged { text, start, before, count ->
-            isBtnTranslateVisible = if (binding.etText.text.toString() == "") {
-                Misc.zoomOutView(binding.btnTranslate, requireActivity(), 150)
-                Misc.zoomInView(binding.btnSpeakInput, requireActivity(), 150)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.btnTranslate.visibility = View.INVISIBLE
-                    binding.btnSpeakInput.visibility = View.VISIBLE
-                }, 150)
-                false
-            } else {
-                if (!isBtnTranslateVisible) {
-                    Misc.zoomInView(binding.btnTranslate, requireActivity(), 150)
-                    Misc.zoomOutView(binding.btnSpeakInput, requireActivity(), 150)
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        binding.btnSpeakInput.visibility = View.INVISIBLE
-                    }, 150)
-                }
-                true
-            }
-        }
-
 
         setUpClickListeners()
 
         setSelectedLng()
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        hintHandler.removeCallbacksAndMessages(null)
+        KeyboardUtils.removeKeyboardToggleListener(keyboardToggleListener)
+        isShowingNative = false
+        dockAdSlot?.apply {
+            removeAllViews()
+            visibility = View.GONE
+        }
+    }
+
+    private fun charCountText(length: Int): String =
+        getString(R.string.home_char_count, length, MAX_TEXT_LENGTH)
+
+    /** The mic button while the field is empty, the Translate button once there is text. */
+    private fun showTranslateButton(show: Boolean) {
+        if (show == isBtnTranslateVisible) return
+        isBtnTranslateVisible = show
+        val shown = if (show) binding.btnTranslate else binding.btnSpeakInput
+        val hidden = if (show) binding.btnSpeakInput else binding.btnTranslate
+        hidden.visibility = View.GONE
+        Misc.zoomInView(shown, requireActivity(), 150)
     }
 
     private fun setUpClickListeners() {
@@ -126,6 +140,8 @@ class HomeFragment : Fragment() {
                 startActivity(Intent(requireActivity(), SettingsActivity::class.java))
             }
         }
+
+        binding.btnTheme.setOnClickListener { toggleTheme() }
 
         binding.btnTranslate.setOnClickListener {
             Ads.runWithEverySixthClickInterstitial(requireActivity()) {
@@ -139,10 +155,25 @@ class HomeFragment : Fragment() {
             displaySpeechRecognizer()
         }
 
+        binding.btnPaste.setOnClickListener { pasteFromClipboard() }
+
         binding.tvViewAll.setOnClickListener {
             Ads.runWithEverySixthClickInterstitial(requireActivity()) {
                 if (!isAdded) return@runWithEverySixthClickInterstitial
                 startActivity(Intent(requireContext(), DisplayHistoryActivity::class.java))
+            }
+        }
+
+        // Turns the keyboard on; once it is the selected keyboard, opens its settings instead.
+        binding.clEnableKeyboardBanner.setOnClickListener {
+            Ads.runWithEverySixthClickInterstitial(requireActivity()) {
+                if (!isAdded) return@runWithEverySixthClickInterstitial
+                val target = if (requireContext().isInputMethodSelected()) {
+                    KeyboardSettingsActivity::class.java
+                } else {
+                    EnableKeyboardActivity::class.java
+                }
+                startActivity(Intent(requireContext(), target))
             }
         }
 
@@ -153,6 +184,36 @@ class HomeFragment : Fragment() {
                 startActivity(Intent(requireContext(), WordGameActivity::class.java))
             }
         }
+    }
+
+    /** Same switch as Settings > Dark Theme; the dashboard is recreated in the new theme. */
+    private fun toggleTheme() {
+        val activity = requireActivity()
+        val night = !Misc.isNightModeOn(activity)
+        Firebase.analytics.logEvent(if (night) "ThemeDark" else "ThemeLight", null)
+        Misc.setNightMode(activity, night)
+        AppCompatDelegate.setDefaultNightMode(
+            if (night) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+        )
+    }
+
+    private fun pasteFromClipboard() {
+        val clipboard =
+            requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val text = clipboard.primaryClip
+            ?.takeIf { it.itemCount > 0 }
+            ?.getItemAt(0)
+            ?.coerceToText(requireContext())
+            ?.toString()
+            ?.trim()
+        if (text.isNullOrEmpty()) {
+            Toast.makeText(requireContext(), R.string.paste_nothing, Toast.LENGTH_SHORT).show()
+            return
+        }
+        Firebase.analytics.logEvent("BtnPaste", null)
+        val pasted = text.take(MAX_TEXT_LENGTH)
+        binding.etText.setText(pasted)
+        binding.etText.setSelection(pasted.length)
     }
 
     private fun setSelectedLng() {
@@ -212,7 +273,8 @@ class HomeFragment : Fragment() {
                 Misc.zoomOutView(binding.llLanguageTo, requireActivity(), 150)
                 Misc.zoomOutView(binding.llLanguageFrom, requireActivity(), 150)
 
-                Handler().postDelayed({
+                Handler(Looper.getMainLooper()).postDelayed({
+                    if (!isAdded) return@postDelayed
                     val temp = Misc.getLanguageFrom(requireActivity())
                     Misc.setLanguageFrom(requireActivity(), Misc.getLanguageTo(requireActivity()))
                     Misc.setLanguageTo(requireActivity(), temp)
@@ -281,7 +343,6 @@ class HomeFragment : Fragment() {
 
 
     private fun showAds() {
-        val handler = Handler()
         var count = 0
         val hint = getString(R.string.enter_some_text_to_translate)
         val runnable: Runnable by lazy {
@@ -290,12 +351,12 @@ class HomeFragment : Fragment() {
                     if (count < hint.length) {
                         binding.etText.hint = hint.substring(0, count)
                         count++
-                        handler.postDelayed(this, 75);
+                        hintHandler.postDelayed(this, 75)
                     }
                 }
             }
         }
-        handler.post(runnable)
+        hintHandler.post(runnable)
 
         if (Misc.isProScreenEnabled) {
             binding.btnPro.visibility = View.VISIBLE
@@ -303,24 +364,32 @@ class HomeFragment : Fragment() {
             binding.btnPro.visibility = View.GONE
         }
 
-
+        val adSlot = dockAdSlot ?: return
         isShowingNative = true
 
         Ads.loadAndShowNativeAd(
             activity = requireActivity(),
             adIds = AdIds.nativeAdIdDashboard,
             remoteKey = Ads.dashboardNative,
-            frameLayout = binding.mrecFrameLayout,
+            frameLayout = adSlot,
             shimmerLayout = R.layout.small_native_shimmer,
+            adLayout = R.layout.admob_native_dashboard,
+            adShimmerLayout = R.layout.shimmer_native_dashboard,
             callBack = object : LoadAdCallBack {
                 override fun onLoaded() {
+                    // Loaded after the user left the Home tab: the slot belongs to another tab now.
+                    if (view == null) {
+                        adSlot.removeAllViews()
+                        adSlot.visibility = View.GONE
+                        return
+                    }
                     Log.d(Misc.logKey, "Dashboard native ad loaded.")
                 }
 
                 override fun onFailed() {
                     isShowingNative = false
-                    binding.mrecFrameLayout.removeAllViews()
-                    binding.mrecFrameLayout.visibility = View.GONE
+                    adSlot.removeAllViews()
+                    adSlot.visibility = View.GONE
                     Log.d(Misc.logKey, "Dashboard native ad failed.")
                 }
             }
@@ -330,22 +399,28 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         setSelectedLng()
-        updateKeyboardBanner()
         try {
             val history = Misc.getHistory(requireActivity())
             if (history.isEmpty()) {
                 binding.clHistory.visibility = View.GONE
             } else {
                 val arr = ArrayList<TranslateHistoryClass>()
-                val count = minOf(3, history.size)
+                val count = minOf(RECENT_COUNT, history.size)
                 for (i in 0 until count) {
                     arr.add(history[history.lastIndex - i])
                 }
-                adapter = HistoryAdapter(arr, requireActivity(), object : InterfaceHistory {
-                    override fun onHistoryCrash() {
-                        binding.clHistory.visibility = View.GONE
-                    }
-                })
+                adapter = HistoryAdapter(
+                    arr,
+                    requireActivity(),
+                    object : InterfaceHistory {
+                        override fun onHistoryCrash() {
+                            binding.clHistory.visibility = View.GONE
+                        }
+                    },
+                    itemLayout = R.layout.history_item_home,
+                    favoriteIcon = R.drawable.ic_home_heart_filled,
+                    notFavoriteIcon = R.drawable.ic_home_heart_outline
+                )
                 binding.rvHistory.layoutManager = LinearLayoutManager(requireActivity())
                 binding.rvHistory.adapter = adapter
                 binding.clHistory.visibility = View.VISIBLE
@@ -355,9 +430,11 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun updateKeyboardBanner() {
-        binding.clEnableKeyboardBanner.visibility =
-            if (requireContext().isInputMethodSelected()) View.GONE else View.VISIBLE
-    }
+    companion object {
+        /** The text field's limit, shown as "n / 5000" under it. */
+        const val MAX_TEXT_LENGTH = 5000
 
+        /** How many of the latest translations the Recent list shows. */
+        private const val RECENT_COUNT = 5
+    }
 }

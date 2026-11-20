@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma: TranslatorPro, "Home — Redesign" icon (crown). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="12dp"
+    android:height="12dp"
+    android:viewportWidth="12"
+    android:viewportHeight="12">
+    <path
+        android:pathData="M1.5 3.5L3.75 5L6 2L8.25 5L10.5 3.5L9.7 9H2.3L1.5 3.5Z"
+        android:fillColor="@android:color/white" />
+</vector>

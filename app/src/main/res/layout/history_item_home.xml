@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A Recent card on the dashboard Home tab. Figma: TranslatorPro, "Home — Redesign" (2036:905).
+     Same view ids as history_item.xml so HistoryAdapter binds both. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llMain"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/bg_home_history_card"
+    android:clickable="true"
+    android:elevation="2dp"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:outlineSpotShadowColor="@color/home_shadow"
+    android:paddingStart="13dp"
+    android:paddingTop="11dp"
+    android:paddingEnd="13dp"
+    android:paddingBottom="5dp"
+    tools:targetApi="p">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="3dp">
+
+        <TextView
+            android:id="@+id/tvLngPairHistory"
+            style="@style/HomeText.Chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_home_chip"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="3dp"
+            android:singleLine="true"
+            tools:text="EN  →  ES" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <!-- 16dp heart in a 28dp touch target, pulled back to the card's padding edge. -->
+        <ImageButton
+            android:id="@+id/btnFavoriteHistory"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="-6dp"
+            android:layout_marginEnd="-6dp"
+            android:layout_marginBottom="-6dp"
+            android:background="@drawable/bg_home_icon_ripple"
+            android:contentDescription="@string/favorites"
+            android:padding="6dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_home_heart_outline" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvTextHistory"
+        style="@style/HomeText.HistorySource"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        tools:text="How are you today?" />
+
+    <TextView
+        android:id="@+id/tvTranslationHistory"
+        style="@style/HomeText.HistoryTranslation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        tools:text="¿Cómo estás hoy?" />
+
+    <!-- Copy / speak / share: 17-18dp icons, 14dp apart, in 29-30dp touch targets. -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-6dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btnCopyHistory"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:background="@drawable/bg_home_icon_ripple"
+            android:contentDescription="@string/copied"
+            android:padding="6dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_home_copy" />
+
+        <ImageButton
+            android:id="@+id/btnSpeakHistory"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="2dp"
+            android:background="@drawable/bg_home_icon_ripple"
+            android:contentDescription="@string/speak"
+            android:padding="6dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_home_speaker" />
+
+        <ImageButton
+            android:id="@+id/btnShareHistory"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="2dp"
+            android:background="@drawable/bg_home_icon_ripple"
+            android:contentDescription="@string/share_via"
+            android:padding="6dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_home_share" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma: TranslatorPro, "Home — Redesign" icon (bulb). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp"
+    android:height="20dp"
+    android:viewportWidth="20"
+    android:viewportHeight="20">
+    <path
+        android:pathData="M7.5 15H12.5"
+        android:strokeColor="@color/home_purple"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M8.33333 17.5H11.6667"
+        android:strokeColor="@color/home_purple"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M10 1.66667C8.76812 1.67773 7.57136 2.07851 6.58127 2.81157C5.59117 3.54463 4.85858 4.57233 4.48849 5.74736C4.1184 6.92239 4.12982 8.18442 4.52111 9.35256C4.9124 10.5207 5.66347 11.535 6.66667 12.25C7.16667 12.6667 7.5 13.3333 7.5 14V14.1667H12.5V14C12.5 13.3333 12.8333 12.6667 13.3333 12.25C14.3365 11.535 15.0876 10.5207 15.4789 9.35256C15.8702 8.18442 15.8816 6.92239 15.5115 5.74736C15.1414 4.57233 14.4088 3.54463 13.4187 2.81157C12.4286 2.07851 11.2319 1.67773 10 1.66667Z"
+        android:strokeColor="@color/home_purple"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

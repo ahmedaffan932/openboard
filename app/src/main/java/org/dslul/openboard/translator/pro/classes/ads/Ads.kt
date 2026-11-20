@@ -254,13 +254,19 @@ object Ads {
         )
     }
 
+    /**
+     * [adLayout] and [adShimmerLayout], when given, replace the ad / shimmer layouts that the
+     * remote [remoteKey] picks (the dashboard dock uses its own design).
+     */
     fun loadAndShowNativeAd(
         activity: Activity,
         adIds: Array<String> = AdIds.nativeAdIdAdMobExit,
         remoteKey: String,
         frameLayout: FrameLayout,
         shimmerLayout: Int? = null,
-        callBack: LoadAdCallBack? = null
+        callBack: LoadAdCallBack? = null,
+        adLayout: Int? = null,
+        adShimmerLayout: Int? = null
     ) {
         logAdEvent(activity, "ad_native_request", remoteKey, "native")
 
@@ -293,6 +299,7 @@ object Ads {
             adIds = adIds,
             remoteKey = remoteKey,
             frameLayout = frameLayout,
+            shimmerLayout = adShimmerLayout,
             callBack = object : LoadAdCallBack {
 
                 override fun onLoaded() {
@@ -302,7 +309,8 @@ object Ads {
                         context = activity,
                         remoteKey = remoteKey,
                         amLayout = frameLayout,
-                        adIds = adIds
+                        adIds = adIds,
+                        adLayout = adLayout
                     )
 
                     callBack?.onLoaded()

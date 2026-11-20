@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dashboard redesign, Figma "Home — Redesign · Dark". Light values: values/colors_home.xml. -->
+<resources>
+    <color name="home_bg">#0B1220</color>
+    <color name="home_surface">#131D30</color>
+    <color name="home_surface_muted">#0F1828</color>
+    <color name="home_border">#243147</color>
+
+    <color name="home_text_primary">#EAF1FB</color>
+    <color name="home_text_secondary">#9FB0C9</color>
+    <color name="home_text_muted">#64748D</color>
+    <color name="home_hint">#5D6C84</color>
+    <color name="home_translation_text">#89ABFF</color>
+
+    <color name="home_accent">#5C8BFF</color>
+    <color name="home_accent_soft">#17233D</color>
+    <color name="home_purple">#A38BFF</color>
+    <color name="home_purple_soft">#211D3A</color>
+    <color name="home_star">#FFC15A</color>
+
+    <color name="home_pro_start">#FFB15A</color>
+    <color name="home_pro_end">#FF6F73</color>
+
+    <color name="home_shadow">#66101C30</color>
+    <color name="home_ripple">#265C8BFF</color>
+    <color name="home_dock_shadow">#26000000</color>
+</resources>

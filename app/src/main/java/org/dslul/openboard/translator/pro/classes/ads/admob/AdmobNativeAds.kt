@@ -2,6 +2,9 @@ package org.dslul.openboard.translator.pro.classes.ads.admob
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,11 +20,13 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdOptions
 import com.google.android.gms.ads.nativead.NativeAdView
+import androidx.core.content.ContextCompat
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.notifications.AdClickTracker
+import java.util.Locale
 
 object AdmobNativeAds {
 
@@ -42,6 +47,7 @@ object AdmobNativeAds {
         remoteKey: String? = null,
         frameLayout: FrameLayout? = null,
         callBack: LoadAdCallBack? = null,
+        shimmerLayout: Int? = null,
     ) {
         val adIdsKey = adIds.nativeAdIdsKey()
 
@@ -74,7 +80,8 @@ object AdmobNativeAds {
         showNativeShimmer(
             context = context,
             remoteKey = remoteKey,
-            frameLayout = frameLayout
+            frameLayout = frameLayout,
+            shimmerLayout = shimmerLayout
         )
 
         loadingNativeAdIdsKeys.add(adIdsKey)
@@ -191,10 +198,12 @@ object AdmobNativeAds {
         adLoader.loadAd(AdRequest.Builder().build())
     }
 
+    /** [shimmerLayout], when given, replaces the small / large shimmer that [remoteKey] picks. */
     private fun showNativeShimmer(
         context: Context,
         remoteKey: String?,
-        frameLayout: FrameLayout?
+        frameLayout: FrameLayout?,
+        shimmerLayout: Int? = null
     ) {
         if (remoteKey == null || frameLayout == null) return
 
@@ -202,7 +211,9 @@ object AdmobNativeAds {
 
         frameLayout.removeAllViews()
 
-        val shimmerView = if (remoteKey.contains("small")) {
+        val shimmerView = if (shimmerLayout != null) {
+            inflater.inflate(shimmerLayout, frameLayout, false)
+        } else if (remoteKey.contains("small")) {
             inflater.inflate(R.layout.small_native_shimmer, null)
         } else {
             inflater.inflate(R.layout.large_native_shimmer, null)
@@ -216,12 +227,18 @@ object AdmobNativeAds {
         frameLayout.visibility = View.VISIBLE
     }
 
+    /**
+     * Shows a loaded native ad in [amLayout]. [adLayout], when given, is inflated instead of the
+     * layout [remoteKey] picks (the dashboard dock has its own design); it must use the usual
+     * ad_headline / ad_body / ad_call_to_action / ad_app_icon ids, and may add ad_stars.
+     */
     fun showNativeAd(
         context: Context,
         remoteKey: String,
         amLayout: FrameLayout,
         adIds: Array<String>? = null,
-        nextPreloadAdIds: Array<String>? = null
+        nextPreloadAdIds: Array<String>? = null,
+        adLayout: Int? = null
     ) {
         val adIdsKey = adIds?.nativeAdIdsKey()
         val nativeAdToShow = if (adIdsKey != null) {
@@ -244,7 +261,9 @@ object AdmobNativeAds {
 
         amLayout.visibility = View.VISIBLE
 
-        val adView = chooseLayout(context, remoteKey)
+        val adView = adLayout?.let {
+            LayoutInflater.from(context).inflate(it, amLayout, false) as NativeAdView
+        } ?: chooseLayout(context, remoteKey)
 
         if (remoteKey.contains("large")) {
             changeViewHeight(amLayout, dpToPx(context))
@@ -282,6 +301,17 @@ object AdmobNativeAds {
             (adView.callToActionView as Button).text = nativeAdToShow.callToAction
         }
 
+        adView.findViewById<TextView>(R.id.ad_stars)?.let { starsView ->
+            val rating = nativeAdToShow.starRating
+            if (rating == null || rating <= 0.0) {
+                starsView.visibility = View.GONE
+            } else {
+                starsView.text = starRatingText(context, rating)
+                starsView.visibility = View.VISIBLE
+                adView.starRatingView = starsView
+            }
+        }
+
         if (nativeAdToShow.icon == null) {
             adView.iconView?.visibility = View.GONE
         } else {
@@ -302,6 +332,16 @@ object AdmobNativeAds {
                 adIds = nextPreloadAdIds
             )
         }
+    }
+
+    /** "★ 4.8" with the star in the dashboard's star colour. */
+    private fun starRatingText(context: Context, rating: Double): CharSequence {
+        val text = SpannableString("★ " + String.format(Locale.US, "%.1f", rating))
+        text.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(context, R.color.home_star)),
+            0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        return text
     }
 
     private fun chooseLayout(context: Context, remoteKey: String): NativeAdView {

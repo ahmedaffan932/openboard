@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
+    android:background="@color/home_bg"
     tools:context="org.dslul.openboard.translator.pro.FragmentsDashboardActivity">
 
     <FrameLayout
@@ -17,41 +18,70 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <LinearLayout
         android:id="@+id/llCollapsibleBanner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"/>
+        app:layout_constraintBottom_toTopOf="@id/bottomDock" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigation"
+    <!-- Soft shadow cast upwards by the dock (Figma: 0 -8 22). -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="14dp"
+        android:background="@drawable/bg_home_dock_shadow"
+        app:layout_constraintBottom_toTopOf="@id/bottomDock" />
+
+    <!-- Bottom dock (Figma "Home — Redesign" 2035:889): divider, the Home tab's native ad, tabs. -->
+    <LinearLayout
+        android:id="@+id/bottomDock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/m_padding"
-        android:layout_marginBottom="@dimen/padding_10"
-        android:minHeight="@dimen/dashboard_bottom_navigation_min_height"
-        android:background="@drawable/bg_bottom_navigation_surface"
-        android:elevation="12dp"
-        android:paddingHorizontal="@dimen/padding"
-        android:paddingTop="@dimen/less_padding"
-        android:paddingBottom="@dimen/less_padding"
-        app:itemActiveIndicatorStyle="@style/Widget.App.BottomNavigation.ActiveIndicator"
-        app:itemBackground="@android:color/transparent"
-        app:itemIconTint="@drawable/bottom_navigation_color"
-        app:itemIconSize="@dimen/dashboard_bottom_navigation_icon_size"
-        app:itemHorizontalTranslationEnabled="false"
-        app:itemPaddingBottom="@dimen/dashboard_bottom_navigation_item_padding"
-        app:itemPaddingTop="@dimen/dashboard_bottom_navigation_item_padding"
-        app:itemRippleColor="#224285F4"
-        app:itemTextAppearanceActive="@style/TextAppearanceAppBottomNavigationActive"
-        app:itemTextAppearanceInactive="@style/TextAppearanceAppBottomNavigationInactive"
-        app:itemTextColor="@drawable/bottom_navigation_text_color"
-        app:labelVisibilityMode="unlabeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:paddingBottomSystemWindowInsets="false"
-        app:menu="@menu/dashboard_bottom_navigation" />
+        android:background="@color/home_bg"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/home_border" />
+
+        <!-- Filled by HomeFragment while the Home tab is showing; gone otherwise. -->
+        <FrameLayout
+            android:id="@+id/dockNativeAdSlot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="12dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="4dp"
+            android:visibility="gone" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/home_bg"
+            android:elevation="0dp"
+            android:minHeight="@dimen/dashboard_bottom_navigation_min_height"
+            android:paddingHorizontal="10dp"
+            app:activeIndicatorLabelPadding="3dp"
+            app:elevation="0dp"
+            app:itemActiveIndicatorStyle="@style/Widget.App.BottomNavigation.ActiveIndicator"
+            app:itemBackground="@android:color/transparent"
+            app:itemHorizontalTranslationEnabled="false"
+            app:itemIconSize="@dimen/dashboard_bottom_navigation_icon_size"
+            app:itemIconTint="@color/home_nav_item"
+            app:itemPaddingBottom="@dimen/dashboard_bottom_navigation_item_padding"
+            app:itemPaddingTop="@dimen/dashboard_bottom_navigation_item_padding"
+            app:itemRippleColor="@color/home_ripple"
+            app:itemTextAppearanceActive="@style/TextAppearanceAppBottomNavigationActive"
+            app:itemTextAppearanceInactive="@style/TextAppearanceAppBottomNavigationInactive"
+            app:itemTextColor="@color/home_nav_item"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/dashboard_bottom_navigation"
+            app:paddingBottomSystemWindowInsets="false" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

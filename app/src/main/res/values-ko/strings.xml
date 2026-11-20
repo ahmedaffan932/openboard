@@ -284,4 +284,14 @@
     <string name="next">다음</string>
     <string name="sorry_error_in_fetching_words">죄송합니다! 단어를 가져오는 중 오류가 발생했습니다.</string>
     <string name="please_solve_current_puzzle_to_proceed">계속하려면 현재 퍼즐을 푸세요.</string>
+
+    <!-- Dashboard (Home) redesign. -->
+    <string name="conversation">대화</string>
+    <string name="home_translate_keyboard">번역 키보드</string>
+    <string name="home_translate_keyboard_desc">모든 앱에서 입력</string>
+    <string name="home_fun_words_desc">오늘의 단어 &amp; 퀴즈</string>
+    <string name="paste">붙여넣기</string>
+    <string name="paste_nothing">붙여넣을 내용이 없습니다</string>
+    <string name="swap_languages">언어 바꾸기</string>
+    <string name="speak">말하기</string>
 </resources>

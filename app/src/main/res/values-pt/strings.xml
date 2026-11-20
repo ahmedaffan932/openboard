@@ -317,4 +317,14 @@
     <string name="next">Próximo</string>
     <string name="sorry_error_in_fetching_words">Desculpe! Ocorreu um erro ao buscar as palavras.</string>
     <string name="please_solve_current_puzzle_to_proceed">Resolva o quebra-cabeça atual para continuar.</string>
+
+    <!-- Dashboard (Home) redesign. -->
+    <string name="conversation">Conversa</string>
+    <string name="home_translate_keyboard">Teclado tradutor</string>
+    <string name="home_translate_keyboard_desc">Digite em qualquer app</string>
+    <string name="home_fun_words_desc">Palavra do dia e quiz</string>
+    <string name="paste">Colar</string>
+    <string name="paste_nothing">Nada para colar</string>
+    <string name="swap_languages">Trocar idiomas</string>
+    <string name="speak">Falar</string>
 </resources>

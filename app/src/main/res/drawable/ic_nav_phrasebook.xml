@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma: TranslatorPro, "Home — Redesign" icon (nav_book). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="21dp"
+    android:height="21dp"
+    android:viewportWidth="21"
+    android:viewportHeight="21">
+    <path
+        android:pathData="M3.5 4.8125C3.5 4.23234 3.73047 3.67594 4.1407 3.2657C4.55094 2.85547 5.10734 2.625 5.6875 2.625H16.625V15.75H5.6875C5.10734 15.75 4.55094 15.9805 4.1407 16.3907C3.73047 16.8009 3.5 17.3573 3.5 17.9375V4.8125Z"
+        android:strokeColor="@color/home_text_muted"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M3.5 17.9375C3.5 17.3573 3.73047 16.8009 4.1407 16.3907C4.55094 15.9805 5.10734 15.75 5.6875 15.75H16.625V18.375H5.6875C5.31717 18.505 4.91867 18.533 4.53379 18.4561C4.14891 18.3791 3.79183 18.2 3.5 17.9375Z"
+        android:strokeColor="@color/home_text_muted"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

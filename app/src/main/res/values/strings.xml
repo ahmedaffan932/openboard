@@ -814,4 +814,16 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
 
     <!-- Keyboard settings > Languages, when the phone's own languages screen is missing or refuses to open. -->
     <string name="keyboard_languages_unavailable">This phone doesn\'t allow opening its keyboard languages screen from here. Open your phone\'s Settings, then Languages &amp; input, then On-screen keyboard, then this keyboard.</string>
+
+    <!-- Dashboard (Home) redesign. -->
+    <string name="conversation">Conversation</string>
+    <string name="home_translate_keyboard">Translate Keyboard</string>
+    <string name="home_translate_keyboard_desc">Type in any app</string>
+    <string name="home_fun_words_desc">Daily word &amp; quiz</string>
+    <string name="paste">Paste</string>
+    <string name="paste_nothing">Nothing to paste</string>
+    <string name="swap_languages">Swap languages</string>
+    <string name="speak">Speak</string>
+    <string name="home_logo_mark" translatable="false">A文</string>
+    <string name="home_char_count" translatable="false">%1$d / %2$d</string>
 </resources>

@@ -284,4 +284,14 @@
     <string name="next">Weiter</string>
     <string name="sorry_error_in_fetching_words">Entschuldigung! Beim Abrufen der Wörter ist ein Fehler aufgetreten.</string>
     <string name="please_solve_current_puzzle_to_proceed">Löse das aktuelle Rätsel, um fortzufahren.</string>
+
+    <!-- Dashboard (Home) redesign. -->
+    <string name="conversation">Gespräch</string>
+    <string name="home_translate_keyboard">Übersetzer-Tastatur</string>
+    <string name="home_translate_keyboard_desc">In jeder App tippen</string>
+    <string name="home_fun_words_desc">Wort des Tages &amp; Quiz</string>
+    <string name="paste">Einfügen</string>
+    <string name="paste_nothing">Nichts zum Einfügen</string>
+    <string name="swap_languages">Sprachen tauschen</string>
+    <string name="speak">Sprechen</string>
 </resources>

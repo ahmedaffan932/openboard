@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dashboard (Home) redesign text styles. Figma: TranslatorPro, "Home — Redesign". -->
+<resources>
+    <style name="HomeText">
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/home_text_primary</item>
+    </style>
+
+    <!-- "Translator Pro" next to the logo: Sora Bold 16. -->
+    <style name="HomeText.AppTitle">
+        <item name="android:fontFamily">@font/sora_bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- Language names in the pickers: Manrope Bold 13. -->
+    <style name="HomeText.Language">
+        <item name="android:fontFamily">@font/manrope_bold</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <!-- Feature tile title: Sora SemiBold 13. -->
+    <style name="HomeText.TileTitle">
+        <item name="android:fontFamily">@font/sora_semibold</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <!-- Feature tile subtitle: Manrope Regular 11. -->
+    <style name="HomeText.TileSubtitle">
+        <item name="android:fontFamily">@font/manrope_regular</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/home_text_secondary</item>
+    </style>
+
+    <!-- "Recent" section title: Sora Bold 15. -->
+    <style name="HomeText.SectionTitle">
+        <item name="android:fontFamily">@font/sora_bold</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <!-- Recent card: source text (Manrope SemiBold 14) and translation (Manrope Medium 14), leading 1.32. -->
+    <style name="HomeText.HistorySource">
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="lineHeight">18.5sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <style name="HomeText.HistoryTranslation" parent="HomeText.HistorySource">
+        <item name="android:fontFamily">@font/manrope_medium</item>
+        <item name="android:textColor">@color/home_translation_text</item>
+    </style>
+
+    <!-- Language pair chip on a Recent card ("EN → ES"): Manrope ExtraBold 10. -->
+    <style name="HomeText.Chip">
+        <item name="android:fontFamily">@font/manrope_extrabold</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:letterSpacing">0.03</item>
+        <item name="android:textColor">@color/home_text_muted</item>
+    </style>
+
+    <!-- Advertiser icon in the dock's native ad: 44dp, 12dp corners. -->
+    <style name="HomeAdIconShape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+</resources>

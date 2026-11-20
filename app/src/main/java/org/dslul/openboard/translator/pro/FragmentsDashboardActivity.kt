@@ -20,6 +20,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
@@ -168,6 +169,12 @@ class FragmentsDashboardActivity : AppCompatActivity() {
     }
 
     private fun applySystemBarInsets() {
+        // The bottom dock runs on into the system navigation bar (Figma "Home — Redesign").
+        val night = Misc.isNightModeOn(this)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.home_bg)
+        WindowCompat.getInsetsController(window, window.decorView)
+            .isAppearanceLightNavigationBars = !night
+
 //        val view = binding.main
 //        val initialPaddingLeft = view.paddingLeft
 //        val initialPaddingTop = view.paddingTop

@@ -325,4 +325,14 @@
     <string name="next">Suivant</string>
     <string name="sorry_error_in_fetching_words">Désolé ! Une erreur s\'est produite lors de la récupération des mots.</string>
     <string name="please_solve_current_puzzle_to_proceed">Résolvez le puzzle actuel pour continuer.</string>
+
+    <!-- Dashboard (Home) redesign. -->
+    <string name="conversation">Conversation</string>
+    <string name="home_translate_keyboard">Clavier traducteur</string>
+    <string name="home_translate_keyboard_desc">Écrivez dans toute app</string>
+    <string name="home_fun_words_desc">Mot du jour et quiz</string>
+    <string name="paste">Coller</string>
+    <string name="paste_nothing">Rien à coller</string>
+    <string name="swap_languages">Inverser les langues</string>
+    <string name="speak">Parler</string>
 </resources>
