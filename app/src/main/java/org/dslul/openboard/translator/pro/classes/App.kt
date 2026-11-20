@@ -170,7 +170,9 @@ class App : Application(), Application.ActivityLifecycleCallbacks, LifecycleObse
         }
     }
 
-    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
+    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+        AppAnalytics.onActivityCreated(activity, savedInstanceState)
+    }
 
     override fun onActivityStarted(activity: Activity) {
         if (!AppOpenAdManager.isShowingAd) {

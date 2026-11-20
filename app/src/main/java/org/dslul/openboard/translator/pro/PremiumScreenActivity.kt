@@ -27,7 +27,7 @@ import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.objects.inapp.InAppProductsDetailsCallback
 import org.dslul.openboard.translator.pro.objects.inapp.InAppUtils
 
-class PremiumScreenActivity : AppCompatActivity() {
+class PremiumScreenActivity : AppCompatActivity(), AppAnalytics.ScreenParams {
     lateinit var binding: ActivityPremiumScreenBinding
     private var selectedProductId = Misc.weeklyKey
 
@@ -41,6 +41,10 @@ class PremiumScreenActivity : AppCompatActivity() {
         }
     }
 
+    /** `screen_premium`'s parameters. */
+    override fun analyticsScreenParams(): Bundle =
+        Bundle().apply { putString("source", premiumSource) }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +56,6 @@ class PremiumScreenActivity : AppCompatActivity() {
         } else {
             Firebase.analytics.logEvent("v_onboarding_PremiumScreenInflow", null)
         }
-        AppAnalytics.premiumView(premiumSource)
 
         Handler(Looper.getMainLooper()).postDelayed({
             Misc.zoomInView(binding.btnDismiss, this, 250)

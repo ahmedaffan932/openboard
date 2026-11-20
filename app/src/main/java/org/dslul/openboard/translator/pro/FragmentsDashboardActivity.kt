@@ -85,7 +85,7 @@ class FragmentsDashboardActivity : AppCompatActivity() {
         binding.bottomNavigation.menu
 
         setCurrentFragment(HomeFragment())
-        if (savedInstanceState == null) AppAnalytics.dashboardTabView(tabName(R.id.home))
+        if (savedInstanceState == null) AppAnalytics.screenView(tabScreen(R.id.home))
         preloadUnlockPremiumRewardedAd()
 
         binding.bottomNavigation.selectedItemId = R.id.home
@@ -207,7 +207,13 @@ class FragmentsDashboardActivity : AppCompatActivity() {
             R.id.phrasebook -> setCurrentFragment(PhrasesFragment())
         }
         lastSelectedItem = itemId
-        AppAnalytics.dashboardTabView(tabName(itemId))
+        AppAnalytics.screenView(tabScreen(itemId))
+    }
+
+    /** The tab's screen event: `screen_home`, `screen_camera`, `screen_conversation` or `screen_phrasebook`. */
+    private fun tabScreen(itemId: Int): String = when (itemId) {
+        R.id.chat -> "conversation"
+        else -> tabName(itemId)
     }
 
     /** The tab's name in analytics: `home`, `camera`, `chat` or `phrasebook`. */

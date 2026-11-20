@@ -1,9 +1,30 @@
 package org.dslul.openboard.translator.pro.classes
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
+import com.canhub.cropper.CropImageActivity
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
+import org.dslul.openboard.inputmethod.latin.setup.SetupWizardActivity
+import org.dslul.openboard.translator.pro.AppLanguageSelectorActivity
+import org.dslul.openboard.translator.pro.CameraPermissionActivity
+import org.dslul.openboard.translator.pro.DisplayFavoritesActivity
+import org.dslul.openboard.translator.pro.DisplayHistoryActivity
+import org.dslul.openboard.translator.pro.EnableKeyboardActivity
+import org.dslul.openboard.translator.pro.ExitActivity
+import org.dslul.openboard.translator.pro.LanguageSelectorActivity
+import org.dslul.openboard.translator.pro.OCRActivity
+import org.dslul.openboard.translator.pro.OnBoardingActivity
+import org.dslul.openboard.translator.pro.PhrasebookDetailedActivity
+import org.dslul.openboard.translator.pro.PreSplashScreenActivity
+import org.dslul.openboard.translator.pro.PremiumScreenActivity
+import org.dslul.openboard.translator.pro.SettingsActivity
+import org.dslul.openboard.translator.pro.TranslateActivity
+import org.dslul.openboard.translator.pro.UninstallSurveyActivity
+import org.dslul.openboard.translator.pro.ViewTranslatedTextActivity
+import org.dslul.openboard.translator.pro.WordGameActivity
+import org.dslul.openboard.inputmethod.latin.settings.SettingsActivity as KeyboardSettingsActivity
 
 /**
  * Funnel events for Firebase Analytics, in one place so the keys the client builds funnels on are
@@ -16,7 +37,7 @@ import com.google.firebase.ktx.Firebase
  */
 object AppAnalytics {
 
-    /** Intent extra naming where the premium screen was opened from (see [premiumView]). */
+    /** Intent extra naming where the premium screen was opened from (`source` on its events). */
     const val EXTRA_PREMIUM_SOURCE = "analyticsPremiumSource"
 
     const val PREMIUM_SOURCE_LAUNCH = "launch"
@@ -36,11 +57,60 @@ object AppAnalytics {
     const val PURCHASE_FAILED = "failed"
     const val PURCHASE_UNAVAILABLE = "unavailable"
 
-    // --- Onboarding ---------------------------------------------------------------------------
+    // --- Screen opens -------------------------------------------------------------------------
 
-    /** App-language screen opened. [firstOpen] separates onboarding from a later visit. */
-    fun appLanguageView(firstOpen: Boolean) =
-        log("app_language_view", Bundle().apply { putString("first_open", firstOpen.toString()) })
+    /**
+     * Implemented by a screen whose `screen_*` event carries parameters. Called from
+     * [onActivityCreated], i.e. inside the activity's `super.onCreate()`, so it may read the
+     * intent and preferences but not its views.
+     */
+    interface ScreenParams {
+        fun analyticsScreenParams(): Bundle?
+    }
+
+    /**
+     * Every screen a user can reach → its `screen_<name>` event. Activities left out are
+     * transparent trampolines (NotiRouter, QuickAccess), the system permission prompt, and legacy
+     * screens nothing opens any more. The dashboard's tabs share one activity and are logged by
+     * FragmentsDashboardActivity through [screenView].
+     */
+    private val activityScreens: Map<Class<out Activity>, String> = mapOf(
+        PreSplashScreenActivity::class.java to "splash",
+        PremiumScreenActivity::class.java to "premium",
+        AppLanguageSelectorActivity::class.java to "app_language",
+        OnBoardingActivity::class.java to "onboarding",
+        TranslateActivity::class.java to "translate",
+        LanguageSelectorActivity::class.java to "language_picker",
+        CameraPermissionActivity::class.java to "camera_permission",
+        OCRActivity::class.java to "camera_translate",
+        CropImageActivity::class.java to "camera_crop",
+        ViewTranslatedTextActivity::class.java to "camera_full_text",
+        DisplayHistoryActivity::class.java to "history",
+        DisplayFavoritesActivity::class.java to "favorites",
+        PhrasebookDetailedActivity::class.java to "phrasebook_category",
+        SettingsActivity::class.java to "settings",
+        EnableKeyboardActivity::class.java to "enable_keyboard",
+        KeyboardSettingsActivity::class.java to "keyboard_settings",
+        SetupWizardActivity::class.java to "keyboard_setup_wizard",
+        WordGameActivity::class.java to "word_game",
+        ExitActivity::class.java to "exit",
+        UninstallSurveyActivity::class.java to "uninstall_survey",
+    )
+
+    /**
+     * From App's activity lifecycle callbacks: one `screen_*` event each time a listed screen is
+     * opened. A screen recreated by a rotation or a process restore is not counted again.
+     */
+    fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+        if (savedInstanceState != null) return
+        val screen = activityScreens[activity.javaClass] ?: return
+        screenView(screen, (activity as? ScreenParams)?.analyticsScreenParams())
+    }
+
+    /** A screen opened: logs `screen_<screen>`. */
+    fun screenView(screen: String, params: Bundle? = null) = log("screen_$screen", params)
+
+    // --- Onboarding ---------------------------------------------------------------------------
 
     /** App-language screen's Save/Next tapped. [language] is the app language code, e.g. `es`. */
     fun appLanguageSaved(language: String, firstOpen: Boolean) =
@@ -57,9 +127,6 @@ object AppAnalytics {
     fun onboardingComplete() = log("onboarding_complete", null)
 
     // --- Premium ------------------------------------------------------------------------------
-
-    fun premiumView(source: String) =
-        log("premium_view", Bundle().apply { putString("source", source) })
 
     /** A plan card or the Get Pro button tapped, before Google Play's purchase sheet opens. */
     fun premiumBuyTap(productId: String, source: String) =
@@ -117,10 +184,6 @@ object AppAnalytics {
     fun keyboardSelected() = log("keyboard_selected", null)
 
     // --- Using the app ------------------------------------------------------------------------
-
-    /** A dashboard tab opened: `home`, `camera`, `chat` or `phrasebook`. */
-    fun dashboardTabView(tab: String) =
-        log("dashboard_tab_view", Bundle().apply { putString("tab", tab) })
 
     /** A translation language picked. [side] is `from` or `to`; [language] is its code, e.g. `fr`. */
     fun translateLanguageSelect(language: String, side: String) =

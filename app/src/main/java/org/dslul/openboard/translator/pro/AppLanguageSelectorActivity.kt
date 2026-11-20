@@ -14,19 +14,21 @@ import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobNativeAds
 
-class AppLanguageSelectorActivity : AppCompatActivity() {
+class AppLanguageSelectorActivity : AppCompatActivity(), AppAnalytics.ScreenParams {
     lateinit var binding: ActivityAppLanguageSelectorBinding
     private var isLanguageSelected = false
     private val premiumShownBeforeLanguage: Boolean
         get() = intent.getBooleanExtra(Misc.premiumShownBeforeLanguage, false)
+
+    /** `screen_app_language`'s parameters: `first_open` separates onboarding from a later visit. */
+    override fun analyticsScreenParams(): Bundle =
+        Bundle().apply { putString("first_open", Misc.isFirstTime(this@AppLanguageSelectorActivity).toString()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setAppLanguage()
         binding = ActivityAppLanguageSelectorBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        if (savedInstanceState == null) AppAnalytics.appLanguageView(Misc.isFirstTime(this))
 
         showLanguageNativeOnOpen()
 
