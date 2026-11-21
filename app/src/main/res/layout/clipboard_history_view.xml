@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Keyboard clipboard panel. Figma TranslatorProZyro "Keyboard · Clipboard" (22:5963): a header
+     row (ABC chip, "Clipboard", clear) over the clip cards. ClipboardLayoutParams sizes the
+     header (one key row) and the list; colours come from the keyboard theme in
+     ClipboardHistoryView. -->
 <org.dslul.openboard.inputmethod.keyboard.clipboard.ClipboardHistoryView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -6,6 +10,52 @@
         android:layout_gravity="bottom"
         android:orientation="vertical"
         style="?attr/clipboardHistoryViewStyle">
+
+    <LinearLayout
+            android:id="@+id/clipboard_action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="6dp">
+
+        <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
+             We just need to ignore the system's audio and haptic feedback settings. -->
+        <TextView
+                android:id="@+id/clipboard_keyboard_alphabet"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="5dp"
+                android:minWidth="52dp"
+                android:paddingHorizontal="14dp"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="false"
+                android:soundEffectsEnabled="false" />
+
+        <TextView
+                android:id="@+id/clipboard_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:fontFamily="@font/manrope_bold"
+                android:includeFontPadding="false"
+                android:singleLine="true"
+                android:text="@string/ui_kb_clipboard_title"
+                android:textSize="15sp" />
+
+        <ImageButton
+                android:id="@+id/clipboard_clear"
+                android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:hapticFeedbackEnabled="false"
+                android:soundEffectsEnabled="false"
+                android:scaleType="centerInside"
+                style="?attr/suggestionWordStyle" />
+    </LinearLayout>
 
     <FrameLayout
             android:layout_width="match_parent"
@@ -22,43 +72,8 @@
                 android:id="@+id/clipboard_list"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_280sdp"
-                android:orientation="vertical"/>
-
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:paddingHorizontal="4dp"/>
     </FrameLayout>
-
-    <FrameLayout
-            android:id="@+id/clipboard_action_bar"
-            android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1"            >
-        <!-- TODO: Implement a KeyView and replace this. -->
-        <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
-             We just need to ignore the system's audio and haptic feedback settings. -->
-        <TextView
-                android:id="@+id/clipboard_keyboard_alphabet"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginEnd="1dp"
-                android:layout_gravity="start|center_vertical"
-                android:paddingHorizontal="12dp"
-                android:gravity="center"
-                android:hapticFeedbackEnabled="false"
-                android:soundEffectsEnabled="false" />
-
-        <ImageButton
-                android:id="@+id/clipboard_clear"
-                android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center_vertical"
-                android:layout_marginEnd="2dp"
-                android:padding="8dp"
-                android:hapticFeedbackEnabled="false"
-                android:soundEffectsEnabled="false"
-                android:scaleType="fitCenter"
-                style="?attr/suggestionWordStyle" />
-
-    </FrameLayout>
-
 </org.dslul.openboard.inputmethod.keyboard.clipboard.ClipboardHistoryView>

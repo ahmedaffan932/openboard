@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Key press preview bubble (light). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ui_kb_popup_light" />
+    <stroke android:width="1dp" android:color="@color/ui_kb_popup_border_light" />
+    <corners android:radius="10dp" />
+</shape>

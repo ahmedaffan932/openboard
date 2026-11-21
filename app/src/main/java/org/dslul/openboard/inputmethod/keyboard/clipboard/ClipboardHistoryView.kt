@@ -7,10 +7,11 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
-import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.ColorUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener
 import org.dslul.openboard.inputmethod.keyboard.internal.KeyDrawParams
@@ -34,9 +35,13 @@ class ClipboardHistoryView @JvmOverloads constructor(
     private val dividerColor: Int
     private val functionalKeyBackgroundId: Int
     private val keyBackgroundId: Int
+    private val clipBackgroundId: Int
+    private val clipSecondaryTextColor: Int
+    private val clipAccentColor: Int
 
     private lateinit var clipboardRecyclerView: ClipboardHistoryRecyclerView
     private lateinit var placeholderView: TextView
+    private lateinit var titleView: TextView
     private lateinit var alphabetKey: TextView
     private lateinit var clearKey: ImageButton
     private lateinit var clipboardAdapter: ClipboardAdapter
@@ -51,13 +56,21 @@ class ClipboardHistoryView @JvmOverloads constructor(
                 R.styleable.ClipboardHistoryView_iconPinnedClip, 0)
         dividerColor = clipboardViewAttr.getColor(
                 R.styleable.ClipboardHistoryView_dividerBackground, 0)
-        clipboardViewAttr.recycle()
         val keyboardViewAttr = context.obtainStyledAttributes(attrs,
                 R.styleable.KeyboardView, defStyle, R.style.KeyboardView)
         keyBackgroundId = keyboardViewAttr.getResourceId(
                 R.styleable.KeyboardView_keyBackground, 0)
         functionalKeyBackgroundId = keyboardViewAttr.getResourceId(
                 R.styleable.KeyboardView_functionalKeyBackground, keyBackgroundId)
+        // Theme colours for the clip cards (Material themes set them; others fall back).
+        clipBackgroundId = clipboardViewAttr.getResourceId(
+                R.styleable.ClipboardHistoryView_clipBackground, keyBackgroundId)
+        clipSecondaryTextColor = clipboardViewAttr.getColor(
+                R.styleable.ClipboardHistoryView_clipSecondaryTextColor, 0)
+        clipAccentColor = clipboardViewAttr.getColor(
+                R.styleable.ClipboardHistoryView_clipAccentColor,
+                ContextCompat.getColor(context, R.color.accent))
+        clipboardViewAttr.recycle()
         keyboardViewAttr.recycle()
     }
 
@@ -76,7 +89,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
     override fun onFinishInflate() {
         super.onFinishInflate()
         clipboardAdapter = ClipboardAdapter(context, this).apply {
-            itemBackgroundId = keyBackgroundId
+            itemBackgroundId = clipBackgroundId
             pinnedIconResId = R.drawable.ic_outline_push_pin_24
         }
         placeholderView = findViewById(R.id.clipboard_empty_view)
@@ -90,9 +103,10 @@ class ClipboardHistoryView @JvmOverloads constructor(
             clipboardLayoutParams.setListProperties(this)
             placeholderView = this@ClipboardHistoryView.placeholderView
         }
-        findViewById<FrameLayout>(R.id.clipboard_action_bar)?.apply {
+        findViewById<View>(R.id.clipboard_action_bar)?.apply {
             clipboardLayoutParams.setActionBarProperties(this)
         }
+        titleView = findViewById(R.id.clipboard_title)
         alphabetKey = findViewById<TextView>(R.id.clipboard_keyboard_alphabet).apply {
             tag = Constants.CODE_ALPHA_FROM_CLIPBOARD
             setBackgroundResource(functionalKeyBackgroundId)
@@ -116,9 +130,12 @@ class ClipboardHistoryView @JvmOverloads constructor(
 
     private fun setupClipKey(params: KeyDrawParams) {
         clipboardAdapter.apply {
-            itemBackgroundId = keyBackgroundId
+            itemBackgroundId = clipBackgroundId
             itemTypeFace = params.mTypeface
             itemTextColor = params.mTextColor
+            itemSecondaryTextColor = if (clipSecondaryTextColor != 0) clipSecondaryTextColor
+                else ColorUtils.setAlphaComponent(params.mTextColor, 0x99)
+            itemAccentColor = clipAccentColor
             itemTextSize = params.mLabelSize.toFloat()
         }
     }
@@ -150,6 +167,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         setupAlphabetKey(alphabetKey, switchToAlphaLabel, params)
         setupClipKey(params)
         setupClearKey(iconSet)
+        titleView.setTextColor(params.mTextColor)
 
         placeholderView.apply {
             typeface = params.mTypeface

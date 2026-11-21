@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Keyboard (IME) palette for the Material keyboard themes, from Figma TranslatorProZyro
+     "Keyboard · Translate Strip" (11:2185) and its dark twin (12:4257).
+     Keyboard themes pick light or dark by style (LXX_Light* / LXX_Dark*; "Auto" swaps the parent
+     in values-night), so both sets live here with explicit _light / _dark names and no
+     values-night twins. -->
+<resources>
+    <!-- Light -->
+    <color name="ui_kb_bg_light">#F6F8FE</color>
+    <color name="ui_kb_key_light">#FFFFFF</color>
+    <color name="ui_kb_key_pressed_light">#E8EDF7</color>
+    <color name="ui_kb_key_fn_light">#E8EDF7</color>
+    <color name="ui_kb_key_fn_pressed_light">#D6DEEC</color>
+    <!-- 1dp hard drop under each key, standing in for the design's soft y1 r2 shadow. -->
+    <color name="ui_kb_key_shadow_light">#1A101C30</color>
+    <!-- Caps lock / checked toggle keys. -->
+    <color name="ui_kb_key_checked_light">#DCE6FF</color>
+    <color name="ui_kb_text_light">#101C2F</color>
+    <color name="ui_kb_text_secondary_light">#55657F</color>
+    <color name="ui_kb_text_hint_light">#94A2B8</color>
+    <color name="ui_kb_divider_light">#E3E8F1</color>
+    <color name="ui_kb_popup_light">#FFFFFF</color>
+    <color name="ui_kb_popup_border_light">#DFE5F0</color>
+    <color name="ui_kb_popup_selected_light">#E9F0FF</color>
+    <color name="ui_kb_accent_light">#2F6BFF</color>
+    <color name="ui_kb_gesture_preview_light">#F2FFFFFF</color>
+
+    <!-- Dark -->
+    <color name="ui_kb_bg_dark">#0F1828</color>
+    <color name="ui_kb_key_dark">#1A2538</color>
+    <color name="ui_kb_key_pressed_dark">#2A3851</color>
+    <color name="ui_kb_key_fn_dark">#243147</color>
+    <color name="ui_kb_key_fn_pressed_dark">#33435F</color>
+    <color name="ui_kb_key_shadow_dark">#66050A14</color>
+    <color name="ui_kb_key_checked_dark">#23396B</color>
+    <color name="ui_kb_text_dark">#EAF1FB</color>
+    <color name="ui_kb_text_secondary_dark">#9FB0C9</color>
+    <color name="ui_kb_text_hint_dark">#6F809B</color>
+    <color name="ui_kb_divider_dark">#243147</color>
+    <color name="ui_kb_popup_dark">#1A2538</color>
+    <color name="ui_kb_popup_border_dark">#2C3A54</color>
+    <color name="ui_kb_popup_selected_dark">#23396B</color>
+    <color name="ui_kb_accent_dark">#5C8BFF</color>
+    <color name="ui_kb_gesture_preview_dark">#F21A2538</color>
+
+    <!-- Action (enter / go / search / send) key gradient, both themes. -->
+    <color name="ui_kb_action_start">#4F86FF</color>
+    <color name="ui_kb_action_end">#1F54E0</color>
+    <color name="ui_kb_action_pressed_start">#3D72EE</color>
+    <color name="ui_kb_action_pressed_end">#1A47C2</color>
+    <color name="ui_kb_on_action">#FFFFFF</color>
+    <!-- Clip translation placeholder blocks, on light and dark cards alike. -->
+    <color name="ui_kb_shimmer">#5994A2B8</color>
+</resources>

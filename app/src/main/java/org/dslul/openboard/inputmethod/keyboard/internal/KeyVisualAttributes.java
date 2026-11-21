@@ -56,6 +56,7 @@ public final class KeyVisualAttributes {
 
     private static final int[] VISUAL_ATTRIBUTE_IDS = {
         R.styleable.Keyboard_Key_keyTypeface,
+        R.styleable.Keyboard_Key_keyFontFamily,
         R.styleable.Keyboard_Key_keyLetterSize,
         R.styleable.Keyboard_Key_keyLabelSize,
         R.styleable.Keyboard_Key_keyLargeLetterRatio,
@@ -99,7 +100,19 @@ public final class KeyVisualAttributes {
     }
 
     private KeyVisualAttributes(@Nonnull final TypedArray keyAttr) {
-        if (keyAttr.hasValue(R.styleable.Keyboard_Key_keyTypeface)) {
+        // A font resource (keyFontFamily) wins over the plain style (keyTypeface). getFont needs
+        // API 26; minSdk is 27. A font that fails to load falls back to keyTypeface.
+        Typeface fontFamily = null;
+        if (keyAttr.hasValue(R.styleable.Keyboard_Key_keyFontFamily)) {
+            try {
+                fontFamily = keyAttr.getFont(R.styleable.Keyboard_Key_keyFontFamily);
+            } catch (final RuntimeException e) {
+                fontFamily = null;
+            }
+        }
+        if (fontFamily != null) {
+            mTypeface = fontFamily;
+        } else if (keyAttr.hasValue(R.styleable.Keyboard_Key_keyTypeface)) {
             mTypeface = Typeface.defaultFromStyle(
                     keyAttr.getInt(R.styleable.Keyboard_Key_keyTypeface, Typeface.NORMAL));
         } else {

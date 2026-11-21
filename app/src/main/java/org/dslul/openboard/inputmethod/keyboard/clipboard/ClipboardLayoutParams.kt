@@ -46,7 +46,7 @@ class ClipboardLayoutParams(res: Resources) {
         }
     }
 
-    fun setActionBarProperties(layout: FrameLayout) {
+    fun setActionBarProperties(layout: View) {
         (layout.layoutParams as LinearLayout.LayoutParams).apply {
             height = actionBarHeight
             layout.layoutParams = this

@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- One clip card on the keyboard's clipboard panel: the clip with a send button, then its
+     translation (or a shimmer while it loads). Colours here are the light keyboard's; ClipboardAdapter
+     recolours them from the keyboard theme. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingEnd="@dimen/padding"
+    android:paddingStart="@dimen/less_padding"
     android:layout_margin="@dimen/less_padding"
     android:paddingVertical="@dimen/less_padding"
     android:background="@color/color_nothing"
@@ -33,7 +37,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/copied_text"
-                android:textColor="@color/gray_600"
+                android:id="@+id/clipboard_entry_caption"
+                android:textColor="@color/ui_kb_text_secondary_light"
                 android:textSize="11sp" />
 
             <LinearLayout
@@ -52,14 +57,15 @@
                     android:maxLines="4"
                     android:soundEffectsEnabled="false"
                     android:text="@string/app_name"
-                    android:textColor="@color/gray_800" />
+                    android:textColor="@color/ui_kb_text_light" />
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:background="@drawable/bg_nothing_ripple_padding_rounded"
                     android:padding="@dimen/less_padding"
-                    android:tint="@color/accent"
+                    android:id="@+id/clipboard_entry_send"
+                    android:tint="@color/ui_kb_accent_light"
                     android:src="@drawable/ic_send_clipboard_text" />
 
             </LinearLayout>
@@ -69,7 +75,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginHorizontal="@dimen/padding"
-            android:background="@color/gray_400" />
+            android:id="@+id/clipboard_entry_divider"
+            android:background="@color/ui_kb_divider_light" />
 
         <LinearLayout
             android:id="@+id/llTranslatedContent"
@@ -90,7 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/english"
-                    android:textColor="@color/gray_600"
+                    android:textColor="@color/ui_kb_text_secondary_light"
                     android:textSize="11sp" />
 
                 <ImageView
@@ -98,14 +105,15 @@
                     android:layout_height="18dp"
                     android:layout_marginHorizontal="@dimen/less_padding"
                     android:src="@drawable/ic_baseline_navigate_next_24"
-                    app:tint="@color/accent" />
+                    android:id="@+id/clipboard_entry_arrow"
+                    app:tint="@color/ui_kb_accent_light" />
 
                 <TextView
                     android:id="@+id/textLngTo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/english"
-                    android:textColor="@color/gray_600"
+                    android:textColor="@color/ui_kb_text_secondary_light"
                     android:textSize="11sp" />
 
             </LinearLayout>
@@ -124,13 +132,14 @@
                     android:maxLines="4"
                     android:layout_weight="1"
                     android:soundEffectsEnabled="false"
-                    android:textColor="@color/gray_800" />
+                    android:textColor="@color/ui_kb_text_light" />
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:background="@drawable/bg_nothing_ripple_padding_rounded"
-                    android:tint="@color/accent"
+                    android:id="@+id/clipboard_translated_send"
+                    android:tint="@color/ui_kb_accent_light"
                     android:padding="@dimen/less_padding"
                     android:src="@drawable/ic_send_clipboard_text" />
             </LinearLayout>
@@ -159,8 +168,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/english"
-                        android:textColor="@color/gray_600"
-                        android:background="@color/gray_600"
+                        android:textColor="@color/ui_kb_shimmer"
+                        android:background="@color/ui_kb_shimmer"
                         android:textSize="11sp" />
 
                     <ImageView
@@ -168,14 +177,14 @@
                         android:layout_height="18dp"
                         android:layout_marginHorizontal="@dimen/padding"
                         android:src="@drawable/ic_baseline_navigate_next_24"
-                        app:tint="@color/gray_600" />
+                        app:tint="@color/ui_kb_shimmer" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/english"
-                        android:background="@color/gray_600"
-                        android:textColor="@color/gray_600"
+                        android:background="@color/ui_kb_shimmer"
+                        android:textColor="@color/ui_kb_shimmer"
                         android:textSize="11sp" />
 
                 </LinearLayout>
@@ -189,18 +198,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:background="@color/gray_600"
+                        android:background="@color/ui_kb_shimmer"
                         android:hapticFeedbackEnabled="false"
                         android:maxLines="4"
                         android:layout_weight="1"
                         android:soundEffectsEnabled="false"
-                        android:textColor="@color/gray_800" />
+                        android:textColor="@color/ui_kb_shimmer" />
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:background="@drawable/bg_nothing_ripple_padding_rounded"
-                        android:tint="@color/accent"
+                        android:tint="@color/ui_kb_shimmer"
                         android:padding="@dimen/less_padding"
                         android:src="@drawable/ic_send_clipboard_text" />
                 </LinearLayout>

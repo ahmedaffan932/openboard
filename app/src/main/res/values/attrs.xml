@@ -83,6 +83,8 @@
         <!-- Size of the text for spacebar language label, in the proportion of key height. -->
         <attr name="languageOnSpacebarTextRatio" format="fraction" />
         <attr name="languageOnSpacebarTextColor" format="color" />
+        <!-- A font resource for the language name on the space bar; the system font when unset. -->
+        <attr name="languageOnSpacebarFontFamily" format="reference" />
         <attr name="languageOnSpacebarTextShadowRadius" format="float" />
         <attr name="languageOnSpacebarTextShadowColor" format="color" />
         <!-- Fadeout animator for spacebar language label. -->
@@ -209,6 +211,12 @@
 
     <declare-styleable name="ClipboardHistoryView">
         <attr name="dividerBackground" format="color" />
+        <!-- Clip card captions, language names, the unpinned pin. Default: key text at 60%. -->
+        <attr name="clipSecondaryTextColor" format="color" />
+        <!-- Pinned pin, send / language arrows. Default: @color/accent. -->
+        <attr name="clipAccentColor" format="color" />
+        <!-- Clip card background. Default: the theme's keyBackground. -->
+        <attr name="clipBackground" format="reference" />
         <attr name="iconPinnedClip" format="reference" />
     </declare-styleable>
 
@@ -409,6 +417,9 @@
             <enum name="italic" value="2" />
             <enum name="boldItalic" value="3" />
         </attr>
+        <!-- A font resource for key labels. When set it replaces keyTypeface (KeyVisualAttributes),
+             and labels flagged fontNormal use it too unless it is bold (Key.selectTypeface). -->
+        <attr name="keyFontFamily" format="reference" />
         <!-- Size of the text for one letter keys. If specified as fraction, the text size is
              measured in the proportion of key height. -->
         <attr name="keyLetterSize" format="dimension|fraction" />

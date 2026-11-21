@@ -9,4 +9,6 @@
     <string name="ui_sys_loading_ad">विज्ञापन लोड हो रहा है…</string>
     <string name="ui_sys_just_a_moment">बस एक पल</string>
     <string name="ui_sys_ad_sponsored">प्रायोजित</string>
+    <!-- Title of the keyboard's clipboard panel. -->
+    <string name="ui_kb_clipboard_title">क्लिपबोर्ड</string>
 </resources>

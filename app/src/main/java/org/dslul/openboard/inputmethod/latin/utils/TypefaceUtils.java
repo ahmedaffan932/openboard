@@ -79,8 +79,12 @@ public final class TypefaceUtils {
             return codePointOffset + labelSize + 0x1000;
         } else if (face == Typeface.MONOSPACE) {
             return codePointOffset + labelSize + 0x2000;
-        } else {
+        } else if (face == null) {
             return codePointOffset + labelSize;
+        } else {
+            // A theme font (keyFontFamily): its glyphs measure differently from the system
+            // font's, so it must not share the DEFAULT entries.
+            return codePointOffset + labelSize + 0x3000;
         }
     }
 

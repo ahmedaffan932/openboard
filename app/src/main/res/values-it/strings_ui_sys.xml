@@ -9,4 +9,6 @@
     <string name="ui_sys_loading_ad">Caricamento annuncio…</string>
     <string name="ui_sys_just_a_moment">Un attimo</string>
     <string name="ui_sys_ad_sponsored">Sponsorizzato</string>
+    <!-- Title of the keyboard's clipboard panel. -->
+    <string name="ui_kb_clipboard_title">Appunti</string>
 </resources>

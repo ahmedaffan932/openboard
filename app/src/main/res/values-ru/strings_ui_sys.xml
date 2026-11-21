@@ -9,4 +9,6 @@
     <string name="ui_sys_loading_ad">Загрузка рекламы…</string>
     <string name="ui_sys_just_a_moment">Секунду</string>
     <string name="ui_sys_ad_sponsored">Реклама</string>
+    <!-- Title of the keyboard's clipboard panel. -->
+    <string name="ui_kb_clipboard_title">Буфер обмена</string>
 </resources>

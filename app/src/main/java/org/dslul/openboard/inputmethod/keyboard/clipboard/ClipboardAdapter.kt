@@ -1,5 +1,7 @@
 package org.dslul.openboard.inputmethod.keyboard.clipboard
 
+import androidx.core.graphics.ColorUtils
+import android.content.res.ColorStateList
 import android.content.Context
 import android.graphics.Typeface
 import android.os.AsyncTask
@@ -37,6 +39,9 @@ class ClipboardAdapter(
     var itemBackgroundId = 0
     var itemTypeFace: Typeface? = null
     var itemTextColor = 0
+    // Captions, language names, the unpinned pin; and the accent for arrows / send / pinned pin.
+    var itemSecondaryTextColor = 0
+    var itemAccentColor = 0
     var itemTextSize = 0f
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClipboardItemViewHolder {
@@ -122,6 +127,10 @@ class ClipboardAdapter(
                 else
                     R.drawable.ic_outline_push_pin_24
             )
+            val pinTint = if (historyEntry?.isPinned == true) itemAccentColor else itemSecondaryTextColor
+            if (pinTint != 0) {
+                binding.clipboardEntryPinnedIcon.imageTintList = ColorStateList.valueOf(pinTint)
+            }
 //            binding.clipboardEntryPinnedIcon.visibility =
 //                if (historyEntry?.isPinned == true) View.VISIBLE else View.GONE
         }
@@ -265,6 +274,21 @@ class ClipboardAdapter(
             }
 
             binding.root.setBackgroundResource(itemBackgroundId)
+
+            if (itemSecondaryTextColor != 0) {
+                binding.clipboardEntryCaption.setTextColor(itemSecondaryTextColor)
+                binding.textLngFrom.setTextColor(itemSecondaryTextColor)
+                binding.textLngTo.setTextColor(itemSecondaryTextColor)
+                // The divider between the clip and its translation: a faint line in the same tone.
+                binding.clipboardEntryDivider.setBackgroundColor(
+                    ColorUtils.setAlphaComponent(itemSecondaryTextColor, 0x40))
+            }
+            if (itemAccentColor != 0) {
+                val accent = ColorStateList.valueOf(itemAccentColor)
+                binding.clipboardEntrySend.imageTintList = accent
+                binding.clipboardTranslatedSend.imageTintList = accent
+                binding.clipboardEntryArrow.imageTintList = accent
+            }
 
         }
     }

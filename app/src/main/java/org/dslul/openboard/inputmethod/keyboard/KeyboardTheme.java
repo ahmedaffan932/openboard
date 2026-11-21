@@ -18,9 +18,13 @@ package org.dslul.openboard.inputmethod.keyboard;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.util.Log;
+
+import androidx.core.content.ContextCompat;
 
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
@@ -266,6 +270,36 @@ public final class KeyboardTheme implements Comparable<KeyboardTheme> {
                 return THEME_VARIANT_BLUE;
             default:
                 return null;
+        }
+    }
+
+    /**
+     * The colour behind the current theme's keys, for the IME window's navigation bar so the bar
+     * reads as part of the keyboard. Auto themes follow the system night mode, as their
+     * values-night parents do. Holo themes keep the black bar they always had.
+     */
+    public static int getKeyboardBackgroundColor(final Context context) {
+        final boolean night = (context.getResources().getConfiguration().uiMode
+                & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+        final int light = ContextCompat.getColor(context, R.color.ui_kb_bg_light);
+        final int dark = ContextCompat.getColor(context, R.color.ui_kb_bg_dark);
+        final int amoled = ContextCompat.getColor(context, R.color.background_amoled_black);
+        switch (getKeyboardTheme(context).mThemeId) {
+            case THEME_ID_LXX_LIGHT:
+            case THEME_ID_LXX_LIGHT_BORDER:
+                return light;
+            case THEME_ID_LXX_DARK:
+            case THEME_ID_LXX_DARK_BORDER:
+                return dark;
+            case THEME_ID_LXX_DARK_AMOLED:
+                return amoled;
+            case THEME_ID_LXX_AUTO:
+            case THEME_ID_LXX_AUTO_BORDER:
+                return night ? dark : light;
+            case THEME_ID_LXX_AUTO_AMOLED:
+                return night ? amoled : light;
+            default:
+                return Color.BLACK;
         }
     }
 

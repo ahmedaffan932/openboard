@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Highlighted key in the long-press panel (dark). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ui_kb_popup_selected_dark" />
+    <corners android:radius="8dp" />
+</shape>

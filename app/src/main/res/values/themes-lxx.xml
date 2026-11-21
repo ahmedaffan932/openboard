@@ -29,6 +29,10 @@
         parent="KeyboardView"
     >
         <item name="keyTypeface">normal</item>
+        <!-- Figma TranslatorProZyro keyboard: Manrope Medium letters, Manrope Bold language name
+             on the space bar. Scripts Manrope lacks fall back to the system fonts per glyph. -->
+        <item name="keyFontFamily">@font/manrope_medium</item>
+        <item name="languageOnSpacebarFontFamily">@font/manrope_bold</item>
         <item name="keyLetterSize">@fraction/config_key_letter_ratio_lxx</item>
         <item name="keyLabelSize">@fraction/config_key_label_ratio_lxx</item>
         <item name="keyHintLetterRatio">@fraction/config_key_hint_letter_ratio_lxx</item>

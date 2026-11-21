@@ -46,34 +46,34 @@
         name="KeyboardView.LXX_Dark"
         parent="KeyboardView.LXX"
     >
-        <item name="android:background">@drawable/keyboard_background_lxx_dark</item>
-        <item name="keyBackground">@drawable/btn_keyboard_key_lxx_dark</item>
-        <item name="functionalKeyBackground">@drawable/btn_keyboard_key_functional_lxx_dark</item>
-        <item name="spacebarBackground">@drawable/btn_keyboard_spacebar_lxx_dark</item>
-        <item name="keyTextColor">@color/key_text_color_lxx_dark</item>
-        <item name="keyTextInactivatedColor">@color/key_functional_text_color_lxx_dark</item>
-        <item name="functionalTextColor">@color/key_functional_text_color_lxx_dark</item>
-        <item name="keyHintLetterColor">@color/key_hint_letter_color_lxx_dark</item>
-        <item name="keyHintLabelColor">@color/key_text_inactive_color_lxx_dark</item>
-        <item name="keyShiftedLetterHintInactivatedColor">@color/key_text_inactive_color_lxx_dark</item>
-        <item name="keyShiftedLetterHintActivatedColor">@color/key_text_color_lxx_dark</item>
-        <item name="keyPreviewTextColor">@color/key_text_color_lxx_dark</item>
+        <item name="android:background">@drawable/ui_kb_background_dark</item>
+        <item name="keyBackground">@drawable/ui_kb_key_flat_dark</item>
+        <item name="functionalKeyBackground">@drawable/ui_kb_key_fn_flat_dark</item>
+        <item name="spacebarBackground">@drawable/ui_kb_spacebar_flat_dark</item>
+        <item name="keyTextColor">@color/ui_kb_text_dark</item>
+        <item name="keyTextInactivatedColor">@color/ui_kb_text_dark</item>
+        <item name="functionalTextColor">@color/ui_kb_text_dark</item>
+        <item name="keyHintLetterColor">@color/ui_kb_text_hint_dark</item>
+        <item name="keyHintLabelColor">@color/ui_kb_text_hint_dark</item>
+        <item name="keyShiftedLetterHintInactivatedColor">@color/ui_kb_text_hint_dark</item>
+        <item name="keyShiftedLetterHintActivatedColor">@color/ui_kb_text_dark</item>
+        <item name="keyPreviewTextColor">@color/ui_kb_text_dark</item>
     </style>
     <style
         name="MainKeyboardView.LXX_Dark"
         parent="KeyboardView.LXX_Dark"
     >
         <item name="moreKeysKeyboardForActionLayout">@layout/more_keys_keyboard_for_action_lxx</item>
-        <item name="keyPreviewBackground">@drawable/keyboard_key_feedback_lxx_dark</item>
+        <item name="keyPreviewBackground">@drawable/ui_kb_key_preview_dark</item>
         <item name="keyPreviewHeight">@dimen/config_key_preview_height_lxx</item>
         <item name="keyPreviewOffset">@dimen/config_key_preview_offset_lxx</item>
         <item name="keyPreviewShowUpAnimator">@anim/key_preview_show_up_lxx</item>
         <item name="keyPreviewDismissAnimator">@anim/key_preview_dismiss_lxx</item>
-        <item name="gestureFloatingPreviewTextColor">@color/auto_correct_color_lxx_dark</item>
-        <item name="gestureFloatingPreviewColor">@color/gesture_floating_preview_color_lxx_dark</item>
-        <item name="gestureTrailColor">@color/gesture_trail_color_lxx_dark</item>
-        <item name="slidingKeyInputPreviewColor">@color/sliding_key_input_preview_color_lxx_dark</item>
-        <item name="languageOnSpacebarTextColor">@color/key_text_inactive_color_lxx_dark</item>
+        <item name="gestureFloatingPreviewTextColor">@color/ui_kb_text_dark</item>
+        <item name="gestureFloatingPreviewColor">@color/ui_kb_gesture_preview_dark</item>
+        <item name="gestureTrailColor">@color/ui_kb_accent_dark</item>
+        <item name="slidingKeyInputPreviewColor">@color/ui_kb_accent_dark</item>
+        <item name="languageOnSpacebarTextColor">@color/ui_kb_text_dark</item>
         <!-- A negative value to disable text shadow layer. -->
         <item name="languageOnSpacebarTextShadowRadius">-1.0</item>
     </style>
@@ -86,8 +86,8 @@
         parent="MainKeyboardView.LXX_Dark"
     >
         <item name="categoryIndicatorEnabled">false</item>
-        <item name="categoryPageIndicatorColor">@color/highlight_color_lxx_dark</item>
-        <item name="categoryPageIndicatorBackground">@color/emoji_tab_page_indicator_background_lxx_dark</item>
+        <item name="categoryPageIndicatorColor">@color/ui_kb_accent_dark</item>
+        <item name="categoryPageIndicatorBackground">@color/ui_kb_divider_dark</item>
         <item name="iconEmojiRecentsTab">@drawable/ic_emoji_recents_lxx_dark</item>
         <item name="iconEmojiCategory1Tab">@drawable/ic_emoji_smileys_emotion_lxx_dark</item>
         <item name="iconEmojiCategory2Tab">@drawable/ic_emoji_people_body_lxx_dark</item>
@@ -105,7 +105,10 @@
             parent="MainKeyboardView.LXX_Dark"
             >
         <item name="iconPinnedClip">@drawable/ic_round_push_pin_24</item>
-        <item name="dividerBackground">@color/emoji_tab_page_indicator_background_lxx_dark</item>
+        <item name="dividerBackground">@color/ui_kb_bg_dark</item>
+        <item name="clipSecondaryTextColor">@color/ui_kb_text_secondary_dark</item>
+        <item name="clipAccentColor">@color/ui_kb_accent_dark</item>
+        <item name="clipBackground">@drawable/ui_kb_key_normal_dark</item>
     </style>
     <style
         name="MoreKeysKeyboard.LXX_Dark"
@@ -120,8 +123,8 @@
         name="MoreKeysKeyboardView.LXX_Dark"
         parent="KeyboardView.LXX_Dark"
     >
-        <item name="android:background">@drawable/keyboard_popup_panel_background_lxx_dark</item>
-        <item name="keyBackground">@drawable/btn_keyboard_key_popup_lxx_dark</item>
+        <item name="android:background">@drawable/ui_kb_popup_panel_dark</item>
+        <item name="keyBackground">@drawable/ui_kb_popup_key_dark</item>
         <item name="divider">@drawable/more_keys_divider</item>
         <item name="keyTypeface">normal</item>
         <item name="verticalCorrection">@dimen/config_more_keys_keyboard_vertical_correction_holo</item>
@@ -131,7 +134,7 @@
         parent="MoreKeysKeyboardView.LXX_Dark"
     >
         <item name="android:background">@android:color/transparent</item>
-        <item name="keyBackground">@drawable/btn_keyboard_key_popup_action_lxx_dark</item>
+        <item name="keyBackground">@drawable/ui_kb_popup_key_action</item>
         <item name="divider">@null</item>
         <item name="keyLabelFlags">keepBackgroundAspectRatio</item>
     </style>
@@ -143,13 +146,13 @@
         <item name="centerSuggestionPercentile">@fraction/config_center_suggestion_percentile</item>
         <item name="maxMoreSuggestionsRow">@integer/config_max_more_suggestions_row</item>
         <item name="minMoreSuggestionsWidth">@fraction/config_min_more_suggestions_width</item>
-        <item name="android:background">@drawable/keyboard_suggest_strip_lxx_dark</item>
+        <item name="android:background">@drawable/ui_kb_background_dark</item>
         <item name="android:src">@drawable/suggestions_strip_divider_lxx_dark</item>
         <item name="suggestionStripOptions">autoCorrectBold|validTypedWordBold</item>
-        <item name="colorValidTypedWord">@color/typed_word_color_lxx_dark</item>
-        <item name="colorTypedWord">@color/typed_word_color_lxx_dark</item>
-        <item name="colorAutoCorrect">@color/auto_correct_color_lxx_dark</item>
-        <item name="colorSuggested">@color/suggested_word_color_lxx_dark</item>
+        <item name="colorValidTypedWord">@color/ui_kb_text_secondary_dark</item>
+        <item name="colorTypedWord">@color/ui_kb_text_secondary_dark</item>
+        <item name="colorAutoCorrect">@color/ui_kb_text_dark</item>
+        <item name="colorSuggested">@color/ui_kb_text_secondary_dark</item>
         <item name="alphaObsoleted">70%</item>
     </style>
     <style
@@ -157,6 +160,6 @@
         parent="SuggestionWord"
     >
         <item name="android:background">@drawable/btn_suggestion_lxx_dark</item>
-        <item name="android:textColor">@color/highlight_color_lxx_dark</item>
+        <item name="android:textColor">@color/ui_kb_accent_dark</item>
     </style>
 </resources>

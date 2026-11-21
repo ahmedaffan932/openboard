@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Key background, "with key borders" themes (light). State order follows btn_keyboard_key_lxx_light_border. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_active="true" android:state_pressed="true"
+        android:drawable="@drawable/ui_kb_key_action_pressed" />
+    <item android:state_active="true"
+        android:drawable="@drawable/ui_kb_key_action_normal" />
+    <item android:state_checkable="true" android:state_checked="true" android:state_pressed="true"
+        android:drawable="@drawable/ui_kb_key_fn_pressed_light" />
+    <item android:state_checkable="true" android:state_pressed="true"
+        android:drawable="@drawable/ui_kb_key_fn_pressed_light" />
+    <item android:state_checkable="true" android:state_checked="true"
+        android:drawable="@drawable/ui_kb_key_checked_light" />
+    <item android:state_checkable="true"
+        android:drawable="@drawable/ui_kb_key_fn_normal_light" />
+    <item android:state_empty="true" android:state_pressed="true"
+        android:drawable="@drawable/ui_kb_key_pressed_light" />
+    <item android:state_empty="true"
+        android:drawable="@android:color/transparent" />
+    <item android:state_pressed="true"
+        android:drawable="@drawable/ui_kb_key_pressed_light" />
+    <item
+        android:drawable="@drawable/ui_kb_key_normal_light" />
+</selector>

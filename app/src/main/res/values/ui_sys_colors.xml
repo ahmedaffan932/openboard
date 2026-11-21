@@ -4,14 +4,13 @@
      The keyboard's translate strip (suggestions_strip.xml) sits on whatever keyboard theme the user
      picked, which can be light while the phone is dark (or the other way round), so the home_*
      tokens (values-night) would pick the wrong half. SuggestionStripView decides light/dark from the
-     keyboard theme itself: these are the light-keyboard values, and it swaps in translucent white /
-     ui_sys_kb_accent_on_dark on dark keyboards. No values-night twins on purpose. -->
+     keyboard theme itself: these are the light-keyboard values, and on dark keyboards it swaps in
+     the dark keyboard's ui_kb_* colours (ui_kb_colors.xml). No values-night twins on purpose. -->
 <resources>
     <!-- Language pills: white surface, home_text_primary (light) text. -->
     <color name="ui_sys_kb_pill">#FFFFFF</color>
     <color name="ui_sys_kb_pill_ripple">#1A2F6BFF</color>
     <color name="ui_sys_kb_text">#101C2F</color>
-    <!-- Swap arrows: home_accent (light) on light keyboards, a lighter blue on dark ones. -->
+    <!-- Swap arrows on light keyboards: home_accent (light). Dark keyboards use ui_kb_accent_dark. -->
     <color name="ui_sys_kb_accent">#2F6BFF</color>
-    <color name="ui_sys_kb_accent_on_dark">#8EADFF</color>
 </resources>

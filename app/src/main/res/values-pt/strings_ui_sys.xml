@@ -9,4 +9,6 @@
     <string name="ui_sys_loading_ad">Carregando anúncio…</string>
     <string name="ui_sys_just_a_moment">Só um momento</string>
     <string name="ui_sys_ad_sponsored">Patrocinado</string>
+    <!-- Title of the keyboard's clipboard panel. -->
+    <string name="ui_kb_clipboard_title">Área de transferência</string>
 </resources>

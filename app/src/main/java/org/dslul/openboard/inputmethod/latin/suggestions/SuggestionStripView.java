@@ -656,31 +656,35 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     /**
      * Colours the translate toolbar for the keyboard theme. The layout has white language pills
      * with dark text (Figma TranslatorProZyro 11:2185), which would look like white blocks on a dark
-     * keyboard. On a dark theme (its suggestion text colour is light) the pills become translucent
-     * white with white text and the swap arrows a lighter blue; light themes keep the layout's look.
-     * Fixed ui_sys_kb_* colours, not home_* tokens: the keyboard theme, not the system's night
-     * mode, decides light or dark here.
+     * keyboard. On a dark theme (its auto-correct colour, the strip's primary text, is light) the
+     * pills take the dark keyboard's key colour with light text and the swap arrows a lighter blue,
+     * as in the dark frame (12:4257); light themes keep the layout's look. Fixed ui_sys_kb_* /
+     * ui_kb_* colours, not home_* tokens: the keyboard theme, not the system's night mode, decides
+     * light or dark here. (The suggestion colour can't decide it: on the Material dark keyboard it
+     * is a mid grey-blue.)
      */
     private void applyThemeColors(final Context context, final AttributeSet attrs,
             final int defStyle) {
         final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SuggestionStripView,
                 defStyle, R.style.SuggestionStripView);
-        final int suggestedColor = a.getColor(R.styleable.SuggestionStripView_colorSuggested,
+        final int primaryColor = a.getColor(R.styleable.SuggestionStripView_colorAutoCorrect,
                 Color.BLACK);
         a.recycle();
-        final boolean darkTheme = ColorUtils.calculateLuminance(suggestedColor | 0xFF000000) > 0.5;
-        final int contentColor = darkTheme ? Color.WHITE : Color.BLACK;
-        final int pillTextColor = darkTheme ? Color.WHITE
-                : ContextCompat.getColor(context, R.color.ui_sys_kb_text);
+        final boolean darkTheme = ColorUtils.calculateLuminance(primaryColor | 0xFF000000) > 0.5;
+        final int contentColor = ContextCompat.getColor(context,
+                darkTheme ? R.color.ui_kb_text_secondary_dark : R.color.ui_kb_text_secondary_light);
+        final int pillTextColor = ContextCompat.getColor(context,
+                darkTheme ? R.color.ui_kb_text_dark : R.color.ui_sys_kb_text);
         final int swapColor = ContextCompat.getColor(context,
-                darkTheme ? R.color.ui_sys_kb_accent_on_dark : R.color.ui_sys_kb_accent);
+                darkTheme ? R.color.ui_kb_accent_dark : R.color.ui_sys_kb_accent);
         mTVLngFrom.setTextColor(pillTextColor);
         mTVLngTo.setTextColor(pillTextColor);
         mIVSwitchLanguage.setImageTintList(ColorStateList.valueOf(swapColor));
         mClipChip.setTextColor(contentColor);
         mClipChip.setCompoundDrawableTintList(ColorStateList.valueOf(contentColor));
         if (darkTheme) {
-            final ColorStateList pill = ColorStateList.valueOf(0x33FFFFFF);
+            final ColorStateList pill = ColorStateList.valueOf(
+                    ContextCompat.getColor(context, R.color.ui_kb_key_dark));
             mLLLanguageFrom.setBackgroundTintList(pill);
             mLLLngTo.setBackgroundTintList(pill);
             mClipChip.setBackgroundTintList(pill);

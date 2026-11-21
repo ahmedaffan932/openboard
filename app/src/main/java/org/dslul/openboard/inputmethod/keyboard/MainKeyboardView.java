@@ -125,6 +125,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     private final float mLanguageOnSpacebarTextRatio;
     private float mLanguageOnSpacebarTextSize;
     private final int mLanguageOnSpacebarTextColor;
+    // languageOnSpacebarFontFamily, or the system font.
+    private final Typeface mLanguageOnSpacebarTypeface;
     private final float mLanguageOnSpacebarTextShadowRadius;
     private final int mLanguageOnSpacebarTextShadowColor;
     private static final float LANGUAGE_ON_SPACEBAR_TEXT_SHADOW_RADIUS_DISABLED = -1.0f;
@@ -214,6 +216,17 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
                 R.styleable.MainKeyboardView_languageOnSpacebarTextRatio, 1, 1, 1.0f);
         mLanguageOnSpacebarTextColor = mainKeyboardViewAttr.getColor(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextColor, 0);
+        Typeface languageOnSpacebarTypeface = null;
+        if (mainKeyboardViewAttr.hasValue(R.styleable.MainKeyboardView_languageOnSpacebarFontFamily)) {
+            try {
+                languageOnSpacebarTypeface = mainKeyboardViewAttr.getFont(
+                        R.styleable.MainKeyboardView_languageOnSpacebarFontFamily);
+            } catch (final RuntimeException e) {
+                languageOnSpacebarTypeface = null;
+            }
+        }
+        mLanguageOnSpacebarTypeface = languageOnSpacebarTypeface != null
+                ? languageOnSpacebarTypeface : Typeface.DEFAULT;
         mLanguageOnSpacebarTextShadowRadius = mainKeyboardViewAttr.getFloat(
                 R.styleable.MainKeyboardView_languageOnSpacebarTextShadowRadius,
                 LANGUAGE_ON_SPACEBAR_TEXT_SHADOW_RADIUS_DISABLED);
@@ -861,7 +874,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         final int width = key.getWidth();
         final int height = key.getHeight();
         paint.setTextAlign(Align.CENTER);
-        paint.setTypeface(Typeface.DEFAULT);
+        paint.setTypeface(mLanguageOnSpacebarTypeface);
         paint.setTextSize(mLanguageOnSpacebarTextSize);
         final String language = layoutLanguageOnSpacebar(paint, keyboard.mId.mSubtype, width);
         // Draw language text with shadow

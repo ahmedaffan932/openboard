@@ -738,7 +738,9 @@ public class Key implements Comparable<Key> {
     public final Typeface selectTypeface(final KeyDrawParams params) {
         switch (mLabelFlags & LABEL_FLAGS_FONT_MASK) {
         case LABEL_FLAGS_FONT_NORMAL:
-            return Typeface.DEFAULT;
+            // "Not bold": a non-bold theme font (keyFontFamily, e.g. Manrope Medium) already is.
+            return (params.mTypeface != null && !params.mTypeface.isBold())
+                    ? params.mTypeface : Typeface.DEFAULT;
         case LABEL_FLAGS_FONT_MONO_SPACE:
             return Typeface.MONOSPACE;
         case LABEL_FLAGS_FONT_DEFAULT:

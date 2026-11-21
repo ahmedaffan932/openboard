@@ -20,7 +20,7 @@
 
 <resources>
     <style name="KeyboardIcons.LXX_Dark" parent="KeyboardIcons.LXX_Dark.Parent">
-        <!-- Use system accent color for shifted shift key -->
-        <item name="iconShiftKeyShifted">@drawable/sym_keyboard_shift_locked_lxx_dark_system_accent</item>
+        <!-- The app's own accent (Figma TranslatorProZyro keyboard), not the system's Material You accent. -->
+        <item name="iconShiftKeyShifted">@drawable/sym_kb_ui_shift_locked_dark</item>
     </style>
 </resources>

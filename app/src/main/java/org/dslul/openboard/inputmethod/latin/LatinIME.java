@@ -75,6 +75,7 @@ import org.dslul.openboard.inputmethod.keyboard.Keyboard;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardActionListener;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardId;
 import org.dslul.openboard.inputmethod.keyboard.KeyboardSwitcher;
+import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView;
 import org.dslul.openboard.inputmethod.latin.Suggest.OnGetSuggestedWordsCallback;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
@@ -120,6 +121,8 @@ import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.N
 import static org.dslul.openboard.inputmethod.latin.common.Constants.ImeOption.NO_MICROPHONE_COMPAT;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
+import androidx.core.view.WindowCompat;
 
 import com.google.mlkit.nl.translate.TranslateLanguage;
 
@@ -2233,9 +2236,18 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     private void setNavigationBarVisibility(final boolean visible) {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
             // For N and later, IMEs can specify Color.TRANSPARENT to make the navigation bar
-            // transparent.  For other colors the system uses the default color.
-            getWindow().getWindow().setNavigationBarColor(
-                    visible ? Color.BLACK : Color.TRANSPARENT);
+            // transparent. While shown, the bar takes the keyboard's own background colour,
+            // with dark buttons on light keyboards (API 26+; minSdk is 27).
+            final Window window = getWindow().getWindow();
+            if (window == null) return;
+            if (!visible) {
+                window.setNavigationBarColor(Color.TRANSPARENT);
+                return;
+            }
+            final int color = KeyboardTheme.getKeyboardBackgroundColor(this);
+            window.setNavigationBarColor(color);
+            WindowCompat.getInsetsController(window, window.getDecorView())
+                    .setAppearanceLightNavigationBars(ColorUtils.calculateLuminance(color) > 0.5);
         }
     }
 

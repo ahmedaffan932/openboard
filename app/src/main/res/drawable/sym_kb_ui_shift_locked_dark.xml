@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Keyboard icon: shift on / caps lock, filled in the accent colour (dark). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="22dp"
+    android:height="22dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:pathData="M9 18v-6H5l7-7 7 7h-4v6H9z"
+        android:fillColor="@color/ui_kb_accent_dark"
+        android:strokeColor="@color/ui_kb_accent_dark"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

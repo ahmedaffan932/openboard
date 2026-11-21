@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Borderless caps lock (dark). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ui_kb_key_checked_dark" />
+    <corners android:radius="7dp" />
+</shape>

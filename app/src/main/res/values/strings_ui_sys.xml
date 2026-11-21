@@ -10,4 +10,6 @@
     <string name="ui_sys_loading_ad">Loading ad…</string>
     <string name="ui_sys_just_a_moment">Just a moment</string>
     <string name="ui_sys_ad_sponsored">Sponsored</string>
+    <!-- Title of the keyboard's clipboard panel. -->
+    <string name="ui_kb_clipboard_title">Clipboard</string>
 </resources>

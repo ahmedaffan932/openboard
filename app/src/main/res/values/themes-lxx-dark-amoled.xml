@@ -46,7 +46,7 @@
         parent="KeyboardView.LXX_Dark"
     >
         <item name="android:background">@color/background_amoled_black</item>
-        <item name="keyBackground">@drawable/btn_keyboard_key_lxx_dark_amoled</item>
+        <item name="keyBackground">@drawable/ui_kb_key_flat_dark</item>
     </style>
 
     <style
@@ -54,7 +54,7 @@
         parent="MainKeyboardView.LXX_Dark"
     >
         <item name="android:background">@color/background_amoled_black</item>
-        <item name="keyBackground">@drawable/btn_keyboard_key_lxx_dark_amoled</item>
+        <item name="keyBackground">@drawable/ui_kb_key_flat_dark</item>
     </style>
 
     <style
@@ -63,7 +63,7 @@
     >
         <item name="categoryPageIndicatorBackground">@android:color/transparent</item>
         <item name="android:background">@color/background_amoled_black</item>
-        <item name="keyBackground">@drawable/btn_keyboard_key_lxx_dark_amoled</item>
+        <item name="keyBackground">@drawable/ui_kb_key_flat_dark</item>
     </style>
 
     <style
@@ -71,7 +71,7 @@
             parent="ClipboardHistoryView.LXX_Dark"
     >
         <item name="android:background">@color/background_amoled_black</item>
-        <item name="keyBackground">@drawable/btn_keyboard_key_lxx_dark_amoled</item>
+        <item name="keyBackground">@drawable/ui_kb_key_flat_dark</item>
     </style>
 
     <style
@@ -79,7 +79,7 @@
         parent="MoreKeysKeyboardView.LXX_Dark"
     >
         <item name="android:background">@drawable/keyboard_popup_panel_background_lxx_dark_amoled</item>
-        <item name="keyBackground">@drawable/btn_keyboard_key_popup_lxx_dark</item>
+        <item name="keyBackground">@drawable/ui_kb_popup_key_dark</item>
     </style>
 
     <style

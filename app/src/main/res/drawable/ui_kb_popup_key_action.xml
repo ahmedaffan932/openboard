@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Key in the action key's long-press panel. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true"
+        android:drawable="@drawable/ui_kb_key_action_pressed" />
+    <item
+        android:drawable="@drawable/ui_kb_key_action_normal" />
+</selector>
