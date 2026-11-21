@@ -255,8 +255,17 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="colorControlActivated">@color/accent</item>
+        <item name="colorControlActivated">@color/home_accent</item>
 
+        <!-- Redesign (Figma TranslatorProZyro): page colour behind every screen and the system
+             navigation bar, light or dark with the app's theme setting. -->
+        <item name="android:windowBackground">@color/home_bg</item>
+        <item name="android:navigationBarColor">@color/home_bg</item>
+        <item name="android:windowLightNavigationBar">@bool/ui_light_system_bars</item>
+        <item name="android:textColorPrimary">@color/home_text_primary</item>
+        <item name="android:textColorSecondary">@color/home_text_secondary</item>
+        <item name="colorAccent">@color/home_accent</item>
+        <item name="android:textCursorDrawable">@drawable/cursor_home</item>
     </style>
 
     <style name="Theme.TranslatorGuru.Cropper" parent="Theme.AppCompat.Light.DarkActionBar">

@@ -24,4 +24,18 @@
     <color name="home_shadow">#66101C30</color>
     <color name="home_ripple">#265C8BFF</color>
     <color name="home_dock_shadow">#26000000</color>
+
+    <!-- App-wide redesign tokens (Figma TranslatorProZyro "Color"). -->
+    <color name="home_teal">#2FD3B8</color>
+    <color name="home_teal_soft">#0F2A2B</color>
+    <color name="home_orange">#FF9F5A</color>
+    <color name="home_orange_soft">#2E2016</color>
+    <color name="home_danger">#FF6B6E</color>
+    <color name="home_danger_soft">#3A1A1F</color>
+    <color name="home_success">#32D583</color>
+    <color name="home_success_soft">#10291E</color>
+    <color name="home_scrim">#A6000000</color>
+    <color name="home_viewfinder">#060A12</color>
+    <color name="home_inverse_surface">#EAF1FB</color>
+    <color name="home_inverse_text">#101C2F</color>
 </resources>
