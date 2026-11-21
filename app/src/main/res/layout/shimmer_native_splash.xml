@@ -1,57 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Loading placeholder for admob_native_splash.xml: centred icon, headline, caption and body
-     blocks, a full-width CTA block. The card is the shimmer layout's own background. -->
-<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Loading placeholder for the "splash" native keys (the splash, and Translate when its key says
+     splash). Those show admob_native_hctr without media (AdmobNativeAds.chooseLayout), so this
+     mirrors it block for block at the same height, about 177dp: icon + two lines + AD badge, two
+     body lines, a full-width CTA. The card sits on a plain wrapper: the shimmer dims its whole
+     layer, background included, which let the splash's background circle show through. -->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/shimmerViewThe"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_ui_card"
-    android:paddingStart="20dp"
-    android:paddingTop="24dp"
-    android:paddingEnd="20dp"
-    android:paddingBottom="18dp"
-    app:shimmer_auto_start="true">
+    android:paddingStart="14dp"
+    android:paddingTop="12dp"
+    android:paddingEnd="12dp"
+    android:paddingBottom="12dp">
 
-    <LinearLayout
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerViewThe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        app:shimmer_auto_start="true">
 
-        <View
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:background="@drawable/ui_sys_shimmer_icon" />
-
-        <View
-            android:layout_width="180dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/ui_sys_shimmer_block" />
-
-        <View
-            android:layout_width="90dp"
-            android:layout_height="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/ui_sys_shimmer_block" />
-
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:layout_marginTop="14dp"
-            android:background="@drawable/ui_sys_shimmer_block" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <View
-            android:layout_width="200dp"
-            android:layout_height="10dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/ui_sys_shimmer_block" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginTop="18dp"
-            android:background="@drawable/ui_sys_shimmer_pill" />
-    </LinearLayout>
-</com.facebook.shimmer.ShimmerFrameLayout>
+                <View
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/ui_sys_shimmer_icon" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="150dp"
+                        android:layout_height="12dp"
+                        android:background="@drawable/ui_sys_shimmer_block" />
+
+                    <View
+                        android:layout_width="96dp"
+                        android:layout_height="10dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/ui_sys_shimmer_block" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="22dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="top"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/ui_sys_shimmer_block" />
+            </LinearLayout>
+
+            <!-- Two body lines in the body's 36dp. -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/ui_sys_shimmer_block" />
+
+            <View
+                android:layout_width="220dp"
+                android:layout_height="10dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/ui_sys_shimmer_block" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/ui_sys_shimmer_pill" />
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+</FrameLayout>

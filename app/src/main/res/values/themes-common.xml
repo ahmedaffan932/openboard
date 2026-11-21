@@ -194,6 +194,10 @@
 
     <style name="ForSplash" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/bg_splash</item>
+        <item name="android:statusBarColor">@color/home_bg</item>
+        <item name="android:navigationBarColor">@color/home_bg</item>
+        <item name="android:windowLightStatusBar">@bool/ui_light_system_bars</item>
+        <item name="android:windowLightNavigationBar">@bool/ui_light_system_bars</item>
     </style>
 
     <style name="lessRoundedCorners" parent="">

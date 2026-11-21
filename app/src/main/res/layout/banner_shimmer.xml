@@ -1,54 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Loading placeholder for banner slots (AdmobBannerAd, AdmobCollapsibleBannerAds): a surface strip
      with an icon block and two text lines, about a banner's height. -->
-<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/shimmerViewThe"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/home_surface"
     android:paddingStart="12dp"
     android:paddingTop="8dp"
     android:paddingEnd="12dp"
-    android:paddingBottom="8dp"
-    app:shimmer_auto_start="true">
+    android:paddingBottom="8dp">
 
-    <LinearLayout
+    <com.facebook.shimmer.ShimmerFrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <View
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/ui_sys_shimmer_icon" />
+        android:id="@+id/shimmerViewThe"
+        app:shimmer_auto_start="true">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <View
-                android:id="@+id/firstT"
-                android:layout_width="140dp"
-                android:layout_height="12dp"
-                android:background="@drawable/ui_sys_shimmer_block" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ui_sys_shimmer_icon" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/firstT"
+                    android:layout_width="140dp"
+                    android:layout_height="12dp"
+                    android:background="@drawable/ui_sys_shimmer_block" />
+
+                <View
+                    android:id="@+id/secondT"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/ui_sys_shimmer_block" />
+            </LinearLayout>
 
             <View
-                android:id="@+id/secondT"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/ui_sys_shimmer_block" />
+                android:layout_width="64dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/ui_sys_shimmer_pill" />
         </LinearLayout>
-
-        <View
-            android:layout_width="64dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/ui_sys_shimmer_pill" />
-    </LinearLayout>
-</com.facebook.shimmer.ShimmerFrameLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+</FrameLayout>

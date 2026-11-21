@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle" android:padding="50dp">
-            <solid android:color="@color/black" />
+            <solid android:color="@color/home_bg" />
         </shape>
     </item>
 

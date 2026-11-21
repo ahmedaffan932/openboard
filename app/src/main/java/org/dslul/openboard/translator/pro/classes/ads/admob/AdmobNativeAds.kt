@@ -213,6 +213,10 @@ object AdmobNativeAds {
 
         val shimmerView = if (shimmerLayout != null) {
             inflater.inflate(shimmerLayout, frameLayout, false)
+        } else if (remoteKey.contains("splash")) {
+            // Splash keys show admob_native_hctr without media, which this mirrors at the same
+            // height; the large shimmer would fill its parent's whole height.
+            inflater.inflate(R.layout.shimmer_native_splash, frameLayout, false)
         } else if (remoteKey.contains("small")) {
             inflater.inflate(R.layout.small_native_shimmer, null)
         } else {
