@@ -12,7 +12,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.setPadding
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import org.dslul.openboard.inputmethod.latin.R
@@ -46,6 +45,8 @@ class EnableKeyboardActivity : AppCompatActivity() {
         wasSelectedOnOpen = isInputMethodSelected()
 
         Firebase.analytics.logEvent("EnableKeyboard", null)
+
+        showToolbarPreview()
 
         binding.tvSkip.setOnClickListener {
             finish()
@@ -139,17 +140,17 @@ class EnableKeyboardActivity : AppCompatActivity() {
                 Toast.makeText(this, R.string.step_1_completed, Toast.LENGTH_SHORT).show()
             }
 
-            binding.clEnableKeyboard.background =
-                resources.getDrawable(R.drawable.bg_main_rounded)
+            // Step 1 is done: success badge with a check, greyed-out text, no chevron.
+            binding.tvHintMeaning.setBackgroundResource(R.drawable.ui_tr_bg_circle_success_solid)
+            binding.tvHintMeaning.text = ""
+            binding.ivStepOneDone.visibility = View.VISIBLE
+            binding.ivStepOneChevron.visibility = View.INVISIBLE
+            val muted = ContextCompat.getColor(this, R.color.home_text_muted)
+            binding.textEnable.setTextColor(muted)
+            binding.tvStepOneSubtitle.setTextColor(muted)
 
-            binding.tvHintMeaning.backgroundTintList =
-                ContextCompat.getColorStateList(this, R.color.gray_400);
-            binding.clEnableKeyboard.backgroundTintList =
-                ContextCompat.getColorStateList(this, R.color.disable_color);
-
-            binding.textEnable.setTextColor(resources.getColor(R.color.gray_700))
-            binding.tvHintMeaning.setTextColor(resources.getColor(R.color.gray_700))
-
+            // Step 2 becomes the current step.
+            binding.llSwitchKeyboardInactive.visibility = View.INVISIBLE
             binding.clSelectKeyboard.visibility = View.VISIBLE
 
             Handler(Looper.getMainLooper()).postDelayed({
@@ -164,8 +165,22 @@ class EnableKeyboardActivity : AppCompatActivity() {
                 isSettingUpKeyboardWillingly = true
             }
         }
-        binding.clEnableKeyboard.setPadding(dpToPx(8).toInt())
         return mActKeyboard
+    }
+
+    /** The keyboard toolbar preview shows the app's current language pair. */
+    private fun showToolbarPreview() {
+        val from = Misc.getLanguageFrom(this)
+        val to = Misc.getLanguageTo(this)
+        if (from == Misc.defaultLanguage) {
+            binding.ivPreviewFlagFrom.setImageResource(Misc.getFlag(this, "100"))
+            binding.tvPreviewFrom.text = getString(R.string.detect)
+        } else {
+            binding.ivPreviewFlagFrom.setImageResource(Misc.getFlag(this, from))
+            binding.tvPreviewFrom.text = from.uppercase(Locale.ROOT)
+        }
+        binding.ivPreviewFlagTo.setImageResource(Misc.getFlag(this, to))
+        binding.tvPreviewTo.text = to.uppercase(Locale.ROOT)
     }
 
 

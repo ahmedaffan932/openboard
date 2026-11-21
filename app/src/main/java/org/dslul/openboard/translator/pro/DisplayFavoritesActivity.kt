@@ -22,18 +22,27 @@ class DisplayFavoritesActivity : AppCompatActivity() {
 
 
         if (Misc.getFavorites(this).size == 0) {
-            binding.tvNoFavorites.visibility = View.VISIBLE
-            binding.animLoading.visibility = View.VISIBLE
+            showNoFavorites()
         }
 
         binding.btnBack.setOnClickListener {
             onBackPressed()
         }
 
+        // Favorites opens from History, so going back lands there.
+        binding.btnOpenHistory.setOnClickListener {
+            onBackPressed()
+        }
+
         binding.recyclerViewFavorites.layoutManager = LinearLayoutManager(this)
-        adapter = FavoritesAdapter(Misc.getFavorites(this), this)
+        adapter = FavoritesAdapter(Misc.getFavorites(this), this) { showNoFavorites() }
         binding.recyclerViewFavorites.adapter = adapter
 
+    }
+
+    private fun showNoFavorites() {
+        binding.llEmptyState.visibility = View.VISIBLE
+        binding.recyclerViewFavorites.visibility = View.GONE
     }
 
     @Deprecated("Deprecated in Java")

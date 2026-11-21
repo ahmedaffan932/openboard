@@ -1,10 +1,13 @@
 package org.dslul.openboard.translator.pro
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.widget.ImageViewCompat
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import org.dslul.openboard.inputmethod.latin.R
@@ -43,11 +46,23 @@ class UninstallSurveyActivity : AppCompatActivity() {
 
         logEvent("uninstall_survey_view")
 
-        bindFeature(binding.featureCamera, R.drawable.ic_baseline_camera_alt_24, R.string.uninstall_feature_camera)
-        bindFeature(binding.featureVoice, R.drawable.ic_conversation, R.string.uninstall_feature_voice)
+        bindFeature(
+            binding.featureCamera, R.drawable.ic_ui_camera, R.string.uninstall_feature_camera,
+            R.drawable.bg_ui_tile_teal, R.color.home_teal
+        )
+        bindFeature(
+            binding.featureVoice, R.drawable.ic_ui_conversation, R.string.uninstall_feature_voice,
+            R.drawable.bg_ui_tile_purple, R.color.home_purple
+        )
         // openboard has no AI chatbot; the phrasebook stands in for xtech's chatbot feature.
-        bindFeature(binding.featureChatbot, R.drawable.ic_baseline_menu_book_24, R.string.phrasebook)
-        bindFeature(binding.featureOffline, R.drawable.ic_enable_offline, R.string.uninstall_feature_offline)
+        bindFeature(
+            binding.featureChatbot, R.drawable.ic_ui_book, R.string.phrasebook,
+            R.drawable.bg_ui_tile_orange, R.color.home_orange
+        )
+        bindFeature(
+            binding.featureOffline, R.drawable.ic_ui_download, R.string.uninstall_feature_offline,
+            R.drawable.bg_ui_tile_accent, R.color.home_accent
+        )
 
         Ads.loadAndShowSharedBottomNativeAd(this, binding.nativeAdFrameLayout)
 
@@ -62,8 +77,20 @@ class UninstallSurveyActivity : AppCompatActivity() {
         }
     }
 
-    private fun bindFeature(item: ItemUninstallFeatureBinding, iconRes: Int, labelRes: Int) {
+    /** A feature tile: icon on its tone's soft tile, tinted with the tone, plus the label. */
+    private fun bindFeature(
+        item: ItemUninstallFeatureBinding,
+        iconRes: Int,
+        labelRes: Int,
+        tileRes: Int,
+        toneColorRes: Int
+    ) {
+        item.featureTile.setBackgroundResource(tileRes)
         item.imgFeature.setImageResource(iconRes)
+        ImageViewCompat.setImageTintList(
+            item.imgFeature,
+            ColorStateList.valueOf(ContextCompat.getColor(this, toneColorRes))
+        )
         item.tvFeature.setText(labelRes)
     }
 

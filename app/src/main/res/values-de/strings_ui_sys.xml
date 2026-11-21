@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_sys_premium_caption">Eine Anzeige schaltet die Funktion für diese Sitzung frei.</string>
+    <string name="ui_sys_delete_body">Das kann nicht rückgängig gemacht werden.</string>
+    <string name="ui_sys_feedback_body">Fehler gefunden oder eine Idee? Schreib uns – wir lesen jede Nachricht.</string>
+    <string name="ui_sys_send_feedback">Feedback senden</string>
+    <string name="ui_sys_rate_title">Gefällt dir Translator Pro?</string>
+    <string name="ui_sys_rate_body">Tippe auf einen Stern, um uns bei Google Play zu bewerten. Das hilft sehr!</string>
+    <string name="ui_sys_loading_ad">Anzeige wird geladen…</string>
+    <string name="ui_sys_just_a_moment">Einen Moment</string>
+    <string name="ui_sys_ad_sponsored">Gesponsert</string>
+</resources>

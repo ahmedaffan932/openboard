@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Group D (system UI) redesign styles. The UiSysNoti* styles are used by notification layouts
+     (noti_pinned_*.xml), which SystemUI inflates: framework attributes only - no ?attr, no app font,
+     no app:tint. Colours are home_* tokens, which SystemUI resolves against the system's day/night. -->
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Expanded pinned notification (Figma 11:2354): a 48dp soft-tone icon tile with the label under
+         it. The column is the tap target (ids on it); its ripple is masked to the tile's corners. -->
+    <style name="UiSysNotiTile">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/ui_sys_noti_press</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingStart">2dp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingEnd">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+    </style>
+
+    <style name="UiSysNotiTileIcon">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:padding">13dp</item>
+        <item name="android:contentDescription">@null</item>
+        <item name="android:importantForAccessibility">no</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <!-- 12sp in a fixed 17dp slot: from API 26 a label too long for its column shrinks to fit. -->
+    <style name="UiSysNotiTileLabel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">17dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:autoSizeMaxTextSize" tools:ignore="NewApi">12sp</item>
+        <item name="android:autoSizeMinTextSize" tools:ignore="NewApi">9sp</item>
+        <item name="android:autoSizeStepGranularity" tools:ignore="NewApi">0.5sp</item>
+        <item name="android:autoSizeTextType" tools:ignore="NewApi">uniform</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/home_text_primary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- Collapsed row (~38dp below API 31): each tile is a soft-tone chip, an 18dp glyph over a 10sp
+         label. The chip background is set per tile (ui_sys_noti_tile_<tone>). -->
+    <style name="UiSysNotiChip">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingStart">2dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingEnd">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+    </style>
+
+    <style name="UiSysNotiChipIcon">
+        <item name="android:layout_width">18dp</item>
+        <item name="android:layout_height">18dp</item>
+        <item name="android:contentDescription">@null</item>
+        <item name="android:importantForAccessibility">no</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="UiSysNotiChipLabel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/home_text_primary</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <!-- API 31+ collapsed row (48dp): 22dp glyph over an 11sp label. -->
+    <style name="UiSysNotiChip.V31">
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">3dp</item>
+    </style>
+
+    <style name="UiSysNotiChipIcon.V31">
+        <item name="android:layout_width">22dp</item>
+        <item name="android:layout_height">22dp</item>
+    </style>
+
+    <style name="UiSysNotiChipLabel.V31">
+        <item name="android:textSize">11sp</item>
+    </style>
+</resources>

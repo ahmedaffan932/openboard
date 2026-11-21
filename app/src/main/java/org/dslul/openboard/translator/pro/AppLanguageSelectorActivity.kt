@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import com.example.translatorguru.ads.admob.LoadAdCallBack
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityAppLanguageSelectorBinding
@@ -74,9 +75,16 @@ class AppLanguageSelectorActivity : AppCompatActivity(), AppAnalytics.ScreenPara
         }
 
 
+        // Each radio sits inside its row: the whole row picks the language.
+        languageRows.forEach { (row, radio) ->
+            row.setOnClickListener { radio.isChecked = true }
+        }
+        showSelectedRow()
+
         binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId == View.NO_ID) return@setOnCheckedChangeListener
 
+            showSelectedRow()
             binding.btnSave.visibility = View.VISIBLE
             setAppLanguage(this, findViewById<View>(checkedId).tag.toString())
             showLanguageRefreshNativeIfNeeded()
@@ -124,6 +132,26 @@ class AppLanguageSelectorActivity : AppCompatActivity(), AppAnalytics.ScreenPara
             finish()
         }
 
+    }
+
+    /** Rows and their radios, in screen order. */
+    private val languageRows: List<Pair<View, RadioButton>> by lazy {
+        listOf(
+            binding.rowEnglish to binding.rbEnglish,
+            binding.rowFrench to binding.rbFrench,
+            binding.rowGerman to binding.rbGerman,
+            binding.rowSpanish to binding.rbSpanish,
+            binding.rowHindi to binding.rbHindi,
+            binding.rowPortuguese to binding.rbPortuguese,
+            binding.rowKorean to binding.rbKorean,
+            binding.rowItalian to binding.rbItalian,
+            binding.rowRussian to binding.rbRussian
+        )
+    }
+
+    /** The checked language's row gets the selected look (tinted row, accent name). */
+    private fun showSelectedRow() {
+        languageRows.forEach { (row, radio) -> row.isSelected = radio.isChecked }
     }
 
     private fun showLanguageNativeOnOpen() {

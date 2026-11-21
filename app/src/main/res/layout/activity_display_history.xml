@@ -1,86 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- History. Figma: TranslatorProZyro "History" (6:999), empty state (6:1140).
+     Cards are history_item_home (the Home tab's Recent cards); the heart in the header opens Favorites. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color"
+    android:background="@color/home_bg"
+    android:orientation="vertical"
     tools:context="org.dslul.openboard.translator.pro.DisplayHistoryActivity">
 
+    <!-- Header: back, title, favourites. -->
     <LinearLayout
+        android:id="@+id/llTopBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/llTopBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_top_bar"
-            android:elevation="@dimen/padding">
-
-            <ImageView
-                android:id="@+id/btnBack"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginHorizontal="@dimen/fab_padding"
-                android:padding="@dimen/padding"
-                android:src="@drawable/ic_baseline_arrow_back_24"
-                app:layout_constraintBottom_toBottomOf="@id/tvTitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvTitle" />
-
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/m_padding"
-                android:layout_marginTop="@dimen/extra_padding"
-                android:layout_marginBottom="@dimen/fab_padding"
-                android:fontFamily="@font/poppins_regular"
-                android:paddingStart="@dimen/padding"
-                android:text="@string/history"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btnBack"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/btnFav"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="@dimen/fab_padding"
-                android:padding="@dimen/padding"
-                android:src="@drawable/ic_baseline_favorite_24"
-                app:layout_constraintBottom_toBottomOf="@id/tvTitle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvTitle" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animLoading"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
-            android:layout_margin="@dimen/padding_10"
-            android:scaleType="centerCrop"
-            android:elevation="@dimen/extra_padding"
-            android:visibility="gone"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/empty_list" />
+        <ImageView
+            android:id="@+id/btnBack"
+            style="@style/Widget.Ui.IconButton"
+            android:contentDescription="@string/ui_tr_back"
+            android:outlineSpotShadowColor="@color/home_shadow"
+            app:srcCompat="@drawable/ic_ui_arrow_left"
+            app:tint="@color/home_text_primary"
+            tools:targetApi="p" />
 
         <TextView
-            android:id="@+id/tvNoHistory"
-            android:layout_width="match_parent"
+            android:id="@+id/tvTitle"
+            style="@style/HomeText.Screen"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/accent"
-            android:visibility="gone"
-            android:text="@string/translate_something_to_see_history" />
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/history" />
+
+        <ImageView
+            android:id="@+id/btnFav"
+            style="@style/Widget.Ui.IconButton"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/favorites"
+            android:outlineSpotShadowColor="@color/home_shadow"
+            app:srcCompat="@drawable/ic_ui_heart"
+            tools:targetApi="p" />
+    </LinearLayout>
+
+    <!-- How to delete a card (replaces the old toast). -->
+    <LinearLayout
+        android:id="@+id/llHistoryHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_ui_chip_soft"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="9dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:importantForAccessibility="no"
+            app:srcCompat="@drawable/ic_ui_info"
+            app:tint="@color/home_accent" />
+
+        <TextView
+            style="@style/HomeText.CaptionMedium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:text="@string/ui_tr_history_hint"
+            android:textColor="@color/home_accent" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -90,26 +98,85 @@
                 android:id="@+id/recyclerViewHistory"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:paddingTop="@dimen/padding"
-                android:layout_marginHorizontal="@dimen/fab_padding"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingStart="16dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="6dp"
                 app:layout_constraintBottom_toTopOf="@+id/nativeAdFrameLayout"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/history_item_home" />
 
-                <FrameLayout
-                    android:id="@+id/nativeAdFrameLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_200sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_margin="@dimen/padding_10"
-                    android:background="@drawable/bg_native_ad"
-                    android:elevation="@dimen/padding_10"
-                    android:visibility="gone" />
-
-
+            <FrameLayout
+                android:id="@+id/nativeAdFrameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_home_ad_card"
+                android:elevation="2dp"
+                android:outlineSpotShadowColor="@color/home_shadow"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:targetApi="p" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+        <!-- Empty state. -->
+        <LinearLayout
+            android:id="@+id/llEmptyState"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingHorizontal="32dp"
+            android:paddingBottom="48dp"
+            android:visibility="gone">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <FrameLayout
+                android:id="@+id/animLoading"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@drawable/bg_ui_circle_accent">
+
+                <ImageView
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center"
+                    android:importantForAccessibility="no"
+                    app:srcCompat="@drawable/ic_ui_history"
+                    app:tint="@color/home_accent" />
+            </FrameLayout>
+
+            <TextView
+                style="@style/HomeText.CardLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/ui_tr_history_empty_title" />
+
+            <TextView
+                android:id="@+id/tvNoHistory"
+                style="@style/HomeText.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="@string/translate_something_to_see_history" />
+
+            <TextView
+                android:id="@+id/btnStartTranslating"
+                style="@style/Widget.Ui.Button.Primary"
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:minWidth="216dp"
+                android:outlineSpotShadowColor="@color/home_shadow_blue"
+                android:text="@string/ui_tr_start_translating"
+                tools:targetApi="p" />
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

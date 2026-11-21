@@ -41,7 +41,7 @@
                 android:ellipsize="end"
                 android:fontFamily="sans-serif-medium"
                 android:maxLines="2"
-                android:textColor="@color/noti_title"
+                android:textColor="@color/home_text_primary"
                 android:textSize="15sp" />
 
             <TextView
@@ -51,7 +51,7 @@
                 android:layout_marginTop="2dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:textColor="@color/noti_desc"
+                android:textColor="@color/home_text_secondary"
                 android:textSize="13sp" />
         </LinearLayout>
 
@@ -60,11 +60,11 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="8dp"
-            android:background="@drawable/noti_ls_close_bg"
+            android:background="@drawable/ui_sys_noti_close_bg"
             android:contentDescription="@string/noti_close"
-            android:padding="9dp"
-            android:src="@drawable/ic_round_close_24"
-            android:tint="@color/lockscreen_card_close_icon"
+            android:padding="10dp"
+            android:src="@drawable/ic_ui_x"
+            android:tint="@color/home_text_secondary"
             tools:ignore="UseAppTint" />
     </LinearLayout>
 
@@ -87,13 +87,14 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/lockscreen_cta_bg"
+        android:background="@drawable/ui_sys_noti_cta"
         android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:maxLines="1"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:textColor="@color/lockscreen_cta_text"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="@color/home_on_accent"
         android:textSize="14sp" />
 
 </LinearLayout>

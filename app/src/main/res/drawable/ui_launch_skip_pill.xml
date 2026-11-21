@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Small outlined pill (onboarding "Skip"). -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="@color/home_ripple">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/home_surface" />
+            <corners android:radius="16dp" />
+            <stroke android:width="1dp" android:color="@color/home_border" />
+        </shape>
+    </item>
+</ripple>

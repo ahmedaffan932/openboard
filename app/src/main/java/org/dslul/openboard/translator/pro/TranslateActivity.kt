@@ -3,7 +3,6 @@ package org.dslul.openboard.translator.pro
 import android.annotation.SuppressLint
 import android.app.*
 import android.content.*
-import android.graphics.Color
 import android.os.*
 import android.speech.RecognizerIntent
 import android.speech.tts.TextToSpeech
@@ -82,6 +81,9 @@ class TranslateActivity : AppCompatActivity() {
     /** The language "Detect" resolved to for the current translation, for the swap button. */
     private var detectedSourceLanguage: String? = null
 
+    /** The text / translation pair the result card shows, for its heart (Favorites). */
+    private var lastTranslated: TranslateHistoryClass? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setAppLanguage()
@@ -133,16 +135,14 @@ class TranslateActivity : AppCompatActivity() {
             binding.btnClearText.visibility = View.VISIBLE
         }
 
-        if (!Misc.isNightModeOn(this)) {
-            binding.etText.setTextColor(Color.BLACK)
-        }
-
         binding.etText.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             binding.clTranslation.setBackgroundResource(
                 if (hasFocus)
-                    R.drawable.bg_accent_bordered_less_rounded else R.drawable.bg_translate_dashboard
+                    R.drawable.ui_tr_bg_card_r22_focused else R.drawable.bg_ui_card_r22
             )
         }
+
+        binding.btnFavoriteTranslation.setOnClickListener { toggleFavorite() }
 
 
         binding.scrollView.isSmoothScrollingEnabled = true
@@ -228,6 +228,8 @@ class TranslateActivity : AppCompatActivity() {
         binding.btnClearText.setOnClickListener {
             binding.etText.setText("")
             binding.textViewTextTranslatedFrag.text = ""
+            lastTranslated = null
+            updateFavoriteIcon()
             binding.btnClearText.visibility = View.INVISIBLE
             Misc.zoomOutView(binding.btnClearText, this, 150)
             Misc.zoomOutView(binding.btnTranslate, this, 150)
@@ -467,25 +469,61 @@ class TranslateActivity : AppCompatActivity() {
         binding.etText.setText(swapped.input)
         binding.etText.setSelection(swapped.input.length)
         binding.textViewTextTranslatedFrag.text = swapped.output
+        lastTranslated = if (swapped.output.isNotEmpty()) {
+            TranslateHistoryClass(swapped.input, swapped.output, swapped.to, swapped.from)
+        } else null
+        updateFavoriteIcon()
     }
 
+    /** The result card's heart: adds the shown translation to Favorites or takes it out again. */
+    private fun toggleFavorite() {
+        val entry = lastTranslated ?: return
+        val favorites = Misc.getFavorites(this)
+        val saved = favorites.firstOrNull { isSameEntry(it, entry) }
+        if (saved != null) favorites.remove(saved) else favorites.add(entry)
+        getSharedPreferences(Misc.favorites, MODE_PRIVATE).edit()
+            .putString(Misc.favorites, Gson().toJson(favorites))
+            .apply()
+        updateFavoriteIcon()
+    }
+
+    private fun updateFavoriteIcon() {
+        val entry = lastTranslated
+        val isFavorite = entry != null && Misc.getFavorites(this).any { isSameEntry(it, entry) }
+        binding.btnFavoriteTranslation.setImageResource(
+            if (isFavorite) R.drawable.ic_home_heart_filled else R.drawable.ic_home_heart_outline
+        )
+    }
+
+    /** Same match as the History list's hearts (HistoryAdapter). */
+    private fun isSameEntry(a: TranslateHistoryClass, b: TranslateHistoryClass) =
+        a.text == b.text && a.translation == b.translation &&
+            a.translatedFrom == b.translatedFrom && a.translatedTo == b.translatedTo
+
     private fun setSelectedLng() {
+        val fromName: String
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
+            fromName = resources.getString(R.string.detect)
             binding.textLngFrom.text = resources.getString(R.string.detect)
-            binding.tvLanguageFrom.text = resources.getString(R.string.detect)
+            binding.tvLanguageFrom.text = fromName
             binding.flagFrom.setImageResource(Misc.getFlag(this, "100"))
         } else {
-            binding.tvLanguageFrom.text = Locale(Misc.getLanguageFrom(this)).displayName
+            fromName = Locale(Misc.getLanguageFrom(this)).displayName
+            binding.tvLanguageFrom.text = fromName
             binding.textLngFrom.text = Misc.getLanguageFrom(this)
 
             binding.flagFrom.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
         }
 
+        val toName = Locale(Misc.getLanguageTo(this)).displayName
         binding.flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
-        binding.tvLanguageTo.text = Locale(
-            Misc.getLanguageTo(this)
-        ).displayName
+        binding.tvLanguageTo.text = toName
         binding.textLngTo.text = Misc.getLanguageTo(this)
+
+        // Result card header and the "Translating…" card's language pair.
+        binding.ivResultFlag.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
+        binding.tvResultLanguage.text = toName
+        binding.tvTranslatingPair.text = getString(R.string.ui_tr_language_pair, fromName, toName)
     }
 
     @SuppressLint("SetTextI18n")
@@ -505,6 +543,13 @@ class TranslateActivity : AppCompatActivity() {
                     Misc.getLanguageTo(this@TranslateActivity)
                 )
                 binding.textViewTextTranslatedFrag.text = translation
+                lastTranslated = TranslateHistoryClass(
+                    text,
+                    translation,
+                    Misc.getLanguageTo(this@TranslateActivity),
+                    Misc.getLanguageFrom(this@TranslateActivity)
+                )
+                updateFavoriteIcon()
                 saveInHistory(text, translation)
                 // The Daily notification's "hear it now": the launch translation is read once.
                 if (speakLaunchTranslation) {

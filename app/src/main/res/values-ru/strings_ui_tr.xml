@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Redesign strings for the Translate, Language selector, History, Favorites, Scan result, Settings and Enable keyboard screens. English: values/strings_ui_tr.xml. -->
+<resources>
+    <string name="ui_tr_back">Назад</string>
+    <string name="ui_tr_clear_text">Очистить текст</string>
+    <string name="ui_tr_copy">Копировать</string>
+    <string name="ui_tr_translating">Перевод…</string>
+    <string name="ui_tr_detecting_text">Распознавание текста…</string>
+    <string name="ui_tr_scanned_text">Отсканированный текст</string>
+    <string name="ui_tr_scan_result">Результат сканирования</string>
+    <string name="ui_tr_translate_to">Перевести на</string>
+    <string name="ui_tr_translate_from">Перевести с</string>
+    <string name="ui_tr_history_hint">Нажмите и удерживайте карточку, чтобы удалить её.</string>
+    <string name="ui_tr_history_empty_title">Переводов пока нет</string>
+    <string name="ui_tr_start_translating">Начать перевод</string>
+    <string name="ui_tr_favorites_empty_title">Избранного пока нет</string>
+    <string name="ui_tr_favorites_empty_body">Нажмите на сердечко у перевода, чтобы сохранить его здесь.</string>
+    <string name="ui_tr_open_history">Открыть историю</string>
+    <string name="ui_tr_go_premium">Перейти на Premium</string>
+    <string name="ui_tr_go_premium_subtitle">Без рекламы и со всеми функциями</string>
+    <string name="ui_tr_group_preferences">Параметры</string>
+    <string name="ui_tr_group_support">Поддержка</string>
+    <string name="ui_tr_group_about">О приложении</string>
+    <string name="ui_tr_notification_subtitle">Панель быстрого доступа в уведомлениях</string>
+    <string name="ui_tr_keyboard_subtitle">Переводите во время набора в любом приложении.</string>
+    <string name="ui_tr_keyboard_step1_subtitle">Включите её в настройках клавиатуры</string>
+    <string name="ui_tr_keyboard_step2_subtitle">Выберите Translator Pro в качестве клавиатуры</string>
+    <string name="ui_tr_maybe_later">Может быть, позже</string>
+</resources>

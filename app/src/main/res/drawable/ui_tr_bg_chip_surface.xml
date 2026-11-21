@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Language chip in the keyboard toolbar preview (Enable keyboard). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/home_surface" />
+    <corners android:radius="10dp" />
+</shape>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Redesign strings for the Translate, Language selector, History, Favorites, Scan result, Settings and Enable keyboard screens. English: values/strings_ui_tr.xml. -->
+<resources>
+    <string name="ui_tr_back">Retour</string>
+    <string name="ui_tr_clear_text">Effacer le texte</string>
+    <string name="ui_tr_copy">Copier</string>
+    <string name="ui_tr_translating">Traduction…</string>
+    <string name="ui_tr_detecting_text">Détection du texte…</string>
+    <string name="ui_tr_scanned_text">Texte scanné</string>
+    <string name="ui_tr_scan_result">Résultat du scan</string>
+    <string name="ui_tr_translate_to">Traduire en</string>
+    <string name="ui_tr_translate_from">Traduire depuis</string>
+    <string name="ui_tr_history_hint">Appuyez longuement sur une carte pour la supprimer.</string>
+    <string name="ui_tr_history_empty_title">Aucune traduction pour l\'instant</string>
+    <string name="ui_tr_start_translating">Commencer à traduire</string>
+    <string name="ui_tr_favorites_empty_title">Aucun favori pour l\'instant</string>
+    <string name="ui_tr_favorites_empty_body">Touchez le cœur d\'une traduction pour l\'enregistrer ici.</string>
+    <string name="ui_tr_open_history">Ouvrir l\'historique</string>
+    <string name="ui_tr_go_premium">Passer à Premium</string>
+    <string name="ui_tr_go_premium_subtitle">Supprimez les pubs et débloquez toutes les fonctions</string>
+    <string name="ui_tr_group_preferences">Préférences</string>
+    <string name="ui_tr_group_support">Assistance</string>
+    <string name="ui_tr_group_about">À propos</string>
+    <string name="ui_tr_notification_subtitle">Barre d\'accès rapide dans vos notifications</string>
+    <string name="ui_tr_keyboard_subtitle">Traduisez pendant que vous tapez, dans n\'importe quelle app.</string>
+    <string name="ui_tr_keyboard_step1_subtitle">Activez-le dans les paramètres du clavier</string>
+    <string name="ui_tr_keyboard_step2_subtitle">Choisissez Translator Pro comme clavier</string>
+    <string name="ui_tr_maybe_later">Plus tard</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Full-row RadioButton text: accent while checked (uninstall survey reasons). -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/home_accent" android:state_checked="true" />
+    <item android:color="@color/home_text_primary" />
+</selector>

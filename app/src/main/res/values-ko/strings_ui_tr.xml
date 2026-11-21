@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Redesign strings for the Translate, Language selector, History, Favorites, Scan result, Settings and Enable keyboard screens. English: values/strings_ui_tr.xml. -->
+<resources>
+    <string name="ui_tr_back">뒤로</string>
+    <string name="ui_tr_clear_text">텍스트 지우기</string>
+    <string name="ui_tr_copy">복사</string>
+    <string name="ui_tr_translating">번역 중…</string>
+    <string name="ui_tr_detecting_text">텍스트 인식 중…</string>
+    <string name="ui_tr_scanned_text">스캔한 텍스트</string>
+    <string name="ui_tr_scan_result">스캔 결과</string>
+    <string name="ui_tr_translate_to">번역할 언어</string>
+    <string name="ui_tr_translate_from">원본 언어</string>
+    <string name="ui_tr_history_hint">카드를 길게 눌러 삭제하세요.</string>
+    <string name="ui_tr_history_empty_title">아직 번역이 없습니다</string>
+    <string name="ui_tr_start_translating">번역 시작</string>
+    <string name="ui_tr_favorites_empty_title">아직 즐겨찾기가 없습니다</string>
+    <string name="ui_tr_favorites_empty_body">번역의 하트를 탭하면 여기에 저장됩니다.</string>
+    <string name="ui_tr_open_history">기록 열기</string>
+    <string name="ui_tr_go_premium">프리미엄으로 업그레이드</string>
+    <string name="ui_tr_go_premium_subtitle">광고를 없애고 모든 기능을 이용하세요</string>
+    <string name="ui_tr_group_preferences">환경설정</string>
+    <string name="ui_tr_group_support">지원</string>
+    <string name="ui_tr_group_about">정보</string>
+    <string name="ui_tr_notification_subtitle">알림에 표시되는 빠른 실행 바</string>
+    <string name="ui_tr_keyboard_subtitle">어떤 앱에서든 입력하면서 번역하세요.</string>
+    <string name="ui_tr_keyboard_step1_subtitle">키보드 설정에서 사용 설정하세요</string>
+    <string name="ui_tr_keyboard_step2_subtitle">Translator Pro를 키보드로 선택하세요</string>
+    <string name="ui_tr_maybe_later">나중에</string>
+</resources>

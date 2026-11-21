@@ -65,7 +65,8 @@ class PremiumScreenActivity : AppCompatActivity(), AppAnalytics.ScreenParams {
             override fun onFetched(weeklyPrice: String, monthlyPrice: String, yearlyPrice: String) {
                 runOnUiThread {
                     if (weeklyPrice.isNotBlank()) {
-                        binding.tvWeeklyPrice.text = weeklyPrice
+                        binding.tvWeeklyPrice.text =
+                            getString(R.string.ui_launch_premium_price_line, weeklyPrice)
                     }
                     if (monthlyPrice.isNotBlank()) {
                         binding.tvMonthlyPrice.text = monthlyPrice

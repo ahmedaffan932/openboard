@@ -1,64 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- OCR result sheet. Figma: TranslatorProZyro "Scan result" (7:1406): handle, "Result" + "View all",
+     then one ocr_result_item per paragraph. The root stays a LinearLayout (OCRActivity's BottomSheetBehavior). -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_half_up_rounded"
-    android:backgroundTint="?attr/colorPrimary"
-    android:elevation="@dimen/padding"
-    android:gravity="center"
+    android:background="@drawable/bg_ui_sheet"
+    android:elevation="12dp"
     android:orientation="vertical"
+    android:outlineSpotShadowColor="@color/home_shadow"
+    android:paddingBottom="8dp"
     app:behavior_hideable="true"
     app:behavior_peekHeight="@dimen/_100sdp"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    tools:targetApi="p">
 
     <View
-        android:layout_width="@dimen/_20sdp"
+        android:layout_width="36dp"
         android:layout_height="4dp"
-        android:layout_margin="@dimen/padding_10"
-        android:background="@drawable/bg_main_less_rounded"
-        android:backgroundTint="@color/gray_400"
-        android:elevation="2dp" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_ui_sheet_handle" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="14dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            style="@style/HomeText.SectionTitle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_padding"
-            android:text="@string/result"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_14sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_weight="1"
+            android:text="@string/result" />
 
         <TextView
             android:id="@+id/tvViewAll"
+            style="@style/HomeText.ButtonSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/fab_padding"
+            android:background="@drawable/bg_home_text_button"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="6dp"
             android:text="@string/view_all"
-            android:visibility="invisible"
-            android:textColor="?attr/colorOnPrimary"
-            android:textSize="@dimen/_14sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="0.5dp"
-        android:background="@color/gray_400" />
+            android:visibility="invisible" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvOCRResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/fab_padding"
-        android:layout_marginTop="@dimen/padding"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="4dp"
+        android:overScrollMode="never"
+        android:paddingHorizontal="20dp"
+        tools:itemCount="2"
+        tools:listitem="@layout/ocr_result_item" />
 
 </LinearLayout>

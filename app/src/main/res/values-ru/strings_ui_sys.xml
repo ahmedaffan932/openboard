@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_sys_premium_caption">Просмотр рекламы открывает доступ на этот сеанс.</string>
+    <string name="ui_sys_delete_body">Это действие нельзя отменить.</string>
+    <string name="ui_sys_feedback_body">Нашли ошибку или есть идея? Напишите нам — мы читаем каждое сообщение.</string>
+    <string name="ui_sys_send_feedback">Отправить отзыв</string>
+    <string name="ui_sys_rate_title">Нравится Translator Pro?</string>
+    <string name="ui_sys_rate_body">Нажмите на звезду, чтобы оценить нас в Google Play. Это очень помогает!</string>
+    <string name="ui_sys_loading_ad">Загрузка рекламы…</string>
+    <string name="ui_sys_just_a_moment">Секунду</string>
+    <string name="ui_sys_ad_sponsored">Реклама</string>
+</resources>

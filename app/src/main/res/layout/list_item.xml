@@ -1,101 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Phrase details: one phrase inside an open group card (Figma 6:1286): the phrase, its translation,
+     copy / speak / share. CustomExpandableListAdapter picks the card piece (middle or bottom) and
+     hides the divider under the group's last phrase. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:animateLayoutChanges="true">
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp">
 
     <LinearLayout
         android:id="@+id/llMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/fab_padding"
+        android:background="@drawable/ui_tabs_bg_child_middle"
         android:orientation="vertical"
-        android:paddingVertical="@dimen/padding">
+        android:paddingStart="14dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="14dp">
 
         <TextView
             android:id="@+id/expandedListTVText"
-            android:layout_width="wrap_content"
+            style="@style/HomeText.BodyStrong"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:fontFamily="@font/poppins_light"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            tools:ignore="RtlSymmetry" />
+            tools:text="A table for two, please." />
 
         <LinearLayout
             android:id="@+id/llItem"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="visible">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/expandedListTVTranslation"
-                android:layout_width="wrap_content"
+                style="@style/HomeText.Body"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_semi_bold"
-                android:textSize="20dp"
-                android:text="@string/app_name"
-                android:textColor="@color/accent" />
+                android:layout_marginTop="3dp"
+                android:textColor="@color/home_translation_text"
+                tools:text="Una mesa para dos, por favor." />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-7dp"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/btnCopyItem"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/padding_10"
-                    android:background="@drawable/bg_nothing_rounded_ripple"
-                    android:padding="@dimen/padding_10"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/bg_ui_round_ripple"
+                    android:contentDescription="@string/ui_tabs_copy"
+                    android:padding="7dp"
                     android:scaleType="fitCenter"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_copy"
-                    app:tint="@color/gray_700" />
+                    app:srcCompat="@drawable/ic_ui_copy"
+                    app:tint="@color/home_text_muted" />
 
                 <ImageButton
                     android:id="@+id/btnSpeakItem"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/padding_10"
-                    android:background="@drawable/bg_nothing_rounded_ripple"
-                    android:padding="@dimen/padding_10"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/bg_ui_round_ripple"
+                    android:contentDescription="@string/speak"
+                    android:padding="7dp"
                     android:scaleType="fitCenter"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/btnCopyItem"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_speak_ic"
-                    app:tint="@color/gray_700" />
+                    app:srcCompat="@drawable/ic_ui_speaker"
+                    app:tint="@color/home_text_muted" />
 
                 <ImageButton
                     android:id="@+id/btnShareItem"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_nothing_rounded_ripple"
-                    android:padding="@dimen/padding_10"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/bg_ui_round_ripple"
+                    android:contentDescription="@string/ui_tabs_share"
+                    android:padding="7dp"
                     android:scaleType="fitCenter"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/btnSpeakItem"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_baseline_share_24"
-                    app:tint="@color/gray_700" />
-
+                    app:srcCompat="@drawable/ic_ui_share"
+                    app:tint="@color/home_text_muted" />
             </LinearLayout>
 
             <View
+                android:id="@+id/vItemDivider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@drawable/bg_rounded"
-                android:backgroundTint="@color/gray_7070"/>
+                android:layout_marginTop="8dp"
+                android:background="@color/home_border" />
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The keyboard's "Translate" button glyph: Figma "Icon/languages" at 15dp, white (it sits on the
+     blue gradient on every keyboard theme). Used as tvTranslate's compound drawable, so it hides with
+     the label while the spinner shows. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="15dp"
+    android:height="15dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:pathData="m5 8 6 6"
+        android:strokeColor="@color/home_on_accent"
+        android:strokeWidth="2.4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="m4 14 6-6 2-3"
+        android:strokeColor="@color/home_on_accent"
+        android:strokeWidth="2.4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M2 5h12"
+        android:strokeColor="@color/home_on_accent"
+        android:strokeWidth="2.4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M7 2h1"
+        android:strokeColor="@color/home_on_accent"
+        android:strokeWidth="2.4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="m22 22-5-10-5 10"
+        android:strokeColor="@color/home_on_accent"
+        android:strokeWidth="2.4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M14 18h6"
+        android:strokeColor="@color/home_on_accent"
+        android:strokeWidth="2.4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

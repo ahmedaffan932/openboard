@@ -5,15 +5,12 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.DialogInterface
 import android.graphics.Outline
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
-import android.view.Window
 import androidx.annotation.DrawableRes
-import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
@@ -24,27 +21,22 @@ import org.dslul.openboard.translator.pro.classes.App
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.classes.ads.admob.AdmobBannerAd
-import java.util.function.Consumer
 import kotlin.math.min
 
 /**
- * The "Add widget" card: a frosted-glass dialog over the dashboard that explains the three manual
- * steps (long-press the home screen, tap Widgets, drag the widget), with an adaptive banner ad
- * as its bottom section. Shown once, by [WidgetPrompt.showIfDue].
+ * The "Add widget" card: a dialog over the dashboard that previews the widget and explains the three
+ * manual steps (long-press the home screen, tap Widgets, drag the widget), with an adaptive banner
+ * ad as its bottom section. Shown once, by [WidgetPrompt.showIfDue].
  *
  * "Got it" opens the launcher's system pin dialog ([AppWidgetManager.requestPinAppWidget]) directly
- * (xtech gates that behind a rewarded ad; openboard does not). The glass is Android 12's window
- * background blur, which blurs only what is behind the card's own rounded bounds; without it
- * (API < 31, or blur switched off at runtime) the card falls back to an opaque grey that reads the
- * same.
+ * (xtech gates that behind a rewarded ad; openboard does not). The card is the redesign's plain
+ * surface dialog (Figma TranslatorProZyro 9:1964, bg_ui_dialog as the window background), which
+ * follows the app's day/night theme; the old frosted-glass window blur is gone.
  */
 class WidgetPromptDialog : DialogFragment() {
 
     private var binding: DialogWidgetPromptBinding? = null
     private var requestPinAfterDismiss = false
-
-    @RequiresApi(Build.VERSION_CODES.S)
-    private var blurListener: Consumer<Boolean>? = null
 
     companion object {
         const val TAG = "widgetPrompt"
@@ -69,7 +61,7 @@ class WidgetPromptDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val b = binding ?: return
-        val radius = resources.getDimension(R.dimen.widget_prompt_corner_radius)
+        val radius = resources.getDimension(R.dimen.ui_sys_dialog_radius)
         // Clips the banner ad's bottom corners to the card. android:clipToOutline in XML only
         // takes effect from API 31; set in code it works everywhere.
         b.root.outlineProvider = object : ViewOutlineProvider() {
@@ -107,14 +99,9 @@ class WidgetPromptDialog : DialogFragment() {
         val margin = resources.getDimensionPixelSize(R.dimen.widget_prompt_side_margin)
         val maxWidth = resources.getDimensionPixelSize(R.dimen.widget_prompt_max_width)
         window.setLayout(min(metrics.widthPixels - 2 * margin, maxWidth), ViewGroup.LayoutParams.WRAP_CONTENT)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            // Called at once with the current state, then whenever it changes.
-            val listener = Consumer<Boolean> { enabled -> applyGlass(window, enabled) }
-            blurListener = listener
-            window.windowManager.addCrossWindowBlurEnabledListener(listener)
-        } else {
-            applyGlass(window, blur = false)
-        }
+        // The card's surface (home_surface, 24dp corners = ui_sys_dialog_radius, which the root's
+        // clip outline matches).
+        window.setBackgroundDrawableResource(R.drawable.bg_ui_dialog)
     }
 
     override fun onResume() {
@@ -132,14 +119,6 @@ class WidgetPromptDialog : DialogFragment() {
         // After the card's window is gone, so the launcher's dialog is not stacked under it.
         val activity = activity ?: return
         activity.window.decorView.post { requestPin(activity) }
-    }
-
-    override fun onStop() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            blurListener?.let { dialog?.window?.windowManager?.removeCrossWindowBlurEnabledListener(it) }
-            blurListener = null
-        }
-        super.onStop()
     }
 
     override fun onDestroyView() {
@@ -166,17 +145,6 @@ class WidgetPromptDialog : DialogFragment() {
             // Some launchers reject the request; the card's steps still work there by hand. The
             // suppression window self-expires, so no cleanup is needed here.
             e.printStackTrace()
-        }
-    }
-
-    private fun applyGlass(window: Window, blur: Boolean) {
-        window.setBackgroundDrawableResource(
-            if (blur) R.drawable.bg_widget_prompt_glass else R.drawable.bg_widget_prompt_solid
-        )
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            window.setBackgroundBlurRadius(
-                if (blur) resources.getDimensionPixelSize(R.dimen.widget_prompt_blur_radius) else 0
-            )
         }
     }
 

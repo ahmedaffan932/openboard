@@ -33,7 +33,7 @@ object PinnedNoti {
     private const val CHANNEL_ID = "quick_access"
 
     /** Bumped when the card changes, so a card already in the tray is replaced - once. */
-    private const val LAYOUT_VERSION = 1
+    private const val LAYOUT_VERSION = 2 // 2: TranslatorProZyro redesign (soft-tone tiles).
     private const val EXTRA_LAYOUT_VERSION = "pinnedLayoutVersion"
     private const val EXTRA_LANGUAGE = "pinnedLanguage"
 

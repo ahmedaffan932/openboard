@@ -7,6 +7,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.EditText
@@ -18,6 +19,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivitySettingsBinding
+import org.dslul.openboard.translator.pro.classes.AppAnalytics
 import org.dslul.openboard.translator.pro.classes.EmailUsDialogBox
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.rateUs
@@ -41,6 +43,17 @@ class SettingsActivity : AppCompatActivity() {
         Ads.loadAndShowSharedBottomNativeAd(this, binding.nativeAdFrameLayout)
 
         Misc.isActivityCreatingFirstTime = true
+
+        binding.llGoPremium.setOnClickListener {
+            startActivity(
+                Intent(this, PremiumScreenActivity::class.java)
+                    .putExtra(AppAnalytics.EXTRA_PREMIUM_SOURCE, AppAnalytics.PREMIUM_SOURCE_SETTINGS)
+            )
+        }
+
+        // A tap anywhere on a switch row flips its switch.
+        binding.llDarkThemeRow.setOnClickListener { binding.btnSwitchDarkTheme.toggle() }
+        binding.llNotificationRow.setOnClickListener { binding.btnSwitchQuickAccessNoti.toggle() }
 
 
         if (Misc.selectThemeMode(this)) {
@@ -193,6 +206,13 @@ class SettingsActivity : AppCompatActivity() {
     }
 
 
+
+    override fun onResume() {
+        super.onResume()
+        // Go Premium banner: only while the PRO screen is on and nothing has been bought.
+        binding.llGoPremium.visibility =
+            if (Misc.isProScreenEnabled && !Misc.getPurchasedStatus(this)) View.VISIBLE else View.GONE
+    }
 
     override fun onBackPressed() {
         if (intent.getStringExtra(Misc.data) != null) {

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Soft orange tile of the pinned notification (Figma 11:2354). Framework drawable: SystemUI inflates it. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/home_ripple">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/home_orange_soft" />
+            <corners android:radius="14dp" />
+        </shape>
+    </item>
+</ripple>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The lock-screen notification's close disc: 24dp inside the 32dp button, muted surface with a
+     hairline. Framework drawable: SystemUI inflates it. -->
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:inset="4dp">
+    <shape android:shape="oval">
+        <solid android:color="@color/home_surface_muted" />
+        <stroke
+            android:width="1dp"
+            android:color="@color/home_border" />
+    </shape>
+</inset>

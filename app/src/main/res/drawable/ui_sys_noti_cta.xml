@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gradient pill CTA of the lock-screen and promo notifications (Figma 11:2354 "Try now"):
+     home_blue_start -> home_mic_end, fully rounded. Framework drawable: SystemUI inflates it. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#33FFFFFF">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="0"
+                android:endColor="@color/home_mic_end"
+                android:startColor="@color/home_blue_start"
+                android:type="linear" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+</ripple>

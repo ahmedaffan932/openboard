@@ -14,8 +14,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -25,7 +23,13 @@ import org.dslul.openboard.translator.pro.classes.TranslateHistoryClass
 import com.google.gson.Gson
 import org.dslul.openboard.inputmethod.latin.R
 import java.util.*
+import kotlin.math.roundToInt
 
+/**
+ * Phrase details (Figma "Phrasebook detail", 6:1286): each group is a card (list_group) whose
+ * phrases (list_item) continue the card while it is open. [groupStyles] gives each group's icon and
+ * tone by position; groups past its end use [fallbackStyle] (the category's own).
+ */
 @Suppress("NAME_SHADOWING")
 class CustomExpandableListAdapter(
     private val activity: Activity,
@@ -33,7 +37,8 @@ class CustomExpandableListAdapter(
     private val expandableListTitleTranslation: List<String>,
     private val expandableListDetailTranslation: HashMap<String, List<String>>,
     private val expandableListDetail: HashMap<String, List<String>>,
-    private val images: IntArray
+    private val groupStyles: List<PhraseGroupStyle>,
+    private val fallbackStyle: PhraseGroupStyle
 ) : BaseExpandableListAdapter() {
     private var textToSpeech: TextToSpeech? = null
     private val sdk = Build.VERSION.SDK_INT
@@ -88,6 +93,20 @@ class CustomExpandableListAdapter(
             val btnSpeakItem = convertView.findViewById<ImageButton>(R.id.btnSpeakItem)
             val btnShareItem = convertView.findViewById<ImageButton>(R.id.btnShareItem)
 //            val btnFavoriteItem = convertView.findViewById<ImageButton>(R.id.btnFavoriteItem)
+
+            // The last phrase closes the group's card: rounded bottom, no divider under it.
+            llMain.setBackgroundResource(
+                if (isLastChild) R.drawable.ui_tabs_bg_child_bottom
+                else R.drawable.ui_tabs_bg_child_middle
+            )
+            llMain.setPadding(
+                llMain.paddingLeft,
+                llMain.paddingTop,
+                llMain.paddingRight,
+                if (isLastChild) dp(8) else 0
+            )
+            convertView.findViewById<View>(R.id.vItemDivider).visibility =
+                if (isLastChild) View.GONE else View.VISIBLE
 
 
             val obj = TranslateHistoryClass(
@@ -177,7 +196,24 @@ class CustomExpandableListAdapter(
 //        listTitleTextView.setTypeface(null, Typeface.BOLD)
         listTitleTextView.text = listTitle
 
-        convertView.findViewById<ImageView>(R.id.imgItemIcon).setImageResource(images[listPosition])
+        (groupStyles.getOrNull(listPosition) ?: fallbackStyle).applyTo(
+            convertView.findViewById(R.id.flItemIcon),
+            convertView.findViewById(R.id.imgItemIcon)
+        )
+
+        // Open with phrases under it: the header is the top of a card its phrases continue.
+        val phraseCount = runCatching { getChildrenCount(listPosition) }.getOrDefault(0)
+        val isOpenCard = isExpanded && phraseCount > 0
+        convertView.findViewById<TextView>(R.id.tvGroupCount).text = phraseCount.toString()
+        convertView.findViewById<View>(R.id.clMain).setBackgroundResource(
+            if (isOpenCard) R.drawable.ui_tabs_bg_group_card_top else R.drawable.ui_tabs_bg_group_card
+        )
+        convertView.findViewById<View>(R.id.vGroupDivider).visibility =
+            if (isOpenCard) View.VISIBLE else View.GONE
+        convertView.findViewById<ImageView>(R.id.btnItemNext).apply {
+            clearAnimation()
+            setImageResource(if (isExpanded) R.drawable.ic_ui_chevron_up else R.drawable.ic_ui_chevron_down)
+        }
 
         convertView.findViewById<View>(R.id.imgItemIcon).setOnClickListener {
             expandOrCollapseGroup(
@@ -248,6 +284,8 @@ class CustomExpandableListAdapter(
     }
 
 
+    /** Opens or closes the group; getGroupView then swaps the chevron (up while open). */
+    @Suppress("UNUSED_PARAMETER")
     private fun expandOrCollapseGroup(
         isExpanded: Boolean,
         parent: ViewGroup,
@@ -256,18 +294,13 @@ class CustomExpandableListAdapter(
     ) {
         if (isExpanded) {
             (parent as ExpandableListView).collapseGroup(listPosition)
-            val a: Animation =
-                AnimationUtils.loadAnimation(activity, R.anim.rotate_collapse)
-            a.duration = 100
-            imageView.startAnimation(a)
         } else {
             (parent as ExpandableListView).expandGroup(listPosition, true)
-            val a: Animation =
-                AnimationUtils.loadAnimation(activity, R.anim.rotate_expand)
-            a.duration = 100
-            imageView.startAnimation(a)
         }
     }
+
+    private fun dp(value: Int): Int =
+        (value * activity.resources.displayMetrics.density).roundToInt()
 
     private fun saveInFavorites(obj: TranslateHistoryClass): Boolean {
         val arrayList = Misc.getFavorites(activity)

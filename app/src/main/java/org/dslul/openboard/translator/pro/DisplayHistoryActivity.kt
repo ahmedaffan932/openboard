@@ -3,7 +3,6 @@ package org.dslul.openboard.translator.pro
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.dslul.openboard.inputmethod.latin.R
@@ -24,12 +23,11 @@ class DisplayHistoryActivity : AppCompatActivity() {
         binding = ActivityDisplayHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // The "long-press to delete" hint sits above the cards (it used to be a toast).
         if (Misc.getHistory(this).size == 0) {
-            binding.tvNoHistory.visibility = View.VISIBLE
-            binding.animLoading.visibility = View.VISIBLE
+            showNoHistory()
         } else {
-            Toast.makeText(this, R.string.history_long_press_remove, Toast.LENGTH_SHORT)
-                .show()
+            binding.llHistoryHint.visibility = View.VISIBLE
         }
 
         binding.btnBack.setOnClickListener {
@@ -40,18 +38,31 @@ class DisplayHistoryActivity : AppCompatActivity() {
             startActivity(Intent(this@DisplayHistoryActivity, DisplayFavoritesActivity::class.java))
         }
 
-        adapter = HistoryAdapter(Misc.getHistory(this), this, object : InterfaceHistory {
-            override fun onHistoryCrash() = showNoHistory()
+        // Back to where the user came from, which has the text field.
+        binding.btnStartTranslating.setOnClickListener {
+            finish()
+        }
 
-            override fun onHistoryEmptied() = showNoHistory()
-        })
+        // Same cards as the Home tab's Recent list.
+        adapter = HistoryAdapter(
+            Misc.getHistory(this),
+            this,
+            object : InterfaceHistory {
+                override fun onHistoryCrash() = showNoHistory()
+
+                override fun onHistoryEmptied() = showNoHistory()
+            },
+            itemLayout = R.layout.history_item_home,
+            favoriteIcon = R.drawable.ic_home_heart_filled,
+            notFavoriteIcon = R.drawable.ic_home_heart_outline
+        )
         binding.recyclerViewHistory.layoutManager = LinearLayoutManager(this)
         binding.recyclerViewHistory.adapter = adapter
     }
 
     private fun showNoHistory() {
-        binding.tvNoHistory.visibility = View.VISIBLE
-        binding.animLoading.visibility = View.VISIBLE
+        binding.llEmptyState.visibility = View.VISIBLE
+        binding.llHistoryHint.visibility = View.GONE
         binding.recyclerViewHistory.visibility = View.GONE
     }
 

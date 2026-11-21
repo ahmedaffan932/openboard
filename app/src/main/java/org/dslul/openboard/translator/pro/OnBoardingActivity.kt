@@ -11,8 +11,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.translatorguru.ads.admob.LoadAdCallBack
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityOnBoardingBinding
 import org.dslul.openboard.translator.pro.classes.AppAnalytics
@@ -28,6 +26,7 @@ class OnBoardingActivity : AppCompatActivity() {
     lateinit var binding: ActivityOnBoardingBinding
     private val loggedSlides = mutableSetOf<Int>()
     private var isOnboardingCompleteLogged = false
+    private var nextButtonLabel = R.string.next
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,44 +48,17 @@ class OnBoardingActivity : AppCompatActivity() {
         showOnboardingNativeForPage(0)
         logSlideView(0)
 
-        TabLayoutMediator(
-            binding.splashTabLayout,
-            binding.splashViewPager
-        ) { tab, position -> }.attach()
+        showPageIndicator(0)
 
         binding.splashViewPager.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     showOnboardingNativeForPage(position)
                     logSlideView(position)
+                    showPageIndicator(position)
                 }
             }
         )
-
-        binding.splashTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(p0: TabLayout.Tab?) {
-                when (p0?.position) {
-                    0 -> {
-                        changeImage(R.drawable.on_boarding_tab_one)
-                    }
-
-                    1 -> {
-                        changeImage(R.drawable.on_boarding_tab_two)
-                    }
-
-                    else -> {
-                        changeImage(R.drawable.on_boarding_tab_three)
-                    }
-                }
-            }
-
-            override fun onTabUnselected(p0: TabLayout.Tab?) {
-            }
-
-            override fun onTabReselected(p0: TabLayout.Tab?) {
-            }
-
-        })
 
         object : CountDownTimer(3000, 1500) {
             override fun onTick(millisUntilFinished: Long) {
@@ -104,7 +76,7 @@ class OnBoardingActivity : AppCompatActivity() {
         }
 
         binding.btnNext.setOnClickListener {
-            if (binding.splashViewPager.currentItem < 2) {
+            if (binding.splashViewPager.currentItem < LAST_PAGE) {
                 binding.splashViewPager.setCurrentItem(
                     binding.splashViewPager.currentItem + 1,
                     true
@@ -154,11 +126,26 @@ class OnBoardingActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeImage(newImage: Int) {
+    /** Page dots (the current one wide and tinted) and the button: Next, Get started on the last page. */
+    private fun showPageIndicator(position: Int) {
+        val density = resources.displayMetrics.density
+        listOf(binding.dot1, binding.dot2, binding.dot3).forEachIndexed { index, dot ->
+            val isCurrent = index == position
+            dot.layoutParams = dot.layoutParams.apply {
+                width = ((if (isCurrent) 22 else 6) * density).toInt()
+            }
+            dot.setBackgroundResource(
+                if (isCurrent) R.drawable.ui_launch_dot_active else R.drawable.ui_launch_dot_inactive
+            )
+        }
+
+        val labelRes = if (position >= LAST_PAGE) R.string.ui_launch_get_started else R.string.next
+        if (labelRes == nextButtonLabel) return
+        nextButtonLabel = labelRes
+        // A newer swipe cancels this fade, and with it this end action.
         binding.btnNext.animate().alpha(0.5f).setDuration(150)
             .withEndAction {
-                binding.btnNext.setImageResource(newImage)
-
+                binding.btnNext.setText(labelRes)
                 binding.btnNext.animate().alpha(1f).setDuration(100).start()
             }.start()
     }
@@ -277,4 +264,8 @@ class OnBoardingActivity : AppCompatActivity() {
         return getOnboardingNativeAdIds(nextPosition)
     }
 
+    companion object {
+        /** The third (last) page's index; its button reads Get started. */
+        private const val LAST_PAGE = 2
+    }
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Redesign strings for the Camera, Conversation, Phrasebook, Fun Words and camera permission screens. English: values/strings_ui_tabs.xml. -->
+<resources>
+    <string name="ui_tabs_camera_title">कैमरा अनुवाद</string>
+    <string name="ui_tabs_camera_hint">अनुवाद के लिए कैमरा टेक्स्ट पर रखें</string>
+    <string name="ui_tabs_capture">फ़ोटो लें</string>
+    <string name="ui_tabs_flash">फ़्लैश</string>
+    <string name="ui_tabs_chat_tap_to_speak">माइक पर टैप करें और बोलें</string>
+    <string name="ui_tabs_chat_tap_to_hear">दोबारा सुनने के लिए टेक्स्ट पर टैप करें</string>
+    <string name="ui_tabs_copy">कॉपी करें</string>
+    <string name="ui_tabs_share">शेयर करें</string>
+    <string name="ui_tabs_back">वापस</string>
+    <string name="ui_tabs_camera_access_title">कैमरा एक्सेस की अनुमति दें</string>
+    <string name="ui_tabs_word_caption">अंग्रेज़ी शब्द को सही क्रम में लगाएँ</string>
+    <string name="ui_tabs_word_show_hint">संकेत दिखाएँ</string>
+    <string name="ui_tabs_word_correct">सही! शब्द है %1$s।</string>
+    <string name="ui_tabs_word_correct_meaning">सही! “%1$s” का मतलब है %2$s।</string>
+    <string name="ui_tabs_word_reload">शब्द फिर से लोड करें</string>
+    <string name="ui_tabs_word_previous">पिछला शब्द</string>
+    <string name="ui_tabs_word_shuffle">यह शब्द फिर से शुरू करें</string>
+    <string name="ui_tabs_word_backspace">आख़िरी अक्षर हटाएँ</string>
+    <string name="ui_tabs_word_clear">अक्षर साफ़ करें</string>
+    <string name="ui_tabs_word_next">अगला शब्द</string>
+</resources>

@@ -19,6 +19,7 @@ import android.view.animation.RotateAnimation
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
@@ -108,6 +109,9 @@ class OCRActivity : AppCompatActivity() {
 
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheetResult))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+
+        // The photo stays inside the viewfinder card's rounded corners.
+        binding.cvViewfinder.clipToOutline = true
 
         binding.btnBack.setOnClickListener {
             onBackPressed()
@@ -293,10 +297,12 @@ class OCRActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun drawBoundaries(bitmap: Bitmap, visionText: Text) {
-        val rectPaint = Paint()
-        rectPaint.color = Color.BLUE
+        // Accent boxes, thick enough to see once the photo is scaled down to the card.
+        val rectPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+        rectPaint.color = ContextCompat.getColor(this, R.color.home_accent)
         rectPaint.style = Paint.Style.STROKE
-        rectPaint.strokeWidth = 2.0f
+        rectPaint.strokeWidth = maxOf(2f, maxOf(bitmap.width, bitmap.height) / 300f)
+        val boxCorner = rectPaint.strokeWidth * 3
 
         val tempBitmap = Bitmap.createBitmap(bitmap.width, bitmap.height, Bitmap.Config.RGB_565)
         val canvas = Canvas(tempBitmap)
@@ -306,7 +312,7 @@ class OCRActivity : AppCompatActivity() {
         // translation request, so sentences that wrap were translated in pieces.
         val blocks = visionText.textBlocks.filter { block -> block.lines.any { it.text.isNotBlank() } }
         for (block in blocks) {
-            block.boundingBox?.let { canvas.drawRect(RectF(it), rectPaint) }
+            block.boundingBox?.let { canvas.drawRoundRect(RectF(it), boxCorner, boxCorner, rectPaint) }
         }
         binding.imageViewOcr.setImageDrawable(BitmapDrawable(resources, tempBitmap))
 
@@ -330,7 +336,7 @@ class OCRActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.pbText.text = resources.getString(R.string.translating)
+        binding.pbText.text = resources.getString(R.string.ui_tr_translating)
         translateAll()
     }
 

@@ -286,6 +286,9 @@ class FragmentsDashboardActivity : AppCompatActivity() {
         dialog.findViewById<TextView>(R.id.tvDescription)?.text =
             getString(R.string.unlock_premium_feature_description)
 
+        // The redesigned card's X: same as tapping outside.
+        dialog.findViewById<View>(R.id.btnClose)?.setOnClickListener { dialog.cancel() }
+
         val feature = tabName(targetItemId)
 
         dialog.findViewById<TextView>(R.id.btnUpgrade)?.setOnClickListener {

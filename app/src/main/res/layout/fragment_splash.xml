@@ -1,36 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One onboarding page (OnBaordingFragment): animation, title, subtitle. The Skip pill, dots and
+     button live in activity_on_boarding.xml. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#00ff00ff"
     android:orientation="vertical"
     tools:context="org.dslul.openboard.translator.pro.fragments.OnBaordingFragment">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:lottie_fileName="splash_languages.json"
-        android:scaleType="fitCenter"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="56dp"
         android:layout_weight="1"
-        app:layout_constraintBottom_toTopOf="@id/tvHeading"
-        app:lottie_loop="true"
+        android:importantForAccessibility="no"
+        android:scaleType="fitCenter"
         app:lottie_autoPlay="true"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:lottie_fileName="splash_languages.json"
+        app:lottie_loop="true" />
 
     <TextView
         android:id="@+id/tvHeading"
+        style="@style/HomeText.Display"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/speak_translate_50_languages"
+        android:layout_marginHorizontal="28dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        android:textSize="@dimen/_18sdp"
-        android:fontFamily="@font/poppins_regular"
-        android:textStyle="bold"
-        android:layout_marginHorizontal="@dimen/extra_padding"
-        android:layout_marginBottom="@dimen/fab_padding"
-        app:layout_constraintBottom_toTopOf="@id/tvText"
-        android:textColor="@color/gray_7070"/>
+        android:lineSpacingExtra="4dp"
+        android:text="@string/ui_launch_onboarding_title_1" />
+
+    <TextView
+        android:id="@+id/tvText"
+        style="@style/HomeText.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="18dp"
+        android:gravity="center"
+        android:text="@string/ui_launch_onboarding_text_1" />
 
 </LinearLayout>

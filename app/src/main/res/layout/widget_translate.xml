@@ -1,64 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-    Home-screen quick-translate widget (RemoteViews-safe views only).
-    Pill search bar + mic + camera; taps route through NotiRouterActivity so
-    cold starts get the standard splash flow and warm taps open instantly.
+    Home-screen quick-translate widget (RemoteViews-safe views only). Figma: TranslatorProZyro,
+    widget (11:2465): a white 56dp pill (28dp corners) with the logo tile, the hint and soft-accent
+    mic / camera circles. The root is transparent and centres the pill when the widget is resized
+    taller; taps route through NotiRouterActivity so cold starts get the standard splash flow and
+    warm taps open instantly (TranslateWidgetProvider wires widgetRoot / widgetHint / widgetMic /
+    widgetCamera).
+
+    Inflated by the launcher: framework views and attributes only, system fonts, no app:tint (the
+    ic_ui_* glyphs are recoloured with the framework android:tint). home_* colours resolve for the
+    system's day/night.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="UseAppTint"
     android:id="@+id/widgetRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_widget_card"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="4dp"
+    tools:ignore="UseAppTint">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/bg_widget_pill"
+        android:layout_height="56dp"
+        android:background="@drawable/ui_sys_widget_pill"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="14dp"
-        android:paddingEnd="6dp">
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
 
-        <ImageView
-            android:layout_width="22dp"
-            android:layout_height="22dp"
+        <TextView
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@drawable/bg_home_logo"
+            android:gravity="center"
             android:importantForAccessibility="no"
-            android:src="@drawable/ic_baseline_translate_24_selected"
-            android:tint="@color/native_ad_cta" />
+            android:includeFontPadding="false"
+            android:text="@string/home_logo_mark"
+            android:textColor="@color/home_on_accent"
+            android:textSize="13sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/widgetHint"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="6dp"
             android:layout_weight="1"
             android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
             android:maxLines="1"
             android:text="@string/word_phrase_or_sentence"
-            android:textColor="@color/widget_hint"
+            android:textColor="@color/home_hint"
             android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/widgetMic"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:background="@drawable/ui_sys_widget_circle"
             android:contentDescription="@string/shortcut_conversation"
-            android:padding="9dp"
-            android:src="@drawable/ic_baseline_mic_selected_24"
-            android:tint="@color/native_ad_cta" />
+            android:padding="10dp"
+            android:src="@drawable/ic_ui_mic"
+            android:tint="@color/home_accent" />
 
         <ImageView
             android:id="@+id/widgetCamera"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginStart="6dp"
+            android:background="@drawable/ui_sys_widget_circle"
             android:contentDescription="@string/shortcut_camera"
-            android:padding="9dp"
-            android:src="@drawable/ic_baseline_camera_alt_24"
-            android:tint="@color/native_ad_cta" />
+            android:padding="10dp"
+            android:src="@drawable/ic_ui_camera"
+            android:tint="@color/home_accent" />
     </LinearLayout>
 
 </LinearLayout>

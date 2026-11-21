@@ -1,313 +1,608 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Settings. Figma: TranslatorProZyro "Settings" (7:1519).
+     Go Premium banner (when the PRO screen is on and nothing is bought), then card groups:
+     Preferences, Support, the native ad, About. -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/clSettings"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color"
+    android:background="@color/home_bg"
     tools:context="org.dslul.openboard.translator.pro.SettingsActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- Header: back + title. -->
+    <LinearLayout
         android:id="@+id/llTopBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_top_bar"
-        app:layout_constraintTop_toTopOf="parent"
-        android:elevation="@dimen/padding">
+        android:clipToPadding="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="@dimen/fab_padding"
-            android:padding="@dimen/padding"
-            android:src="@drawable/ic_baseline_arrow_back_24"
-            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvTitle" />
+            style="@style/Widget.Ui.IconButton"
+            android:contentDescription="@string/ui_tr_back"
+            android:outlineSpotShadowColor="@color/home_shadow"
+            app:srcCompat="@drawable/ic_ui_arrow_left"
+            app:tint="@color/home_text_primary"
+            tools:targetApi="p" />
 
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/m_padding"
-            android:layout_marginTop="@dimen/extra_padding"
-            android:layout_marginBottom="@dimen/fab_padding"
-            android:fontFamily="@font/poppins_regular"
-            android:paddingStart="@dimen/padding"
-            android:text="@string/app_name"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btnBack"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            style="@style/HomeText.Screen"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/settings" />
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/padding"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/llTopBar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="24dp">
 
+            <!-- Go Premium banner (shown from code). -->
             <LinearLayout
-                android:id="@+id/llShareApp"
+                android:id="@+id/llGoPremium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/fab_padding"
-                android:layout_marginTop="@dimen/padding"
-                android:background="@drawable/bg_accent_border_rounded"
-                android:elevation="2dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/bg_ui_pro_card"
+                android:clickable="true"
+                android:elevation="6dp"
+                android:focusable="true"
+                android:foreground="@drawable/bg_ui_row_ripple"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:outlineAmbientShadowColor="@color/home_shadow_pro"
+                android:outlineSpotShadowColor="@color/home_shadow_pro"
+                android:padding="14dp"
+                android:visibility="gone"
+                tools:targetApi="p"
+                tools:visibility="visible">
+
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ui_tr_bg_tile_on_pro">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:importantForAccessibility="no"
+                        app:srcCompat="@drawable/ic_ui_crown_filled"
+                        app:tint="@color/home_on_accent" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/HomeText.CardLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sora_bold"
+                        android:text="@string/ui_tr_go_premium"
+                        android:textColor="@color/home_on_accent" />
+
+                    <TextView
+                        style="@style/HomeText.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:alpha="0.9"
+                        android:text="@string/ui_tr_go_premium_subtitle"
+                        android:textColor="@color/home_on_accent" />
+                </LinearLayout>
 
                 <ImageView
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:rotation="180"
-                    android:layout_margin="@dimen/m_padding"
-                    app:srcCompat="@drawable/ic_baseline_share_24" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="@string/share_app"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24"
-                    android:layout_marginEnd="@dimen/m_padding"
-                    android:drawableTint="@color/accent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvUpgradeToPremium" />
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="8dp"
+                    android:importantForAccessibility="no"
+                    app:srcCompat="@drawable/ic_ui_chevron_right"
+                    app:tint="@color/home_on_accent" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/llFeedback"
+            <!-- Preferences -->
+            <TextView
+                style="@style/HomeText.GroupLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/fab_padding"
-                android:layout_marginTop="@dimen/padding"
-                android:background="@drawable/bg_accent_bordered_less_rounded"
-                android:elevation="2dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_margin="@dimen/m_padding"
-                    app:srcCompat="@drawable/ic_baseline_feedback_24" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="@string/feedback"
-                    android:textColor="@color/black"
-                    android:layout_marginEnd="@dimen/fab_padding"
-                    android:textSize="16sp"
-                    android:drawableTint="@color/accent"
-                    app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvUpgradeToPremium" />
-            </LinearLayout>
+                android:layout_marginTop="14dp"
+                android:paddingHorizontal="4dp"
+                android:paddingBottom="8dp"
+                android:text="@string/ui_tr_group_preferences" />
 
             <LinearLayout
-                android:id="@+id/llRateUs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/fab_padding"
-                android:layout_marginTop="@dimen/padding"
-                android:background="@drawable/bg_accent_bordered_less_rounded"
+                android:background="@drawable/bg_ui_card"
                 android:elevation="2dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:outlineSpotShadowColor="@color/home_shadow"
+                android:padding="2dp"
+                tools:targetApi="p">
 
-                <ImageView
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_margin="@dimen/m_padding"
-                    app:srcCompat="@drawable/ic_baseline_star_rate_24" />
-
-                <TextView
+                <LinearLayout
+                    android:id="@+id/llDarkThemeRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_ui_row_ripple"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:gravity="center_vertical"
-                    android:layout_marginEnd="@dimen/fab_padding"
-                    android:text="@string/rate_us"
-                    android:textColor="@color/black"
-                    android:drawableTint="@color/accent"
-                    android:textSize="16sp"
-                    app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvUpgradeToPremium" />
+                    android:minHeight="60dp"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_ui_tile_purple">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:importantForAccessibility="no"
+                            app:srcCompat="@drawable/ic_ui_moon"
+                            app:tint="@color/home_purple" />
+                    </FrameLayout>
+
+                    <TextView
+                        style="@style/HomeText.BodyStrong"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="@string/dark_theme" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/btnSwitchDarkTheme"
+                        style="@style/Widget.Ui.Switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:contentDescription="@string/dark_theme" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@color/home_border" />
+
+                <!-- The pinned Quick Access notification (PinnedNoti). -->
+                <LinearLayout
+                    android:id="@+id/llNotificationRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_ui_row_ripple"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:minHeight="60dp"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_ui_tile_orange">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:importantForAccessibility="no"
+                            app:srcCompat="@drawable/ic_ui_bell"
+                            app:tint="@color/home_orange" />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/HomeText.BodyStrong"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/translate_notification" />
+
+                        <TextView
+                            style="@style/HomeText.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/ui_tr_notification_subtitle" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/btnSwitchQuickAccessNoti"
+                        style="@style/Widget.Ui.Switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:contentDescription="@string/translate_notification" />
+                </LinearLayout>
             </LinearLayout>
+
+            <!-- Support -->
+            <TextView
+                style="@style/HomeText.GroupLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:paddingHorizontal="4dp"
+                android:paddingBottom="8dp"
+                android:text="@string/ui_tr_group_support" />
 
             <LinearLayout
-                android:id="@+id/llMoreApps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/fab_padding"
-                android:layout_marginTop="@dimen/padding"
-                android:background="@drawable/bg_accent_bordered_less_rounded"
+                android:background="@drawable/bg_ui_card"
                 android:elevation="2dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:outlineSpotShadowColor="@color/home_shadow"
+                android:padding="2dp"
+                tools:targetApi="p">
 
-                <ImageView
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_margin="@dimen/m_padding"
-                    app:srcCompat="@drawable/store" />
-
-                <TextView
+                <LinearLayout
+                    android:id="@+id/llShareApp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/fab_padding"
-                    android:drawableTint="@color/accent"
+                    android:background="@drawable/bg_ui_row_ripple"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:gravity="center_vertical"
-                    android:text="@string/more_apps"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvUpgradeToPremium" />
+                    android:minHeight="60dp"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_ui_tile_teal">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:importantForAccessibility="no"
+                            app:srcCompat="@drawable/ic_ui_share"
+                            app:tint="@color/home_teal" />
+                    </FrameLayout>
+
+                    <TextView
+                        style="@style/HomeText.BodyStrong"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="@string/share_app" />
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="8dp"
+                        android:importantForAccessibility="no"
+                        app:srcCompat="@drawable/ic_ui_chevron_right"
+                        app:tint="@color/home_text_muted" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@color/home_border" />
+
+                <LinearLayout
+                    android:id="@+id/llFeedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_ui_row_ripple"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:minHeight="60dp"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_ui_tile_accent">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:importantForAccessibility="no"
+                            app:srcCompat="@drawable/ic_ui_message"
+                            app:tint="@color/home_accent" />
+                    </FrameLayout>
+
+                    <TextView
+                        style="@style/HomeText.BodyStrong"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="@string/feedback" />
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="8dp"
+                        android:importantForAccessibility="no"
+                        app:srcCompat="@drawable/ic_ui_chevron_right"
+                        app:tint="@color/home_text_muted" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@color/home_border" />
+
+                <LinearLayout
+                    android:id="@+id/llRateUs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_ui_row_ripple"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:minHeight="60dp"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_ui_tile_orange">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:importantForAccessibility="no"
+                            app:srcCompat="@drawable/ic_ui_star"
+                            app:tint="@color/home_orange" />
+                    </FrameLayout>
+
+                    <TextView
+                        style="@style/HomeText.BodyStrong"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="@string/rate_us" />
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="8dp"
+                        android:importantForAccessibility="no"
+                        app:srcCompat="@drawable/ic_ui_chevron_right"
+                        app:tint="@color/home_text_muted" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@color/home_border" />
+
+                <LinearLayout
+                    android:id="@+id/llMoreApps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_ui_row_ripple"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:minHeight="60dp"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_ui_tile_purple">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:importantForAccessibility="no"
+                            app:srcCompat="@drawable/ic_ui_grid"
+                            app:tint="@color/home_purple" />
+                    </FrameLayout>
+
+                    <TextView
+                        style="@style/HomeText.BodyStrong"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="@string/more_apps" />
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="8dp"
+                        android:importantForAccessibility="no"
+                        app:srcCompat="@drawable/ic_ui_chevron_right"
+                        app:tint="@color/home_text_muted" />
+                </LinearLayout>
             </LinearLayout>
 
+            <!-- Native ad between the groups. -->
             <FrameLayout
                 android:id="@+id/nativeAdFrameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_220sdp"
-                android:layout_marginHorizontal="@dimen/fab_padding"
-                android:background="@drawable/bg_native_ad"
-                android:layout_marginTop="@dimen/padding"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_home_ad_card"
                 android:elevation="2dp"
+                android:outlineSpotShadowColor="@color/home_shadow"
                 android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                tools:targetApi="p" />
+
+            <!-- About -->
+            <TextView
+                style="@style/HomeText.GroupLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:paddingHorizontal="4dp"
+                android:paddingBottom="8dp"
+                android:text="@string/ui_tr_group_about" />
 
             <LinearLayout
-                android:id="@+id/llPrivacyPolicy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/fab_padding"
-                android:layout_marginTop="@dimen/padding"
-                android:background="@drawable/bg_accent_bordered_less_rounded"
+                android:background="@drawable/bg_ui_card"
                 android:elevation="2dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:outlineSpotShadowColor="@color/home_shadow"
+                android:padding="2dp"
+                tools:targetApi="p">
 
-                <ImageView
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-
-                    android:layout_margin="@dimen/m_padding"
-                    app:srcCompat="@drawable/ic_baseline_insert_drive_file_24"
-                     />
-
-                <TextView
+                <LinearLayout
+                    android:id="@+id/llPrivacyPolicy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_ui_row_ripple"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:gravity="center_vertical"
-                    android:text="@string/privacy_policy"
-                    android:textColor="@color/black"
-                    android:drawableTint="@color/accent"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="@dimen/fab_padding"
-                    app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvUpgradeToPremium" />
-            </LinearLayout>
+                    android:minHeight="60dp"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
 
-            <LinearLayout
-                android:id="@+id/llTermsAndConditions"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/fab_padding"
-                android:layout_marginVertical="@dimen/padding"
-                android:background="@drawable/bg_accent_bordered_less_rounded"
-                android:elevation="2dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_ui_tile_success">
 
-                <ImageView
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_margin="@dimen/m_padding"
-                    app:srcCompat="@drawable/ic_baseline_privacy_tip_24"
-                     />
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:importantForAccessibility="no"
+                            app:srcCompat="@drawable/ic_ui_shield"
+                            app:tint="@color/home_success" />
+                    </FrameLayout>
 
-                <TextView
+                    <TextView
+                        style="@style/HomeText.BodyStrong"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="@string/privacy_policy" />
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="8dp"
+                        android:importantForAccessibility="no"
+                        app:srcCompat="@drawable/ic_ui_chevron_right"
+                        app:tint="@color/home_text_muted" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@color/home_border" />
+
+                <LinearLayout
+                    android:id="@+id/llTermsAndConditions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_ui_row_ripple"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:gravity="center_vertical"
-                    android:text="@string/terms_of_use"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:drawableTint="@color/accent"
-                    app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvUpgradeToPremium" />
+                    android:minHeight="60dp"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <FrameLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_ui_tile_accent">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:importantForAccessibility="no"
+                            app:srcCompat="@drawable/ic_ui_file_text"
+                            app:tint="@color/home_accent" />
+                    </FrameLayout>
+
+                    <TextView
+                        style="@style/HomeText.BodyStrong"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="@string/terms_of_use" />
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="8dp"
+                        android:importantForAccessibility="no"
+                        app:srcCompat="@drawable/ic_ui_chevron_right"
+                        app:tint="@color/home_text_muted" />
+                </LinearLayout>
             </LinearLayout>
-
-            <!-- The pinned Quick Access notification (PinnedNoti). -->
-            <Switch
-                android:id="@+id/btnSwitchQuickAccessNoti"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/fab_padding"
-                android:layout_marginVertical="@dimen/padding"
-                android:background="@drawable/bg_accent_bordered_less_rounded"
-                android:drawableStart="@drawable/ic_baseline_notifications_active_24"
-                android:drawablePadding="@dimen/padding_10"
-                android:drawableTint="@color/accent"
-                android:elevation="2dp"
-                android:paddingHorizontal="@dimen/fab_padding"
-                android:paddingVertical="@dimen/fab_padding"
-                android:text="@string/translate_notification"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-            <Switch
-                android:id="@+id/btnSwitchDarkTheme"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/fab_padding"
-                android:layout_marginTop="@dimen/padding"
-                android:background="@drawable/bg_accent_bordered_less_rounded"
-                android:drawableStart="@drawable/ic_baseline_brightness_medium_24"
-                android:drawablePadding="@dimen/padding_10"
-                android:drawableTint="@color/gray_700"
-                android:visibility="gone"
-                android:elevation="2dp"
-                android:paddingHorizontal="@dimen/fab_padding"
-                android:paddingVertical="@dimen/fab_padding"
-                android:text="@string/dark_theme"
-                android:textSize="16sp"
-                android:layout_marginBottom="@dimen/padding_10"
-                app:layout_constraintTop_toBottomOf="@+id/llTermsAndConditions"
-                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         </LinearLayout>
 
     </ScrollView>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Launch screens redesign (Figma TranslatorProZyro). -->
+<resources>
+    <string name="ui_launch_loading">Chargement…</string>
+    <string name="ui_launch_lang_subtitle">Choisissez la langue des menus et des boutons.</string>
+    <string name="ui_launch_lang_english">Anglais (US)</string>
+    <string name="ui_launch_lang_french">Français</string>
+    <string name="ui_launch_lang_german">Allemand</string>
+    <string name="ui_launch_lang_spanish">Espagnol</string>
+    <string name="ui_launch_lang_hindi">Hindi</string>
+    <string name="ui_launch_lang_portuguese">Portugais</string>
+    <string name="ui_launch_lang_korean">Coréen</string>
+    <string name="ui_launch_lang_italian">Italien</string>
+    <string name="ui_launch_lang_russian">Russe</string>
+    <string name="ui_launch_skip">Passer</string>
+    <string name="ui_launch_get_started">Commencer</string>
+    <string name="ui_launch_onboarding_title_1">Traduisez dans toutes les langues</string>
+    <string name="ui_launch_onboarding_text_1">Tapez, parlez ou collez et obtenez une traduction instantanée dans plus de 50 langues.</string>
+    <string name="ui_launch_onboarding_title_2">Traduisez pendant la saisie</string>
+    <string name="ui_launch_onboarding_text_2">Activez le clavier Translator et traduisez dans WhatsApp, Instagram ou toute autre app.</string>
+    <string name="ui_launch_onboarding_title_3">Pointez l\'appareil photo pour traduire</string>
+    <string name="ui_launch_onboarding_text_3">Panneaux, menus et étiquettes traduits directement sur votre écran.</string>
+    <string name="ui_launch_premium_title">Commencez comme un pro</string>
+    <string name="ui_launch_premium_subtitle">Débloquez toutes les fonctionnalités et traduisez sans limites.</string>
+    <string name="ui_launch_premium_price_line">3 jours gratuits, puis %1$s / semaine</string>
+    <string name="ui_launch_premium_cta">Commencer l\'essai gratuit</string>
+    <string name="ui_launch_exit_rate_title">Comment s\'est passée votre expérience\u00A0?</string>
+    <string name="ui_launch_exit_rate_hint">Votre note nous aide à nous améliorer</string>
+    <string name="ui_launch_exit_rated_title">Merci pour votre note\u00A0!</string>
+    <string name="ui_launch_exit_rated_good">Ravis que Translator Pro vous plaise.</string>
+    <string name="ui_launch_exit_rated_low">Merci\u00A0! Nous l\'utiliserons pour améliorer l\'app.</string>
+    <string name="ui_launch_exit_quit_title">Quitter Translator Pro\u00A0?</string>
+    <string name="ui_launch_exit_quit_body">Voulez-vous vraiment quitter\u00A0?</string>
+    <string name="ui_launch_exit_yes_quit">Oui, quitter</string>
+    <string name="ui_launch_exit_star_desc">Noter %1$d sur 5</string>
+</resources>

@@ -152,6 +152,8 @@
 
     <style name="Widget.Ui.Radio" parent="Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:button">@drawable/ui_radio</item>
+        <!-- AppCompat 1.7 draws buttonCompat over android:button. -->
+        <item name="buttonCompat">@drawable/ui_radio</item>
         <item name="buttonTint">@null</item>
         <item name="android:background">@null</item>
         <item name="android:minWidth">0dp</item>

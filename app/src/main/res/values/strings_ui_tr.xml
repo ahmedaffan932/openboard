@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Redesign (Figma TranslatorProZyro): Translate, Scanned text, Language selector, History,
+     Favorites, Scan result (OCR), Settings, Enable keyboard. -->
+<resources>
+    <string name="ui_tr_back">Back</string>
+    <string name="ui_tr_clear_text">Clear text</string>
+    <string name="ui_tr_copy">Copy</string>
+    <string name="ui_tr_translating">Translating…</string>
+    <string name="ui_tr_detecting_text">Detecting text…</string>
+    <string name="ui_tr_scanned_text">Scanned text</string>
+    <string name="ui_tr_scan_result">Scan result</string>
+    <string name="ui_tr_translate_to">Translate to</string>
+    <string name="ui_tr_translate_from">Translate from</string>
+    <string name="ui_tr_history_hint">Long-press a card to delete it.</string>
+    <string name="ui_tr_history_empty_title">No translations yet</string>
+    <string name="ui_tr_start_translating">Start translating</string>
+    <string name="ui_tr_favorites_empty_title">No favorites yet</string>
+    <string name="ui_tr_favorites_empty_body">Tap the heart on a translation to save it here.</string>
+    <string name="ui_tr_open_history">Open history</string>
+    <string name="ui_tr_go_premium">Go Premium</string>
+    <string name="ui_tr_go_premium_subtitle">Remove ads and unlock every feature</string>
+    <string name="ui_tr_group_preferences">Preferences</string>
+    <string name="ui_tr_group_support">Support</string>
+    <string name="ui_tr_group_about">About</string>
+    <string name="ui_tr_notification_subtitle">Quick-access bar in your notifications</string>
+    <string name="ui_tr_keyboard_subtitle">Translate while you type in any app.</string>
+    <string name="ui_tr_keyboard_step1_subtitle">Turn it on in your keyboard settings</string>
+    <string name="ui_tr_keyboard_step2_subtitle">Pick Translator Pro as your keyboard</string>
+    <string name="ui_tr_maybe_later">Maybe later</string>
+    <!-- "English → Spanish" under "Translating…". -->
+    <string name="ui_tr_language_pair" translatable="false">%1$s → %2$s</string>
+</resources>

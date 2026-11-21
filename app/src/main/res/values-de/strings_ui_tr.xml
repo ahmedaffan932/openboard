@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Redesign strings for the Translate, Language selector, History, Favorites, Scan result, Settings and Enable keyboard screens. English: values/strings_ui_tr.xml. -->
+<resources>
+    <string name="ui_tr_back">Zurück</string>
+    <string name="ui_tr_clear_text">Text löschen</string>
+    <string name="ui_tr_copy">Kopieren</string>
+    <string name="ui_tr_translating">Wird übersetzt…</string>
+    <string name="ui_tr_detecting_text">Text wird erkannt…</string>
+    <string name="ui_tr_scanned_text">Gescannter Text</string>
+    <string name="ui_tr_scan_result">Scan-Ergebnis</string>
+    <string name="ui_tr_translate_to">Übersetzen in</string>
+    <string name="ui_tr_translate_from">Übersetzen aus</string>
+    <string name="ui_tr_history_hint">Halten Sie eine Karte gedrückt, um sie zu löschen.</string>
+    <string name="ui_tr_history_empty_title">Noch keine Übersetzungen</string>
+    <string name="ui_tr_start_translating">Jetzt übersetzen</string>
+    <string name="ui_tr_favorites_empty_title">Noch keine Favoriten</string>
+    <string name="ui_tr_favorites_empty_body">Tippen Sie bei einer Übersetzung auf das Herz, um sie hier zu speichern.</string>
+    <string name="ui_tr_open_history">Verlauf öffnen</string>
+    <string name="ui_tr_go_premium">Premium holen</string>
+    <string name="ui_tr_go_premium_subtitle">Werbefrei und alle Funktionen freischalten</string>
+    <string name="ui_tr_group_preferences">Präferenzen</string>
+    <string name="ui_tr_group_support">Support</string>
+    <string name="ui_tr_group_about">Info</string>
+    <string name="ui_tr_notification_subtitle">Schnellzugriffsleiste in Ihren Benachrichtigungen</string>
+    <string name="ui_tr_keyboard_subtitle">Übersetzen Sie beim Tippen in jeder App.</string>
+    <string name="ui_tr_keyboard_step1_subtitle">Aktivieren Sie sie in den Tastatureinstellungen</string>
+    <string name="ui_tr_keyboard_step2_subtitle">Wählen Sie Translator Pro als Tastatur</string>
+    <string name="ui_tr_maybe_later">Vielleicht später</string>
+</resources>

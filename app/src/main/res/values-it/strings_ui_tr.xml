@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Redesign strings for the Translate, Language selector, History, Favorites, Scan result, Settings and Enable keyboard screens. English: values/strings_ui_tr.xml. -->
+<resources>
+    <string name="ui_tr_back">Indietro</string>
+    <string name="ui_tr_clear_text">Cancella testo</string>
+    <string name="ui_tr_copy">Copia</string>
+    <string name="ui_tr_translating">Traduzione in corso…</string>
+    <string name="ui_tr_detecting_text">Rilevamento del testo…</string>
+    <string name="ui_tr_scanned_text">Testo scansionato</string>
+    <string name="ui_tr_scan_result">Risultato della scansione</string>
+    <string name="ui_tr_translate_to">Traduci in</string>
+    <string name="ui_tr_translate_from">Traduci da</string>
+    <string name="ui_tr_history_hint">Tieni premuta una scheda per eliminarla.</string>
+    <string name="ui_tr_history_empty_title">Ancora nessuna traduzione</string>
+    <string name="ui_tr_start_translating">Inizia a tradurre</string>
+    <string name="ui_tr_favorites_empty_title">Ancora nessun preferito</string>
+    <string name="ui_tr_favorites_empty_body">Tocca il cuore su una traduzione per salvarla qui.</string>
+    <string name="ui_tr_open_history">Apri cronologia</string>
+    <string name="ui_tr_go_premium">Passa a Premium</string>
+    <string name="ui_tr_go_premium_subtitle">Rimuovi gli annunci e sblocca tutte le funzioni</string>
+    <string name="ui_tr_group_preferences">Preferenze</string>
+    <string name="ui_tr_group_support">Assistenza</string>
+    <string name="ui_tr_group_about">Informazioni</string>
+    <string name="ui_tr_notification_subtitle">Barra di accesso rapido nelle notifiche</string>
+    <string name="ui_tr_keyboard_subtitle">Traduci mentre scrivi in qualsiasi app.</string>
+    <string name="ui_tr_keyboard_step1_subtitle">Attivala nelle impostazioni della tastiera</string>
+    <string name="ui_tr_keyboard_step2_subtitle">Scegli Translator Pro come tastiera</string>
+    <string name="ui_tr_maybe_later">Forse più tardi</string>
+</resources>

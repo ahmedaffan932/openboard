@@ -20,14 +20,9 @@ class CameraPermissionActivity : AppCompatActivity() {
 
         Ads.loadAndShowSharedBottomNativeAd(this, binding.nativeAdFrameLayout)
 
-        binding.btnBack.setOnClickListener {
-            Toast.makeText(
-                this,
-                "Camera permission is required for this feature",
-                Toast.LENGTH_SHORT
-            ).show()
-            onBackPressed()
-        }
+        binding.btnBack.setOnClickListener { leaveWithoutPermission() }
+        // "Not now" leaves the same way as Back.
+        binding.btnNotNow.setOnClickListener { leaveWithoutPermission() }
 
         binding.btnAllow.setOnClickListener {
             if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -36,6 +31,15 @@ class CameraPermissionActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    private fun leaveWithoutPermission() {
+        Toast.makeText(
+            this,
+            "Camera permission is required for this feature",
+            Toast.LENGTH_SHORT
+        ).show()
+        onBackPressed()
     }
 
     override fun onRequestPermissionsResult(

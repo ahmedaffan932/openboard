@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Group D (system UI) redesign dimensions. -->
+<resources>
+    <!-- Corner of the dialog cards (bg_ui_dialog); the "Add widget" card clips its ad to it. -->
+    <dimen name="ui_sys_dialog_radius">24dp</dimen>
+</resources>

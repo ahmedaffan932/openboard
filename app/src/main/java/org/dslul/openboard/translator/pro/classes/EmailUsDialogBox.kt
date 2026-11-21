@@ -3,6 +3,7 @@ package org.dslul.openboard.translator.pro.classes
 import android.app.Activity
 import android.app.Dialog
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.view.Window
 import org.dslul.openboard.inputmethod.latin.R
@@ -13,6 +14,9 @@ class EmailUsDialogBox(var c: Activity) : Dialog(c), View.OnClickListener {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.email_us_dialog)
+        // The redesigned feedback card is a bottom sheet (Figma 9:1644); the caller sizes the window
+        // full width with a transparent background.
+        window?.setGravity(Gravity.BOTTOM)
     }
 
     override fun onClick(v: View) {

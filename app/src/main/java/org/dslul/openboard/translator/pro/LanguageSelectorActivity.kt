@@ -47,11 +47,9 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
 
         Misc.isLngTo = intent.getBooleanExtra(Misc.lngTo, true)
 
-        if (Misc.isLngTo) {
-            binding.tvTitle.text = getString(R.string.language_to)
-        } else {
-            binding.tvTitle.text = getString(R.string.language_from)
-        }
+        binding.tvTitle.text = getString(
+            if (Misc.isLngTo) R.string.ui_tr_translate_to else R.string.ui_tr_translate_from
+        )
 
         setBackground()
 
@@ -81,9 +79,15 @@ class LanguageSelectorActivity : AppCompatActivity(), SearchView.OnQueryTextList
             arrRecent.add(Misc.getRecentLngs(this)[i])
             binding.textViewRecentlyUsedLng.visibility = View.VISIBLE
         }
+        // The Recently used card shows only when there is something in it.
+        binding.recyclerViewRecentLanguages.visibility =
+            if (arrRecent.isEmpty()) View.GONE else View.VISIBLE
 
         binding.recyclerViewRecentLanguages.layoutManager = LinearLayoutManager(this)
         binding.recyclerViewLanguages.layoutManager = LinearLayoutManager(this)
+        // Rows scroll inside the All languages card: clip them to its rounded corners.
+        binding.recyclerViewRecentLanguages.clipToOutline = true
+        binding.recyclerViewLanguages.clipToOutline = true
 
         val modelManager = RemoteModelManager.getInstance()
         modelManager.getDownloadedModels(TranslateRemoteModel::class.java)

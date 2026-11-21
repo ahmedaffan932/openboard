@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tap feedback of a pinned-notification tile column: no fill, a ripple masked to a 14dp-rounded
+     rectangle. Framework drawable: SystemUI inflates it. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/home_ripple">
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white" />
+            <corners android:radius="14dp" />
+        </shape>
+    </item>
+</ripple>

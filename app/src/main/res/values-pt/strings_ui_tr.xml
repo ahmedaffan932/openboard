@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Redesign strings for the Translate, Language selector, History, Favorites, Scan result, Settings and Enable keyboard screens. English: values/strings_ui_tr.xml. -->
+<resources>
+    <string name="ui_tr_back">Voltar</string>
+    <string name="ui_tr_clear_text">Limpar texto</string>
+    <string name="ui_tr_copy">Copiar</string>
+    <string name="ui_tr_translating">Traduzindo…</string>
+    <string name="ui_tr_detecting_text">Detectando texto…</string>
+    <string name="ui_tr_scanned_text">Texto digitalizado</string>
+    <string name="ui_tr_scan_result">Resultado da digitalização</string>
+    <string name="ui_tr_translate_to">Traduzir para</string>
+    <string name="ui_tr_translate_from">Traduzir de</string>
+    <string name="ui_tr_history_hint">Toque e segure um cartão para excluí-lo.</string>
+    <string name="ui_tr_history_empty_title">Nenhuma tradução ainda</string>
+    <string name="ui_tr_start_translating">Começar a traduzir</string>
+    <string name="ui_tr_favorites_empty_title">Nenhum favorito ainda</string>
+    <string name="ui_tr_favorites_empty_body">Toque no coração de uma tradução para salvá-la aqui.</string>
+    <string name="ui_tr_open_history">Abrir histórico</string>
+    <string name="ui_tr_go_premium">Seja Premium</string>
+    <string name="ui_tr_go_premium_subtitle">Remova os anúncios e desbloqueie todos os recursos</string>
+    <string name="ui_tr_group_preferences">Preferências</string>
+    <string name="ui_tr_group_support">Suporte</string>
+    <string name="ui_tr_group_about">Sobre</string>
+    <string name="ui_tr_notification_subtitle">Barra de acesso rápido nas suas notificações</string>
+    <string name="ui_tr_keyboard_subtitle">Traduza enquanto digita em qualquer app.</string>
+    <string name="ui_tr_keyboard_step1_subtitle">Ative-o nas configurações do teclado</string>
+    <string name="ui_tr_keyboard_step2_subtitle">Escolha o Translator Pro como seu teclado</string>
+    <string name="ui_tr_maybe_later">Talvez mais tarde</string>
+</resources>

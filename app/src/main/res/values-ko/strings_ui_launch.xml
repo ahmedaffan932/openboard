@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Launch screens redesign (Figma TranslatorProZyro). -->
+<resources>
+    <string name="ui_launch_loading">로딩 중…</string>
+    <string name="ui_launch_lang_subtitle">메뉴와 버튼에 사용할 언어를 선택하세요.</string>
+    <string name="ui_launch_lang_english">영어(미국)</string>
+    <string name="ui_launch_lang_french">프랑스어</string>
+    <string name="ui_launch_lang_german">독일어</string>
+    <string name="ui_launch_lang_spanish">스페인어</string>
+    <string name="ui_launch_lang_hindi">힌디어</string>
+    <string name="ui_launch_lang_portuguese">포르투갈어</string>
+    <string name="ui_launch_lang_korean">한국어</string>
+    <string name="ui_launch_lang_italian">이탈리아어</string>
+    <string name="ui_launch_lang_russian">러시아어</string>
+    <string name="ui_launch_skip">건너뛰기</string>
+    <string name="ui_launch_get_started">시작하기</string>
+    <string name="ui_launch_onboarding_title_1">모든 언어로 번역</string>
+    <string name="ui_launch_onboarding_text_1">입력하거나 말하거나 붙여 넣으면 50개 이상의 언어로 바로 번역됩니다.</string>
+    <string name="ui_launch_onboarding_title_2">입력하면서 번역</string>
+    <string name="ui_launch_onboarding_text_2">Translator 키보드를 켜고 WhatsApp, Instagram 등 어떤 앱에서든 번역하세요.</string>
+    <string name="ui_launch_onboarding_title_3">카메라를 비추면 번역</string>
+    <string name="ui_launch_onboarding_text_3">표지판, 메뉴, 라벨을 화면에서 바로 번역합니다.</string>
+    <string name="ui_launch_premium_title">Pro처럼 시작하세요</string>
+    <string name="ui_launch_premium_subtitle">모든 기능을 잠금 해제하고 제한 없이 번역하세요.</string>
+    <string name="ui_launch_premium_price_line">3일 무료, 이후 %1$s / 주</string>
+    <string name="ui_launch_premium_cta">무료 체험 시작</string>
+    <string name="ui_launch_exit_rate_title">사용해 보니 어떠셨나요?</string>
+    <string name="ui_launch_exit_rate_hint">평가는 앱 개선에 도움이 됩니다</string>
+    <string name="ui_launch_exit_rated_title">평가해 주셔서 감사합니다!</string>
+    <string name="ui_launch_exit_rated_good">Translator Pro를 즐겨 주셔서 기쁩니다.</string>
+    <string name="ui_launch_exit_rated_low">감사합니다! 앱 개선에 활용하겠습니다.</string>
+    <string name="ui_launch_exit_quit_title">Translator Pro를 종료할까요?</string>
+    <string name="ui_launch_exit_quit_body">정말 종료하시겠습니까?</string>
+    <string name="ui_launch_exit_yes_quit">네, 종료</string>
+    <string name="ui_launch_exit_star_desc">5점 중 %1$d점 주기</string>
+</resources>

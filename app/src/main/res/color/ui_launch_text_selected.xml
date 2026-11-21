@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Row title: accent while its row is selected (the chosen app language). -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/home_accent" android:state_selected="true" />
+    <item android:color="@color/home_text_primary" />
+</selector>

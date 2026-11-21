@@ -1,12 +1,12 @@
 package org.dslul.openboard.translator.pro
 
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
+import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import com.example.translatorguru.ads.admob.LoadAdCallBack
 import com.google.android.gms.ads.MobileAds
@@ -53,6 +53,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
     private var isNextActivityStarted = false
     private var isAdRequestSent = false
     private var isAppOpenLoaded = false
+    private var loadingAnimator: ObjectAnimator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Read by App (no on-open reminder while the splash runs) and NotiRouterActivity.
@@ -75,9 +76,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
             )
         }
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            binding.animBackground.playAnimation()
-        }, 1000)
+        animateLoadingBar()
 
         getRemoteConfigValues()
 
@@ -214,6 +213,18 @@ class PreSplashScreenActivity : AppCompatActivity() {
         )
 
 
+    }
+
+    /**
+     * The slim bar under the logo: fills over the splash's ad wait, slowing towards the end, and
+     * stops just short of full. Purely visual; the hand-over timing is unchanged.
+     */
+    private fun animateLoadingBar() {
+        loadingAnimator = ObjectAnimator.ofInt(binding.spline, "progress", 0, 92).apply {
+            duration = Ads.splashAdTimeoutMs.coerceAtLeast(1000L)
+            interpolator = DecelerateInterpolator()
+            start()
+        }
     }
 
     private fun getRemoteConfigValues() {
@@ -355,6 +366,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        loadingAnimator?.cancel()
         // Left without handing over (Back, or the system finishing it): no splash is running.
         if (!isNextActivityStarted) Misc.isSplashScreen = false
         super.onDestroy()

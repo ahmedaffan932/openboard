@@ -45,6 +45,7 @@ object AppAnalytics {
     const val PREMIUM_SOURCE_PRO_BUTTON = "pro_button"
     const val PREMIUM_SOURCE_FEATURE_LOCK = "feature_lock"
     const val PREMIUM_SOURCE_IN_APP = "in_app"
+    const val PREMIUM_SOURCE_SETTINGS = "settings"
 
     const val FEATURE_TEXT = "text"
     const val FEATURE_CAMERA = "camera"

@@ -26,33 +26,13 @@ class OnBaordingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_splash, container, false)
-        view.findViewById<TextView>(R.id.tvHeading).text = when (param1.toString()) {
-            "1" -> {
-                "Enable Keyboard"
-            }
-
-            "2" -> {
-                "Camera Translation"
-            }
-
-            else -> {
-                "Translate in any Languages."
-            }
+        val (title, text) = when (param1.toString()) {
+            "1" -> R.string.ui_launch_onboarding_title_2 to R.string.ui_launch_onboarding_text_2
+            "2" -> R.string.ui_launch_onboarding_title_3 to R.string.ui_launch_onboarding_text_3
+            else -> R.string.ui_launch_onboarding_title_1 to R.string.ui_launch_onboarding_text_1
         }
-
-//        view.findViewById<TextView>(R.id.tvText).text = when (param1.toString()) {
-//            "1" -> {
-//                "Get instant translation right in your favourite messaging app."
-//            }
-//
-//            "2" -> {
-//                "Just take take a photo of any object and get a fast and accurate translation"
-//            }
-//
-//            else -> {
-//                "Easily translate text, photos or voice in over 50 languages"
-//            }
-//        }
+        view.findViewById<TextView>(R.id.tvHeading).setText(title)
+        view.findViewById<TextView>(R.id.tvText).setText(text)
 
         view.findViewById<LottieAnimationView>(R.id.animation).setAnimation(
             when (param1.toString()) {

@@ -123,6 +123,7 @@ class ChatFragment : Fragment() {
         }
 
         binding.tvTextTo.addTextChangedListener { text ->
+            showCaption(binding.tvCaptionTo, text)
             if (text.toString() != "") {
                 if (binding.btnCopyTextTo.visibility == View.GONE) {
                     Misc.zoomInView(binding.btnCopyTextTo, requireActivity(), 250)
@@ -134,6 +135,7 @@ class ChatFragment : Fragment() {
         }
 
         binding.tvTextFrom.addTextChangedListener { text ->
+            showCaption(binding.tvCaptionFrom, text)
             if (text.toString() != "") {
                 if (binding.btnCopyTextFrom.visibility == View.GONE) {
                     Misc.zoomInView(binding.btnCopyTextFrom, requireActivity(), 250)
@@ -152,18 +154,33 @@ class ChatFragment : Fragment() {
         setSelectedLng()
     }
 
+    /** Under each card's text: "Tap the mic and speak" while empty, then "tap the text to hear it". */
+    private fun showCaption(caption: TextView, text: CharSequence?) {
+        caption.setText(
+            if (text.isNullOrEmpty()) R.string.ui_tabs_chat_tap_to_speak
+            else R.string.ui_tabs_chat_tap_to_hear
+        )
+    }
+
     private fun setSelectedLng() {
         if (Misc.getLanguageFrom(requireActivity()) == Misc.defaultLanguage) {
             binding.tvLanguageFrom.text = resources.getString(R.string.detect)
+            binding.flagFrom.setImageResource(Misc.getFlag(requireActivity(), "100"))
         } else {
             binding.tvLanguageFrom.text = Locale(
                 Misc.getLanguageFrom(requireActivity())
             ).displayName
+            binding.flagFrom.setImageResource(
+                Misc.getFlag(requireActivity(), Misc.getLanguageFrom(requireActivity()))
+            )
         }
 
         binding.tvLanguageTo.text = Locale(
             Misc.getLanguageTo(requireActivity())
         ).displayName
+        binding.flagTo.setImageResource(
+            Misc.getFlag(requireActivity(), Misc.getLanguageTo(requireActivity()))
+        )
     }
 
     private fun displaySpeechRecognizer(isLanguageTo: Boolean) {

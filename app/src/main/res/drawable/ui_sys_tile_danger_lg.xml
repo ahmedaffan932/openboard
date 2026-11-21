@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 56dp danger icon tile of the delete dialog (Figma 9:1540). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/home_danger_soft" />
+    <corners android:radius="16dp" />
+</shape>

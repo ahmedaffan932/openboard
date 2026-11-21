@@ -1,38 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- "Loading ad…" card (Misc.LoadingAdDialog, shown while a rewarded / interstitial ad loads).
+     Figma: TranslatorProZyro, loading ad (9:1869). The window background is transparent, so this root
+     is the card; layout_gravity centres it if the dialog window is wider than the card. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:elevation="@dimen/fab_padding"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bg_main_less_rounded">
+    android:layout_gravity="center"
+    android:background="@drawable/bg_ui_dialog"
+    android:gravity="center_horizontal"
+    android:minWidth="200dp"
+    android:orientation="vertical"
+    android:paddingStart="24dp"
+    android:paddingTop="24dp"
+    android:paddingEnd="24dp"
+    android:paddingBottom="22dp">
 
-    <com.airbnb.lottie.LottieAnimationView
+    <ProgressBar
         android:id="@+id/animation"
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="@dimen/_150sdp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/warning"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:lottie_fileName="loading_ad.json"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"/>
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/ui_sys_spinner"
+        android:indeterminateDuration="900"
+        android:indeterminateOnly="true" />
 
     <TextView
         android:id="@+id/warning"
+        style="@style/HomeText.Label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/loading_ad"
-        android:textColor="@color/accent"
-        android:textSize="10pt"
-        android:fontFamily="@font/poppins_regular"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/animation"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="@dimen/_10sdp"
-        />
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="@string/ui_sys_loading_ad"
+        android:textSize="14sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        style="@style/HomeText.CaptionMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:text="@string/ui_sys_just_a_moment" />
+</LinearLayout>

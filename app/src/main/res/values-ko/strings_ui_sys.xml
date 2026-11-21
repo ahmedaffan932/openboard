@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_sys_premium_caption">광고를 보면 이번 세션 동안 잠금 해제됩니다.</string>
+    <string name="ui_sys_delete_body">되돌릴 수 없습니다.</string>
+    <string name="ui_sys_feedback_body">버그를 발견했거나 아이디어가 있나요? 알려 주시면 모든 메시지를 읽어 볼게요.</string>
+    <string name="ui_sys_send_feedback">피드백 보내기</string>
+    <string name="ui_sys_rate_title">Translator Pro가 마음에 드시나요?</string>
+    <string name="ui_sys_rate_body">별을 탭해 Google Play에서 평가해 주세요. 큰 도움이 됩니다!</string>
+    <string name="ui_sys_loading_ad">광고 불러오는 중…</string>
+    <string name="ui_sys_just_a_moment">잠시만 기다려 주세요</string>
+    <string name="ui_sys_ad_sponsored">스폰서</string>
+</resources>

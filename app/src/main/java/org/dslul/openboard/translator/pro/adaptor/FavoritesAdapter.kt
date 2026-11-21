@@ -22,7 +22,16 @@ import org.dslul.openboard.translator.pro.interfaces.OnBackPressedHistoryInterfa
 import java.util.*
 import kotlin.collections.ArrayList
 
-class FavoritesAdapter(private var arr: ArrayList<TranslateHistoryClass>, val activity: Activity):
+/**
+ * The Favorites list. Its cards are the Home tab's Recent cards (history_item_home): the language
+ * pair is one chip ("EN → ES") and the filled heart asks to remove the card. [onEmptied] runs when
+ * the last card is removed.
+ */
+class FavoritesAdapter(
+    private var arr: ArrayList<TranslateHistoryClass>,
+    val activity: Activity,
+    private val onEmptied: (() -> Unit)? = null
+) :
     RecyclerView.Adapter<FavoritesAdapter.FavoriteItemHolder>(), OnBackPressedHistoryInterface {
     private var textToSpeech: TextToSpeech? = null
 
@@ -37,7 +46,7 @@ class FavoritesAdapter(private var arr: ArrayList<TranslateHistoryClass>, val ac
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteItemHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.history_item, parent, false)
+        val view = inflater.inflate(R.layout.history_item_home, parent, false)
         return FavoriteItemHolder(view)
     }
 
@@ -45,19 +54,20 @@ class FavoritesAdapter(private var arr: ArrayList<TranslateHistoryClass>, val ac
     override fun onBindViewHolder(holder: FavoriteItemHolder, position: Int) {
         holder.tvText.text = arr[position].text
         holder.tvTranslation.text = arr[position].translation
-        holder.btnFavoriteHistory.setImageResource(R.drawable.ic_baseline_favorite_24)
+        holder.btnFavoriteHistory.setImageResource(R.drawable.ic_home_heart_filled)
 
         if (arr[position].translatedFrom == Misc.defaultLanguage) {
-            holder.tvLngFrom.text =
+            holder.tvLngFrom?.text =
                 activity.getString(R.string.detect)
         } else {
-            holder.tvLngFrom.text = Locale(
+            holder.tvLngFrom?.text = Locale(
                 arr[position].translatedFrom
             ).displayName
         }
-        holder.tvLngTo.text = Locale(
+        holder.tvLngTo?.text = Locale(
             arr[position].translatedTo
         ).displayName
+        holder.tvLngPair?.text = languagePair(arr[position])
         holder.btnCopy.setOnClickListener {
             val clipboard: ClipboardManager =
                 activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -116,6 +126,7 @@ class FavoritesAdapter(private var arr: ArrayList<TranslateHistoryClass>, val ac
                 arr.removeAt(position)
                 notifyDataSetChanged()
                 objCustomDialog.dismiss()
+                if (arr.isEmpty()) onEmptied?.invoke()
             }
 
             objCustomDialog.findViewById<TextView>(R.id.btnNo).setOnClickListener {
@@ -136,14 +147,25 @@ class FavoritesAdapter(private var arr: ArrayList<TranslateHistoryClass>, val ac
     open class FavoriteItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val llMain: LinearLayout = itemView.findViewById(R.id.llMain)
         val tvText: TextView = itemView.findViewById(R.id.tvTextHistory)
-        val tvLngTo: TextView = itemView.findViewById(R.id.tvLngToHistory)
+        val tvLngTo: TextView? = itemView.findViewById(R.id.tvLngToHistory)
         val btnCopy: ImageButton = itemView.findViewById(R.id.btnCopyHistory)
-        val tvLngFrom: TextView = itemView.findViewById(R.id.tvLngFromHistory)
+        val tvLngFrom: TextView? = itemView.findViewById(R.id.tvLngFromHistory)
+        val tvLngPair: TextView? = itemView.findViewById(R.id.tvLngPairHistory)
         val btnSpeak: ImageButton = itemView.findViewById(R.id.btnSpeakHistory)
         val btnShare: ImageButton = itemView.findViewById(R.id.btnShareHistory)
         val tvTranslation: TextView = itemView.findViewById(R.id.tvTranslationHistory)
         val btnFavoriteHistory: ImageButton = itemView.findViewById(R.id.btnFavoriteHistory)
     }
+    /** "EN  →  ES", as on the History cards; a detected source language shows as "Detect". */
+    private fun languagePair(obj: TranslateHistoryClass): String {
+        val from = if (obj.translatedFrom == Misc.defaultLanguage) {
+            activity.getString(R.string.detect)
+        } else {
+            obj.translatedFrom
+        }
+        return "${from.uppercase(Locale.ROOT)}  →  ${obj.translatedTo.uppercase(Locale.ROOT)}"
+    }
+
     private fun speak(text: String, lng: String) {
         textToSpeech = TextToSpeech(
             activity.applicationContext

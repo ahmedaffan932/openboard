@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Scan result (OCR). Figma: TranslatorProZyro "Scan result" (7:1406), detecting state (21:5366).
+     The photo sits in a rounded viewfinder card with the language bar on top; the result rows are in
+     the bottom sheet (bottom_sheet_ocr_translation_result.xml). -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/OCRActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color"
+    android:background="@color/home_bg"
     tools:context="org.dslul.openboard.translator.pro.OCRActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- Header: back + title. -->
+    <LinearLayout
         android:id="@+id/llTopBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_top_bar"
-        app:layout_constraintTop_toTopOf="parent"
-        android:elevation="@dimen/padding">
-
+        android:clipToPadding="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="@dimen/fab_padding"
-            android:padding="@dimen/padding"
-            android:src="@drawable/ic_baseline_arrow_back_24"
-            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvTitle" />
+            style="@style/Widget.Ui.IconButton"
+            android:contentDescription="@string/ui_tr_back"
+            android:outlineSpotShadowColor="@color/home_shadow"
+            app:srcCompat="@drawable/ic_ui_arrow_left"
+            app:tint="@color/home_text_primary"
+            tools:targetApi="p" />
 
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/m_padding"
-            android:layout_marginTop="@dimen/extra_padding"
-            android:layout_marginBottom="@dimen/fab_padding"
-            android:fontFamily="@font/poppins_regular"
-            android:paddingStart="@dimen/padding"
-            android:text="@string/app_name"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btnBack"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            style="@style/HomeText.Screen"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/ui_tr_scan_result" />
+    </LinearLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -52,169 +52,158 @@
         app:layout_constraintBottom_toTopOf="@+id/clAdsBottom"
         app:layout_constraintTop_toBottomOf="@id/llTopBar">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible">
 
-            <ImageView
-                android:id="@+id/imageViewOcr"
+            <!-- Rounded viewfinder card: the photo with its text boxes, language bar on top. -->
+            <!-- OCRActivity clips this card to its rounded outline. -->
+            <FrameLayout
+                android:id="@+id/cvViewfinder"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:background="@color/black"
-                android:orientation="vertical"
-                android:scaleType="fitCenter"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_ui_viewfinder"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <LinearLayout
-                android:id="@+id/llLanguageSelector"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:animateLayoutChanges="true"
-                android:gravity="center"
-                android:background="@drawable/bg_rounded"
-                android:orientation="horizontal"
-                android:layout_margin="@dimen/fab_padding"
-                android:paddingHorizontal="@dimen/m_padding"
-                android:transitionName="anim_ll_languages"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <LinearLayout
-                    android:id="@+id/llLanguageFrom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/m_padding"
-                    android:background="@drawable/bg_nothing_rounded_ripple"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/imageViewOcr"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:importantForAccessibility="no"
+                    android:paddingTop="68dp"
+                    android:paddingBottom="96dp"
+                    android:scaleType="fitCenter" />
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/flagFrom"
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/us_flag"
-                        app:shapeAppearanceOverlay="@style/roundedCorners" />
+                <!-- Language bar card. -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/llLanguageSelector"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/bg_ui_card_r16"
+                    android:elevation="4dp"
+                    android:outlineSpotShadowColor="@color/home_shadow"
+                    android:padding="6dp"
+                    android:transitionName="anim_ll_languages"
+                    tools:targetApi="p">
 
                     <LinearLayout
+                        android:id="@+id/llLanguageFrom"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/m_padding"
-                        android:orientation="vertical">
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_home_lang_pill"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="10dp"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintEnd_toStartOf="@id/ivSwitchLanguages"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/flagFrom"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:importantForAccessibility="no"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/us_flag"
+                            app:shapeAppearanceOverlay="@style/roundedCorners" />
 
                         <TextView
                             android:id="@+id/tvLanguageFrom"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
+                            style="@style/HomeText.Language"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
                             android:layout_weight="1"
-                            android:fontFamily="@font/poppins_regular"
-                            android:gravity="center"
-                            android:text="@string/english"
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            tools:ignore="NestedWeights" />
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:text="@string/english" />
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.7dp"
-                            android:background="@drawable/bg_rounded"
-                            android:backgroundTint="@color/black" />
+                        <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:layout_marginStart="8dp"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_home_chevron_down" />
                     </LinearLayout>
 
                     <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/fab_padding"
-                        android:layout_marginHorizontal="6dp"
-                        android:layout_marginVertical="@dimen/padding"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_nothing_rounded_ripple"
-                        android:contentDescription="@string/todo"
-                        android:src="@drawable/ic_arrow_down" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <ImageView
                         android:id="@+id/ivSwitchLanguages"
-                        android:layout_width="34dp"
-                        android:layout_height="34dp"
-                        android:background="@drawable/bg_nothing_rounded_ripple"
-                        android:contentDescription="@string/todo"
-                        android:padding="@dimen/padding"
-                        app:srcCompat="@drawable/ic_switch_lang" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/llLanguageTo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/m_padding"
-                    android:background="@drawable/bg_nothing_rounded_ripple"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/fab_padding"
-                        android:layout_marginHorizontal="6dp"
-                        android:layout_marginVertical="@dimen/padding"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_nothing_rounded_ripple"
-                        android:contentDescription="@string/todo"
-                        android:src="@drawable/ic_arrow_down" />
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_home_swap"
+                        android:contentDescription="@string/swap_languages"
+                        android:padding="10.5dp"
+                        android:src="@drawable/ic_home_swap"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <LinearLayout
+                        android:id="@+id/llLanguageTo"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/m_padding"
-                        android:orientation="vertical">
+                        android:layout_height="40dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_home_lang_pill"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="10dp"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1"
+                        app:layout_constraintStart_toEndOf="@id/ivSwitchLanguages"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_home_chevron_down" />
 
                         <TextView
                             android:id="@+id/tvLanguageTo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
+                            style="@style/HomeText.Language"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
                             android:layout_weight="1"
-                            android:fontFamily="@font/poppins_regular"
-                            android:gravity="center"
-                            android:text="@string/textView"
-                            android:textColor="@color/black"
-                            android:textSize="12sp"
-                            tools:ignore="NestedWeights" />
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            tools:text="English" />
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.7dp"
-                            android:background="@drawable/bg_rounded"
-                            android:backgroundTint="@color/black" />
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/flagTo"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_marginStart="8dp"
+                            android:importantForAccessibility="no"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/by_flag"
+                            app:shapeAppearanceOverlay="@style/roundedCorners" />
                     </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/flagTo"
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/by_flag"
-                        app:shapeAppearanceOverlay="@style/roundedCorners" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-
+            <!-- "Detecting text…" / "Translating…" card; the full-size layer blocks taps meanwhile. -->
             <LinearLayout
                 android:id="@+id/progressBar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#77373e41"
-                android:elevation="@dimen/extra_padding"
+                android:elevation="8dp"
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -222,21 +211,44 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ProgressBar
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="208dp"
                     android:layout_height="wrap_content"
-                    android:elevation="2dp"
-                    android:indeterminateTint="@color/accent"
-                    android:visibility="visible" />
+                    android:background="@drawable/bg_ui_dialog"
+                    android:elevation="8dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:outlineSpotShadowColor="@color/home_shadow"
+                    android:paddingHorizontal="24dp"
+                    android:paddingTop="22dp"
+                    android:paddingBottom="22dp"
+                    tools:targetApi="p">
 
-                <TextView
-                    android:id="@+id/pbText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="@string/detecting_text"
-                    android:textColor="@color/black" />
+                    <ProgressBar
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:indeterminateTint="@color/home_accent" />
+
+                    <TextView
+                        android:id="@+id/pbText"
+                        style="@style/HomeText.BodyStrong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center"
+                        android:text="@string/ui_tr_detecting_text" />
+
+                    <ProgressBar
+                        style="@style/Widget.Ui.Progress"
+                        android:layout_width="match_parent"
+                        android:layout_height="6dp"
+                        android:layout_marginTop="14dp"
+                        android:indeterminate="true"
+                        android:indeterminateTint="@color/home_accent"
+                        android:minHeight="6dp"
+                        android:maxHeight="6dp" />
+                </LinearLayout>
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -256,7 +268,7 @@
             android:id="@+id/frameLayoutBanner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
+            android:background="@color/home_surface"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

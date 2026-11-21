@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_sys_premium_caption">Regarder une pub le débloque pour cette session.</string>
+    <string name="ui_sys_delete_body">Cette action est irréversible.</string>
+    <string name="ui_sys_feedback_body">Un bug ou une idée ? Écrivez-nous, nous lisons chaque message.</string>
+    <string name="ui_sys_send_feedback">Envoyer l\'avis</string>
+    <string name="ui_sys_rate_title">Vous aimez Translator Pro ?</string>
+    <string name="ui_sys_rate_body">Touchez une étoile pour nous noter sur Google Play. Ça nous aide beaucoup !</string>
+    <string name="ui_sys_loading_ad">Chargement de la pub…</string>
+    <string name="ui_sys_just_a_moment">Un instant</string>
+    <string name="ui_sys_ad_sponsored">Sponsorisé</string>
+</resources>

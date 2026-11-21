@@ -47,6 +47,9 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
 
     /** The language "Detect" resolved to for the current translation, for the swap button. */
     private var detectedSourceLanguage: String? = null
+
+    /** The text / translation pair the result card shows, for its heart (Favorites). */
+    private var lastTranslated: TranslateHistoryClass? = null
     lateinit var binding: ActivityViewTranslatedTextBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,6 +107,8 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
 
         binding.etText.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
         }
+
+        binding.btnFavoriteTranslation.setOnClickListener { toggleFavorite() }
 
 
         binding.scrollView.isSmoothScrollingEnabled = true
@@ -166,6 +171,8 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
         binding.btnClearText.setOnClickListener {
             binding.etText.setText("")
             binding.textViewTextTranslatedFrag.text = ""
+            lastTranslated = null
+            updateFavoriteIcon()
             binding.btnClearText.visibility = View.INVISIBLE
             Misc.zoomOutView(binding.btnClearText, this, 150)
 //            Misc.zoomOutView(btnTranslate, this, 150)
@@ -310,6 +317,13 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
                     Misc.getLanguageTo(this@ViewTranslatedTextActivity)
                 )
                 binding.textViewTextTranslatedFrag.text = translation
+                lastTranslated = TranslateHistoryClass(
+                    text,
+                    translation,
+                    Misc.getLanguageTo(this@ViewTranslatedTextActivity),
+                    Misc.getLanguageFrom(this@ViewTranslatedTextActivity)
+                )
+                updateFavoriteIcon()
                 saveInHistory(text, translation)
             }
 
@@ -354,27 +368,63 @@ class ViewTranslatedTextActivity : AppCompatActivity() {
         binding.etText.setText(swapped.input)
         binding.etText.setSelection(swapped.input.length)
         binding.textViewTextTranslatedFrag.text = swapped.output
+        lastTranslated = if (swapped.output.isNotEmpty()) {
+            TranslateHistoryClass(swapped.input, swapped.output, swapped.to, swapped.from)
+        } else null
+        updateFavoriteIcon()
     }
 
+    /** The result card's heart: adds the shown translation to Favorites or takes it out again. */
+    private fun toggleFavorite() {
+        val entry = lastTranslated ?: return
+        val favorites = Misc.getFavorites(this)
+        val saved = favorites.firstOrNull { isSameEntry(it, entry) }
+        if (saved != null) favorites.remove(saved) else favorites.add(entry)
+        getSharedPreferences(Misc.favorites, MODE_PRIVATE).edit()
+            .putString(Misc.favorites, Gson().toJson(favorites))
+            .apply()
+        updateFavoriteIcon()
+    }
+
+    private fun updateFavoriteIcon() {
+        val entry = lastTranslated
+        val isFavorite = entry != null && Misc.getFavorites(this).any { isSameEntry(it, entry) }
+        binding.btnFavoriteTranslation.setImageResource(
+            if (isFavorite) R.drawable.ic_home_heart_filled else R.drawable.ic_home_heart_outline
+        )
+    }
+
+    /** Same match as the History list's hearts (HistoryAdapter). */
+    private fun isSameEntry(a: TranslateHistoryClass, b: TranslateHistoryClass) =
+        a.text == b.text && a.translation == b.translation &&
+            a.translatedFrom == b.translatedFrom && a.translatedTo == b.translatedTo
+
     private fun setSelectedLng() {
+        val fromName: String
         if (Misc.getLanguageFrom(this) == Misc.defaultLanguage) {
-            binding.tvLanguageFrom.text = getString(R.string.detect)
+            fromName = getString(R.string.detect)
+            binding.tvLanguageFrom.text = fromName
             binding.textLngFrom.text = getString(R.string.detect)
             binding.flagFrom.setImageResource(Misc.getFlag(this, "100"))
         } else {
-            binding.tvLanguageFrom.text = Locale(
+            fromName = Locale(
                 Misc.getLanguageFrom(this)
             ).displayName
+            binding.tvLanguageFrom.text = fromName
             binding.textLngFrom.text = Misc.getLanguageFrom(this)
 
             binding.flagFrom.setImageResource(Misc.getFlag(this, Misc.getLanguageFrom(this)))
         }
 
+        val toName = Locale(Misc.getLanguageTo(this)).displayName
         binding.flagTo.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
-        binding.tvLanguageTo.text = Locale(
-            Misc.getLanguageTo(this)
-        ).displayName
+        binding.tvLanguageTo.text = toName
         binding.textLngTo.text = Misc.getLanguageTo(this)
+
+        // Result card header and the "Translating…" card's language pair.
+        binding.ivResultFlag.setImageResource(Misc.getFlag(this, Misc.getLanguageTo(this)))
+        binding.tvResultLanguage.text = toName
+        binding.tvTranslatingPair.text = getString(R.string.ui_tr_language_pair, fromName, toName)
     }
 
     private fun saveInHistory(text: String, translation: String) {

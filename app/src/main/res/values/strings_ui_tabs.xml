@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Redesign (Figma TranslatorProZyro): Camera, Conversation, Phrasebook, phrase details, Fun Words,
+     camera permission. -->
+<resources>
+    <!-- Camera tab -->
+    <string name="ui_tabs_camera_title">Camera translate</string>
+    <string name="ui_tabs_camera_hint">Point at text to translate</string>
+    <string name="ui_tabs_capture">Take photo</string>
+    <string name="ui_tabs_flash">Flash</string>
+
+    <!-- Conversation tab: caption under each card's text. -->
+    <string name="ui_tabs_chat_tap_to_speak">Tap the mic and speak</string>
+    <string name="ui_tabs_chat_tap_to_hear">Tap the text to hear it again</string>
+
+    <!-- Shared button descriptions -->
+    <string name="ui_tabs_copy">Copy</string>
+    <string name="ui_tabs_share">Share</string>
+    <string name="ui_tabs_back">Back</string>
+
+    <!-- Camera permission screen -->
+    <string name="ui_tabs_camera_access_title">Allow camera access</string>
+
+    <!-- Fun Words -->
+    <string name="ui_tabs_word_caption">Unscramble the English word</string>
+    <string name="ui_tabs_word_show_hint">Show a hint</string>
+    <!-- %1$s is the solved English word. -->
+    <string name="ui_tabs_word_correct">Correct! The word is %1$s.</string>
+    <!-- %1$s is the word in the player's language, %2$s the solved English word. -->
+    <string name="ui_tabs_word_correct_meaning">Correct! “%1$s” means %2$s.</string>
+    <string name="ui_tabs_word_reload">Reload words</string>
+    <string name="ui_tabs_word_previous">Previous word</string>
+    <string name="ui_tabs_word_shuffle">Start this word again</string>
+    <string name="ui_tabs_word_backspace">Remove last letter</string>
+    <string name="ui_tabs_word_clear">Clear letters</string>
+    <string name="ui_tabs_word_next">Next word</string>
+</resources>

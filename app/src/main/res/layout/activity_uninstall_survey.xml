@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Uninstall survey. Figma TranslatorProZyro "Uninstall survey" (12:2355): title, the reasons as
+     radio rows in one card, "You'll be leaving behind" feature tiles (2 columns), Keep the app /
+     Uninstall anyway, shared bottom native ad. -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color">
+    android:background="@color/home_bg"
+    tools:context="org.dslul.openboard.translator.pro.UninstallSurveyActivity">
 
     <!-- Scrollable survey + features; the action buttons and native stay pinned below it. -->
     <ScrollView
@@ -11,101 +16,193 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
-        android:paddingHorizontal="24dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/llButtons">
+        android:overScrollMode="never"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintBottom_toTopOf="@id/llButtons"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:orientation="vertical"
-            android:paddingTop="32dp"
-            android:paddingBottom="16dp">
+            android:paddingTop="24dp"
+            android:paddingBottom="12dp">
 
             <TextView
                 android:id="@+id/tvTitle"
+                style="@style/HomeText.Display"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_semi_bold"
-                android:text="@string/uninstall_title"
-                android:textColor="@color/black"
-                android:textSize="26sp" />
+                android:layout_marginHorizontal="4dp"
+                android:text="@string/uninstall_title" />
 
             <TextView
                 android:id="@+id/tvSubtitle"
+                style="@style/HomeText.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
                 android:layout_marginTop="6dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="@string/uninstall_subtitle"
-                android:textColor="@color/gray_600"
-                android:textSize="15sp" />
+                android:text="@string/uninstall_subtitle" />
 
+            <!-- Reasons: full-row radios in one card (row tinted while checked). -->
             <RadioGroup
                 android:id="@+id/rgReasons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical">
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_ui_card"
+                android:elevation="2dp"
+                android:orientation="vertical"
+                android:outlineSpotShadowColor="@color/home_shadow"
+                android:padding="4dp"
+                tools:targetApi="p">
 
                 <RadioButton
                     android:id="@+id/reasonAds"
-                    style="@style/UninstallReason"
-                    android:text="@string/uninstall_reason_ads" />
+                    style="@style/HomeText.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ui_launch_row_checkable"
+                    android:button="@null"
+                    android:drawableEnd="@drawable/ui_radio"
+                    android:drawablePadding="12dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="44dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="10dp"
+                    android:text="@string/uninstall_reason_ads"
+                    android:textColor="@color/ui_launch_text_checked"
+                    app:buttonCompat="@null" />
 
                 <RadioButton
                     android:id="@+id/reasonBetter"
-                    style="@style/UninstallReason"
-                    android:text="@string/uninstall_reason_better" />
+                    style="@style/HomeText.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ui_launch_row_checkable"
+                    android:button="@null"
+                    android:drawableEnd="@drawable/ui_radio"
+                    android:drawablePadding="12dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="44dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="10dp"
+                    android:text="@string/uninstall_reason_better"
+                    android:textColor="@color/ui_launch_text_checked"
+                    app:buttonCompat="@null" />
 
                 <RadioButton
                     android:id="@+id/reasonConfusing"
-                    style="@style/UninstallReason"
-                    android:text="@string/uninstall_reason_confusing" />
+                    style="@style/HomeText.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ui_launch_row_checkable"
+                    android:button="@null"
+                    android:drawableEnd="@drawable/ui_radio"
+                    android:drawablePadding="12dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="44dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="10dp"
+                    android:text="@string/uninstall_reason_confusing"
+                    android:textColor="@color/ui_launch_text_checked"
+                    app:buttonCompat="@null" />
 
                 <RadioButton
                     android:id="@+id/reasonQuality"
-                    style="@style/UninstallReason"
-                    android:text="@string/uninstall_reason_quality" />
+                    style="@style/HomeText.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ui_launch_row_checkable"
+                    android:button="@null"
+                    android:drawableEnd="@drawable/ui_radio"
+                    android:drawablePadding="12dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="44dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="10dp"
+                    android:text="@string/uninstall_reason_quality"
+                    android:textColor="@color/ui_launch_text_checked"
+                    app:buttonCompat="@null" />
 
                 <RadioButton
                     android:id="@+id/reasonOther"
-                    style="@style/UninstallReason"
-                    android:text="@string/uninstall_reason_other" />
+                    style="@style/HomeText.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ui_launch_row_checkable"
+                    android:button="@null"
+                    android:drawableEnd="@drawable/ui_radio"
+                    android:drawablePadding="12dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="44dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="10dp"
+                    android:text="@string/uninstall_reason_other"
+                    android:textColor="@color/ui_launch_text_checked"
+                    app:buttonCompat="@null" />
             </RadioGroup>
 
             <TextView
+                style="@style/HomeText.SectionTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/poppins_semi_bold"
-                android:text="@string/uninstall_features_title"
-                android:textColor="@color/black"
-                android:textSize="17sp" />
+                android:layout_marginHorizontal="4dp"
+                android:layout_marginTop="22dp"
+                android:text="@string/uninstall_features_title" />
 
+            <!-- Feature tiles, 2 per row; UninstallSurveyActivity sets each icon, tone and label. -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:background="@drawable/bg_rounded"
-                android:orientation="vertical"
-                android:padding="4dp">
+                android:baselineAligned="false"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="horizontal">
 
                 <include
+                    android:id="@+id/featureCamera"
                     layout="@layout/item_uninstall_feature"
-                    android:id="@+id/featureCamera" />
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
 
                 <include
+                    android:id="@+id/featureVoice"
                     layout="@layout/item_uninstall_feature"
-                    android:id="@+id/featureVoice" />
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:baselineAligned="false"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="horizontal">
 
                 <include
+                    android:id="@+id/featureChatbot"
                     layout="@layout/item_uninstall_feature"
-                    android:id="@+id/featureChatbot" />
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
 
                 <include
+                    android:id="@+id/featureOffline"
                     layout="@layout/item_uninstall_feature"
-                    android:id="@+id/featureOffline" />
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -114,41 +211,41 @@
         android:id="@+id/llButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:orientation="vertical"
-        android:paddingHorizontal="24dp"
-        android:paddingTop="8dp"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="6dp"
         app:layout_constraintBottom_toTopOf="@id/nativeAdFrameLayout">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnKeep"
+            style="@style/Widget.Ui.Button.Primary"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:background="@drawable/nativead_btn_round"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:text="@string/uninstall_keep"
-            android:textAllCaps="false"
-            android:textColor="@color/native_ad_cta_text"
-            android:textSize="16sp" />
+            android:layout_height="52dp"
+            android:text="@string/uninstall_keep" />
 
         <TextView
             android:id="@+id/btnUninstall"
+            style="@style/HomeText.BodyStrong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="4dp"
-            android:background="?attr/selectableItemBackground"
-            android:fontFamily="@font/poppins_medium"
-            android:paddingHorizontal="24dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_home_text_button"
+            android:paddingHorizontal="20dp"
             android:paddingVertical="12dp"
             android:text="@string/uninstall_confirm"
-            android:textColor="@color/gray_600"
-            android:textSize="14sp" />
+            android:textColor="@color/home_danger" />
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/nativeAdFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -20,6 +20,8 @@ import kotlinx.coroutines.launch
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityPhrasebookDetailedBinding
 import org.dslul.openboard.translator.pro.adaptor.CustomExpandableListAdapter
+import org.dslul.openboard.translator.pro.adaptor.PhraseBookMainAdapter
+import org.dslul.openboard.translator.pro.adaptor.PhraseGroupStyle
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
 import org.dslul.openboard.translator.pro.classes.PhrasesAssetReader
 import org.dslul.openboard.translator.pro.classes.ads.Ads
@@ -36,55 +38,8 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
     private val expandableListDetailTranslation: HashMap<String, List<String>> = HashMap()
     private val lngSelectorLngFrom = 1090
     private val lngSelectorLngTo = 1230
-    private lateinit var imagesResId: IntArray
-    private val imageResId0 = intArrayOf(
-        R.drawable.debit_card,
-        R.drawable.stand
-    )
-    private val imageResId1 = intArrayOf(
-        R.drawable.handshake,
-        R.drawable.debit_card
-    )
-    private val imageResId2 = intArrayOf(
-        R.drawable.fast_food,
-        R.drawable.drink
-    )
-    private val imageResId3 = intArrayOf(
-        R.drawable.cocktail_,
-        R.drawable.drink,
-        R.drawable.patient
-    )
-    private val imageResId4 = intArrayOf(
-        R.drawable.salary,
-        R.drawable.languages,
-        R.drawable.directional_sign,
-        R.drawable.happy,
-        R.drawable.delivery_truck,
-        R.drawable.waving_hand
-    )
-    private val imageResId5 = intArrayOf(
-        R.drawable.patient,
-        R.drawable.va
-    )
-    private val imageResId6 = intArrayOf(
-        R.drawable.police_hat,
-        R.drawable.handshake
-    )
-    private val imageResId7 = intArrayOf(
-        R.drawable.countdown,
-        R.drawable.calendar,
-        R.drawable.calendar_week,
-        R.drawable.clock
-    )
-    private val imageResId8 = intArrayOf(
-        R.drawable.travelling,
-        R.drawable.review,
-        R.drawable.transport,
-        R.drawable.public_transport,
-        R.drawable.map,
-        R.drawable.arrivals,
-        R.drawable.ticket
-    )
+    /** This category's group icons and tones (Figma "Phrasebook detail"), set in onCreate. */
+    private lateinit var groupStyles: List<PhraseGroupStyle>
 
     private var i: Int = 0
 
@@ -113,35 +68,10 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
 
         setSelectedLng()
 
-        imagesResId = when (i) {
-            0 -> {
-                imageResId0
-            }
-            1 -> {
-                imageResId1
-            }
-            2 -> {
-                imageResId2
-            }
-            3 -> {
-                imageResId3
-            }
-            4 -> {
-                imageResId4
-            }
-            5 -> {
-                imageResId5
-            }
-            6 -> {
-                imageResId6
-            }
-            7 -> {
-                imageResId7
-            }
-            else -> {
-                imageResId8
-            }
-        }
+        groupStyles = groupStylesFor(i)
+
+        // The category the user opened, e.g. "At the Restaurant" (already in the From language).
+        intent.getStringExtra(Misc.data)?.takeIf { it.isNotBlank() }?.let { binding.tvTitle.text = it }
 
         binding.btnBack.setOnClickListener {
             onBackPressed()
@@ -290,7 +220,8 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
                 expandableListTitleTranslation,
                 expandableListDetailTranslation,
                 expandableListDetail,
-                imagesResId
+                groupStyles,
+                PhraseBookMainAdapter.categoryStyle(i)
             )
             binding.expandableListView.setAdapter(expandableListAdapter)
             binding.expandableListView.setGroupIndicator(null)
@@ -331,6 +262,65 @@ class PhrasebookDetailedActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
             null
+        }
+    }
+
+    private companion object {
+        /**
+         * Icon and tone of each phrase group, by category (the launch intent's position) and group position. The order is the
+         * phrase files' (the same in every language), e.g. At the Store = Payment, Products and
+         * Sections. A group without an entry gets the category's own icon.
+         */
+        fun groupStylesFor(category: Int): List<PhraseGroupStyle> = when (category) {
+            0 -> listOf( // At the Store
+                PhraseGroupStyle.teal(R.drawable.ic_ui_cart),           // Payment
+                PhraseGroupStyle.orange(R.drawable.ic_ui_grid),         // Products and Sections
+            )
+            1 -> listOf( // At the Hotel
+                PhraseGroupStyle.accent(R.drawable.ic_ui_hotel),        // Check-In
+                PhraseGroupStyle.purple(R.drawable.ic_ui_calendar_clock), // Make a Reservation
+            )
+            2 -> listOf( // At the Bar
+                PhraseGroupStyle.purple(R.drawable.ic_ui_wine),         // Basics
+                PhraseGroupStyle.orange(R.drawable.ic_ui_utensils),     // Snacks
+            )
+            3 -> listOf( // At the Restaurant
+                PhraseGroupStyle.purple(R.drawable.ic_ui_list_checks),  // Allergies
+                PhraseGroupStyle.danger(R.drawable.ic_ui_utensils),     // Basics
+                PhraseGroupStyle.teal(R.drawable.ic_ui_wine),           // Drinks
+            )
+            4 -> listOf( // Essentials
+                PhraseGroupStyle.teal(R.drawable.ic_ui_list_checks),    // Basics
+                PhraseGroupStyle.accent(R.drawable.ic_ui_globe),        // Directions
+                PhraseGroupStyle.purple(R.drawable.ic_ui_info),         // General
+                PhraseGroupStyle.orange(R.drawable.ic_ui_message),      // Greetings
+                PhraseGroupStyle.accent(R.drawable.ic_ui_languages),    // Language
+                PhraseGroupStyle.success(R.drawable.ic_ui_cart),        // Money
+            )
+            5 -> listOf( // Medical Help
+                PhraseGroupStyle.danger(R.drawable.ic_ui_alert),        // Allergies and Asthma
+                PhraseGroupStyle.success(R.drawable.ic_ui_stethoscope), // General
+            )
+            6 -> listOf( // Problems
+                PhraseGroupStyle.accent(R.drawable.ic_ui_shield),       // Authority
+                PhraseGroupStyle.orange(R.drawable.ic_ui_alert),        // Basics
+            )
+            7 -> listOf( // Time, Date and Numbers
+                PhraseGroupStyle.purple(R.drawable.ic_ui_calendar_clock), // Days
+                PhraseGroupStyle.accent(R.drawable.ic_ui_calendar_clock), // Months
+                PhraseGroupStyle.teal(R.drawable.ic_ui_grid),           // Numbers
+                PhraseGroupStyle.orange(R.drawable.ic_ui_history),      // Time
+            )
+            8 -> listOf( // While Traveling
+                PhraseGroupStyle.accent(R.drawable.ic_ui_plane),        // Air Travel
+                PhraseGroupStyle.purple(R.drawable.ic_ui_calendar_clock), // Arrivals and Departures
+                PhraseGroupStyle.orange(R.drawable.ic_ui_cart),         // Buying Tickets
+                PhraseGroupStyle.teal(R.drawable.ic_ui_shield),         // Customs and Immigration
+                PhraseGroupStyle.success(R.drawable.ic_ui_globe),       // Locations
+                PhraseGroupStyle.accent(R.drawable.ic_ui_send),         // Public Transportation
+                PhraseGroupStyle.danger(R.drawable.ic_ui_send),         // Taxis and Cars
+            )
+            else -> emptyList()
         }
     }
 }

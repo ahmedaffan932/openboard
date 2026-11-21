@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Redesign strings for the Camera, Conversation, Phrasebook, Fun Words and camera permission screens. English: values/strings_ui_tabs.xml. -->
+<resources>
+    <string name="ui_tabs_camera_title">카메라 번역</string>
+    <string name="ui_tabs_camera_hint">번역할 텍스트에 카메라를 맞추세요</string>
+    <string name="ui_tabs_capture">사진 찍기</string>
+    <string name="ui_tabs_flash">플래시</string>
+    <string name="ui_tabs_chat_tap_to_speak">마이크를 탭하고 말하세요</string>
+    <string name="ui_tabs_chat_tap_to_hear">텍스트를 탭하면 다시 들을 수 있어요</string>
+    <string name="ui_tabs_copy">복사</string>
+    <string name="ui_tabs_share">공유</string>
+    <string name="ui_tabs_back">뒤로</string>
+    <string name="ui_tabs_camera_access_title">카메라 접근 허용</string>
+    <string name="ui_tabs_word_caption">영어 단어를 맞춰 보세요</string>
+    <string name="ui_tabs_word_show_hint">힌트 보기</string>
+    <string name="ui_tabs_word_correct">정답! 단어는 %1$s입니다.</string>
+    <string name="ui_tabs_word_correct_meaning">정답! “%1$s”의 뜻은 %2$s입니다.</string>
+    <string name="ui_tabs_word_reload">단어 다시 불러오기</string>
+    <string name="ui_tabs_word_previous">이전 단어</string>
+    <string name="ui_tabs_word_shuffle">이 단어 다시 시작</string>
+    <string name="ui_tabs_word_backspace">마지막 글자 지우기</string>
+    <string name="ui_tabs_word_clear">글자 지우기</string>
+    <string name="ui_tabs_word_next">다음 단어</string>
+</resources>

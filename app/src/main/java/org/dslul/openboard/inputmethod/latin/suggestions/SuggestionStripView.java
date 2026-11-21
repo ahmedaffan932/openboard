@@ -222,15 +222,17 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         mProgressBar = findViewById(R.id.progressBar);
         mClipChip = findViewById(R.id.suggestions_strip_clip_chip);
 
-        mIVSwitchLanguage.setImageResource(R.drawable.ic_switch_lang);
+        mIVSwitchLanguage.setImageResource(R.drawable.ic_ui_swap);
         applyThemeColors(context, attrs, defStyle);
 
+        // INVISIBLE rather than GONE: the Translate pill keeps its width and the spinner sits in
+        // its middle (suggestions_strip.xml).
         mTranslatedObserver = t -> {
             if (t) {
                 mProgressBar.setVisibility(GONE);
                 mTVTranslate.setVisibility(VISIBLE);
             } else {
-                mTVTranslate.setVisibility(GONE);
+                mTVTranslate.setVisibility(INVISIBLE);
                 mProgressBar.setVisibility(VISIBLE);
             }
         };
@@ -652,10 +654,12 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
     }
 
     /**
-     * Colours the translate toolbar for the keyboard theme. The layout has light language pills
-     * with black text, which looked like white blocks on the dark keyboard. On a dark theme (its
-     * suggestion text colour is light) the pills become translucent white with white text; light
-     * themes keep the layout's look.
+     * Colours the translate toolbar for the keyboard theme. The layout has white language pills
+     * with dark text (Figma TranslatorProZyro 11:2185), which would look like white blocks on a dark
+     * keyboard. On a dark theme (its suggestion text colour is light) the pills become translucent
+     * white with white text and the swap arrows a lighter blue; light themes keep the layout's look.
+     * Fixed ui_sys_kb_* colours, not home_* tokens: the keyboard theme, not the system's night
+     * mode, decides light or dark here.
      */
     private void applyThemeColors(final Context context, final AttributeSet attrs,
             final int defStyle) {
@@ -666,16 +670,19 @@ public final class SuggestionStripView extends RelativeLayout implements OnClick
         a.recycle();
         final boolean darkTheme = ColorUtils.calculateLuminance(suggestedColor | 0xFF000000) > 0.5;
         final int contentColor = darkTheme ? Color.WHITE : Color.BLACK;
-        mTVLngFrom.setTextColor(contentColor);
-        mTVLngTo.setTextColor(contentColor);
-        mIVSwitchLanguage.setImageTintList(ColorStateList.valueOf(contentColor));
+        final int pillTextColor = darkTheme ? Color.WHITE
+                : ContextCompat.getColor(context, R.color.ui_sys_kb_text);
+        final int swapColor = ContextCompat.getColor(context,
+                darkTheme ? R.color.ui_sys_kb_accent_on_dark : R.color.ui_sys_kb_accent);
+        mTVLngFrom.setTextColor(pillTextColor);
+        mTVLngTo.setTextColor(pillTextColor);
+        mIVSwitchLanguage.setImageTintList(ColorStateList.valueOf(swapColor));
         mClipChip.setTextColor(contentColor);
         mClipChip.setCompoundDrawableTintList(ColorStateList.valueOf(contentColor));
         if (darkTheme) {
             final ColorStateList pill = ColorStateList.valueOf(0x33FFFFFF);
             mLLLanguageFrom.setBackgroundTintList(pill);
             mLLLngTo.setBackgroundTintList(pill);
-            mIVSwitchLanguage.setBackgroundTintList(pill);
             mClipChip.setBackgroundTintList(pill);
         }
     }

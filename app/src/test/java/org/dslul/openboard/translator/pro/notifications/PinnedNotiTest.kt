@@ -11,7 +11,7 @@ class PinnedNotiTest {
 
     @Test
     fun currentCard_isKept() {
-        assertTrue(PinnedNoti.isCurrent(version = 1, language = "de", appLanguage = "de"))
+        assertTrue(PinnedNoti.isCurrent(version = 2, language = "de", appLanguage = "de"))
     }
 
     @Test
@@ -21,8 +21,13 @@ class PinnedNotiTest {
     }
 
     @Test
+    fun cardFromBeforeTheRedesign_isReplaced() {
+        assertFalse(PinnedNoti.isCurrent(version = 1, language = "de", appLanguage = "de"))
+    }
+
+    @Test
     fun cardInAnotherAppLanguage_isReplaced() {
-        assertFalse(PinnedNoti.isCurrent(version = 1, language = "en", appLanguage = "fr"))
+        assertFalse(PinnedNoti.isCurrent(version = 2, language = "en", appLanguage = "fr"))
     }
 
     // --- QuickAccessActivity.Tile: one PendingIntent and one task identity per tile ---

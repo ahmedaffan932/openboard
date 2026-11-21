@@ -14,13 +14,21 @@
         android:orientation="vertical"
         android:soundEffectsEnabled="false">
 
+        <!-- Translate row. Figma: TranslatorProZyro, keyboard (11:2185): language pills that hug
+             their content (flag + name, Manrope Bold 13), the swap arrows in accent, and the gradient
+             "Translate" pill on the right. Each pill's name is 0dp + weight inside a wrap_content
+             pill, so the pill hugs the name while there is room and the name ellipsizes (the flag
+             stays) when there is not. SuggestionStripView colours the pills, names and arrows for
+             the keyboard theme (translucent white on dark keyboards). The IME inflates this without
+             AppCompat's view factory, so plain views take framework attributes only. -->
         <LinearLayout
             android:id="@+id/llTranslation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingTop="@dimen/padding"
-            android:paddingHorizontal="@dimen/padding">
+            android:paddingHorizontal="@dimen/padding"
+            android:paddingTop="@dimen/padding">
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
@@ -28,25 +36,24 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:animateLayoutChanges="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toTopOf="parent">
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/llLngFrom"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/less_padding"
-                    android:layout_weight="1"
-                    android:background="@drawable/ripple_effect_rounded"
-                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:background="@drawable/ui_sys_kb_pill"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    tools:ignore="NestedWeights">
+                    android:paddingStart="7dp"
+                    android:paddingEnd="11dp">
 
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/flagFrom"
-                        android:layout_width="@dimen/_22sdp"
-                        android:layout_height="@dimen/_22sdp"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:importantForAccessibility="no"
                         android:scaleType="centerCrop"
                         android:src="@drawable/kr_flag"
                         app:shapeAppearanceOverlay="@style/roundedCorners" />
@@ -55,104 +62,109 @@
                         android:id="@+id/tvLngFrom"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/padding_10"
+                        android:layout_marginStart="6dp"
                         android:layout_weight="1"
-                        android:gravity="start"
-                        android:paddingVertical="@dimen/_7sdp"
-                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/manrope_bold"
+                        android:includeFontPadding="false"
+                        android:maxWidth="96dp"
+                        android:singleLine="true"
                         android:text="@string/english"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        tools:ignore="NestedWeights" />
+                        android:textColor="@color/ui_sys_kb_text"
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <ImageView
                     android:id="@+id/btnSwitchLngs"
-                    android:layout_width="@dimen/_26sdp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/ripple_effect_rounded"
-                    android:contentDescription="@string/todo"
-                    android:padding="@dimen/padding_10"
-                    app:srcCompat="@drawable/ic_switch_lang"
-                    app:tint="@color/black" />
+                    android:layout_width="30dp"
+                    android:layout_height="32dp"
+                    android:layout_marginHorizontal="2dp"
+                    android:background="@drawable/bg_ui_round_ripple"
+                    android:contentDescription="@string/swap_languages"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="7dp"
+                    android:src="@drawable/ic_ui_swap"
+                    android:tint="@color/ui_sys_kb_accent" />
 
                 <LinearLayout
                     android:id="@+id/llLngTo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/less_padding"
-                    android:background="@drawable/ripple_effect_rounded"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:background="@drawable/ui_sys_kb_pill"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="11dp"
+                    android:paddingEnd="7dp">
 
                     <TextView
                         android:id="@+id/tvLngTo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/padding_10"
+                        android:layout_marginEnd="6dp"
                         android:layout_weight="1"
-                        android:gravity="start"
-                        android:maxLines="1"
-                        android:paddingVertical="@dimen/_7sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/manrope_bold"
+                        android:includeFontPadding="false"
+                        android:maxWidth="96dp"
+                        android:singleLine="true"
                         android:text="@string/textview"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textColor="@color/ui_sys_kb_text"
+                        android:textSize="13sp" />
 
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/flagTo"
-                        android:layout_width="@dimen/_22sdp"
-                        android:layout_height="@dimen/_22sdp"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:importantForAccessibility="no"
                         android:scaleType="centerCrop"
                         android:src="@drawable/kr_flag"
                         app:shapeAppearanceOverlay="@style/roundedCorners" />
-
                 </LinearLayout>
-
             </LinearLayout>
 
-
+            <!-- tvTranslate goes INVISIBLE (not gone) while translating, so the pill keeps its width
+                 and the spinner sits in its middle. -->
             <LinearLayout
                 android:id="@+id/btn_translate"
-                android:layout_width="@dimen/_75sdp"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:background="@drawable/bg_main_less_rounded"
-                android:backgroundTint="@color/accent"
-                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
                 android:layout_marginStart="@dimen/padding"
+                android:background="@drawable/bg_home_translate_button"
                 android:gravity="center"
-                android:paddingHorizontal="@dimen/padding_10"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:orientation="horizontal"
+                android:paddingHorizontal="13dp"
+                android:visibility="visible">
 
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
-                    android:layout_height="match_parent"
-                    android:indeterminate="true"
-                    android:indeterminateTint="#D6D7D7"
-                    android:visibility="gone" />
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/tvTranslate"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="@dimen/less_padding"
-                    android:contentDescription="@string/todo"
-                    android:gravity="center"
-                    android:paddingHorizontal="@dimen/less_padding"
-                    android:paddingVertical="@dimen/padding"
-                    android:text="@string/translate"
-                    android:textColor="@color/btnTextColor"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:visibility="visible" />
+                    <TextView
+                        android:id="@+id/tvTranslate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:drawablePadding="5dp"
+                        android:fontFamily="@font/manrope_bold"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:maxWidth="120dp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="@string/translate"
+                        android:textColor="@color/home_on_accent"
+                        android:textSize="13sp"
+                        android:visibility="visible"
+                        android:drawableStart="@drawable/ui_sys_kb_ic_translate" />
 
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:indeterminate="true"
+                        android:indeterminateTint="@color/home_on_accent"
+                        android:visibility="gone" />
+                </FrameLayout>
             </LinearLayout>
 
         </LinearLayout>

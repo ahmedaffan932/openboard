@@ -1,76 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Favorites. Figma: TranslatorProZyro "Favorites" (6:1174), empty state (20:5279).
+     Cards are history_item_home (the Home tab's Recent cards); the filled heart removes a card. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color"
+    android:background="@color/home_bg"
+    android:orientation="vertical"
     tools:context="org.dslul.openboard.translator.pro.DisplayFavoritesActivity">
 
+    <!-- Header: back, title. -->
     <LinearLayout
+        android:id="@+id/llTopBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/llTopBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_top_bar"
-            android:elevation="@dimen/padding">
-
-            <ImageView
-                android:id="@+id/btnBack"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginHorizontal="@dimen/fab_padding"
-                android:padding="@dimen/padding"
-                android:src="@drawable/ic_baseline_arrow_back_24"
-                app:layout_constraintBottom_toBottomOf="@id/tvTitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvTitle" />
-
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/m_padding"
-                android:layout_marginTop="@dimen/extra_padding"
-                android:layout_marginBottom="@dimen/fab_padding"
-                android:fontFamily="@font/poppins_regular"
-                android:paddingStart="@dimen/padding"
-                android:text="@string/favorites"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btnBack"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animLoading"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
-            android:layout_margin="@dimen/padding_10"
-            android:scaleType="centerCrop"
-            android:visibility="gone"
-            android:elevation="@dimen/extra_padding"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/empty_list"  />
+        <ImageView
+            android:id="@+id/btnBack"
+            style="@style/Widget.Ui.IconButton"
+            android:contentDescription="@string/ui_tr_back"
+            android:outlineSpotShadowColor="@color/home_shadow"
+            app:srcCompat="@drawable/ic_ui_arrow_left"
+            app:tint="@color/home_text_primary"
+            tools:targetApi="p" />
 
         <TextView
-            android:id="@+id/tvNoFavorites"
-            android:layout_width="match_parent"
+            android:id="@+id/tvTitle"
+            style="@style/HomeText.Screen"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/accent"
-            android:visibility="gone"
-            android:layout_marginTop="@dimen/padding_10"
-            android:text="@string/no_favorites_found" />
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/favorites" />
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -80,26 +58,85 @@
                 android:id="@+id/recyclerViewFavorites"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="@dimen/fab_padding"
-                android:paddingTop="@dimen/padding"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingStart="16dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="6dp"
                 app:layout_constraintBottom_toTopOf="@+id/nativeAdFrameLayout"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/history_item_home" />
 
             <FrameLayout
-                    android:id="@+id/nativeAdFrameLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_200sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_margin="@dimen/padding_10"
-                    android:background="@drawable/bg_native_ad"
-                    android:elevation="@dimen/padding_10"
-                    android:visibility="gone"/>
-
-
-
+                android:id="@+id/nativeAdFrameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_home_ad_card"
+                android:elevation="2dp"
+                android:outlineSpotShadowColor="@color/home_shadow"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:targetApi="p" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Empty state. -->
+        <LinearLayout
+            android:id="@+id/llEmptyState"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingHorizontal="32dp"
+            android:paddingBottom="48dp"
+            android:visibility="gone">
+
+            <FrameLayout
+                android:id="@+id/animLoading"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@drawable/bg_ui_circle_danger">
+
+                <ImageView
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center"
+                    android:importantForAccessibility="no"
+                    app:srcCompat="@drawable/ic_ui_heart"
+                    app:tint="@color/home_heart" />
+            </FrameLayout>
+
+            <TextView
+                style="@style/HomeText.CardLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/ui_tr_favorites_empty_title" />
+
+            <TextView
+                android:id="@+id/tvNoFavorites"
+                style="@style/HomeText.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="@string/ui_tr_favorites_empty_body" />
+
+            <TextView
+                android:id="@+id/btnOpenHistory"
+                style="@style/Widget.Ui.Button.Primary"
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:minWidth="216dp"
+                android:outlineSpotShadowColor="@color/home_shadow_blue"
+                android:text="@string/ui_tr_open_history"
+                tools:targetApi="p" />
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

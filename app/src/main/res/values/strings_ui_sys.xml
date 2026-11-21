@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Group D (system: dialogs, native ads, notifications, widget, keyboard strip) redesign strings. -->
+<resources>
+    <string name="ui_sys_premium_caption">Watching an ad unlocks it for this session.</string>
+    <string name="ui_sys_delete_body">This can\'t be undone.</string>
+    <string name="ui_sys_feedback_body">Found a bug or have an idea? Tell us and we will read every message.</string>
+    <string name="ui_sys_send_feedback">Send feedback</string>
+    <string name="ui_sys_rate_title">Enjoying Translator Pro?</string>
+    <string name="ui_sys_rate_body">Tap a star to rate us on Google Play. It helps a lot!</string>
+    <string name="ui_sys_loading_ad">Loading ad…</string>
+    <string name="ui_sys_just_a_moment">Just a moment</string>
+    <string name="ui_sys_ad_sponsored">Sponsored</string>
+</resources>

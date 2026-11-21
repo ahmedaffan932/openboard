@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Redesign strings for the Translate, Language selector, History, Favorites, Scan result, Settings and Enable keyboard screens. English: values/strings_ui_tr.xml. -->
+<resources>
+    <string name="ui_tr_back">Atrás</string>
+    <string name="ui_tr_clear_text">Borrar texto</string>
+    <string name="ui_tr_copy">Copiar</string>
+    <string name="ui_tr_translating">Traduciendo…</string>
+    <string name="ui_tr_detecting_text">Detectando texto…</string>
+    <string name="ui_tr_scanned_text">Texto escaneado</string>
+    <string name="ui_tr_scan_result">Resultado del escaneo</string>
+    <string name="ui_tr_translate_to">Traducir a</string>
+    <string name="ui_tr_translate_from">Traducir de</string>
+    <string name="ui_tr_history_hint">Mantén pulsada una tarjeta para eliminarla.</string>
+    <string name="ui_tr_history_empty_title">Aún no hay traducciones</string>
+    <string name="ui_tr_start_translating">Empezar a traducir</string>
+    <string name="ui_tr_favorites_empty_title">Aún no hay favoritos</string>
+    <string name="ui_tr_favorites_empty_body">Toca el corazón de una traducción para guardarla aquí.</string>
+    <string name="ui_tr_open_history">Abrir historial</string>
+    <string name="ui_tr_go_premium">Hazte Premium</string>
+    <string name="ui_tr_go_premium_subtitle">Sin anuncios y con todas las funciones</string>
+    <string name="ui_tr_group_preferences">Preferencias</string>
+    <string name="ui_tr_group_support">Soporte</string>
+    <string name="ui_tr_group_about">Acerca de</string>
+    <string name="ui_tr_notification_subtitle">Barra de acceso rápido en tus notificaciones</string>
+    <string name="ui_tr_keyboard_subtitle">Traduce mientras escribes en cualquier app.</string>
+    <string name="ui_tr_keyboard_step1_subtitle">Actívalo en los ajustes del teclado</string>
+    <string name="ui_tr_keyboard_step2_subtitle">Elige Translator Pro como teclado</string>
+    <string name="ui_tr_maybe_later">Quizás más tarde</string>
+</resources>

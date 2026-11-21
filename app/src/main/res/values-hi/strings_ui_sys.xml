@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_sys_premium_caption">विज्ञापन देखने से यह इस सत्र के लिए अनलॉक हो जाता है।</string>
+    <string name="ui_sys_delete_body">इसे पूर्ववत नहीं किया जा सकता।</string>
+    <string name="ui_sys_feedback_body">कोई बग मिला या कोई आइडिया है? हमें बताएं, हम हर संदेश पढ़ते हैं।</string>
+    <string name="ui_sys_send_feedback">फ़ीडबैक भेजें</string>
+    <string name="ui_sys_rate_title">Translator Pro पसंद आ रहा है?</string>
+    <string name="ui_sys_rate_body">Google Play पर रेटिंग देने के लिए किसी स्टार पर टैप करें। इससे बहुत मदद मिलती है!</string>
+    <string name="ui_sys_loading_ad">विज्ञापन लोड हो रहा है…</string>
+    <string name="ui_sys_just_a_moment">बस एक पल</string>
+    <string name="ui_sys_ad_sponsored">प्रायोजित</string>
+</resources>

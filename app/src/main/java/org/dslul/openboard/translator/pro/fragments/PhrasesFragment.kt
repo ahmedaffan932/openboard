@@ -13,7 +13,7 @@ import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -205,8 +205,9 @@ class PhrasesFragment : Fragment() {
                     }
                     lastLoadedLanguageFrom = srcLng
 
+                    // Two-column grid of category cards (Figma "Phrasebook").
                     binding.recyclerViewPhraseBookMain.layoutManager =
-                        LinearLayoutManager(requireContext())
+                        GridLayoutManager(requireContext(), 2)
                     binding.recyclerViewPhraseBookMain.adapter =
                         PhraseBookMainAdapter(arrFrom, requireActivity())
                     getLngTo()

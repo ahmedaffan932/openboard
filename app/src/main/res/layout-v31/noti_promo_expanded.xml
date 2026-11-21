@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"
-        android:textColor="@color/noti_title"
+        android:textColor="@color/home_text_primary"
         android:textSize="15sp"
         android:textStyle="bold" />
 
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="3"
-        android:textColor="@color/noti_desc"
+        android:textColor="@color/home_text_secondary"
         android:textSize="13sp" />
 
     <ImageView
@@ -42,18 +42,22 @@
         android:maxHeight="@dimen/noti_promo_hero_max_height"
         android:scaleType="centerCrop" />
 
+    <!-- Figma 11:2354: a right-aligned "Try now" pill under the photo. -->
     <TextView
         android:id="@+id/btnNotiCta"
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/lockscreen_cta_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ui_sys_noti_cta"
         android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:maxLines="1"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:textColor="@color/lockscreen_cta_text"
+        android:minWidth="96dp"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:textColor="@color/home_on_accent"
         android:textSize="14sp" />
 
 </LinearLayout>

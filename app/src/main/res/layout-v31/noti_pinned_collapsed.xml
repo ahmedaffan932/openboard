@@ -1,70 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?><!--
     Collapsed pinned notification, API 31+: layout/noti_pinned_collapsed.xml (read its notes) with
-    the roomier tiles the 48dp collapsed budget of API 31+ allows - 22dp glyph over an 11sp label.
+    the roomier chips the 48dp collapsed budget of API 31+ allows - 22dp glyph over an 11sp label.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    tools:ignore="UseAppTint">
 
         <LinearLayout
             android:id="@+id/pinTileTranslate"
-            style="@style/PinnedTileCompact.V31">
+            style="@style/UiSysNotiChip.V31"
+            android:background="@drawable/ui_sys_noti_tile_accent">
 
             <ImageView
-                style="@style/PinnedTileCompactIcon.V31"
-                android:src="@drawable/pin_ic_translate" />
+                style="@style/UiSysNotiChipIcon.V31"
+                android:src="@drawable/ic_ui_languages"
+                android:tint="@color/home_accent" />
 
             <TextView
                 android:id="@+id/pinLabelTranslate"
-                style="@style/PinnedTileCompactLabel.V31"
+                style="@style/UiSysNotiChipLabel.V31"
                 tools:text="Translate" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/pinTileVoice"
-            style="@style/PinnedTileCompact.V31"
-            android:layout_marginStart="6dp">
+            style="@style/UiSysNotiChip.V31"
+            android:layout_marginStart="6dp"
+            android:background="@drawable/ui_sys_noti_tile_purple">
 
             <ImageView
-                style="@style/PinnedTileCompactIcon.V31"
-                android:src="@drawable/pin_ic_voice" />
+                style="@style/UiSysNotiChipIcon.V31"
+                android:src="@drawable/ic_ui_mic"
+                android:tint="@color/home_purple" />
 
             <TextView
                 android:id="@+id/pinLabelVoice"
-                style="@style/PinnedTileCompactLabel.V31"
+                style="@style/UiSysNotiChipLabel.V31"
                 tools:text="Voice" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/pinTileCamera"
-            style="@style/PinnedTileCompact.V31"
-            android:layout_marginStart="6dp">
+            style="@style/UiSysNotiChip.V31"
+            android:layout_marginStart="6dp"
+            android:background="@drawable/ui_sys_noti_tile_teal">
 
             <ImageView
-                style="@style/PinnedTileCompactIcon.V31"
-                android:src="@drawable/pin_ic_camera" />
+                style="@style/UiSysNotiChipIcon.V31"
+                android:src="@drawable/ic_ui_camera"
+                android:tint="@color/home_teal" />
 
             <TextView
                 android:id="@+id/pinLabelCamera"
-                style="@style/PinnedTileCompactLabel.V31"
+                style="@style/UiSysNotiChipLabel.V31"
                 tools:text="Camera" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/pinTileFile"
-            style="@style/PinnedTileCompact.V31"
-            android:layout_marginStart="6dp">
+            style="@style/UiSysNotiChip.V31"
+            android:layout_marginStart="6dp"
+            android:background="@drawable/ui_sys_noti_tile_orange">
 
             <ImageView
-                style="@style/PinnedTileCompactIcon.V31"
-                android:src="@drawable/pin_ic_file" />
+                style="@style/UiSysNotiChipIcon.V31"
+                android:src="@drawable/ic_ui_image"
+                android:tint="@color/home_orange" />
 
             <TextView
                 android:id="@+id/pinLabelFile"
-                style="@style/PinnedTileCompactLabel.V31"
+                style="@style/UiSysNotiChipLabel.V31"
                 tools:text="File" />
         </LinearLayout>
 </LinearLayout>

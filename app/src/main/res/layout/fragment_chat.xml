@@ -1,255 +1,382 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Conversation tab. Figma TranslatorProZyro "Conversation" (5:651): the other person's card on the
+     blue gradient on top, the user's card below; each has a language pill, copy / share, the text,
+     a caption and a mic. The "Translating" overlay sits above both. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/home_bg"
     tools:context="org.dslul.openboard.translator.pro.fragments.ChatFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/HomeText.Screen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_vertical|start"
+            android:minHeight="36dp"
+            android:paddingStart="16dp"
+            android:paddingTop="14dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:singleLine="true"
+            android:text="@string/conversation" />
+
+        <!-- The other person: their language, on the gradient card. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_ui_gradient_card"
+            android:elevation="6dp"
+            android:orientation="vertical"
+            android:outlineAmbientShadowColor="@color/home_shadow_blue"
+            android:outlineSpotShadowColor="@color/home_shadow_blue"
+            android:padding="16dp"
+            android:transitionName="anim_main_chat"
+            tools:targetApi="p">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/clLanguageTo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:background="@drawable/ui_tabs_bg_pill_on_accent"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="10dp"
+                    android:transitionName="anim_language">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/flagTo"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:importantForAccessibility="no"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/by_flag"
+                        app:shapeAppearanceOverlay="@style/roundedCorners" />
+
+                    <TextView
+                        android:id="@+id/tvLanguageTo"
+                        style="@style/HomeText.Language"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:ellipsize="end"
+                        android:maxWidth="170dp"
+                        android:singleLine="true"
+                        android:text="@string/english"
+                        android:textColor="@color/home_on_accent" />
+
+                    <ImageView
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:layout_marginStart="6dp"
+                        android:importantForAccessibility="no"
+                        app:srcCompat="@drawable/ic_ui_chevron_down"
+                        app:tint="@color/home_on_accent" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/btnCopyTextTo"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:background="@drawable/bg_ui_round_ripple"
+                    android:contentDescription="@string/ui_tabs_copy"
+                    android:padding="8dp"
+                    android:scaleType="fitCenter"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_ui_copy"
+                    app:tint="@color/home_on_accent"
+                    tools:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/btnShareTextTo"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:layout_marginStart="2dp"
+                    android:background="@drawable/bg_ui_round_ripple"
+                    android:contentDescription="@string/ui_tabs_share"
+                    android:padding="8dp"
+                    android:scaleType="fitCenter"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_ui_share"
+                    app:tint="@color/home_on_accent"
+                    tools:visibility="visible" />
+            </LinearLayout>
+
+            <!-- Tapping the text reads it aloud. -->
+            <TextView
+                android:id="@+id/tvTextTo"
+                style="@style/HomeText.Display"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="14dp"
+                android:layout_weight="1"
+                android:gravity="top|start"
+                android:textColor="@color/home_on_accent"
+                app:autoSizeMaxTextSize="24sp"
+                app:autoSizeMinTextSize="14sp"
+                app:autoSizeStepGranularity="1sp"
+                app:autoSizeTextType="uniform"
+                tools:text="¿Dónde está la estación de tren?" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvCaptionTo"
+                    style="@style/HomeText.Caption"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:alpha="0.85"
+                    android:maxLines="2"
+                    android:text="@string/ui_tabs_chat_tap_to_speak"
+                    android:textColor="@color/home_on_accent" />
+
+                <ImageView
+                    android:id="@+id/ivInputTo"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_ui_circle_surface_plain"
+                    android:clickable="true"
+                    android:contentDescription="@string/speak"
+                    android:elevation="4dp"
+                    android:focusable="true"
+                    android:foreground="@drawable/bg_ui_round_ripple"
+                    android:outlineSpotShadowColor="@color/home_shadow"
+                    android:padding="16dp"
+                    android:scaleType="fitCenter"
+                    android:transitionName="anim_chat_icon_to"
+                    app:srcCompat="@drawable/ic_ui_mic"
+                    app:tint="@color/home_accent"
+                    tools:targetApi="p" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- The user: the "from" language, on a white card. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="12dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_ui_card_r22"
+            android:elevation="2dp"
+            android:orientation="vertical"
+            android:outlineSpotShadowColor="@color/home_shadow"
+            android:padding="16dp"
+            tools:targetApi="p">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/clLanguageFrom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:background="@drawable/bg_home_lang_pill"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="10dp">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/flagFrom"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:importantForAccessibility="no"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/us_flag"
+                        app:shapeAppearanceOverlay="@style/roundedCorners" />
+
+                    <TextView
+                        android:id="@+id/tvLanguageFrom"
+                        style="@style/HomeText.Language"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:ellipsize="end"
+                        android:maxWidth="170dp"
+                        android:singleLine="true"
+                        android:text="@string/english" />
+
+                    <ImageView
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:layout_marginStart="6dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_home_chevron_down" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/btnCopyTextFrom"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:background="@drawable/bg_ui_round_ripple"
+                    android:contentDescription="@string/ui_tabs_copy"
+                    android:padding="8dp"
+                    android:scaleType="fitCenter"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_ui_copy"
+                    app:tint="@color/home_text_muted"
+                    tools:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/btnShareTextFrom"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:layout_marginStart="2dp"
+                    android:background="@drawable/bg_ui_round_ripple"
+                    android:contentDescription="@string/ui_tabs_share"
+                    android:padding="8dp"
+                    android:scaleType="fitCenter"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_ui_share"
+                    app:tint="@color/home_text_muted"
+                    tools:visibility="visible" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvTextFrom"
+                style="@style/HomeText.Display"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="14dp"
+                android:layout_weight="1"
+                android:gravity="top|start"
+                android:transitionName="anim_language"
+                app:autoSizeMaxTextSize="24sp"
+                app:autoSizeMinTextSize="14sp"
+                app:autoSizeStepGranularity="1sp"
+                app:autoSizeTextType="uniform"
+                tools:text="Where is the train station?" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:clipChildren="false"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvCaptionFrom"
+                    style="@style/HomeText.Caption"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:maxLines="2"
+                    android:text="@string/ui_tabs_chat_tap_to_speak"
+                    android:textColor="@color/home_text_muted" />
+
+                <ImageView
+                    android:id="@+id/ivInputFrom"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_ui_circle_primary"
+                    android:clickable="true"
+                    android:contentDescription="@string/speak"
+                    android:elevation="6dp"
+                    android:focusable="true"
+                    android:outlineAmbientShadowColor="@color/home_shadow_blue"
+                    android:outlineSpotShadowColor="@color/home_shadow_blue"
+                    android:padding="16dp"
+                    android:scaleType="fitCenter"
+                    android:transitionName="anim_chat_icon"
+                    app:srcCompat="@drawable/ic_ui_mic"
+                    app:tint="@color/home_on_accent"
+                    tools:targetApi="p" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llCollapsibleBanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </LinearLayout>
+
+    <!-- "Translating" overlay. -->
     <LinearLayout
         android:id="@+id/llPBTranslateFrag"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="@dimen/padding_10"
+        android:elevation="10dp"
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
 
-        <ProgressBar
-            style="?android:attr/progressBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:indeterminateTint="@color/accent" />
-
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/translating"
-            android:textColor="@color/accent" />
-    </LinearLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/accent"
-        android:transitionName="anim_main_chat"
-        app:layout_constraintBottom_toBottomOf="@id/horizontalGuideLine"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tvTextTo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:fontFamily="@font/poppins_regular"
-            android:textSize="@dimen/_24sdp" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_100sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@+id/ivInputTo"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/ivInputTo">
-
-                <ImageView
-                    android:id="@+id/btnCopyTextTo"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
-                    android:layout_marginStart="@dimen/fab_padding"
-                    android:background="@drawable/ripple_effect_transparent_rounded"
-                    android:backgroundTint="@color/accent"
-                    android:contentDescription="@string/todo"
-                    android:padding="@dimen/padding"
-                    android:scaleType="fitCenter"
-                    android:visibility="gone"
-                    app:srcCompat="@drawable/ic_copy"
-                    app:tint="@color/white" />
-
-
-                <ImageView
-                    android:id="@+id/btnShareTextTo"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
-                    android:layout_marginStart="@dimen/padding"
-                    android:background="@drawable/ripple_effect_transparent_rounded"
-                    android:backgroundTint="@color/accent"
-                    android:padding="@dimen/padding"
-                    android:scaleType="fitCenter"
-                    android:visibility="gone"
-                    app:srcCompat="@drawable/ic_baseline_share_24"
-                    app:tint="@color/white" />
-
-            </LinearLayout>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/clLanguageTo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:transitionName="anim_language"
-                app:layout_constraintBottom_toBottomOf="@+id/ivInputTo"
-                app:layout_constraintEnd_toStartOf="@+id/ivInputTo"
-                app:layout_constraintTop_toTopOf="@+id/ivInputTo">
-
-                <TextView
-                    android:id="@+id/tvLanguageTo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
-                    android:paddingVertical="@dimen/padding"
-                    android:text="@string/english"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_11sdp" />
-
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:src="@drawable/ic_arrow_down"
-                    android:layout_marginHorizontal="@dimen/m_padding"
-                    app:tint="@color/white" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <ImageView
-                android:id="@+id/ivInputTo"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_margin="@dimen/fab_padding"
-                android:background="@drawable/bg_rounded"
-                android:padding="@dimen/fab_padding"
-                android:src="@drawable/ic_microphone"
-                android:transitionName="anim_chat_icon_to"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <View
-        android:id="@+id/horizontalGuideLine"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        app:layout_constraintBottom_toTopOf="@id/llCollapsibleBanner"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/llCollapsibleBanner"
-        app:layout_constraintTop_toTopOf="@id/horizontalGuideLine">
-
-        <TextView
-            android:id="@+id/tvTextFrom"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_24sdp"
-            android:transitionName="anim_language" />
-
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="start"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/ivInputFrom"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/ivInputFrom">
-
-            <ImageView
-                android:id="@+id/btnCopyTextFrom"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_marginStart="@dimen/fab_padding"
-                android:background="@drawable/ripple_effect_transparent_rounded"
-                android:backgroundTint="@color/accent"
-                android:contentDescription="@string/todo"
-                android:padding="@dimen/padding"
-                android:scaleType="fitCenter"
-                android:visibility="gone"
-                app:srcCompat="@drawable/ic_copy" />
-
-            <ImageView
-                android:id="@+id/btnShareTextFrom"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_marginStart="@dimen/padding"
-                android:background="@drawable/ripple_effect_transparent_rounded"
-                android:backgroundTint="@color/accent"
-                android:padding="@dimen/padding"
-                android:scaleType="fitCenter"
-                android:visibility="gone"
-                app:srcCompat="@drawable/ic_baseline_share_24" />
-
-        </LinearLayout>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/clLanguageFrom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:background="@drawable/bg_ui_card_r16"
+            android:elevation="4dp"
             android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/ivInputFrom"
-            app:layout_constraintEnd_toStartOf="@+id/ivInputFrom"
-            app:layout_constraintTop_toTopOf="@+id/ivInputFrom">
+            android:minWidth="140dp"
+            android:orientation="vertical"
+            android:outlineSpotShadowColor="@color/home_shadow"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="16dp"
+            tools:targetApi="p">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyle"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:indeterminateTint="@color/home_accent" />
 
             <TextView
-                android:id="@+id/tvLanguageFrom"
+                android:id="@+id/textView13"
+                style="@style/HomeText.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:paddingVertical="@dimen/padding"
-                android:text="@string/english"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp" />
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/ic_arrow_down"
-                android:layout_marginHorizontal="@dimen/m_padding"
-                app:tint="@color/black" />
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <ImageView
-            android:id="@+id/ivInputFrom"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_50sdp"
-            android:layout_margin="@dimen/fab_padding"
-            android:background="@drawable/bg_rounded"
-            android:backgroundTint="@color/accent"
-            android:padding="@dimen/fab_padding"
-            android:src="@drawable/ic_microphone"
-            android:transitionName="anim_chat_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@color/white" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <LinearLayout
-        android:id="@+id/llCollapsibleBanner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/translating"
+                android:textColor="@color/home_accent" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

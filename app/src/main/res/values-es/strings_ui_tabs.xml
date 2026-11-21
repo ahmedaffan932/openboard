@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Redesign strings for the Camera, Conversation, Phrasebook, Fun Words and camera permission screens. English: values/strings_ui_tabs.xml. -->
+<resources>
+    <string name="ui_tabs_camera_title">Traducir con la cámara</string>
+    <string name="ui_tabs_camera_hint">Apunta al texto para traducirlo</string>
+    <string name="ui_tabs_capture">Tomar foto</string>
+    <string name="ui_tabs_flash">Flash</string>
+    <string name="ui_tabs_chat_tap_to_speak">Toca el micrófono y habla</string>
+    <string name="ui_tabs_chat_tap_to_hear">Toca el texto para volver a oírlo</string>
+    <string name="ui_tabs_copy">Copiar</string>
+    <string name="ui_tabs_share">Compartir</string>
+    <string name="ui_tabs_back">Atrás</string>
+    <string name="ui_tabs_camera_access_title">Permitir acceso a la cámara</string>
+    <string name="ui_tabs_word_caption">Ordena la palabra en inglés</string>
+    <string name="ui_tabs_word_show_hint">Mostrar una pista</string>
+    <string name="ui_tabs_word_correct">¡Correcto! La palabra es %1$s.</string>
+    <string name="ui_tabs_word_correct_meaning">¡Correcto! «%1$s» significa %2$s.</string>
+    <string name="ui_tabs_word_reload">Recargar palabras</string>
+    <string name="ui_tabs_word_previous">Palabra anterior</string>
+    <string name="ui_tabs_word_shuffle">Empezar esta palabra de nuevo</string>
+    <string name="ui_tabs_word_backspace">Quitar la última letra</string>
+    <string name="ui_tabs_word_clear">Borrar letras</string>
+    <string name="ui_tabs_word_next">Siguiente palabra</string>
+</resources>

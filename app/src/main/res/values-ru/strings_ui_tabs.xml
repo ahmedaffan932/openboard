@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Redesign strings for the Camera, Conversation, Phrasebook, Fun Words and camera permission screens. English: values/strings_ui_tabs.xml. -->
+<resources>
+    <string name="ui_tabs_camera_title">Перевод с камеры</string>
+    <string name="ui_tabs_camera_hint">Наведите камеру на текст</string>
+    <string name="ui_tabs_capture">Сделать фото</string>
+    <string name="ui_tabs_flash">Вспышка</string>
+    <string name="ui_tabs_chat_tap_to_speak">Нажмите на микрофон и говорите</string>
+    <string name="ui_tabs_chat_tap_to_hear">Нажмите на текст, чтобы прослушать снова</string>
+    <string name="ui_tabs_copy">Копировать</string>
+    <string name="ui_tabs_share">Поделиться</string>
+    <string name="ui_tabs_back">Назад</string>
+    <string name="ui_tabs_camera_access_title">Разрешите доступ к камере</string>
+    <string name="ui_tabs_word_caption">Составьте английское слово</string>
+    <string name="ui_tabs_word_show_hint">Показать подсказку</string>
+    <string name="ui_tabs_word_correct">Верно! Это слово %1$s.</string>
+    <string name="ui_tabs_word_correct_meaning">Верно! «%1$s» означает %2$s.</string>
+    <string name="ui_tabs_word_reload">Обновить слова</string>
+    <string name="ui_tabs_word_previous">Предыдущее слово</string>
+    <string name="ui_tabs_word_shuffle">Начать это слово заново</string>
+    <string name="ui_tabs_word_backspace">Удалить последнюю букву</string>
+    <string name="ui_tabs_word_clear">Очистить буквы</string>
+    <string name="ui_tabs_word_next">Следующее слово</string>
+</resources>

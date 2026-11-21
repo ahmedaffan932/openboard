@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Camera tab: the four corner brackets in the middle of the viewfinder (Figma 5:542). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="220dp"
+    android:height="150dp"
+    android:viewportWidth="220"
+    android:viewportHeight="150">
+    <path
+        android:pathData="M2,30 V12 A10,10 0 0 1 12,2 H30"
+        android:strokeAlpha="0.92"
+        android:strokeColor="@color/home_on_accent"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="3" />
+    <path
+        android:pathData="M190,2 H208 A10,10 0 0 1 218,12 V30"
+        android:strokeAlpha="0.92"
+        android:strokeColor="@color/home_on_accent"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="3" />
+    <path
+        android:pathData="M218,120 V138 A10,10 0 0 1 208,148 H190"
+        android:strokeAlpha="0.92"
+        android:strokeColor="@color/home_on_accent"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="3" />
+    <path
+        android:pathData="M30,148 H12 A10,10 0 0 1 2,138 V120"
+        android:strokeAlpha="0.92"
+        android:strokeColor="@color/home_on_accent"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="3" />
+</vector>

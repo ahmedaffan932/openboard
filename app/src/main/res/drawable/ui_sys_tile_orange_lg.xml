@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 64dp orange icon tile of the rate dialog (Figma 9:1755). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/home_orange_soft" />
+    <corners android:radius="18dp" />
+</shape>

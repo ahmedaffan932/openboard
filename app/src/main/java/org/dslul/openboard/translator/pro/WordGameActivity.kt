@@ -4,11 +4,12 @@ import android.animation.LayoutTransition
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.res.ColorStateList
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
@@ -16,7 +17,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.children
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
@@ -32,6 +35,9 @@ import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.interfaces.TranslationInterface
 import java.util.Locale
+import kotlin.math.ceil
+import kotlin.math.min
+import kotlin.math.roundToInt
 
 /**
  * Word-unscramble puzzle ("Fun Words"): the player taps the shuffled letter tiles of an
@@ -53,7 +59,6 @@ class WordGameActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWordGameBinding
     private var wordList: WordList? = null
-    private var puzzleViewBoxSize: Int = 80
     private lateinit var currentWord: String
     private val solWordToChar: ArrayList<String> = arrayListOf()
     private val isClickArrayList = ArrayList<LinearLayout>()
@@ -74,7 +79,11 @@ class WordGameActivity : AppCompatActivity() {
             shimmerLayout = R.layout.small_native_shimmer
         )
 
-        puzzleViewBoxSize = (resources.displayMetrics.xdpi * 0.28).toInt()
+        // The clue card shows "?" until the solved word's translation arrives.
+        binding.textViewSolTranslation.doAfterTextChanged { text ->
+            binding.tvCluePlaceholder.visibility =
+                if (text.isNullOrEmpty()) View.VISIBLE else View.INVISIBLE
+        }
 
         binding.btnBack.setOnClickListener { finish() }
         binding.btnReload.setOnClickListener { getWords() }
@@ -113,6 +122,7 @@ class WordGameActivity : AppCompatActivity() {
             wordList = list
             alternateAnswers = WordGameContent.loadAlternates(this@WordGameActivity)
             binding.llPBFunWord.visibility = View.GONE
+            binding.llSolved.visibility = View.GONE
 
             // Clamp a persisted index that is now out of range (e.g. list shrank).
             val clamped = WordGameLogic.resetIndexIfAtEnd(getIndexValueSharedPref(), list.data.size)
@@ -183,6 +193,7 @@ class WordGameActivity : AppCompatActivity() {
         binding.textViewSolTranslation.visibility = View.INVISIBLE
         binding.llHintTranslation.visibility = View.GONE
         binding.llHint.visibility = View.GONE
+        binding.llSolved.visibility = View.GONE
 
         loadMeaning()
         refreshNextButtonTint()
@@ -211,26 +222,34 @@ class WordGameActivity : AppCompatActivity() {
     private fun getIndexValueSharedPref(): Int =
         getSharedPreferences(PREFS, Context.MODE_PRIVATE).getInt(KEY_INDEX, 0)
 
+    /** Next is the gradient button, dimmed until the current word is solved. */
     private fun refreshNextButtonTint() {
         val unlocked = WordGameLogic.isNextUnlocked(getIndexValueSharedPref(), getLatestSolvedWordSharedPre())
-        binding.imgBtnNext.backgroundTintList =
-            if (unlocked) ColorStateList.valueOf(ContextCompat.getColor(this, R.color.accent))
-            else ContextCompat.getColorStateList(this, R.color.gray_700)
+        binding.imgBtnNext.alpha = if (unlocked) 1f else DIMMED_ALPHA
     }
 
     // --- Puzzle board ---
 
+    /**
+     * Lays the letter tiles out in up to three balanced rows (6 letters: 3 + 3, as in the Figma),
+     * 58dp each, smaller when a row would not fit the screen.
+     */
     private fun updatePuzzleView() {
-        binding.llPuzzleWord.removeAllViews()
-        binding.llPuzzleWord1.removeAllViews()
-        binding.llPuzzleWord2.removeAllViews()
-        for (x in 0 until currentWordForPuzzle.size) {
-            val tile = getPuzzleTextView(currentWordForPuzzle[x].uppercase(Locale.getDefault()))
-            when {
-                x < 6 -> binding.llPuzzleWord.addView(tile)
-                x in 6..11 -> binding.llPuzzleWord1.addView(tile)
-                else -> binding.llPuzzleWord2.addView(tile)
-            }
+        val rows = listOf(binding.llPuzzleWord, binding.llPuzzleWord1, binding.llPuzzleWord2)
+        rows.forEach { it.removeAllViews() }
+        val count = currentWordForPuzzle.size
+        if (count == 0) return
+        val rowCount = when {
+            count <= MAX_TILES_PER_ROW -> 1
+            count <= MAX_TILES_PER_ROW * 2 -> 2
+            else -> 3
+        }
+        val perRow = ceil(count / rowCount.toDouble()).toInt()
+        val gap = dp(TILE_GAP_DP)
+        val tileSize = min(dp(TILE_SIZE_DP), contentWidth() / perRow - gap)
+        for (x in 0 until count) {
+            val tile = getPuzzleTextView(currentWordForPuzzle[x].uppercase(Locale.getDefault()), tileSize)
+            rows[min(x / perRow, rows.lastIndex)].addView(tile)
         }
     }
 
@@ -241,7 +260,7 @@ class WordGameActivity : AppCompatActivity() {
             val tv = mv.getChildAt(0) as TextView
             if (solWordToChar.size < currentWord.length) solWordToChar.add(tv.text.toString())
             updateSolView()
-            p0.setBackgroundResource(R.drawable.bg_puzzle_clicked)
+            setTileUsed(mv, true)
             isClickArrayList.add(p0)
         }
     }
@@ -249,18 +268,19 @@ class WordGameActivity : AppCompatActivity() {
     fun updateSolView() {
         binding.llPuzzleSol.removeAllViews()
         var solWord = ""
-        for (x in 0 until currentWordForPuzzle.size) {
+        val slotCount = currentWordForPuzzle.size
+        for (x in 0 until slotCount) {
             try {
                 solWord += solWordToChar[x]
                 binding.llPuzzleSol.addView(
-                    getSolutionTextView(solWordToChar[x].uppercase(Locale.getDefault()), true)
+                    getSolutionTextView(solWordToChar[x].uppercase(Locale.getDefault()), true, slotCount)
                 )
             } catch (e: Exception) {
-                binding.llPuzzleSol.addView(getSolutionTextView("-", false))
+                binding.llPuzzleSol.addView(getSolutionTextView("", false, slotCount))
             }
         }
 
-        binding.btnRevert.visibility = if (solWord.isNotEmpty()) View.VISIBLE else View.GONE
+        setRevertActive(solWord.isNotEmpty())
 
         val isFullLength = solWord.length == currentWord.length
         if (isFullLength && WordGameLogic.isAcceptedGuess(currentWord, solWord, alternateAnswers)) {
@@ -277,12 +297,13 @@ class WordGameActivity : AppCompatActivity() {
                 ).show()
             }
             binding.animationFinish.playAnimation()
-            binding.btnClear.visibility = View.INVISIBLE
+            binding.btnClear.visibility = View.GONE
             binding.btnNext.visibility = View.VISIBLE
             binding.btnPrevious.visibility = View.VISIBLE
             binding.btnReplay.visibility = View.VISIBLE
             binding.textViewSolTranslation.visibility = View.VISIBLE
-            binding.btnRevert.visibility = View.GONE
+            setRevertActive(false)
+            showSolved(null)
 
             loadMeaning()
             disableClicks()
@@ -306,6 +327,7 @@ class WordGameActivity : AppCompatActivity() {
                     if (isFinishing || isDestroyed) return
                     binding.textViewSolTranslation.visibility = View.VISIBLE
                     binding.textViewSolTranslation.text = translation
+                    showSolved(translation)
                     binding.llPBFunWord.visibility = View.GONE
                 }
 
@@ -325,7 +347,8 @@ class WordGameActivity : AppCompatActivity() {
     private fun disableClicks() {
         binding.btnClear.isEnabled = false
         binding.btnRevert.isEnabled = false
-        binding.btnHint.visibility = View.INVISIBLE
+        // The solved row takes the hint row's place (Figma 21:5159).
+        binding.btnHint.visibility = View.GONE
         binding.textHint.visibility = View.INVISIBLE
         listOf(binding.llPuzzleSol, binding.llPuzzleWord, binding.llPuzzleWord1, binding.llPuzzleWord2)
             .forEach { row -> row.children.forEach { it.isClickable = false } }
@@ -334,7 +357,7 @@ class WordGameActivity : AppCompatActivity() {
     private fun removeOneChar() {
         if (solWordToChar.isNotEmpty()) {
             solWordToChar.removeAt(solWordToChar.lastIndex)
-            isClickArrayList[isClickArrayList.lastIndex].setBackgroundResource(R.drawable.bg_puzzle_char)
+            setTileUsed(isClickArrayList[isClickArrayList.lastIndex], false)
             isClickArrayList.removeAt(isClickArrayList.lastIndex)
             updateSolView()
         }
@@ -342,9 +365,9 @@ class WordGameActivity : AppCompatActivity() {
 
     private fun clearSolutionView() {
         solWordToChar.clear()
-        for (item in isClickArrayList) item.setBackgroundResource(R.drawable.bg_puzzle_char)
+        for (item in isClickArrayList) setTileUsed(item, false)
         isClickArrayList.clear()
-        binding.btnClear.visibility = View.INVISIBLE
+        binding.btnClear.visibility = View.GONE
         updateSolView()
     }
 
@@ -414,39 +437,92 @@ class WordGameActivity : AppCompatActivity() {
 
     // --- Tile builders ---
 
-    private fun getSolutionTextView(value: String, setColor: Boolean): TextView {
+    /**
+     * One answer slot: 44x52dp as in the Figma, narrower for long words so all [slotCount] fit.
+     * Empty slots are plain surface, [filled] ones accent; [markSolutionSolved] turns them green.
+     */
+    private fun getSolutionTextView(value: String, filled: Boolean, slotCount: Int): TextView {
+        val count = slotCount.coerceAtLeast(1)
+        val gap = dp(if (count > 7) 5 else 8)
+        val width = min(dp(SLOT_WIDTH_DP), (contentWidth() - gap * (count - 1)) / count)
+        val height = (width * SLOT_HEIGHT_DP / SLOT_WIDTH_DP.toFloat()).roundToInt()
         val textView = TextView(this)
         textView.text = value
-        textView.textSize = 30F
-        if (setColor) textView.setTextColor(ContextCompat.getColor(this, R.color.accent))
-        val params = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
+        textView.gravity = Gravity.CENTER
+        textView.includeFontPadding = false
+        textView.typeface = ResourcesCompat.getFont(this, R.font.sora_bold)
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, width * 0.42f)
+        textView.setTextColor(ContextCompat.getColor(this, R.color.home_accent))
+        textView.setBackgroundResource(
+            if (filled) R.drawable.ui_tabs_bg_slot_filled else R.drawable.ui_tabs_bg_slot_empty
         )
-        params.setMargins(0, 0, 8, 0)
+        val params = LinearLayout.LayoutParams(width, height)
+        params.setMargins(gap / 2, 0, gap - gap / 2, 0)
         textView.layoutParams = params
         return textView
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
-    fun getPuzzleTextView(value: String): LinearLayout {
+    /** The solved word's slots in success colours (Figma 21:5159). */
+    private fun markSolutionSolved() {
+        val color = ContextCompat.getColor(this, R.color.home_success)
+        binding.llPuzzleSol.children.forEach { slot ->
+            slot.setBackgroundResource(R.drawable.ui_tabs_bg_slot_solved)
+            (slot as? TextView)?.setTextColor(color)
+        }
+    }
+
+    /** Shows the "Correct!" row, naming the [translation] once it has arrived. */
+    private fun showSolved(translation: String?) {
+        markSolutionSolved()
+        val word = currentWord.uppercase(Locale.getDefault())
+        binding.tvSolved.text = if (translation.isNullOrBlank()) {
+            getString(R.string.ui_tabs_word_correct, word)
+        } else {
+            getString(R.string.ui_tabs_word_correct_meaning, translation, word)
+        }
+        binding.llSolved.visibility = View.VISIBLE
+    }
+
+    /** Backspace stays in place, dimmed while there is no letter to remove. */
+    private fun setRevertActive(active: Boolean) {
+        binding.btnRevert.visibility = View.VISIBLE
+        binding.btnRevert.alpha = if (active) 1f else DIMMED_ALPHA
+    }
+
+    /** A letter tile fades once its letter is in the answer and comes back when it is removed. */
+    private fun setTileUsed(tile: LinearLayout, used: Boolean) {
+        tile.setBackgroundResource(
+            if (used) R.drawable.ui_tabs_bg_letter_tile_used else R.drawable.ui_tabs_bg_letter_tile
+        )
+        tile.elevation = if (used) 0f else dp(2).toFloat()
+        (tile.getChildAt(0) as? TextView)?.setTextColor(
+            ContextCompat.getColor(this, if (used) R.color.home_text_muted else R.color.home_text_primary)
+        )
+    }
+
+    /** One letter tile: a [size] square (58dp in the Figma) with a Sora Bold letter. */
+    fun getPuzzleTextView(value: String, size: Int): LinearLayout {
         return try {
             val linearLayout = LinearLayout(this)
-            val llParams = LinearLayout.LayoutParams(puzzleViewBoxSize, puzzleViewBoxSize).apply {
-                setMargins(4, 4, 24, 6)
+            val margin = dp(TILE_GAP_DP) / 2
+            val llParams = LinearLayout.LayoutParams(size, size).apply {
+                setMargins(margin, margin, margin, margin)
                 gravity = Gravity.CENTER
             }
             linearLayout.orientation = LinearLayout.VERTICAL
             linearLayout.layoutTransition = LayoutTransition()
             linearLayout.setOnClickListener(PuzzleWordClickListener())
             linearLayout.layoutParams = llParams
-            linearLayout.setBackgroundResource(R.drawable.bg_puzzle_char)
             linearLayout.gravity = Gravity.CENTER
-            linearLayout.elevation = 8F
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                linearLayout.outlineSpotShadowColor = ContextCompat.getColor(this, R.color.home_shadow)
+            }
 
             val valueTV = TextView(this)
             valueTV.text = value
-            valueTV.textSize = 26F
+            valueTV.includeFontPadding = false
+            valueTV.typeface = ResourcesCompat.getFont(this, R.font.sora_bold)
+            valueTV.setTextSize(TypedValue.COMPLEX_UNIT_PX, size * 0.38f)
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -455,12 +531,18 @@ class WordGameActivity : AppCompatActivity() {
             valueTV.layoutParams = params
             valueTV.gravity = Gravity.CENTER
             linearLayout.addView(valueTV)
+            setTileUsed(linearLayout, false)
             linearLayout
         } catch (e: Exception) {
             e.printStackTrace()
             LinearLayout(this)
         }
     }
+
+    private fun dp(value: Int): Int = (value * resources.displayMetrics.density).roundToInt()
+
+    /** Width the slot and tile rows can use: the screen minus the 16dp side paddings. */
+    private fun contentWidth(): Int = resources.displayMetrics.widthPixels - dp(32)
 
     private fun charArrayToStringArray(value: String): ArrayList<String> {
         val charArrToStrArr = arrayListOf<String>()
@@ -469,6 +551,18 @@ class WordGameActivity : AppCompatActivity() {
     }
 
     companion object {
+        /** Letter tiles: Figma size, gap between tiles, most tiles in one row. */
+        private const val TILE_SIZE_DP = 58
+        private const val TILE_GAP_DP = 10
+        private const val MAX_TILES_PER_ROW = 5
+
+        /** Answer slots: Figma size. */
+        private const val SLOT_WIDTH_DP = 44
+        private const val SLOT_HEIGHT_DP = 52
+
+        /** Locked Next button / backspace with nothing to remove. */
+        private const val DIMMED_ALPHA = 0.45f
+
         private const val PREFS = "word_game"
         private const val KEY_INDEX = "currentIndex"
         private const val KEY_LATEST = "latestSolvedWord"

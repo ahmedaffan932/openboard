@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Keyboard translate strip language pill (Figma 11:2185): white, fully rounded at 32dp. On dark
+     keyboards SuggestionStripView tints it translucent white (setBackgroundTintList). Fixed colours,
+     not home_* tokens: the keyboard theme, not the system night mode, decides light/dark here. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/ui_sys_kb_pill_ripple">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/ui_sys_kb_pill" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+</ripple>

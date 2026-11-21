@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Redesign strings for the Translate, Language selector, History, Favorites, Scan result, Settings and Enable keyboard screens. English: values/strings_ui_tr.xml. -->
+<resources>
+    <string name="ui_tr_back">वापस</string>
+    <string name="ui_tr_clear_text">टेक्स्ट साफ़ करें</string>
+    <string name="ui_tr_copy">कॉपी करें</string>
+    <string name="ui_tr_translating">अनुवाद हो रहा है…</string>
+    <string name="ui_tr_detecting_text">टेक्स्ट पहचाना जा रहा है…</string>
+    <string name="ui_tr_scanned_text">स्कैन किया गया टेक्स्ट</string>
+    <string name="ui_tr_scan_result">स्कैन परिणाम</string>
+    <string name="ui_tr_translate_to">इसमें अनुवाद करें</string>
+    <string name="ui_tr_translate_from">इससे अनुवाद करें</string>
+    <string name="ui_tr_history_hint">किसी कार्ड को हटाने के लिए उसे देर तक दबाएँ।</string>
+    <string name="ui_tr_history_empty_title">अभी तक कोई अनुवाद नहीं</string>
+    <string name="ui_tr_start_translating">अनुवाद शुरू करें</string>
+    <string name="ui_tr_favorites_empty_title">अभी तक कोई पसंदीदा नहीं</string>
+    <string name="ui_tr_favorites_empty_body">किसी अनुवाद को यहाँ सहेजने के लिए उसके दिल पर टैप करें।</string>
+    <string name="ui_tr_open_history">इतिहास खोलें</string>
+    <string name="ui_tr_go_premium">प्रीमियम लें</string>
+    <string name="ui_tr_go_premium_subtitle">विज्ञापन हटाएँ और सभी सुविधाएँ अनलॉक करें</string>
+    <string name="ui_tr_group_preferences">प्राथमिकताएँ</string>
+    <string name="ui_tr_group_support">सहायता</string>
+    <string name="ui_tr_group_about">जानकारी</string>
+    <string name="ui_tr_notification_subtitle">आपकी सूचनाओं में त्वरित-पहुँच बार</string>
+    <string name="ui_tr_keyboard_subtitle">किसी भी ऐप में टाइप करते समय अनुवाद करें।</string>
+    <string name="ui_tr_keyboard_step1_subtitle">इसे अपनी कीबोर्ड सेटिंग में चालू करें</string>
+    <string name="ui_tr_keyboard_step2_subtitle">Translator Pro को अपना कीबोर्ड चुनें</string>
+    <string name="ui_tr_maybe_later">शायद बाद में</string>
+</resources>

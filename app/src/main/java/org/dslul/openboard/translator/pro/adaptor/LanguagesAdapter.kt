@@ -2,11 +2,13 @@ package org.dslul.openboard.translator.pro.adaptor
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.res.ColorStateList
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.core.content.ContextCompat
+import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.dslul.openboard.translator.pro.classes.AppAnalytics
 import com.google.mlkit.nl.translate.TranslateLanguage
@@ -43,18 +45,33 @@ class LanguagesAdapter(
         if (arrDownloadedLanguages?.isNotEmpty() == true) {
             for (downloadedLanguage in arrDownloadedLanguages) {
                 if (downloadedLanguage.contains(languages.elementAt(position))) {
-                    holder.ivDownloadLanguage.setImageResource(R.drawable.ic_baseline_done_24)
                     isLanguageDownloaded = true
                 }
             }
         }
+        showDownloadState(holder.ivDownloadLanguage, isLanguageDownloaded)
+        holder.ivDownloadLanguage.visibility = View.VISIBLE
+        holder.pbDownloading.visibility = View.GONE
+
+        // The chosen language: soft accent row, accent name, check instead of speak / download.
+        val selected = isSelected(position)
+        holder.lngLayout.setBackgroundResource(
+            if (selected) R.drawable.bg_ui_row_selected else R.drawable.bg_ui_row_ripple
+        )
+        holder.languageName.setTextColor(
+            ContextCompat.getColor(
+                activity, if (selected) R.color.home_accent else R.color.home_text_primary
+            )
+        )
+        holder.ivSelected.visibility = if (selected) View.VISIBLE else View.GONE
+        holder.rowActions.visibility = if (selected) View.GONE else View.VISIBLE
+        // No divider under the last row, or next to the selected row's highlight.
+        holder.divider.visibility =
+            if (position == languages.lastIndex || selected || isSelected(position + 1)) {
+                View.INVISIBLE
+            } else View.VISIBLE
 
         if (lngTo) {
-            if (Misc.getLanguageTo(activity) == languages.elementAt(position)) {
-                holder.languageName.setTextColor(ContextCompat.getColor(activity, R.color.accent))
-                holder.ivSelected.visibility = View.VISIBLE
-            }
-
             setDownloadClickListener(
                 holder.ivDownloadLanguage,
                 isLanguageDownloaded,
@@ -63,10 +80,6 @@ class LanguagesAdapter(
                 holder.pbDownloading
             )
         } else {
-            if (Misc.getLanguageFrom(activity) == languages.elementAt(position)) {
-                holder.languageName.setTextColor(ContextCompat.getColor(activity, R.color.accent))
-                holder.ivSelected.visibility = View.VISIBLE
-            }
             setDownloadClickListener(
                 holder.ivDownloadLanguage,
                 isLanguageDownloaded,
@@ -79,6 +92,7 @@ class LanguagesAdapter(
         holder.lngLayout.tag = languages.elementAt(position)
         if (languages.elementAt(position) == Misc.defaultLanguage) {
             holder.languageName.text = activity.getString(R.string.detect)
+            holder.nativeName.visibility = View.GONE
             holder.temp.setImageResource(Misc.getFlag(activity, "100"))
             holder.lngLayout.setOnClickListener {
                 if (lngTo) {
@@ -92,7 +106,11 @@ class LanguagesAdapter(
             holder.btnSpeak.visibility = View.INVISIBLE
         } else {
             holder.languageName.text = Locale(languages[position]).displayName
+            val nativeName = nativeName(languages[position])
+            holder.nativeName.text = nativeName
+            holder.nativeName.visibility = if (nativeName.isBlank()) View.GONE else View.VISIBLE
             holder.temp.setImageResource(Misc.getFlag(activity, languages.elementAt(position)))
+            holder.btnSpeak.visibility = View.VISIBLE
 
             holder.lngLayout.setOnClickListener {
                 if (lngTo) {
@@ -157,6 +175,36 @@ class LanguagesAdapter(
         val ivDownloadLanguage: ImageView = itemView.findViewById(R.id.ivDownloadLanguage)
         val pbDownloading: ProgressBar = itemView.findViewById(R.id.pbDownloading)
         val textViewPremium: TextView = itemView.findViewById(R.id.textViewPremium)
+        val nativeName: TextView = itemView.findViewById(R.id.tvNativeName)
+        val rowActions: View = itemView.findViewById(R.id.llRowActions)
+        val divider: View = itemView.findViewById(R.id.vRowDivider)
+    }
+
+    /** Whether the row at [position] is the language currently picked for this side. */
+    private fun isSelected(position: Int): Boolean {
+        val language = languages.getOrNull(position) ?: return false
+        val current = if (lngTo) Misc.getLanguageTo(activity) else Misc.getLanguageFrom(activity)
+        return current == language
+    }
+
+    /** The language's own name for itself ("Español"), shown under its name. */
+    private fun nativeName(code: String): String {
+        val locale = Locale(code)
+        return locale.getDisplayName(locale)
+            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(locale) else it.toString() }
+    }
+
+    /** Download icon (accent) or downloaded check (success). */
+    private fun showDownloadState(icon: ImageView, isDownloaded: Boolean) {
+        icon.setImageResource(if (isDownloaded) R.drawable.ic_ui_circle_check else R.drawable.ic_ui_download)
+        ImageViewCompat.setImageTintList(
+            icon,
+            ColorStateList.valueOf(
+                ContextCompat.getColor(
+                    activity, if (isDownloaded) R.color.home_success else R.color.home_accent
+                )
+            )
+        )
     }
 
     override fun getFilter(): Filter {
@@ -207,7 +255,7 @@ class LanguagesAdapter(
                 val obj = Translation.getClient(options)
                 obj.downloadModelIfNeeded().addOnSuccessListener {
                     ivDownloadLanguage.visibility = View.VISIBLE
-                    ivDownloadLanguage.setImageResource(R.drawable.ic_baseline_done_24)
+                    showDownloadState(ivDownloadLanguage, true)
                     progressBar.visibility = View.GONE
                 }
 

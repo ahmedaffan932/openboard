@@ -34,6 +34,7 @@ import org.dslul.openboard.objects.CameraMisc.setFlash
 import org.dslul.openboard.translator.pro.CameraPermissionActivity
 import org.dslul.openboard.translator.pro.LanguageSelectorActivity
 import org.dslul.openboard.translator.pro.OCRActivity
+import org.dslul.openboard.translator.pro.SettingsActivity
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.ads.AdIds
 import org.dslul.openboard.translator.pro.classes.ads.Ads
@@ -76,15 +77,16 @@ class CameraFragment : Fragment() {
 //            }
 //        )
 
+        // Round the preview's corners with the viewfinder's (android:clipToOutline needs API 31).
+        binding.flViewfinder.clipToOutline = true
+
+        binding.btnSettings.setOnClickListener {
+            startActivity(Intent(requireContext(), SettingsActivity::class.java))
+        }
+
         binding.btnFlashOCR.setOnClickListener {
             requireContext().setFlash(!requireContext().getFlash())
-            if (requireContext().getFlash()) {
-                binding.btnFlashOCR
-                    .setImageDrawable(resources.getDrawable(R.drawable.flash_on))
-            } else {
-                binding.btnFlashOCR
-                    .setImageDrawable(resources.getDrawable(R.drawable.flash_off))
-            }
+            showFlashIcon()
             startCamera()
         }
 
@@ -154,13 +156,7 @@ class CameraFragment : Fragment() {
             CameraSelector.DEFAULT_FRONT_CAMERA
         }
 
-        if (requireContext().getFlash()) {
-            binding.btnFlashOCR
-                .setImageDrawable(resources.getDrawable(R.drawable.flash_on))
-        } else {
-            binding.btnFlashOCR
-                .setImageDrawable(resources.getDrawable(R.drawable.flash_off))
-        }
+        showFlashIcon()
 
         try {
             imageCapture = ImageCapture.Builder().build()
@@ -243,6 +239,13 @@ class CameraFragment : Fragment() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    /** Zap while the flash is on, crossed-out zap while it is off. */
+    private fun showFlashIcon() {
+        binding.btnFlashOCR.setImageResource(
+            if (requireContext().getFlash()) R.drawable.ic_ui_zap else R.drawable.ic_ui_zap_off
+        )
     }
 
     private fun setSelectedLng() {

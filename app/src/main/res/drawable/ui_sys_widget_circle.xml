@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Mic / camera button of the quick-translate widget: soft accent circle with a tap ripple.
+     Framework drawable: the launcher inflates the widget. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/home_ripple">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/home_accent_soft" />
+        </shape>
+    </item>
+</ripple>

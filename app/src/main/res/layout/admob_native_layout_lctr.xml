@@ -1,123 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Large native ad, "lctr" remote variant (AdmobNativeAds.chooseLayout; the slot is 300dp tall).
+     Figma: TranslatorProZyro "Native Ad/Large" (3:165) order flipped for the low-CTR test: rounded
+     media frame first, then icon + headline + body + AD badge, then a full-width gradient CTA.
+     AdChoices sits top-left, over the media frame's corner. -->
 <com.google.android.gms.ads.nativead.NativeAdView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layoutDirection="ltr"
     android:layout_height="match_parent"
-    android:background="@drawable/ads_bg"
+    android:layoutDirection="ltr"
     tools:ignore="MissingDefaultResource">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_ui_card"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:padding="12dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:padding="@dimen/_4sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/top"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_4sdp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@id/bottom"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/ad_app_icon"
-                    android:layout_width="@dimen/_45sdp"
-                    android:layout_height="@dimen/_45sdp"
-                    android:adjustViewBounds="true"
-                    app:shapeAppearanceOverlay="@style/lessRoundedCorners"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/ad"
-                    style="@style/adTheme"
-                    android:layout_marginStart="@dimen/_4sdp"
-                    app:layout_constraintBottom_toBottomOf="@id/ad_headline"
-                    app:layout_constraintLeft_toRightOf="@id/ad_app_icon"
-                    app:layout_constraintTop_toTopOf="@id/ad_headline" />
-
-                <TextView
-                    android:id="@+id/ad_headline"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_4sdp"
-                    android:ellipsize="end"
-                    android:maxLength="25"
-                    android:maxLines="1"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/ad_body"
-                    app:layout_constraintLeft_toRightOf="@id/ad"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/ad_body"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_4sdp"
-                    android:ellipsize="end"
-                    android:maxLength="99"
-                    android:maxLines="2"
-                    android:textColor="@color/gray_700"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/ad_app_icon"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ad_headline" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_weight="1"
+            android:background="@drawable/ui_sys_ad_media"
+            android:clipToOutline="true"
+            tools:targetApi="s">
 
             <com.google.android.gms.ads.nativead.MediaView
                 android:id="@+id/ad_media"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/_4sdp"
-                app:layout_constraintBottom_toTopOf="@id/top"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ad_app_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/HomeAdIconShape" />
 
             <LinearLayout
-                android:id="@+id/bottom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent">
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/ad_call_to_action"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_main_rounded"
-                    android:text="@string/install"
-                    android:paddingVertical="@dimen/padding_10"
-                    android:backgroundTint="@color/accent"
-                    android:gravity="center"
-                    android:textColor="@color/btnTextColor"
-                    android:textSize="@dimen/_12sdp"
-                    android:textStyle="bold" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:id="@+id/ad_headline"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/manrope_bold"
+                        android:includeFontPadding="false"
+                        android:singleLine="true"
+                        android:textColor="@color/home_text_primary"
+                        android:textSize="14sp"
+                        tools:text="WordUp: Vocabulary Builder" />
+
+                    <TextView
+                        android:id="@+id/ad_stars"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:fontFamily="@font/manrope_bold"
+                        android:includeFontPadding="false"
+                        android:singleLine="true"
+                        android:textColor="@color/home_text_secondary"
+                        android:textSize="11sp"
+                        android:visibility="gone"
+                        tools:text="★ 4.6"
+                        tools:visibility="visible" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_home_ad_badge"
+                        android:fontFamily="@font/manrope_extrabold"
+                        android:includeFontPadding="false"
+                        android:letterSpacing="0.06"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="2dp"
+                        android:text="@string/ad_label"
+                        android:textAllCaps="true"
+                        android:textColor="@color/home_ad_badge_text"
+                        android:textSize="9sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/ad_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/manrope_regular"
+                    android:includeFontPadding="false"
+                    android:singleLine="true"
+                    android:textColor="@color/home_text_secondary"
+                    android:textSize="12sp"
+                    tools:text="Learn 10 new words a day with quick quizzes." />
             </LinearLayout>
+        </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/ad_call_to_action"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_ui_button_primary"
+            android:elevation="4dp"
+            android:fontFamily="@font/manrope_bold"
+            android:includeFontPadding="false"
+            android:minHeight="0dp"
+            android:outlineAmbientShadowColor="@color/home_shadow_blue"
+            android:outlineSpotShadowColor="@color/home_shadow_blue"
+            android:singleLine="true"
+            android:stateListAnimator="@null"
+            android:text="@string/install"
+            android:textAllCaps="false"
+            android:textColor="@color/home_on_accent"
+            android:textSize="15sp"
+            tools:targetApi="p" />
+    </LinearLayout>
 </com.google.android.gms.ads.nativead.NativeAdView>

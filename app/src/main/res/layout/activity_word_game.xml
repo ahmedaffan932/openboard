@@ -1,536 +1,667 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Fun Words. Figma TranslatorProZyro "Fun Words" (7:1093) and its solved state (21:5159): header with
+     reload, target-language pill + level chip, clue card, answer slots, hint row, letter tiles, round
+     controls, small native ad at the bottom. WordGameActivity builds the slots and tiles in code. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient_dashboard"
+    android:background="@color/home_bg"
+    android:orientation="vertical"
     tools:context=".WordGameActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/llTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            style="@style/Widget.Ui.IconButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:contentDescription="@string/ui_tabs_back"
+            android:outlineSpotShadowColor="@color/home_shadow"
+            app:srcCompat="@drawable/ic_ui_arrow_left"
+            app:tint="@color/home_text_primary"
+            tools:targetApi="p" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/HomeText.Screen"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/fun_words" />
+
+        <ImageView
+            android:id="@+id/btnReload"
+            style="@style/Widget.Ui.IconButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/ui_tabs_word_reload"
+            android:outlineSpotShadowColor="@color/home_shadow"
+            app:srcCompat="@drawable/ic_ui_refresh"
+            app:tint="@color/home_text_primary"
+            tools:targetApi="p" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:overScrollMode="never">
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/llTopBar"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_top_bar"
-            app:layout_constraintTop_toTopOf="parent"
-            android:elevation="@dimen/less_padding">
-
-            <ImageView
-                android:id="@+id/btnBack"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginHorizontal="@dimen/fab_padding"
-                android:padding="@dimen/padding"
-                android:background="@drawable/bg_nothing_rounded_ripple"
-                android:src="@drawable/ic_baseline_arrow_back_24"
-                app:layout_constraintBottom_toBottomOf="@id/tvTitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvTitle" />
-
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/m_padding"
-                android:layout_marginTop="@dimen/fab_padding"
-                android:layout_marginBottom="@dimen/fab_padding"
-                android:fontFamily="@font/poppins_regular"
-                android:paddingStart="@dimen/padding"
-                android:text="@string/fun_words"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btnBack"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/btnReload"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="@dimen/fab_padding"
-                android:padding="@dimen/padding"
-                android:background="@drawable/bg_nothing_rounded_ripple"
-                android:src="@drawable/ic_baseline_refresh_24"
-                app:layout_constraintBottom_toBottomOf="@id/tvTitle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvTitle" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/fab_padding"
-            android:animateLayoutChanges="true"
-            android:fillViewport="true"
-            android:paddingHorizontal="@dimen/fab_padding"
-            app:layout_constraintBottom_toTopOf="@+id/llBannerBottom"
-            app:layout_constraintTop_toBottomOf="@id/llTopBar"
-            app:layout_constraintVertical_bias="0">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
-                android:orientation="vertical">
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="16dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <!-- Target language + level. -->
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:animateLayoutChanges="true">
-
-                    <LinearLayout
-                        android:id="@+id/llPBFunWord"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="@dimen/padding_10"
-                        android:elevation="@dimen/padding_10"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ProgressBar
-                            style="?android:attr/progressBarStyle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:indeterminateTint="@color/accent" />
-
-                        <TextView
-                            android:id="@+id/textView1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/loading_words"
-                            android:textColor="?attr/colorOnPrimary" />
-                    </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:id="@+id/llLngToFunWorld"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_main_rounded"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="@drawable/ui_tabs_bg_pill_surface"
+                        android:clickable="true"
+                        android:elevation="1dp"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:backgroundTint="?attr/colorPrimaryVariant"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
+                        android:outlineSpotShadowColor="@color/home_shadow"
+                        android:paddingHorizontal="10dp"
+                        tools:targetApi="p">
 
                         <com.google.android.material.imageview.ShapeableImageView
                             android:id="@+id/flagToFunWord"
-                            android:layout_width="@dimen/icon_size"
-                            android:layout_height="@dimen/icon_size"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:importantForAccessibility="no"
                             android:scaleType="centerCrop"
-                            app:shapeAppearanceOverlay="@style/roundedCorners" />
-
+                            app:shapeAppearanceOverlay="@style/roundedCorners"
+                            tools:src="@drawable/by_flag" />
 
                         <TextView
                             android:id="@+id/textViewLngToFunWorld"
+                            style="@style/HomeText.Language"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:ellipsize="end"
+                            android:maxWidth="150dp"
+                            android:singleLine="true"
+                            tools:text="Spanish" />
+
+                        <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:layout_marginStart="8dp"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_home_chevron_down" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_ui_tile_purple"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="10dp">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:importantForAccessibility="no"
+                            app:srcCompat="@drawable/ic_ui_trophy"
+                            app:tint="@color/home_purple" />
+
+                        <TextView
+                            android:id="@+id/progressLevel"
+                            style="@style/HomeText.Label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:singleLine="true"
+                            android:text="@string/level"
+                            android:textColor="@color/home_purple" />
+
+                        <TextView
+                            android:id="@+id/progressNumber"
+                            style="@style/HomeText.Label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:singleLine="true"
+                            android:textColor="@color/home_purple"
+                            tools:text="12" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Clue card: the solved word's translation appears here ("?" until then). -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:background="@drawable/bg_ui_card_r22"
+                    android:elevation="4dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:outlineSpotShadowColor="@color/home_shadow"
+                    android:paddingHorizontal="16dp"
+                    android:paddingTop="18dp"
+                    android:paddingBottom="18dp"
+                    tools:targetApi="p">
+
+                    <TextView
+                        style="@style/HomeText.Chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:letterSpacing="0.08"
+                        android:text="@string/ui_tabs_word_caption"
+                        android:textAllCaps="true" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:id="@+id/tvCluePlaceholder"
+                            style="@style/HomeText.Display"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="@dimen/padding_10"
                             android:gravity="center"
-                            android:fontFamily="@font/poppins_regular"
-                            android:paddingVertical="@dimen/padding"
-                            android:paddingEnd="@dimen/icon_size"
-                            android:text="@string/textView"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="15sp" />
+                            android:importantForAccessibility="no"
+                            android:text="\?"
+                            android:textColor="@color/home_hint"
+                            tools:visibility="invisible" />
 
-                    </LinearLayout>
+                        <TextView
+                            android:id="@+id/textViewSolTranslation"
+                            style="@style/HomeText.Display"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layoutDirection="ltr"
+                            android:text=""
+                            android:textColor="@color/home_translation_text"
+                            android:visibility="invisible"
+                            tools:text="amigo"
+                            tools:visibility="visible" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <!-- Answer slots (built in code). Tapping them removes the last letter. -->
+                <LinearLayout
+                    android:id="@+id/llPuzzleSol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:layoutDirection="ltr"
+                    android:minHeight="52dp"
+                    android:orientation="horizontal" />
+
+                <!-- Hint button; the clear button shows up after a wrong full-length guess. -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:id="@+id/btnHint"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
                         android:animateLayoutChanges="true"
-                        android:orientation="vertical"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/llLngToFunWorld">
+                        android:background="@drawable/ui_tabs_bg_hint_button"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="12dp">
 
                         <com.airbnb.lottie.LottieAnimationView
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_marginTop="@dimen/padding_10"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:importantForAccessibility="no"
                             android:scaleType="centerCrop"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/llLngToFunWorld"
                             app:lottie_autoPlay="true"
                             app:lottie_fileName="lamp.json"
                             app:lottie_loop="true" />
 
                         <TextView
                             android:id="@+id/textHint"
-                            android:layout_width="match_parent"
+                            style="@style/HomeText.BodyStrong"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:fontFamily="@font/poppins_light"
-                            android:text="@string/hint"
-                            android:textColor="?attr/colorOnPrimary" />
-
-                    </LinearLayout>
-
-                    <ImageButton
-                        android:id="@+id/btnInfo"
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
-                        android:layout_marginTop="@dimen/padding_10"
-                        android:background="@drawable/bg_nothing_rounded_ripple"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_baseline_info_24"
-                        android:visibility="gone"
-                        app:layout_constraintLeft_toLeftOf="@id/btnHint"
-                        app:layout_constraintRight_toRightOf="@id/btnHint"
-                        app:layout_constraintTop_toBottomOf="@+id/llLngToFunWorld" />
-
-                    <TextView
-                        android:id="@+id/progressNumber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/padding_10"
-                        android:fontFamily="@font/gilroy_light"
-                        android:textSize="20sp"
-                        app:layout_constraintLeft_toRightOf="@+id/progressLevel"
-                        app:layout_constraintTop_toBottomOf="@+id/llLngToFunWorld" />
-
-                    <TextView
-                        android:id="@+id/progressLevel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/padding_10"
-                        android:fontFamily="@font/poppins_medium"
-                        android:text="@string/level"
-                        android:textSize="20sp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/llLngToFunWorld" />
-
-                    <TextView
-                        android:id="@+id/textViewSolTranslation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/padding"
-                        android:text=""
-                        android:textColor="@color/accent"
-                        android:layoutDirection="ltr"
-                        android:textSize="20sp"
-                        android:visibility="invisible"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/progressLevel" />
-
-                    <LinearLayout
-                        android:id="@+id/llPuzzleSol"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/padding"
-                        android:gravity="center"
-                        android:layoutDirection="ltr"
-                        android:orientation="horizontal"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textViewSolTranslation" />
-
-                    <LinearLayout
-                        android:id="@+id/llHint"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layoutDirection="ltr"
-                        android:layout_margin="@dimen/padding_10"
-                        android:orientation="vertical"
-                        android:visibility="gone"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/llPuzzleSol">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/gilroy_extrabold"
-                            android:text="@string/hint_meaning"
-                            android:textColor="?attr/colorOnPrimary" />
-
-                        <TextView
-                            android:id="@+id/tvHintMeaning"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/gilroy_light"
-                            android:maxLines="2" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/llHintTranslation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/padding_10"
-                        android:layoutDirection="ltr"
-                        android:orientation="vertical"
-                        android:visibility="gone"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/llHint">
-
-                        <TextView
-                            android:id="@+id/tvHintTitleTranslation"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/gilroy_extrabold"
-                            android:textColor="?attr/colorOnPrimary" />
-
-                        <TextView
-                            android:id="@+id/tvHintMeaningTranslation"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/gilroy_light"
-                            android:maxLines="2" />
+                            android:layout_marginStart="6dp"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:text="@string/ui_tabs_word_show_hint"
+                            android:textColor="@color/home_orange" />
                     </LinearLayout>
 
                     <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/btnClear"
-                        android:layout_width="@dimen/icon_size"
-                        android:layout_height="@dimen/icon_size"
-                        android:layout_margin="@dimen/padding_10"
-                        android:layout_marginStart="50sp"
-                        android:padding="@dimen/less_padding"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_ui_circle_surface"
+                        android:clickable="true"
+                        android:contentDescription="@string/ui_tabs_word_clear"
+                        android:elevation="1dp"
+                        android:focusable="true"
+                        android:layoutDirection="ltr"
+                        android:outlineSpotShadowColor="@color/home_shadow"
+                        android:padding="8dp"
                         android:scaleType="centerCrop"
-                        android:layoutDirection="ltr"
-                        android:visibility="invisible"
-                        app:layout_constraintBottom_toBottomOf="@+id/llPuzzleSol"
-                        app:layout_constraintStart_toEndOf="@+id/llPuzzleSol"
-                        app:layout_constraintTop_toTopOf="@+id/llPuzzleSol"
-                        app:lottie_colorFilter="@color/accent"
-                        app:lottie_fileName="search.json" />
+                        android:visibility="gone"
+                        app:lottie_colorFilter="@color/home_accent"
+                        app:lottie_fileName="search.json"
+                        tools:targetApi="p" />
+                </LinearLayout>
+
+                <!-- Hint: the word's English meaning. -->
+                <LinearLayout
+                    android:id="@+id/llHint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_ui_tile_orange"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:importantForAccessibility="no"
+                        app:srcCompat="@drawable/ic_ui_bulb"
+                        app:tint="@color/home_orange" />
 
                     <LinearLayout
-                        android:id="@+id/adViewPuzzle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/padding_10"
-                        android:orientation="horizontal"
-                        android:layoutDirection="ltr"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/llHintTranslation" />
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                    <HorizontalScrollView
-                        android:id="@+id/hl_puzzle_word"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:animateLayoutChanges="true"
-                        android:layoutDirection="ltr"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/adViewPuzzle">
-
-                        <LinearLayout
-                            android:id="@+id/llPuzzleWord"
-                            android:layout_width="wrap_content"
+                        <TextView
+                            style="@style/HomeText.LabelSmall"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/padding"
-                            android:animateLayoutChanges="true"
-                            android:gravity="center"
-                            android:orientation="horizontal" />
-                    </HorizontalScrollView>
+                            android:text="@string/hint_meaning"
+                            android:textColor="@color/home_orange" />
 
-                    <HorizontalScrollView
-                        android:id="@+id/hl_puzzle_word1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:animateLayoutChanges="true"
-                        android:layoutDirection="ltr"
-                        android:foregroundGravity="center_horizontal"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/hl_puzzle_word">
-
-                        <LinearLayout
-                            android:id="@+id/llPuzzleWord1"
-                            android:layout_width="wrap_content"
+                        <TextView
+                            android:id="@+id/tvHintMeaning"
+                            style="@style/HomeText.Body"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/padding"
-                            android:animateLayoutChanges="true"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/hl_puzzle_word">
+                            android:layout_marginTop="3dp"
+                            android:ellipsize="end"
+                            android:maxLines="3"
+                            tools:text="someone you like and trust" />
+                    </LinearLayout>
+                </LinearLayout>
 
-                        </LinearLayout>
-                    </HorizontalScrollView>
-
-                    <LinearLayout
-                        android:id="@+id/llPuzzleWord2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/padding"
-                        android:animateLayoutChanges="true"
-                        android:layoutDirection="ltr"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/hl_puzzle_word1" />
+                <!-- Hint, translated: the word and its meaning in the target language. -->
+                <LinearLayout
+                    android:id="@+id/llHintTranslation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_ui_chip_soft"
+                    android:layoutDirection="ltr"
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
                     <TextView
-                        android:id="@+id/btnTranslateFunWord"
+                        android:id="@+id/tvHintTitleTranslation"
+                        style="@style/HomeText.BodyStrong"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/padding_10"
-                        android:background="@drawable/bg_main_rounded"
-                        android:backgroundTint="@color/accent"
-                        android:gravity="center"
-                        android:layoutDirection="ltr"
-                        android:paddingVertical="@dimen/padding_10"
-                        android:text="@string/translate"
-                        android:textColor="?attr/colorOnPrimary"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/llPuzzleWord2" />
+                        android:textColor="@color/home_translation_text"
+                        tools:text="amigo" />
 
+                    <TextView
+                        android:id="@+id/tvHintMeaningTranslation"
+                        style="@style/HomeText.Body"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        tools:text="alguien que te gusta y en quien confías" />
+                </LinearLayout>
+
+                <!-- Solved (Figma 21:5159). -->
+                <LinearLayout
+                    android:id="@+id/llSolved"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_ui_tile_success"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:importantForAccessibility="no"
+                        app:srcCompat="@drawable/ic_ui_circle_check"
+                        app:tint="@color/home_success" />
+
+                    <TextView
+                        android:id="@+id/tvSolved"
+                        style="@style/HomeText.Body"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/home_success"
+                        tools:text="Correct! “amigo” means FRIEND." />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/adViewPuzzle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal" />
+
+                <!-- Letter tiles (built in code, up to three rows). -->
+                <HorizontalScrollView
+                    android:id="@+id/hl_puzzle_word"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="14dp"
+                    android:clipToPadding="false"
+                    android:layoutDirection="ltr"
+                    android:overScrollMode="never"
+                    android:scrollbars="none">
 
                     <LinearLayout
-                        android:id="@+id/llActionButtons"
-                        android:layout_width="match_parent"
+                        android:id="@+id/llPuzzleWord"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/padding"
                         android:animateLayoutChanges="true"
                         android:gravity="center"
-                        android:layoutDirection="ltr"
-                        android:orientation="horizontal"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/llPuzzleWord2">
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
 
-                        <LinearLayout
-                            android:id="@+id/btnPrevious"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                <HorizontalScrollView
+                    android:id="@+id/hl_puzzle_word1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:clipToPadding="false"
+                    android:layoutDirection="ltr"
+                    android:overScrollMode="never"
+                    android:scrollbars="none">
 
-                            <ImageView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:background="@drawable/bg_main_rounded"
-                                android:backgroundTint="@color/accent"
-                                android:clickable="false"
-                                android:rotation="180"
-                                android:padding="@dimen/padding"
-                                android:scaleType="fitCenter"
-                                android:contentDescription="@string/todo"
-                                android:fontFamily="@font/gilroy_extrabold"
-                                android:src="@drawable/ic_baseline_navigate_next_24"
-                                android:textColor="@color/btnTextColor"
-                                app:tint="@color/btnTextColor" />
+                    <LinearLayout
+                        android:id="@+id/llPuzzleWord1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:animateLayoutChanges="true"
+                        android:gravity="center"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
 
-                        </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llPuzzleWord2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:animateLayoutChanges="true"
+                    android:gravity="center"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal" />
 
-                        <LinearLayout
-                            android:id="@+id/btnReplay"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                <TextView
+                    android:id="@+id/btnTranslateFunWord"
+                    style="@style/Widget.Ui.Button.Primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="16dp"
+                    android:layoutDirection="ltr"
+                    android:text="@string/translate"
+                    android:visibility="gone" />
 
-                            <ImageView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:background="@drawable/bg_main_rounded"
-                                android:backgroundTint="@color/accent"
-                                android:padding="@dimen/padding"
-                                android:clickable="false"
-                                android:contentDescription="@string/todo"
-                                android:fontFamily="@font/gilroy_extrabold"
-                                android:src="@drawable/ic_baseline_refresh_24"
-                                android:textColor="@color/btnTextColor"
-                                app:tint="@color/btnTextColor" />
+                <!-- Controls: previous, start again, remove a letter, next (dimmed until solved). -->
+                <LinearLayout
+                    android:id="@+id/llActionButtons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:animateLayoutChanges="true"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:gravity="center"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal"
+                    android:padding="4dp">
 
-                        </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/btnPrevious"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_ui_circle_surface"
+                        android:clickable="true"
+                        android:contentDescription="@string/ui_tabs_word_previous"
+                        android:elevation="2dp"
+                        android:focusable="true"
+                        android:foreground="@drawable/bg_ui_round_ripple"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:outlineSpotShadowColor="@color/home_shadow"
+                        tools:targetApi="p">
 
-                        <LinearLayout
-                            android:id="@+id/btnNext"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/imgBtnNext"
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:background="@drawable/bg_main_rounded"
-                                android:padding="@dimen/padding"
-                                android:backgroundTint="@color/accent"
-                                android:clickable="false"
-                                android:src="@drawable/ic_baseline_navigate_next_24"
-                                app:tint="@color/white" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/btnRevert"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:animateLayoutChanges="true"
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:clickable="false"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:visibility="gone">
-
-                            <ImageButton
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:background="@drawable/bg_main_rounded"
-                                android:backgroundTint="@color/accent"
-                                android:clickable="false"
-                                android:contentDescription="@string/todo"
-                                android:fontFamily="@font/gilroy_extrabold"
-                                android:src="@drawable/ic_baseline_backspace_24"
-                                android:textColor="@android:color/white"
-                                app:tint="@color/btnTextColor" />
-
-                        </LinearLayout>
+                            android:importantForAccessibility="no"
+                            app:srcCompat="@drawable/ic_ui_arrow_left"
+                            app:tint="@color/home_text_primary" />
                     </LinearLayout>
 
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/animationFinish"
+                    <LinearLayout
+                        android:id="@+id/btnReplay"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/bg_ui_circle_surface"
+                        android:clickable="true"
+                        android:contentDescription="@string/ui_tabs_word_shuffle"
+                        android:elevation="2dp"
+                        android:focusable="true"
+                        android:foreground="@drawable/bg_ui_round_ripple"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:outlineSpotShadowColor="@color/home_shadow"
+                        tools:targetApi="p">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:clickable="false"
+                            android:importantForAccessibility="no"
+                            app:srcCompat="@drawable/ic_ui_shuffle"
+                            app:tint="@color/home_text_primary" />
+                    </LinearLayout>
+
+                    <!-- WordGameActivity dims this while there is no letter to remove. -->
+                    <LinearLayout
+                        android:id="@+id/btnRevert"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="16dp"
+                        android:alpha="0.45"
+                        android:background="@drawable/bg_ui_circle_surface"
+                        android:clickable="true"
+                        android:contentDescription="@string/ui_tabs_word_backspace"
+                        android:elevation="2dp"
+                        android:focusable="true"
+                        android:foreground="@drawable/bg_ui_round_ripple"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:outlineSpotShadowColor="@color/home_shadow"
+                        tools:targetApi="p">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:clickable="false"
+                            android:importantForAccessibility="no"
+                            app:srcCompat="@drawable/ic_ui_backspace"
+                            app:tint="@color/home_text_primary" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btnNext"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:scaleType="centerCrop"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:lottie_fileName="sprinkles.json" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:clickable="true"
+                        android:contentDescription="@string/ui_tabs_word_next"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
+                        <!-- WordGameActivity dims this until the current word is solved. -->
+                        <ImageView
+                            android:id="@+id/imgBtnNext"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/bg_ui_circle_primary"
+                            android:clickable="false"
+                            android:elevation="6dp"
+                            android:importantForAccessibility="no"
+                            android:outlineAmbientShadowColor="@color/home_shadow_blue"
+                            android:outlineSpotShadowColor="@color/home_shadow_blue"
+                            android:padding="14dp"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/ic_ui_arrow_right"
+                            app:tint="@color/home_on_accent"
+                            tools:targetApi="p" />
+                    </LinearLayout>
+                </LinearLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <!-- Unused, kept for its id. -->
+                <ImageButton
+                    android:id="@+id/btnInfo"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/bg_ui_round_ripple"
+                    android:contentDescription="@string/hint"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_ui_info"
+                    app:tint="@color/home_text_muted" />
             </LinearLayout>
-        </ScrollView>
 
-        <FrameLayout
-            android:id="@+id/llBannerBottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            <!-- Loading card. -->
+            <LinearLayout
+                android:id="@+id/llPBFunWord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_ui_card_r16"
+                android:elevation="8dp"
+                android:gravity="center"
+                android:minWidth="140dp"
+                android:orientation="vertical"
+                android:outlineSpotShadowColor="@color/home_shadow"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="16dp"
+                android:visibility="gone"
+                tools:targetApi="p">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <ProgressBar
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:indeterminateTint="@color/home_accent" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    style="@style/HomeText.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="@string/loading_words"
+                    android:textColor="@color/home_text_secondary" />
+            </LinearLayout>
+
+            <!-- Confetti when a word is solved (does not take touches). -->
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationFinish"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop"
+                app:lottie_fileName="sprinkles.json" />
+        </FrameLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/llBannerBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+</LinearLayout>

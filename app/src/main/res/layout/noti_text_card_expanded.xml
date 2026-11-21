@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-    Expanded text-only card: bold title, the copy, then a hairline and a row of blue caps buttons
-    ruled apart by a hairline. The copy gets four lines: the Daily body quotes a phrase of up to 48
-    characters, and in Russian or German it already takes three at full width. Two notifications
-    use it:
-    - Shortcut / On-open (Figma NotiShortcut): LATER | TRY NOW.
-    - Daily (Figma NotiDaily): one full-width HEAR IT NOW - the code hides btnNotiSecondary and
-      vNotiActionDivider, and the weighted primary button takes the whole row.
+    Expanded text-only card. Figma: TranslatorProZyro, notifications (11:2354): bold title, the copy,
+    then right-aligned text buttons - a secondary one in grey and the primary one in accent. The copy
+    gets four lines: the Daily body quotes a phrase of up to 48 characters, and in Russian or German
+    it already takes three at full width. Two notifications use it:
+    - Shortcut / On-open: Later  Try now.
+    - Daily: one "Hear it now" - the code hides btnNotiSecondary and vNotiActionDivider (here an
+      empty spacer between the two buttons), leaving the primary button on the right.
     Android's own action row cannot be drawn this way (it lays actions out left-aligned in its own
     style), so the buttons live in the custom view. The collapsed row stays the standard template.
 
-    Inflated by SystemUI: framework views and attributes only - the hairlines are FrameLayouts,
-    because a plain <View> is not allowed in RemoteViews and fails to inflate.
+    Inflated by SystemUI: framework views and attributes only - the spacer is a FrameLayout, because
+    a plain <View> / <Space> is not allowed in RemoteViews and fails to inflate.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"
-        android:textColor="@color/noti_title"
+        android:textColor="@color/home_text_primary"
         android:textSize="15sp"
         android:textStyle="bold" />
 
@@ -31,52 +31,50 @@
         android:id="@+id/tvNotiDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:ellipsize="end"
         android:maxLines="4"
-        android:textColor="@color/noti_desc"
+        android:textColor="@color/home_text_secondary"
         android:textSize="13sp" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="11dp"
-        android:background="@color/noti_divider" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="6dp"
+        android:gravity="end|center_vertical"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/btnNotiSecondary"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:background="@drawable/ui_sys_noti_press"
             android:ellipsize="end"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:maxLines="1"
-            android:textAllCaps="true"
-            android:textColor="@color/noti_action"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textColor="@color/home_text_secondary"
             android:textSize="14sp" />
 
         <FrameLayout
             android:id="@+id/vNotiActionDivider"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/noti_divider" />
+            android:layout_width="4dp"
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/btnNotiPrimary"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:background="@drawable/ui_sys_noti_press"
             android:ellipsize="end"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:maxLines="1"
-            android:textAllCaps="true"
-            android:textColor="@color/noti_action"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textColor="@color/home_accent"
             android:textSize="14sp" />
     </LinearLayout>
 

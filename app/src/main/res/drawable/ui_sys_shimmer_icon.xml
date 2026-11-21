@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Native-ad shimmer placeholder (app icon), 12dp corners. home_border rather than surface_muted
+     so the block still reads on the white card under the shimmer's dimmed base alpha. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/home_border" />
+    <corners android:radius="12dp" />
+</shape>

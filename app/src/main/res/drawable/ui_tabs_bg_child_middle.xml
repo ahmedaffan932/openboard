@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Phrase details: a phrase inside an expanded group card (side strokes only). -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:bottom="-2dp"
+        android:top="-2dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/home_surface" />
+            <stroke android:width="1dp" android:color="@color/home_border" />
+        </shape>
+    </item>
+</layer-list>

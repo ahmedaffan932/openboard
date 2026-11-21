@@ -247,7 +247,7 @@
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorSecondaryVariant">@color/gray_700</item>
 <!--        <item name="android:windowLightStatusBar" >true</item>-->
-        <item name="android:statusBarColor" >@color/white</item>
+        <item name="android:statusBarColor" >@color/home_bg</item>
 
         <!-- Customize your theme here. -->
         <item name="buttonTint">@color/accent</item>

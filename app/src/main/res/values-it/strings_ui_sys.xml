@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_sys_premium_caption">Guardando un annuncio lo sblocchi per questa sessione.</string>
+    <string name="ui_sys_delete_body">L\'operazione non può essere annullata.</string>
+    <string name="ui_sys_feedback_body">Hai trovato un bug o hai un\'idea? Scrivici, leggiamo ogni messaggio.</string>
+    <string name="ui_sys_send_feedback">Invia feedback</string>
+    <string name="ui_sys_rate_title">Ti piace Translator Pro?</string>
+    <string name="ui_sys_rate_body">Tocca una stella per valutarci su Google Play. Ci aiuta molto!</string>
+    <string name="ui_sys_loading_ad">Caricamento annuncio…</string>
+    <string name="ui_sys_just_a_moment">Un attimo</string>
+    <string name="ui_sys_ad_sponsored">Sponsorizzato</string>
+</resources>

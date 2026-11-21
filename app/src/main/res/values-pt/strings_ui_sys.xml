@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_sys_premium_caption">Assistir a um anúncio desbloqueia isso nesta sessão.</string>
+    <string name="ui_sys_delete_body">Isso não pode ser desfeito.</string>
+    <string name="ui_sys_feedback_body">Encontrou um bug ou tem uma ideia? Conte para nós, lemos todas as mensagens.</string>
+    <string name="ui_sys_send_feedback">Enviar feedback</string>
+    <string name="ui_sys_rate_title">Está gostando do Translator Pro?</string>
+    <string name="ui_sys_rate_body">Toque em uma estrela para nos avaliar no Google Play. Ajuda muito!</string>
+    <string name="ui_sys_loading_ad">Carregando anúncio…</string>
+    <string name="ui_sys_just_a_moment">Só um momento</string>
+    <string name="ui_sys_ad_sponsored">Patrocinado</string>
+</resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Launch screens redesign (Figma TranslatorProZyro): splash, app language, onboarding, premium,
+     exit, uninstall survey. -->
+<resources>
+    <!-- Splash -->
+    <string name="ui_launch_loading">Loading…</string>
+
+    <!-- App language -->
+    <string name="ui_launch_lang_subtitle">Choose the language for menus and buttons.</string>
+    <string name="ui_launch_lang_native_spanish" translatable="false">Español</string>
+    <string name="ui_launch_lang_native_italian" translatable="false">Italiano</string>
+    <string name="ui_launch_lang_english">English (US)</string>
+    <string name="ui_launch_lang_french">French</string>
+    <string name="ui_launch_lang_german">German</string>
+    <string name="ui_launch_lang_spanish">Spanish</string>
+    <string name="ui_launch_lang_hindi">Hindi</string>
+    <string name="ui_launch_lang_portuguese">Portuguese</string>
+    <string name="ui_launch_lang_korean">Korean</string>
+    <string name="ui_launch_lang_italian">Italian</string>
+    <string name="ui_launch_lang_russian">Russian</string>
+
+    <!-- Onboarding -->
+    <string name="ui_launch_skip">Skip</string>
+    <string name="ui_launch_get_started">Get started</string>
+    <string name="ui_launch_onboarding_title_1">Translate in any language</string>
+    <string name="ui_launch_onboarding_text_1">Type, speak or paste and get an instant translation in 50+ languages.</string>
+    <string name="ui_launch_onboarding_title_2">Translate as you type</string>
+    <string name="ui_launch_onboarding_text_2">Turn on the Translator keyboard and translate in WhatsApp, Instagram or any other app.</string>
+    <string name="ui_launch_onboarding_title_3">Point your camera to translate</string>
+    <string name="ui_launch_onboarding_text_3">Signs, menus and labels, translated right on your screen.</string>
+
+    <!-- Premium -->
+    <string name="ui_launch_premium_title">Start like a Pro</string>
+    <string name="ui_launch_premium_subtitle">Unlock every feature and translate without limits.</string>
+    <string name="ui_launch_premium_price_line">3 days free, then %1$s / week</string>
+    <string name="ui_launch_premium_cta">Start free trial</string>
+    <string name="ui_launch_separator" translatable="false">·</string>
+
+    <!-- Exit -->
+    <string name="ui_launch_exit_rate_title">How was your experience?</string>
+    <string name="ui_launch_exit_rate_hint">Your rating helps us improve</string>
+    <string name="ui_launch_exit_rated_title">Thanks for your rating!</string>
+    <string name="ui_launch_exit_rated_good">We\'re glad you enjoy Translator Pro.</string>
+    <string name="ui_launch_exit_rated_low">Thanks! We\'ll use it to make the app better.</string>
+    <string name="ui_launch_exit_quit_title">Quit Translator Pro?</string>
+    <string name="ui_launch_exit_quit_body">Do you really want to quit?</string>
+    <string name="ui_launch_exit_yes_quit">Yes, quit</string>
+    <string name="ui_launch_exit_star_desc">Rate %1$d of 5</string>
+</resources>
