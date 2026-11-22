@@ -813,6 +813,12 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="share_via">Share via</string>
 
     <!-- Keyboard settings > Languages, when the phone's own languages screen is missing or refuses to open. -->
+    <!-- The keyboard's own Languages screen (KeyboardLanguagesFragment). -->
+    <string name="keyboard_languages_on">Your languages</string>
+    <string name="keyboard_languages_all">All languages</string>
+    <string name="keyboard_languages_keep_one">Keep at least one language turned on.</string>
+    <!-- In the language picker (long-press on the language key): opens Android's keyboard picker. -->
+    <string name="keyboard_languages_other_keyboards">Other keyboards</string>
     <string name="keyboard_languages_unavailable">This phone doesn\'t allow opening its keyboard languages screen from here. Open your phone\'s Settings, then Languages &amp; input, then On-screen keyboard, then this keyboard.</string>
 
     <!-- Dashboard (Home) redesign. -->

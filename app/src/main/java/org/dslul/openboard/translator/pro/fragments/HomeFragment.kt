@@ -128,6 +128,10 @@ class HomeFragment : Fragment() {
         isBtnTranslateVisible = show
         val shown = if (show) binding.btnTranslate else binding.btnSpeakInput
         val hidden = if (show) binding.btnSpeakInput else binding.btnTranslate
+        // zoom_in keeps its animation attached (fillAfter), and a parent still draws a GONE child
+        // that has one: without this the Translate button stayed painted over Paste once the
+        // text was deleted.
+        hidden.clearAnimation()
         hidden.visibility = View.GONE
         Misc.zoomInView(shown, requireActivity(), 150)
     }

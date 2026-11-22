@@ -60,6 +60,12 @@ class WordGameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWordGameBinding
     private var wordList: WordList? = null
     private lateinit var currentWord: String
+
+    /**
+     * The word that solved this level: the puzzle word, or another real word from its letters
+     * ("rat" for "art"). The solved row and its translation name this word, not the puzzle word.
+     */
+    private var solvedWord: String = ""
     private val solWordToChar: ArrayList<String> = arrayListOf()
     private val isClickArrayList = ArrayList<LinearLayout>()
     private var currentWordForPuzzle: ArrayList<String> = arrayListOf()
@@ -123,6 +129,7 @@ class WordGameActivity : AppCompatActivity() {
             alternateAnswers = WordGameContent.loadAlternates(this@WordGameActivity)
             binding.llPBFunWord.visibility = View.GONE
             binding.llSolved.visibility = View.GONE
+            solvedWord = ""
 
             // Clamp a persisted index that is now out of range (e.g. list shrank).
             val clamped = WordGameLogic.resetIndexIfAtEnd(getIndexValueSharedPref(), list.data.size)
@@ -194,6 +201,7 @@ class WordGameActivity : AppCompatActivity() {
         binding.llHintTranslation.visibility = View.GONE
         binding.llHint.visibility = View.GONE
         binding.llSolved.visibility = View.GONE
+        solvedWord = ""
 
         loadMeaning()
         refreshNextButtonTint()
@@ -284,8 +292,10 @@ class WordGameActivity : AppCompatActivity() {
 
         val isFullLength = solWord.length == currentWord.length
         if (isFullLength && WordGameLogic.isAcceptedGuess(currentWord, solWord, alternateAnswers)) {
-            if (!currentWord.equals(solWord, true)) {
-                // Another real word from the same letters: it counts, and the puzzle word is shown.
+            solvedWord = solWord
+            val isPuzzleWord = currentWord.equals(solWord, true)
+            if (!isPuzzleWord) {
+                // Another real word from the same letters: it counts, and its own meaning is shown.
                 Toast.makeText(
                     this,
                     getString(
@@ -305,7 +315,13 @@ class WordGameActivity : AppCompatActivity() {
             setRevertActive(false)
             showSolved(null)
 
-            loadMeaning()
+            if (isPuzzleWord) {
+                loadMeaning()
+            } else {
+                // The hint box explains the puzzle word, so it would contradict the word shown.
+                binding.llHint.visibility = View.GONE
+                binding.llHintTranslation.visibility = View.GONE
+            }
             disableClicks()
             saveLatestSolvedWordSharedPref(getIndexValueSharedPref() + 1)
 
@@ -318,13 +334,16 @@ class WordGameActivity : AppCompatActivity() {
         refreshNextButtonTint()
     }
 
+    /** Translates the word the player spelled ([solvedWord]), which may not be the puzzle word. */
     private fun translateSolvedWord() {
         binding.llPBFunWord.visibility = View.VISIBLE
+        val word = solvedWord
         MiscTranslate.translate(
-            this, currentWord, "en", Misc.getLanguageTo(this),
+            this, word, "en", Misc.getLanguageTo(this),
             object : TranslationInterface {
                 override fun onTranslate(translation: String) {
-                    if (isFinishing || isDestroyed) return
+                    // Ignore a late answer for a level the player has already left.
+                    if (isFinishing || isDestroyed || word != solvedWord) return
                     binding.textViewSolTranslation.visibility = View.VISIBLE
                     binding.textViewSolTranslation.text = translation
                     showSolved(translation)
@@ -474,7 +493,7 @@ class WordGameActivity : AppCompatActivity() {
     /** Shows the "Correct!" row, naming the [translation] once it has arrived. */
     private fun showSolved(translation: String?) {
         markSolutionSolved()
-        val word = currentWord.uppercase(Locale.getDefault())
+        val word = solvedWord.ifEmpty { currentWord }.uppercase(Locale.getDefault())
         binding.tvSolved.text = if (translation.isNullOrBlank()) {
             getString(R.string.ui_tabs_word_correct, word)
         } else {

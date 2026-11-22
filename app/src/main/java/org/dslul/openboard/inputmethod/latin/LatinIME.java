@@ -677,6 +677,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         mHandler.onCreate();
 
         clearHistoryLearnedWithoutDictionaryOnce();
+        resetLanguageSwitchKeyDefaultOnce();
 
         // TODO: Resolve mutual dependencies of {@link #loadSettings()} and
         // {@link #resetDictionaryFacilitatorIfNecessary()}.
@@ -725,6 +726,21 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         if (prefs.getBoolean(Settings.PREF_USER_HISTORY_RESET_V26, false)) return;
         PersonalizationHelper.removeAllUserHistoryDictionaries(this);
         prefs.edit().putBoolean(Settings.PREF_USER_HISTORY_RESET_V26, true).apply();
+    }
+
+    /**
+     * The language switch key is now off by default. Before 2.7 the default was on, and opening
+     * the Preferences screen saved that default, so a stored "on" usually was never chosen by the
+     * user. Drop it once so the new default applies; a stored "off" stays.
+     */
+    private void resetLanguageSwitchKeyDefaultOnce() {
+        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(this);
+        if (prefs.getBoolean(Settings.PREF_LANGUAGE_KEY_DEFAULT_RESET_V27, false)) return;
+        final SharedPreferences.Editor editor = prefs.edit();
+        if (prefs.getBoolean(Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY, false)) {
+            editor.remove(Settings.PREF_SHOW_LANGUAGE_SWITCH_KEY);
+        }
+        editor.putBoolean(Settings.PREF_LANGUAGE_KEY_DEFAULT_RESET_V27, true).apply();
     }
 
     /**
@@ -1036,6 +1052,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         // also wouldn't be consuming gesture data.
         mGestureConsumer = GestureConsumer.NULL_GESTURE_CONSUMER;
         mRichImm.refreshSubtypeCaches();
+        switchToEnabledLanguageIfNeeded();
         final KeyboardSwitcher switcher = mKeyboardSwitcher;
         // A new theme means a new input view, which has no keyboard loaded yet.
         final boolean themeChanged = switcher.updateKeyboardTheme();
@@ -1522,6 +1539,9 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         if (isShowingOptionDialog()) return false;
         switch (requestCode) {
             case Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER:
+                if (showKeyboardLanguagePicker()) {
+                    return true;
+                }
                 if (mRichImm.hasMultipleEnabledIMEsOrSubtypes(true /* include aux subtypes */)) {
                     mRichImm.getInputMethodManager().showInputMethodPicker();
                     return true;
@@ -1578,6 +1598,68 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     public void switchLanguage(final InputMethodSubtype subtype) {
         final IBinder token = getWindow().getWindow().getAttributes().token;
         mRichImm.setInputMethodAndSubtype(token, subtype);
+    }
+
+    /**
+     * When the user has just turned the current language off in the keyboard's Languages screen,
+     * moves to the first language still on.
+     */
+    private void switchToEnabledLanguageIfNeeded() {
+        final InputMethodSubtype replacement = mRichImm.getSubtypeToUseInsteadOfCurrent();
+        if (replacement == null) {
+            return;
+        }
+        final IBinder token = getWindow().getWindow().getAttributes().token;
+        if (token != null) {
+            mRichImm.setInputMethodAndSubtype(token, replacement);
+        }
+    }
+
+    /**
+     * Long-press on the language key (or the space bar, when set to change language): with the
+     * keyboard's own language list, a picker of those languages plus "Other keyboards", which
+     * opens Android's keyboard picker. Android's picker alone would list its separate list of
+     * this keyboard's languages. False when there is nothing to pick, or no in-app list.
+     */
+    private boolean showKeyboardLanguagePicker() {
+        final List<InputMethodSubtype> subtypes = mRichImm.getInAppEnabledSubtypes();
+        if (subtypes == null) {
+            return false;
+        }
+        final boolean hasOtherKeyboards =
+                mRichImm.hasMultipleEnabledIMEsOrSubtypes(true /* include aux subtypes */);
+        if (subtypes.size() < 2 && !hasOtherKeyboards) {
+            return false;
+        }
+        final InputMethodSubtype current = mRichImm.getCurrentSubtype().getRawSubtype();
+        final int languageCount = subtypes.size();
+        final CharSequence[] items = new CharSequence[languageCount + (hasOtherKeyboards ? 1 : 0)];
+        int checkedItem = -1;
+        for (int i = 0; i < languageCount; i++) {
+            items[i] = SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(subtypes.get(i));
+            if (subtypes.get(i).equals(current)) {
+                checkedItem = i;
+            }
+        }
+        if (hasOtherKeyboards) {
+            items[languageCount] = getString(R.string.keyboard_languages_other_keyboards);
+        }
+        final AlertDialog.Builder builder = new AlertDialog.Builder(
+                DialogUtils.getPlatformDialogThemeContext(this));
+        builder.setTitle(R.string.select_language)
+                .setSingleChoiceItems(items, checkedItem, (dialogInterface, position) -> {
+                    dialogInterface.dismiss();
+                    if (position < languageCount) {
+                        switchLanguage(subtypes.get(position));
+                    } else {
+                        mRichImm.getInputMethodManager().showInputMethodPicker();
+                    }
+                });
+        final AlertDialog dialog = builder.create();
+        dialog.setCancelable(true /* cancelable */);
+        dialog.setCanceledOnTouchOutside(true /* cancelable */);
+        showOptionDialog(dialog);
+        return true;
     }
 
     // TODO: Revise the language switch key behavior to make it much smarter and more reasonable.

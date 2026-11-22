@@ -81,6 +81,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     public static final String PREF_SHOW_LANGUAGE_SWITCH_KEY =
             "pref_show_language_switch_key";
+    // The languages chosen in the keyboard's own Languages screen (KeyboardLanguages); unset until
+    // the user changes them there, and the system's list is used until then.
+    public static final String PREF_KEYBOARD_LANGUAGES = "pref_keyboard_languages";
     public static final String PREF_SHOW_EMOJI_KEY =
             "pref_show_emoji_key";
     public static final String PREF_SHOW_CLIPBOARD_KEY =
@@ -125,6 +128,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_ENABLE_CLIPBOARD_HISTORY = "pref_enable_clipboard_history";
     // Set once the typing history learned while the dictionaries were broken (before 2.6) is gone.
     public static final String PREF_USER_HISTORY_RESET_V26 = "pref_user_history_reset_v26";
+    // Set once the language switch key has been moved to its new "off" default (2.7).
+    public static final String PREF_LANGUAGE_KEY_DEFAULT_RESET_V27 = "pref_language_key_default_reset_v27";
     public static final String PREF_CLIPBOARD_HISTORY_RETENTION_TIME = "pref_clipboard_history_retention_time";
 
     // This preference key is deprecated. Use {@link #PREF_SHOW_LANGUAGE_SWITCH_KEY} instead.
@@ -206,7 +211,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
                 || PREF_LAST_USED_PERSONALIZATION_TOKEN.equals(key)
                 || PREF_LAST_PERSONALIZATION_DICT_WIPED_TIME.equals(key)
                 || PREF_CORPUS_HANDLES_FOR_PERSONALIZATION.equals(key)
-                || PREF_USER_HISTORY_RESET_V26.equals(key);
+                || PREF_USER_HISTORY_RESET_V26.equals(key)
+                || PREF_LANGUAGE_KEY_DEFAULT_RESET_V27.equals(key);
     }
 
     @Override

@@ -30,9 +30,9 @@
          keys as off while the keyboard drew them. -->
     <bool name="config_default_show_number_row">false</bool>
     <bool name="config_default_show_emoji_key">true</bool>
-    <!-- On means "show when useful": the key only appears when two or more keyboard languages are
-         enabled (SettingsValues.isLanguageSwitchKeyEnabled). -->
-    <bool name="config_default_show_language_switch_key">true</bool>
+    <!-- Off by default (client feedback, 2.7). Even when on, the key only appears with two or more
+         keyboard languages enabled (SettingsValues.isLanguageSwitchKeyEnabled). -->
+    <bool name="config_default_show_language_switch_key">false</bool>
     <bool name="config_default_show_setup_wizard_icon">false</bool>
 
     <!-- Maximum time for a clipboard history entry to be kept, in minutes; 0 = no time limit.

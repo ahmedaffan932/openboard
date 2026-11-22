@@ -36,6 +36,7 @@ import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
 import org.dslul.openboard.inputmethod.latin.utils.LanguageOnSpacebarUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -129,6 +130,11 @@ public class RichInputMethodManager {
     }
 
     public boolean switchToNextInputMethod(final IBinder token, final boolean onlyCurrentIme) {
+        // Android cycles its own list of this keyboard's languages, which the in-app list replaces.
+        final List<InputMethodSubtype> inAppSubtypes = getInAppEnabledSubtypes();
+        if (onlyCurrentIme && inAppSubtypes != null) {
+            return switchToNextInAppSubtype(token, inAppSubtypes);
+        }
         if (mImmWrapper.switchToNextInputMethod(token, onlyCurrentIme)) {
             return true;
         }
@@ -138,6 +144,22 @@ public class RichInputMethodManager {
             return true;
         }
         return switchToNextInputMethodAndSubtype(token);
+    }
+
+    /** Moves to the next language of the in-app list; one that is not in it moves to the first. */
+    private boolean switchToNextInAppSubtype(final IBinder token,
+            final List<InputMethodSubtype> inAppSubtypes) {
+        final InputMethodSubtype current = mImmWrapper.mImm.getCurrentInputMethodSubtype();
+        final int nextIndex = KeyboardLanguages.nextIndex(
+                getSubtypeIndexInList(current, inAppSubtypes), inAppSubtypes.size());
+        if (nextIndex < 0) {
+            return false;
+        }
+        final InputMethodSubtype next = inAppSubtypes.get(nextIndex);
+        if (!next.equals(current)) {
+            setInputMethodAndSubtype(token, next);
+        }
+        return true;
     }
 
     private boolean switchToNextInputSubtypeInThisIme(final IBinder token,
@@ -484,11 +506,94 @@ public class RichInputMethodManager {
 
     private List<InputMethodSubtype> getEnabledInputMethodSubtypeList(final InputMethodInfo imi,
             final boolean allowsImplicitlySelectedSubtypes) {
+        // This keyboard's languages come from its own Languages screen once the user has used it.
+        if (imi != null && imi.equals(getInputMethodInfoOfThisIme())) {
+            final List<InputMethodSubtype> inAppSubtypes = getInAppEnabledSubtypes();
+            if (inAppSubtypes != null) {
+                return inAppSubtypes;
+            }
+        }
         return mInputMethodInfoCache.getEnabledInputMethodSubtypeList(
                 imi, allowsImplicitlySelectedSubtypes);
     }
 
+    // The in-app list (KeyboardLanguages), read once per refreshSubtypeCaches().
+    private boolean mInAppSubtypesLoaded;
+    @Nullable
+    private List<InputMethodSubtype> mInAppSubtypes;
+
+    /**
+     * The languages enabled in the keyboard's own Languages screen, in the user's order, or null
+     * while that screen has never been used (then Android's list for this keyboard applies).
+     */
+    @Nullable
+    public synchronized List<InputMethodSubtype> getInAppEnabledSubtypes() {
+        if (!mInAppSubtypesLoaded) {
+            mInAppSubtypes = readInAppEnabledSubtypes();
+            mInAppSubtypesLoaded = true;
+        }
+        return mInAppSubtypes;
+    }
+
+    @Nullable
+    private List<InputMethodSubtype> readInAppEnabledSubtypes() {
+        final SharedPreferences prefs = DeviceProtectedUtils.getSharedPreferences(mContext);
+        final String value = prefs.getString(Settings.PREF_KEYBOARD_LANGUAGES, null);
+        if (value == null) {
+            return null;
+        }
+        final List<InputMethodSubtype> allSubtypes = getAllKeyboardSubtypes();
+        final List<InputMethodSubtype> result = new ArrayList<>();
+        for (final String key : KeyboardLanguages.parse(value)) {
+            for (final InputMethodSubtype subtype : allSubtypes) {
+                if (key.equals(getKeyboardLanguageKey(subtype))) {
+                    result.add(subtype);
+                    break;
+                }
+            }
+        }
+        // A list naming no layout this keyboard still has would leave it without a language.
+        return result.isEmpty() ? null : Collections.unmodifiableList(result);
+    }
+
+    /** Every layout this keyboard offers for typing (declared and custom input styles). */
+    public List<InputMethodSubtype> getAllKeyboardSubtypes() {
+        final InputMethodInfo imi = getInputMethodInfoOfThisIme();
+        final List<InputMethodSubtype> result = new ArrayList<>();
+        for (int i = 0; i < imi.getSubtypeCount(); i++) {
+            final InputMethodSubtype subtype = imi.getSubtypeAt(i);
+            if (KEYBOARD_MODE.equals(subtype.getMode()) && !subtype.isAuxiliary()) {
+                result.add(subtype);
+            }
+        }
+        return result;
+    }
+
+    /** The key a layout is stored under in the in-app list. */
+    public static String getKeyboardLanguageKey(final InputMethodSubtype subtype) {
+        return KeyboardLanguages.keyOf(subtype.getLocale(),
+                SubtypeLocaleUtils.getKeyboardLayoutSetName(subtype));
+    }
+
+    /**
+     * The language to switch to when the current one is no longer in the in-app list (the user
+     * just turned it off), or null when nothing needs to change.
+     */
+    @Nullable
+    public InputMethodSubtype getSubtypeToUseInsteadOfCurrent() {
+        final List<InputMethodSubtype> inAppSubtypes = getInAppEnabledSubtypes();
+        if (inAppSubtypes == null || inAppSubtypes.isEmpty()) {
+            return null;
+        }
+        final InputMethodSubtype current = mImmWrapper.mImm.getCurrentInputMethodSubtype();
+        return getSubtypeIndexInList(current, inAppSubtypes) == INDEX_NOT_FOUND
+                ? inAppSubtypes.get(0) : null;
+    }
+
     public void refreshSubtypeCaches() {
+        synchronized (this) {
+            mInAppSubtypesLoaded = false;
+        }
         mInputMethodInfoCache.clear();
         updateCurrentSubtype(mImmWrapper.mImm.getCurrentInputMethodSubtype());
         updateShortcutIme();
