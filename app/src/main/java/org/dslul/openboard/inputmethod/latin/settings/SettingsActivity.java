@@ -17,6 +17,7 @@
 package org.dslul.openboard.inputmethod.latin.settings;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -36,7 +37,16 @@ public final class SettingsActivity extends PreferenceActivity
     private boolean mShowHomeAsUp;
 
     @Override
+    protected void attachBaseContext(final Context newBase) {
+        // Follow the app's Dark theme switch, which AppCompat's night mode doesn't apply here.
+        super.attachBaseContext(UiSettingsCards.withAppNightMode(newBase));
+    }
+
+    @Override
     protected void onCreate(final Bundle savedState) {
+        // Group every settings screen's rows into cards. Before super.onCreate so the first
+        // fragment is covered too.
+        UiSettingsCards.attach(this);
         super.onCreate(savedState);
         final ActionBar actionBar = getActionBar();
         if (actionBar != null) {

@@ -376,7 +376,7 @@
             android:taskAffinity=""
             android:label="@string/ime_settings"
             android:screenOrientation="portrait"
-            android:theme="@style/platformActivityTheme">
+            android:theme="@style/Theme.UiKbSettings">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -386,7 +386,7 @@
             android:exported="true"
             android:label="@string/android_spell_checker_settings"
             android:screenOrientation="portrait"
-            android:theme="@style/platformActivityTheme">
+            android:theme="@style/Theme.UiKbSettings">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

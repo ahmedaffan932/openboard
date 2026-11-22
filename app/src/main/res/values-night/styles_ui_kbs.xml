@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dark parents for the keyboard settings theme (values/styles_ui_kbs.xml). -->
+<resources>
+    <style name="Base.UiKbSettings" parent="@android:style/Theme.Material" />
+    <style name="Base.UiKbSettings.Dialog" parent="@android:style/Theme.Material.Dialog.Alert" />
+</resources>

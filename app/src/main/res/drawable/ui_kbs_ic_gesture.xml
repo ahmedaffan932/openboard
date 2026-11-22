@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Keyboard settings menu icon: "pencil" on a orange tile. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="36dp"
+    android:height="36dp"
+    android:viewportWidth="36"
+    android:viewportHeight="36">
+    <path
+        android:pathData="M10,0H26A10,10 0,0 1,36 10V26A10,10 0,0 1,26 36H10A10,10 0,0 1,0 26V10A10,10 0,0 1,10 0Z"
+        android:fillColor="@color/home_orange_soft" />
+    <group
+        android:translateX="9"
+        android:translateY="9"
+        android:scaleX="0.75"
+        android:scaleY="0.75">
+        <path
+            android:pathData="M21.17 6.81a1 1 0 0 0-3.98-3.98L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"
+            android:strokeColor="@color/home_orange"
+            android:strokeWidth="2.2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:pathData="m15 5 4 4"
+            android:strokeColor="@color/home_orange"
+            android:strokeWidth="2.2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+    </group>
+</vector>

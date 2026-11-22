@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Keyboard settings: a middle row of a card. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/home_ripple">
+    <item>
+        <layer-list>
+        <item>
+            <inset android:insetLeft="16dp" android:insetRight="16dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/home_surface" />
+                    <corners android:radius="0dp" />
+                </shape>
+            </inset>
+        </item>
+        <item android:gravity="top" android:height="1dp" android:left="30dp" android:right="30dp">
+            <shape android:shape="rectangle">
+                <solid android:color="@color/home_border" />
+            </shape>
+        </item>
+        </layer-list>
+    </item>
+</ripple>

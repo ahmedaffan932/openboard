@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Keyboard settings menu icon: "list_checks" on a teal tile. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="36dp"
+    android:height="36dp"
+    android:viewportWidth="36"
+    android:viewportHeight="36">
+    <path
+        android:pathData="M10,0H26A10,10 0,0 1,36 10V26A10,10 0,0 1,26 36H10A10,10 0,0 1,0 26V10A10,10 0,0 1,10 0Z"
+        android:fillColor="@color/home_teal_soft" />
+    <group
+        android:translateX="9"
+        android:translateY="9"
+        android:scaleX="0.75"
+        android:scaleY="0.75">
+        <path
+            android:pathData="m3 17 2 2 4-4"
+            android:strokeColor="@color/home_teal"
+            android:strokeWidth="2.2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:pathData="m3 7 2 2 4-4"
+            android:strokeColor="@color/home_teal"
+            android:strokeWidth="2.2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:pathData="M13 6h8"
+            android:strokeColor="@color/home_teal"
+            android:strokeWidth="2.2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:pathData="M13 12h8"
+            android:strokeColor="@color/home_teal"
+            android:strokeWidth="2.2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:pathData="M13 18h8"
+            android:strokeColor="@color/home_teal"
+            android:strokeWidth="2.2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+    </group>
+</vector>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Keyboard settings row (framework android.preference): optional 36dp icon tile, title and
+     summary, then the widget (switch / chevron). Figma TranslatorProZyro section 09. The 30dp
+     sides are the card's 16dp inset plus 14dp inside it; UiSettingsCards draws the card. The
+     framework binds the android:id/* views. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:gravity="center_vertical"
+    android:minHeight="56dp"
+    android:orientation="horizontal"
+    android:paddingStart="30dp"
+    android:paddingTop="11dp"
+    android:paddingEnd="28dp"
+    android:paddingBottom="11dp">
+
+    <FrameLayout
+        android:id="@android:id/icon_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp">
+
+        <ImageView
+            android:id="@android:id/icon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:importantForAccessibility="no"
+            android:scaleType="fitCenter" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@android:id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/manrope_semibold"
+            android:includeFontPadding="false"
+            android:maxLines="2"
+            android:textColor="@color/ui_kbs_title"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@android:id/summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/manrope_regular"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="2sp"
+            android:maxLines="4"
+            android:textColor="@color/ui_kbs_summary"
+            android:textSize="11.5sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@android:id/widget_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" />
+</LinearLayout>

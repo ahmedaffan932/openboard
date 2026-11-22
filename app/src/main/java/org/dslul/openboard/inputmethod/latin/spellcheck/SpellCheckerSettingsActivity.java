@@ -16,7 +16,9 @@
 
 package org.dslul.openboard.inputmethod.latin.spellcheck;
 
+import org.dslul.openboard.inputmethod.latin.settings.UiSettingsCards;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,7 +37,15 @@ public final class SpellCheckerSettingsActivity extends PreferenceActivity
     private static final String DEFAULT_FRAGMENT = SpellCheckerSettingsFragment.class.getName();
 
     @Override
+    protected void attachBaseContext(final Context newBase) {
+        // Follow the app's Dark theme switch, which AppCompat's night mode doesn't apply here.
+        super.attachBaseContext(UiSettingsCards.withAppNightMode(newBase));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Same cards as the keyboard settings (Theme.UiKbSettings in the manifest).
+        UiSettingsCards.attach(this);
         super.onCreate(savedInstanceState);
     }
 

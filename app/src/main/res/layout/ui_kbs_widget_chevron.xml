@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Keyboard settings: trailing chevron for rows that open a screen or a dialog. -->
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="18dp"
+    android:layout_height="18dp"
+    android:importantForAccessibility="no"
+    android:src="@drawable/ic_ui_chevron_right"
+    android:tint="@color/home_text_muted" />

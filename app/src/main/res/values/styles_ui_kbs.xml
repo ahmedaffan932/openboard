@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Keyboard settings (framework android.preference screens: SettingsActivity and the spell
+     checker settings), Figma TranslatorProZyro section 09 "Keyboard". Colours are the home_*
+     tokens, so the screens follow night mode; the Base.* parents swap in values-night. Rows come
+     from ui_kbs_pref; UiSettingsCards groups them into cards. -->
+<resources>
+    <style name="Base.UiKbSettings" parent="@android:style/Theme.Material.Light" />
+    <style name="Base.UiKbSettings.Dialog" parent="@android:style/Theme.Material.Light.Dialog.Alert" />
+
+    <style name="Theme.UiKbSettings" parent="Base.UiKbSettings">
+        <item name="android:windowBackground">@color/home_bg</item>
+        <item name="android:colorBackground">@color/home_bg</item>
+        <item name="android:statusBarColor">@color/home_bg</item>
+        <item name="android:navigationBarColor">@color/home_bg</item>
+        <item name="android:windowLightStatusBar">@bool/ui_light_system_bars</item>
+        <item name="android:windowLightNavigationBar">@bool/ui_light_system_bars</item>
+        <item name="android:colorPrimary">@color/home_bg</item>
+        <item name="android:colorPrimaryDark">@color/home_bg</item>
+        <item name="android:colorAccent">@color/home_accent</item>
+        <item name="android:colorControlActivated">@color/home_accent</item>
+        <item name="android:colorControlNormal">@color/home_text_secondary</item>
+        <item name="android:textColorPrimary">@color/home_text_primary</item>
+        <item name="android:textColorSecondary">@color/home_text_secondary</item>
+        <item name="android:actionBarStyle">@style/Widget.UiKbSettings.ActionBar</item>
+        <item name="android:actionBarSize">64dp</item>
+        <item name="android:homeAsUpIndicator">@drawable/ui_kbs_up</item>
+        <item name="android:preferenceStyle">@style/UiKbPref</item>
+        <item name="android:preferenceScreenStyle">@style/UiKbPref.Screen</item>
+        <item name="android:dialogPreferenceStyle">@style/UiKbPref.Dialog</item>
+        <item name="android:checkBoxPreferenceStyle">@style/UiKbPref.CheckBox</item>
+        <item name="android:switchPreferenceStyle">@style/UiKbPref.Switch</item>
+        <item name="android:preferenceCategoryStyle">@style/UiKbPref.Category</item>
+        <item name="android:alertDialogTheme">@style/Theme.UiKbSettings.Dialog</item>
+    </style>
+
+    <style name="Widget.UiKbSettings.ActionBar" parent="@android:style/Widget.Material.ActionBar.Solid">
+        <item name="android:background">@color/home_bg</item>
+        <item name="android:elevation">0dp</item>
+        <item name="android:titleTextStyle">@style/TextAppearance.UiKbSettings.Title</item>
+    </style>
+
+    <style name="TextAppearance.UiKbSettings.Title" parent="@android:style/TextAppearance.Material.Widget.ActionBar.Title">
+        <item name="android:fontFamily">@font/sora_bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/home_text_primary</item>
+    </style>
+
+    <!-- Rows. The platform's Preference.Material styles are private, so these stand alone and
+         restate what those parents gave: dialog buttons, a category that is not selectable. -->
+    <style name="UiKbPref">
+        <item name="android:layout">@layout/ui_kbs_pref</item>
+        <item name="android:widgetLayout">@layout/ui_kbs_widget_chevron</item>
+    </style>
+    <style name="UiKbPref.Screen" />
+    <style name="UiKbPref.Dialog">
+        <item name="android:positiveButtonText">@android:string/ok</item>
+        <item name="android:negativeButtonText">@android:string/cancel</item>
+    </style>
+    <style name="UiKbPref.CheckBox">
+        <item name="android:widgetLayout">@layout/ui_kbs_widget_switch</item>
+    </style>
+    <style name="UiKbPref.Switch">
+        <item name="android:widgetLayout">@layout/ui_kbs_widget_switch_pref</item>
+    </style>
+    <style name="UiKbPref.Category">
+        <item name="android:layout">@layout/ui_kbs_category</item>
+        <item name="android:widgetLayout">@null</item>
+        <item name="android:selectable">false</item>
+        <item name="android:shouldDisableView">false</item>
+    </style>
+
+    <!-- Dialogs (list choices, sliders): rounded surface, accent radios / slider / buttons. -->
+    <style name="Theme.UiKbSettings.Dialog" parent="Base.UiKbSettings.Dialog">
+        <item name="android:windowBackground">@drawable/ui_kbs_dialog_bg</item>
+        <item name="android:colorBackground">@color/home_surface</item>
+        <item name="android:colorAccent">@color/home_accent</item>
+        <item name="android:colorControlActivated">@color/home_accent</item>
+        <item name="android:colorControlNormal">@color/home_text_muted</item>
+        <item name="android:textColorPrimary">@color/home_text_primary</item>
+        <item name="android:textColorSecondary">@color/home_text_secondary</item>
+        <item name="android:textColorAlertDialogListItem">@color/home_text_primary</item>
+        <!-- A theme-level font reaches the title, message and list rows alike. -->
+        <item name="android:fontFamily">@font/manrope_semibold</item>
+        <item name="android:buttonBarButtonStyle">@style/Widget.UiKbSettings.DialogButton</item>
+    </style>
+    <style name="Widget.UiKbSettings.DialogButton" parent="@android:style/Widget.Material.Button.Borderless.Colored">
+        <item name="android:fontFamily">@font/manrope_bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+</resources>

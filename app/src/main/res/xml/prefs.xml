@@ -18,31 +18,31 @@
 
     <PreferenceScreen
         android:fragment="org.dslul.openboard.inputmethod.latin.settings.PreferencesSettingsFragment"
-        android:icon="@drawable/ic_settings_preferences"
+        android:icon="@drawable/ui_kbs_ic_preferences"
         android:key="screen_preferences"
         android:title="@string/settings_screen_preferences" />
 
     <PreferenceScreen
         android:fragment="org.dslul.openboard.inputmethod.latin.settings.AppearanceSettingsFragment"
-        android:icon="@drawable/ic_settings_appearance"
+        android:icon="@drawable/ui_kbs_ic_appearance"
         android:key="screen_appearance"
         android:title="@string/settings_screen_appearance" />
 
     <PreferenceScreen
         android:fragment="org.dslul.openboard.inputmethod.latin.settings.GestureSettingsFragment"
-        android:icon="@drawable/ic_settings_gesture"
+        android:icon="@drawable/ui_kbs_ic_gesture"
         android:key="screen_gesture"
         android:title="@string/settings_screen_gesture" />
 
     <PreferenceScreen
         android:fragment="org.dslul.openboard.inputmethod.latin.settings.CorrectionSettingsFragment"
-        android:icon="@drawable/ic_settings_correction"
+        android:icon="@drawable/ui_kbs_ic_correction"
         android:key="screen_correction"
         android:title="@string/settings_screen_correction" />
 
     <PreferenceScreen
         android:fragment="org.dslul.openboard.inputmethod.latin.settings.AdvancedSettingsFragment"
-        android:icon="@drawable/ic_settings_advanced"
+        android:icon="@drawable/ui_kbs_ic_advanced"
         android:key="screen_advanced"
         android:title="@string/settings_screen_advanced" />
 </PreferenceScreen>

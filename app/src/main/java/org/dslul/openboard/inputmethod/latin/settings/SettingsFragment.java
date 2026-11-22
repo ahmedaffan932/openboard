@@ -48,7 +48,7 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
         setHasOptionsMenu(true);
         setInputMethodSettingsCategoryTitle(R.string.language_selection_title);
         setSubtypeEnablerTitle(R.string.select_language);
-        setSubtypeEnablerIcon(R.drawable.ic_settings_languages);
+        setSubtypeEnablerIcon(R.drawable.ui_kbs_ic_languages);
         addPreferencesFromResource(R.xml.prefs);
         final PreferenceScreen preferenceScreen = getPreferenceScreen();
         preferenceScreen.setTitle(

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Keyboard settings: the toggle for SwitchPreference (TwoStatePreferenceHelper turns the XML
+     CheckBoxPreferences into these on API 21+), bound through android:id/switch_widget. The row
+     handles the tap, so the switch itself takes no input. -->
+<Switch xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/switch_widget"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:clickable="false"
+    android:focusable="false"
+    android:showText="false"
+    android:splitTrack="false"
+    android:thumb="@drawable/ui_switch_thumb"
+    android:track="@drawable/ui_switch_track" />

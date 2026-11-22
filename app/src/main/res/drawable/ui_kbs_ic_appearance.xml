@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Keyboard settings menu icon: "sparkles" on a purple tile. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="36dp"
+    android:height="36dp"
+    android:viewportWidth="36"
+    android:viewportHeight="36">
+    <path
+        android:pathData="M10,0H26A10,10 0,0 1,36 10V26A10,10 0,0 1,26 36H10A10,10 0,0 1,0 26V10A10,10 0,0 1,10 0Z"
+        android:fillColor="@color/home_purple_soft" />
+    <group
+        android:translateX="9"
+        android:translateY="9"
+        android:scaleX="0.75"
+        android:scaleY="0.75">
+        <path
+            android:pathData="M9.94 15.5A2 2 0 0 0 8.5 14.06l-6.14-1.58a.5.5 0 0 1 0-.96L8.5 9.94A2 2 0 0 0 9.94 8.5l1.58-6.14a.5.5 0 0 1 .96 0L14.06 8.5a2 2 0 0 0 1.44 1.44l6.14 1.58a.5.5 0 0 1 0 .96L15.5 14.06a2 2 0 0 0-1.44 1.44l-1.58 6.14a.5.5 0 0 1-.96 0z"
+            android:strokeColor="@color/home_purple"
+            android:strokeWidth="2.2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+    </group>
+</vector>

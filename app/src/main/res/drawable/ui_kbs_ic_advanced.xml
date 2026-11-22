@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Keyboard settings menu icon: "zap" on a danger tile. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="36dp"
+    android:height="36dp"
+    android:viewportWidth="36"
+    android:viewportHeight="36">
+    <path
+        android:pathData="M10,0H26A10,10 0,0 1,36 10V26A10,10 0,0 1,26 36H10A10,10 0,0 1,0 26V10A10,10 0,0 1,10 0Z"
+        android:fillColor="@color/home_danger_soft" />
+    <group
+        android:translateX="9"
+        android:translateY="9"
+        android:scaleX="0.75"
+        android:scaleY="0.75">
+        <path
+            android:pathData="M13 2 3 14h9l-1 8 10-12h-9l1-8z"
+            android:strokeColor="@color/home_danger"
+            android:strokeWidth="2.2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+    </group>
+</vector>
