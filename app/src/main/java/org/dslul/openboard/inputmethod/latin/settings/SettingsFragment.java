@@ -21,7 +21,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.provider.Settings.Secure;
 import android.view.Menu;
@@ -31,7 +30,6 @@ import android.view.MenuItem;
 import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.utils.ApplicationUtils;
 import org.dslul.openboard.inputmethod.latin.utils.FeedbackUtils;
-import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethodcommon.InputMethodSettingsFragment;
 
 public final class SettingsFragment extends InputMethodSettingsFragment {
@@ -53,10 +51,6 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
         final PreferenceScreen preferenceScreen = getPreferenceScreen();
         preferenceScreen.setTitle(
                 ApplicationUtils.getActivityTitleResId(getActivity(), SettingsActivity.class));
-        if (!JniUtils.sHaveGestureLib) {
-            final Preference gesturePreference = findPreference(Settings.SCREEN_GESTURE);
-            preferenceScreen.removePreference(gesturePreference);
-        }
     }
 
     @Override

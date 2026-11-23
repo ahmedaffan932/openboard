@@ -20,6 +20,7 @@ import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 import org.dslul.openboard.inputmethod.latin.common.ComposedData;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValuesForSuggestion;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -37,12 +38,20 @@ public final class ReadOnlyBinaryDictionary extends Dictionary {
     private final ReentrantReadWriteLock mLock = new ReentrantReadWriteLock();
 
     private final BinaryDictionary mBinaryDictionary;
+    private final String mContentId;
 
     public ReadOnlyBinaryDictionary(final String filename, final long offset, final long length,
             final boolean useFullEditDistance, final Locale locale, final String dictType) {
         super(dictType, locale);
         mBinaryDictionary = new BinaryDictionary(filename, offset, length, useFullEditDistance,
                 locale, dictType, false /* isUpdatable */);
+        // The APK path changes with every app update; a replaced dictionary file changes date.
+        mContentId = filename + ":" + offset + ":" + length + ":" + new File(filename).lastModified();
+    }
+
+    @Override
+    public String getContentId() {
+        return mContentId;
     }
 
     public boolean isValidDictionary() {
@@ -113,6 +122,27 @@ public final class ReadOnlyBinaryDictionary extends Dictionary {
             }
         }
         return NOT_A_PROBABILITY;
+    }
+
+    @Override
+    public void collectWords(final WordConsumer consumer) {
+        final String[] word = new String[1];
+        final int[] probability = new int[1];
+        int token = 0;
+        // Read in chunks so a pending close() never waits for the whole dictionary.
+        do {
+            mLock.readLock().lock();
+            try {
+                if (!mBinaryDictionary.isValidDictionary()) return;
+                for (int i = 0; i < 2000; i++) {
+                    token = mBinaryDictionary.getNextWordAndProbability(token, word, probability);
+                    if (!word[0].isEmpty()) consumer.accept(word[0], probability[0]);
+                    if (token == 0) break;
+                }
+            } finally {
+                mLock.readLock().unlock();
+            }
+        } while (token != 0);
     }
 
     @Override

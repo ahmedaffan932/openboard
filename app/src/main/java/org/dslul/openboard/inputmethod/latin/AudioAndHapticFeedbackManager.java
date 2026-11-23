@@ -18,6 +18,9 @@ package org.dslul.openboard.inputmethod.latin;
 
 import android.content.Context;
 import android.media.AudioManager;
+import android.os.Build;
+import android.os.VibrationAttributes;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
@@ -69,10 +72,21 @@ public final class AudioAndHapticFeedbackManager {
     }
 
     public void vibrate(final long milliseconds) {
-        if (mVibrator == null) {
+        if (mVibrator == null || milliseconds <= 0) {
             return;
         }
-        mVibrator.vibrate(milliseconds);
+        final VibrationEffect effect =
+                VibrationEffect.createOneShot(milliseconds, VibrationEffect.DEFAULT_AMPLITUDE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Since Android 13 a short vibration without a usage counts as touch feedback, which
+            // the system drops when its own touch vibration is off (and weakens when it is low).
+            // The keyboard's "Vibrate on keypress" switch decides here, as it does for the
+            // default vibration (FLAG_IGNORE_GLOBAL_SETTING), so play it as media vibration.
+            mVibrator.vibrate(effect,
+                    VibrationAttributes.createForUsage(VibrationAttributes.USAGE_MEDIA));
+        } else {
+            mVibrator.vibrate(effect);
+        }
     }
 
     private boolean reevaluateIfSoundIsOn() {

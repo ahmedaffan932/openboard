@@ -25,9 +25,11 @@ import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
+import org.dslul.openboard.inputmethod.latin.gesture.GestureTyping;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValuesForSuggestion;
 import org.dslul.openboard.inputmethod.latin.utils.AutoCorrectionUtils;
 import org.dslul.openboard.inputmethod.latin.utils.BinaryDictionaryUtils;
+import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
 import org.dslul.openboard.inputmethod.latin.utils.SuggestionResults;
 
 import java.util.ArrayList;
@@ -297,9 +299,14 @@ public final class Suggest {
             final SettingsValuesForSuggestion settingsValuesForSuggestion,
             final int inputStyle, final int sequenceNumber,
             final OnGetSuggestedWordsCallback callback) {
-        final SuggestionResults suggestionResults = mDictionaryFacilitator.getSuggestionResults(
-                wordComposer.getComposedDataSnapshot(), ngramContext, keyboard,
-                settingsValuesForSuggestion, SESSION_ID_GESTURE, inputStyle);
+        // Without Google's gesture library the native code can't decode a swipe (it would crash),
+        // so our own recognizer does it.
+        final SuggestionResults suggestionResults = JniUtils.sHaveGestureLib
+                ? mDictionaryFacilitator.getSuggestionResults(
+                        wordComposer.getComposedDataSnapshot(), ngramContext, keyboard,
+                        settingsValuesForSuggestion, SESSION_ID_GESTURE, inputStyle)
+                : GestureTyping.getSuggestionResults(wordComposer.getComposedDataSnapshot(),
+                        ngramContext, keyboard, mDictionaryFacilitator.getMainDictionary());
 
         // For transforming words that don't come from a dictionary, because it's our best bet
         final Locale locale = mDictionaryFacilitator.getLocale();

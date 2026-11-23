@@ -135,6 +135,10 @@ public interface DictionaryFacilitator {
     @UsedForTesting
     ExpandableBinaryDictionary getSubDictForTesting(final String dictName);
 
+    /** The main dictionary of the current language, or null while there is none. */
+    @Nullable
+    Dictionary getMainDictionary();
+
     // The main dictionaries are loaded asynchronously. Don't cache the return value
     // of these methods.
     boolean hasAtLeastOneInitializedMainDictionary();

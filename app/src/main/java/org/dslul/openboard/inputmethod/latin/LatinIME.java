@@ -80,6 +80,7 @@ import org.dslul.openboard.inputmethod.keyboard.MainKeyboardView;
 import org.dslul.openboard.inputmethod.latin.Suggest.OnGetSuggestedWordsCallback;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
+import org.dslul.openboard.inputmethod.latin.gesture.GestureTyping;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
 import org.dslul.openboard.inputmethod.latin.common.InputPointers;
 import org.dslul.openboard.inputmethod.latin.define.DebugFlags;
@@ -660,6 +661,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         mRichImm = RichInputMethodManager.getInstance();
         KeyboardSwitcher.init(this);
         AudioAndHapticFeedbackManager.init(this);
+        GestureTyping.init(this);
         AccessibilityUtils.init(this);
         mStatsUtilsManager.onCreate(this /* context */, mDictionaryFacilitator);
         super.onCreate();
@@ -825,6 +827,9 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
         if (mainKeyboardView != null) {
             mainKeyboardView.setMainDictionaryAvailability(isMainDictionaryAvailable);
+        }
+        if (isMainDictionaryAvailable && mSettings.getCurrent().mGestureInputEnabled) {
+            GestureTyping.preload(mDictionaryFacilitator.getMainDictionary());
         }
         if (mHandler.hasPendingWaitForDictionaryLoad()) {
             mHandler.cancelWaitForDictionaryLoad();
@@ -1214,6 +1219,9 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                 currentSettingsValues.mGestureInputEnabled,
                 currentSettingsValues.mGestureTrailEnabled,
                 currentSettingsValues.mGestureFloatingPreviewTextEnabled);
+        if (currentSettingsValues.mGestureInputEnabled) {
+            GestureTyping.preload(mDictionaryFacilitator.getMainDictionary());
+        }
 
         maybeOfferRecentClip(currentSettingsValues);
 

@@ -53,6 +53,7 @@ import org.dslul.openboard.inputmethod.latin.R;
 import org.dslul.openboard.inputmethod.latin.RichInputMethodSubtype;
 import org.dslul.openboard.inputmethod.latin.SuggestedWords;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
+import org.dslul.openboard.inputmethod.latin.gesture.GestureTyping;
 import org.dslul.openboard.inputmethod.latin.common.CoordinateUtils;
 import org.dslul.openboard.inputmethod.latin.settings.DebugSettings;
 import org.dslul.openboard.inputmethod.latin.utils.DeviceProtectedUtils;
@@ -404,6 +405,8 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         super.setKeyboard(keyboard);
         mKeyDetector.setKeyboard(
                 keyboard, -getPaddingLeft(), -getPaddingTop() + getVerticalCorrection());
+        GestureTyping.setTouchCorrection(
+                -getPaddingLeft(), (int) (-getPaddingTop() + getVerticalCorrection()));
         PointerTracker.setKeyDetector(mKeyDetector);
         mMoreKeysKeyboardCache.clear();
 

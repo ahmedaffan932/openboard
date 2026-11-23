@@ -470,6 +470,12 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
 
     // The main dictionaries are loaded asynchronously.  Don't cache the return value
     // of these methods.
+    @Override
+    @Nullable
+    public Dictionary getMainDictionary() {
+        return mDictionaryGroup.getDict(Dictionary.TYPE_MAIN);
+    }
+
     public boolean hasAtLeastOneInitializedMainDictionary() {
         final Dictionary mainDict = mDictionaryGroup.getDict(Dictionary.TYPE_MAIN);
         return mainDict != null && mainDict.isInitialized();

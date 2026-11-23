@@ -153,6 +153,27 @@ public abstract class Dictionary {
         return true;
     }
 
+    /** Receives the words of a dictionary, see {@link #collectWords}. */
+    public interface WordConsumer {
+        void accept(String word, int probability);
+    }
+
+    /**
+     * Hands every word with its probability to the consumer. Only the read-only main dictionaries
+     * implement this (it feeds swipe typing); the default does nothing.
+     */
+    public void collectWords(final WordConsumer consumer) {
+        // empty base implementation
+    }
+
+    /**
+     * Identifies the content of this dictionary (its file and version), or null if unknown. Data
+     * derived from a dictionary, like the swipe typing word list, is cached under this id.
+     */
+    public String getContentId() {
+        return null;
+    }
+
     /**
      * Override to clean up any resources.
      */

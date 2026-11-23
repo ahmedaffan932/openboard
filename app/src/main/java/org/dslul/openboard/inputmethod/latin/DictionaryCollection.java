@@ -83,6 +83,24 @@ public final class DictionaryCollection extends Dictionary {
     }
 
     @Override
+    public void collectWords(final WordConsumer consumer) {
+        for (final Dictionary dictionary : mDictionaries) {
+            dictionary.collectWords(consumer);
+        }
+    }
+
+    @Override
+    public String getContentId() {
+        final StringBuilder id = new StringBuilder();
+        for (final Dictionary dictionary : mDictionaries) {
+            final String part = dictionary.getContentId();
+            if (part == null) return null;
+            id.append(part).append('|');
+        }
+        return id.length() == 0 ? null : id.toString();
+    }
+
+    @Override
     public boolean isInDictionary(final String word) {
         for (int i = mDictionaries.size() - 1; i >= 0; --i)
             if (mDictionaries.get(i).isInDictionary(word)) return true;

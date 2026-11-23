@@ -443,6 +443,28 @@ public final class BinaryDictionary extends Dictionary {
                 getWordProperty(word, isBeginningOfSentence[0]), nextToken);
     }
 
+    /**
+     * Cheap word iteration without n-gram data, for the swipe typing word list. Start with token
+     * 0; returns the next token (0 when done) and puts the word ("" for the beginning-of-sentence
+     * marker) and its probability into the out arrays.
+     */
+    public int getNextWordAndProbability(final int token, final String[] outWord,
+            final int[] outProbability) {
+        final int[] codePoints = new int[DICTIONARY_MAX_WORD_LENGTH];
+        final boolean[] isBeginningOfSentence = new boolean[1];
+        final int nextToken = getNextWordNative(mNativeDict, token, codePoints,
+                isBeginningOfSentence);
+        final String word = StringUtils.getStringFromNullTerminatedCodePointArray(codePoints);
+        if (isBeginningOfSentence[0] || word.isEmpty()) {
+            outWord[0] = "";
+            outProbability[0] = NOT_A_PROBABILITY;
+        } else {
+            outWord[0] = word;
+            outProbability[0] = getFrequency(word);
+        }
+        return nextToken;
+    }
+
     // Add a unigram entry to binary dictionary with unigram attributes in native code.
     public boolean addUnigramEntry(final String word, final int probability,
             final String shortcutTarget, final int shortcutProbability,
