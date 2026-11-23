@@ -15,3 +15,5 @@ fastlane/Appfile
 # JVM crash / JIT replay logs
 replay_pid*.log
 hs_err_pid*.log
+# graphify knowledge-graph output (generated)
+graphify-out/
