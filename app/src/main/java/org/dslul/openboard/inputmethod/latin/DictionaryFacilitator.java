@@ -135,6 +135,12 @@ public interface DictionaryFacilitator {
     @UsedForTesting
     ExpandableBinaryDictionary getSubDictForTesting(final String dictName);
 
+    /**
+     * Whether the main dictionary flags the word (in any letter case) as possibly offensive.
+     * Learned words carry no flag, so "Block offensive words" checks them with this.
+     */
+    boolean isPossiblyOffensiveWord(String word);
+
     /** The main dictionary of the current language, or null while there is none. */
     @Nullable
     Dictionary getMainDictionary();

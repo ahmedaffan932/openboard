@@ -90,6 +90,14 @@ public final class DictionaryCollection extends Dictionary {
     }
 
     @Override
+    public boolean isPossiblyOffensive(final String word) {
+        for (final Dictionary dictionary : mDictionaries) {
+            if (dictionary.isPossiblyOffensive(word)) return true;
+        }
+        return false;
+    }
+
+    @Override
     public String getContentId() {
         final StringBuilder id = new StringBuilder();
         for (final Dictionary dictionary : mDictionaries) {

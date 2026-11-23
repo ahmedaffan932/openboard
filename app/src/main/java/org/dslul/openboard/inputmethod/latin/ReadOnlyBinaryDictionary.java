@@ -18,6 +18,7 @@ package org.dslul.openboard.inputmethod.latin;
 
 import org.dslul.openboard.inputmethod.latin.SuggestedWords.SuggestedWordInfo;
 import org.dslul.openboard.inputmethod.latin.common.ComposedData;
+import org.dslul.openboard.inputmethod.latin.makedict.WordProperty;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValuesForSuggestion;
 
 import java.io.File;
@@ -52,6 +53,21 @@ public final class ReadOnlyBinaryDictionary extends Dictionary {
     @Override
     public String getContentId() {
         return mContentId;
+    }
+
+    @Override
+    public boolean isPossiblyOffensive(final String word) {
+        if (mLock.readLock().tryLock()) {
+            try {
+                if (!mBinaryDictionary.isValidDictionary()) return false;
+                final WordProperty property = mBinaryDictionary.getWordProperty(word,
+                        false /* isBeginningOfSentence */);
+                return property != null && property.mIsPossiblyOffensive;
+            } finally {
+                mLock.readLock().unlock();
+            }
+        }
+        return false;
     }
 
     public boolean isValidDictionary() {

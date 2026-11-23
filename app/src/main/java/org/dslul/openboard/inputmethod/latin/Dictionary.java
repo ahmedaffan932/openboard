@@ -167,6 +167,14 @@ public abstract class Dictionary {
     }
 
     /**
+     * Whether this dictionary flags the word (exactly as given) as possibly offensive. Only the
+     * read-only main dictionaries carry the flag; the default is false.
+     */
+    public boolean isPossiblyOffensive(final String word) {
+        return false;
+    }
+
+    /**
      * Identifies the content of this dictionary (its file and version), or null if unknown. Data
      * derived from a dictionary, like the swipe typing word list, is cached under this id.
      */

@@ -33,6 +33,7 @@ import org.dslul.openboard.inputmethod.latin.permissions.PermissionsUtil;
 import org.dslul.openboard.inputmethod.latin.personalization.UserHistoryDictionary;
 import org.dslul.openboard.inputmethod.latin.settings.SettingsValuesForSuggestion;
 import org.dslul.openboard.inputmethod.latin.utils.ExecutorUtils;
+import org.dslul.openboard.inputmethod.latin.utils.OffensiveWordFilter;
 import org.dslul.openboard.inputmethod.latin.utils.SuggestionResults;
 
 import java.io.File;
@@ -42,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -552,7 +554,8 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
             return;
         }
         final int maxFreq = getFrequency(word);
-        if (maxFreq == 0 && blockPotentiallyOffensive) {
+        if (!OffensiveWordFilter.mayLearn(word, maxFreq, blockPotentiallyOffensive,
+                this::isPossiblyOffensiveWord)) {
             return;
         }
         final String lowerCasedWord = word.toLowerCase(dictionaryGroup.mLocale);
@@ -643,7 +646,45 @@ public class DictionaryFacilitatorImpl implements DictionaryFacilitator {
                 suggestionResults.mRawSuggestions.addAll(dictionarySuggestions);
             }
         }
+        if (settingsValuesForSuggestion.mBlockPotentiallyOffensive) {
+            // The main dictionary already hides its flagged words; words from the typing history
+            // and other learned dictionaries have no flag, so check them against the main one.
+            final Iterator<SuggestedWordInfo> iterator = suggestionResults.iterator();
+            while (iterator.hasNext()) {
+                final SuggestedWordInfo info = iterator.next();
+                if (Dictionary.TYPE_MAIN.equals(info.mSourceDict.mDictType)) continue;
+                if (OffensiveWordFilter.shouldHide(info.mWord, composedData.mTypedWord,
+                        this::isPossiblyOffensiveWord)) {
+                    iterator.remove();
+                }
+            }
+        }
         return suggestionResults;
+    }
+
+    // Main-dictionary offensive flags by "locale:lower-case word"; see isPossiblyOffensiveWord.
+    private final LruCache<String, Boolean> mOffensiveWordCache = new LruCache<>(500);
+
+    @Override
+    public boolean isPossiblyOffensiveWord(final String word) {
+        if (TextUtils.isEmpty(word)) {
+            return false;
+        }
+        final Locale locale = mDictionaryGroup.mLocale;
+        final Dictionary mainDict = mDictionaryGroup.getDict(Dictionary.TYPE_MAIN);
+        if (locale == null || mainDict == null || !mainDict.isInitialized()) {
+            return false;
+        }
+        final String lowerCase = word.toLowerCase(locale);
+        final String key = locale + ":" + lowerCase;
+        final Boolean cached = mOffensiveWordCache.get(key);
+        if (cached != null) {
+            return cached;
+        }
+        final boolean offensive = mainDict.isPossiblyOffensive(lowerCase)
+                || (!lowerCase.equals(word) && mainDict.isPossiblyOffensive(word));
+        mOffensiveWordCache.put(key, offensive);
+        return offensive;
     }
 
     public boolean isValidSpellingWord(final String word) {

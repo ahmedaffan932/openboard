@@ -30,10 +30,12 @@ import org.dslul.openboard.inputmethod.latin.settings.SettingsValuesForSuggestio
 import org.dslul.openboard.inputmethod.latin.utils.AutoCorrectionUtils;
 import org.dslul.openboard.inputmethod.latin.utils.BinaryDictionaryUtils;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
+import org.dslul.openboard.inputmethod.latin.utils.OffensiveWordFilter;
 import org.dslul.openboard.inputmethod.latin.utils.SuggestionResults;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -307,6 +309,16 @@ public final class Suggest {
                         settingsValuesForSuggestion, SESSION_ID_GESTURE, inputStyle)
                 : GestureTyping.getSuggestionResults(wordComposer.getComposedDataSnapshot(),
                         ngramContext, keyboard, mDictionaryFacilitator.getMainDictionary());
+        if (!JniUtils.sHaveGestureLib && settingsValuesForSuggestion.mBlockPotentiallyOffensive) {
+            // A swipe has no typed word, so every flagged word is hidden.
+            final Iterator<SuggestedWordInfo> iterator = suggestionResults.iterator();
+            while (iterator.hasNext()) {
+                if (OffensiveWordFilter.shouldHide(iterator.next().mWord, null,
+                        mDictionaryFacilitator::isPossiblyOffensiveWord)) {
+                    iterator.remove();
+                }
+            }
+        }
 
         // For transforming words that don't come from a dictionary, because it's our best bet
         final Locale locale = mDictionaryFacilitator.getLocale();
