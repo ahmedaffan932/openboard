@@ -403,6 +403,7 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         setSelectedLng()
+        org.dslul.openboard.translator.pro.learn.LearnEntryCards.bindHome(this, binding.learnCard)
         try {
             val history = Misc.getHistory(requireActivity())
             if (history.isEmpty()) {

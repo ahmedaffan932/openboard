@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Tú or usted?",
+  "body": "Spanish has two words for \"you\". Use tú with friends and family. Use usted with strangers and older people to be polite. The verb changes too: ¿Hablas inglés? (tú), ¿Habla inglés? (usted).",
+  "examples": ["how_are_you", "and_you", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 2,
+  "title": "Saying where you are from",
+  "body": "Use soy (I am) + de + a place: Soy de México. Use soy for your job too, with no \"a\": Soy estudiante. You can leave out yo (I), because soy already means \"I am\".",
+  "examples": ["i_am_from_mexico", "where_are_you_from", "i_am_a_student"]
+ },
+ {
+  "unit": 4,
+  "title": "Every noun is el or la",
+  "body": "Every Spanish noun is male (el) or female (la), even food. Most nouns ending in -o take el: el vino. Most ending in -a take la: la manzana. Learn each noun together with its el or la.",
+  "examples": ["wine", "cheese", "apple", "table"]
+ },
+ {
+  "unit": 8,
+  "title": "Two verbs for \"to be\"",
+  "body": "Spanish has two verbs for \"to be\". Ser is for what someone is like: Él es alto. Estar is for how someone feels now: Estamos cansados. For a woman, -o often becomes -a: alta, cansada.",
+  "examples": ["he_is_tall", "my_family_is_big", "we_are_tired", "she_is_happy"]
+ },
+ {
+  "unit": 9,
+  "title": "Verbs for \"I\" end in -o",
+  "body": "Spanish verbs change their ending for each person. For \"I\", most verbs end in -o: hablar → hablo, comer → como, trabajar → trabajo. The ending already means \"I\", so yo is often left out.",
+  "examples": ["to_eat", "i_eat_bread", "i_drink_water", "i_work_every_day"]
+ },
+ {
+  "unit": 10,
+  "title": "Me gusta and me duele",
+  "body": "To say you like something, Spanish says \"it pleases me\": Me gusta el café. Put no first to say you don't: No me gusta el té. Pain works the same way: Me duele la cabeza.",
+  "examples": ["i_like_coffee", "i_dont_like_tea", "my_head_hurts", "my_stomach_hurts"]
+ },
+ {
+  "unit": 12,
+  "title": "Describing words go after",
+  "body": "Words that describe a noun usually come after it: un coche caro = an expensive car. They also change to match the noun: un día bonito, una ciudad bonita.",
+  "examples": ["expensive_car", "what_a_beautiful_day", "the_city_is_beautiful", "my_car_is_red"]
+ }
+]

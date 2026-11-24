@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Être poli",
+  "body": "Les anglophones disent très souvent please et thank you. \"Thanks\" est la forme familière de \"thank you\". Pour répondre à un thank you, dites \"You're welcome\".",
+  "examples": ["please", "thank_you_very_much", "youre_welcome"]
+ },
+ {
+  "unit": 2,
+  "title": "I am, you are, he is",
+  "body": "Le verbe \"to be\" (être) change selon la personne : I am, you are, he is, she is. À l'oral, on utilise souvent la forme courte : I'm, you're, he's, she's.",
+  "examples": ["i_am", "you_are", "she_is", "i_am_a_student"]
+ },
+ {
+  "unit": 3,
+  "title": "Dire l'heure",
+  "body": "Pour une heure pile, dites \"It is ... o'clock\". \"O'clock\" s'utilise seulement avec les heures pile : it is two o'clock, mais it is two thirty.",
+  "examples": ["what_time_is_it", "its_one_oclock", "its_two_oclock"]
+ },
+ {
+  "unit": 4,
+  "title": "Commander poliment",
+  "body": "\"I would like\" (en court : I'd like) est la façon polie de demander quelque chose. Ajoutez \"please\" à la fin.",
+  "examples": ["i_would_like_a_coffee", "a_glass_of_water", "the_bill_please"]
+ },
+ {
+  "unit": 8,
+  "title": "Décrire les gens",
+  "body": "Les adjectifs anglais ne changent jamais : a tall man, a tall woman, tall people. Ils se placent après \"is\" ou devant le nom.",
+  "examples": ["he_is_tall", "she_is_happy", "we_are_tired"]
+ },
+ {
+  "unit": 9,
+  "title": "I work ou I am working ?",
+  "body": "Utilisez la forme simple pour les habitudes (I work every day) et \"am + -ing\" pour ce qui se passe en ce moment (I am reading a book).",
+  "examples": ["i_work_every_day", "i_read_a_book", "i_go_home"]
+ },
+ {
+  "unit": 12,
+  "title": "Very et too",
+  "body": "\"Very\" rend un mot plus fort : very good. \"Too\" veut dire plus que ce que l'on veut : too expensive.",
+  "examples": ["this_is_very_good", "it_is_too_expensive", "it_is_not_difficult"]
+ }
+]

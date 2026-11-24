@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Phrase flashcards (Figma "Practice · Flashcard front/back", "Practice · Done"). -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/home_bg"
+    tools:context=".learn.PhraseCardsActivity">
+
+    <LinearLayout
+        android:id="@+id/llCards"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp">
+
+            <ImageView
+                android:id="@+id/btnClose"
+                style="@style/Widget.Ui.IconButton"
+                android:contentDescription="@string/learn_close"
+                android:outlineSpotShadowColor="@color/home_shadow"
+                app:srcCompat="@drawable/ic_ui_x"
+                app:tint="@color/home_text_primary"
+                tools:targetApi="p" />
+
+            <ProgressBar
+                android:id="@+id/pbCards"
+                style="@style/Widget.Ui.Progress"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:max="100"
+                android:maxHeight="10dp"
+                android:minHeight="10dp" />
+
+            <TextView
+                android:id="@+id/tvCounter"
+                style="@style/HomeText.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:textColor="@color/home_text_secondary"
+                tools:text="3 / 10" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:id="@+id/llCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_learn_flashcard"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:focusable="true"
+                android:gravity="center"
+                android:minHeight="380dp"
+                android:orientation="vertical"
+                android:outlineSpotShadowColor="@color/home_shadow"
+                android:padding="20dp"
+                tools:targetApi="p">
+
+                <TextView
+                    android:id="@+id/tvTopic"
+                    style="@style/HomeText.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_learn_chip_accent"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/home_accent"
+                    tools:text="At the Hotel" />
+
+                <TextView
+                    android:id="@+id/tvFront"
+                    style="@style/HomeText.Display"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    tools:text="Is breakfast included?" />
+
+                <View
+                    android:id="@+id/vDivider"
+                    android:layout_width="240dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/home_border"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tvBack"
+                    style="@style/HomeText.Display"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    tools:text="¿El desayuno está incluido?" />
+
+                <LinearLayout
+                    android:id="@+id/llSpeak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:clipToPadding="false"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/ivSpeak"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:background="@drawable/bg_ui_circle_primary"
+                        android:contentDescription="@string/learn_speak"
+                        android:elevation="4dp"
+                        android:outlineSpotShadowColor="@color/home_shadow_blue"
+                        android:padding="14dp"
+                        app:srcCompat="@drawable/ic_ui_speaker"
+                        app:tint="@color/home_on_accent"
+                        tools:targetApi="p" />
+
+                    <TextView
+                        android:id="@+id/tvSlow"
+                        style="@style/HomeText.Label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/bg_learn_chip_accent"
+                        android:drawablePadding="6dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:paddingTop="6dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="6dp"
+                        android:text="@string/learn_slow"
+                        android:textColor="@color/home_accent"
+                        app:drawableStartCompat="@drawable/ic_ui_speaker"
+                        app:drawableTint="@color/home_accent" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvHint"
+                    style="@style/HomeText.CaptionMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:drawablePadding="6dp"
+                    android:gravity="center_vertical"
+                    app:drawableStartCompat="@drawable/ic_ui_rotate"
+                    app:drawableTint="@color/home_text_muted"
+                    tools:text="Tap to see it in Spanish" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/btnShow"
+            style="@style/Widget.Ui.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/learn_show_answer"
+            tools:targetApi="p" />
+
+        <LinearLayout
+            android:id="@+id/llAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/btnLearning"
+                style="@style/Widget.Ui.Button.Secondary"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:text="@string/learn_still_learning" />
+
+            <TextView
+                android:id="@+id/btnKnow"
+                style="@style/Widget.Ui.Button"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_learn_button_success"
+                android:text="@string/learn_i_know_it"
+                android:textColor="@color/home_on_accent" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Done -->
+    <LinearLayout
+        android:id="@+id/llDone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/home_bg"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="48dp"
+        android:paddingEnd="20dp"
+        android:visibility="gone">
+
+        <FrameLayout
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:background="@drawable/bg_ui_circle_purple">
+
+            <FrameLayout
+                android:layout_width="92dp"
+                android:layout_height="92dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_ui_circle_surface"
+                android:elevation="2dp"
+                tools:targetApi="p">
+
+                <ImageView
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center"
+                    android:importantForAccessibility="no"
+                    app:srcCompat="@drawable/ic_ui_trophy"
+                    app:tint="@color/home_purple" />
+            </FrameLayout>
+        </FrameLayout>
+
+        <TextView
+            style="@style/HomeText.Display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/learn_practice_done" />
+
+        <TextView
+            android:id="@+id/tvDoneDesc"
+            style="@style/HomeText.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:textColor="@color/home_text_secondary"
+            tools:text="At the Hotel · English → Spanish" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_ui_card"
+            android:elevation="2dp"
+            android:orientation="horizontal"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            tools:targetApi="p">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvKnown"
+                    style="@style/HomeText.Display"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/home_success"
+                    tools:text="8" />
+
+                <TextView
+                    style="@style/HomeText.CaptionMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/learn_i_know_it"
+                    android:textColor="@color/home_text_secondary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvLearning"
+                    style="@style/HomeText.Display"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/home_orange"
+                    tools:text="2" />
+
+                <TextView
+                    style="@style/HomeText.CaptionMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/learn_still_learning"
+                    android:textColor="@color/home_text_secondary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTopicDone"
+                    style="@style/HomeText.Display"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/home_accent"
+                    tools:text="17/17" />
+
+                <TextView
+                    style="@style/HomeText.CaptionMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/learn_topic_done_stat"
+                    android:textColor="@color/home_text_secondary" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/btnAgain"
+            style="@style/Widget.Ui.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="@string/learn_practice_again"
+            tools:targetApi="p" />
+
+        <TextView
+            android:id="@+id/btnBackToPhrasebook"
+            style="@style/Widget.Ui.Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="12dp"
+            android:text="@string/learn_back_to_phrasebook" />
+
+        <FrameLayout
+            android:id="@+id/flAd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+    </LinearLayout>
+</FrameLayout>

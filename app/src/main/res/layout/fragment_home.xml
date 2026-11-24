@@ -491,6 +491,11 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <!-- Learn a language (translator/pro/learn). -->
+            <include
+                android:id="@+id/learnCard"
+                layout="@layout/learn_home_card" />
+
             <!-- Recent translations. -->
             <LinearLayout
                 android:id="@+id/clHistory"

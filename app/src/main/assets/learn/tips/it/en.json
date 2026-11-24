@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Essere gentili",
+  "body": "Chi parla inglese dice molto spesso please e thank you. \"Thanks\" è la forma informale di \"thank you\". A un thank you si risponde con \"You're welcome\".",
+  "examples": ["please", "thank_you_very_much", "youre_welcome"]
+ },
+ {
+  "unit": 2,
+  "title": "I am, you are, he is",
+  "body": "Il verbo \"to be\" (essere) cambia con la persona: I am, you are, he is, she is. Quando si parla, di solito si usa la forma breve: I'm, you're, he's, she's.",
+  "examples": ["i_am", "you_are", "she_is", "i_am_a_student"]
+ },
+ {
+  "unit": 3,
+  "title": "Dire l'ora",
+  "body": "Per le ore esatte si dice \"It is ... o'clock\". \"O'clock\" si usa solo con le ore esatte: it is two o'clock, ma it is two thirty.",
+  "examples": ["what_time_is_it", "its_one_oclock", "its_two_oclock"]
+ },
+ {
+  "unit": 4,
+  "title": "Ordinare con gentilezza",
+  "body": "\"I would like\" (in breve: I'd like) è il modo gentile per chiedere qualcosa. Aggiungi \"please\" alla fine.",
+  "examples": ["i_would_like_a_coffee", "a_glass_of_water", "the_bill_please"]
+ },
+ {
+  "unit": 8,
+  "title": "Descrivere le persone",
+  "body": "Gli aggettivi inglesi non cambiano mai: a tall man, a tall woman, tall people. Vanno dopo \"is\" o prima del nome.",
+  "examples": ["he_is_tall", "she_is_happy", "we_are_tired"]
+ },
+ {
+  "unit": 9,
+  "title": "I work o I am working?",
+  "body": "Usa la forma semplice per le abitudini (I work every day) e \"am + -ing\" per quello che succede adesso (I am reading a book).",
+  "examples": ["i_work_every_day", "i_read_a_book", "i_go_home"]
+ },
+ {
+  "unit": 12,
+  "title": "Very e too",
+  "body": "\"Very\" rende una parola più forte: very good. \"Too\" vuol dire più di quanto vorresti: too expensive.",
+  "examples": ["this_is_very_good", "it_is_too_expensive", "it_is_not_difficult"]
+ }
+]

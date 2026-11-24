@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A lesson, practice round, test-out or phrase quiz (Figma section 12 "Learn · Lessons"). The top bar
+     (close + progress) stays; LessonActivity inflates one learn_ex_* view per exercise into
+     flExercise. Checking shows the correct/wrong sheet; the end shows learn_lesson_result. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/home_bg"
+    tools:context=".learn.LessonActivity">
+
+    <LinearLayout
+        android:id="@+id/llLesson"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp">
+
+            <ImageView
+                android:id="@+id/btnClose"
+                style="@style/Widget.Ui.IconButton"
+                android:contentDescription="@string/learn_close"
+                android:outlineSpotShadowColor="@color/home_shadow"
+                app:srcCompat="@drawable/ic_ui_x"
+                app:tint="@color/home_text_primary"
+                tools:targetApi="p" />
+
+            <ProgressBar
+                android:id="@+id/pbLesson"
+                style="@style/Widget.Ui.Progress"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:max="1000"
+                android:maxHeight="10dp"
+                android:minHeight="10dp"
+                tools:progress="300" />
+
+            <TextView
+                android:id="@+id/tvCounter"
+                style="@style/HomeText.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:textColor="@color/home_text_secondary"
+                android:visibility="gone"
+                tools:text="3 / 10" />
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/svExercise"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true"
+            android:overScrollMode="never">
+
+            <FrameLayout
+                android:id="@+id/flExercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="16dp" />
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/btnCheck"
+            style="@style/Widget.Ui.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/learn_check"
+            tools:targetApi="p" />
+    </LinearLayout>
+
+    <!-- Correct / wrong sheet -->
+    <LinearLayout
+        android:id="@+id/llFeedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bg_learn_sheet_success"
+        android:clickable="true"
+        android:elevation="8dp"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingTop="18dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/flFeedbackIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/bg_learn_status_success">
+
+                <ImageView
+                    android:id="@+id/ivFeedbackIcon"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:importantForAccessibility="no"
+                    app:srcCompat="@drawable/ic_ui_check"
+                    app:tint="@color/home_on_accent" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvFeedbackTitle"
+                style="@style/HomeText.Screen"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:textColor="@color/home_success"
+                tools:text="Great job!" />
+
+            <TextView
+                android:id="@+id/tvReport"
+                style="@style/HomeText.CaptionMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_ui_row_ripple"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                android:padding="6dp"
+                android:text="@string/learn_report"
+                app:drawableStartCompat="@drawable/ic_ui_alert"
+                app:drawableTint="@color/home_text_muted" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvFeedbackLabel"
+            style="@style/HomeText.Label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/home_success"
+            tools:text="Correct answer:" />
+
+        <LinearLayout
+            android:id="@+id/llFeedbackAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvFeedbackAnswer"
+                style="@style/HomeText.BodyLarge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="¿Dónde está el hotel?" />
+
+            <ImageView
+                android:id="@+id/ivFeedbackSpeak"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_ui_round_ripple"
+                android:contentDescription="@string/learn_speak"
+                android:padding="8dp"
+                app:srcCompat="@drawable/ic_ui_speaker"
+                app:tint="@color/home_success" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvFeedbackNote"
+            style="@style/HomeText.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:visibility="gone"
+            tools:text="We will ask this one again at the end of the lesson."
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/btnFeedbackContinue"
+            style="@style/Widget.Ui.Button"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/bg_learn_button_success"
+            android:text="@string/learn_continue"
+            android:textColor="@color/home_on_accent" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/result"
+        layout="@layout/learn_lesson_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+</FrameLayout>

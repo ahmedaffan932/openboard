@@ -22,6 +22,7 @@ class BootReceiver : BroadcastReceiver() {
                 Log.d(TAG, "BootReceiver: ${intent.action} — rescheduling notifications")
                 NotiConfig.load(context)
                 NotiScheduler.scheduleAll(context)
+                org.dslul.openboard.translator.pro.learn.LearnReminder.schedule(context)
             }
         }
     }

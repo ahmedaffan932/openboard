@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Tu or Lei?",
+  "body": "Italian has two ways to say \"you\". Use \"tu\" with friends, family and children. Use \"Lei\" with strangers and in shops. With Lei, the verb takes the \"he/she\" form: parla, può.",
+  "examples": ["and_you", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 2,
+  "title": "Sono, sei, è",
+  "body": "The verb \"essere\" (to be) changes with the person: io sono, tu sei, lui è, lei è. Italians often leave out io, tu and lui: \"Sono uno studente\" means I am a student.",
+  "examples": ["i_am", "you_are", "he_is", "i_am_a_student"]
+ },
+ {
+  "unit": 3,
+  "title": "Il, la and l'",
+  "body": "Every noun is an \"il\" word or a \"la\" word. Most ending in -o take il: il numero. Most ending in -a take la: la mattina. Before a, e, i, o, u, both become l': l'ora. Some il words use lo: lo studente.",
+  "examples": ["number", "morning", "hour", "student"]
+ },
+ {
+  "unit": 4,
+  "title": "Hungry? Use avere",
+  "body": "Italian says \"I have hunger\": ho fame, ho sete. Age works the same way: \"Ho 25 anni\" is \"I have 25 years\". Ho comes from the verb avere (to have). The h is silent.",
+  "examples": ["i_am_hungry", "i_am_thirsty", "i_am_25"]
+ },
+ {
+  "unit": 7,
+  "title": "Saying not: non",
+  "body": "To say \"not\", just put non before the verb: capisco, non capisco. Nothing else changes. \"Non c'è\" means \"there isn't\".",
+  "examples": ["i_dont_understand", "i_dont_eat_meat", "there_is_no_hot_water"]
+ },
+ {
+  "unit": 8,
+  "title": "Words that match",
+  "body": "Describing words change their ending to match: alto for a man, alta for a woman, stanchi for a group. Words ending in -e, like felice, stay the same for men and women.",
+  "examples": ["he_is_tall", "she_is_happy", "we_are_tired"]
+ },
+ {
+  "unit": 9,
+  "title": "Verbs ending in -are",
+  "body": "Many verbs end in -are, like parlare and lavorare. For \"I\", swap -are for -o: parlo, lavoro. For \"you\" (tu), use -i: parli. You can usually leave out io.",
+  "examples": ["i_speak_english", "i_eat_bread", "i_work_today"]
+ }
+]

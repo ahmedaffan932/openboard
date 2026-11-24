@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Being polite",
+  "body": "English speakers say please and thank you a lot. \"Thanks\" is the casual form of \"thank you\". Answer a thank you with \"You're welcome\".",
+  "examples": ["please", "thank_you_very_much", "youre_welcome"]
+ },
+ {
+  "unit": 2,
+  "title": "I am, you are, he is",
+  "body": "The verb \"to be\" changes with the person: I am, you are, he is, she is. In speech it is usually short: I'm, you're, he's, she's.",
+  "examples": ["i_am", "you_are", "she_is", "i_am_a_student"]
+ },
+ {
+  "unit": 3,
+  "title": "Telling the time",
+  "body": "For full hours, say \"It is ... o'clock\". \"O'clock\" is only used with whole hours: it is two o'clock, but it is two thirty.",
+  "examples": ["what_time_is_it", "its_one_oclock", "its_two_oclock"]
+ },
+ {
+  "unit": 4,
+  "title": "Ordering politely",
+  "body": "\"I would like\" (short: I'd like) is the polite way to ask for something. Add \"please\" at the end.",
+  "examples": ["i_would_like_a_coffee", "a_glass_of_water", "the_bill_please"]
+ },
+ {
+  "unit": 8,
+  "title": "Describing people",
+  "body": "English describing words never change: a tall man, a tall woman, tall people. They come after \"is\" or before the noun.",
+  "examples": ["he_is_tall", "she_is_happy", "we_are_tired"]
+ },
+ {
+  "unit": 9,
+  "title": "I work or I am working?",
+  "body": "Use the simple form for habits (I work every day) and \"am + -ing\" for what is happening now (I am reading a book).",
+  "examples": ["i_work_every_day", "i_read_a_book", "i_go_home"]
+ },
+ {
+  "unit": 12,
+  "title": "Very and too",
+  "body": "\"Very\" makes a word stronger: very good. \"Too\" means more than you want: too expensive.",
+  "examples": ["this_is_very_good", "it_is_too_expensive", "it_is_not_difficult"]
+ }
+]

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Learn module strings (translated from values/strings_learn.xml). -->
+<resources>
+    <!-- Home card -->
+    <string name="learn_card_title">कोई भाषा सीखें</string>
+    <string name="learn_card_subtitle">रोज़ 5 मिनट · मुफ़्त पाठ</string>
+    <string name="learn_badge_new">नया</string>
+    <string name="learn_card_start">शुरू करें</string>
+    <string name="learn_unit_title_full">यूनिट %1$d · %2$s</string>
+    <string name="learn_today_goal">आज का लक्ष्य</string>
+    <plurals name="learn_goal_progress">
+        <item quantity="one">%2$d में से %1$d पाठ</item>
+        <item quantity="other">%2$d में से %1$d पाठ</item>
+    </plurals>
+    <string name="learn_continue_lesson">पाठ जारी रखें</string>
+    <string name="learn_course_done">कोर्स पूरा हुआ! अभ्यास करते रहें।</string>
+
+    <!-- Phrasebook card -->
+    <string name="learn_practice_phrases">वाक्यांशों का अभ्यास करें</string>
+    <string name="learn_practice_phrases_desc">58 भाषाओं में खुद को परखें</string>
+
+    <!-- Onboarding -->
+    <string name="learn_title">कोई भाषा सीखें</string>
+    <string name="learn_ob_course_title">आप क्या सीखना चाहते हैं?</string>
+    <string name="learn_ob_course_desc">पाठ आपकी ऐप भाषा %1$s में समझाए जाते हैं।</string>
+    <string name="learn_course_beginner">शुरुआती · %1$d यूनिट</string>
+    <string name="learn_popular">लोकप्रिय</string>
+    <string name="learn_ob_level_title">आपको %1$s कितनी आती है?</string>
+    <string name="learn_ob_level_new">%1$s मेरे लिए बिल्कुल नई है</string>
+    <string name="learn_ob_level_new_desc">बिल्कुल पहले पाठ से शुरू करें।</string>
+    <string name="learn_ob_level_some">मुझे थोड़ी %1$s आती है</string>
+    <string name="learn_ob_level_some_desc">15 सवालों का एक छोटा टेस्ट दें। पास होने पर यूनिट 1–3 छोड़ दी जाएँगी।</string>
+    <string name="learn_ob_goal_title">रोज़ का लक्ष्य चुनें</string>
+    <string name="learn_ob_goal_desc">कम पर नियमित अभ्यास, ज़्यादा पर कभी-कभार से बेहतर है। आप इसे बाद में बदल सकते हैं।</string>
+    <string name="learn_goal_casual">आसान</string>
+    <string name="learn_goal_regular">नियमित</string>
+    <string name="learn_goal_serious">गंभीर</string>
+    <string name="learn_goal_casual_desc">रोज़ 1 पाठ · लगभग 5 मिनट</string>
+    <string name="learn_goal_regular_desc">रोज़ 2 पाठ · लगभग 10 मिनट</string>
+    <string name="learn_goal_serious_desc">रोज़ 3 पाठ · लगभग 15 मिनट</string>
+    <string name="learn_reminder">रोज़ का रिमाइंडर</string>
+    <string name="learn_reminder_at">हर दिन %1$s बजे · बदलने के लिए टैप करें</string>
+    <string name="learn_continue">जारी रखें</string>
+    <string name="learn_start_learning">सीखना शुरू करें</string>
+
+    <!-- Course map -->
+    <string name="learn_home_title">सीखें</string>
+    <string name="learn_xp">%1$d XP</string>
+    <string name="learn_daily_goal">रोज़ का लक्ष्य</string>
+    <string name="learn_practice">अभ्यास</string>
+    <plurals name="learn_practice_due">
+        <item quantity="one">दोहराने के लिए %d शब्द</item>
+        <item quantity="other">दोहराने के लिए %d शब्द</item>
+    </plurals>
+    <string name="learn_practice_later">पहले एक पाठ पूरा करें</string>
+    <string name="learn_practice_start">शुरू करें →</string>
+    <string name="learn_unit_label">यूनिट %1$d</string>
+    <string name="learn_unit_completed">पूरा हुआ · %2$d में से %1$d पाठ</string>
+    <string name="learn_lessons_of">%2$d में से %1$d</string>
+    <plurals name="learn_unit_lessons_free">
+        <item quantity="one">%d पाठ · मुफ़्त</item>
+        <item quantity="other">%d पाठ · मुफ़्त</item>
+    </plurals>
+    <plurals name="learn_unit_lessons">
+        <item quantity="one">%d पाठ</item>
+        <item quantity="other">%d पाठ</item>
+    </plurals>
+    <string name="learn_unit_locked">लॉक है · विज्ञापन देखें या Pro लें</string>
+    <string name="learn_unit_unlocked_for">अनलॉक · %1$d घंटे बाकी</string>
+    <string name="learn_review">दोहराएँ</string>
+    <string name="learn_tip_prefix">सुझाव: %1$s</string>
+    <string name="learn_continue_lesson_n">जारी रखें · पाठ %1$d</string>
+    <string name="learn_start_lesson_n">शुरू करें · पाठ %1$d</string>
+    <string name="learn_pro">PRO</string>
+    <string name="learn_finish_previous">पहले इससे पहले वाले पाठ पूरे करें।</string>
+    <string name="learn_lesson_n">पाठ %1$d</string>
+
+    <string name="learn_unit_1">बुनियादी बातें और अभिवादन</string>
+    <string name="learn_unit_2">परिचय</string>
+    <string name="learn_unit_3">संख्याएँ और समय</string>
+    <string name="learn_unit_4">खाना और रेस्टोरेंट</string>
+    <string name="learn_unit_5">ख़रीदारी और पैसे</string>
+    <string name="learn_unit_6">यात्रा और रास्ते</string>
+    <string name="learn_unit_7">होटल</string>
+    <string name="learn_unit_8">परिवार और लोग</string>
+    <string name="learn_unit_9">दिनचर्या</string>
+    <string name="learn_unit_10">स्वास्थ्य और आपात स्थिति</string>
+    <string name="learn_unit_11">दिन, महीने और मौसम</string>
+    <string name="learn_unit_12">चीज़ों का वर्णन</string>
+
+    <!-- Unit locked dialog -->
+    <string name="learn_locked_title">यूनिट %1$d लॉक है</string>
+    <string name="learn_locked_desc">यूनिट 1–%1$d मुफ़्त हैं। यूनिट %2$d को %3$d घंटे के लिए अनलॉक करने के लिए एक छोटा वीडियो देखें, या बिना विज्ञापन सभी यूनिट खोलने के लिए Pro लें।</string>
+    <string name="learn_watch_ad_unlock">विज्ञापन देखें · %1$d घंटे अनलॉक</string>
+    <string name="learn_go_pro">Pro लें · सभी यूनिट</string>
+    <string name="learn_not_now">अभी नहीं</string>
+    <string name="learn_unit_unlocked_toast">यूनिट %1$d को %2$d घंटे के लिए अनलॉक किया गया</string>
+
+    <!-- Switch course -->
+    <string name="learn_your_courses">आपके कोर्स</string>
+    <string name="learn_course_progress">यूनिट %1$d · %2$d%% पूरा</string>
+    <string name="learn_not_started">शुरू नहीं हुआ</string>
+    <string name="learn_progress_saved">हर कोर्स की प्रगति अलग से सहेजी जाती है।</string>
+
+    <!-- Settings -->
+    <string name="learn_settings_title">सीखने की सेटिंग</string>
+    <string name="learn_group_course">कोर्स</string>
+    <string name="learn_course">कोर्स</string>
+    <string name="learn_course_from">%1$s · %2$s से</string>
+    <string name="learn_change">बदलें</string>
+    <string name="learn_edit">संपादित करें</string>
+    <string name="learn_goal_value">%1$s · %2$s</string>
+    <plurals name="learn_lessons_a_day">
+        <item quantity="one">रोज़ %d पाठ</item>
+        <item quantity="other">रोज़ %d पाठ</item>
+    </plurals>
+    <string name="learn_group_reminders">रिमाइंडर</string>
+    <string name="learn_reminder_keeps">आपकी स्ट्रीक बनाए रखता है</string>
+    <string name="learn_reminder_time">रिमाइंडर का समय</string>
+    <string name="learn_group_lessons">पाठ</string>
+    <string name="learn_listening">सुनने वाले अभ्यास</string>
+    <string name="learn_listening_desc">जब आवाज़ का इस्तेमाल न कर सकें, तब बंद करें</string>
+    <string name="learn_vibration">वाइब्रेशन</string>
+    <string name="learn_vibration_desc">सही और गलत जवाब पर वाइब्रेट करें</string>
+    <string name="learn_group_data">डेटा</string>
+    <string name="learn_reset">%1$s की प्रगति रीसेट करें</string>
+    <string name="learn_reset_desc">कोर्स को यूनिट 1 से फिर शुरू करता है</string>
+    <string name="learn_reset_confirm_title">%1$s रीसेट करें?</string>
+    <string name="learn_reset_confirm_desc">इस कोर्स के आपके पूरे किए गए पाठ और दोहराने का इतिहास हटा दिया जाएगा। इसे वापस नहीं लाया जा सकता।</string>
+    <string name="learn_reset_button">रीसेट करें</string>
+    <string name="learn_cancel">रद्द करें</string>
+    <string name="learn_reset_done">प्रगति रीसेट हो गई</string>
+    <string name="learn_about_content">पाठों के बारे में</string>
+    <string name="learn_about_content_desc">शुरुआती लोगों के लिए मूल कोर्स · ऑफ़लाइन काम करता है</string>
+
+    <!-- Lesson -->
+    <string name="learn_new_word">नया शब्द</string>
+    <string name="learn_new_phrase">नया वाक्यांश</string>
+    <string name="learn_slow">धीमा</string>
+    <string name="learn_tip_chip">सुझाव · यूनिट %1$d</string>
+    <string name="learn_got_it">ठीक है</string>
+    <string name="learn_check">जाँचें</string>
+    <string name="learn_select_translation">सही अनुवाद चुनें</string>
+    <string name="learn_select_meaning">इसका क्या मतलब है?</string>
+    <string name="learn_what_do_you_hear">आपको क्या सुनाई देता है?</string>
+    <string name="learn_translate_sentence">इस वाक्य का अनुवाद करें</string>
+    <string name="learn_match_pairs">मेल खाते जोड़ों पर टैप करें</string>
+    <string name="learn_write_in">इसे %1$s में लिखें</string>
+    <string name="learn_type_hint">%1$s में टाइप करें</string>
+    <string name="learn_accents_tip">सुझाव: एक्सेंट चिह्न ज़रूरी नहीं हैं, हम उन्हें बता देंगे।</string>
+    <string name="learn_great_job">बहुत बढ़िया!</string>
+    <string name="learn_correct">सही!</string>
+    <string name="learn_nice">शाबाश!</string>
+    <string name="learn_not_quite">पूरी तरह सही नहीं</string>
+    <string name="learn_correct_answer">सही जवाब:</string>
+    <string name="learn_meaning_label">मतलब: %1$s</string>
+    <string name="learn_accent_note">एक्सेंट चिह्नों पर ध्यान दें:</string>
+    <string name="learn_typo_note">लगभग सही! वर्तनी पर ध्यान दें:</string>
+    <string name="learn_ask_again">हम पाठ के अंत में यह सवाल फिर से पूछेंगे।</string>
+    <string name="learn_report">रिपोर्ट करें</string>
+    <string name="learn_report_title">क्या गलत है?</string>
+    <string name="learn_report_my_answer">मेरा जवाब स्वीकार होना चाहिए</string>
+    <string name="learn_report_translation">अनुवाद गलत है</string>
+    <string name="learn_report_audio">ऑडियो गलत लगता है</string>
+    <string name="learn_report_sent">धन्यवाद! हम इसकी जाँच करेंगे।</string>
+    <string name="learn_quit_title">यह पाठ छोड़ें?</string>
+    <string name="learn_quit_desc">इस पाठ में आपकी प्रगति खो जाएगी।</string>
+    <plurals name="learn_quit_desc_streak">
+        <item quantity="one">इस पाठ में आपकी प्रगति खो जाएगी। अपनी %d दिन की स्ट्रीक बनाए रखने के लिए आज एक पाठ पूरा करें।</item>
+        <item quantity="other">इस पाठ में आपकी प्रगति खो जाएगी। अपनी %d दिन की स्ट्रीक बनाए रखने के लिए आज एक पाठ पूरा करें।</item>
+    </plurals>
+    <string name="learn_keep_learning">सीखते रहें</string>
+    <string name="learn_quit_lesson">पाठ छोड़ें</string>
+    <string name="learn_tts_missing">इस फ़ोन पर %1$s की आवाज़ नहीं है, इसलिए सुनने वाले सवाल छोड़ दिए जाते हैं।</string>
+    <string name="learn_tts_missing_title">%1$s आवाज़ उपलब्ध नहीं</string>
+    <string name="learn_tts_install">आवाज़ इंस्टॉल करें</string>
+    <string name="learn_tts_install_desc">शब्द सुनने और सुनने वाले अभ्यास पाने के लिए %1$s आवाज़ इंस्टॉल करें। यह मुफ़्त है और ऑफ़लाइन काम करती है।</string>
+    <string name="learn_speak">सुनें</string>
+    <string name="learn_close">बंद करें</string>
+
+    <!-- Result -->
+    <string name="learn_lesson_complete">पाठ पूरा हुआ!</string>
+    <string name="learn_practice_complete">अभ्यास पूरा हुआ!</string>
+    <string name="learn_test_passed">टेस्ट पास!</string>
+    <string name="learn_test_failed">बस थोड़ा और</string>
+    <string name="learn_test_passed_desc">यूनिट 1–3 पूरी हो गईं। अब यूनिट 4 की ओर!</string>
+    <string name="learn_test_failed_desc">आपके %1$d%% अंक आए। मज़बूत नींव के लिए यूनिट 1 से शुरू करें।</string>
+    <plurals name="learn_learned_new">
+        <item quantity="one">आपने %2$s में %1$d नया शब्द सीखा।</item>
+        <item quantity="other">आपने %2$s में %1$d नए शब्द सीखे।</item>
+    </plurals>
+    <plurals name="learn_reviewed">
+        <item quantity="one">आपने %d शब्द दोहराया।</item>
+        <item quantity="other">आपने %d शब्द दोहराए।</item>
+    </plurals>
+    <plurals name="learn_reviewed_phrases">
+        <item quantity="one">आपने %d वाक्यांश दोहराया।</item>
+        <item quantity="other">आपने %d वाक्यांश दोहराए।</item>
+    </plurals>
+    <string name="learn_xp_earned">मिले XP</string>
+    <string name="learn_accuracy">सटीकता</string>
+    <string name="learn_time">समय</string>
+    <plurals name="learn_streak_days">
+        <item quantity="one">%d दिन की स्ट्रीक</item>
+        <item quantity="other">%d दिन की स्ट्रीक</item>
+    </plurals>
+    <string name="learn_goal_reached">रोज़ का लक्ष्य पूरा · %2$d में से %1$d पाठ</string>
+    <string name="learn_goal_today">आज %2$d में से %1$d पाठ</string>
+
+    <!-- Phrase Practice -->
+    <string name="learn_phrase_practice">वाक्यांश अभ्यास</string>
+    <string name="learn_flashcards">फ़्लैशकार्ड</string>
+    <string name="learn_quiz">क्विज़</string>
+    <string name="learn_mixed_review">मिला-जुला दोहराव</string>
+    <plurals name="learn_mixed_review_due">
+        <item quantity="one">%d वाक्यांश दोहराने के लिए तैयार</item>
+        <item quantity="other">%d वाक्यांश दोहराने के लिए तैयार</item>
+    </plurals>
+    <string name="learn_mixed_review_none">जिन वाक्यांशों पर आप \"अभी सीखना बाकी\" लगाते हैं, वे यहाँ लौट आते हैं</string>
+    <string name="learn_topics">विषय</string>
+    <string name="learn_topic_done">पूरा</string>
+    <string name="learn_topic_progress">%1$d / %2$d</string>
+    <string name="learn_tap_to_reveal">इसे %1$s में देखने के लिए टैप करें</string>
+    <string name="learn_show_answer">जवाब दिखाएँ</string>
+    <string name="learn_still_learning">अभी सीखना बाकी</string>
+    <string name="learn_i_know_it">मुझे आता है</string>
+    <string name="learn_practice_done">अभ्यास पूरा!</string>
+    <string name="learn_topic_done_stat">विषय पूरा</string>
+    <string name="learn_practice_again">फिर से अभ्यास करें</string>
+    <string name="learn_back_to_phrasebook">वाक्यांश पुस्तिका पर वापस जाएँ</string>
+    <string name="learn_phrases_unavailable">इस भाषा के लिए वाक्यांश अभी उपलब्ध नहीं हैं।</string>
+    <string name="learn_same_language">दो अलग-अलग भाषाएँ चुनें।</string>
+    <string name="learn_pair">%1$s → %2$s</string>
+
+    <!-- Reminder notification -->
+    <string name="learn_reminder_title">एक छोटे पाठ का समय</string>
+    <plurals name="learn_reminder_title_streak">
+        <item quantity="one">अपनी %d दिन की स्ट्रीक बनाए रखें!</item>
+        <item quantity="other">अपनी %d दिन की स्ट्रीक बनाए रखें!</item>
+    </plurals>
+    <string name="learn_reminder_desc">%1$s का एक पाठ लगभग 5 मिनट का होता है।</string>
+    <string name="learn_reminder_button">पाठ शुरू करें</string>
+</resources>

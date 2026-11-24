@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "예의 바르게 말하기",
+  "body": "영어권 사람들은 please와 thank you를 자주 말해요. \"Thanks\"는 \"thank you\"의 편한 표현이에요. 고맙다는 말에는 \"You're welcome\"으로 대답해요.",
+  "examples": ["please", "thank_you_very_much", "youre_welcome"]
+ },
+ {
+  "unit": 2,
+  "title": "I am, you are, he is",
+  "body": "\"to be\" 동사는 사람에 따라 바뀌어요: I am, you are, he is, she is. 말할 때는 보통 줄여서 I'm, you're, he's, she's라고 해요.",
+  "examples": ["i_am", "you_are", "she_is", "i_am_a_student"]
+ },
+ {
+  "unit": 3,
+  "title": "시간 말하기",
+  "body": "정각을 말할 때는 \"It is ... o'clock\"이라고 해요. \"O'clock\"은 정각에만 써요: it is two o'clock, 하지만 it is two thirty.",
+  "examples": ["what_time_is_it", "its_one_oclock", "its_two_oclock"]
+ },
+ {
+  "unit": 4,
+  "title": "공손하게 주문하기",
+  "body": "\"I would like\"(줄여서 I'd like)는 무언가를 공손하게 부탁하는 표현이에요. 끝에 \"please\"를 붙이세요.",
+  "examples": ["i_would_like_a_coffee", "a_glass_of_water", "the_bill_please"]
+ },
+ {
+  "unit": 8,
+  "title": "사람 묘사하기",
+  "body": "영어에서 tall 같은 꾸미는 말은 절대 바뀌지 않아요: a tall man, a tall woman, tall people. \"is\" 뒤나 명사 앞에 와요.",
+  "examples": ["he_is_tall", "she_is_happy", "we_are_tired"]
+ },
+ {
+  "unit": 9,
+  "title": "I work? I am working?",
+  "body": "습관을 말할 때는 기본형(I work every day)을, 지금 하고 있는 일에는 \"am + -ing\"(I am reading a book)를 써요.",
+  "examples": ["i_work_every_day", "i_read_a_book", "i_go_home"]
+ },
+ {
+  "unit": 12,
+  "title": "Very와 too",
+  "body": "\"Very\"는 뜻을 더 강하게 해 줘요: very good. \"Too\"는 원하는 것보다 지나치다는 뜻이에요: too expensive.",
+  "examples": ["this_is_very_good", "it_is_too_expensive", "it_is_not_difficult"]
+ }
+]

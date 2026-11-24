@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Ser educado",
+  "body": "Quienes hablan inglés dicen \"please\" y \"thank you\" muy a menudo. \"Thanks\" es la forma informal de \"thank you\". Para responder a un \"thank you\", di \"You're welcome\".",
+  "examples": ["please", "thank_you_very_much", "youre_welcome"]
+ },
+ {
+  "unit": 2,
+  "title": "I am, you are, he is",
+  "body": "El verbo \"to be\" (ser o estar) cambia según la persona: I am, you are, he is, she is. Al hablar, casi siempre se acorta: I'm, you're, he's, she's.",
+  "examples": ["i_am", "you_are", "she_is", "i_am_a_student"]
+ },
+ {
+  "unit": 3,
+  "title": "Decir la hora",
+  "body": "Para las horas en punto, di \"It is ... o'clock\". \"O'clock\" solo se usa con horas exactas: it is two o'clock, pero it is two thirty.",
+  "examples": ["what_time_is_it", "its_one_oclock", "its_two_oclock"]
+ },
+ {
+  "unit": 4,
+  "title": "Pedir con cortesía",
+  "body": "\"I would like\" (forma corta: I'd like) es la manera educada de pedir algo. Añade \"please\" al final.",
+  "examples": ["i_would_like_a_coffee", "a_glass_of_water", "the_bill_please"]
+ },
+ {
+  "unit": 8,
+  "title": "Describir a las personas",
+  "body": "En inglés, las palabras que describen nunca cambian: a tall man, a tall woman, tall people. Van después de \"is\" o delante del sustantivo.",
+  "examples": ["he_is_tall", "she_is_happy", "we_are_tired"]
+ },
+ {
+  "unit": 9,
+  "title": "¿I work o I am working?",
+  "body": "Usa la forma simple para las costumbres (I work every day) y \"am + -ing\" para lo que está pasando ahora (I am reading a book).",
+  "examples": ["i_work_every_day", "i_read_a_book", "i_go_home"]
+ },
+ {
+  "unit": 12,
+  "title": "Very y too",
+  "body": "\"Very\" (muy) hace más fuerte una palabra: very good. \"Too\" (demasiado) significa más de lo que quieres: too expensive.",
+  "examples": ["this_is_very_good", "it_is_too_expensive", "it_is_not_difficult"]
+ }
+]

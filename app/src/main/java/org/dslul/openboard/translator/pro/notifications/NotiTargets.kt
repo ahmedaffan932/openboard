@@ -33,6 +33,9 @@ object NotiTargets {
      */
     const val PHRASE = "phrase"
 
+    /** The Learn course map (the streak reminder). */
+    const val LEARN = "learn"
+
     /**
      * [fromEntry]: the screen is reached through a notification entry - the splash already showed
      * its ad, or the user tapped while inside the app - so the Translate screen skips its own
@@ -59,6 +62,7 @@ object NotiTargets {
             CONVERSATION -> dashboard(context, FragmentsDashboardActivity.TAB_CHAT)
             PHRASEBOOK -> dashboard(context, FragmentsDashboardActivity.TAB_PHRASEBOOK)
             UNINSTALL -> Intent(context, UninstallSurveyActivity::class.java)
+            LEARN -> Intent(context, org.dslul.openboard.translator.pro.learn.LearnHomeActivity::class.java)
             else -> dashboard(context, null)
         }.putExtra(TranslateActivity.EXTRA_SKIP_ENTRY_AD, fromEntry)
 

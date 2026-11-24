@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "विनम्र रहना",
+  "body": "अंग्रेज़ी बोलने वाले please और thank you बहुत कहते हैं। \"Thanks\", \"thank you\" का आम बोलचाल वाला रूप है। thank you का जवाब \"You're welcome\" से दें।",
+  "examples": ["please", "thank_you_very_much", "youre_welcome"]
+ },
+ {
+  "unit": 2,
+  "title": "I am, you are, he is",
+  "body": "\"to be\" क्रिया व्यक्ति के साथ बदलती है: I am, you are, he is, she is. बोलते समय इसे अक्सर छोटा कर देते हैं: I'm, you're, he's, she's.",
+  "examples": ["i_am", "you_are", "she_is", "i_am_a_student"]
+ },
+ {
+  "unit": 3,
+  "title": "समय बताना",
+  "body": "पूरे घंटे के लिए \"It is ... o'clock\" कहें। \"O'clock\" सिर्फ़ पूरे घंटों के साथ आता है: it is two o'clock, लेकिन it is two thirty.",
+  "examples": ["what_time_is_it", "its_one_oclock", "its_two_oclock"]
+ },
+ {
+  "unit": 4,
+  "title": "विनम्रता से ऑर्डर करना",
+  "body": "\"I would like\" (छोटा रूप: I'd like) कुछ माँगने का विनम्र तरीका है। अंत में \"please\" जोड़ें।",
+  "examples": ["i_would_like_a_coffee", "a_glass_of_water", "the_bill_please"]
+ },
+ {
+  "unit": 8,
+  "title": "लोगों का वर्णन करना",
+  "body": "अंग्रेज़ी में tall जैसे वर्णन वाले शब्द कभी नहीं बदलते: a tall man, a tall woman, tall people. ये \"is\" के बाद या संज्ञा से पहले आते हैं।",
+  "examples": ["he_is_tall", "she_is_happy", "we_are_tired"]
+ },
+ {
+  "unit": 9,
+  "title": "I work या I am working?",
+  "body": "आदतों के लिए सादा रूप (I work every day) और अभी हो रही बात के लिए \"am + -ing\" (I am reading a book) इस्तेमाल करें।",
+  "examples": ["i_work_every_day", "i_read_a_book", "i_go_home"]
+ },
+ {
+  "unit": 12,
+  "title": "Very और too",
+  "body": "\"Very\" किसी शब्द को और मज़बूत बनाता है: very good. \"Too\" का मतलब है ज़रूरत से ज़्यादा: too expensive.",
+  "examples": ["this_is_very_good", "it_is_too_expensive", "it_is_not_difficult"]
+ }
+]
