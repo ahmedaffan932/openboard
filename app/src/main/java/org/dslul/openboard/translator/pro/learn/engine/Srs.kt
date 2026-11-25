@@ -70,6 +70,57 @@ object StreakRules {
     /** The streak to show on [today]: alive while the last active day is today or yesterday. */
     fun current(count: Int, lastDay: Long, today: Long): Int =
         if (lastDay >= 0 && lastDay >= today - 1) count else 0
+
+    const val MAX_FREEZES = 2
+
+    /** [lastDay] after settling, the freezes used, and the missed days they covered. */
+    data class Settled(val lastDay: Long, val freezesUsed: Int, val frozenDays: List<Long>)
+
+    /**
+     * Streak freezes: each one covers one whole missed day. On [today], the days between the last
+     * active day and yesterday are missed; if there are enough freezes for all of them they are
+     * used and the streak carries on from yesterday (frozen days add nothing to the count).
+     * Not enough freezes: nothing is used and the streak is lost as usual.
+     */
+    fun settle(count: Int, lastDay: Long, today: Long, freezes: Int): Settled {
+        if (count <= 0 || lastDay < 0) return Settled(lastDay, 0, emptyList())
+        val missed = today - 1 - lastDay
+        if (missed <= 0 || missed > freezes) return Settled(lastDay, 0, emptyList())
+        return Settled(today - 1, missed.toInt(), ((lastDay + 1) until today).toList())
+    }
+
+    /** Monday-based week number of a local epoch day (epoch day 0 was a Thursday). */
+    fun week(day: Long): Long = Math.floorDiv(day + 3, 7L)
+}
+
+/** One day's activity, kept for the weekly summary. */
+data class DayStat(val day: Long, val lessons: Int, val xp: Int)
+
+object WeeklyStats {
+    /** "day:lessons:xp,…" → stats. Bad entries are skipped. */
+    fun parse(csv: String?): List<DayStat> =
+        csv.orEmpty().split(',').mapNotNull { e ->
+            val p = e.split(':')
+            if (p.size != 3) null else {
+                val d = p[0].toLongOrNull(); val l = p[1].toIntOrNull(); val x = p[2].toIntOrNull()
+                if (d == null || l == null || x == null) null else DayStat(d, l, x)
+            }
+        }
+
+    fun format(stats: List<DayStat>): String = stats.joinToString(",") { "${it.day}:${it.lessons}:${it.xp}" }
+
+    /** Adds one session to [today], keeping the last 14 days. */
+    fun add(stats: List<DayStat>, today: Long, xp: Int): List<DayStat> {
+        val old = stats.firstOrNull { it.day == today }
+        val updated = DayStat(today, (old?.lessons ?: 0) + 1, (old?.xp ?: 0) + xp)
+        return (stats.filter { it.day != today && it.day > today - 14 } + updated).sortedBy { it.day }
+    }
+
+    /** Lessons, XP and active days in the 7 days ending on [today]. */
+    fun lastWeek(stats: List<DayStat>, today: Long): Triple<Int, Int, Int> {
+        val week = stats.filter { it.day in (today - 6)..today }
+        return Triple(week.sumOf { it.lessons }, week.sumOf { it.xp }, week.count { it.lessons > 0 })
+    }
 }
 
 /** Local calendar days as epoch-day numbers, so streaks follow the user's wall clock. */

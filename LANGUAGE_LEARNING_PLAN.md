@@ -117,6 +117,38 @@ All new code is in `app/src/main/java/org/dslul/openboard/translator/pro/learn/`
   - "Content credits" became "About the lessons", because no third-party sentence data is used.
   - Figma was updated to match both.
 
+### 0.6 Rest of the plan, added after PR #1 (2026-11-24)
+
+- **Streak freeze:**
+  - A learner can hold up to 2 freezes. Each one covers one missed day, and they are spent automatically.
+  - How to get one: tap the streak chip on the course map, then watch the unlock rewarded ad. Pro users get a free one each week.
+  - Frozen days show as snowflakes in the week row. A toast says when a freeze saved the streak.
+  - Analytics: `learn_streak_freeze_earned` and `learn_streak_freeze_used`.
+  - Figma: "Learn · Streak & freeze" in section 11.
+- **Grammar tips in the learner's language:** the Spanish, French, German and Italian courses now have tips in all 8 app languages (28 new files). English stays the fallback.
+- **Word of the day and weekly summary notifications:**
+  - Word of the day: 9:00, showing a word the learner has met, preferably one due for review.
+  - Weekly summary: Sunday 18:00, with lessons, XP and streak, sent only after an active week.
+  - Each has its own switch in Learning settings.
+  - Both are re-armed at every app start.
+  - The debug build's `DebugNotiReceiver` can fire them with types `learnReminder`, `learnWord`, `learnWeekly`.
+- **"Continue lesson" app shortcut:** appears once the learner has a course. It goes through the splash, like the other shortcuts.
+- **Backup:**
+  - `allowBackup` is now on, but the rules include only Learn's files: `files/learn/`, `learn.xml`, `phrase_practice.xml`. Nothing else the app stores is backed up.
+  - The keyboard-listener library's `allowBackup="false"` is overridden with `tools:replace`.
+- **Checks:**
+  - The build passes, 110 unit tests pass, and `validate.py` reports 0 errors.
+  - **Tested on the Note 20 (2026-11-25):**
+    - A freeze covered a missed day: the streak was kept and the "saved your streak" toast appeared.
+    - The streak dialog matches Figma. Earning a freeze took the count from 0 to 1.
+    - The two new settings switches appear.
+    - The shortcut is registered with its icon.
+    - The French course's tip shows in German with a German app language.
+    - Word of the day and the weekly summary posted with correct German text.
+    - The three alarms are armed: 20:00 reminder, 09:00 word of the day, Sunday 18:00 summary.
+    - Android reports `ALLOW_BACKUP` for the app.
+  - **Not tested:** an actual cloud backup and restore round trip. That needs a Google backup transport.
+
 ---
 
 ## 1. Executive summary

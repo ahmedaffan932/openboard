@@ -40,6 +40,20 @@ object AppShortcuts {
                     R.drawable.ic_baseline_mic_selected_24, NotiTargets.CONVERSATION
                 )
             )
+            // "Continue lesson" once the learner has a Learn course (and Learn is switched on).
+            org.dslul.openboard.translator.pro.learn.LearnConfig.load(context)
+            if (org.dslul.openboard.translator.pro.learn.LearnConfig.enabled &&
+                org.dslul.openboard.translator.pro.learn.LearnStore.get(context).onboarded
+            ) {
+                shortcuts.add(
+                    0,
+                    shortcut(
+                        context, "learn", R.string.learn_home_title,
+                        R.drawable.ic_shortcut_learn, NotiTargets.LEARN,
+                        longLabelRes = R.string.learn_continue_lesson
+                    )
+                )
+            }
             if (NotiConfig.uninstallShortcutEnabled) {
                 shortcuts += shortcut(
                     context, "uninstall", R.string.shortcut_uninstall,
@@ -60,6 +74,7 @@ object AppShortcuts {
         labelRes: Int,
         iconRes: Int,
         target: String,
+        longLabelRes: Int? = null,
     ): ShortcutInfoCompat {
         // CLEAR_TASK as well as NEW_TASK: the launcher supplies NEW_TASK on its own, but without
         // CLEAR_TASK a task left over from an earlier session is simply brought forward and the
@@ -72,6 +87,7 @@ object AppShortcuts {
             .putExtra(NotiRouterActivity.EXTRA_SOURCE, NotiRouterActivity.SOURCE_SHORTCUT)
         return ShortcutInfoCompat.Builder(context, id)
             .setShortLabel(context.getString(labelRes))
+            .apply { if (longLabelRes != null) setLongLabel(context.getString(longLabelRes)) }
             .setIcon(IconCompat.createWithResource(context, iconRes))
             .setIntent(intent)
             .build()

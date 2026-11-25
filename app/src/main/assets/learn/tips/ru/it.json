@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Tu или Lei?",
+  "body": "В итальянском, как и в русском, есть \"ты\" и \"вы\". Говорите \"tu\" друзьям, семье и детям. Говорите \"Lei\" незнакомым людям и в магазинах. С Lei глагол стоит в форме \"он/она\": parla, può.",
+  "examples": ["and_you", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 2,
+  "title": "Sono, sei, è",
+  "body": "Глагол \"essere\" (быть) меняется по лицам: io sono, tu sei, lui è, lei è. Итальянцы часто не говорят io, tu и lui: \"Sono uno studente\" значит \"я студент\".",
+  "examples": ["i_am", "you_are", "he_is", "i_am_a_student"]
+ },
+ {
+  "unit": 3,
+  "title": "Il, la и l'",
+  "body": "Каждое существительное — это слово с \"il\" или с \"la\". На -o обычно с il: il numero. На -a обычно с la: la mattina. Перед a, e, i, o, u оба становятся l': l'ora. Некоторые берут lo: lo studente.",
+  "examples": ["number", "morning", "hour", "student"]
+ },
+ {
+  "unit": 4,
+  "title": "Голодны? Берите avere",
+  "body": "По-итальянски говорят \"у меня есть голод\": ho fame, ho sete. С возрастом так же: \"Ho 25 anni\" — это \"у меня 25 лет\". Ho — от глагола avere (иметь). Буква h не читается.",
+  "examples": ["i_am_hungry", "i_am_thirsty", "i_am_25"]
+ },
+ {
+  "unit": 7,
+  "title": "Как сказать \"не\": non",
+  "body": "Чтобы сказать \"не\", просто поставьте non перед глаголом: capisco, non capisco. Больше ничего не меняется. \"Non c'è\" значит \"нет\".",
+  "examples": ["i_dont_understand", "i_dont_eat_meat", "there_is_no_hot_water"]
+ },
+ {
+  "unit": 8,
+  "title": "Слова подстраиваются",
+  "body": "Слова-описания меняют окончание: alto для мужчины, alta для женщины, stanchi для группы. Слова на -e, как felice, одинаковы для мужчин и женщин.",
+  "examples": ["he_is_tall", "she_is_happy", "we_are_tired"]
+ },
+ {
+  "unit": 9,
+  "title": "Глаголы на -are",
+  "body": "Многие глаголы оканчиваются на -are, как parlare и lavorare. Для \"я\" замените -are на -o: parlo, lavoro. Для \"ты\" (tu) — на -i: parli. Обычно io можно не говорить.",
+  "examples": ["i_speak_english", "i_eat_bread", "i_work_today"]
+ }
+]

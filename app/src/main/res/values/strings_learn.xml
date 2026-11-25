@@ -233,6 +233,25 @@
     <string name="learn_same_language">Pick two different languages.</string>
     <string name="learn_pair">%1$s → %2$s</string>
 
+    <!-- Streak freeze -->
+    <string name="learn_streak_freeze_info">Streak freezes: %1$d of %2$d. A freeze keeps your streak alive if you miss a day, and is used automatically.</string>
+    <string name="learn_streak_freeze_pro">Pro gives you a free streak freeze every week.</string>
+    <string name="learn_get_freeze">Get a freeze · watch ad</string>
+    <string name="learn_freeze_earned">Streak freeze added</string>
+    <plurals name="learn_freeze_used">
+        <item quantity="one">A streak freeze saved your streak!</item>
+        <item quantity="other">%d streak freezes saved your streak!</item>
+    </plurals>
+
+    <!-- Word of the day and weekly summary notifications -->
+    <string name="learn_word_of_day">Word of the day</string>
+    <string name="learn_word_of_day_desc">%1$s means \"%2$s\". Tap to practice.</string>
+    <string name="learn_word_of_day_setting_desc">A word from your course every morning</string>
+    <string name="learn_weekly">Weekly summary</string>
+    <string name="learn_weekly_setting_desc">Your progress every Sunday evening</string>
+    <string name="learn_weekly_title">Your week in %1$s</string>
+    <string name="learn_weekly_desc">%1$s · %2$d XP · %3$s</string>
+
     <!-- Reminder notification -->
     <string name="learn_reminder_title">Time for a quick lesson</string>
     <plurals name="learn_reminder_title_streak">

@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Bitte와 danke",
+  "body": "Bitte는 \"부탁해요\"라는 뜻이에요. danke(\"고마워요\")에 대한 흔한 대답이기도 해요: Bitte! 또는 Bitte schön! 정말 고마울 때는 Vielen Dank라고 해요.",
+  "examples": ["please", "thank_you", "youre_welcome", "thank_you_very_much"]
+ },
+ {
+  "unit": 2,
+  "title": "du 아니면 Sie?",
+  "body": "독일어에는 \"너/당신\"을 뜻하는 말이 두 개 있어요. 친구, 가족, 아이에게는 du라고 해요. 모르는 어른이나 직장에서는 Sie라고 해요. Sie는 항상 대문자 S로 시작해요.",
+  "examples": ["what_is_your_name", "where_are_you_from", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 4,
+  "title": "der, die, das",
+  "body": "독일어 명사마다 앞에 붙는 말(영어의 \"the\" 같은 말)이 정해져 있어요: der, die, das. 명사를 이 말과 함께 외우세요: der Kaffee, die Milch, das Wasser. 독일어 명사는 항상 대문자로 시작해요.",
+  "examples": ["coffee", "milk", "water", "bread"]
+ },
+ {
+  "unit": 8,
+  "title": "ich bin, du bist, er ist",
+  "body": "동사 sein(\"~이다\")은 많이 바뀌어요: ich bin, du bist, er ist, sie ist, wir sind, sie sind. 뒤에 오는 groß나 müde 같은 말은 누구에게나 똑같아요.",
+  "examples": ["i_am", "you_are", "we_are_tired", "they_are_my_friends"]
+ },
+ {
+  "unit": 9,
+  "title": "동사의 끝부분",
+  "body": "독일어 동사는 사람마다 끝부분이 바뀌어요: ich trinke, du trinkst, er trinkt, wir trinken. 사전에 나오는 형태는 trinken처럼 -en으로 끝나요.",
+  "examples": ["to_drink", "i_drink_water", "she_comes_tomorrow", "we_go_to_the_beach"]
+ },
+ {
+  "unit": 11,
+  "title": "동사는 두 번째 자리에",
+  "body": "독일어 문장에서 동사는 항상 두 번째 자리에 와요: Ich arbeite heute. heute 같은 다른 말로 시작해도 동사는 여전히 두 번째예요: Heute ist es kalt.",
+  "examples": ["i_work_today", "today_is_monday", "it_is_hot", "it_is_cold"]
+ },
+ {
+  "unit": 12,
+  "title": "nicht 아니면 kein?",
+  "body": "명사 앞에서 \"안\"이나 \"하나도 없다\"를 말할 때는 kein(또는 keinen, keine)을 써요: Ich esse kein Fleisch. 그 밖에는 모두 nicht를 써요: Das ist nicht schwierig.",
+  "examples": ["i_dont_eat_meat", "i_dont_like_tea", "it_is_not_difficult", "i_dont_understand"]
+ }
+]

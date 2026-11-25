@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Tú या usted?",
+  "body": "हिंदी की तरह स्पैनिश में भी दो रूप हैं: tú (तुम) दोस्तों और परिवार के लिए, usted (आप) अजनबियों और बड़ों के लिए, विनम्रता से। क्रिया भी बदलती है: ¿Hablas inglés? (tú), ¿Habla inglés? (usted).",
+  "examples": ["how_are_you", "and_you", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 2,
+  "title": "बताएँ कि आप कहाँ से हैं",
+  "body": "soy (मैं हूँ) + de + जगह का नाम कहें: Soy de México. अपने काम के लिए भी soy कहें: Soy estudiante. आप yo (मैं) छोड़ सकते हैं, क्योंकि soy का मतलब ही \"मैं हूँ\" है।",
+  "examples": ["i_am_from_mexico", "where_are_you_from", "i_am_a_student"]
+ },
+ {
+  "unit": 4,
+  "title": "हर संज्ञा el या la होती है",
+  "body": "स्पैनिश में हर संज्ञा पुल्लिंग (el) या स्त्रीलिंग (la) होती है, खाने की चीज़ें भी। -o वाली ज़्यादातर संज्ञाएँ el लेती हैं: el vino. -a वाली ज़्यादातर la: la manzana. हर संज्ञा को उसके el या la के साथ सीखें।",
+  "examples": ["wine", "cheese", "apple", "table"]
+ },
+ {
+  "unit": 8,
+  "title": "\"होना\" के लिए दो क्रियाएँ",
+  "body": "स्पैनिश में \"होना\" के लिए दो क्रियाएँ हैं। Ser बताती है कि कोई कैसा है: Él es alto. Estar बताती है कि कोई अभी कैसा महसूस करता है: Estamos cansados. स्त्री के लिए -o अक्सर -a बनता है: alta, cansada.",
+  "examples": ["he_is_tall", "my_family_is_big", "we_are_tired", "she_is_happy"]
+ },
+ {
+  "unit": 9,
+  "title": "\"मैं\" वाली क्रिया -o पर खत्म",
+  "body": "स्पैनिश क्रियाओं का अंत हर व्यक्ति के लिए बदलता है। \"मैं\" के लिए ज़्यादातर क्रियाएँ -o पर खत्म होती हैं: hablar → hablo, comer → como, trabajar → trabajo. अंत से ही \"मैं\" पता चलता है, इसलिए yo अक्सर नहीं कहते।",
+  "examples": ["to_eat", "i_eat_bread", "i_drink_water", "i_work_every_day"]
+ },
+ {
+  "unit": 10,
+  "title": "Me gusta और me duele",
+  "body": "हिंदी की तरह स्पैनिश भी \"मुझे पसंद है\" जैसे कहती है: Me gusta el café. पसंद न हो तो पहले no लगाएँ: No me gusta el té. दर्द के लिए भी ऐसे ही: Me duele la cabeza.",
+  "examples": ["i_like_coffee", "i_dont_like_tea", "my_head_hurts", "my_stomach_hurts"]
+ },
+ {
+  "unit": 12,
+  "title": "वर्णन वाले शब्द बाद में",
+  "body": "संज्ञा का वर्णन करने वाले शब्द अक्सर उसके बाद आते हैं: un coche caro = एक महँगी कार। ये संज्ञा के हिसाब से बदलते भी हैं: un día bonito, una ciudad bonita.",
+  "examples": ["expensive_car", "what_a_beautiful_day", "the_city_is_beautiful", "my_car_is_red"]
+ }
+]

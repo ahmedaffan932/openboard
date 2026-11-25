@@ -232,6 +232,25 @@
     <string name="learn_same_language">दो अलग-अलग भाषाएँ चुनें।</string>
     <string name="learn_pair">%1$s → %2$s</string>
 
+    <!-- Streak freeze -->
+    <string name="learn_streak_freeze_info">स्ट्रीक फ़्रीज़: %2$d में से %1$d। अगर आप कोई दिन चूक जाते हैं, तो फ़्रीज़ आपकी स्ट्रीक बनाए रखता है और अपने-आप इस्तेमाल हो जाता है।</string>
+    <string name="learn_streak_freeze_pro">Pro के साथ आपको हर हफ़्ते एक मुफ़्त स्ट्रीक फ़्रीज़ मिलता है।</string>
+    <string name="learn_get_freeze">फ़्रीज़ पाएँ · विज्ञापन देखें</string>
+    <string name="learn_freeze_earned">स्ट्रीक फ़्रीज़ जोड़ा गया</string>
+    <plurals name="learn_freeze_used">
+        <item quantity="one">%d स्ट्रीक फ़्रीज़ ने आपकी स्ट्रीक बचा ली!</item>
+        <item quantity="other">%d स्ट्रीक फ़्रीज़ ने आपकी स्ट्रीक बचा ली!</item>
+    </plurals>
+
+    <!-- Word of the day and weekly summary notifications -->
+    <string name="learn_word_of_day">आज का शब्द</string>
+    <string name="learn_word_of_day_desc">%1$s का मतलब है \"%2$s\"। अभ्यास के लिए टैप करें।</string>
+    <string name="learn_word_of_day_setting_desc">हर सुबह आपके कोर्स का एक शब्द</string>
+    <string name="learn_weekly">साप्ताहिक सारांश</string>
+    <string name="learn_weekly_setting_desc">हर रविवार शाम आपकी प्रगति</string>
+    <string name="learn_weekly_title">%1$s में आपका हफ़्ता</string>
+    <string name="learn_weekly_desc">%1$s · %2$d XP · %3$s</string>
+
     <!-- Reminder notification -->
     <string name="learn_reminder_title">एक छोटे पाठ का समय</string>
     <plurals name="learn_reminder_title_streak">

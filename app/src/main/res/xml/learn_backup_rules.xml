@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 11 and older (Auto Backup). Only the Learn module's progress and settings are backed
+     up; with <include> rules nothing else (keyboard dictionaries, clipboard, history) is. -->
+<full-backup-content>
+    <include domain="file" path="learn/" />
+    <include domain="sharedpref" path="learn.xml" />
+    <include domain="sharedpref" path="phrase_practice.xml" />
+    <include domain="device_file" path="learn/" />
+    <include domain="device_sharedpref" path="learn.xml" />
+    <include domain="device_sharedpref" path="phrase_practice.xml" />
+</full-backup-content>

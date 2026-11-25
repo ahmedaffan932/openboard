@@ -103,6 +103,14 @@
                 <View style="@style/LearnDivider" />
 
                 <include android:id="@+id/rowReminderTime" layout="@layout/item_learn_setting_row" />
+
+                <View style="@style/LearnDivider" />
+
+                <include android:id="@+id/rowWordOfDay" layout="@layout/item_learn_setting_row" />
+
+                <View style="@style/LearnDivider" />
+
+                <include android:id="@+id/rowWeekly" layout="@layout/item_learn_setting_row" />
             </LinearLayout>
 
             <TextView

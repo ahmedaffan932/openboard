@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Tu या vous?",
+  "body": "हिंदी के तुम और आप की तरह फ़्रेंच में भी दो शब्द हैं। दोस्तों, परिवार और बच्चों से \"tu\" कहें। अजनबियों से, दुकानों में और विनम्रता के लिए \"vous\" कहें। \"Vous\" एक से ज़्यादा लोगों के लिए भी है।",
+  "examples": ["and_you", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 2,
+  "title": "Je suis, tu es, il est",
+  "body": "\"être\" (होना) क्रिया व्यक्ति के साथ बदलती है: je suis, tu es, il est, elle est. काम बताने के लिए भी यही: \"Je suis étudiant\" यानी मैं छात्र हूँ।",
+  "examples": ["i_am", "you_are", "she_is", "i_am_a_student"]
+ },
+ {
+  "unit": 3,
+  "title": "Le, la और l'",
+  "body": "फ़्रेंच की हर संज्ञा या तो \"le\" वाली होती है या \"la\" वाली: le matin, la nuit. a, e, i, o, u और h वाले ज़्यादातर शब्दों से पहले दोनों l' बन जाते हैं: l'heure. एक से ज़्यादा के लिए les लगाएँ।",
+  "examples": ["morning", "night", "hour", "city"]
+ },
+ {
+  "unit": 4,
+  "title": "भूख लगी? avoir से कहें",
+  "body": "फ़्रेंच में कहते हैं \"मेरे पास भूख है\": j'ai faim, j'ai soif. उम्र भी ऐसे ही: \"J'ai 25 ans\" यानी \"मेरे पास 25 साल हैं\"। J'ai, avoir (पास होना) क्रिया से आता है।",
+  "examples": ["i_am_hungry", "i_am_thirsty", "i_am_25"]
+ },
+ {
+  "unit": 7,
+  "title": "\"नहीं\" कहना: ne...pas",
+  "body": "\"नहीं\" कहने के लिए क्रिया से पहले ne और बाद में pas लगाएँ: je ne comprends pas. a, e, i, o, u से पहले ne बन जाता है n': il n'y a pas d'eau chaude.",
+  "examples": ["i_dont_understand", "i_dont_eat_meat", "there_is_no_hot_water"]
+ },
+ {
+  "unit": 8,
+  "title": "मेल खाने वाले शब्द",
+  "body": "वर्णन वाले शब्द व्यक्ति के हिसाब से बदलते हैं। स्त्री के लिए -e जोड़ें: grand, grande. एक से ज़्यादा के लिए -s जोड़ें: fatigués. कुछ ज़्यादा बदलते हैं: heureux, heureuse.",
+  "examples": ["he_is_tall", "she_is_happy", "we_are_tired"]
+ },
+ {
+  "unit": 9,
+  "title": "-er वाली क्रियाएँ",
+  "body": "ज़्यादातर फ़्रेंच क्रियाएँ -er पर खत्म होती हैं, जैसे parler और manger. \"je\" के लिए -er को -e कर दें: je parle, je mange. \"tu\" के लिए -es: tu parles. दोनों एक जैसे सुनाई देते हैं!",
+  "examples": ["i_speak_english", "i_eat_bread", "i_work_today"]
+ }
+]

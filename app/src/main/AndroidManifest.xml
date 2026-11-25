@@ -32,7 +32,10 @@
 
     <application
         android:name="org.dslul.openboard.translator.pro.classes.App"
-        android:allowBackup="false"
+        android:allowBackup="true"
+        tools:replace="android:allowBackup"
+        android:dataExtractionRules="@xml/learn_data_extraction_rules"
+        android:fullBackupContent="@xml/learn_backup_rules"
         android:defaultToDeviceProtectedStorage="true"
         android:directBootAware="true"
         android:icon="@mipmap/ic_launcher"

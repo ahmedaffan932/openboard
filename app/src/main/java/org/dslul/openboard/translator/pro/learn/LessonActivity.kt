@@ -851,6 +851,7 @@ class LessonActivity : AppCompatActivity() {
         row.removeAllViews()
         val today = LearnDays.today()
         val active = store.activeDays()
+        val frozen = store.frozenDays()
         val cal = Calendar.getInstance()
         val dow = (cal.get(Calendar.DAY_OF_WEEK) + 5) % 7 // Monday = 0
         val monday = today - dow
@@ -866,10 +867,18 @@ class LessonActivity : AppCompatActivity() {
             dot.setBackgroundResource(
                 when {
                     day in active -> R.drawable.bg_learn_week_done
+                    day in frozen -> R.drawable.bg_learn_week_frozen
                     day == today -> R.drawable.bg_learn_week_today
                     else -> R.drawable.bg_learn_week_empty
                 }
             )
+            if (day in frozen && day !in active) {
+                val flake = android.widget.ImageView(this).apply {
+                    setImageResource(R.drawable.ic_ui_snowflake)
+                    setColorFilter(LearnUi.color(this@LessonActivity, R.color.home_accent))
+                }
+                dot.addView(flake, android.widget.FrameLayout.LayoutParams(LearnUi.dp(this, 14f), LearnUi.dp(this, 14f), android.view.Gravity.CENTER))
+            }
             if (day in active) {
                 val check = android.widget.ImageView(this).apply {
                     setImageResource(R.drawable.ic_ui_check)

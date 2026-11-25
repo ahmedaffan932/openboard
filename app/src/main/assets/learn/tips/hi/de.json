@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Bitte और danke",
+  "body": "Bitte का मतलब है \"कृपया\"। danke (\"धन्यवाद\") का आम जवाब भी यही है: Bitte! या Bitte schön! \"बहुत-बहुत धन्यवाद\" कहने के लिए Vielen Dank कहें।",
+  "examples": ["please", "thank_you", "youre_welcome", "thank_you_very_much"]
+ },
+ {
+  "unit": 2,
+  "title": "du या Sie?",
+  "body": "जर्मन में \"आप/तुम\" के लिए दो शब्द हैं। दोस्तों, परिवार और बच्चों से du कहें। अनजान बड़ों से और काम पर Sie कहें। Sie हमेशा कैपिटल S से लिखा जाता है।",
+  "examples": ["what_is_your_name", "where_are_you_from", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 4,
+  "title": "der, die, das",
+  "body": "हर जर्मन संज्ञा के आगे अपना \"the\" जैसा शब्द आता है: der, die या das. हर संज्ञा को इसी के साथ सीखें: der Kaffee, die Milch, das Wasser. जर्मन संज्ञाएँ हमेशा कैपिटल अक्षर से शुरू होती हैं।",
+  "examples": ["coffee", "milk", "water", "bread"]
+ },
+ {
+  "unit": 8,
+  "title": "ich bin, du bist, er ist",
+  "body": "क्रिया sein (\"होना\") बहुत बदलती है: ich bin, du bist, er ist, sie ist, wir sind, sie sind. इसके बाद आने वाले groß या müde जैसे शब्द सबके लिए एक जैसे रहते हैं।",
+  "examples": ["i_am", "you_are", "we_are_tired", "they_are_my_friends"]
+ },
+ {
+  "unit": 9,
+  "title": "क्रिया का बदलता अंत",
+  "body": "जर्मन क्रिया हर व्यक्ति के लिए अपना अंत बदलती है: ich trinke, du trinkst, er trinkt, wir trinken. शब्दकोश वाला रूप -en पर ख़त्म होता है, जैसे trinken.",
+  "examples": ["to_drink", "i_drink_water", "she_comes_tomorrow", "we_go_to_the_beach"]
+ },
+ {
+  "unit": 11,
+  "title": "क्रिया दूसरे स्थान पर",
+  "body": "जर्मन वाक्य में क्रिया हमेशा दूसरे स्थान पर आती है: Ich arbeite heute. अगर आप heute जैसे किसी और शब्द से शुरू करें, तब भी क्रिया दूसरे स्थान पर आती है: Heute ist es kalt.",
+  "examples": ["i_work_today", "today_is_monday", "it_is_hot", "it_is_cold"]
+ },
+ {
+  "unit": 12,
+  "title": "nicht या kein?",
+  "body": "संज्ञा से पहले \"नहीं\" या \"कोई नहीं\" कहने के लिए kein (या keinen, keine) लगाएँ: Ich esse kein Fleisch. बाकी सब के लिए nicht लगाएँ: Das ist nicht schwierig.",
+  "examples": ["i_dont_eat_meat", "i_dont_like_tea", "it_is_not_difficult", "i_dont_understand"]
+ }
+]

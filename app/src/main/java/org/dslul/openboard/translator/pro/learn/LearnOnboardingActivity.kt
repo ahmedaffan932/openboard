@@ -197,6 +197,7 @@ class LearnOnboardingActivity : AppCompatActivity() {
         store.onboarded = true
         AppAnalytics.learnCourseSelect(c, LearnRepository.appLanguage(this))
         LearnReminder.schedule(this)
+        org.dslul.openboard.translator.pro.notifications.AppShortcuts.setup(this)
         val home = Intent(this, LearnHomeActivity::class.java)
         val first = if (knowsSome) LessonActivity.checkpoint(this) else LessonActivity.lesson(this, 1, 1)
         startActivities(arrayOf(home, first))

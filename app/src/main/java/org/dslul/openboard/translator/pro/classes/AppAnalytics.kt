@@ -245,6 +245,15 @@ object AppAnalytics {
     /** The streak grew to [days] with today's first finished session. */
     fun learnStreak(days: Int) = log("learn_streak", Bundle().apply { putLong("days", days.toLong()) })
 
+    /** A streak freeze earned; [method] as for [learnUnitUnlock], or `premium_weekly`. */
+    fun learnStreakFreezeEarned(method: String) =
+        log("learn_streak_freeze_earned", Bundle().apply { putString("method", method) })
+
+    /** Streak freezes spent automatically on [days] missed days. */
+    fun learnStreakFreezeUsed(days: Int) =
+        log("learn_streak_freeze_used", Bundle().apply { putLong("days", days.toLong()) })
+
+
     /** A locked unit opened; [method] `rewarded`, `ad_timeout`, `ad_failed`, `show_failed`, `no_ad`. */
     fun learnUnitUnlock(course: String, unit: Int, method: String) =
         log("learn_unit_unlock", Bundle().apply {

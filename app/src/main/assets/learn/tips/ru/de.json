@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Bitte и danke",
+  "body": "Bitte значит \"пожалуйста\". Это и обычный ответ на danke (\"спасибо\"): Bitte! или Bitte schön! Чтобы сказать \"большое спасибо\", говорите Vielen Dank.",
+  "examples": ["please", "thank_you", "youre_welcome", "thank_you_very_much"]
+ },
+ {
+  "unit": 2,
+  "title": "du или Sie?",
+  "body": "В немецком, как и в русском, есть \"ты\" и \"вы\": du и Sie. Говорите du друзьям, семье и детям. Говорите Sie незнакомым взрослым и на работе. Sie всегда пишется с большой буквы.",
+  "examples": ["what_is_your_name", "where_are_you_from", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 4,
+  "title": "der, die, das",
+  "body": "У каждого немецкого существительного своё слово, как \"the\" в английском: der, die или das. Учите их вместе: der Kaffee, die Milch, das Wasser. Существительные всегда пишутся с большой буквы.",
+  "examples": ["coffee", "milk", "water", "bread"]
+ },
+ {
+  "unit": 8,
+  "title": "ich bin, du bist, er ist",
+  "body": "Глагол sein (\"быть\") сильно меняется: ich bin, du bist, er ist, sie ist, wir sind, sie sind. Слова после него, например groß или müde, одинаковы для всех.",
+  "examples": ["i_am", "you_are", "we_are_tired", "they_are_my_friends"]
+ },
+ {
+  "unit": 9,
+  "title": "Окончания глагола",
+  "body": "Немецкий глагол меняет окончание для каждого лица: ich trinke, du trinkst, er trinkt, wir trinken. Форма в словаре оканчивается на -en, как trinken.",
+  "examples": ["to_drink", "i_drink_water", "she_comes_tomorrow", "we_go_to_the_beach"]
+ },
+ {
+  "unit": 11,
+  "title": "Глагол на втором месте",
+  "body": "В немецком предложении глагол всегда на втором месте: Ich arbeite heute. Если начать с другого слова, например heute, глагол всё равно второй: Heute ist es kalt.",
+  "examples": ["i_work_today", "today_is_monday", "it_is_hot", "it_is_cold"]
+ },
+ {
+  "unit": 12,
+  "title": "nicht или kein?",
+  "body": "Ставьте kein (или keinen, keine) перед существительным, чтобы сказать \"нет\" или \"ни одного\": Ich esse kein Fleisch. Для всего остального — nicht: Das ist nicht schwierig.",
+  "examples": ["i_dont_eat_meat", "i_dont_like_tea", "it_is_not_difficult", "i_dont_understand"]
+ }
+]

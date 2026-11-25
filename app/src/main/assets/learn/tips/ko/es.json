@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Tú? usted?",
+  "body": "스페인어에는 \"너/당신\"을 뜻하는 말이 두 개 있어요. 친구나 가족에게는 tú를, 처음 보는 사람이나 어른에게는 예의 있게 usted을 써요. 동사도 바뀌어요: ¿Hablas inglés? (tú), ¿Habla inglés? (usted).",
+  "examples": ["how_are_you", "and_you", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 2,
+  "title": "어디에서 왔는지 말하기",
+  "body": "soy(나는 ~이에요) + de + 장소를 써요: Soy de México. 직업을 말할 때도 soy를 써요: Soy estudiante. soy가 이미 \"나는 ~이에요\"라는 뜻이라서 yo(나)는 빼도 돼요.",
+  "examples": ["i_am_from_mexico", "where_are_you_from", "i_am_a_student"]
+ },
+ {
+  "unit": 4,
+  "title": "모든 명사는 el 아니면 la",
+  "body": "스페인어 명사는 음식까지 모두 남성(el) 아니면 여성(la)이에요. -o로 끝나는 명사는 대부분 el: el vino. -a로 끝나면 대부분 la: la manzana. 명사를 배울 때 el이나 la도 같이 외우세요.",
+  "examples": ["wine", "cheese", "apple", "table"]
+ },
+ {
+  "unit": 8,
+  "title": "\"~이다\"를 뜻하는 동사 두 개",
+  "body": "스페인어에는 \"~이다\"를 뜻하는 동사가 두 개 있어요. Ser는 사람이 어떤지 말할 때 써요: Él es alto. Estar는 지금 기분이 어떤지 말할 때 써요: Estamos cansados. 여자일 때는 -o가 보통 -a로 바뀌어요: alta, cansada.",
+  "examples": ["he_is_tall", "my_family_is_big", "we_are_tired", "she_is_happy"]
+ },
+ {
+  "unit": 9,
+  "title": "\"나\"일 때 동사는 -o로 끝나요",
+  "body": "스페인어 동사는 사람에 따라 끝이 바뀌어요. \"나\"일 때는 대부분 -o로 끝나요: hablar → hablo, comer → como, trabajar → trabajo. 끝만 봐도 \"나\"라는 걸 알 수 있어서 yo는 자주 빼요.",
+  "examples": ["to_eat", "i_eat_bread", "i_drink_water", "i_work_every_day"]
+ },
+ {
+  "unit": 10,
+  "title": "Me gusta와 me duele",
+  "body": "무언가를 좋아한다고 할 때 스페인어는 \"그것이 나를 기쁘게 해요\"라고 말해요: Me gusta el café. 싫으면 앞에 no를 붙여요: No me gusta el té. 아플 때도 같아요: Me duele la cabeza.",
+  "examples": ["i_like_coffee", "i_dont_like_tea", "my_head_hurts", "my_stomach_hurts"]
+ },
+ {
+  "unit": 12,
+  "title": "꾸미는 말은 뒤에 와요",
+  "body": "명사를 꾸미는 말은 보통 명사 뒤에 와요: un coche caro = 비싼 차. 명사에 맞춰 모양도 바뀌어요: un día bonito, una ciudad bonita.",
+  "examples": ["expensive_car", "what_a_beautiful_day", "the_city_is_beautiful", "my_car_is_red"]
+ }
+]

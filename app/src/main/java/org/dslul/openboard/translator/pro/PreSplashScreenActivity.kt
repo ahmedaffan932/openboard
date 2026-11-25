@@ -242,6 +242,7 @@ class PreSplashScreenActivity : AppCompatActivity() {
             // values; persisted for the alarm- and keyboard-started processes that never fetch.
             NotiConfig.applyFrom(this, mFRC)
             org.dslul.openboard.translator.pro.learn.LearnConfig.applyFrom(this, mFRC)
+            org.dslul.openboard.translator.pro.learn.LearnReminder.schedule(this)
             NotiScheduler.scheduleAll(this)
             AppShortcuts.setup(this)
 

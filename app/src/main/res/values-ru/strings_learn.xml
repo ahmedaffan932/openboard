@@ -254,6 +254,27 @@
     <string name="learn_same_language">Выберите два разных языка.</string>
     <string name="learn_pair">%1$s → %2$s</string>
 
+    <!-- Streak freeze -->
+    <string name="learn_streak_freeze_info">Заморозки серии: %1$d из %2$d. Заморозка сохраняет серию, если вы пропустите день, и используется автоматически.</string>
+    <string name="learn_streak_freeze_pro">С Pro вы получаете бесплатную заморозку серии каждую неделю.</string>
+    <string name="learn_get_freeze">Получить заморозку · реклама</string>
+    <string name="learn_freeze_earned">Заморозка серии добавлена</string>
+    <plurals name="learn_freeze_used">
+        <item quantity="one">%d заморозка спасла вашу серию!</item>
+        <item quantity="few">%d заморозки спасли вашу серию!</item>
+        <item quantity="many">%d заморозок спасли вашу серию!</item>
+        <item quantity="other">%d заморозки спасли вашу серию!</item>
+    </plurals>
+
+    <!-- Word of the day and weekly summary notifications -->
+    <string name="learn_word_of_day">Слово дня</string>
+    <string name="learn_word_of_day_desc">%1$s означает «%2$s». Нажмите, чтобы потренироваться.</string>
+    <string name="learn_word_of_day_setting_desc">Каждое утро — слово из вашего курса</string>
+    <string name="learn_weekly">Итоги недели</string>
+    <string name="learn_weekly_setting_desc">Ваш прогресс каждое воскресенье вечером</string>
+    <string name="learn_weekly_title">Ваша неделя: %1$s</string>
+    <string name="learn_weekly_desc">%1$s · %2$d XP · %3$s</string>
+
     <!-- Reminder notification -->
     <string name="learn_reminder_title">Время для короткого урока</string>
     <plurals name="learn_reminder_title_streak">

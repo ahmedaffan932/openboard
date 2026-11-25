@@ -232,6 +232,25 @@
     <string name="learn_same_language">Wählen Sie zwei verschiedene Sprachen.</string>
     <string name="learn_pair">%1$s → %2$s</string>
 
+    <!-- Streak freeze -->
+    <string name="learn_streak_freeze_info">Serienschutz: %1$d von %2$d. Ein Serienschutz hält Ihre Serie am Leben, wenn Sie einen Tag verpassen, und wird automatisch eingesetzt.</string>
+    <string name="learn_streak_freeze_pro">Mit Pro erhalten Sie jede Woche einen kostenlosen Serienschutz.</string>
+    <string name="learn_get_freeze">Schutz holen · Werbevideo</string>
+    <string name="learn_freeze_earned">Serienschutz hinzugefügt</string>
+    <plurals name="learn_freeze_used">
+        <item quantity="one">%d Serienschutz hat Ihre Serie gerettet!</item>
+        <item quantity="other">%d× Serienschutz hat Ihre Serie gerettet!</item>
+    </plurals>
+
+    <!-- Word of the day and weekly summary notifications -->
+    <string name="learn_word_of_day">Wort des Tages</string>
+    <string name="learn_word_of_day_desc">%1$s bedeutet „%2$s“. Zum Üben tippen.</string>
+    <string name="learn_word_of_day_setting_desc">Jeden Morgen ein Wort aus Ihrem Kurs</string>
+    <string name="learn_weekly">Wochenrückblick</string>
+    <string name="learn_weekly_setting_desc">Ihr Fortschritt jeden Sonntagabend</string>
+    <string name="learn_weekly_title">Ihre %1$s-Woche</string>
+    <string name="learn_weekly_desc">%1$s · %2$d XP · %3$s</string>
+
     <!-- Reminder notification -->
     <string name="learn_reminder_title">Zeit für eine kurze Lektion</string>
     <plurals name="learn_reminder_title_streak">

@@ -221,6 +221,24 @@
     <string name="learn_same_language">서로 다른 두 언어를 선택하세요.</string>
     <string name="learn_pair">%1$s → %2$s</string>
 
+    <!-- Streak freeze -->
+    <string name="learn_streak_freeze_info">연속 학습 보호권: %2$d개 중 %1$d개. 하루를 놓쳐도 보호권이 연속 학습 기록을 지켜 주며, 자동으로 사용됩니다.</string>
+    <string name="learn_streak_freeze_pro">Pro를 이용하면 매주 연속 학습 보호권을 무료로 받을 수 있어요.</string>
+    <string name="learn_get_freeze">광고 보고 보호권 받기</string>
+    <string name="learn_freeze_earned">연속 학습 보호권이 추가되었습니다</string>
+    <plurals name="learn_freeze_used">
+        <item quantity="other">연속 학습 보호권 %d개로 연속 학습 기록을 지켰어요!</item>
+    </plurals>
+
+    <!-- Word of the day and weekly summary notifications -->
+    <string name="learn_word_of_day">오늘의 단어</string>
+    <string name="learn_word_of_day_desc">%1$s의 뜻: \"%2$s\". 탭하여 연습하세요.</string>
+    <string name="learn_word_of_day_setting_desc">매일 아침 코스에서 고른 단어 하나</string>
+    <string name="learn_weekly">주간 요약</string>
+    <string name="learn_weekly_setting_desc">매주 일요일 저녁 학습 현황</string>
+    <string name="learn_weekly_title">이번 주 %1$s 학습</string>
+    <string name="learn_weekly_desc">%1$s · %2$d XP · %3$s</string>
+
     <!-- Reminder notification -->
     <string name="learn_reminder_title">짧은 레슨을 할 시간이에요</string>
     <plurals name="learn_reminder_title_streak">

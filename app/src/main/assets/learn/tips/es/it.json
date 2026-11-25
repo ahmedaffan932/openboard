@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "¿Tu o Lei?",
+  "body": "En italiano hay dos formas de decir \"tú\". Usa \"tu\" con amigos, familia y niños. Usa \"Lei\" con desconocidos y en las tiendas. Con Lei, como con \"usted\", el verbo va en la forma de \"él/ella\": parla, può.",
+  "examples": ["and_you", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 2,
+  "title": "Sono, sei, è",
+  "body": "El verbo \"essere\" (ser/estar) cambia según la persona: io sono, tu sei, lui è, lei è. Los italianos a menudo no dicen io, tu ni lui: \"Sono uno studente\" significa \"soy estudiante\".",
+  "examples": ["i_am", "you_are", "he_is", "i_am_a_student"]
+ },
+ {
+  "unit": 3,
+  "title": "Il, la y l'",
+  "body": "Cada sustantivo es una palabra \"il\" o \"la\". Casi todas en -o llevan il: il numero. Casi todas en -a llevan la: la mattina. Antes de a, e, i, o, u, ambas son l': l'ora. Algunas usan lo: lo studente.",
+  "examples": ["number", "morning", "hour", "student"]
+ },
+ {
+  "unit": 4,
+  "title": "¿Hambre? Usa avere",
+  "body": "Como en español, se dice \"tengo hambre\": ho fame, ho sete. La edad igual: \"Ho 25 anni\" es \"tengo 25 años\". Ho viene del verbo avere (tener). La h no se pronuncia.",
+  "examples": ["i_am_hungry", "i_am_thirsty", "i_am_25"]
+ },
+ {
+  "unit": 7,
+  "title": "Decir no: non",
+  "body": "Para decir \"no\", pon non delante del verbo: capisco, non capisco. Nada más cambia. \"Non c'è\" significa \"no hay\".",
+  "examples": ["i_dont_understand", "i_dont_eat_meat", "there_is_no_hot_water"]
+ },
+ {
+  "unit": 8,
+  "title": "Palabras que concuerdan",
+  "body": "Las palabras que describen cambian su final para concordar: alto para un hombre, alta para una mujer, stanchi para un grupo. Las que acaban en -e, como felice, son iguales para hombres y mujeres.",
+  "examples": ["he_is_tall", "she_is_happy", "we_are_tired"]
+ },
+ {
+  "unit": 9,
+  "title": "Verbos en -are",
+  "body": "Muchos verbos terminan en -are, como parlare y lavorare. Para \"yo\", cambia -are por -o: parlo, lavoro. Para \"tú\" (tu), usa -i: parli. Normalmente puedes no decir io.",
+  "examples": ["i_speak_english", "i_eat_bread", "i_work_today"]
+ }
+]

@@ -109,6 +109,35 @@ class SrsAndStreakTest {
         assertEquals(0, StreakRules.current(4, -1, 10))
     }
 
+    @Test fun streakFreezes() {
+        // missed yesterday, one freeze: used, streak continues from yesterday
+        val one = StreakRules.settle(count = 5, lastDay = 8, today = 10, freezes = 1)
+        assertEquals(StreakRules.Settled(9, 1, listOf(9L)), one)
+        assertEquals(5, StreakRules.current(5, one.lastDay, 10))
+        // missed two days, only one freeze: nothing used, streak lost
+        assertEquals(StreakRules.Settled(7, 0, emptyList()), StreakRules.settle(5, 7, 10, 1))
+        assertEquals(StreakRules.Settled(9, 2, listOf(8L, 9L)), StreakRules.settle(5, 7, 10, 2))
+        // nothing missed, no streak, or never active: untouched
+        assertEquals(0, StreakRules.settle(5, 9, 10, 2).freezesUsed)
+        assertEquals(0, StreakRules.settle(0, 5, 10, 2).freezesUsed)
+        assertEquals(0, StreakRules.settle(3, -1, 10, 2).freezesUsed)
+        // weeks start on Monday: epoch day 4 (1970-01-05) is a Monday
+        assertEquals(StreakRules.week(4), StreakRules.week(10))
+        assertTrue(StreakRules.week(11) == StreakRules.week(4) + 1)
+    }
+
+    @Test fun weeklyStats() {
+        var s = WeeklyStats.add(emptyList(), 100, 15)
+        s = WeeklyStats.add(s, 100, 10)
+        s = WeeklyStats.add(s, 103, 5)
+        s = WeeklyStats.add(s, 85, 5).let { WeeklyStats.add(it, 104, 10) } // 85 is too old by 104
+        assertEquals(listOf(100L, 103L, 104L), s.map { it.day })
+        assertEquals(WeeklyStats.parse(WeeklyStats.format(s)), s)
+        assertEquals(Triple(4, 40, 3), WeeklyStats.lastWeek(s, 104))
+        assertEquals(Triple(1, 10, 1), WeeklyStats.lastWeek(s, 110))
+        assertEquals(emptyList<DayStat>(), WeeklyStats.parse("x,1:2,3:a:4"))
+    }
+
     @Test fun localDays() {
         val utc = java.util.TimeZone.getTimeZone("UTC")
         assertEquals(0L, LearnDays.today(0, utc))

@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Tú ou usted?",
+  "body": "O espanhol tem duas palavras para \"você\". Use tú com amigos e família. Use usted com desconhecidos e pessoas mais velhas, para ser educado. O verbo muda também: ¿Hablas inglés? (tú), ¿Habla inglés? (usted).",
+  "examples": ["how_are_you", "and_you", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 2,
+  "title": "Dizer de onde você é",
+  "body": "Use soy (eu sou) + de + um lugar: Soy de México. Use soy também para a profissão, sem \"um\": Soy estudiante. Você pode tirar o yo (eu), porque soy já quer dizer \"eu sou\".",
+  "examples": ["i_am_from_mexico", "where_are_you_from", "i_am_a_student"]
+ },
+ {
+  "unit": 4,
+  "title": "Todo substantivo é el ou la",
+  "body": "Todo substantivo em espanhol é masculino (el) ou feminino (la), até comida. A maioria dos que terminam em -o usa el: el vino. A maioria em -a usa la: la manzana. Aprenda cada substantivo junto com seu el ou la.",
+  "examples": ["wine", "cheese", "apple", "table"]
+ },
+ {
+  "unit": 8,
+  "title": "Ser e estar, como em português",
+  "body": "Como em português, o espanhol usa ser e estar. Ser é para como alguém é: Él es alto. Estar é para como alguém se sente agora: Estamos cansados. Para uma mulher, -o muitas vezes vira -a: alta, cansada.",
+  "examples": ["he_is_tall", "my_family_is_big", "we_are_tired", "she_is_happy"]
+ },
+ {
+  "unit": 9,
+  "title": "Com \"eu\", o verbo termina em -o",
+  "body": "Os verbos em espanhol mudam o final para cada pessoa. Para \"eu\", a maioria termina em -o: hablar → hablo, comer → como, trabajar → trabajo. Como em português, o final já diz \"eu\", então o yo muitas vezes sai.",
+  "examples": ["to_eat", "i_eat_bread", "i_drink_water", "i_work_every_day"]
+ },
+ {
+  "unit": 10,
+  "title": "Me gusta e me duele",
+  "body": "Para dizer que gosta de algo, o espanhol diz \"isso me agrada\": Me gusta el café. Coloque no antes para dizer que não gosta: No me gusta el té. A dor funciona igual: Me duele la cabeza.",
+  "examples": ["i_like_coffee", "i_dont_like_tea", "my_head_hurts", "my_stomach_hurts"]
+ },
+ {
+  "unit": 12,
+  "title": "Palavras que descrevem: depois",
+  "body": "Palavras que descrevem um substantivo geralmente vêm depois dele: un coche caro = um carro caro. Elas também mudam para combinar com o substantivo: un día bonito, una ciudad bonita.",
+  "examples": ["expensive_car", "what_a_beautiful_day", "the_city_is_beautiful", "my_car_is_red"]
+ }
+]

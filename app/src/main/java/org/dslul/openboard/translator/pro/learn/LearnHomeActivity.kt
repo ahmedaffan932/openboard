@@ -23,6 +23,7 @@ import org.dslul.openboard.translator.pro.learn.engine.CourseContent
 import org.dslul.openboard.translator.pro.learn.engine.CoursePlan
 import org.dslul.openboard.translator.pro.learn.engine.LearnDays
 import org.dslul.openboard.translator.pro.learn.engine.Srs
+import org.dslul.openboard.translator.pro.learn.engine.StreakRules
 import org.dslul.openboard.translator.pro.learn.engine.Syllabus
 
 /**
@@ -51,6 +52,7 @@ class LearnHomeActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener { finish() }
         binding.btnSettings.setOnClickListener { startActivity(Intent(this, LearnSettingsActivity::class.java)) }
         binding.llCourseChip.setOnClickListener { showCourseSwitcher() }
+        binding.tvStreak.setOnClickListener { showStreak() }
     }
 
     override fun onResume() {
@@ -61,9 +63,19 @@ class LearnHomeActivity : AppCompatActivity() {
     private fun refresh() {
         lifecycleScope.launch {
             val course = LearnRepository.currentCourse(this@LearnHomeActivity) ?: return@launch
+            store.grantWeeklyFreeze(Misc.getPurchasedStatus(this@LearnHomeActivity))
             val c = LearnRepository.course(this@LearnHomeActivity, course)
             content = c
             bind(c)
+            store.takeFreezeNotice().let { used ->
+                if (used > 0) {
+                    Toast.makeText(
+                        this@LearnHomeActivity,
+                        resources.getQuantityString(R.plurals.learn_freeze_used, used, used),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
             if (!adLoaded) {
                 adLoaded = true
                 LearnAds.bottomNative(this@LearnHomeActivity, binding.flAd)
@@ -270,4 +282,33 @@ class LearnHomeActivity : AppCompatActivity() {
     }
 
     private fun showCourseSwitcher() = CourseSwitcher.show(this) { refresh() }
+
+    /** The streak chip: streak, freezes owned, and a rewarded ad to earn one (Pro gets one weekly). */
+    private fun showStreak() {
+        val streak = store.streak()
+        val max = StreakRules.MAX_FREEZES
+        val canEarn = !Misc.getPurchasedStatus(this) && store.freezes < max
+        val message = getString(R.string.learn_streak_freeze_info, store.freezes, max) +
+            "\n\n" + getString(R.string.learn_streak_freeze_pro)
+        LearnUi.messageDialog(
+            this,
+            icon = R.drawable.ic_ui_flame,
+            iconTint = R.color.home_orange,
+            iconBackground = R.drawable.bg_ui_circle_orange,
+            title = resources.getQuantityString(R.plurals.learn_streak_days, streak, streak),
+            message = message,
+            primary = getString(if (canEarn) R.string.learn_get_freeze else R.string.learn_got_it),
+            secondary = if (canEarn) getString(R.string.learn_not_now) else null,
+            onPrimary = {
+                if (canEarn) {
+                    LearnAds.rewardedUnlock(this) { method ->
+                        if (store.addFreeze()) {
+                            AppAnalytics.learnStreakFreezeEarned(method)
+                            Toast.makeText(this, R.string.learn_freeze_earned, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+        )
+    }
 }

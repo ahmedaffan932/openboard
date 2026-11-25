@@ -243,6 +243,26 @@
     <string name="learn_same_language">Escolha dois idiomas diferentes.</string>
     <string name="learn_pair">%1$s → %2$s</string>
 
+    <!-- Streak freeze -->
+    <string name="learn_streak_freeze_info">Proteções de sequência: %1$d de %2$d. Uma proteção mantém sua sequência ativa se você perder um dia e é usada automaticamente.</string>
+    <string name="learn_streak_freeze_pro">Com o Pro, você ganha uma proteção de sequência grátis toda semana.</string>
+    <string name="learn_get_freeze">Ganhar proteção · ver anúncio</string>
+    <string name="learn_freeze_earned">Proteção de sequência adicionada</string>
+    <plurals name="learn_freeze_used">
+        <item quantity="one">%d proteção salvou sua sequência!</item>
+        <item quantity="other">%d proteções salvaram sua sequência!</item>
+        <item quantity="many">%d proteções salvaram sua sequência!</item>
+    </plurals>
+
+    <!-- Word of the day and weekly summary notifications -->
+    <string name="learn_word_of_day">Palavra do dia</string>
+    <string name="learn_word_of_day_desc">%1$s significa \"%2$s\". Toque para praticar.</string>
+    <string name="learn_word_of_day_setting_desc">Uma palavra do seu curso toda manhã</string>
+    <string name="learn_weekly">Resumo semanal</string>
+    <string name="learn_weekly_setting_desc">Seu progresso todo domingo à noite</string>
+    <string name="learn_weekly_title">Sua semana de %1$s</string>
+    <string name="learn_weekly_desc">%1$s · %2$d XP · %3$s</string>
+
     <!-- Reminder notification -->
     <string name="learn_reminder_title">Hora de uma lição rápida</string>
     <plurals name="learn_reminder_title_streak">

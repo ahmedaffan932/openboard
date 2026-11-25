@@ -47,6 +47,26 @@ class LearnSettingsActivity : AppCompatActivity() {
         row(binding.rowReminderTime, R.drawable.ic_ui_calendar_clock, R.drawable.bg_ui_tile_orange, R.color.home_orange, R.string.learn_reminder_time)
         binding.rowReminderTime.root.setOnClickListener { pickTime() }
 
+        row(binding.rowWordOfDay, R.drawable.ic_ui_sparkles, R.drawable.bg_ui_tile_purple, R.color.home_purple, R.string.learn_word_of_day)
+        binding.rowWordOfDay.tvSubtitle.visibility = View.VISIBLE
+        binding.rowWordOfDay.tvSubtitle.setText(R.string.learn_word_of_day_setting_desc)
+        binding.rowWordOfDay.swValue.visibility = View.VISIBLE
+        binding.rowWordOfDay.root.setOnClickListener { binding.rowWordOfDay.swValue.toggle() }
+        binding.rowWordOfDay.swValue.setOnCheckedChangeListener { _, on ->
+            store.wordOfDayOn = on
+            LearnReminder.schedule(this)
+        }
+
+        row(binding.rowWeekly, R.drawable.ic_ui_calendar_clock, R.drawable.bg_ui_tile_purple, R.color.home_purple, R.string.learn_weekly)
+        binding.rowWeekly.tvSubtitle.visibility = View.VISIBLE
+        binding.rowWeekly.tvSubtitle.setText(R.string.learn_weekly_setting_desc)
+        binding.rowWeekly.swValue.visibility = View.VISIBLE
+        binding.rowWeekly.root.setOnClickListener { binding.rowWeekly.swValue.toggle() }
+        binding.rowWeekly.swValue.setOnCheckedChangeListener { _, on ->
+            store.weeklyOn = on
+            LearnReminder.schedule(this)
+        }
+
         row(binding.rowListening, R.drawable.ic_ui_speaker, R.drawable.bg_ui_tile_teal, R.color.home_teal, R.string.learn_listening)
         binding.rowListening.tvSubtitle.visibility = View.VISIBLE
         binding.rowListening.tvSubtitle.setText(R.string.learn_listening_desc)
@@ -73,6 +93,8 @@ class LearnSettingsActivity : AppCompatActivity() {
         binding.rowAbout.root.isClickable = false
 
         binding.rowReminder.swValue.isChecked = store.reminderOn
+        binding.rowWordOfDay.swValue.isChecked = store.wordOfDayOn
+        binding.rowWeekly.swValue.isChecked = store.weeklyOn
         binding.rowListening.swValue.isChecked = store.listening
         binding.rowVibration.swValue.isChecked = store.vibration
     }

@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Bitte et danke",
+  "body": "Bitte veut dire \"s'il vous plaît\". C'est aussi la réponse habituelle à danke (\"merci\") : Bitte! ou Bitte schön! Pour dire \"merci beaucoup\", dites Vielen Dank.",
+  "examples": ["please", "thank_you", "youre_welcome", "thank_you_very_much"]
+ },
+ {
+  "unit": 2,
+  "title": "du ou Sie ?",
+  "body": "Comme le français avec tu et vous, l'allemand a du et Sie. Dites du aux amis, à la famille et aux enfants. Dites Sie aux adultes inconnus et au travail. Sie prend toujours un S majuscule.",
+  "examples": ["what_is_your_name", "where_are_you_from", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 4,
+  "title": "der, die, das",
+  "body": "Chaque nom allemand a son propre mot pour \"le/la\" : der, die ou das. Apprenez chaque nom avec ce mot : der Kaffee, die Milch, das Wasser. Les noms allemands prennent toujours une majuscule.",
+  "examples": ["coffee", "milk", "water", "bread"]
+ },
+ {
+  "unit": 8,
+  "title": "ich bin, du bist, er ist",
+  "body": "Le verbe sein (\"être\") change beaucoup : ich bin, du bist, er ist, sie ist, wir sind, sie sind. Les mots placés après, comme groß ou müde, restent les mêmes pour tous.",
+  "examples": ["i_am", "you_are", "we_are_tired", "they_are_my_friends"]
+ },
+ {
+  "unit": 9,
+  "title": "La fin du verbe",
+  "body": "Un verbe allemand change sa fin selon la personne : ich trinke, du trinkst, er trinkt, wir trinken. La forme du dictionnaire se termine par -en, comme trinken.",
+  "examples": ["to_drink", "i_drink_water", "she_comes_tomorrow", "we_go_to_the_beach"]
+ },
+ {
+  "unit": 11,
+  "title": "Le verbe en deuxième place",
+  "body": "Dans une phrase allemande, le verbe est toujours en deuxième place : Ich arbeite heute. Si vous commencez par un autre mot, comme heute, il reste deuxième : Heute ist es kalt.",
+  "examples": ["i_work_today", "today_is_monday", "it_is_hot", "it_is_cold"]
+ },
+ {
+  "unit": 12,
+  "title": "nicht ou kein ?",
+  "body": "Mettez kein (ou keinen, keine) devant un nom pour dire \"pas de\" ou \"aucun\" : Ich esse kein Fleisch. Utilisez nicht pour tout le reste : Das ist nicht schwierig.",
+  "examples": ["i_dont_eat_meat", "i_dont_like_tea", "it_is_not_difficult", "i_dont_understand"]
+ }
+]

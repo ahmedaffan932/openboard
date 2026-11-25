@@ -9,12 +9,14 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.learn.engine.CoursePlan
+import org.dslul.openboard.translator.pro.learn.engine.DayStat
 import org.dslul.openboard.translator.pro.learn.engine.ItemProgress
 import org.dslul.openboard.translator.pro.learn.engine.LearnDays
 import org.dslul.openboard.translator.pro.learn.engine.LessonSession
 import org.dslul.openboard.translator.pro.learn.engine.Srs
 import org.dslul.openboard.translator.pro.learn.engine.StreakRules
 import org.dslul.openboard.translator.pro.learn.engine.Syllabus
+import org.dslul.openboard.translator.pro.learn.engine.WeeklyStats
 import java.io.File
 
 /** One course's saved progress: finished lessons, item review state, rewarded unit unlocks. */
@@ -97,8 +99,74 @@ class LearnStore private constructor(private val context: Context) {
 
     val xp: Int get() = prefs.getInt("xp", 0)
 
-    fun streak(today: Long = LearnDays.today()): Int =
-        StreakRules.current(prefs.getInt("streak", 0), prefs.getLong("streakDay", -1), today)
+    /** The current streak, after spending streak freezes on any missed days (see [settleStreak]). */
+    fun streak(today: Long = LearnDays.today()): Int {
+        settleStreak(today)
+        return StreakRules.current(prefs.getInt("streak", 0), prefs.getLong("streakDay", -1), today)
+    }
+
+    // --- Streak freezes -------------------------------------------------------------------------
+
+    /** Streak freezes owned (0..[StreakRules.MAX_FREEZES]). */
+    val freezes: Int get() = prefs.getInt("freezes", 0)
+
+    /** Adds one earned freeze; false when already at the maximum. */
+    fun addFreeze(): Boolean {
+        if (freezes >= StreakRules.MAX_FREEZES) return false
+        prefs.edit().putInt("freezes", freezes + 1).apply()
+        return true
+    }
+
+    /** Premium: one free freeze each Monday-based week (once the learner has a course). */
+    fun grantWeeklyFreeze(premium: Boolean, today: Long = LearnDays.today()) {
+        if (!premium || !onboarded) return
+        val week = StreakRules.week(today)
+        if (prefs.getLong("freezeWeek", Long.MIN_VALUE) == week) return
+        val edit = prefs.edit().putLong("freezeWeek", week)
+        if (freezes < StreakRules.MAX_FREEZES) {
+            edit.putInt("freezes", freezes + 1)
+            org.dslul.openboard.translator.pro.classes.AppAnalytics.learnStreakFreezeEarned("premium_weekly")
+        }
+        edit.apply()
+    }
+
+    /** Days a freeze covered (the last 14), shown as snowflakes in the week row. */
+    fun frozenDays(): Set<Long> =
+        prefs.getString("frozenDays", "").orEmpty().split(',').mapNotNull { it.toLongOrNull() }.toSet()
+
+    /** How many freezes were used since the course map last said so (then cleared). */
+    fun takeFreezeNotice(): Int {
+        val n = prefs.getInt("freezeNotice", 0)
+        if (n > 0) prefs.edit().putInt("freezeNotice", 0).apply()
+        return n
+    }
+
+    /** Spends freezes on missed days so the streak survives (idempotent; called by [streak]). */
+    fun settleStreak(today: Long = LearnDays.today()) {
+        val settled = StreakRules.settle(prefs.getInt("streak", 0), prefs.getLong("streakDay", -1), today, freezes)
+        if (settled.freezesUsed == 0) return
+        val frozen = (frozenDays() + settled.frozenDays).filter { it > today - 14 }.sorted()
+        prefs.edit()
+            .putLong("streakDay", settled.lastDay)
+            .putInt("freezes", freezes - settled.freezesUsed)
+            .putString("frozenDays", frozen.joinToString(","))
+            .putInt("freezeNotice", prefs.getInt("freezeNotice", 0) + settled.freezesUsed)
+            .apply()
+        org.dslul.openboard.translator.pro.classes.AppAnalytics.learnStreakFreezeUsed(settled.freezesUsed)
+    }
+
+    // --- Weekly stats and extra notifications ---------------------------------------------------
+
+    /** Per-day lessons and XP for the last 14 days (weekly summary notification). */
+    fun dayStats(): List<DayStat> = WeeklyStats.parse(prefs.getString("dayStats", ""))
+
+    var wordOfDayOn: Boolean
+        get() = prefs.getBoolean("wordOfDay", true)
+        set(v) = prefs.edit().putBoolean("wordOfDay", v).apply()
+
+    var weeklyOn: Boolean
+        get() = prefs.getBoolean("weekly", true)
+        set(v) = prefs.edit().putBoolean("weekly", v).apply()
 
     fun lessonsToday(today: Long = LearnDays.today()): Int =
         if (prefs.getLong("todayDay", -1) == today) prefs.getInt("todayLessons", 0) else 0
@@ -196,6 +264,7 @@ class LearnStore private constructor(private val context: Context) {
             .putLong("todayDay", today)
             .putInt("todayLessons", todayCount)
             .putString("activeDays", days.joinToString(","))
+            .putString("dayStats", WeeklyStats.format(WeeklyStats.add(dayStats(), today, xpGained)))
             .apply()
         return Outcome(xpGained, newStreak, newStreak > before, todayCount == dailyGoal, todayCount)
     }
