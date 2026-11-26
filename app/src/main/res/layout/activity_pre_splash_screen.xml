@@ -44,21 +44,16 @@
         app:layout_constraintBottom_toTopOf="@id/spline"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <ImageView
             android:id="@+id/logo"
             android:layout_width="88dp"
             android:layout_height="88dp"
             android:background="@drawable/ui_launch_logo_tile_large"
             android:elevation="12dp"
-            android:fontFamily="@font/sora_extrabold"
-            android:gravity="center"
             android:importantForAccessibility="no"
-            android:includeFontPadding="false"
             android:outlineAmbientShadowColor="@color/home_shadow_blue"
             android:outlineSpotShadowColor="@color/home_shadow_blue"
-            android:text="@string/home_logo_mark"
-            android:textColor="@color/home_on_accent"
-            android:textSize="31sp"
+            android:src="@drawable/app_logo"
             tools:targetApi="p" />
 
         <TextView

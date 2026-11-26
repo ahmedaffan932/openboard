@@ -24,20 +24,15 @@
         android:paddingEnd="16dp"
         android:paddingBottom="8dp">
 
-        <TextView
+        <ImageView
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:background="@drawable/bg_home_logo"
             android:elevation="4dp"
-            android:fontFamily="@font/sora_extrabold"
-            android:gravity="center"
             android:importantForAccessibility="no"
-            android:includeFontPadding="false"
             android:outlineAmbientShadowColor="@color/home_shadow_blue"
             android:outlineSpotShadowColor="@color/home_shadow_blue"
-            android:text="@string/home_logo_mark"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"
+            android:src="@drawable/app_logo"
             tools:targetApi="p" />
 
         <TextView

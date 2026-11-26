@@ -830,6 +830,5 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="paste_nothing">Nothing to paste</string>
     <string name="swap_languages">Swap languages</string>
     <string name="speak">Speak</string>
-    <string name="home_logo_mark" translatable="false">A文</string>
     <string name="home_char_count" translatable="false">%1$d / %2$d</string>
 </resources>

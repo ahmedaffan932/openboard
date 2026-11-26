@@ -56,16 +56,10 @@
             android:paddingEnd="8dp"
             tools:targetApi="p">
 
-            <TextView
+            <ImageView
                 android:layout_width="38dp"
                 android:layout_height="38dp"
-                android:background="@drawable/bg_home_logo"
-                android:fontFamily="@font/sora_extrabold"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:text="@string/home_logo_mark"
-                android:textColor="@color/home_on_accent"
-                android:textSize="13sp" />
+                android:src="@drawable/app_logo" />
 
             <TextView
                 android:layout_width="0dp"

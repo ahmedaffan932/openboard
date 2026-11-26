@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- In-app logo (the launcher icon artwork as a rounded square, corner radius 22.37% of its
+     size). Mipmapped so it stays crisp when drawn small (34dp Home header, 38dp widget). -->
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:mipMap="true"
+    android:src="@drawable/app_logo_image" />
