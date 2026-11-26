@@ -2,7 +2,7 @@ package org.dslul.openboard.translator.pro.learn.engine
 
 /**
  * Where a learner is in a course, from the set of completed lesson keys ("u2l3"). Lessons are
- * taken in order; a unit after the free ones needs Premium or a still-valid rewarded unlock.
+ * taken in order. (Access to Learn as a whole is a Pro feature: see LearnAccess.)
  */
 object CoursePlan {
 
@@ -20,13 +20,6 @@ object CoursePlan {
         val next = nextLesson(syllabus, completed) ?: return UnitState.DONE
         return if (next.first == unit) UnitState.CURRENT else UnitState.UPCOMING
     }
-
-    /**
-     * Whether new lessons of [unit] are locked: never for Premium or the free units, otherwise
-     * only while no rewarded unlock is running ([unlockUntil] epoch millis, 0 = none).
-     */
-    fun isLocked(unit: Int, freeUnits: Int, premium: Boolean, unlockUntil: Long, now: Long): Boolean =
-        !premium && unit > freeUnits && unlockUntil <= now
 
     /** Lesson keys of units 1..[upToUnit], marked done by a passed test-out. */
     fun testOutKeys(syllabus: Syllabus, upToUnit: Int): Set<String> =

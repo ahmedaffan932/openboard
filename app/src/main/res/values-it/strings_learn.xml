@@ -3,7 +3,7 @@
 <resources>
     <!-- Home card -->
     <string name="learn_card_title">Impara una lingua</string>
-    <string name="learn_card_subtitle">5 minuti al giorno · lezioni gratuite</string>
+    <string name="learn_card_subtitle">5 minuti al giorno · corsi per principianti</string>
     <string name="learn_badge_new">NUOVO</string>
     <string name="learn_card_start">Inizia</string>
     <string name="learn_unit_title_full">Unità %1$d · %2$s</string>
@@ -59,23 +59,15 @@
     <string name="learn_unit_label">UNITÀ %1$d</string>
     <string name="learn_unit_completed">Completata · %1$d di %2$d lezioni</string>
     <string name="learn_lessons_of">%1$d di %2$d</string>
-    <plurals name="learn_unit_lessons_free">
-        <item quantity="one">%d lezione · gratis</item>
-        <item quantity="other">%d lezioni · gratis</item>
-        <item quantity="many">%d lezioni · gratis</item>
-    </plurals>
     <plurals name="learn_unit_lessons">
         <item quantity="one">%d lezione</item>
         <item quantity="other">%d lezioni</item>
         <item quantity="many">%d lezioni</item>
     </plurals>
-    <string name="learn_unit_locked">Bloccata · guarda un annuncio o passa a Pro</string>
-    <string name="learn_unit_unlocked_for">Sbloccata · ancora %1$d h</string>
     <string name="learn_review">Ripassa</string>
     <string name="learn_tip_prefix">Suggerimento: %1$s</string>
     <string name="learn_continue_lesson_n">Continua · Lezione %1$d</string>
     <string name="learn_start_lesson_n">Inizia · Lezione %1$d</string>
-    <string name="learn_pro">PRO</string>
     <string name="learn_finish_previous">Prima completa le lezioni precedenti.</string>
     <string name="learn_lesson_n">Lezione %1$d</string>
 
@@ -92,13 +84,7 @@
     <string name="learn_unit_11">Giorni, mesi e meteo</string>
     <string name="learn_unit_12">Descrivere le cose</string>
 
-    <!-- Unit locked dialog -->
-    <string name="learn_locked_title">L\'unità %1$d è bloccata</string>
-    <string name="learn_locked_desc">Le unità 1–%1$d sono gratuite. Guarda un breve video per sbloccare l\'unità %2$d per %3$d ore, oppure passa a Pro per aprire tutte le unità senza pubblicità.</string>
-    <string name="learn_watch_ad_unlock">Guarda annuncio · sblocca %1$d h</string>
-    <string name="learn_go_pro">Passa a Pro · tutte le unità</string>
     <string name="learn_not_now">Non ora</string>
-    <string name="learn_unit_unlocked_toast">L\'unità %1$d è sbloccata per %2$d ore</string>
 
     <!-- Switch course -->
     <string name="learn_your_courses">I tuoi corsi</string>

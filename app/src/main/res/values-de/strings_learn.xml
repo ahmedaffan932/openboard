@@ -3,7 +3,7 @@
 <resources>
     <!-- Home card -->
     <string name="learn_card_title">Sprache lernen</string>
-    <string name="learn_card_subtitle">5 Minuten am Tag · kostenlose Lektionen</string>
+    <string name="learn_card_subtitle">5 Minuten am Tag · Anfängerkurse</string>
     <string name="learn_badge_new">NEU</string>
     <string name="learn_card_start">Starten</string>
     <string name="learn_unit_title_full">Einheit %1$d · %2$s</string>
@@ -57,21 +57,14 @@
     <string name="learn_unit_label">EINHEIT %1$d</string>
     <string name="learn_unit_completed">Abgeschlossen · %1$d von %2$d Lektionen</string>
     <string name="learn_lessons_of">%1$d von %2$d</string>
-    <plurals name="learn_unit_lessons_free">
-        <item quantity="one">%d Lektion · kostenlos</item>
-        <item quantity="other">%d Lektionen · kostenlos</item>
-    </plurals>
     <plurals name="learn_unit_lessons">
         <item quantity="one">%d Lektion</item>
         <item quantity="other">%d Lektionen</item>
     </plurals>
-    <string name="learn_unit_locked">Gesperrt · Werbung ansehen oder Pro holen</string>
-    <string name="learn_unit_unlocked_for">Freigeschaltet · noch %1$d Std.</string>
     <string name="learn_review">Wiederholen</string>
     <string name="learn_tip_prefix">Tipp: %1$s</string>
     <string name="learn_continue_lesson_n">Weiter · Lektion %1$d</string>
     <string name="learn_start_lesson_n">Starten · Lektion %1$d</string>
-    <string name="learn_pro">PRO</string>
     <string name="learn_finish_previous">Schließen Sie zuerst die vorherigen Lektionen ab.</string>
     <string name="learn_lesson_n">Lektion %1$d</string>
 
@@ -88,13 +81,7 @@
     <string name="learn_unit_11">Tage, Monate &amp; Wetter</string>
     <string name="learn_unit_12">Dinge beschreiben</string>
 
-    <!-- Unit locked dialog -->
-    <string name="learn_locked_title">Einheit %1$d ist gesperrt</string>
-    <string name="learn_locked_desc">Die Einheiten 1–%1$d sind kostenlos. Sehen Sie sich ein kurzes Video an, um Einheit %2$d für %3$d Stunden freizuschalten, oder holen Sie sich Pro für alle Einheiten ohne Werbung.</string>
-    <string name="learn_watch_ad_unlock">Werbung ansehen · %1$d Std. frei</string>
-    <string name="learn_go_pro">Pro holen · alle Einheiten</string>
     <string name="learn_not_now">Nicht jetzt</string>
-    <string name="learn_unit_unlocked_toast">Einheit %1$d ist für %2$d Stunden freigeschaltet</string>
 
     <!-- Switch course -->
     <string name="learn_your_courses">Ihre Kurse</string>

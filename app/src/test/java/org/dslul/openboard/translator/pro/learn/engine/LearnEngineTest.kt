@@ -283,11 +283,4 @@ class CoursePlanTest {
         assertEquals(setOf("u1l1", "u1l2"), CoursePlan.testOutKeys(syllabus, 1))
     }
 
-    @Test fun locks() {
-        assertFalse(CoursePlan.isLocked(3, 3, false, 0, 1000))
-        assertTrue(CoursePlan.isLocked(4, 3, false, 0, 1000))
-        assertFalse(CoursePlan.isLocked(4, 3, true, 0, 1000))
-        assertFalse(CoursePlan.isLocked(4, 3, false, 2000, 1000))
-        assertTrue(CoursePlan.isLocked(4, 3, false, 900, 1000))
-    }
 }

@@ -11,6 +11,7 @@
     <string name="premium_feature_voice_translation">Traduction vocale</string>
     <string name="premium_feature_offline_language_packs">Packs de langues hors ligne</string>
     <string name="premium_feature_premium_phrasebook">Guide de conversation Premium</string>
+    <string name="premium_feature_language_courses">Cours de langues et entraînement aux phrases</string>
     <string name="premium_feature_ad_free_experience">Expérience sans publicité</string>
     <string name="allow_access">Autoriser l’accès</string>
     <string name="camera_permission">Autorisation de la caméra</string>

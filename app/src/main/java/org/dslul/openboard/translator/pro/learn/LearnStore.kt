@@ -19,11 +19,10 @@ import org.dslul.openboard.translator.pro.learn.engine.Syllabus
 import org.dslul.openboard.translator.pro.learn.engine.WeeklyStats
 import java.io.File
 
-/** One course's saved progress: finished lessons, item review state, rewarded unit unlocks. */
+/** One course's saved progress: finished lessons and item review state. */
 class CourseProgress(
     val completed: MutableSet<String> = LinkedHashSet(),
     val items: MutableMap<String, ItemProgress> = HashMap(),
-    val unlocks: MutableMap<Int, Long> = HashMap(),
 ) {
     val isStarted: Boolean get() = completed.isNotEmpty() || items.isNotEmpty()
 
@@ -35,7 +34,6 @@ class CourseProgress(
                 add(p.box); add(p.due); add(p.seen); add(p.right); add(p.wrong)
             })
         })
-        o.add("unlocks", JsonObject().apply { for ((u, t) in unlocks) addProperty(u.toString(), t) })
         return o.toString()
     }
 
@@ -48,7 +46,6 @@ class CourseProgress(
                 val a = el.asJsonArray
                 p.items[id] = ItemProgress(a[0].asInt, a[1].asLong, a[2].asInt, a[3].asInt, a[4].asInt)
             }
-            o.getAsJsonObject("unlocks")?.entrySet()?.forEach { (u, t) -> p.unlocks[u.toInt()] = t.asLong }
             return p
         }
     }
@@ -214,11 +211,6 @@ class LearnStore private constructor(private val context: Context) {
     fun reset(course: String) {
         synchronized(cache) { cache[course] = CourseProgress() }
         file(course).delete()
-    }
-
-    fun unlockUnit(course: String, unit: Int, untilMillis: Long) {
-        progress(course).unlocks[unit] = untilMillis
-        save(course)
     }
 
     /** What finishing a session changed, for the result screen. */

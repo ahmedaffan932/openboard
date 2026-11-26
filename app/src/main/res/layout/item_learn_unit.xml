@@ -92,24 +92,6 @@
             tools:text="Review"
             tools:visibility="visible" />
 
-        <TextView
-            android:id="@+id/tvPro"
-            style="@style/HomeText.Chip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/bg_learn_pro_chip"
-            android:drawablePadding="4dp"
-            android:gravity="center_vertical"
-            android:paddingStart="8dp"
-            android:paddingTop="4dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="4dp"
-            android:text="@string/learn_pro"
-            android:textColor="@color/home_on_accent"
-            android:visibility="gone"
-            app:drawableStartCompat="@drawable/ic_ui_crown_filled"
-            app:drawableTint="@color/home_on_accent" />
 
         <ImageView
             android:id="@+id/ivChevron"

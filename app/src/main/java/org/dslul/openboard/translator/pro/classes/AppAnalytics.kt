@@ -126,9 +126,15 @@ object AppAnalytics {
             putString("first_open", firstOpen.toString())
         })
 
-    /** An onboarding slide shown; [slide] counts from 1. */
-    fun onboardingSlideView(slide: Int) =
+    /**
+     * An onboarding slide shown; [slide] counts from 1. Logs `screen_onboarding_<slide>` (one
+     * event name per slide, so a funnel needs no parameter filter) and `onboarding_slide_view`
+     * with a `slide` parameter, kept for existing reports.
+     */
+    fun onboardingSlideView(slide: Int) {
+        screenView("onboarding_$slide")
         log("onboarding_slide_view", Bundle().apply { putLong("slide", slide.toLong()) })
+    }
 
     /** The user finished the onboarding slides (Continue, or Next on the last slide). */
     fun onboardingComplete() = log("onboarding_complete", null)
@@ -245,29 +251,13 @@ object AppAnalytics {
     /** The streak grew to [days] with today's first finished session. */
     fun learnStreak(days: Int) = log("learn_streak", Bundle().apply { putLong("days", days.toLong()) })
 
-    /** A streak freeze earned; [method] as for [learnUnitUnlock], or `premium_weekly`. */
+    /** A streak freeze earned; [method] `rewarded`, `ad_timeout`, `ad_failed`, `show_failed`, `no_ad` or `premium_weekly`. */
     fun learnStreakFreezeEarned(method: String) =
         log("learn_streak_freeze_earned", Bundle().apply { putString("method", method) })
 
     /** Streak freezes spent automatically on [days] missed days. */
     fun learnStreakFreezeUsed(days: Int) =
         log("learn_streak_freeze_used", Bundle().apply { putLong("days", days.toLong()) })
-
-
-    /** A locked unit opened; [method] `rewarded`, `ad_timeout`, `ad_failed`, `show_failed`, `no_ad`. */
-    fun learnUnitUnlock(course: String, unit: Int, method: String) =
-        log("learn_unit_unlock", Bundle().apply {
-            putString("course", course)
-            putLong("unit", unit.toLong())
-            putString("method", method)
-        })
-
-    /** The locked-unit dialog was shown ([featureLockView] style funnel for Learn). */
-    fun learnUnitLockView(course: String, unit: Int) =
-        log("learn_unit_lock_view", Bundle().apply {
-            putString("course", course)
-            putLong("unit", unit.toLong())
-        })
 
     /** No text-to-speech voice for [language]: listening questions are skipped. */
     fun learnTtsUnavailable(language: String) =

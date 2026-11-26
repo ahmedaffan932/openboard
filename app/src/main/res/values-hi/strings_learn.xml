@@ -3,7 +3,7 @@
 <resources>
     <!-- Home card -->
     <string name="learn_card_title">कोई भाषा सीखें</string>
-    <string name="learn_card_subtitle">रोज़ 5 मिनट · मुफ़्त पाठ</string>
+    <string name="learn_card_subtitle">रोज़ 5 मिनट · शुरुआती कोर्स</string>
     <string name="learn_badge_new">नया</string>
     <string name="learn_card_start">शुरू करें</string>
     <string name="learn_unit_title_full">यूनिट %1$d · %2$s</string>
@@ -57,21 +57,14 @@
     <string name="learn_unit_label">यूनिट %1$d</string>
     <string name="learn_unit_completed">पूरा हुआ · %2$d में से %1$d पाठ</string>
     <string name="learn_lessons_of">%2$d में से %1$d</string>
-    <plurals name="learn_unit_lessons_free">
-        <item quantity="one">%d पाठ · मुफ़्त</item>
-        <item quantity="other">%d पाठ · मुफ़्त</item>
-    </plurals>
     <plurals name="learn_unit_lessons">
         <item quantity="one">%d पाठ</item>
         <item quantity="other">%d पाठ</item>
     </plurals>
-    <string name="learn_unit_locked">लॉक है · विज्ञापन देखें या Pro लें</string>
-    <string name="learn_unit_unlocked_for">अनलॉक · %1$d घंटे बाकी</string>
     <string name="learn_review">दोहराएँ</string>
     <string name="learn_tip_prefix">सुझाव: %1$s</string>
     <string name="learn_continue_lesson_n">जारी रखें · पाठ %1$d</string>
     <string name="learn_start_lesson_n">शुरू करें · पाठ %1$d</string>
-    <string name="learn_pro">PRO</string>
     <string name="learn_finish_previous">पहले इससे पहले वाले पाठ पूरे करें।</string>
     <string name="learn_lesson_n">पाठ %1$d</string>
 
@@ -88,13 +81,7 @@
     <string name="learn_unit_11">दिन, महीने और मौसम</string>
     <string name="learn_unit_12">चीज़ों का वर्णन</string>
 
-    <!-- Unit locked dialog -->
-    <string name="learn_locked_title">यूनिट %1$d लॉक है</string>
-    <string name="learn_locked_desc">यूनिट 1–%1$d मुफ़्त हैं। यूनिट %2$d को %3$d घंटे के लिए अनलॉक करने के लिए एक छोटा वीडियो देखें, या बिना विज्ञापन सभी यूनिट खोलने के लिए Pro लें।</string>
-    <string name="learn_watch_ad_unlock">विज्ञापन देखें · %1$d घंटे अनलॉक</string>
-    <string name="learn_go_pro">Pro लें · सभी यूनिट</string>
     <string name="learn_not_now">अभी नहीं</string>
-    <string name="learn_unit_unlocked_toast">यूनिट %1$d को %2$d घंटे के लिए अनलॉक किया गया</string>
 
     <!-- Switch course -->
     <string name="learn_your_courses">आपके कोर्स</string>

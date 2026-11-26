@@ -13,7 +13,6 @@ import kotlinx.coroutines.launch
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.LearnHomeCardBinding
 import org.dslul.openboard.inputmethod.latin.databinding.LearnPhrasebookCardBinding
-import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.ads.Ads
 import org.dslul.openboard.translator.pro.learn.engine.CoursePlan
 
@@ -38,17 +37,22 @@ object LearnEntryCards {
         LearnUi.setVisible(card.llLearnNew, !started)
         LearnUi.setVisible(card.llLearnProgress, started)
 
+        // Learn is a Pro feature: every way in goes through the Pro lock first (LearnAccess).
         val openHome = View.OnClickListener {
             val activity = fragment.activity ?: return@OnClickListener
-            Ads.runWithEverySixthClickInterstitial(activity) {
-                if (fragment.isAdded) fragment.startActivity(Intent(activity, LearnHomeActivity::class.java))
+            LearnAccess.guard(activity, LearnAccess.FEATURE_LEARN) { afterAd ->
+                val go = { if (fragment.isAdded) fragment.startActivity(Intent(activity, LearnHomeActivity::class.java)) }
+                if (afterAd) go() else Ads.runWithEverySixthClickInterstitial(activity) { go() }
             }
         }
         card.root.setOnClickListener(openHome)
 
         if (!started) {
             card.btnLearnStart.setOnClickListener {
-                fragment.startActivity(Intent(context, LearnOnboardingActivity::class.java))
+                val activity = fragment.activity ?: return@setOnClickListener
+                LearnAccess.guard(activity, LearnAccess.FEATURE_LEARN) {
+                    if (fragment.isAdded) fragment.startActivity(Intent(activity, LearnOnboardingActivity::class.java))
+                }
             }
             card.root.setOnClickListener { card.btnLearnStart.performClick() }
             if (card.llLearnFlags.childCount == 0) {
@@ -86,13 +90,10 @@ object LearnEntryCards {
             }
             val (unit, lesson) = next
             card.tvLearnUnit.text = context.getString(R.string.learn_unit_title_full, unit, LearnUi.unitTitle(context, unit))
-            val locked = CoursePlan.isLocked(
-                unit, LearnConfig.freeUnits, Misc.getPurchasedStatus(context), progress.unlocks[unit] ?: 0L, System.currentTimeMillis()
-            )
-            if (!locked) {
-                // Straight into the next lesson, with the course map behind it.
-                card.btnLearnContinue.setOnClickListener {
-                    val activity = fragment.activity ?: return@setOnClickListener
+            // Straight into the next lesson, with the course map behind it (after the Pro lock).
+            card.btnLearnContinue.setOnClickListener {
+                val activity = fragment.activity ?: return@setOnClickListener
+                LearnAccess.guard(activity, LearnAccess.FEATURE_LEARN) {
                     activity.startActivities(
                         arrayOf(Intent(activity, LearnHomeActivity::class.java), LessonActivity.lesson(activity, unit, lesson))
                     )
@@ -112,8 +113,9 @@ object LearnEntryCards {
         card.root.visibility = View.VISIBLE
         card.root.setOnClickListener {
             val activity = fragment.activity ?: return@setOnClickListener
-            Ads.runWithEverySixthClickInterstitial(activity) {
-                if (fragment.isAdded) fragment.startActivity(Intent(activity, PhrasePracticeActivity::class.java))
+            LearnAccess.guard(activity, LearnAccess.FEATURE_PHRASES) { afterAd ->
+                val go = { if (fragment.isAdded) fragment.startActivity(Intent(activity, PhrasePracticeActivity::class.java)) }
+                if (afterAd) go() else Ads.runWithEverySixthClickInterstitial(activity) { go() }
             }
         }
     }

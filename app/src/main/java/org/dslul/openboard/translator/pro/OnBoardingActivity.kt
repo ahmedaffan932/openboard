@@ -104,7 +104,10 @@ class OnBoardingActivity : AppCompatActivity() {
             })
     }
 
-    /** One `onboarding_slide_view` per slide per visit; swiping back does not count it twice. */
+    /**
+     * One `screen_onboarding_<n>` + `onboarding_slide_view` per slide per visit; swiping back does
+     * not count it twice.
+     */
     private fun logSlideView(position: Int) {
         if (loggedSlides.add(position)) AppAnalytics.onboardingSlideView(position + 1)
     }

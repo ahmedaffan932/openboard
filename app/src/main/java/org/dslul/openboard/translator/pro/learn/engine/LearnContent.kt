@@ -60,7 +60,6 @@ data class LearnManifest(
     val version: Int,
     val courses: List<String>,
     val glossLanguages: List<String>,
-    val freeUnits: Int,
 )
 
 /**
@@ -129,7 +128,6 @@ object ContentParser {
             o.get("version")?.asInt ?: 1,
             o.stringList("courses"),
             o.stringList("glossLanguages"),
-            o.get("freeUnits")?.asInt ?: 3
         )
     }
 

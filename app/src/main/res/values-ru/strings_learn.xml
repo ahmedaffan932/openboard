@@ -3,7 +3,7 @@
 <resources>
     <!-- Home card -->
     <string name="learn_card_title">Изучайте язык</string>
-    <string name="learn_card_subtitle">5 минут в день · бесплатные уроки</string>
+    <string name="learn_card_subtitle">5 минут в день · курсы для начинающих</string>
     <string name="learn_badge_new">НОВОЕ</string>
     <string name="learn_card_start">Начать</string>
     <string name="learn_unit_title_full">Раздел %1$d · %2$s</string>
@@ -61,25 +61,16 @@
     <string name="learn_unit_label">РАЗДЕЛ %1$d</string>
     <string name="learn_unit_completed">Пройден · уроков: %1$d из %2$d</string>
     <string name="learn_lessons_of">%1$d из %2$d</string>
-    <plurals name="learn_unit_lessons_free">
-        <item quantity="one">%d урок · бесплатно</item>
-        <item quantity="few">%d урока · бесплатно</item>
-        <item quantity="many">%d уроков · бесплатно</item>
-        <item quantity="other">%d урока · бесплатно</item>
-    </plurals>
     <plurals name="learn_unit_lessons">
         <item quantity="one">%d урок</item>
         <item quantity="few">%d урока</item>
         <item quantity="many">%d уроков</item>
         <item quantity="other">%d урока</item>
     </plurals>
-    <string name="learn_unit_locked">Закрыт · посмотрите рекламу или оформите Pro</string>
-    <string name="learn_unit_unlocked_for">Открыт · осталось %1$d ч</string>
     <string name="learn_review">Повторить</string>
     <string name="learn_tip_prefix">Совет: %1$s</string>
     <string name="learn_continue_lesson_n">Продолжить · Урок %1$d</string>
     <string name="learn_start_lesson_n">Начать · Урок %1$d</string>
-    <string name="learn_pro">PRO</string>
     <string name="learn_finish_previous">Сначала пройдите предыдущие уроки.</string>
     <string name="learn_lesson_n">Урок %1$d</string>
 
@@ -96,13 +87,7 @@
     <string name="learn_unit_11">Дни, месяцы и погода</string>
     <string name="learn_unit_12">Описание предметов</string>
 
-    <!-- Unit locked dialog -->
-    <string name="learn_locked_title">Раздел %1$d закрыт</string>
-    <string name="learn_locked_desc">Разделы 1–%1$d бесплатны. Посмотрите короткое видео, чтобы открыть раздел %2$d на %3$d ч, или оформите Pro, чтобы открыть все разделы без рекламы.</string>
-    <string name="learn_watch_ad_unlock">Реклама · открыть на %1$d ч</string>
-    <string name="learn_go_pro">Оформить Pro · все разделы</string>
     <string name="learn_not_now">Не сейчас</string>
-    <string name="learn_unit_unlocked_toast">Раздел %1$d открыт на %2$d ч</string>
 
     <!-- Switch course -->
     <string name="learn_your_courses">Ваши курсы</string>

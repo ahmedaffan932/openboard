@@ -786,11 +786,6 @@ class LessonActivity : AppCompatActivity() {
                 val syllabus = content?.syllabus ?: return
                 val key = if (kind == LessonSession.Kind.LESSON) Syllabus.lessonKey(unit, lesson) else null
                 val testOut = if (kind == LessonSession.Kind.CHECKPOINT && s.passed) 3 else 0
-                if (testOut > 0 && testOut + 1 > LearnConfig.freeUnits) {
-                    // Passing the test skips the free units; don't land the learner on a lock.
-                    store.unlockUnit(language, testOut + 1, System.currentTimeMillis() + LearnConfig.unlockHours * 3_600_000L)
-                    AppAnalytics.learnUnitUnlock(language, testOut + 1, "test_out")
-                }
                 store.record(language, syllabus, s, key, testOut)
             }
         }

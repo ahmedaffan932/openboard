@@ -15,7 +15,7 @@
 |---|---|
 | Launch courses | English, Spanish, French, German, Italian |
 | Entry point | Home "Learn a language" card + Phrasebook "Practice phrases" card. No new tab. |
-| Free tier | Units 1–3 free. A later unit opens for 24h with a rewarded ad, or for good with Premium. Interstitial every 2 lessons, never inside a lesson. |
+| Free tier | **Changed 2026-11-26:** Learn and Phrase Practice are Pro features, locked like Camera and Conversation. Pro opens them for good; a rewarded ad opens them until the app is closed. No per-unit locks. Interstitial every 2 lessons, never inside a lesson. Listed on the premium screen as "Language Courses & Phrase Practice". |
 | Phrase Practice (58 languages) | In |
 | Keyboard layout auto-switch | Out. Typing fields still set `imeHintLocales`, so Gboard switches by itself. |
 | Speaking exercises | Out |
@@ -116,6 +116,32 @@ All new code is in `app/src/main/java/org/dslul/openboard/translator/pro/learn/`
   - The settings row "Sound effects" became "Vibration" (no sound assets are shipped).
   - "Content credits" became "About the lessons", because no third-party sentence data is used.
   - Figma was updated to match both.
+
+### 0.7 Learn is a Pro feature (2026-11-26)
+
+- **Lock:** `LearnAccess` guards every way in: the Home card, the Phrasebook "Practice phrases" card, and the course map itself (for notification and shortcut entries).
+  - Free users see the dashboard's existing "Unlock Premium Access" dialog: **Upgrade to Pro**, or **Watch Ad**.
+  - **Watch Ad** opens Learn and Phrase Practice until the app is closed.
+  - When Remote Config switches the Pro screen off (`Misc.isProScreenEnabled`), Learn is open to everyone, like the Camera and Conversation tabs.
+  - Analytics use the existing `feature_lock_*` / `feature_unlock` events with features `learn` and `phrase_practice`.
+- **Per-unit locks removed:**
+  - unit PRO chips;
+  - the locked-unit dialog;
+  - the test-out unit unlock;
+  - `learn_free_units` / `learn_unlock_hours`;
+  - `learn_unit_unlock` / `learn_unit_lock_view`;
+  - their strings in 9 languages.
+- **Premium screen:** a "Language Courses & Phrase Practice" row (Basic 🔒, Pro ✓), translated into the 8 languages. The Home card subtitle now reads "5 minutes a day · beginner courses".
+- **Figma:**
+  - Premium (light and dark) has the new row;
+  - "Learn · Pro lock" replaces "Learn · Unit locked";
+  - course maps show all units open.
+- **Tested on the Note 20:**
+  - the premium row;
+  - the lock on the Home card and the close button;
+  - Watch Ad unlocking Learn;
+  - all units open on the course map;
+  - Phrase Practice open in the same session and locked again after an app restart.
 
 ### 0.6 Rest of the plan, added after PR #1 (2026-11-24)
 
@@ -459,7 +485,7 @@ The project has no Room, and each course has at most ~500 progress rows.
 - Rewarded ads: streak freeze, unlock a locked unit for 24h, extra practice. Reuse the feature-lock dialog with a new `FEATURE_LEARN = "learn"`.
 
 **Free vs premium:**
-- Free: units 1–3 of every course fully (`learn_free_units`). Each later unit is unlocked for 24h with a rewarded ad.
+- Free: units 1–3 of every course fully (`learn_free_units`). Each later unit is unlocked for 24h with a rewarded ad. *(Superseded 2026-11-26 by §0.7: all of Learn is a Pro feature.)*
 - Premium: all units, no ads, weekly streak freeze, speaking exercises.
 
 **Analytics events** (bundle params, under Firebase limits; no per-tap event spam):

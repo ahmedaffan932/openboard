@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 import org.dslul.openboard.inputmethod.latin.R
 import org.dslul.openboard.inputmethod.latin.databinding.ActivityLearnHomeBinding
 import org.dslul.openboard.inputmethod.latin.databinding.ItemLearnUnitBinding
-import org.dslul.openboard.translator.pro.PremiumScreenActivity
 import org.dslul.openboard.translator.pro.classes.AppAnalytics
 import org.dslul.openboard.translator.pro.classes.Misc
 import org.dslul.openboard.translator.pro.classes.Misc.setAppLanguage
@@ -28,7 +27,7 @@ import org.dslul.openboard.translator.pro.learn.engine.Syllabus
 
 /**
  * The course map (Figma "Learn · Course map"): course switcher, streak, XP, daily goal, practice
- * and the 12 units. Units after [LearnConfig.freeUnits] need Premium or a rewarded 24h unlock.
+ * and the 12 units. Learn is a Pro feature; [LearnAccess] guards the way in.
  */
 class LearnHomeActivity : AppCompatActivity() {
 
@@ -55,9 +54,19 @@ class LearnHomeActivity : AppCompatActivity() {
         binding.tvStreak.setOnClickListener { showStreak() }
     }
 
+    private var lockDialog: android.app.Dialog? = null
+
     override fun onResume() {
         super.onResume()
-        if (::binding.isInitialized) refresh()
+        if (!::binding.isInitialized) return
+        // Reached from a notification or the app shortcut without the Pro lock: check here.
+        if (!LearnAccess.canOpen(this)) {
+            if (lockDialog?.isShowing != true) {
+                lockDialog = LearnAccess.showLock(this, LearnAccess.FEATURE_LEARN, onCancel = { finish() }) { refresh() }
+            }
+            return
+        }
+        refresh()
     }
 
     private fun refresh() {
@@ -117,15 +126,11 @@ class LearnHomeActivity : AppCompatActivity() {
         }
 
         binding.llUnits.removeAllViews()
-        val premium = Misc.getPurchasedStatus(this)
-        val now = System.currentTimeMillis()
         var currentView: View? = null
         for (u in syllabus.units) {
             val unit = u.number
             val row = ItemLearnUnitBinding.inflate(LayoutInflater.from(this), binding.llUnits, true)
             val state = CoursePlan.unitState(syllabus, unit, progress.completed)
-            val unlockUntil = progress.unlocks[unit] ?: 0L
-            val locked = CoursePlan.isLocked(unit, LearnConfig.freeUnits, premium, unlockUntil, now)
             val lessons = syllabus.lessonCount(unit)
             val doneInUnit = CoursePlan.completedInUnit(syllabus, unit, progress.completed)
             val title = LearnUi.unitTitle(this, unit)
@@ -139,32 +144,18 @@ class LearnHomeActivity : AppCompatActivity() {
                     row.tvAction.setText(R.string.learn_review)
                     row.root.setOnClickListener { startActivity(LessonActivity.practice(this)) }
                 }
-                locked -> {
-                    badge(row, R.drawable.bg_ui_tile_orange, R.drawable.ic_ui_lock, R.color.home_orange)
-                    row.tvSubtitle.setText(R.string.learn_unit_locked)
-                    row.tvPro.visibility = View.VISIBLE
-                    row.root.setOnClickListener { showLocked(course, unit) }
-                }
                 state == CoursePlan.UnitState.CURRENT -> {
                     currentView = row.root
                     bindCurrent(row, c, unit, doneInUnit, lessons, progress.completed)
                 }
                 else -> {
                     numberBadge(row, unit)
-                    row.tvSubtitle.text = resources.getQuantityString(
-                        if (unit <= LearnConfig.freeUnits) R.plurals.learn_unit_lessons_free else R.plurals.learn_unit_lessons,
-                        lessons, lessons
-                    )
+                    row.tvSubtitle.text = resources.getQuantityString(R.plurals.learn_unit_lessons, lessons, lessons)
                     row.ivChevron.visibility = View.VISIBLE
                     row.root.setOnClickListener {
                         Toast.makeText(this, R.string.learn_finish_previous, Toast.LENGTH_SHORT).show()
                     }
                 }
-            }
-            if (!locked && !premium && unit > LearnConfig.freeUnits && unlockUntil > now && state != CoursePlan.UnitState.DONE) {
-                val hours = ((unlockUntil - now) / 3_600_000L + 1).toInt()
-                row.tvSubtitle.text = getString(R.string.learn_unit_unlocked_for, hours)
-                row.tvSubtitle.visibility = View.VISIBLE
             }
         }
         currentView?.let { v -> binding.scrollView.post { if (v.top > binding.scrollView.height) binding.scrollView.smoothScrollTo(0, v.top - 200) } }
@@ -250,35 +241,6 @@ class LearnHomeActivity : AppCompatActivity() {
         }
         row.btnContinue.text = getString(if (done == 0) R.string.learn_start_lesson_n else R.string.learn_continue_lesson_n, next)
         row.btnContinue.setOnClickListener { startActivity(LessonActivity.lesson(this, unit, next)) }
-    }
-
-    private fun showLocked(course: String, unit: Int) {
-        AppAnalytics.learnUnitLockView(course, unit)
-        val hours = LearnConfig.unlockHours
-        LearnUi.messageDialog(
-            this,
-            icon = R.drawable.ic_ui_lock,
-            iconTint = R.color.home_orange,
-            iconBackground = R.drawable.bg_ui_circle_orange,
-            title = getString(R.string.learn_locked_title, unit),
-            message = getString(R.string.learn_locked_desc, LearnConfig.freeUnits, unit, hours),
-            primary = getString(R.string.learn_watch_ad_unlock, hours),
-            secondary = getString(R.string.learn_not_now),
-            onPrimary = {
-                LearnAds.rewardedUnlock(this) { method ->
-                    store.unlockUnit(course, unit, System.currentTimeMillis() + hours * 3_600_000L)
-                    AppAnalytics.learnUnitUnlock(course, unit, method)
-                    Toast.makeText(this, getString(R.string.learn_unit_unlocked_toast, unit, hours), Toast.LENGTH_SHORT).show()
-                    content?.let { bind(it) }
-                }
-            },
-            extraButton = getString(R.string.learn_go_pro) to {
-                startActivity(
-                    Intent(this, PremiumScreenActivity::class.java)
-                        .putExtra(AppAnalytics.EXTRA_PREMIUM_SOURCE, AppAnalytics.PREMIUM_SOURCE_FEATURE_LOCK)
-                )
-            }
-        )
     }
 
     private fun showCourseSwitcher() = CourseSwitcher.show(this) { refresh() }

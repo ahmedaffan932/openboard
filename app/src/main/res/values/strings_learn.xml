@@ -4,7 +4,7 @@
 <resources>
     <!-- Home card -->
     <string name="learn_card_title">Learn a language</string>
-    <string name="learn_card_subtitle">5 minutes a day · free lessons</string>
+    <string name="learn_card_subtitle">5 minutes a day · beginner courses</string>
     <string name="learn_badge_new">NEW</string>
     <string name="learn_card_start">Start</string>
     <string name="learn_unit_title_full">Unit %1$d · %2$s</string>
@@ -58,21 +58,14 @@
     <string name="learn_unit_label">UNIT %1$d</string>
     <string name="learn_unit_completed">Completed · %1$d of %2$d lessons</string>
     <string name="learn_lessons_of">%1$d of %2$d</string>
-    <plurals name="learn_unit_lessons_free">
-        <item quantity="one">%d lesson · free</item>
-        <item quantity="other">%d lessons · free</item>
-    </plurals>
     <plurals name="learn_unit_lessons">
         <item quantity="one">%d lesson</item>
         <item quantity="other">%d lessons</item>
     </plurals>
-    <string name="learn_unit_locked">Locked · watch an ad or go Pro</string>
-    <string name="learn_unit_unlocked_for">Unlocked · %1$dh left</string>
     <string name="learn_review">Review</string>
     <string name="learn_tip_prefix">Tip: %1$s</string>
     <string name="learn_continue_lesson_n">Continue · Lesson %1$d</string>
     <string name="learn_start_lesson_n">Start · Lesson %1$d</string>
-    <string name="learn_pro">PRO</string>
     <string name="learn_finish_previous">Finish the lessons before this one first.</string>
     <string name="learn_lesson_n">Lesson %1$d</string>
 
@@ -89,13 +82,7 @@
     <string name="learn_unit_11">Days, months &amp; weather</string>
     <string name="learn_unit_12">Describing things</string>
 
-    <!-- Unit locked dialog -->
-    <string name="learn_locked_title">Unit %1$d is locked</string>
-    <string name="learn_locked_desc">Units 1–%1$d are free. Watch a short video to unlock Unit %2$d for %3$d hours, or go Pro to open every unit with no ads.</string>
-    <string name="learn_watch_ad_unlock">Watch ad · unlock %1$dh</string>
-    <string name="learn_go_pro">Go Pro · all units</string>
     <string name="learn_not_now">Not now</string>
-    <string name="learn_unit_unlocked_toast">Unit %1$d is unlocked for %2$d hours</string>
 
     <!-- Switch course -->
     <string name="learn_your_courses">Your courses</string>
