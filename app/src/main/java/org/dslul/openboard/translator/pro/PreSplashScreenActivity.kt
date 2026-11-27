@@ -241,6 +241,8 @@ class PreSplashScreenActivity : AppCompatActivity() {
             // Only keys that came from the remote are applied, so a failed fetch keeps the last
             // values; persisted for the alarm- and keyboard-started processes that never fetch.
             NotiConfig.applyFrom(this, mFRC)
+            org.dslul.openboard.translator.pro.learn.LearnConfig.applyFrom(this, mFRC)
+            org.dslul.openboard.translator.pro.learn.LearnReminder.schedule(this)
             NotiScheduler.scheduleAll(this)
             AppShortcuts.setup(this)
 

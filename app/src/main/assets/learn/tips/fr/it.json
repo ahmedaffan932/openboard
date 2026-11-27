@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Tu ou Lei ?",
+  "body": "Comme le français avec tu et vous, l'italien a \"tu\" et \"Lei\". Dites \"tu\" aux amis, à la famille et aux enfants. Dites \"Lei\" aux inconnus et dans les magasins. Avec Lei, le verbe prend la forme \"il/elle\" : parla, può.",
+  "examples": ["and_you", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 2,
+  "title": "Sono, sei, è",
+  "body": "Le verbe \"essere\" (être) change selon la personne : io sono, tu sei, lui è, lei è. Les Italiens omettent souvent io, tu et lui : \"Sono uno studente\" veut dire \"je suis étudiant\".",
+  "examples": ["i_am", "you_are", "he_is", "i_am_a_student"]
+ },
+ {
+  "unit": 3,
+  "title": "Il, la et l'",
+  "body": "Chaque nom est un mot \"il\" ou un mot \"la\". En -o, il prend souvent il : il numero. En -a, souvent la : la mattina. Devant a, e, i, o, u, les deux deviennent l' : l'ora. Certains prennent lo : lo studente.",
+  "examples": ["number", "morning", "hour", "student"]
+ },
+ {
+  "unit": 4,
+  "title": "Faim ? Avec avere",
+  "body": "Comme en français, on dit \"j'ai faim\" : ho fame, ho sete. Pareil pour l'âge : \"Ho 25 anni\" veut dire \"j'ai 25 ans\". Ho vient du verbe avere (avoir). Le h ne se prononce pas.",
+  "examples": ["i_am_hungry", "i_am_thirsty", "i_am_25"]
+ },
+ {
+  "unit": 7,
+  "title": "Dire \"ne pas\" : non",
+  "body": "Pour dire \"ne... pas\", mettez simplement non devant le verbe : capisco, non capisco. Rien d'autre ne change. \"Non c'è\" veut dire \"il n'y a pas\".",
+  "examples": ["i_dont_understand", "i_dont_eat_meat", "there_is_no_hot_water"]
+ },
+ {
+  "unit": 8,
+  "title": "Des mots qui s'accordent",
+  "body": "Les mots qui décrivent changent leur fin pour s'accorder : alto pour un homme, alta pour une femme, stanchi pour un groupe. Les mots en -e, comme felice, sont pareils pour les hommes et les femmes.",
+  "examples": ["he_is_tall", "she_is_happy", "we_are_tired"]
+ },
+ {
+  "unit": 9,
+  "title": "Les verbes en -are",
+  "body": "Beaucoup de verbes finissent en -are, comme parlare et lavorare. Pour \"je\", remplacez -are par -o : parlo, lavoro. Pour \"tu\" (tu), mettez -i : parli. On peut souvent omettre io.",
+  "examples": ["i_speak_english", "i_eat_bread", "i_work_today"]
+ }
+]

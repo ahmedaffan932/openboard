@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Tu या Lei?",
+  "body": "इतालवी में \"आप/तुम\" कहने के दो तरीके हैं। दोस्तों, परिवार और बच्चों से \"tu\" कहें। अनजान लोगों से और दुकानों में \"Lei\" कहें। Lei के साथ क्रिया \"वह\" वाले रूप में आती है: parla, può.",
+  "examples": ["and_you", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 2,
+  "title": "Sono, sei, è",
+  "body": "क्रिया \"essere\" (होना) व्यक्ति के साथ बदलती है: io sono, tu sei, lui è, lei è. इटली के लोग अक्सर io, tu और lui नहीं बोलते: \"Sono uno studente\" का मतलब है \"मैं छात्र हूँ\"।",
+  "examples": ["i_am", "you_are", "he_is", "i_am_a_student"]
+ },
+ {
+  "unit": 3,
+  "title": "Il, la और l'",
+  "body": "हर संज्ञा या तो \"il\" वाली होती है या \"la\" वाली। -o वाली ज़्यादातर il लेती हैं: il numero. -a वाली ज़्यादातर la: la mattina. a, e, i, o, u से पहले दोनों l' बनते हैं: l'ora. कुछ lo लेती हैं: lo studente.",
+  "examples": ["number", "morning", "hour", "student"]
+ },
+ {
+  "unit": 4,
+  "title": "भूख? avere लगाएँ",
+  "body": "इतालवी में कहते हैं \"मेरे पास भूख है\": ho fame, ho sete. उम्र भी ऐसे ही: \"Ho 25 anni\" यानी \"मेरे पास 25 साल हैं\"। Ho क्रिया avere (पास होना) से आता है। h बोला नहीं जाता।",
+  "examples": ["i_am_hungry", "i_am_thirsty", "i_am_25"]
+ },
+ {
+  "unit": 7,
+  "title": "\"नहीं\" कहना: non",
+  "body": "\"नहीं\" कहने के लिए बस क्रिया से पहले non लगाएँ: capisco, non capisco. और कुछ नहीं बदलता। \"Non c'è\" का मतलब है \"नहीं है\"।",
+  "examples": ["i_dont_understand", "i_dont_eat_meat", "there_is_no_hot_water"]
+ },
+ {
+  "unit": 8,
+  "title": "मेल खाने वाले शब्द",
+  "body": "वर्णन करने वाले शब्द मेल खाने के लिए अपना अंत बदलते हैं: आदमी के लिए alto, औरत के लिए alta, समूह के लिए stanchi. -e वाले शब्द, जैसे felice, आदमी और औरत दोनों के लिए एक जैसे रहते हैं।",
+  "examples": ["he_is_tall", "she_is_happy", "we_are_tired"]
+ },
+ {
+  "unit": 9,
+  "title": "-are वाली क्रियाएँ",
+  "body": "कई क्रियाएँ -are पर ख़त्म होती हैं, जैसे parlare और lavorare. \"मैं\" के लिए -are की जगह -o लगाएँ: parlo, lavoro. \"तुम\" (tu) के लिए -i: parli. io को अक्सर छोड़ सकते हैं।",
+  "examples": ["i_speak_english", "i_eat_bread", "i_work_today"]
+ }
+]

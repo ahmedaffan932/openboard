@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Tú ou usted ?",
+  "body": "Comme en français, tú est comme \"tu\" (amis, famille) et usted comme \"vous\" (inconnus, personnes âgées, politesse). Le verbe change aussi : ¿Hablas inglés? (tú), ¿Habla inglés? (usted).",
+  "examples": ["how_are_you", "and_you", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 2,
+  "title": "Dire d'où vous venez",
+  "body": "Utilisez soy (je suis) + de + un lieu : Soy de México. Pour votre métier aussi, sans \"un\", comme en français : Soy estudiante. Vous pouvez enlever yo (je), car soy veut déjà dire \"je suis\".",
+  "examples": ["i_am_from_mexico", "where_are_you_from", "i_am_a_student"]
+ },
+ {
+  "unit": 4,
+  "title": "Chaque nom est el ou la",
+  "body": "Chaque nom espagnol est masculin (el) ou féminin (la), même la nourriture. La plupart des noms en -o prennent el : el vino. La plupart en -a prennent la : la manzana. Apprenez chaque nom avec son el ou la.",
+  "examples": ["wine", "cheese", "apple", "table"]
+ },
+ {
+  "unit": 8,
+  "title": "Deux verbes pour \"être\"",
+  "body": "L'espagnol a deux verbes pour \"être\". Ser dit comment est quelqu'un : Él es alto. Estar dit comment on se sent maintenant : Estamos cansados. Pour une femme, -o devient souvent -a : alta, cansada.",
+  "examples": ["he_is_tall", "my_family_is_big", "we_are_tired", "she_is_happy"]
+ },
+ {
+  "unit": 9,
+  "title": "Avec \"je\", le verbe finit en -o",
+  "body": "La fin des verbes espagnols change selon la personne. Pour \"je\", la plupart finissent en -o : hablar → hablo, comer → como, trabajar → trabajo. La fin veut déjà dire \"je\", donc on enlève souvent yo.",
+  "examples": ["to_eat", "i_eat_bread", "i_drink_water", "i_work_every_day"]
+ },
+ {
+  "unit": 10,
+  "title": "Me gusta et me duele",
+  "body": "Pour dire que vous aimez quelque chose, l'espagnol dit \"ça me plaît\" : Me gusta el café. Mettez no devant pour dire le contraire : No me gusta el té. La douleur marche pareil : Me duele la cabeza.",
+  "examples": ["i_like_coffee", "i_dont_like_tea", "my_head_hurts", "my_stomach_hurts"]
+ },
+ {
+  "unit": 12,
+  "title": "Le mot qui décrit vient après",
+  "body": "Comme en français, les mots qui décrivent un nom viennent souvent après : un coche caro = une voiture chère. Ils changent aussi pour aller avec le nom : un día bonito, una ciudad bonita.",
+  "examples": ["expensive_car", "what_a_beautiful_day", "the_city_is_beautiful", "my_car_is_red"]
+ }
+]

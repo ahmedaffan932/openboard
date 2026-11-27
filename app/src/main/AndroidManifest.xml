@@ -32,7 +32,10 @@
 
     <application
         android:name="org.dslul.openboard.translator.pro.classes.App"
-        android:allowBackup="false"
+        android:allowBackup="true"
+        tools:replace="android:allowBackup"
+        android:dataExtractionRules="@xml/learn_data_extraction_rules"
+        android:fullBackupContent="@xml/learn_backup_rules"
         android:defaultToDeviceProtectedStorage="true"
         android:directBootAware="true"
         android:icon="@mipmap/ic_launcher"
@@ -88,6 +91,38 @@
             android:theme="@style/Theme.TranslatorGuru" />
         <activity
             android:name="org.dslul.openboard.translator.pro.WordGameActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru" />
+        <!-- Learn module (translator/pro/learn). -->
+        <activity
+            android:name="org.dslul.openboard.translator.pro.learn.LearnHomeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru" />
+        <activity
+            android:name="org.dslul.openboard.translator.pro.learn.LearnOnboardingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru" />
+        <activity
+            android:name="org.dslul.openboard.translator.pro.learn.LessonActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.TranslatorGuru" />
+        <activity
+            android:name="org.dslul.openboard.translator.pro.learn.LearnSettingsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru" />
+        <activity
+            android:name="org.dslul.openboard.translator.pro.learn.PhrasePracticeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TranslatorGuru" />
+        <activity
+            android:name="org.dslul.openboard.translator.pro.learn.PhraseCardsActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TranslatorGuru" />
@@ -312,6 +347,10 @@
             android:stopWithTask="false" />
         <receiver
             android:name="org.dslul.openboard.translator.pro.notifications.receivers.NotiAlarmReceiver"
+            android:exported="false" />
+        <!-- Learn's daily streak reminder (LearnReminder). -->
+        <receiver
+            android:name="org.dslul.openboard.translator.pro.learn.LearnReminderReceiver"
             android:exported="false" />
         <receiver
             android:name="org.dslul.openboard.translator.pro.notifications.receivers.NotiDismissReceiver"

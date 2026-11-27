@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Every exercise type in one view (Figma section 12): LessonActivity shows only the parts the current
+     type uses. Tip card, new item card, choice list, listen grid, word tiles, match pairs, typing. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvChip"
+        style="@style/HomeText.Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_learn_chip_accent"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:paddingStart="8dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="5dp"
+        android:textColor="@color/home_accent"
+        android:visibility="gone"
+        app:drawableStartCompat="@drawable/ic_ui_sparkles"
+        app:drawableTint="@color/home_accent"
+        tools:text="NEW WORD"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvPrompt"
+        style="@style/HomeText.SectionTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:visibility="gone"
+        tools:text="Select the correct translation" />
+
+    <!-- Tip -->
+    <TextView
+        android:id="@+id/tvTipTitle"
+        style="@style/HomeText.Display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:text="Saying where you are from" />
+
+    <TextView
+        android:id="@+id/tvTipBody"
+        style="@style/HomeText.BodyLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="14dp"
+        android:textColor="@color/home_text_secondary"
+        android:visibility="gone"
+        tools:text="Use soy de + a place." />
+
+    <LinearLayout
+        android:id="@+id/llTipExamples"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_ui_card"
+        android:elevation="2dp"
+        android:orientation="vertical"
+        android:outlineSpotShadowColor="@color/home_shadow"
+        android:paddingStart="16dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="4dp"
+        android:visibility="gone"
+        tools:targetApi="p" />
+
+    <!-- Prompt card: optional speaker + text (meaning or course text) -->
+    <LinearLayout
+        android:id="@+id/llPromptCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/bg_ui_card"
+        android:elevation="2dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:outlineSpotShadowColor="@color/home_shadow"
+        android:padding="16dp"
+        android:visibility="gone"
+        tools:targetApi="p">
+
+        <ImageView
+            android:id="@+id/ivPromptSpeak"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_ui_circle_primary"
+            android:contentDescription="@string/learn_speak"
+            android:elevation="3dp"
+            android:outlineSpotShadowColor="@color/home_shadow_blue"
+            android:padding="10dp"
+            app:srcCompat="@drawable/ic_ui_speaker"
+            app:tint="@color/home_on_accent"
+            tools:targetApi="p" />
+
+        <TextView
+            android:id="@+id/tvPromptText"
+            style="@style/HomeText.CardLarge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textIsSelectable="false"
+            tools:text="Where is the hotel?" />
+    </LinearLayout>
+
+    <!-- Big card: new item / listen -->
+    <LinearLayout
+        android:id="@+id/llBigCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/bg_ui_card_r22"
+        android:elevation="4dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:outlineSpotShadowColor="@color/home_shadow"
+        android:paddingStart="20dp"
+        android:paddingTop="26dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="22dp"
+        android:visibility="gone"
+        tools:targetApi="p">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivBigSpeak"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/bg_ui_circle_primary"
+                android:contentDescription="@string/learn_speak"
+                android:elevation="4dp"
+                android:outlineSpotShadowColor="@color/home_shadow_blue"
+                android:padding="18dp"
+                app:srcCompat="@drawable/ic_ui_speaker"
+                app:tint="@color/home_on_accent"
+                tools:targetApi="p" />
+
+            <TextView
+                android:id="@+id/tvSlow"
+                style="@style/HomeText.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/bg_learn_chip_accent"
+                android:drawablePadding="6dp"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="6dp"
+                android:text="@string/learn_slow"
+                android:textColor="@color/home_accent"
+                app:drawableStartCompat="@drawable/ic_ui_speaker"
+                app:drawableTint="@color/home_accent" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvBigText"
+            style="@style/HomeText.Display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:textSize="30sp"
+            tools:text="Hola" />
+
+        <TextView
+            android:id="@+id/tvBigMeaning"
+            style="@style/HomeText.BodyLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:textColor="@color/home_text_secondary"
+            tools:text="Hello" />
+    </LinearLayout>
+
+    <!-- Choices (rows) -->
+    <LinearLayout
+        android:id="@+id/llOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:visibility="gone" />
+
+    <!-- Word tiles -->
+    <LinearLayout
+        android:id="@+id/llTiles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <!-- Answer area: two ruled lines tall even when empty (ChipGroup ignores minHeight). -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="112dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="55dp"
+                android:background="@color/home_border" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cgAnswer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                app:chipSpacingHorizontal="8dp"
+                app:chipSpacingVertical="10dp" />
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/home_border" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cgBank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:clipToPadding="false"
+            android:paddingBottom="4dp"
+            app:chipSpacingHorizontal="8dp"
+            app:chipSpacingVertical="10dp" />
+    </LinearLayout>
+
+    <!-- Match pairs -->
+    <LinearLayout
+        android:id="@+id/llMatch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/llMatchLeft"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/llMatchRight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:orientation="vertical" />
+    </LinearLayout>
+
+    <!-- Typing -->
+    <LinearLayout
+        android:id="@+id/llType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/etAnswer"
+            style="@style/HomeText.Input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_learn_input"
+            android:gravity="top|start"
+            android:imeOptions="actionDone|flagNoExtractUi"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine|textNoSuggestions"
+            android:minHeight="110dp"
+            android:paddingStart="16dp"
+            android:paddingTop="14dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="14dp"
+            android:textColorHint="@color/home_hint"
+            tools:hint="Type in Spanish" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cgKeys"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:chipSpacingHorizontal="4dp"
+            app:chipSpacingVertical="6dp" />
+
+        <TextView
+            android:id="@+id/tvTypeHint"
+            style="@style/HomeText.CaptionMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/learn_accents_tip" />
+    </LinearLayout>
+</LinearLayout>

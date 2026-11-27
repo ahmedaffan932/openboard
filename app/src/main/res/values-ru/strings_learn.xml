@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Learn module strings (translated from values/strings_learn.xml). -->
+<resources>
+    <!-- Home card -->
+    <string name="learn_card_title">Изучайте язык</string>
+    <string name="learn_card_subtitle">5 минут в день · курсы для начинающих</string>
+    <string name="learn_badge_new">НОВОЕ</string>
+    <string name="learn_card_start">Начать</string>
+    <string name="learn_unit_title_full">Раздел %1$d · %2$s</string>
+    <string name="learn_today_goal">Цель на сегодня</string>
+    <plurals name="learn_goal_progress">
+        <item quantity="one">%1$d из %2$d урока</item>
+        <item quantity="few">%1$d из %2$d уроков</item>
+        <item quantity="many">%1$d из %2$d уроков</item>
+        <item quantity="other">%1$d из %2$d урока</item>
+    </plurals>
+    <string name="learn_continue_lesson">Продолжить урок</string>
+    <string name="learn_course_done">Курс пройден! Продолжайте практиковаться.</string>
+
+    <!-- Phrasebook card -->
+    <string name="learn_practice_phrases">Практика фраз</string>
+    <string name="learn_practice_phrases_desc">Проверьте себя на 58 языках</string>
+
+    <!-- Onboarding -->
+    <string name="learn_title">Изучайте язык</string>
+    <string name="learn_ob_course_title">Что вы хотите изучать?</string>
+    <string name="learn_ob_course_desc">Уроки объясняются на языке приложения: %1$s.</string>
+    <string name="learn_course_beginner">Начальный уровень · разделов: %1$d</string>
+    <string name="learn_popular">Популярное</string>
+    <string name="learn_ob_level_title">Насколько хорошо вы знаете %1$s?</string>
+    <string name="learn_ob_level_new">Впервые изучаю %1$s</string>
+    <string name="learn_ob_level_new_desc">Начните с самого первого урока.</string>
+    <string name="learn_ob_level_some">Немного знаю %1$s</string>
+    <string name="learn_ob_level_some_desc">Пройдите короткий тест из 15 вопросов. Сдайте его, чтобы пропустить разделы 1–3.</string>
+    <string name="learn_ob_goal_title">Выберите цель на день</string>
+    <string name="learn_ob_goal_desc">Понемногу и регулярно лучше, чем долго и редко. Цель можно изменить позже.</string>
+    <string name="learn_goal_casual">Легко</string>
+    <string name="learn_goal_regular">Регулярно</string>
+    <string name="learn_goal_serious">Серьёзно</string>
+    <string name="learn_goal_casual_desc">1 урок в день · около 5 мин</string>
+    <string name="learn_goal_regular_desc">2 урока в день · около 10 мин</string>
+    <string name="learn_goal_serious_desc">3 урока в день · около 15 мин</string>
+    <string name="learn_reminder">Ежедневное напоминание</string>
+    <string name="learn_reminder_at">Каждый день в %1$s · нажмите, чтобы изменить</string>
+    <string name="learn_continue">Продолжить</string>
+    <string name="learn_start_learning">Начать обучение</string>
+
+    <!-- Course map -->
+    <string name="learn_home_title">Обучение</string>
+    <string name="learn_xp">%1$d XP</string>
+    <string name="learn_daily_goal">Цель на день</string>
+    <string name="learn_practice">Практика</string>
+    <plurals name="learn_practice_due">
+        <item quantity="one">%d слово на повторение</item>
+        <item quantity="few">%d слова на повторение</item>
+        <item quantity="many">%d слов на повторение</item>
+        <item quantity="other">%d слова на повторение</item>
+    </plurals>
+    <string name="learn_practice_later">Сначала пройдите урок</string>
+    <string name="learn_practice_start">Начать →</string>
+    <string name="learn_unit_label">РАЗДЕЛ %1$d</string>
+    <string name="learn_unit_completed">Пройден · уроков: %1$d из %2$d</string>
+    <string name="learn_lessons_of">%1$d из %2$d</string>
+    <plurals name="learn_unit_lessons">
+        <item quantity="one">%d урок</item>
+        <item quantity="few">%d урока</item>
+        <item quantity="many">%d уроков</item>
+        <item quantity="other">%d урока</item>
+    </plurals>
+    <string name="learn_review">Повторить</string>
+    <string name="learn_tip_prefix">Совет: %1$s</string>
+    <string name="learn_continue_lesson_n">Продолжить · Урок %1$d</string>
+    <string name="learn_start_lesson_n">Начать · Урок %1$d</string>
+    <string name="learn_finish_previous">Сначала пройдите предыдущие уроки.</string>
+    <string name="learn_lesson_n">Урок %1$d</string>
+
+    <string name="learn_unit_1">Основы и приветствия</string>
+    <string name="learn_unit_2">Знакомство</string>
+    <string name="learn_unit_3">Числа и время</string>
+    <string name="learn_unit_4">Еда и ресторан</string>
+    <string name="learn_unit_5">Покупки и деньги</string>
+    <string name="learn_unit_6">Путешествия и маршруты</string>
+    <string name="learn_unit_7">Отель</string>
+    <string name="learn_unit_8">Семья и люди</string>
+    <string name="learn_unit_9">Распорядок дня</string>
+    <string name="learn_unit_10">Здоровье и экстренные случаи</string>
+    <string name="learn_unit_11">Дни, месяцы и погода</string>
+    <string name="learn_unit_12">Описание предметов</string>
+
+    <string name="learn_not_now">Не сейчас</string>
+
+    <!-- Switch course -->
+    <string name="learn_your_courses">Ваши курсы</string>
+    <string name="learn_course_progress">Раздел %1$d · пройдено %2$d%%</string>
+    <string name="learn_not_started">Не начат</string>
+    <string name="learn_progress_saved">Прогресс сохраняется отдельно для каждого курса.</string>
+
+    <!-- Settings -->
+    <string name="learn_settings_title">Настройки обучения</string>
+    <string name="learn_group_course">Курс</string>
+    <string name="learn_course">Курс</string>
+    <string name="learn_course_from">%1$s · язык объяснений: %2$s</string>
+    <string name="learn_change">Изменить</string>
+    <string name="learn_edit">Изменить</string>
+    <string name="learn_goal_value">%1$s · %2$s</string>
+    <plurals name="learn_lessons_a_day">
+        <item quantity="one">%d урок в день</item>
+        <item quantity="few">%d урока в день</item>
+        <item quantity="many">%d уроков в день</item>
+        <item quantity="other">%d урока в день</item>
+    </plurals>
+    <string name="learn_group_reminders">Напоминания</string>
+    <string name="learn_reminder_keeps">Помогает не прерывать серию</string>
+    <string name="learn_reminder_time">Время напоминания</string>
+    <string name="learn_group_lessons">Уроки</string>
+    <string name="learn_listening">Задания на аудирование</string>
+    <string name="learn_listening_desc">Отключите, если не можете включить звук</string>
+    <string name="learn_vibration">Вибрация</string>
+    <string name="learn_vibration_desc">Вибрация при правильных и неправильных ответах</string>
+    <string name="learn_group_data">Данные</string>
+    <string name="learn_reset">Сбросить прогресс: %1$s</string>
+    <string name="learn_reset_desc">Курс начнётся заново с раздела 1</string>
+    <string name="learn_reset_confirm_title">Сбросить прогресс: %1$s?</string>
+    <string name="learn_reset_confirm_desc">Пройденные уроки и история повторений этого курса будут удалены. Это действие нельзя отменить.</string>
+    <string name="learn_reset_button">Сбросить</string>
+    <string name="learn_cancel">Отмена</string>
+    <string name="learn_reset_done">Прогресс сброшен</string>
+    <string name="learn_about_content">Об уроках</string>
+    <string name="learn_about_content_desc">Авторский курс для начинающих · работает офлайн</string>
+
+    <!-- Lesson -->
+    <string name="learn_new_word">НОВОЕ СЛОВО</string>
+    <string name="learn_new_phrase">НОВАЯ ФРАЗА</string>
+    <string name="learn_slow">Медленно</string>
+    <string name="learn_tip_chip">СОВЕТ · РАЗДЕЛ %1$d</string>
+    <string name="learn_got_it">Понятно</string>
+    <string name="learn_check">Проверить</string>
+    <string name="learn_select_translation">Выберите правильный перевод</string>
+    <string name="learn_select_meaning">Что это значит?</string>
+    <string name="learn_what_do_you_hear">Что вы слышите?</string>
+    <string name="learn_translate_sentence">Переведите предложение</string>
+    <string name="learn_match_pairs">Найдите подходящие пары</string>
+    <string name="learn_write_in">Напишите на языке: %1$s</string>
+    <string name="learn_type_hint">Введите ответ (%1$s)</string>
+    <string name="learn_accents_tip">Совет: диакритические знаки необязательны, мы на них укажем.</string>
+    <string name="learn_great_job">Отличная работа!</string>
+    <string name="learn_correct">Верно!</string>
+    <string name="learn_nice">Отлично!</string>
+    <string name="learn_not_quite">Не совсем</string>
+    <string name="learn_correct_answer">Правильный ответ:</string>
+    <string name="learn_meaning_label">Значение: %1$s</string>
+    <string name="learn_accent_note">Обратите внимание на диакритические знаки:</string>
+    <string name="learn_typo_note">Почти! Проверьте написание:</string>
+    <string name="learn_ask_again">Мы зададим этот вопрос ещё раз в конце урока.</string>
+    <string name="learn_report">Сообщить</string>
+    <string name="learn_report_title">Что не так?</string>
+    <string name="learn_report_my_answer">Мой ответ должен быть засчитан</string>
+    <string name="learn_report_translation">Перевод неправильный</string>
+    <string name="learn_report_audio">Аудио звучит неправильно</string>
+    <string name="learn_report_sent">Спасибо! Мы проверим.</string>
+    <string name="learn_quit_title">Выйти из урока?</string>
+    <string name="learn_quit_desc">Прогресс в этом уроке будет потерян.</string>
+    <plurals name="learn_quit_desc_streak">
+        <item quantity="one">Прогресс в этом уроке будет потерян. Пройдите сегодня один урок, чтобы сохранить серию в %d день.</item>
+        <item quantity="few">Прогресс в этом уроке будет потерян. Пройдите сегодня один урок, чтобы сохранить серию в %d дня.</item>
+        <item quantity="many">Прогресс в этом уроке будет потерян. Пройдите сегодня один урок, чтобы сохранить серию в %d дней.</item>
+        <item quantity="other">Прогресс в этом уроке будет потерян. Пройдите сегодня один урок, чтобы сохранить серию в %d дня.</item>
+    </plurals>
+    <string name="learn_keep_learning">Продолжить обучение</string>
+    <string name="learn_quit_lesson">Выйти из урока</string>
+    <string name="learn_tts_missing">На телефоне нет голоса (%1$s), поэтому задания на аудирование пропускаются.</string>
+    <string name="learn_tts_missing_title">Нет голоса: %1$s</string>
+    <string name="learn_tts_install">Установить голос</string>
+    <string name="learn_tts_install_desc">Установите голос (%1$s), чтобы слышать слова и получать задания на слух. Это бесплатно и работает офлайн.</string>
+    <string name="learn_speak">Слушать</string>
+    <string name="learn_close">Закрыть</string>
+
+    <!-- Result -->
+    <string name="learn_lesson_complete">Урок пройден!</string>
+    <string name="learn_practice_complete">Практика завершена!</string>
+    <string name="learn_test_passed">Тест пройден!</string>
+    <string name="learn_test_failed">Почти получилось</string>
+    <string name="learn_test_passed_desc">Разделы 1–3 пройдены. Переходите к разделу 4!</string>
+    <string name="learn_test_failed_desc">Ваш результат: %1$d%%. Начните с раздела 1, чтобы заложить прочную основу.</string>
+    <plurals name="learn_learned_new">
+        <item quantity="one">Вы выучили %1$d новое слово (%2$s).</item>
+        <item quantity="few">Вы выучили %1$d новых слова (%2$s).</item>
+        <item quantity="many">Вы выучили %1$d новых слов (%2$s).</item>
+        <item quantity="other">Вы выучили %1$d нового слова (%2$s).</item>
+    </plurals>
+    <plurals name="learn_reviewed">
+        <item quantity="one">Вы повторили %d слово.</item>
+        <item quantity="few">Вы повторили %d слова.</item>
+        <item quantity="many">Вы повторили %d слов.</item>
+        <item quantity="other">Вы повторили %d слова.</item>
+    </plurals>
+    <plurals name="learn_reviewed_phrases">
+        <item quantity="one">Вы повторили %d фразу.</item>
+        <item quantity="few">Вы повторили %d фразы.</item>
+        <item quantity="many">Вы повторили %d фраз.</item>
+        <item quantity="other">Вы повторили %d фразы.</item>
+    </plurals>
+    <string name="learn_xp_earned">Получено XP</string>
+    <string name="learn_accuracy">Точность</string>
+    <string name="learn_time">Время</string>
+    <plurals name="learn_streak_days">
+        <item quantity="one">%d день подряд</item>
+        <item quantity="few">%d дня подряд</item>
+        <item quantity="many">%d дней подряд</item>
+        <item quantity="other">%d дня подряд</item>
+    </plurals>
+    <string name="learn_goal_reached">Цель дня выполнена · уроков: %1$d из %2$d</string>
+    <string name="learn_goal_today">Сегодня уроков: %1$d из %2$d</string>
+
+    <!-- Phrase Practice -->
+    <string name="learn_phrase_practice">Практика фраз</string>
+    <string name="learn_flashcards">Карточки</string>
+    <string name="learn_quiz">Тест</string>
+    <string name="learn_mixed_review">Смешанное повторение</string>
+    <plurals name="learn_mixed_review_due">
+        <item quantity="one">%d фраза готова к повторению</item>
+        <item quantity="few">%d фразы готовы к повторению</item>
+        <item quantity="many">%d фраз готовы к повторению</item>
+        <item quantity="other">%d фразы готовы к повторению</item>
+    </plurals>
+    <string name="learn_mixed_review_none">Сюда возвращаются фразы, отмеченные как «Ещё учу»</string>
+    <string name="learn_topics">Темы</string>
+    <string name="learn_topic_done">Готово</string>
+    <string name="learn_topic_progress">%1$d / %2$d</string>
+    <string name="learn_tap_to_reveal">Нажмите, чтобы увидеть перевод (%1$s)</string>
+    <string name="learn_show_answer">Показать ответ</string>
+    <string name="learn_still_learning">Ещё учу</string>
+    <string name="learn_i_know_it">Знаю</string>
+    <string name="learn_practice_done">Практика окончена!</string>
+    <string name="learn_topic_done_stat">Тема пройдена</string>
+    <string name="learn_practice_again">Ещё раз</string>
+    <string name="learn_back_to_phrasebook">Назад к разговорнику</string>
+    <string name="learn_phrases_unavailable">Для этого языка фраз пока нет.</string>
+    <string name="learn_same_language">Выберите два разных языка.</string>
+    <string name="learn_pair">%1$s → %2$s</string>
+
+    <!-- Streak freeze -->
+    <string name="learn_streak_freeze_info">Заморозки серии: %1$d из %2$d. Заморозка сохраняет серию, если вы пропустите день, и используется автоматически.</string>
+    <string name="learn_streak_freeze_pro">С Pro вы получаете бесплатную заморозку серии каждую неделю.</string>
+    <string name="learn_get_freeze">Получить заморозку · реклама</string>
+    <string name="learn_freeze_earned">Заморозка серии добавлена</string>
+    <plurals name="learn_freeze_used">
+        <item quantity="one">%d заморозка спасла вашу серию!</item>
+        <item quantity="few">%d заморозки спасли вашу серию!</item>
+        <item quantity="many">%d заморозок спасли вашу серию!</item>
+        <item quantity="other">%d заморозки спасли вашу серию!</item>
+    </plurals>
+
+    <!-- Word of the day and weekly summary notifications -->
+    <string name="learn_word_of_day">Слово дня</string>
+    <string name="learn_word_of_day_desc">%1$s означает «%2$s». Нажмите, чтобы потренироваться.</string>
+    <string name="learn_word_of_day_setting_desc">Каждое утро — слово из вашего курса</string>
+    <string name="learn_weekly">Итоги недели</string>
+    <string name="learn_weekly_setting_desc">Ваш прогресс каждое воскресенье вечером</string>
+    <string name="learn_weekly_title">Ваша неделя: %1$s</string>
+    <string name="learn_weekly_desc">%1$s · %2$d XP · %3$s</string>
+
+    <!-- Reminder notification -->
+    <string name="learn_reminder_title">Время для короткого урока</string>
+    <plurals name="learn_reminder_title_streak">
+        <item quantity="one">Не прерывайте серию в %d день!</item>
+        <item quantity="few">Не прерывайте серию в %d дня!</item>
+        <item quantity="many">Не прерывайте серию в %d дней!</item>
+        <item quantity="other">Не прерывайте серию в %d дня!</item>
+    </plurals>
+    <string name="learn_reminder_desc">Один урок (%1$s) занимает около 5 минут.</string>
+    <string name="learn_reminder_button">Начать урок</string>
+</resources>

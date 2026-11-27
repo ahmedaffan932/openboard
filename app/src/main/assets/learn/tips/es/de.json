@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Bitte y danke",
+  "body": "Bitte significa \"por favor\". También es la respuesta habitual a danke (\"gracias\"): Bitte! o Bitte schön! Para decir \"muchas gracias\", di Vielen Dank.",
+  "examples": ["please", "thank_you", "youre_welcome", "thank_you_very_much"]
+ },
+ {
+  "unit": 2,
+  "title": "¿du o Sie?",
+  "body": "En alemán hay dos formas de decir \"tú\". Usa du con amigos, familia y niños. Usa Sie con adultos que no conoces y en el trabajo. Sie siempre empieza con S mayúscula.",
+  "examples": ["what_is_your_name", "where_are_you_from", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 4,
+  "title": "der, die, das",
+  "body": "Cada sustantivo alemán tiene su propia palabra para \"el/la\": der, die o das. Apréndelo junto con ella: der Kaffee, die Milch, das Wasser. Los sustantivos alemanes siempre van con mayúscula.",
+  "examples": ["coffee", "milk", "water", "bread"]
+ },
+ {
+  "unit": 8,
+  "title": "ich bin, du bist, er ist",
+  "body": "El verbo sein (\"ser/estar\") cambia mucho: ich bin, du bist, er ist, sie ist, wir sind, sie sind. Las palabras que van detrás, como groß o müde, son iguales para todos.",
+  "examples": ["i_am", "you_are", "we_are_tired", "they_are_my_friends"]
+ },
+ {
+  "unit": 9,
+  "title": "El final del verbo",
+  "body": "Un verbo alemán cambia su final según la persona: ich trinke, du trinkst, er trinkt, wir trinken. La forma del diccionario termina en -en, como trinken.",
+  "examples": ["to_drink", "i_drink_water", "she_comes_tomorrow", "we_go_to_the_beach"]
+ },
+ {
+  "unit": 11,
+  "title": "El verbo va en segundo lugar",
+  "body": "En una frase alemana, el verbo siempre va en segundo lugar: Ich arbeite heute. Si empiezas con otra palabra, como heute, el verbo sigue en segundo lugar: Heute ist es kalt.",
+  "examples": ["i_work_today", "today_is_monday", "it_is_hot", "it_is_cold"]
+ },
+ {
+  "unit": 12,
+  "title": "¿nicht o kein?",
+  "body": "Usa kein (o keinen, keine) delante de un sustantivo para decir \"no\" o \"ningún\": Ich esse kein Fleisch. Usa nicht para todo lo demás: Das ist nicht schwierig.",
+  "examples": ["i_dont_eat_meat", "i_dont_like_tea", "it_is_not_difficult", "i_dont_understand"]
+ }
+]

@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Bitte e danke",
+  "body": "Bitte quer dizer \"por favor\". Também é a resposta comum a danke (\"obrigado\"): Bitte! ou Bitte schön! Para dizer \"muito obrigado\", diga Vielen Dank.",
+  "examples": ["please", "thank_you", "youre_welcome", "thank_you_very_much"]
+ },
+ {
+  "unit": 2,
+  "title": "du ou Sie?",
+  "body": "O alemão tem duas palavras para \"você\". Diga du para amigos, família e crianças. Diga Sie para adultos que você não conhece e no trabalho. Sie sempre começa com S maiúsculo.",
+  "examples": ["what_is_your_name", "where_are_you_from", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 4,
+  "title": "der, die, das",
+  "body": "Cada substantivo alemão tem sua palavra para \"o/a\": der, die ou das. Aprenda cada um junto com ela: der Kaffee, die Milch, das Wasser. Substantivos em alemão sempre começam com maiúscula.",
+  "examples": ["coffee", "milk", "water", "bread"]
+ },
+ {
+  "unit": 8,
+  "title": "ich bin, du bist, er ist",
+  "body": "O verbo sein (\"ser/estar\") muda muito: ich bin, du bist, er ist, sie ist, wir sind, sie sind. Palavras como groß ou müde depois dele ficam iguais para todos.",
+  "examples": ["i_am", "you_are", "we_are_tired", "they_are_my_friends"]
+ },
+ {
+  "unit": 9,
+  "title": "O final do verbo",
+  "body": "Um verbo alemão muda o final para cada pessoa: ich trinke, du trinkst, er trinkt, wir trinken. A forma do dicionário termina em -en, como trinken.",
+  "examples": ["to_drink", "i_drink_water", "she_comes_tomorrow", "we_go_to_the_beach"]
+ },
+ {
+  "unit": 11,
+  "title": "O verbo vem em segundo lugar",
+  "body": "Numa frase em alemão, o verbo fica sempre em segundo lugar: Ich arbeite heute. Se você começar com outra palavra, como heute, o verbo continua em segundo: Heute ist es kalt.",
+  "examples": ["i_work_today", "today_is_monday", "it_is_hot", "it_is_cold"]
+ },
+ {
+  "unit": 12,
+  "title": "nicht ou kein?",
+  "body": "Use kein (ou keinen, keine) antes de um substantivo para dizer \"nenhum\" ou \"não\": Ich esse kein Fleisch. Use nicht para todo o resto: Das ist nicht schwierig.",
+  "examples": ["i_dont_eat_meat", "i_dont_like_tea", "it_is_not_difficult", "i_dont_understand"]
+ }
+]

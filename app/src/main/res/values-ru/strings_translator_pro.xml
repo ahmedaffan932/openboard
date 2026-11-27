@@ -11,6 +11,7 @@
     <string name="premium_feature_voice_translation">Голосовой перевод</string>
     <string name="premium_feature_offline_language_packs">Офлайн-пакеты языков</string>
     <string name="premium_feature_premium_phrasebook">Премиум-разговорник</string>
+    <string name="premium_feature_language_courses">Языковые курсы и тренировка фраз</string>
     <string name="premium_feature_ad_free_experience">Без рекламы</string>
     <string name="allow_access">Разрешить доступ</string>
     <string name="camera_permission">Разрешение камеры</string>

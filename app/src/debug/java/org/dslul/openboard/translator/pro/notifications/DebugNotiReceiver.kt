@@ -5,6 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import org.dslul.openboard.translator.pro.notifications.NotiPoster.TAG
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.dslul.openboard.translator.pro.learn.LearnReminder
 
 /**
  * Debug-only test hook (registered only in the debug manifest). The slots fire at fixed times,
@@ -13,7 +17,8 @@ import org.dslul.openboard.translator.pro.notifications.NotiPoster.TAG
  *   adb shell am broadcast -n com.translator.keyboard.translate.all.langugaes/org.dslul.openboard.translator.pro.notifications.DebugNotiReceiver -a com.translatorpro.debug.FIRE_NOTI --es type lockscreen
  *
  * Types: lockscreen, winback, winbackFollowUp, daily, clickedads, killapp, onopen, pinned,
- * reschedule, replaceOn / replaceOff.
+ * reschedule, replaceOn / replaceOff, and Learn's learnReminder, learnWord, learnWeekly (posted
+ * only while the app is in the background, as for real).
  *
  * The lock-screen notification wakes the screen only when it is off: lock the phone first.
  */
@@ -36,6 +41,21 @@ class DebugNotiReceiver : BroadcastReceiver() {
             "reschedule" -> NotiScheduler.scheduleAll(context)
             "replaceOn" -> NotiConfig.lockscreenReplace = true
             "replaceOff" -> NotiConfig.lockscreenReplace = false
+            "learnReminder", "learnWord", "learnWeekly" -> {
+                val kind = when (type) {
+                    "learnWord" -> LearnReminder.KIND_WORD
+                    "learnWeekly" -> LearnReminder.KIND_WEEKLY
+                    else -> LearnReminder.KIND_REMINDER
+                }
+                val pending = goAsync()
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        LearnReminder.onFired(context.applicationContext, kind)
+                    } finally {
+                        pending.finish()
+                    }
+                }
+            }
         }
     }
 }

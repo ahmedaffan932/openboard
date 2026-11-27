@@ -11,6 +11,7 @@
     <string name="premium_feature_voice_translation">음성 번역</string>
     <string name="premium_feature_offline_language_packs">오프라인 언어 팩</string>
     <string name="premium_feature_premium_phrasebook">프리미엄 회화집</string>
+    <string name="premium_feature_language_courses">언어 강좌 및 표현 연습</string>
     <string name="premium_feature_ad_free_experience">광고 없는 경험</string>
     <string name="allow_access">접근 허용</string>
     <string name="camera_permission">카메라 권한</string>

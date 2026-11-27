@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Tú или usted?",
+  "body": "Как и в русском, в испанском есть \"ты\" и \"вы\": tú — для друзей и семьи, usted — для незнакомых и старших людей, из вежливости. Глагол тоже меняется: ¿Hablas inglés? (tú), ¿Habla inglés? (usted).",
+  "examples": ["how_are_you", "and_you", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 2,
+  "title": "Как сказать, откуда вы",
+  "body": "Используйте soy (я есть) + de + место: Soy de México. Для профессии тоже soy: Soy estudiante. Слово yo (я) можно опустить, потому что soy уже значит \"я есть\".",
+  "examples": ["i_am_from_mexico", "where_are_you_from", "i_am_a_student"]
+ },
+ {
+  "unit": 4,
+  "title": "Существительные: el или la",
+  "body": "Каждое испанское существительное мужское (el) или женское (la), даже названия еды. Большинство слов на -o берут el: el vino. Большинство на -a берут la: la manzana. Учите каждое слово вместе с el или la.",
+  "examples": ["wine", "cheese", "apple", "table"]
+ },
+ {
+  "unit": 8,
+  "title": "Два глагола \"быть\"",
+  "body": "В испанском два глагола \"быть\". Ser — о том, какой человек: Él es alto. Estar — о том, как он себя чувствует сейчас: Estamos cansados. Для женщины -o часто меняется на -a: alta, cansada.",
+  "examples": ["he_is_tall", "my_family_is_big", "we_are_tired", "she_is_happy"]
+ },
+ {
+  "unit": 9,
+  "title": "Глагол для \"я\" кончается на -o",
+  "body": "Испанские глаголы меняют окончание для каждого лица. Для \"я\" большинство глаголов кончается на -o: hablar → hablo, comer → como, trabajar → trabajo. Окончание уже значит \"я\", поэтому yo часто не говорят.",
+  "examples": ["to_eat", "i_eat_bread", "i_drink_water", "i_work_every_day"]
+ },
+ {
+  "unit": 10,
+  "title": "Me gusta и me duele",
+  "body": "Как и в русском, по-испански говорят \"мне нравится\": Me gusta el café. Поставьте no впереди, чтобы сказать \"не нравится\": No me gusta el té. С болью так же: Me duele la cabeza.",
+  "examples": ["i_like_coffee", "i_dont_like_tea", "my_head_hurts", "my_stomach_hurts"]
+ },
+ {
+  "unit": 12,
+  "title": "Слова-описания стоят после",
+  "body": "Слова, которые описывают существительное, обычно стоят после него: un coche caro = дорогая машина. Они тоже меняются под существительное: un día bonito, una ciudad bonita.",
+  "examples": ["expensive_car", "what_a_beautiful_day", "the_city_is_beautiful", "my_car_is_red"]
+ }
+]

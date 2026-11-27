@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Tu или vous?",
+  "body": "Как и в русском, во французском есть \"ты\" и \"вы\". Говорите \"tu\" друзьям, семье и детям, а \"vous\" — незнакомым, в магазинах и из вежливости. \"Vous\" — это ещё и \"вы\" для нескольких человек.",
+  "examples": ["and_you", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 2,
+  "title": "Je suis, tu es, il est",
+  "body": "Глагол \"être\" (быть) меняется в зависимости от лица: je suis, tu es, il est, elle est. О профессии говорят просто: \"Je suis étudiant\" — я студент.",
+  "examples": ["i_am", "you_are", "she_is", "i_am_a_student"]
+ },
+ {
+  "unit": 3,
+  "title": "Le, la и l'",
+  "body": "Каждое французское существительное — это слово с \"le\" или слово с \"la\": le matin, la nuit. Перед a, e, i, o, u и большинством слов на h оба становятся l': l'heure. Для нескольких — les.",
+  "examples": ["morning", "night", "hour", "city"]
+ },
+ {
+  "unit": 4,
+  "title": "Голодны? Используйте avoir",
+  "body": "По-французски говорят \"у меня есть голод\": j'ai faim, j'ai soif. С возрастом так же: \"J'ai 25 ans\" — это \"у меня есть 25 лет\". J'ai — от глагола avoir (иметь).",
+  "examples": ["i_am_hungry", "i_am_thirsty", "i_am_25"]
+ },
+ {
+  "unit": 7,
+  "title": "Как сказать \"не\": ne...pas",
+  "body": "Чтобы сказать \"не\", поставьте ne перед глаголом и pas после него: je ne comprends pas. Перед a, e, i, o, u ne становится n': il n'y a pas d'eau chaude.",
+  "examples": ["i_dont_understand", "i_dont_eat_meat", "there_is_no_hot_water"]
+ },
+ {
+  "unit": 8,
+  "title": "Слова подстраиваются",
+  "body": "Слова-описания меняются под человека. Для женщины добавьте -e: grand, grande. Для нескольких людей добавьте -s: fatigués. Некоторые меняются сильнее: heureux, heureuse.",
+  "examples": ["he_is_tall", "she_is_happy", "we_are_tired"]
+ },
+ {
+  "unit": 9,
+  "title": "Глаголы на -er",
+  "body": "Большинство французских глаголов кончается на -er, например parler и manger. Для \"je\" замените -er на -e: je parle, je mange. Для \"tu\" — -es: tu parles. Звучат они одинаково!",
+  "examples": ["i_speak_english", "i_eat_bread", "i_work_today"]
+ }
+]

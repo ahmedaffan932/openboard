@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Bitte and danke",
+  "body": "Bitte means \"please\". It is also the usual answer to danke (\"thank you\"): Bitte! or Bitte schön! For a big thank you, say Vielen Dank.",
+  "examples": ["please", "thank_you", "youre_welcome", "thank_you_very_much"]
+ },
+ {
+  "unit": 2,
+  "title": "du or Sie?",
+  "body": "German has two words for \"you\". Say du to friends, family and children. Say Sie to adults you don't know and at work. Sie always starts with a capital S.",
+  "examples": ["what_is_your_name", "where_are_you_from", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 4,
+  "title": "der, die, das",
+  "body": "Every German noun has its own word for \"the\": der, die or das. Learn each noun together with it: der Kaffee, die Milch, das Wasser. German nouns always start with a capital letter.",
+  "examples": ["coffee", "milk", "water", "bread"]
+ },
+ {
+  "unit": 8,
+  "title": "ich bin, du bist, er ist",
+  "body": "The verb sein (\"to be\") changes a lot: ich bin, du bist, er ist, sie ist, wir sind, sie sind. Words like groß or müde after it stay the same for everyone.",
+  "examples": ["i_am", "you_are", "we_are_tired", "they_are_my_friends"]
+ },
+ {
+  "unit": 9,
+  "title": "Verb endings",
+  "body": "A German verb changes its ending for each person: ich trinke, du trinkst, er trinkt, wir trinken. The dictionary form ends in -en, like trinken.",
+  "examples": ["to_drink", "i_drink_water", "she_comes_tomorrow", "we_go_to_the_beach"]
+ },
+ {
+  "unit": 11,
+  "title": "The verb comes second",
+  "body": "In a German sentence the verb is always in second place: Ich arbeite heute. If you start with another word, like heute, the verb still comes second: Heute ist es kalt.",
+  "examples": ["i_work_today", "today_is_monday", "it_is_hot", "it_is_cold"]
+ },
+ {
+  "unit": 12,
+  "title": "nicht or kein?",
+  "body": "Use kein (or keinen, keine) before a noun to say \"no\" or \"not a\": Ich esse kein Fleisch. Use nicht for everything else: Das ist nicht schwierig.",
+  "examples": ["i_dont_eat_meat", "i_dont_like_tea", "it_is_not_difficult", "i_dont_understand"]
+ }
+]

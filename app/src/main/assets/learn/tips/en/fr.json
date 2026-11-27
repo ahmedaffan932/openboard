@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Tu or vous?",
+  "body": "French has two words for \"you\". Use \"tu\" with friends, family and children. Use \"vous\" with strangers, in shops and to be polite. \"Vous\" is also for more than one person.",
+  "examples": ["and_you", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 2,
+  "title": "Je suis, tu es, il est",
+  "body": "The verb \"être\" (to be) changes with the person: je suis, tu es, il est, elle est. For jobs, French drops the \"a\": \"Je suis étudiant\" means I am a student.",
+  "examples": ["i_am", "you_are", "she_is", "i_am_a_student"]
+ },
+ {
+  "unit": 3,
+  "title": "Le, la and l'",
+  "body": "Every French noun is a \"le\" word or a \"la\" word: le matin, la nuit. Before a, e, i, o, u and most words with h, both become l': l'heure. For more than one, use les.",
+  "examples": ["morning", "night", "hour", "city"]
+ },
+ {
+  "unit": 4,
+  "title": "Hungry? Use avoir",
+  "body": "French says \"I have hunger\": j'ai faim, j'ai soif. Age works the same way: \"J'ai 25 ans\" is \"I have 25 years\". J'ai comes from the verb avoir (to have).",
+  "examples": ["i_am_hungry", "i_am_thirsty", "i_am_25"]
+ },
+ {
+  "unit": 7,
+  "title": "Saying not: ne...pas",
+  "body": "To say \"not\", put ne before the verb and pas after it: je ne comprends pas. Before a, e, i, o, u, ne becomes n': il n'y a pas d'eau chaude.",
+  "examples": ["i_dont_understand", "i_dont_eat_meat", "there_is_no_hot_water"]
+ },
+ {
+  "unit": 8,
+  "title": "Words that match",
+  "body": "Describing words change to match the person. For a woman, add -e: grand, grande. For more than one, add -s: fatigués. Some change more: heureux, heureuse.",
+  "examples": ["he_is_tall", "she_is_happy", "we_are_tired"]
+ },
+ {
+  "unit": 9,
+  "title": "Verbs ending in -er",
+  "body": "Most French verbs end in -er, like parler and manger. For \"je\", swap -er for -e: je parle, je mange. For \"tu\", use -es: tu parles. Both sound the same!",
+  "examples": ["i_speak_english", "i_eat_bread", "i_work_today"]
+ }
+]

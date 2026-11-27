@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A tip example (Figma "Lesson · Tip"): course text, its meaning, speaker. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvText"
+            style="@style/HomeText.BodyStrong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Soy de México." />
+
+        <TextView
+            android:id="@+id/tvMeaning"
+            style="@style/HomeText.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            tools:text="I am from Mexico." />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivSpeak"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/bg_ui_circle_accent"
+        android:contentDescription="@string/learn_speak"
+        android:padding="8dp"
+        app:srcCompat="@drawable/ic_ui_speaker"
+        app:tint="@color/home_accent" />
+</LinearLayout>

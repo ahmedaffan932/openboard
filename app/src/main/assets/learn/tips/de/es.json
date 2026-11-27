@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Tú oder usted?",
+  "body": "Wie im Deutschen gibt es zwei Formen: tú (wie \"du\") für Freunde und Familie, usted (wie \"Sie\") für Fremde und ältere Menschen. Auch das Verb ändert sich: ¿Hablas inglés? (tú), ¿Habla inglés? (usted).",
+  "examples": ["how_are_you", "and_you", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 2,
+  "title": "Sagen, woher Sie kommen",
+  "body": "Nehmen Sie soy (ich bin) + de + einen Ort: Soy de México. Auch beim Beruf nehmen Sie soy, wie im Deutschen ohne \"ein\": Soy estudiante. Sie können yo (ich) weglassen, denn soy heißt schon \"ich bin\".",
+  "examples": ["i_am_from_mexico", "where_are_you_from", "i_am_a_student"]
+ },
+ {
+  "unit": 4,
+  "title": "Jedes Nomen ist el oder la",
+  "body": "Jedes spanische Nomen ist männlich (el) oder weiblich (la), auch Essen. Die meisten Nomen auf -o haben el: el vino. Die meisten auf -a haben la: la manzana. Lernen Sie jedes Nomen mit seinem el oder la.",
+  "examples": ["wine", "cheese", "apple", "table"]
+ },
+ {
+  "unit": 8,
+  "title": "Zwei Verben für \"sein\"",
+  "body": "Spanisch hat zwei Verben für \"sein\". Ser sagt, wie jemand ist: Él es alto. Estar sagt, wie sich jemand gerade fühlt: Estamos cansados. Bei einer Frau wird -o oft zu -a: alta, cansada.",
+  "examples": ["he_is_tall", "my_family_is_big", "we_are_tired", "she_is_happy"]
+ },
+ {
+  "unit": 9,
+  "title": "Verben für \"ich\" enden auf -o",
+  "body": "Spanische Verben ändern ihre Endung für jede Person. Für \"ich\" enden die meisten Verben auf -o: hablar → hablo, comer → como, trabajar → trabajo. Die Endung sagt schon \"ich\", darum fällt yo oft weg.",
+  "examples": ["to_eat", "i_eat_bread", "i_drink_water", "i_work_every_day"]
+ },
+ {
+  "unit": 10,
+  "title": "Me gusta und me duele",
+  "body": "Für \"ich mag\" sagt man auf Spanisch \"es gefällt mir\": Me gusta el café. Mit no davor heißt es das Gegenteil: No me gusta el té. Bei Schmerzen ist es genauso: Me duele la cabeza.",
+  "examples": ["i_like_coffee", "i_dont_like_tea", "my_head_hurts", "my_stomach_hurts"]
+ },
+ {
+  "unit": 12,
+  "title": "Beschreibende Wörter danach",
+  "body": "Wörter, die ein Nomen beschreiben, stehen meist danach: un coche caro = ein teures Auto. Sie ändern sich auch passend zum Nomen: un día bonito, una ciudad bonita.",
+  "examples": ["expensive_car", "what_a_beautiful_day", "the_city_is_beautiful", "my_car_is_red"]
+ }
+]

@@ -166,6 +166,11 @@
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- Phrase Practice entry (translator/pro/learn). -->
+        <include
+            android:id="@+id/practiceCard"
+            layout="@layout/learn_phrasebook_card" />
+
         <!-- Categories: 2-column grid (PhrasesFragment sets a GridLayoutManager). Items carry 5dp
              padding, so 11dp here puts the cards 16dp from the screen edges, 10dp apart. -->
         <androidx.recyclerview.widget.RecyclerView

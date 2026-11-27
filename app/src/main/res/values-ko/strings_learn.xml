@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Learn module strings (translated from values/strings_learn.xml). -->
+<resources>
+    <!-- Home card -->
+    <string name="learn_card_title">언어 배우기</string>
+    <string name="learn_card_subtitle">하루 5분 · 입문 강좌</string>
+    <string name="learn_badge_new">신규</string>
+    <string name="learn_card_start">시작</string>
+    <string name="learn_unit_title_full">%1$d단원 · %2$s</string>
+    <string name="learn_today_goal">오늘의 목표</string>
+    <plurals name="learn_goal_progress">
+        <item quantity="other">레슨 %2$d개 중 %1$d개</item>
+    </plurals>
+    <string name="learn_continue_lesson">레슨 계속하기</string>
+    <string name="learn_course_done">코스 완료! 계속 연습하세요.</string>
+
+    <!-- Phrasebook card -->
+    <string name="learn_practice_phrases">표현 연습</string>
+    <string name="learn_practice_phrases_desc">58개 언어로 실력 점검</string>
+
+    <!-- Onboarding -->
+    <string name="learn_title">언어 배우기</string>
+    <string name="learn_ob_course_title">무엇을 배우고 싶으세요?</string>
+    <string name="learn_ob_course_desc">레슨은 앱 언어인 %1$s로 설명됩니다.</string>
+    <string name="learn_course_beginner">초급 · %1$d개 단원</string>
+    <string name="learn_popular">인기</string>
+    <string name="learn_ob_level_title">%1$s 실력이 어느 정도인가요?</string>
+    <string name="learn_ob_level_new">%1$s 학습이 처음이에요</string>
+    <string name="learn_ob_level_new_desc">첫 번째 레슨부터 시작합니다.</string>
+    <string name="learn_ob_level_some">%1$s 조금 할 줄 알아요</string>
+    <string name="learn_ob_level_some_desc">15문항 간단 테스트를 보세요. 통과하면 1–3단원을 건너뜁니다.</string>
+    <string name="learn_ob_goal_title">하루 목표 선택</string>
+    <string name="learn_ob_goal_desc">길고 드문 학습보다 짧고 꾸준한 학습이 효과적이에요. 나중에 변경할 수 있습니다.</string>
+    <string name="learn_goal_casual">가볍게</string>
+    <string name="learn_goal_regular">꾸준히</string>
+    <string name="learn_goal_serious">열심히</string>
+    <string name="learn_goal_casual_desc">하루 1레슨 · 약 5분</string>
+    <string name="learn_goal_regular_desc">하루 2레슨 · 약 10분</string>
+    <string name="learn_goal_serious_desc">하루 3레슨 · 약 15분</string>
+    <string name="learn_reminder">매일 알림</string>
+    <string name="learn_reminder_at">매일 %1$s · 탭하여 변경</string>
+    <string name="learn_continue">계속</string>
+    <string name="learn_start_learning">학습 시작</string>
+
+    <!-- Course map -->
+    <string name="learn_home_title">학습</string>
+    <string name="learn_xp">%1$d XP</string>
+    <string name="learn_daily_goal">하루 목표</string>
+    <string name="learn_practice">연습</string>
+    <plurals name="learn_practice_due">
+        <item quantity="other">복습할 단어 %d개</item>
+    </plurals>
+    <string name="learn_practice_later">먼저 레슨을 완료하세요</string>
+    <string name="learn_practice_start">시작 →</string>
+    <string name="learn_unit_label">%1$d단원</string>
+    <string name="learn_unit_completed">완료 · 레슨 %2$d개 중 %1$d개</string>
+    <string name="learn_lessons_of">%2$d개 중 %1$d개</string>
+    <plurals name="learn_unit_lessons">
+        <item quantity="other">레슨 %d개</item>
+    </plurals>
+    <string name="learn_review">복습</string>
+    <string name="learn_tip_prefix">팁: %1$s</string>
+    <string name="learn_continue_lesson_n">계속 · 레슨 %1$d</string>
+    <string name="learn_start_lesson_n">시작 · 레슨 %1$d</string>
+    <string name="learn_finish_previous">이전 레슨을 먼저 완료하세요.</string>
+    <string name="learn_lesson_n">레슨 %1$d</string>
+
+    <string name="learn_unit_1">기초와 인사</string>
+    <string name="learn_unit_2">자기소개</string>
+    <string name="learn_unit_3">숫자와 시간</string>
+    <string name="learn_unit_4">음식과 식당</string>
+    <string name="learn_unit_5">쇼핑과 돈</string>
+    <string name="learn_unit_6">여행과 길 찾기</string>
+    <string name="learn_unit_7">호텔</string>
+    <string name="learn_unit_8">가족과 사람들</string>
+    <string name="learn_unit_9">일상생활</string>
+    <string name="learn_unit_10">건강과 응급 상황</string>
+    <string name="learn_unit_11">요일, 달, 날씨</string>
+    <string name="learn_unit_12">사물 묘사하기</string>
+
+    <string name="learn_not_now">나중에</string>
+
+    <!-- Switch course -->
+    <string name="learn_your_courses">내 코스</string>
+    <string name="learn_course_progress">%1$d단원 · %2$d%% 완료</string>
+    <string name="learn_not_started">시작 전</string>
+    <string name="learn_progress_saved">진행 상황은 코스별로 따로 저장됩니다.</string>
+
+    <!-- Settings -->
+    <string name="learn_settings_title">학습 설정</string>
+    <string name="learn_group_course">코스</string>
+    <string name="learn_course">코스</string>
+    <string name="learn_course_from">%1$s · 설명 언어: %2$s</string>
+    <string name="learn_change">변경</string>
+    <string name="learn_edit">편집</string>
+    <string name="learn_goal_value">%1$s · %2$s</string>
+    <plurals name="learn_lessons_a_day">
+        <item quantity="other">하루 %d레슨</item>
+    </plurals>
+    <string name="learn_group_reminders">알림</string>
+    <string name="learn_reminder_keeps">연속 학습 기록을 지켜 줍니다</string>
+    <string name="learn_reminder_time">알림 시간</string>
+    <string name="learn_group_lessons">레슨</string>
+    <string name="learn_listening">듣기 문제</string>
+    <string name="learn_listening_desc">소리를 켤 수 없을 때 끄세요</string>
+    <string name="learn_vibration">진동</string>
+    <string name="learn_vibration_desc">정답과 오답일 때 진동</string>
+    <string name="learn_group_data">데이터</string>
+    <string name="learn_reset">%1$s 진행 상황 초기화</string>
+    <string name="learn_reset_desc">1단원부터 코스를 다시 시작합니다</string>
+    <string name="learn_reset_confirm_title">%1$s 코스를 초기화할까요?</string>
+    <string name="learn_reset_confirm_desc">이 코스의 완료한 레슨과 복습 기록이 삭제됩니다. 이 작업은 되돌릴 수 없습니다.</string>
+    <string name="learn_reset_button">초기화</string>
+    <string name="learn_cancel">취소</string>
+    <string name="learn_reset_done">진행 상황이 초기화되었습니다</string>
+    <string name="learn_about_content">레슨 정보</string>
+    <string name="learn_about_content_desc">자체 제작 초급 코스 · 오프라인 사용 가능</string>
+
+    <!-- Lesson -->
+    <string name="learn_new_word">새 단어</string>
+    <string name="learn_new_phrase">새 표현</string>
+    <string name="learn_slow">느리게</string>
+    <string name="learn_tip_chip">팁 · %1$d단원</string>
+    <string name="learn_got_it">알겠어요</string>
+    <string name="learn_check">확인</string>
+    <string name="learn_select_translation">올바른 번역을 선택하세요</string>
+    <string name="learn_select_meaning">무슨 뜻일까요?</string>
+    <string name="learn_what_do_you_hear">무엇이 들리나요?</string>
+    <string name="learn_translate_sentence">이 문장을 번역하세요</string>
+    <string name="learn_match_pairs">짝이 맞는 항목을 탭하세요</string>
+    <string name="learn_write_in">%1$s로 써 보세요</string>
+    <string name="learn_type_hint">%1$s로 입력</string>
+    <string name="learn_accents_tip">팁: 악센트 부호는 입력하지 않아도 되며, 빠진 부분은 알려 드립니다.</string>
+    <string name="learn_great_job">잘했어요!</string>
+    <string name="learn_correct">정답!</string>
+    <string name="learn_nice">좋아요!</string>
+    <string name="learn_not_quite">아쉬워요</string>
+    <string name="learn_correct_answer">정답:</string>
+    <string name="learn_meaning_label">뜻: %1$s</string>
+    <string name="learn_accent_note">악센트 부호에 주의하세요:</string>
+    <string name="learn_typo_note">거의 맞았어요! 철자에 주의하세요:</string>
+    <string name="learn_ask_again">이 문제는 레슨이 끝날 때 다시 나옵니다.</string>
+    <string name="learn_report">신고</string>
+    <string name="learn_report_title">무엇이 잘못되었나요?</string>
+    <string name="learn_report_my_answer">제 답도 정답으로 인정되어야 해요</string>
+    <string name="learn_report_translation">번역이 틀렸어요</string>
+    <string name="learn_report_audio">오디오가 이상해요</string>
+    <string name="learn_report_sent">감사합니다! 확인하겠습니다.</string>
+    <string name="learn_quit_title">이 레슨을 그만할까요?</string>
+    <string name="learn_quit_desc">이 레슨의 진행 상황이 사라집니다.</string>
+    <plurals name="learn_quit_desc_streak">
+        <item quantity="other">이 레슨의 진행 상황이 사라집니다. %d일 연속 학습을 이어 가려면 오늘 레슨을 하나 완료하세요.</item>
+    </plurals>
+    <string name="learn_keep_learning">계속 학습하기</string>
+    <string name="learn_quit_lesson">레슨 종료</string>
+    <string name="learn_tts_missing">이 휴대폰에 %1$s 음성이 없어 듣기 문제는 건너뜁니다.</string>
+    <string name="learn_tts_missing_title">%1$s 음성이 없어요</string>
+    <string name="learn_tts_install">음성 설치</string>
+    <string name="learn_tts_install_desc">%1$s 음성을 설치하면 단어를 듣고 듣기 문제도 풀 수 있어요. 무료이며 오프라인에서도 작동해요.</string>
+    <string name="learn_speak">듣기</string>
+    <string name="learn_close">닫기</string>
+
+    <!-- Result -->
+    <string name="learn_lesson_complete">레슨 완료!</string>
+    <string name="learn_practice_complete">연습 완료!</string>
+    <string name="learn_test_passed">테스트 통과!</string>
+    <string name="learn_test_failed">조금만 더</string>
+    <string name="learn_test_passed_desc">1–3단원을 완료했어요. 이제 4단원으로!</string>
+    <string name="learn_test_failed_desc">점수는 %1$d%%입니다. 1단원부터 시작해 탄탄한 기초를 다지세요.</string>
+    <plurals name="learn_learned_new">
+        <item quantity="other">%2$s 새 단어 %1$d개를 배웠어요.</item>
+    </plurals>
+    <plurals name="learn_reviewed">
+        <item quantity="other">단어 %d개를 복습했어요.</item>
+    </plurals>
+    <plurals name="learn_reviewed_phrases">
+        <item quantity="other">표현 %d개를 복습했어요.</item>
+    </plurals>
+    <string name="learn_xp_earned">획득 XP</string>
+    <string name="learn_accuracy">정확도</string>
+    <string name="learn_time">시간</string>
+    <plurals name="learn_streak_days">
+        <item quantity="other">%d일 연속 학습</item>
+    </plurals>
+    <string name="learn_goal_reached">하루 목표 달성 · 레슨 %2$d개 중 %1$d개</string>
+    <string name="learn_goal_today">오늘 레슨 %2$d개 중 %1$d개</string>
+
+    <!-- Phrase Practice -->
+    <string name="learn_phrase_practice">표현 연습</string>
+    <string name="learn_flashcards">플래시카드</string>
+    <string name="learn_quiz">퀴즈</string>
+    <string name="learn_mixed_review">섞어서 복습</string>
+    <plurals name="learn_mixed_review_due">
+        <item quantity="other">복습할 표현 %d개</item>
+    </plurals>
+    <string name="learn_mixed_review_none">\"아직 학습 중\"으로 표시한 표현이 여기에 다시 나타납니다</string>
+    <string name="learn_topics">주제</string>
+    <string name="learn_topic_done">완료</string>
+    <string name="learn_topic_progress">%1$d / %2$d</string>
+    <string name="learn_tap_to_reveal">탭하여 %1$s로 보기</string>
+    <string name="learn_show_answer">정답 보기</string>
+    <string name="learn_still_learning">아직 학습 중</string>
+    <string name="learn_i_know_it">알아요</string>
+    <string name="learn_practice_done">연습 끝!</string>
+    <string name="learn_topic_done_stat">주제 완료</string>
+    <string name="learn_practice_again">다시 연습</string>
+    <string name="learn_back_to_phrasebook">회화집으로 돌아가기</string>
+    <string name="learn_phrases_unavailable">이 언어는 아직 표현이 제공되지 않습니다.</string>
+    <string name="learn_same_language">서로 다른 두 언어를 선택하세요.</string>
+    <string name="learn_pair">%1$s → %2$s</string>
+
+    <!-- Streak freeze -->
+    <string name="learn_streak_freeze_info">연속 학습 보호권: %2$d개 중 %1$d개. 하루를 놓쳐도 보호권이 연속 학습 기록을 지켜 주며, 자동으로 사용됩니다.</string>
+    <string name="learn_streak_freeze_pro">Pro를 이용하면 매주 연속 학습 보호권을 무료로 받을 수 있어요.</string>
+    <string name="learn_get_freeze">광고 보고 보호권 받기</string>
+    <string name="learn_freeze_earned">연속 학습 보호권이 추가되었습니다</string>
+    <plurals name="learn_freeze_used">
+        <item quantity="other">연속 학습 보호권 %d개로 연속 학습 기록을 지켰어요!</item>
+    </plurals>
+
+    <!-- Word of the day and weekly summary notifications -->
+    <string name="learn_word_of_day">오늘의 단어</string>
+    <string name="learn_word_of_day_desc">%1$s의 뜻: \"%2$s\". 탭하여 연습하세요.</string>
+    <string name="learn_word_of_day_setting_desc">매일 아침 코스에서 고른 단어 하나</string>
+    <string name="learn_weekly">주간 요약</string>
+    <string name="learn_weekly_setting_desc">매주 일요일 저녁 학습 현황</string>
+    <string name="learn_weekly_title">이번 주 %1$s 학습</string>
+    <string name="learn_weekly_desc">%1$s · %2$d XP · %3$s</string>
+
+    <!-- Reminder notification -->
+    <string name="learn_reminder_title">짧은 레슨을 할 시간이에요</string>
+    <plurals name="learn_reminder_title_streak">
+        <item quantity="other">%d일 연속 학습을 이어 가세요!</item>
+    </plurals>
+    <string name="learn_reminder_desc">%1$s 레슨 1회는 약 5분이면 끝나요.</string>
+    <string name="learn_reminder_button">레슨 시작</string>
+</resources>

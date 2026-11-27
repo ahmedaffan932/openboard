@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Tu oder Lei?",
+  "body": "Italienisch hat, wie Deutsch, du und Sie. Sagen Sie \"tu\" zu Freunden, Familie und Kindern. Sagen Sie \"Lei\" zu Fremden und in Geschäften. Mit Lei steht das Verb in der \"er/sie\"-Form: parla, può.",
+  "examples": ["and_you", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 2,
+  "title": "Sono, sei, è",
+  "body": "Das Verb \"essere\" (sein) ändert sich mit der Person: io sono, tu sei, lui è, lei è. Italiener lassen io, tu und lui oft weg: \"Sono uno studente\" heißt \"Ich bin Student\".",
+  "examples": ["i_am", "you_are", "he_is", "i_am_a_student"]
+ },
+ {
+  "unit": 3,
+  "title": "Il, la und l'",
+  "body": "Jedes Nomen ist ein \"il\"-Wort oder ein \"la\"-Wort. Die meisten auf -o haben il: il numero. Die meisten auf -a haben la: la mattina. Vor a, e, i, o, u werden beide zu l': l'ora. Manche nehmen lo: lo studente.",
+  "examples": ["number", "morning", "hour", "student"]
+ },
+ {
+  "unit": 4,
+  "title": "Hunger? Mit avere",
+  "body": "Wie im Deutschen sagt man \"ich habe Hunger\": ho fame, ho sete. Auch beim Alter: \"Ho 25 anni\" heißt wörtlich \"ich habe 25 Jahre\". Ho kommt vom Verb avere (haben). Das h ist stumm.",
+  "examples": ["i_am_hungry", "i_am_thirsty", "i_am_25"]
+ },
+ {
+  "unit": 7,
+  "title": "\"Nicht\" sagen: non",
+  "body": "Für \"nicht\" setzen Sie einfach non vor das Verb: capisco, non capisco. Sonst ändert sich nichts. \"Non c'è\" heißt \"es gibt kein\".",
+  "examples": ["i_dont_understand", "i_dont_eat_meat", "there_is_no_hot_water"]
+ },
+ {
+  "unit": 8,
+  "title": "Wörter, die passen",
+  "body": "Beschreibende Wörter passen ihre Endung an: alto für einen Mann, alta für eine Frau, stanchi für eine Gruppe. Wörter auf -e, wie felice, bleiben für Männer und Frauen gleich.",
+  "examples": ["he_is_tall", "she_is_happy", "we_are_tired"]
+ },
+ {
+  "unit": 9,
+  "title": "Verben auf -are",
+  "body": "Viele Verben enden auf -are, wie parlare und lavorare. Für \"ich\" wird -are zu -o: parlo, lavoro. Für \"du\" (tu) nimmt man -i: parli. Meist können Sie io einfach weglassen.",
+  "examples": ["i_speak_english", "i_eat_bread", "i_work_today"]
+ }
+]

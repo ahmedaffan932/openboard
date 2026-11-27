@@ -1,0 +1,2076 @@
+{
+ "version": 1,
+ "units": [
+  {
+   "id": 1,
+   "lessons": [
+    [
+     "hello",
+     "goodbye",
+     "yes",
+     "no",
+     "please",
+     "thank_you"
+    ],
+    [
+     "good_morning",
+     "good_afternoon",
+     "good_evening",
+     "good_night",
+     "see_you_later",
+     "thank_you_very_much"
+    ],
+    [
+     "how_are_you",
+     "im_fine",
+     "and_you",
+     "very_well_thanks",
+     "nice_to_meet_you",
+     "youre_welcome"
+    ],
+    [
+     "excuse_me",
+     "sorry",
+     "i_dont_understand",
+     "do_you_speak_english",
+     "a_little",
+     "can_you_repeat"
+    ],
+    [
+     "see_you_tomorrow",
+     "have_a_nice_day",
+     "welcome",
+     "ok",
+     "of_course",
+     "no_thanks"
+    ]
+   ]
+  },
+  {
+   "id": 2,
+   "lessons": [
+    [
+     "i_am",
+     "you_are",
+     "he_is",
+     "she_is",
+     "my_name_is_ana",
+     "what_is_your_name"
+    ],
+    [
+     "where_are_you_from",
+     "i_am_from_mexico",
+     "country",
+     "city",
+     "i_live_in_london",
+     "where_do_you_live"
+    ],
+    [
+     "man",
+     "woman",
+     "boy",
+     "girl",
+     "friend",
+     "teacher"
+    ],
+    [
+     "student",
+     "doctor",
+     "i_am_a_student",
+     "she_is_a_doctor",
+     "he_is_my_friend",
+     "this_is_my_friend"
+    ],
+    [
+     "how_old_are_you",
+     "i_am_25",
+     "language",
+     "i_speak_english",
+     "i_am_learning_a_language",
+     "it_is_easy"
+    ]
+   ]
+  },
+  {
+   "id": 3,
+   "lessons": [
+    [
+     "one",
+     "two",
+     "three",
+     "four",
+     "five",
+     "six"
+    ],
+    [
+     "seven",
+     "eight",
+     "nine",
+     "ten",
+     "twenty",
+     "one_hundred"
+    ],
+    [
+     "what_time_is_it",
+     "its_one_oclock",
+     "its_two_oclock",
+     "hour",
+     "minute",
+     "now"
+    ],
+    [
+     "today",
+     "tomorrow",
+     "yesterday",
+     "morning",
+     "afternoon",
+     "night"
+    ],
+    [
+     "how_much_is_it",
+     "it_costs_ten_euros",
+     "number",
+     "early",
+     "late",
+     "what_day_is_today"
+    ]
+   ]
+  },
+  {
+   "id": 4,
+   "lessons": [
+    [
+     "water",
+     "bread",
+     "coffee",
+     "tea",
+     "milk",
+     "wine"
+    ],
+    [
+     "apple",
+     "cheese",
+     "meat",
+     "fish",
+     "rice",
+     "egg"
+    ],
+    [
+     "i_am_hungry",
+     "i_am_thirsty",
+     "i_would_like_a_coffee",
+     "a_glass_of_water",
+     "the_menu_please",
+     "the_bill_please"
+    ],
+    [
+     "breakfast",
+     "lunch",
+     "dinner",
+     "restaurant",
+     "table",
+     "waiter"
+    ],
+    [
+     "it_is_delicious",
+     "i_dont_eat_meat",
+     "i_am_vegetarian",
+     "a_table_for_two",
+     "is_it_spicy",
+     "enjoy_your_meal"
+    ]
+   ]
+  },
+  {
+   "id": 5,
+   "lessons": [
+    [
+     "money",
+     "shop",
+     "price",
+     "cheap",
+     "expensive",
+     "card"
+    ],
+    [
+     "how_much_does_it_cost",
+     "can_i_pay_by_card",
+     "i_am_just_looking",
+     "i_want_this",
+     "do_you_have_water",
+     "it_is_too_expensive"
+    ],
+    [
+     "shirt",
+     "shoes",
+     "dress",
+     "bag",
+     "big",
+     "small"
+    ],
+    [
+     "red",
+     "blue",
+     "green",
+     "black",
+     "white",
+     "yellow"
+    ],
+    [
+     "open",
+     "closed",
+     "cash",
+     "receipt",
+     "where_is_the_supermarket",
+     "i_need_a_bag"
+    ]
+   ]
+  },
+  {
+   "id": 6,
+   "lessons": [
+    [
+     "airport",
+     "train",
+     "bus",
+     "taxi",
+     "ticket",
+     "station"
+    ],
+    [
+     "where_is",
+     "left",
+     "right",
+     "straight_ahead",
+     "near",
+     "far"
+    ],
+    [
+     "where_is_the_station",
+     "is_it_far",
+     "turn_left",
+     "turn_right",
+     "here",
+     "there"
+    ],
+    [
+     "map",
+     "street",
+     "where_is_the_bathroom",
+     "one_ticket_please",
+     "the_train_is_late",
+     "i_am_lost"
+    ],
+    [
+     "can_you_help_me",
+     "passport",
+     "suitcase",
+     "beach",
+     "museum",
+     "i_am_on_vacation"
+    ]
+   ]
+  },
+  {
+   "id": 7,
+   "lessons": [
+    [
+     "hotel",
+     "room",
+     "key",
+     "bed",
+     "shower",
+     "towel"
+    ],
+    [
+     "i_have_a_reservation",
+     "a_room_for_two_nights",
+     "is_breakfast_included",
+     "what_time_is_checkout",
+     "what_is_the_wifi_password",
+     "the_room_is_ready"
+    ],
+    [
+     "floor",
+     "elevator",
+     "stairs",
+     "door",
+     "window",
+     "quiet"
+    ],
+    [
+     "clean",
+     "dirty",
+     "hot",
+     "cold",
+     "the_room_is_too_cold",
+     "there_is_no_hot_water"
+    ],
+    [
+     "can_i_leave_my_bag_here",
+     "i_want_to_check_out",
+     "comfortable",
+     "noise",
+     "the_room_is_very_nice",
+     "thank_you_for_everything"
+    ]
+   ]
+  },
+  {
+   "id": 8,
+   "lessons": [
+    [
+     "family",
+     "mother",
+     "father",
+     "brother",
+     "sister",
+     "son"
+    ],
+    [
+     "daughter",
+     "husband",
+     "wife",
+     "children",
+     "grandmother",
+     "grandfather"
+    ],
+    [
+     "this_is_my_mother",
+     "i_have_two_brothers",
+     "do_you_have_children",
+     "my_sister_is_a_teacher",
+     "my_family_is_big",
+     "i_love_my_family"
+    ],
+    [
+     "young",
+     "old",
+     "tall",
+     "short",
+     "happy",
+     "tired"
+    ],
+    [
+     "he_is_tall",
+     "she_is_happy",
+     "we_are_tired",
+     "they_are_my_friends",
+     "my_grandfather_is_old",
+     "how_is_your_family"
+    ]
+   ]
+  },
+  {
+   "id": 9,
+   "lessons": [
+    [
+     "to_eat",
+     "to_drink",
+     "to_sleep",
+     "to_work",
+     "to_read",
+     "to_speak"
+    ],
+    [
+     "i_eat_bread",
+     "i_drink_water",
+     "i_sleep_a_lot",
+     "i_work_today",
+     "i_read_a_book",
+     "please_speak_slowly"
+    ],
+    [
+     "every_day",
+     "always",
+     "never",
+     "sometimes",
+     "i_work_every_day",
+     "i_never_drink_coffee"
+    ],
+    [
+     "house",
+     "to_go",
+     "to_come",
+     "i_go_home",
+     "she_comes_tomorrow",
+     "we_go_to_the_beach"
+    ],
+    [
+     "book",
+     "phone",
+     "computer",
+     "i_like_coffee",
+     "i_dont_like_tea",
+     "what_do_you_do"
+    ]
+   ]
+  },
+  {
+   "id": 10,
+   "lessons": [
+    [
+     "hospital",
+     "pharmacy",
+     "medicine",
+     "police",
+     "ambulance",
+     "pain"
+    ],
+    [
+     "help",
+     "call_a_doctor",
+     "call_the_police",
+     "i_am_sick",
+     "i_need_a_doctor",
+     "where_is_the_hospital"
+    ],
+    [
+     "head",
+     "stomach",
+     "hand",
+     "foot",
+     "my_head_hurts",
+     "my_stomach_hurts"
+    ],
+    [
+     "i_have_a_fever",
+     "i_am_allergic_to_nuts",
+     "i_feel_bad",
+     "i_feel_better",
+     "it_is_urgent",
+     "fire"
+    ],
+    [
+     "danger",
+     "be_careful",
+     "i_lost_my_passport",
+     "my_phone_was_stolen",
+     "is_everything_ok",
+     "i_am_okay"
+    ]
+   ]
+  },
+  {
+   "id": 11,
+   "lessons": [
+    [
+     "monday",
+     "tuesday",
+     "wednesday",
+     "thursday",
+     "friday",
+     "saturday"
+    ],
+    [
+     "sunday",
+     "week",
+     "month",
+     "year",
+     "weekend",
+     "today_is_monday"
+    ],
+    [
+     "january",
+     "march",
+     "may",
+     "july",
+     "september",
+     "december"
+    ],
+    [
+     "weather",
+     "sun",
+     "rain",
+     "snow",
+     "wind",
+     "it_is_hot"
+    ],
+    [
+     "it_is_cold",
+     "it_is_raining",
+     "it_is_sunny",
+     "what_is_the_weather_like",
+     "summer",
+     "winter"
+    ]
+   ]
+  },
+  {
+   "id": 12,
+   "lessons": [
+    [
+     "good",
+     "bad",
+     "beautiful",
+     "new",
+     "fast",
+     "slow"
+    ],
+    [
+     "easy",
+     "difficult",
+     "very",
+     "interesting",
+     "important",
+     "expensive_car"
+    ],
+    [
+     "the_house_is_big",
+     "the_car_is_new",
+     "this_is_very_good",
+     "it_is_not_difficult",
+     "the_book_is_interesting",
+     "the_city_is_beautiful"
+    ],
+    [
+     "car",
+     "dog",
+     "cat",
+     "flower",
+     "tree",
+     "sea"
+    ],
+    [
+     "i_have_a_dog",
+     "the_dog_is_small",
+     "the_cat_is_black",
+     "the_sea_is_blue",
+     "my_car_is_red",
+     "what_a_beautiful_day"
+    ]
+   ]
+  }
+ ],
+ "concepts": {
+  "hello": {
+   "en": "Hello",
+   "k": "w"
+  },
+  "goodbye": {
+   "en": "Goodbye",
+   "k": "w"
+  },
+  "yes": {
+   "en": "Yes",
+   "k": "w"
+  },
+  "no": {
+   "en": "No",
+   "k": "w"
+  },
+  "please": {
+   "en": "Please",
+   "k": "w"
+  },
+  "thank_you": {
+   "en": "Thank you",
+   "k": "w"
+  },
+  "good_morning": {
+   "en": "Good morning",
+   "k": "s"
+  },
+  "good_afternoon": {
+   "en": "Good afternoon",
+   "k": "s"
+  },
+  "good_evening": {
+   "en": "Good evening",
+   "k": "s",
+   "note": "greeting when arriving in the evening"
+  },
+  "good_night": {
+   "en": "Good night",
+   "k": "s",
+   "note": "when leaving at night or going to bed"
+  },
+  "see_you_later": {
+   "en": "See you later",
+   "k": "s"
+  },
+  "thank_you_very_much": {
+   "en": "Thank you very much",
+   "k": "s"
+  },
+  "how_are_you": {
+   "en": "How are you?",
+   "k": "s",
+   "note": "informal, to one person"
+  },
+  "im_fine": {
+   "en": "I am fine.",
+   "k": "s"
+  },
+  "and_you": {
+   "en": "And you?",
+   "k": "s",
+   "note": "informal"
+  },
+  "very_well_thanks": {
+   "en": "Very well, thanks.",
+   "k": "s"
+  },
+  "nice_to_meet_you": {
+   "en": "Nice to meet you.",
+   "k": "s"
+  },
+  "youre_welcome": {
+   "en": "You're welcome.",
+   "k": "s",
+   "note": "reply to thank you"
+  },
+  "excuse_me": {
+   "en": "Excuse me",
+   "k": "s",
+   "note": "to get someone's attention"
+  },
+  "sorry": {
+   "en": "Sorry",
+   "k": "w",
+   "note": "apology"
+  },
+  "i_dont_understand": {
+   "en": "I don't understand.",
+   "k": "s"
+  },
+  "do_you_speak_english": {
+   "en": "Do you speak English?",
+   "k": "s",
+   "note": "polite/formal you is fine; give both forms in alt"
+  },
+  "a_little": {
+   "en": "A little",
+   "k": "s"
+  },
+  "can_you_repeat": {
+   "en": "Can you repeat, please?",
+   "k": "s"
+  },
+  "see_you_tomorrow": {
+   "en": "See you tomorrow.",
+   "k": "s"
+  },
+  "have_a_nice_day": {
+   "en": "Have a nice day!",
+   "k": "s"
+  },
+  "welcome": {
+   "en": "Welcome!",
+   "k": "w",
+   "note": "greeting to a guest"
+  },
+  "ok": {
+   "en": "Okay",
+   "k": "w"
+  },
+  "of_course": {
+   "en": "Of course",
+   "k": "s"
+  },
+  "no_thanks": {
+   "en": "No, thanks.",
+   "k": "s"
+  },
+  "i_am": {
+   "en": "I am",
+   "k": "s"
+  },
+  "you_are": {
+   "en": "You are",
+   "k": "s",
+   "note": "informal, one person"
+  },
+  "he_is": {
+   "en": "He is",
+   "k": "s"
+  },
+  "she_is": {
+   "en": "She is",
+   "k": "s"
+  },
+  "my_name_is_ana": {
+   "en": "My name is Ana.",
+   "k": "s"
+  },
+  "what_is_your_name": {
+   "en": "What is your name?",
+   "k": "s",
+   "note": "informal; formal in alt"
+  },
+  "where_are_you_from": {
+   "en": "Where are you from?",
+   "k": "s",
+   "note": "informal; formal in alt"
+  },
+  "i_am_from_mexico": {
+   "en": "I am from Mexico.",
+   "k": "s"
+  },
+  "country": {
+   "en": "country",
+   "k": "w"
+  },
+  "city": {
+   "en": "city",
+   "k": "w"
+  },
+  "i_live_in_london": {
+   "en": "I live in London.",
+   "k": "s"
+  },
+  "where_do_you_live": {
+   "en": "Where do you live?",
+   "k": "s",
+   "note": "informal"
+  },
+  "man": {
+   "en": "man",
+   "k": "w"
+  },
+  "woman": {
+   "en": "woman",
+   "k": "w"
+  },
+  "boy": {
+   "en": "boy",
+   "k": "w"
+  },
+  "girl": {
+   "en": "girl",
+   "k": "w"
+  },
+  "friend": {
+   "en": "friend",
+   "k": "w",
+   "note": "male friend; female form in alt"
+  },
+  "teacher": {
+   "en": "teacher",
+   "k": "w",
+   "note": "male; female form in alt"
+  },
+  "student": {
+   "en": "student",
+   "k": "w",
+   "note": "male; female form in alt"
+  },
+  "doctor": {
+   "en": "doctor",
+   "k": "w",
+   "note": "the profession; male; female form in alt"
+  },
+  "i_am_a_student": {
+   "en": "I am a student.",
+   "k": "s",
+   "note": "male speaker; female form in alt"
+  },
+  "she_is_a_doctor": {
+   "en": "She is a doctor.",
+   "k": "s"
+  },
+  "he_is_my_friend": {
+   "en": "He is my friend.",
+   "k": "s"
+  },
+  "this_is_my_friend": {
+   "en": "This is my friend.",
+   "k": "s",
+   "note": "male friend"
+  },
+  "how_old_are_you": {
+   "en": "How old are you?",
+   "k": "s",
+   "note": "informal"
+  },
+  "i_am_25": {
+   "en": "I am 25 years old.",
+   "k": "s",
+   "note": "write the number as digits: 25"
+  },
+  "language": {
+   "en": "language",
+   "k": "w"
+  },
+  "i_speak_english": {
+   "en": "I speak English.",
+   "k": "s"
+  },
+  "i_am_learning_a_language": {
+   "en": "I am learning a new language.",
+   "k": "s"
+  },
+  "it_is_easy": {
+   "en": "It is easy.",
+   "k": "s"
+  },
+  "one": {
+   "en": "one",
+   "k": "w"
+  },
+  "two": {
+   "en": "two",
+   "k": "w"
+  },
+  "three": {
+   "en": "three",
+   "k": "w"
+  },
+  "four": {
+   "en": "four",
+   "k": "w"
+  },
+  "five": {
+   "en": "five",
+   "k": "w"
+  },
+  "six": {
+   "en": "six",
+   "k": "w"
+  },
+  "seven": {
+   "en": "seven",
+   "k": "w"
+  },
+  "eight": {
+   "en": "eight",
+   "k": "w"
+  },
+  "nine": {
+   "en": "nine",
+   "k": "w"
+  },
+  "ten": {
+   "en": "ten",
+   "k": "w"
+  },
+  "twenty": {
+   "en": "twenty",
+   "k": "w"
+  },
+  "one_hundred": {
+   "en": "one hundred",
+   "k": "w"
+  },
+  "what_time_is_it": {
+   "en": "What time is it?",
+   "k": "s"
+  },
+  "its_one_oclock": {
+   "en": "It is one o'clock.",
+   "k": "s"
+  },
+  "its_two_oclock": {
+   "en": "It is two o'clock.",
+   "k": "s"
+  },
+  "hour": {
+   "en": "hour",
+   "k": "w"
+  },
+  "minute": {
+   "en": "minute",
+   "k": "w"
+  },
+  "now": {
+   "en": "now",
+   "k": "w"
+  },
+  "today": {
+   "en": "today",
+   "k": "w"
+  },
+  "tomorrow": {
+   "en": "tomorrow",
+   "k": "w"
+  },
+  "yesterday": {
+   "en": "yesterday",
+   "k": "w"
+  },
+  "morning": {
+   "en": "morning",
+   "k": "w"
+  },
+  "afternoon": {
+   "en": "afternoon",
+   "k": "w"
+  },
+  "night": {
+   "en": "night",
+   "k": "w"
+  },
+  "how_much_is_it": {
+   "en": "How much is it?",
+   "k": "s"
+  },
+  "it_costs_ten_euros": {
+   "en": "It costs ten euros.",
+   "k": "s"
+  },
+  "number": {
+   "en": "number",
+   "k": "w"
+  },
+  "early": {
+   "en": "early",
+   "k": "w"
+  },
+  "late": {
+   "en": "late",
+   "k": "w"
+  },
+  "what_day_is_today": {
+   "en": "What day is today?",
+   "k": "s"
+  },
+  "water": {
+   "en": "water",
+   "k": "w"
+  },
+  "bread": {
+   "en": "bread",
+   "k": "w"
+  },
+  "coffee": {
+   "en": "coffee",
+   "k": "w"
+  },
+  "tea": {
+   "en": "tea",
+   "k": "w"
+  },
+  "milk": {
+   "en": "milk",
+   "k": "w"
+  },
+  "wine": {
+   "en": "wine",
+   "k": "w"
+  },
+  "apple": {
+   "en": "apple",
+   "k": "w"
+  },
+  "cheese": {
+   "en": "cheese",
+   "k": "w"
+  },
+  "meat": {
+   "en": "meat",
+   "k": "w"
+  },
+  "fish": {
+   "en": "fish",
+   "k": "w",
+   "note": "as food"
+  },
+  "rice": {
+   "en": "rice",
+   "k": "w"
+  },
+  "egg": {
+   "en": "egg",
+   "k": "w"
+  },
+  "i_am_hungry": {
+   "en": "I am hungry.",
+   "k": "s"
+  },
+  "i_am_thirsty": {
+   "en": "I am thirsty.",
+   "k": "s"
+  },
+  "i_would_like_a_coffee": {
+   "en": "I would like a coffee, please.",
+   "k": "s"
+  },
+  "a_glass_of_water": {
+   "en": "A glass of water, please.",
+   "k": "s"
+  },
+  "the_menu_please": {
+   "en": "The menu, please.",
+   "k": "s"
+  },
+  "the_bill_please": {
+   "en": "The bill, please.",
+   "k": "s",
+   "note": "the check in a restaurant"
+  },
+  "breakfast": {
+   "en": "breakfast",
+   "k": "w"
+  },
+  "lunch": {
+   "en": "lunch",
+   "k": "w"
+  },
+  "dinner": {
+   "en": "dinner",
+   "k": "w"
+  },
+  "restaurant": {
+   "en": "restaurant",
+   "k": "w"
+  },
+  "table": {
+   "en": "table",
+   "k": "w"
+  },
+  "waiter": {
+   "en": "waiter",
+   "k": "w",
+   "note": "male; female form in alt"
+  },
+  "it_is_delicious": {
+   "en": "It is delicious!",
+   "k": "s"
+  },
+  "i_dont_eat_meat": {
+   "en": "I don't eat meat.",
+   "k": "s"
+  },
+  "i_am_vegetarian": {
+   "en": "I am vegetarian.",
+   "k": "s",
+   "note": "male speaker; female form in alt"
+  },
+  "a_table_for_two": {
+   "en": "A table for two, please.",
+   "k": "s"
+  },
+  "is_it_spicy": {
+   "en": "Is it spicy?",
+   "k": "s"
+  },
+  "enjoy_your_meal": {
+   "en": "Enjoy your meal!",
+   "k": "s"
+  },
+  "money": {
+   "en": "money",
+   "k": "w"
+  },
+  "shop": {
+   "en": "shop",
+   "k": "w",
+   "note": "a store"
+  },
+  "price": {
+   "en": "price",
+   "k": "w"
+  },
+  "cheap": {
+   "en": "cheap",
+   "k": "w"
+  },
+  "expensive": {
+   "en": "expensive",
+   "k": "w"
+  },
+  "card": {
+   "en": "card",
+   "k": "w",
+   "note": "bank card"
+  },
+  "how_much_does_it_cost": {
+   "en": "How much does it cost?",
+   "k": "s"
+  },
+  "can_i_pay_by_card": {
+   "en": "Can I pay by card?",
+   "k": "s"
+  },
+  "i_am_just_looking": {
+   "en": "I am just looking.",
+   "k": "s",
+   "note": "in a shop"
+  },
+  "i_want_this": {
+   "en": "I want this one.",
+   "k": "s"
+  },
+  "do_you_have_water": {
+   "en": "Do you have water?",
+   "k": "s",
+   "note": "asking a shop; formal you is fine"
+  },
+  "it_is_too_expensive": {
+   "en": "It is too expensive.",
+   "k": "s"
+  },
+  "shirt": {
+   "en": "shirt",
+   "k": "w"
+  },
+  "shoes": {
+   "en": "shoes",
+   "k": "w"
+  },
+  "dress": {
+   "en": "dress",
+   "k": "w",
+   "note": "clothing"
+  },
+  "bag": {
+   "en": "bag",
+   "k": "w",
+   "note": "handbag or shopping bag"
+  },
+  "big": {
+   "en": "big",
+   "k": "w"
+  },
+  "small": {
+   "en": "small",
+   "k": "w"
+  },
+  "red": {
+   "en": "red",
+   "k": "w"
+  },
+  "blue": {
+   "en": "blue",
+   "k": "w"
+  },
+  "green": {
+   "en": "green",
+   "k": "w"
+  },
+  "black": {
+   "en": "black",
+   "k": "w"
+  },
+  "white": {
+   "en": "white",
+   "k": "w"
+  },
+  "yellow": {
+   "en": "yellow",
+   "k": "w"
+  },
+  "open": {
+   "en": "open",
+   "k": "w",
+   "note": "adjective: the shop is open"
+  },
+  "closed": {
+   "en": "closed",
+   "k": "w",
+   "note": "adjective: the shop is closed"
+  },
+  "cash": {
+   "en": "cash",
+   "k": "w",
+   "note": "money in notes and coins"
+  },
+  "receipt": {
+   "en": "receipt",
+   "k": "w"
+  },
+  "where_is_the_supermarket": {
+   "en": "Where is the supermarket?",
+   "k": "s"
+  },
+  "i_need_a_bag": {
+   "en": "I need a bag.",
+   "k": "s"
+  },
+  "airport": {
+   "en": "airport",
+   "k": "w"
+  },
+  "train": {
+   "en": "train",
+   "k": "w"
+  },
+  "bus": {
+   "en": "bus",
+   "k": "w"
+  },
+  "taxi": {
+   "en": "taxi",
+   "k": "w"
+  },
+  "ticket": {
+   "en": "ticket",
+   "k": "w",
+   "note": "travel ticket"
+  },
+  "station": {
+   "en": "station",
+   "k": "w",
+   "note": "train station"
+  },
+  "where_is": {
+   "en": "Where is...?",
+   "k": "s",
+   "note": "start of a question"
+  },
+  "left": {
+   "en": "left",
+   "k": "w",
+   "note": "direction"
+  },
+  "right": {
+   "en": "right",
+   "k": "w",
+   "note": "direction, not 'correct'"
+  },
+  "straight_ahead": {
+   "en": "straight ahead",
+   "k": "w"
+  },
+  "near": {
+   "en": "near",
+   "k": "w"
+  },
+  "far": {
+   "en": "far",
+   "k": "w"
+  },
+  "where_is_the_station": {
+   "en": "Where is the station?",
+   "k": "s"
+  },
+  "is_it_far": {
+   "en": "Is it far?",
+   "k": "s"
+  },
+  "turn_left": {
+   "en": "Turn left.",
+   "k": "s",
+   "note": "formal or informal imperative, give both"
+  },
+  "turn_right": {
+   "en": "Turn right.",
+   "k": "s",
+   "note": "formal or informal imperative, give both"
+  },
+  "here": {
+   "en": "here",
+   "k": "w"
+  },
+  "there": {
+   "en": "there",
+   "k": "w"
+  },
+  "map": {
+   "en": "map",
+   "k": "w"
+  },
+  "street": {
+   "en": "street",
+   "k": "w"
+  },
+  "where_is_the_bathroom": {
+   "en": "Where is the bathroom?",
+   "k": "s",
+   "note": "toilet in a public place"
+  },
+  "one_ticket_please": {
+   "en": "One ticket, please.",
+   "k": "s"
+  },
+  "the_train_is_late": {
+   "en": "The train is late.",
+   "k": "s"
+  },
+  "i_am_lost": {
+   "en": "I am lost.",
+   "k": "s",
+   "note": "male speaker; female form in alt"
+  },
+  "can_you_help_me": {
+   "en": "Can you help me?",
+   "k": "s",
+   "note": "formal you preferred, informal in alt"
+  },
+  "passport": {
+   "en": "passport",
+   "k": "w"
+  },
+  "suitcase": {
+   "en": "suitcase",
+   "k": "w"
+  },
+  "beach": {
+   "en": "beach",
+   "k": "w"
+  },
+  "museum": {
+   "en": "museum",
+   "k": "w"
+  },
+  "i_am_on_vacation": {
+   "en": "I am on vacation.",
+   "k": "s"
+  },
+  "hotel": {
+   "en": "hotel",
+   "k": "w"
+  },
+  "room": {
+   "en": "room",
+   "k": "w",
+   "note": "hotel room"
+  },
+  "key": {
+   "en": "key",
+   "k": "w"
+  },
+  "bed": {
+   "en": "bed",
+   "k": "w"
+  },
+  "shower": {
+   "en": "shower",
+   "k": "w",
+   "note": "noun"
+  },
+  "towel": {
+   "en": "towel",
+   "k": "w"
+  },
+  "i_have_a_reservation": {
+   "en": "I have a reservation.",
+   "k": "s"
+  },
+  "a_room_for_two_nights": {
+   "en": "A room for two nights, please.",
+   "k": "s"
+  },
+  "is_breakfast_included": {
+   "en": "Is breakfast included?",
+   "k": "s"
+  },
+  "what_time_is_checkout": {
+   "en": "What time is check-out?",
+   "k": "s"
+  },
+  "what_is_the_wifi_password": {
+   "en": "What is the Wi-Fi password?",
+   "k": "s"
+  },
+  "the_room_is_ready": {
+   "en": "The room is ready.",
+   "k": "s"
+  },
+  "floor": {
+   "en": "floor",
+   "k": "w",
+   "note": "storey of a building"
+  },
+  "elevator": {
+   "en": "elevator",
+   "k": "w",
+   "note": "lift"
+  },
+  "stairs": {
+   "en": "stairs",
+   "k": "w"
+  },
+  "door": {
+   "en": "door",
+   "k": "w"
+  },
+  "window": {
+   "en": "window",
+   "k": "w"
+  },
+  "quiet": {
+   "en": "quiet",
+   "k": "w"
+  },
+  "clean": {
+   "en": "clean",
+   "k": "w",
+   "note": "adjective"
+  },
+  "dirty": {
+   "en": "dirty",
+   "k": "w"
+  },
+  "hot": {
+   "en": "hot",
+   "k": "w",
+   "note": "temperature of a thing"
+  },
+  "cold": {
+   "en": "cold",
+   "k": "w",
+   "note": "temperature of a thing"
+  },
+  "the_room_is_too_cold": {
+   "en": "The room is too cold.",
+   "k": "s"
+  },
+  "there_is_no_hot_water": {
+   "en": "There is no hot water.",
+   "k": "s"
+  },
+  "can_i_leave_my_bag_here": {
+   "en": "Can I leave my bag here?",
+   "k": "s"
+  },
+  "i_want_to_check_out": {
+   "en": "I want to check out.",
+   "k": "s",
+   "note": "leave the hotel"
+  },
+  "comfortable": {
+   "en": "comfortable",
+   "k": "w"
+  },
+  "noise": {
+   "en": "noise",
+   "k": "w"
+  },
+  "the_room_is_very_nice": {
+   "en": "The room is very nice.",
+   "k": "s"
+  },
+  "thank_you_for_everything": {
+   "en": "Thank you for everything!",
+   "k": "s"
+  },
+  "family": {
+   "en": "family",
+   "k": "w"
+  },
+  "mother": {
+   "en": "mother",
+   "k": "w"
+  },
+  "father": {
+   "en": "father",
+   "k": "w"
+  },
+  "brother": {
+   "en": "brother",
+   "k": "w"
+  },
+  "sister": {
+   "en": "sister",
+   "k": "w"
+  },
+  "son": {
+   "en": "son",
+   "k": "w"
+  },
+  "daughter": {
+   "en": "daughter",
+   "k": "w"
+  },
+  "husband": {
+   "en": "husband",
+   "k": "w"
+  },
+  "wife": {
+   "en": "wife",
+   "k": "w"
+  },
+  "children": {
+   "en": "children",
+   "k": "w",
+   "note": "someone's kids"
+  },
+  "grandmother": {
+   "en": "grandmother",
+   "k": "w"
+  },
+  "grandfather": {
+   "en": "grandfather",
+   "k": "w"
+  },
+  "this_is_my_mother": {
+   "en": "This is my mother.",
+   "k": "s"
+  },
+  "i_have_two_brothers": {
+   "en": "I have two brothers.",
+   "k": "s"
+  },
+  "do_you_have_children": {
+   "en": "Do you have children?",
+   "k": "s",
+   "note": "informal; formal in alt"
+  },
+  "my_sister_is_a_teacher": {
+   "en": "My sister is a teacher.",
+   "k": "s"
+  },
+  "my_family_is_big": {
+   "en": "My family is big.",
+   "k": "s"
+  },
+  "i_love_my_family": {
+   "en": "I love my family.",
+   "k": "s"
+  },
+  "young": {
+   "en": "young",
+   "k": "w"
+  },
+  "old": {
+   "en": "old",
+   "k": "w",
+   "note": "for people; the polite everyday word"
+  },
+  "tall": {
+   "en": "tall",
+   "k": "w"
+  },
+  "short": {
+   "en": "short",
+   "k": "w",
+   "note": "height of a person"
+  },
+  "happy": {
+   "en": "happy",
+   "k": "w"
+  },
+  "tired": {
+   "en": "tired",
+   "k": "w",
+   "note": "male form; female form in alt"
+  },
+  "he_is_tall": {
+   "en": "He is tall.",
+   "k": "s"
+  },
+  "she_is_happy": {
+   "en": "She is happy.",
+   "k": "s"
+  },
+  "we_are_tired": {
+   "en": "We are tired.",
+   "k": "s",
+   "note": "masculine/mixed group; feminine in alt"
+  },
+  "they_are_my_friends": {
+   "en": "They are my friends.",
+   "k": "s",
+   "note": "mixed group"
+  },
+  "my_grandfather_is_old": {
+   "en": "My grandfather is old.",
+   "k": "s"
+  },
+  "how_is_your_family": {
+   "en": "How is your family?",
+   "k": "s",
+   "note": "informal"
+  },
+  "to_eat": {
+   "en": "to eat",
+   "k": "w",
+   "note": "infinitive"
+  },
+  "to_drink": {
+   "en": "to drink",
+   "k": "w",
+   "note": "infinitive"
+  },
+  "to_sleep": {
+   "en": "to sleep",
+   "k": "w",
+   "note": "infinitive"
+  },
+  "to_work": {
+   "en": "to work",
+   "k": "w",
+   "note": "infinitive"
+  },
+  "to_read": {
+   "en": "to read",
+   "k": "w",
+   "note": "infinitive"
+  },
+  "to_speak": {
+   "en": "to speak",
+   "k": "w",
+   "note": "infinitive"
+  },
+  "i_eat_bread": {
+   "en": "I eat bread.",
+   "k": "s"
+  },
+  "i_drink_water": {
+   "en": "I drink water.",
+   "k": "s"
+  },
+  "i_sleep_a_lot": {
+   "en": "I sleep a lot.",
+   "k": "s"
+  },
+  "i_work_today": {
+   "en": "I work today.",
+   "k": "s"
+  },
+  "i_read_a_book": {
+   "en": "I am reading a book.",
+   "k": "s"
+  },
+  "please_speak_slowly": {
+   "en": "Please speak slowly.",
+   "k": "s",
+   "note": "formal you preferred, informal in alt"
+  },
+  "every_day": {
+   "en": "every day",
+   "k": "s"
+  },
+  "always": {
+   "en": "always",
+   "k": "w"
+  },
+  "never": {
+   "en": "never",
+   "k": "w"
+  },
+  "sometimes": {
+   "en": "sometimes",
+   "k": "w"
+  },
+  "i_work_every_day": {
+   "en": "I work every day.",
+   "k": "s"
+  },
+  "i_never_drink_coffee": {
+   "en": "I never drink coffee.",
+   "k": "s"
+  },
+  "house": {
+   "en": "house",
+   "k": "w"
+  },
+  "to_go": {
+   "en": "to go",
+   "k": "w",
+   "note": "infinitive"
+  },
+  "to_come": {
+   "en": "to come",
+   "k": "w",
+   "note": "infinitive"
+  },
+  "i_go_home": {
+   "en": "I am going home.",
+   "k": "s"
+  },
+  "she_comes_tomorrow": {
+   "en": "She is coming tomorrow.",
+   "k": "s"
+  },
+  "we_go_to_the_beach": {
+   "en": "We are going to the beach.",
+   "k": "s"
+  },
+  "book": {
+   "en": "book",
+   "k": "w"
+  },
+  "phone": {
+   "en": "phone",
+   "k": "w",
+   "note": "mobile phone"
+  },
+  "computer": {
+   "en": "computer",
+   "k": "w"
+  },
+  "i_like_coffee": {
+   "en": "I like coffee.",
+   "k": "s"
+  },
+  "i_dont_like_tea": {
+   "en": "I don't like tea.",
+   "k": "s"
+  },
+  "what_do_you_do": {
+   "en": "What do you do for work?",
+   "k": "s",
+   "note": "informal; asking about someone's job"
+  },
+  "hospital": {
+   "en": "hospital",
+   "k": "w"
+  },
+  "pharmacy": {
+   "en": "pharmacy",
+   "k": "w"
+  },
+  "medicine": {
+   "en": "medicine",
+   "k": "w",
+   "note": "a drug you take"
+  },
+  "police": {
+   "en": "police",
+   "k": "w"
+  },
+  "ambulance": {
+   "en": "ambulance",
+   "k": "w"
+  },
+  "pain": {
+   "en": "pain",
+   "k": "w"
+  },
+  "help": {
+   "en": "Help!",
+   "k": "s",
+   "note": "shout in an emergency"
+  },
+  "call_a_doctor": {
+   "en": "Call a doctor!",
+   "k": "s",
+   "note": "formal or informal imperative, give both"
+  },
+  "call_the_police": {
+   "en": "Call the police!",
+   "k": "s",
+   "note": "formal or informal imperative, give both"
+  },
+  "i_am_sick": {
+   "en": "I am sick.",
+   "k": "s",
+   "note": "male speaker; female in alt"
+  },
+  "i_need_a_doctor": {
+   "en": "I need a doctor.",
+   "k": "s"
+  },
+  "where_is_the_hospital": {
+   "en": "Where is the hospital?",
+   "k": "s"
+  },
+  "head": {
+   "en": "head",
+   "k": "w",
+   "note": "body part"
+  },
+  "stomach": {
+   "en": "stomach",
+   "k": "w"
+  },
+  "hand": {
+   "en": "hand",
+   "k": "w"
+  },
+  "foot": {
+   "en": "foot",
+   "k": "w",
+   "note": "body part"
+  },
+  "my_head_hurts": {
+   "en": "My head hurts.",
+   "k": "s"
+  },
+  "my_stomach_hurts": {
+   "en": "My stomach hurts.",
+   "k": "s"
+  },
+  "i_have_a_fever": {
+   "en": "I have a fever.",
+   "k": "s"
+  },
+  "i_am_allergic_to_nuts": {
+   "en": "I am allergic to nuts.",
+   "k": "s",
+   "note": "male speaker; female in alt"
+  },
+  "i_feel_bad": {
+   "en": "I feel bad.",
+   "k": "s",
+   "note": "unwell"
+  },
+  "i_feel_better": {
+   "en": "I feel better.",
+   "k": "s"
+  },
+  "it_is_urgent": {
+   "en": "It is urgent.",
+   "k": "s"
+  },
+  "fire": {
+   "en": "Fire!",
+   "k": "s",
+   "note": "shout in an emergency"
+  },
+  "danger": {
+   "en": "danger",
+   "k": "w"
+  },
+  "be_careful": {
+   "en": "Be careful!",
+   "k": "s",
+   "note": "informal; formal in alt"
+  },
+  "i_lost_my_passport": {
+   "en": "I lost my passport.",
+   "k": "s"
+  },
+  "my_phone_was_stolen": {
+   "en": "My phone was stolen.",
+   "k": "s"
+  },
+  "is_everything_ok": {
+   "en": "Is everything okay?",
+   "k": "s"
+  },
+  "i_am_okay": {
+   "en": "I am okay.",
+   "k": "s"
+  },
+  "monday": {
+   "en": "Monday",
+   "k": "w"
+  },
+  "tuesday": {
+   "en": "Tuesday",
+   "k": "w"
+  },
+  "wednesday": {
+   "en": "Wednesday",
+   "k": "w"
+  },
+  "thursday": {
+   "en": "Thursday",
+   "k": "w"
+  },
+  "friday": {
+   "en": "Friday",
+   "k": "w"
+  },
+  "saturday": {
+   "en": "Saturday",
+   "k": "w"
+  },
+  "sunday": {
+   "en": "Sunday",
+   "k": "w"
+  },
+  "week": {
+   "en": "week",
+   "k": "w"
+  },
+  "month": {
+   "en": "month",
+   "k": "w"
+  },
+  "year": {
+   "en": "year",
+   "k": "w"
+  },
+  "weekend": {
+   "en": "weekend",
+   "k": "w"
+  },
+  "today_is_monday": {
+   "en": "Today is Monday.",
+   "k": "s"
+  },
+  "january": {
+   "en": "January",
+   "k": "w"
+  },
+  "march": {
+   "en": "March",
+   "k": "w"
+  },
+  "may": {
+   "en": "May",
+   "k": "w",
+   "note": "the month"
+  },
+  "july": {
+   "en": "July",
+   "k": "w"
+  },
+  "september": {
+   "en": "September",
+   "k": "w"
+  },
+  "december": {
+   "en": "December",
+   "k": "w"
+  },
+  "weather": {
+   "en": "weather",
+   "k": "w"
+  },
+  "sun": {
+   "en": "sun",
+   "k": "w"
+  },
+  "rain": {
+   "en": "rain",
+   "k": "w",
+   "note": "noun"
+  },
+  "snow": {
+   "en": "snow",
+   "k": "w",
+   "note": "noun"
+  },
+  "wind": {
+   "en": "wind",
+   "k": "w"
+  },
+  "it_is_hot": {
+   "en": "It is hot today.",
+   "k": "s",
+   "note": "weather"
+  },
+  "it_is_cold": {
+   "en": "It is cold today.",
+   "k": "s",
+   "note": "weather"
+  },
+  "it_is_raining": {
+   "en": "It is raining.",
+   "k": "s"
+  },
+  "it_is_sunny": {
+   "en": "It is sunny.",
+   "k": "s"
+  },
+  "what_is_the_weather_like": {
+   "en": "What is the weather like?",
+   "k": "s"
+  },
+  "summer": {
+   "en": "summer",
+   "k": "w"
+  },
+  "winter": {
+   "en": "winter",
+   "k": "w"
+  },
+  "good": {
+   "en": "good",
+   "k": "w"
+  },
+  "bad": {
+   "en": "bad",
+   "k": "w"
+  },
+  "beautiful": {
+   "en": "beautiful",
+   "k": "w"
+  },
+  "new": {
+   "en": "new",
+   "k": "w"
+  },
+  "fast": {
+   "en": "fast",
+   "k": "w",
+   "note": "speed"
+  },
+  "slow": {
+   "en": "slow",
+   "k": "w",
+   "note": "speed"
+  },
+  "easy": {
+   "en": "easy",
+   "k": "w"
+  },
+  "difficult": {
+   "en": "difficult",
+   "k": "w"
+  },
+  "very": {
+   "en": "very",
+   "k": "w"
+  },
+  "interesting": {
+   "en": "interesting",
+   "k": "w"
+  },
+  "important": {
+   "en": "important",
+   "k": "w"
+  },
+  "expensive_car": {
+   "en": "an expensive car",
+   "k": "s"
+  },
+  "the_house_is_big": {
+   "en": "The house is big.",
+   "k": "s"
+  },
+  "the_car_is_new": {
+   "en": "The car is new.",
+   "k": "s"
+  },
+  "this_is_very_good": {
+   "en": "This is very good.",
+   "k": "s"
+  },
+  "it_is_not_difficult": {
+   "en": "It is not difficult.",
+   "k": "s"
+  },
+  "the_book_is_interesting": {
+   "en": "The book is interesting.",
+   "k": "s"
+  },
+  "the_city_is_beautiful": {
+   "en": "The city is beautiful.",
+   "k": "s"
+  },
+  "car": {
+   "en": "car",
+   "k": "w"
+  },
+  "dog": {
+   "en": "dog",
+   "k": "w"
+  },
+  "cat": {
+   "en": "cat",
+   "k": "w"
+  },
+  "flower": {
+   "en": "flower",
+   "k": "w"
+  },
+  "tree": {
+   "en": "tree",
+   "k": "w"
+  },
+  "sea": {
+   "en": "sea",
+   "k": "w"
+  },
+  "i_have_a_dog": {
+   "en": "I have a dog.",
+   "k": "s"
+  },
+  "the_dog_is_small": {
+   "en": "The dog is small.",
+   "k": "s"
+  },
+  "the_cat_is_black": {
+   "en": "The cat is black.",
+   "k": "s"
+  },
+  "the_sea_is_blue": {
+   "en": "The sea is blue.",
+   "k": "s"
+  },
+  "my_car_is_red": {
+   "en": "My car is red.",
+   "k": "s"
+  },
+  "what_a_beautiful_day": {
+   "en": "What a beautiful day!",
+   "k": "s"
+  }
+ }
+}

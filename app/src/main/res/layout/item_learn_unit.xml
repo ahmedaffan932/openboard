@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One unit on the course map (Figma "Learn · Course map"). Collapsed row for done / upcoming /
+     locked units; the current unit also shows its progress, lesson dots, tip and Continue button. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
+    android:background="@drawable/bg_ui_card_clickable"
+    android:clickable="true"
+    android:elevation="2dp"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:outlineSpotShadowColor="@color/home_shadow"
+    android:padding="14dp"
+    tools:targetApi="p">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/flBadge"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_ui_tile_success">
+
+            <ImageView
+                android:id="@+id/ivBadge"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:importantForAccessibility="no"
+                app:srcCompat="@drawable/ic_ui_check"
+                app:tint="@color/home_success" />
+
+            <TextView
+                android:id="@+id/tvBadge"
+                style="@style/HomeText.AppTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/home_text_secondary"
+                android:visibility="gone"
+                tools:text="3" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvLabel"
+                style="@style/HomeText.Chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:textColor="@color/home_accent"
+                android:visibility="gone"
+                tools:text="UNIT 2" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/HomeText.BodyStrong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Unit 1 · Basics &amp; greetings" />
+
+            <TextView
+                android:id="@+id/tvSubtitle"
+                style="@style/HomeText.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                tools:text="Completed · 5 of 5 lessons" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvAction"
+            style="@style/HomeText.LabelSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/home_accent"
+            android:visibility="gone"
+            tools:text="Review"
+            tools:visibility="visible" />
+
+
+        <ImageView
+            android:id="@+id/ivChevron"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="8dp"
+            android:importantForAccessibility="no"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_ui_chevron_right"
+            app:tint="@color/home_text_muted" />
+    </LinearLayout>
+
+    <!-- Current unit only -->
+    <LinearLayout
+        android:id="@+id/llCurrent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ProgressBar
+            android:id="@+id/pbUnit"
+            style="@style/Widget.Ui.Progress"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_marginTop="12dp"
+            android:max="100"
+            tools:progress="60" />
+
+        <LinearLayout
+            android:id="@+id/llLessons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" />
+
+        <LinearLayout
+            android:id="@+id/llTip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_learn_tip_row"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="8dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:importantForAccessibility="no"
+                app:srcCompat="@drawable/ic_ui_bulb"
+                app:tint="@color/home_purple" />
+
+            <TextView
+                android:id="@+id/tvTip"
+                style="@style/HomeText.CaptionMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/home_text_secondary"
+                tools:text="Tip: saying where you are from" />
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:importantForAccessibility="no"
+                app:srcCompat="@drawable/ic_ui_chevron_right"
+                app:tint="@color/home_text_muted" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btnContinue"
+            style="@style/Widget.Ui.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="12dp"
+            android:minHeight="46dp"
+            tools:targetApi="p"
+            tools:text="Continue · Lesson 4" />
+    </LinearLayout>
+</LinearLayout>

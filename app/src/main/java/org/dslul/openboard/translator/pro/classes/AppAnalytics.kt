@@ -94,6 +94,12 @@ object AppAnalytics {
         KeyboardSettingsActivity::class.java to "keyboard_settings",
         SetupWizardActivity::class.java to "keyboard_setup_wizard",
         WordGameActivity::class.java to "word_game",
+        org.dslul.openboard.translator.pro.learn.LearnHomeActivity::class.java to "learn_home",
+        org.dslul.openboard.translator.pro.learn.LearnOnboardingActivity::class.java to "learn_onboarding",
+        org.dslul.openboard.translator.pro.learn.LessonActivity::class.java to "learn_lesson",
+        org.dslul.openboard.translator.pro.learn.LearnSettingsActivity::class.java to "learn_settings",
+        org.dslul.openboard.translator.pro.learn.PhrasePracticeActivity::class.java to "phrase_practice",
+        org.dslul.openboard.translator.pro.learn.PhraseCardsActivity::class.java to "phrase_cards",
         ExitActivity::class.java to "exit",
         UninstallSurveyActivity::class.java to "uninstall_survey",
     )
@@ -120,9 +126,15 @@ object AppAnalytics {
             putString("first_open", firstOpen.toString())
         })
 
-    /** An onboarding slide shown; [slide] counts from 1. */
-    fun onboardingSlideView(slide: Int) =
+    /**
+     * An onboarding slide shown; [slide] counts from 1. Logs `screen_onboarding_<slide>` (one
+     * event name per slide, so a funnel needs no parameter filter) and `onboarding_slide_view`
+     * with a `slide` parameter, kept for existing reports.
+     */
+    fun onboardingSlideView(slide: Int) {
+        screenView("onboarding_$slide")
         log("onboarding_slide_view", Bundle().apply { putLong("slide", slide.toLong()) })
+    }
 
     /** The user finished the onboarding slides (Continue, or Next on the last slide). */
     fun onboardingComplete() = log("onboarding_complete", null)
@@ -202,6 +214,77 @@ object AppAnalytics {
     @JvmStatic
     fun translateFailed(feature: String, from: String?, to: String?) =
         log("translate_failed", translateParams(feature, from, to))
+
+    // --- Learn module -------------------------------------------------------------------------
+
+    /** Onboarding answer: [step] `course` / `level` / `goal` / `reminder`, [value] the choice. */
+    fun learnOnboardingStep(step: String, value: String) =
+        log("learn_onboarding_step", Bundle().apply {
+            putString("step", step)
+            putString("value", value.take(40))
+        })
+
+    /** A course picked (onboarding or switcher); [base] is the learner's app language. */
+    fun learnCourseSelect(course: String, base: String) =
+        log("learn_course_select", Bundle().apply {
+            putString("course", course)
+            putString("base", base)
+        })
+
+    /** [kind] is `lesson`, `practice`, `checkpoint` or `phrases`. */
+    fun learnLessonStart(course: String, unit: Int, lesson: Int, kind: String) =
+        log("learn_lesson_start", learnParams(course, unit, lesson, kind))
+
+    fun learnLessonComplete(course: String, unit: Int, lesson: Int, kind: String, accuracy: Int, seconds: Int, xp: Int) =
+        log("learn_lesson_complete", learnParams(course, unit, lesson, kind).apply {
+            putLong("accuracy", accuracy.toLong())
+            putLong("seconds", seconds.toLong())
+            putLong("xp", xp.toLong())
+        })
+
+    /** Quit with the dialog; [atExercise] is how far they got (0-based). */
+    fun learnLessonQuit(course: String, unit: Int, lesson: Int, kind: String, atExercise: Int) =
+        log("learn_lesson_quit", learnParams(course, unit, lesson, kind).apply {
+            putLong("at_exercise", atExercise.toLong())
+        })
+
+    /** The streak grew to [days] with today's first finished session. */
+    fun learnStreak(days: Int) = log("learn_streak", Bundle().apply { putLong("days", days.toLong()) })
+
+    /** A streak freeze earned; [method] `rewarded`, `ad_timeout`, `ad_failed`, `show_failed`, `no_ad` or `premium_weekly`. */
+    fun learnStreakFreezeEarned(method: String) =
+        log("learn_streak_freeze_earned", Bundle().apply { putString("method", method) })
+
+    /** Streak freezes spent automatically on [days] missed days. */
+    fun learnStreakFreezeUsed(days: Int) =
+        log("learn_streak_freeze_used", Bundle().apply { putLong("days", days.toLong()) })
+
+    /** No text-to-speech voice for [language]: listening questions are skipped. */
+    fun learnTtsUnavailable(language: String) =
+        log("learn_tts_unavailable", Bundle().apply { putString("language", language.take(20)) })
+
+    /** "Report" on a lesson answer: free content QA. [concept] is a course id or phrase id. */
+    fun learnReportIssue(course: String, concept: String, reason: String) =
+        log("learn_report_issue", Bundle().apply {
+            putString("course", course.take(20))
+            putString("concept", concept.take(60))
+            putString("reason", reason)
+        })
+
+    /** Phrase Practice started: [mode] `flashcards` or `quiz`, [topic] category index or -1 (review). */
+    fun phrasePracticeStart(target: String, topic: Int, mode: String) =
+        log("phrase_practice_start", Bundle().apply {
+            putString("target", target.take(20))
+            putLong("topic", topic.toLong())
+            putString("mode", mode)
+        })
+
+    private fun learnParams(course: String, unit: Int, lesson: Int, kind: String) = Bundle().apply {
+        putString("course", course.take(20))
+        putLong("unit", unit.toLong())
+        putLong("lesson", lesson.toLong())
+        putString("kind", kind)
+    }
 
     // --- Helpers ------------------------------------------------------------------------------
 

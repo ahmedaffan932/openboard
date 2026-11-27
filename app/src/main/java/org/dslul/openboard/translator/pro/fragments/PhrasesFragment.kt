@@ -41,6 +41,7 @@ class PhrasesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        org.dslul.openboard.translator.pro.learn.LearnEntryCards.bindPhrasebook(this, binding.practiceCard)
 //        Ads.loadAndShowInterstitial(
 //            requireActivity(),
 //            Ads.phraseInt,

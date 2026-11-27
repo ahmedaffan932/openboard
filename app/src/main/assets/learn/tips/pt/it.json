@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Tu ou Lei?",
+  "body": "O italiano tem duas formas de dizer \"você\". Use \"tu\" com amigos, família e crianças. Use \"Lei\" com desconhecidos e em lojas. Com Lei, o verbo fica na forma de \"ele/ela\": parla, può.",
+  "examples": ["and_you", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 2,
+  "title": "Sono, sei, è",
+  "body": "O verbo \"essere\" (ser/estar) muda conforme a pessoa: io sono, tu sei, lui è, lei è. Os italianos costumam deixar de fora io, tu e lui: \"Sono uno studente\" quer dizer \"sou estudante\".",
+  "examples": ["i_am", "you_are", "he_is", "i_am_a_student"]
+ },
+ {
+  "unit": 3,
+  "title": "Il, la e l'",
+  "body": "Cada substantivo é uma palavra \"il\" ou \"la\". A maioria em -o usa il: il numero. A maioria em -a usa la: la mattina. Antes de a, e, i, o, u, os dois viram l': l'ora. Algumas palavras il usam lo: lo studente.",
+  "examples": ["number", "morning", "hour", "student"]
+ },
+ {
+  "unit": 4,
+  "title": "Fome? Use avere",
+  "body": "Como em português, se diz \"tenho fome\": ho fame, ho sete. Com a idade é igual: \"Ho 25 anni\" é \"tenho 25 anos\". Ho vem do verbo avere (ter). O h não é pronunciado.",
+  "examples": ["i_am_hungry", "i_am_thirsty", "i_am_25"]
+ },
+ {
+  "unit": 7,
+  "title": "Dizer não: non",
+  "body": "Para dizer \"não\", basta colocar non antes do verbo: capisco, non capisco. Nada mais muda. \"Non c'è\" quer dizer \"não há\".",
+  "examples": ["i_dont_understand", "i_dont_eat_meat", "there_is_no_hot_water"]
+ },
+ {
+  "unit": 8,
+  "title": "Palavras que combinam",
+  "body": "Palavras que descrevem mudam o final para combinar: alto para um homem, alta para uma mulher, stanchi para um grupo. Palavras em -e, como felice, são iguais para homens e mulheres.",
+  "examples": ["he_is_tall", "she_is_happy", "we_are_tired"]
+ },
+ {
+  "unit": 9,
+  "title": "Verbos em -are",
+  "body": "Muitos verbos terminam em -are, como parlare e lavorare. Para \"eu\", troque -are por -o: parlo, lavoro. Para \"você\" (tu), use -i: parli. Normalmente dá para deixar de fora o io.",
+  "examples": ["i_speak_english", "i_eat_bread", "i_work_today"]
+ }
+]

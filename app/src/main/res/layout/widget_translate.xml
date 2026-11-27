@@ -29,17 +29,11 @@
         android:paddingStart="8dp"
         android:paddingEnd="8dp">
 
-        <TextView
+        <ImageView
             android:layout_width="38dp"
             android:layout_height="38dp"
-            android:background="@drawable/bg_home_logo"
-            android:gravity="center"
             android:importantForAccessibility="no"
-            android:includeFontPadding="false"
-            android:text="@string/home_logo_mark"
-            android:textColor="@color/home_on_accent"
-            android:textSize="13sp"
-            android:textStyle="bold" />
+            android:src="@drawable/app_logo" />
 
         <TextView
             android:id="@+id/widgetHint"

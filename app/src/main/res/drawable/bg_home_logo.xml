@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Shadow outline behind the 34dp Home header logo. The radius matches the app_logo image
+     corners (22.37%), so only the elevation shadow shows. -->
 <ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="#33FFFFFF">
     <item>
         <shape android:shape="rectangle">
@@ -7,7 +9,7 @@
                 android:endColor="@color/home_logo_end"
                 android:startColor="@color/home_blue_start"
                 android:type="linear" />
-            <corners android:radius="10dp" />
+            <corners android:radius="7.6dp" />
         </shape>
     </item>
 </ripple>

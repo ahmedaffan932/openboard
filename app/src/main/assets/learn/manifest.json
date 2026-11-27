@@ -1,0 +1,5 @@
+{
+ "version": 1,
+ "courses": ["en", "es", "fr", "de", "it"],
+ "glossLanguages": ["en", "es", "fr", "de", "it", "pt", "ru", "hi", "ko"]
+}

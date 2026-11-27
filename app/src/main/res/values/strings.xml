@@ -706,6 +706,7 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="premium_feature_voice_translation">Voice Translation</string>
     <string name="premium_feature_offline_language_packs">Offline Language Packs</string>
     <string name="premium_feature_premium_phrasebook">Premium Phrasebook</string>
+    <string name="premium_feature_language_courses">Language Courses &amp; Phrase Practice</string>
     <string name="premium_feature_ad_free_experience">Ad-Free Experience</string>
     <string name="app_language_english" translatable="false">English</string>
     <string name="app_language_french" translatable="false">Français</string>
@@ -830,6 +831,5 @@ disposition rather than other common dispositions for Latin languages. [CHAR LIM
     <string name="paste_nothing">Nothing to paste</string>
     <string name="swap_languages">Swap languages</string>
     <string name="speak">Speak</string>
-    <string name="home_logo_mark" translatable="false">A文</string>
     <string name="home_char_count" translatable="false">%1$d / %2$d</string>
 </resources>

@@ -1,0 +1,44 @@
+[
+ {
+  "unit": 1,
+  "title": "Tu o vous?",
+  "body": "Come in italiano, ci sono due modi per dire \"tu\". Usa \"tu\" con amici, famiglia e bambini. Usa \"vous\" con sconosciuti, nei negozi e per gentilezza, come \"Lei\". \"Vous\" vale anche per più persone.",
+  "examples": ["and_you", "do_you_speak_english", "can_you_repeat"]
+ },
+ {
+  "unit": 2,
+  "title": "Je suis, tu es, il est",
+  "body": "Il verbo \"être\" (essere) cambia con la persona: je suis, tu es, il est, elle est. Per il lavoro, come in italiano, non si usa \"un\": \"Je suis étudiant\" vuol dire sono studente.",
+  "examples": ["i_am", "you_are", "she_is", "i_am_a_student"]
+ },
+ {
+  "unit": 3,
+  "title": "Le, la e l'",
+  "body": "Ogni nome francese è una parola \"le\" o una parola \"la\": le matin, la nuit. Prima di a, e, i, o, u e di quasi tutte le parole con h, diventano l': l'heure. Per più di uno, usa les.",
+  "examples": ["morning", "night", "hour", "city"]
+ },
+ {
+  "unit": 4,
+  "title": "Fame? Usa avoir",
+  "body": "Come in italiano, il francese dice \"ho fame\": j'ai faim, j'ai soif. Anche l'età funziona così: \"J'ai 25 ans\" è \"ho 25 anni\". J'ai viene dal verbo avoir (avere).",
+  "examples": ["i_am_hungry", "i_am_thirsty", "i_am_25"]
+ },
+ {
+  "unit": 7,
+  "title": "Dire \"non\": ne...pas",
+  "body": "Per dire \"non\", metti ne prima del verbo e pas dopo: je ne comprends pas. Prima di a, e, i, o, u, ne diventa n': il n'y a pas d'eau chaude.",
+  "examples": ["i_dont_understand", "i_dont_eat_meat", "there_is_no_hot_water"]
+ },
+ {
+  "unit": 8,
+  "title": "Parole che si accordano",
+  "body": "Le parole che descrivono cambiano per accordarsi con la persona. Per una donna, aggiungi -e: grand, grande. Per più persone, aggiungi -s: fatigués. Alcune cambiano di più: heureux, heureuse.",
+  "examples": ["he_is_tall", "she_is_happy", "we_are_tired"]
+ },
+ {
+  "unit": 9,
+  "title": "Verbi che finiscono in -er",
+  "body": "Quasi tutti i verbi francesi finiscono in -er, come parler e manger. Per \"je\", cambia -er in -e: je parle, je mange. Per \"tu\", usa -es: tu parles. Si pronunciano uguali!",
+  "examples": ["i_speak_english", "i_eat_bread", "i_work_today"]
+ }
+]

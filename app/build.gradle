@@ -11,13 +11,18 @@ android {
         applicationId "com.translator.keyboard.translate.all.langugaes"
         minSdk 27
         targetSdk 36
-        versionCode 19
-        versionName "2.8"
+        versionCode 21
+        versionName "2.10"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            // R8 shrinks and obfuscates the code. Play Console flags releases whose DEX code is
+            // under 25% obfuscated. Keep rules (and why each is needed) are in proguard-rules.pro.
+            minifyEnabled true
+            // Resource shrinking stays off: dictionaries, keyboard layouts and key labels are
+            // loaded with getIdentifier(name), which the shrinker can't see.
+            shrinkResources false
             debuggable false
             jniDebuggable false
             buildConfigField "boolean", "ADS_ENABLED", "false"

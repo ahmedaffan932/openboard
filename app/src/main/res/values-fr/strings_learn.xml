@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Learn module strings (translated from values/strings_learn.xml). -->
+<resources>
+    <!-- Home card -->
+    <string name="learn_card_title">Apprendre une langue</string>
+    <string name="learn_card_subtitle">5 minutes par jour · cours pour débutants</string>
+    <string name="learn_badge_new">NOUVEAU</string>
+    <string name="learn_card_start">Commencer</string>
+    <string name="learn_unit_title_full">Unité %1$d · %2$s</string>
+    <string name="learn_today_goal">Objectif du jour</string>
+    <plurals name="learn_goal_progress">
+        <item quantity="one">%1$d sur %2$d leçon</item>
+        <item quantity="many">%1$d sur %2$d leçons</item>
+        <item quantity="other">%1$d sur %2$d leçons</item>
+    </plurals>
+    <string name="learn_continue_lesson">Continuer la leçon</string>
+    <string name="learn_course_done">Cours terminé ! Continuez à pratiquer.</string>
+
+    <!-- Phrasebook card -->
+    <string name="learn_practice_phrases">Pratiquer des phrases</string>
+    <string name="learn_practice_phrases_desc">Testez-vous dans 58 langues</string>
+
+    <!-- Onboarding -->
+    <string name="learn_title">Apprendre une langue</string>
+    <string name="learn_ob_course_title">Que voulez-vous apprendre ?</string>
+    <string name="learn_ob_course_desc">Les leçons sont expliquées dans la langue de votre app : %1$s.</string>
+    <string name="learn_course_beginner">Débutant · %1$d unités</string>
+    <string name="learn_popular">Populaire</string>
+    <string name="learn_ob_level_title">Quel est votre niveau en %1$s ?</string>
+    <string name="learn_ob_level_new">Je débute en %1$s</string>
+    <string name="learn_ob_level_new_desc">Commencez par la toute première leçon.</string>
+    <string name="learn_ob_level_some">J\'ai des bases en %1$s</string>
+    <string name="learn_ob_level_some_desc">Passez un test rapide de 15 questions. Réussissez-le pour sauter les unités 1–3.</string>
+    <string name="learn_ob_goal_title">Choisissez un objectif quotidien</string>
+    <string name="learn_ob_goal_desc">Mieux vaut peu mais souvent que beaucoup mais rarement. Vous pourrez le modifier plus tard.</string>
+    <string name="learn_goal_casual">Détente</string>
+    <string name="learn_goal_regular">Régulier</string>
+    <string name="learn_goal_serious">Sérieux</string>
+    <string name="learn_goal_casual_desc">1 leçon par jour · env. 5 min</string>
+    <string name="learn_goal_regular_desc">2 leçons par jour · env. 10 min</string>
+    <string name="learn_goal_serious_desc">3 leçons par jour · env. 15 min</string>
+    <string name="learn_reminder">Rappel quotidien</string>
+    <string name="learn_reminder_at">Tous les jours à %1$s · touchez pour modifier</string>
+    <string name="learn_continue">Continuer</string>
+    <string name="learn_start_learning">Commencer à apprendre</string>
+
+    <!-- Course map -->
+    <string name="learn_home_title">Apprendre</string>
+    <string name="learn_xp">%1$d XP</string>
+    <string name="learn_daily_goal">Objectif quotidien</string>
+    <string name="learn_practice">S\'entraîner</string>
+    <plurals name="learn_practice_due">
+        <item quantity="one">%d mot à réviser</item>
+        <item quantity="many">%d mots à réviser</item>
+        <item quantity="other">%d mots à réviser</item>
+    </plurals>
+    <string name="learn_practice_later">Terminez d\'abord une leçon</string>
+    <string name="learn_practice_start">Commencer →</string>
+    <string name="learn_unit_label">UNITÉ %1$d</string>
+    <string name="learn_unit_completed">Terminée · %1$d leçons sur %2$d</string>
+    <string name="learn_lessons_of">%1$d sur %2$d</string>
+    <plurals name="learn_unit_lessons">
+        <item quantity="one">%d leçon</item>
+        <item quantity="many">%d leçons</item>
+        <item quantity="other">%d leçons</item>
+    </plurals>
+    <string name="learn_review">Réviser</string>
+    <string name="learn_tip_prefix">Astuce : %1$s</string>
+    <string name="learn_continue_lesson_n">Continuer · Leçon %1$d</string>
+    <string name="learn_start_lesson_n">Commencer · Leçon %1$d</string>
+    <string name="learn_finish_previous">Terminez d\'abord les leçons précédentes.</string>
+    <string name="learn_lesson_n">Leçon %1$d</string>
+
+    <string name="learn_unit_1">Bases et salutations</string>
+    <string name="learn_unit_2">Se présenter</string>
+    <string name="learn_unit_3">Nombres et heure</string>
+    <string name="learn_unit_4">Nourriture et restaurant</string>
+    <string name="learn_unit_5">Achats et argent</string>
+    <string name="learn_unit_6">Voyage et itinéraires</string>
+    <string name="learn_unit_7">Hôtel</string>
+    <string name="learn_unit_8">Famille et personnes</string>
+    <string name="learn_unit_9">Routine quotidienne</string>
+    <string name="learn_unit_10">Santé et urgences</string>
+    <string name="learn_unit_11">Jours, mois et météo</string>
+    <string name="learn_unit_12">Décrire les choses</string>
+
+    <string name="learn_not_now">Pas maintenant</string>
+
+    <!-- Switch course -->
+    <string name="learn_your_courses">Vos cours</string>
+    <string name="learn_course_progress">Unité %1$d · %2$d %% terminé</string>
+    <string name="learn_not_started">Pas commencé</string>
+    <string name="learn_progress_saved">La progression est enregistrée séparément pour chaque cours.</string>
+
+    <!-- Settings -->
+    <string name="learn_settings_title">Paramètres d\'apprentissage</string>
+    <string name="learn_group_course">Cours</string>
+    <string name="learn_course">Cours</string>
+    <string name="learn_course_from">%1$s · depuis %2$s</string>
+    <string name="learn_change">Changer</string>
+    <string name="learn_edit">Modifier</string>
+    <string name="learn_goal_value">%1$s · %2$s</string>
+    <plurals name="learn_lessons_a_day">
+        <item quantity="one">%d leçon par jour</item>
+        <item quantity="many">%d leçons par jour</item>
+        <item quantity="other">%d leçons par jour</item>
+    </plurals>
+    <string name="learn_group_reminders">Rappels</string>
+    <string name="learn_reminder_keeps">Préserve votre série</string>
+    <string name="learn_reminder_time">Heure du rappel</string>
+    <string name="learn_group_lessons">Leçons</string>
+    <string name="learn_listening">Exercices d\'écoute</string>
+    <string name="learn_listening_desc">Désactivez-les si vous ne pouvez pas utiliser le son</string>
+    <string name="learn_vibration">Vibration</string>
+    <string name="learn_vibration_desc">Vibrer pour les bonnes et les mauvaises réponses</string>
+    <string name="learn_group_data">Données</string>
+    <string name="learn_reset">Réinitialiser la progression (%1$s)</string>
+    <string name="learn_reset_desc">Recommence le cours depuis l\'unité 1</string>
+    <string name="learn_reset_confirm_title">Réinitialiser %1$s ?</string>
+    <string name="learn_reset_confirm_desc">Vos leçons terminées et votre historique de révision pour ce cours seront supprimés. Cette action est irréversible.</string>
+    <string name="learn_reset_button">Réinitialiser</string>
+    <string name="learn_cancel">Annuler</string>
+    <string name="learn_reset_done">Progression réinitialisée</string>
+    <string name="learn_about_content">À propos des leçons</string>
+    <string name="learn_about_content_desc">Cours original pour débutants · fonctionne hors ligne</string>
+
+    <!-- Lesson -->
+    <string name="learn_new_word">NOUVEAU MOT</string>
+    <string name="learn_new_phrase">NOUVELLE EXPRESSION</string>
+    <string name="learn_slow">Lent</string>
+    <string name="learn_tip_chip">ASTUCE · UNITÉ %1$d</string>
+    <string name="learn_got_it">Compris</string>
+    <string name="learn_check">Vérifier</string>
+    <string name="learn_select_translation">Choisissez la bonne traduction</string>
+    <string name="learn_select_meaning">Qu\'est-ce que ça veut dire ?</string>
+    <string name="learn_what_do_you_hear">Qu\'entendez-vous ?</string>
+    <string name="learn_translate_sentence">Traduisez cette phrase</string>
+    <string name="learn_match_pairs">Touchez les paires correspondantes</string>
+    <string name="learn_write_in">Écrivez ceci en %1$s</string>
+    <string name="learn_type_hint">Écrivez en %1$s</string>
+    <string name="learn_accents_tip">Astuce : les accents sont facultatifs, nous vous les signalerons.</string>
+    <string name="learn_great_job">Bravo !</string>
+    <string name="learn_correct">Correct !</string>
+    <string name="learn_nice">Bien joué !</string>
+    <string name="learn_not_quite">Pas tout à fait</string>
+    <string name="learn_correct_answer">Bonne réponse :</string>
+    <string name="learn_meaning_label">Sens : %1$s</string>
+    <string name="learn_accent_note">Attention aux accents :</string>
+    <string name="learn_typo_note">Presque ! Attention à l\'orthographe :</string>
+    <string name="learn_ask_again">Nous vous reposerons cette question à la fin de la leçon.</string>
+    <string name="learn_report">Signaler</string>
+    <string name="learn_report_title">Quel est le problème ?</string>
+    <string name="learn_report_my_answer">Ma réponse devrait être acceptée</string>
+    <string name="learn_report_translation">La traduction est incorrecte</string>
+    <string name="learn_report_audio">L\'audio semble incorrect</string>
+    <string name="learn_report_sent">Merci ! Nous allons vérifier.</string>
+    <string name="learn_quit_title">Quitter cette leçon ?</string>
+    <string name="learn_quit_desc">Vous perdrez votre progression dans cette leçon.</string>
+    <plurals name="learn_quit_desc_streak">
+        <item quantity="one">Vous perdrez votre progression dans cette leçon. Terminez une leçon aujourd\'hui pour garder votre série de %d jour.</item>
+        <item quantity="many">Vous perdrez votre progression dans cette leçon. Terminez une leçon aujourd\'hui pour garder votre série de %d jours.</item>
+        <item quantity="other">Vous perdrez votre progression dans cette leçon. Terminez une leçon aujourd\'hui pour garder votre série de %d jours.</item>
+    </plurals>
+    <string name="learn_keep_learning">Continuer à apprendre</string>
+    <string name="learn_quit_lesson">Quitter la leçon</string>
+    <string name="learn_tts_missing">Aucune voix en %1$s sur ce téléphone : les questions d\'écoute sont donc ignorées.</string>
+    <string name="learn_tts_missing_title">Aucune voix disponible (%1$s)</string>
+    <string name="learn_tts_install">Installer la voix</string>
+    <string name="learn_tts_install_desc">Installez une voix (%1$s) pour entendre les mots et avoir des exercices d\'écoute. C\'est gratuit et fonctionne hors ligne.</string>
+    <string name="learn_speak">Écouter</string>
+    <string name="learn_close">Fermer</string>
+
+    <!-- Result -->
+    <string name="learn_lesson_complete">Leçon terminée !</string>
+    <string name="learn_practice_complete">Entraînement terminé !</string>
+    <string name="learn_test_passed">Test réussi !</string>
+    <string name="learn_test_failed">Presque !</string>
+    <string name="learn_test_passed_desc">Les unités 1–3 sont validées. Place à l\'unité 4 !</string>
+    <string name="learn_test_failed_desc">Vous avez obtenu %1$d %%. Commencez par l\'unité 1 pour acquérir des bases solides.</string>
+    <plurals name="learn_learned_new">
+        <item quantity="one">Vous avez appris %1$d nouveau mot en %2$s.</item>
+        <item quantity="many">Vous avez appris %1$d nouveaux mots en %2$s.</item>
+        <item quantity="other">Vous avez appris %1$d nouveaux mots en %2$s.</item>
+    </plurals>
+    <plurals name="learn_reviewed">
+        <item quantity="one">Vous avez révisé %d mot.</item>
+        <item quantity="many">Vous avez révisé %d mots.</item>
+        <item quantity="other">Vous avez révisé %d mots.</item>
+    </plurals>
+    <plurals name="learn_reviewed_phrases">
+        <item quantity="one">Vous avez révisé %d phrase.</item>
+        <item quantity="many">Vous avez révisé %d phrases.</item>
+        <item quantity="other">Vous avez révisé %d phrases.</item>
+    </plurals>
+    <string name="learn_xp_earned">XP gagnés</string>
+    <string name="learn_accuracy">Précision</string>
+    <string name="learn_time">Temps</string>
+    <plurals name="learn_streak_days">
+        <item quantity="one">Série de %d jour</item>
+        <item quantity="many">Série de %d jours</item>
+        <item quantity="other">Série de %d jours</item>
+    </plurals>
+    <string name="learn_goal_reached">Objectif du jour atteint · %1$d leçons sur %2$d</string>
+    <string name="learn_goal_today">%1$d leçons sur %2$d aujourd\'hui</string>
+
+    <!-- Phrase Practice -->
+    <string name="learn_phrase_practice">Entraînement aux phrases</string>
+    <string name="learn_flashcards">Cartes mémoire</string>
+    <string name="learn_quiz">Quiz</string>
+    <string name="learn_mixed_review">Révision mixte</string>
+    <plurals name="learn_mixed_review_due">
+        <item quantity="one">%d phrase prête à réviser</item>
+        <item quantity="many">%d phrases prêtes à réviser</item>
+        <item quantity="other">%d phrases prêtes à réviser</item>
+    </plurals>
+    <string name="learn_mixed_review_none">Les phrases marquées « J\'apprends encore » reviennent ici</string>
+    <string name="learn_topics">Thèmes</string>
+    <string name="learn_topic_done">Terminé</string>
+    <string name="learn_topic_progress">%1$d / %2$d</string>
+    <string name="learn_tap_to_reveal">Touchez pour voir en %1$s</string>
+    <string name="learn_show_answer">Afficher la réponse</string>
+    <string name="learn_still_learning">J\'apprends encore</string>
+    <string name="learn_i_know_it">Je sais</string>
+    <string name="learn_practice_done">Entraînement fini !</string>
+    <string name="learn_topic_done_stat">Thème terminé</string>
+    <string name="learn_practice_again">Recommencer</string>
+    <string name="learn_back_to_phrasebook">Retour au guide de conversation</string>
+    <string name="learn_phrases_unavailable">Les phrases ne sont pas encore disponibles pour cette langue.</string>
+    <string name="learn_same_language">Choisissez deux langues différentes.</string>
+    <string name="learn_pair">%1$s → %2$s</string>
+
+    <!-- Streak freeze -->
+    <string name="learn_streak_freeze_info">Protections de série : %1$d sur %2$d. Une protection préserve votre série si vous manquez un jour, et elle s\'utilise automatiquement.</string>
+    <string name="learn_streak_freeze_pro">Avec Pro, vous recevez une protection de série gratuite chaque semaine.</string>
+    <string name="learn_get_freeze">Obtenir une protection · pub</string>
+    <string name="learn_freeze_earned">Protection de série ajoutée</string>
+    <plurals name="learn_freeze_used">
+        <item quantity="one">%d protection a sauvé votre série !</item>
+        <item quantity="many">%d protections ont sauvé votre série !</item>
+        <item quantity="other">%d protections ont sauvé votre série !</item>
+    </plurals>
+
+    <!-- Word of the day and weekly summary notifications -->
+    <string name="learn_word_of_day">Mot du jour</string>
+    <string name="learn_word_of_day_desc">%1$s signifie « %2$s ». Touchez pour vous entraîner.</string>
+    <string name="learn_word_of_day_setting_desc">Un mot de votre cours chaque matin</string>
+    <string name="learn_weekly">Bilan hebdomadaire</string>
+    <string name="learn_weekly_setting_desc">Votre progression chaque dimanche soir</string>
+    <string name="learn_weekly_title">Votre semaine en %1$s</string>
+    <string name="learn_weekly_desc">%1$s · %2$d XP · %3$s</string>
+
+    <!-- Reminder notification -->
+    <string name="learn_reminder_title">C\'est l\'heure d\'une petite leçon</string>
+    <plurals name="learn_reminder_title_streak">
+        <item quantity="one">Gardez votre série de %d jour !</item>
+        <item quantity="many">Gardez votre série de %d jours !</item>
+        <item quantity="other">Gardez votre série de %d jours !</item>
+    </plurals>
+    <string name="learn_reminder_desc">Une leçon (%1$s) prend environ 5 minutes.</string>
+    <string name="learn_reminder_button">Commencer la leçon</string>
+</resources>
